@@ -14,7 +14,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.validator.routines.EmailValidator;
+//import org.apache.commons.validator.routines.EmailValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -40,7 +40,7 @@ public class SabmAbstractBusinessEnquiryDataValidator implements SabmBusinessEnq
 	private static final String CONTACT_US_PREFERRED_CONTACT_PHONE = "Phone";
 	private static final String CONTACT_US_PREFERRED_CONTACT_EMAIL = "Email";
 
-	public static final Pattern EMAIL_REGEX = Pattern.compile("\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}\\b");
+	public static final String EMAIL_REGEX = "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}\\b";
 
 	private static final Logger LOG = LoggerFactory.getLogger(SabmAbstractBusinessEnquiryDataValidator.class.getName());
 
@@ -127,6 +127,10 @@ public class SabmAbstractBusinessEnquiryDataValidator implements SabmBusinessEnq
 
 	public boolean validateEmailAddress(final String email)
 	{
-		return EmailValidator.getInstance().isValid(email);
+
+        //return EmailValidator.getInstance().isValid(email);
+        return Pattern.compile(EMAIL_REGEX)
+                .matcher(email)
+                .matches();
 	}
 }
