@@ -26,7 +26,8 @@
            http://www.springframework.org/schema/security
 		   http://www.springframework.org/schema/security/spring-security.xsd">
            
-    <context:annotation-config/> 
+    <context:annotation-config/>
+    <import resource="classpath:/b2bacceleratoraddon/web/spring/b2bacceleratoraddon-spring-security-config.xml"/>
 	
 	
 	<!-- <bean depends-on="loginSuccessForceDefaultTarget" parent="listMergeDirective">
