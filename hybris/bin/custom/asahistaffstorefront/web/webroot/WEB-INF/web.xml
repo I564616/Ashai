@@ -3,7 +3,7 @@
  Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
 -->
 <web-app id="asahistaffstorefront" version="5.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:web="https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
+         xmlns="https://jakarta.ee/xml/ns/jakartaee"
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd" 
          metadata-complete="true">
   <absolute-ordering />
@@ -187,6 +187,10 @@
 			<param-value></param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
+        <multipart-config>
+            <max-request-size>11240</max-request-size>
+            <!-- Specified value is just an example. Adjust your configuration depending on the requirements -->
+        </multipart-config>
 	</servlet>
 
 	<servlet-mapping>
