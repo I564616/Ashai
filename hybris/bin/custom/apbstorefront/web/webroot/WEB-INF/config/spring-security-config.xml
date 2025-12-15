@@ -159,7 +159,7 @@
 		<security:intercept-url pattern="/company*" access="hasRole('ROLE_CUSTOMERGROUP')" requires-channel="https"/>
 		<security:intercept-url pattern="/company/**" access="hasRole('ROLE_CUSTOMERGROUP')" requires-channel="https"/>
 		
-		<security:intercept-url pattern="/**" requires-channel="https" /> <!-- Everything should be secure -->
+		<security:intercept-url pattern="/**" requires-channel="https" access="permitAll()"/> <!-- Everything should be secure -->
 		<security:intercept-url pattern="/register" access="hasAnyRole('ROLE_ANONYMOUS')" requires-channel="https" />
 		<security:intercept-url pattern="/register/request-register" access="hasAnyRole('ROLE_ANONYMOUS')" requires-channel="https" />  
 		
