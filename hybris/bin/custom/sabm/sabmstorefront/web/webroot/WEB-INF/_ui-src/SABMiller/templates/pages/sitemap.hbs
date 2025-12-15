@@ -1,0 +1,26 @@
+---
+title: Sitemap
+bodyClass: sitemap
+---
+
+<div class="jumbotron">
+
+    <h1>Sitemap</h1>
+
+    <p class="lead">List of all pages for [sitename]</p>
+
+    <p><a class="btn btn-lg btn-success" href="/" role="button">Back to home</a></p>
+
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+		<ul>
+			{{#each pages}}
+				<li>
+					<a href="{{ replaceStr this.dest 'dist/templates/pages/' '' }}">{{data.title}}</a>
+				</li>
+			{{/each}}
+		</ul>
+    </div>
+</div>

@@ -1,0 +1,114 @@
+## messageSource=classpath:/sabmcore/messages/email-confirmEnabledDeal_$lang.properties
+#macro(genHtmlLinkStartTag $url)
+<a href="$url"><font color="#666666">
+#end
+#macro(genHtmlLinkEndTag)
+</font></a>
+#end
+#macro(genHtmlLink $url $textColor $bodyContent)
+<a href="$url"><font color="$textColor">$bodyContent</font></a>
+#end
+
+<html>
+	<head>
+	</head>
+	<body bgcolor="#ffffff">
+	<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#ffffff">
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td align="center" valign="top">
+				<table width="610" border="0" align="center" cellpadding="0" cellspacing="0" bordercolor="#fff">
+					<tr>
+						<td align="center" valign="top" bgcolor="#FFFFFF">
+							<table width="570" cellpadding="0" cellspacing="0" border="0" align="center">
+								<tr>
+									<td valign="middle" bgcolor="#002f5f" height="92" style="padding-left: 10px;">${ctx.cmsSlotContents.SiteLogo}</td>
+								</tr>
+								<tr>
+									<td valign="middle">&nbsp;</td>
+								</tr>
+								<tr>
+										<td valign="middle" bgcolor="#FFFFFF">
+											<font color="#002f5f" size="2" face="Helvetica Neue, Helvetica, Arial, sans-serif">
+												<a href="${ctx.baseUrl}" style="display:block;">${ctx.cmsSlotContents.TopContent}</a>
+											</font>
+										</td>
+								</tr>
+								<tr>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<td align="left" valign="top">
+										#set ($secureDealsUrl = "${ctx.secureBaseUrl}/deals")
+										<p><font color="#002f5f" size="2" face="Arial, Helvetica, sans-serif"><b>${ctx.messages.getMessage('salutation', ${ctx.b2bUnitData.name})},</b></font></p>
+										<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.noticeMessages}</font></p>
+
+										#if(!$ctx.activatedDeals.isEmpty())
+											<p style="border-bottom:1px solid #d6d6d6;padding: 10px 0;margin-top: 25px;"><font color="#002f5f" size="2" face="Arial, Helvetica, sans-serif"><b>${ctx.messages.activatedDealsTitle}</b></font></p>
+											#foreach($entry in ${ctx.activatedDeals})
+												#if($entry)
+													<p style="border-bottom:1px solid #d6d6d6;padding:0px 0px 10px 0px;line-height: 30px;"><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><b>$entry</b></font></p>
+												#end
+											#end											
+										#end
+
+
+										#if(!$ctx.deactivatedDeals.isEmpty())
+											<p style="border-bottom:1px solid #d6d6d6;padding: 10px 0;margin-top: 25px;"><font color="#002f5f" size="2" face="Arial, Helvetica, sans-serif"><b>${ctx.messages.deactivatedDealsTitle}</b></font></p>
+											#foreach($entry in ${ctx.deactivatedDeals})
+												#if($entry)
+													<p style="border-bottom:1px solid #d6d6d6;padding:0px 0px 10px 0px;line-height: 30px;"><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><b>$entry</b></font></p>
+												#end
+											#end
+										#end
+																													
+										#if($ctx.primaryAdminStatus == "INVITED") 
+											<p style="margin-top: -15px;"><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.invitedCustomersMessage}</font></p>
+										#end
+										
+										<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.viewDealsLinkMessagesPre} <a href="$secureDealsUrl"><font color="#002f5f">${ctx.messages.viewDealsLinkMessagesLink}</font></a> ${ctx.messages.viewDealsLinkMessagesPost}</font></p>
+
+										<p style="padding: 10px 0;margin-top: 25px;"><font color="#002f5f" size="2" face="Arial, Helvetica, sans-serif"><b>${ctx.messages.behaviourRequirementsTitle}</b></font></p>
+										#if($ctx.behaviourRequirements && $ctx.behaviourRequirements!= '')
+											<p style="margin-top: -15px;"><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.behaviourRequirements}</font></p>
+										#else
+											<p style="margin-top: -15px;"><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.noRequirements}</font></p>
+										#end
+
+
+										<p style="margin-top: 25px;"><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.complimentaryClosing}</font></p>
+										#if($ctx.employeeData.name && $ctx.employeeData.name !='')
+											<p style="margin-top: -15px;"><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.employeeData.name}</font></p>
+										#end
+										<p style="margin-top: -15px;"><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.employeeData.uid}</font></p>
+
+									</td>
+								</tr>
+								<tr>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<td align="center" valign="middle">
+										<a href="${ctx.s}" style="display:block; margin-top:10px;margin-bottom:10px;">${ctx.cmsSlotContents.BottomContent}</a>
+									</td>
+								</tr>
+								<tr>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<td valign="middle" bgcolor="#f8f8f8" height="92" style="font-family: Helvetica Neue, Helvetica, Arial, sans-serif; color: #666666; font-weight: bold; font-size: 12px; padding-left: 15px;">${ctx.cmsSlotContents.Footer}</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+	</table>
+</body>
+</html>

@@ -1,0 +1,13 @@
+$contentCatalog=sabmContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$lang=en
+$jarEmailResource=jar:com.sabmiller.initialdata.setup.InitialDataSystemSetup&/sabminitialdata/import/coredata/contentCatalogs/sabmContentCatalog/emails
+
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+$emailResource=$config-emailResourceValue
+
+# Import order confirmation email velocity templates
+UPDATE RendererTemplate;code[unique=true];templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+;sabmiller_Email_Welcome_Body;$emailResource/email-welcomeBody.vm

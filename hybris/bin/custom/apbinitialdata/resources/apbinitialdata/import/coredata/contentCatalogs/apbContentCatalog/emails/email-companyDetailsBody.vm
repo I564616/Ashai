@@ -1,0 +1,575 @@
+## messageSource=classpath:/sabmcore/messages/email-companyDetails_$lang.properties
+#macro(genHtmlLinkStartTag $url)
+<a href="$url"><font color="#666666">
+#end
+#macro(genHtmlLinkEndTag)
+</font></a>
+#end
+#macro(genHtmlLink $url $textColor $bodyContent)
+<a href="$url"><font color="$textColor">$bodyContent</font></a>
+#end
+
+<html>
+	<head>
+	</head>
+	<body bgcolor="#ffffff">
+	<table width="50%" cellpadding="0" cellspacing="0" align="center" bgcolor="#ffffff">
+		<tr>
+		 <td style="border:1px solid #42515a;display:inline-table">
+			<table cellpadding="0" cellspacing="0" border="0" style="min-width:320px;display:inline-table"" align="center" bgcolor="#ffffff">
+				<tr>
+					<td align="left" colspan="6">
+						<a href="${ctx.baseUrl}" style="padding: 0px 0px 0px 0px;display:inline-block;margin:0 auto;">
+						     ${ctx.cmsSlotContents.TopContent}
+						</a>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="4" valign="middle" style="font-weight:bold;font-family: Helvetica;color: #42515a;font-size: 18px;padding: 20px 0px 0px 10px;">
+						${ctx.messages.companyheading}
+						<table width="6%" cellpadding="0" cellspacing="0" border="0" valign="10px" >
+							<tr>
+								<td style="width: 10px;margin-top: 5px;border-bottom: 3px solid #42515a;padding:4px"> 							
+								</td>
+							</tr>
+						</table> 
+					</td>
+				</tr>
+							 
+				<tr>
+					<td colspan="4" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;font-size: 15px;padding: 20px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+						${ctx.messages.companycontent}  <br><br>
+						${ctx.messages.companycontent1}
+					</td>
+				</tr>
+				 <tr>
+					<td colspan="4">&nbsp;</td>
+				</tr>
+				<tr>
+					<td colspan="4" style="background-color: #EBEBEB;font-size: 15px;font-weight: bold;font-family: Helvetica;padding: 5px 0px 5px 10px;color: #42515a">
+						${ctx.messages.companyinformationheading}
+					</td>
+				</tr>
+				
+				<tr>
+					<td width="35%" style="font-size: 15px;font-weight: bold;font-family: Helvetica;color: #42515a;padding-left: 10px;margin: 7px 0px 10px 0px;">
+						${ctx.messages.companyaccountNumber}
+					</td>
+					<td  colspan="3" style="font-family: Helvetica;color: #42515a;font-size: 15px;color: #42515a;padding-left: 10px">
+						${ctx.apbCompanyData.accountNumber}
+					</td>				
+				</tr>
+				<tr>
+					<td width="25%" style="font-size: 15px;font-weight: bold;font-family: Helvetica;color: #42515a;padding-left: 10px;margin: 7px 0px 10px 0px;">
+						 ${ctx.messages.companyaccountNameNumber}
+					</td>
+					<td colspan="3" style="font-family: Helvetica;font-size: 15px;color: #42515a;padding-left: 10px">
+						 ${ctx.apbCompanyData.acccountName}
+					</td>					
+				</tr>
+				
+				<tr>
+					<td colspan="4" style="background-color: #EBEBEB;font-size: 15px;font-weight: bold;font-family: Helvetica;padding: 5px 0px 5px 10px;color: #42515a">
+						${ctx.messages.companydetailschangedheading}
+					</td>
+				</tr>
+				#if( ${ctx.apbCompanyData.tradingName} == 'Nil' )
+				 	#set ( $tradingName = "&lt;Nil&gt;" )
+				 	#else				
+						<tr>
+							<td width="25%" style="font-size: 15px;font-weight: bold;font-family: Helvetica;color: #42515a;padding-left: 10px;margin: 7px 0px 10px 0px;">
+								 ${ctx.messages.companytradingName}
+							</td>
+							<td colspan="3" style="font-family: Helvetica;font-size: 15px;color: #42515a;padding-left: 10px">
+									 ${ctx.apbCompanyData.tradingName}
+							</td>					
+						</tr>
+				#end 
+				#if (${ctx.apbCompanyData.abn} == "Nil")
+					 #set ( $abn = "&lt;Nil&gt;" )					 				
+				  	 #else				
+						<tr>
+							<td width="25%" style="font-size: 15px;font-weight: bold;font-family: Helvetica;color: #42515a;padding-left: 10px;margin: 7px 0px 10px 0px;">
+							  ${ctx.messages.companyabn}
+							</td>
+							<td colspan="3" style="font-family: Helvetica;font-size: 15px;color: #42515a;padding-left: 10px">
+								 ${ctx.apbCompanyData.abn} 
+							</td>				
+						</tr>	
+				#end 
+				
+				#if (${ctx.apbCompanyData.liquorLicense}   == "NO_CHANGED" )	
+						&nbsp;
+					#else
+					#if (${ctx.apbCompanyData.liquorLicense}  == "Nil" )
+					  		#set ( $liquorLicense = "&lt;Nil&gt;" )
+						 #else
+					  		#set ( $liquorLicense = ${ctx.apbCompanyData.liquorLicense} )
+				  	#end
+					<tr>
+						<td width="25%" style="font-size: 15px;font-weight: bold;font-family: Helvetica;color: #42515a;padding-left: 10px;margin: 7px 0px 10px 0px;">
+						${ctx.messages.companyliquorLicense}
+						</td>
+						<td  colspan="3" style="font-family: Helvetica;font-size: 15px;color: #42515a;padding-left: 10px">
+							$liquorLicense
+						</td>
+					</tr>
+				#end
+				
+				
+				#if (${ctx.apbCompanyData.companyBillingAddress}  == "Nil" )
+					  	#set ( $companyBillingAddress = "&lt;Nil&gt;" )
+						#else
+						<tr>
+							<td width="25%" style="font-size: 15px;font-weight: bold;font-family: Helvetica;color: #42515a;padding-left: 10px;margin: 7px 0px 10px 0px;">
+							${ctx.messages.companybillingAddress}		         	 
+							</td>
+							<td  colspan="3" style="font-family: Helvetica;font-size: 15px;color: #42515a;padding-left: 10px">
+								 ${ctx.apbCompanyData.companyBillingAddress}
+							</td>					
+						</tr>	
+				#end
+				#if (${ctx.apbCompanyData.companyPhone}  == "NO_CHANGED" )	
+						&nbsp;
+					#else
+					#if (${ctx.apbCompanyData.companyPhone}  == "Nil" || ${ctx.apbCompanyData.companyPhone} =="")
+					  		#set ( $companyPhone = "&lt;Nil&gt;" )
+						 #else
+					  		#set ( $companyPhone = ${ctx.apbCompanyData.companyPhone} )
+				  	#end
+					<tr>
+						<td width="25%" style="font-size: 15px;font-weight: bold;font-family: Helvetica;color: #42515a;padding-left: 10px;margin: 7px 0px 10px 0px;">
+						  ${ctx.messages.companyphone}	
+						</td>
+						<td  colspan="3" style="font-family: Helvetica;font-size: 15px;color: #42515a;padding-left: 10px">
+							$companyPhone
+						</td>
+					</tr>
+				#end
+	 
+				#if (${ctx.apbCompanyData.companyMobilePhone}  == "NO_CHANGED" )				
+						&nbsp;
+				  #else
+				  	#if (${ctx.apbCompanyData.companyMobilePhone}  == "Nil" || ${ctx.apbCompanyData.companyMobilePhone} =="")
+				  		#set ( $companyMobilePhone = "&lt;Nil&gt;" ) 
+					 #else
+				  		#set ( $companyMobilePhone = ${ctx.apbCompanyData.companyMobilePhone} ) 
+				  	#end
+					<tr>
+						<td width="25%" style="font-size: 15px;font-weight: bold;font-family: Helvetica;color: #42515a;padding-left: 10px;margin: 7px 0px 10px 0px;">
+						 ${ctx.messages.companymobilephone}
+						</td>
+						<td  colspan="3" style="font-family: Helvetica;font-size: 15px;color: #42515a;padding-left: 10px">
+							$companyMobilePhone  
+						</td>
+					</tr>
+				#end
+				
+				#if (${ctx.apbCompanyData.companyFax}  == "NO_CHANGED" )				
+					&nbsp;			
+				  #else
+				   #if (${ctx.apbCompanyData.companyFax}  == "Nil" )
+				  		#set ( $companyFax = "&lt;Nil&gt;" )
+					 #else
+				  		#set ( $companyFax = ${ctx.apbCompanyData.companyFax} )
+				  	#end
+					<tr>
+						<td width="25%" style="font-size: 15px;font-weight: bold;font-family: Helvetica;color: #42515a;padding-left: 10px;margin: 7px 0px 10px 0px;">
+						   ${ctx.messages.companyfax}
+						</td>
+						<td  colspan="3" style="font-family: Helvetica;font-size: 15px;color: #42515a;padding-left: 10px">
+							$companyFax
+						</td>
+					</tr>
+				#end
+				
+				#if (${ctx.apbCompanyData.companyEmailAddress}  == "Nil" )
+						#set ( $companyEmailAddress = "&lt;Nil&gt;" )
+						#else
+						<tr>
+						<td width="25%" style="font-size: 15px;font-weight: bold;font-family: Helvetica;color: #42515a;padding-left: 10px;margin: 7px 0px 10px 0px;">
+							${ctx.messages.companyemailAddress}</td>
+						<td colspan="3" style="font-family: Helvetica;font-size: 15px;color: #42515a;padding-left: 10px">
+							${ctx.apbCompanyData.companyEmailAddress}
+						</td>					
+					</tr>				
+				#end
+				
+				
+				 #if (${ctx.apbCompanyData.sameasInvoiceAddress} == "true" )
+				   <tr>						
+						<td width="25%" style="font-size: 15px;font-weight: bold;font-family: Helvetica;color: #42515a;padding-left: 10px;margin: 7px 0px 10px 0px;">
+							${ctx.messages.companydeliveryaddresssameAsInvoice}
+						</td>
+						<td colspan="3" style="font-family: Helvetica;font-size: 15px;color: #42515a;padding-left: 10px">
+							YES
+						</td>
+					</tr>				   
+					#else
+				 #end
+				#foreach( $companyData in ${ctx.apbCompanyData.deliveryAddresses})
+		           #foreach($deliveryAdd in $companyData.deliveryAddresses)				   
+				   #if ($deliveryAdd.changeRequestAddress == "1" )     
+						<tr>
+							<td colspan="4" style="background-color: #EBEBEB;font-size: 15px;font-weight: bold;font-family: Helvetica;padding: 5px 0px 5px 10px;color: #42515a">
+								${ctx.messages.companydeliveryadditionaladdresschanged}
+							</td>
+						</tr>
+						<tr>
+							<td width="26%" style="font-size: 15px;font-weight: bold;font-family: Helvetica;color: #42515a;padding-left: 10px;margin: 7px 0px 10px 0px;">
+								${ctx.messages.companydeliveryaddressid}							 
+							</td>
+							<td colspan="3" style="font-family: Helvetica;font-size: 15px;color: #42515a;padding-left: 10px">
+								#if ($deliveryAdd.addressId =='NA')
+								   #set ($addressID = 'NA' )
+								#else
+								  #set ($addressID = $deliveryAdd.addressId )
+								#end
+								 $addressID   
+							</td>							
+						</tr>	
+						<tr>
+							<td width="25%"  style="font-size: 15px;font-weight: bold;font-family: Helvetica;color: #42515a;padding-left: 10px;margin: 7px 0px 10px 0px;">
+								${ctx.messages.companydeliveryaddressdeliveryAddress}							 
+							</td>
+							<td colspan="3"  style="font-family: Helvetica;font-size: 15px;color: #42515a;padding-left: 10px">
+								$deliveryAdd.deliveryAddress 
+							</td>							
+						</tr>	
+						
+						
+						<tr>
+							<td width="25%"  style="font-size: 15px;font-weight: bold;font-family: Helvetica;color: #42515a;padding-left: 10px;margin: 7px 0px 10px 0px;">
+								${ctx.messages.companydeliveryaddressfrom}
+							</td>
+							<td width="20%"  style="font-family: Helvetica;color: #42515a;padding-left: 10px">
+							
+							#set ($fromHHC = $deliveryAdd.deliveryTimeFrameFromHH)
+							#set ($fromHHCTemp = $fromHHC.toString())
+								#if($fromHHCTemp.length() == 1 )
+									#set ($fromHHCValue = $deliveryAdd.deliveryTimeFrameFromHH ) 
+									#set ($prefixHHCValue = "0" ) 						   
+								#else
+									#set ($fromHHCValue = $deliveryAdd.deliveryTimeFrameFromHH ) 
+									#set ($prefixHHCValue = "" ) 
+								#end
+								
+								#set ($fromMMC = $deliveryAdd.deliveryTimeFrameFromMM)
+								#set ($fromMMCTemp = $fromMMC.toString())
+									#if($fromMMCTemp.length() == 1 )
+										#set ($fromMMCValue = $deliveryAdd.deliveryTimeFrameFromMM ) 
+										#set ($prefixMMCValue = "0" ) 						   
+									#else
+										#set ($fromMMCValue = $deliveryAdd.deliveryTimeFrameFromMM ) 
+										#set ($prefixMMCValue = "" ) 
+									#end
+									$prefixHHCValue$fromHHCValue : $prefixMMCValue$fromMMCValue
+							</td>
+							
+							<td width="26%"  style="font-size: 15px;font-weight: bold;font-family: Helvetica;color: #42515a;padding-left: 10px;margin: 7px 0px 10px 0px;">
+								${ctx.messages.companydeliveryaddressto}								
+							</td>
+							<td width="29%"  style="font-family: Helvetica;font-size: 15px;color: #42515a;padding-left: 10px">
+									#set ($toHHC = $deliveryAdd.deliveryTimeFrameToHH)
+									#set ($toHHCTemp = $toHHC.toString())
+										#if($toHHCTemp.length() == 1 )
+											#set ($toHHCValue = $deliveryAdd.deliveryTimeFrameToHH ) 
+											#set ($prefixHHCValue = "0" ) 						   
+										#else
+											#set ($toHHCValue = $deliveryAdd.deliveryTimeFrameToHH ) 
+											#set ($prefixHHCValue = "" ) 
+										#end
+										
+										#set ($toMMC = $deliveryAdd.deliveryTimeFrameToMM)
+										#set ($toMMCTemp = $toMMC.toString())
+											#if($toMMCTemp.length() == 1 )
+												#set ($toMMCValue = $deliveryAdd.deliveryTimeFrameToMM ) 
+										#set ($prefixMMCValue = "0" ) 						   
+									#else
+										#set ($toMMCValue = $deliveryAdd.deliveryTimeFrameToMM ) 
+										#set ($prefixMMCValue = "" ) 
+									#end
+										$prefixHHCValue$toHHCValue : $prefixMMCValue$toMMCValue
+							</td> 
+						</tr>
+						
+						<tr>
+							<td width="25%"  style="font-size: 15px;font-weight: bold;font-family: Helvetica;color: #42515a;padding-left: 10px;margin: 7px 0px 10px 0px;">
+							 	 ${ctx.messages.companydeliveryaddressdeliveryInstruction}
+							</td>
+								#if ($deliveryAdd.deliveryInstruction  == "Nil" )	
+									#set ( $deliveryInstruction = '' )
+								#else
+									#set ( $deliveryInstruction = $deliveryAdd.deliveryInstruction )
+								#end	
+								<td  colspan="3"  style="font-family: Helvetica;font-size: 15px;color: #42515a;padding-left: 10px">
+										 $deliveryInstruction
+								</td>
+							</tr>
+						
+						<tr>
+								<td width="25%"  style="font-size: 15px;font-weight: bold;font-family: Helvetica;color: #42515a;padding-left: 10px;margin: 7px 0px 10px 0px;">
+								  ${ctx.messages.companydeliveryaddressdeliveryCalendar}
+								</td>
+							#if ($deliveryAdd.deliveryCalendar  == "Nil" )	
+									#set ( $deliveryCalendar = '' )
+								#else
+									#set ( $deliveryCalendar = $deliveryAdd.deliveryCalendar )
+						  	#end
+								<td  colspan="3"  style="font-family: Helvetica;font-size: 15px;color: #42515a;padding-left: 10px">
+									$deliveryCalendar
+								</td>
+							</tr>
+			       #end
+			     #end
+				#end  	
+				 
+				#foreach( $companyData in ${ctx.apbCompanyData.deliveryAddresses})
+		         #foreach($deliveryAdd in $companyData.deliveryAddresses)
+		            #if($deliveryAdd.removeRequestAddress == "1" )
+						#set ( $removeStrikeText = "text-decoration: line-through;" )
+						<tr>
+							<td colspan="4" style="background-color: #EBEBEB;font-size: 15px;font-weight: bold;font-family: Helvetica;padding: 5px 0px 5px 10px;color: #42515a">
+								${ctx.messages.companydeliveryadditionaladdressremoved}
+							</td>
+						</tr>
+						<tr>
+							<td width="25%" style="font-size: 15px;font-weight: bold;font-family: Helvetica;color: #42515a;padding-left: 10px;margin: 7px 0px 10px 0px;">
+								${ctx.messages.companydeliveryaddressid}							 
+							</td>
+							<td colspan="3" style="font-family: Helvetica;font-size: 15px;color: #42515a;padding-left: 10px;">
+								#if ($deliveryAdd.addressId =='NA')
+								   #set ($addressID = 'NA' )
+								#else
+								  #set ($addressID = $deliveryAdd.addressId )
+								#end
+								 $addressID   
+							</td>							
+						</tr>	
+						
+						<tr>
+							<td width="25%"  style="font-size: 15px;font-weight: bold;font-family: Helvetica;color: #42515a;padding-left: 10px;margin: 7px 0px 10px 0px;">
+								${ctx.messages.companydeliveryaddressdeliveryAddress}							 
+							</td>
+							<td  colspan="3"  style="font-family: Helvetica;font-size: 15px;color: #42515a;padding-left: 10px;$removeStrikeText">
+								$deliveryAdd.deliveryAddress 
+							</td>
+						</tr>	
+						<tr>
+							<td width="25%" style="font-size: 15px;font-weight: bold;font-family: Helvetica;color: #42515a;padding-left: 10px;margin: 7px 0px 10px 0px;">
+								${ctx.messages.companydeliveryaddressfrom}
+							</td>
+							<td width="20%" style="font-family: Helvetica;color: #42515a;padding-left: 10px;$removeStrikeText">
+							
+							#set ($fromHHC = $deliveryAdd.deliveryTimeFrameFromHH)
+							#set ($fromHHCTemp = $fromHHC.toString())
+								#if($fromHHCTemp.length() == 1 )
+									#set ($fromHHCValue = $deliveryAdd.deliveryTimeFrameFromHH ) 
+									#set ($prefixHHCValue = "0" ) 						   
+								#else
+									#set ($fromHHCValue = $deliveryAdd.deliveryTimeFrameFromHH ) 
+									#set ($prefixHHCValue = "" ) 
+								#end
+								
+								#set ($fromMMC = $deliveryAdd.deliveryTimeFrameFromMM)
+								#set ($fromMMCTemp = $fromMMC.toString())
+									#if($fromMMCTemp.length() == 1 )
+										#set ($fromMMCValue = $deliveryAdd.deliveryTimeFrameFromMM ) 
+										#set ($prefixMMCValue = "0" ) 						   
+									#else
+										#set ($fromMMCValue = $deliveryAdd.deliveryTimeFrameFromMM ) 
+										#set ($prefixMMCValue = "" ) 
+									#end
+									$prefixHHCValue$fromHHCValue : $prefixMMCValue$fromMMCValue
+							</td>
+							
+							<td width="26%"  style="font-size: 15px;font-weight: bold;font-family: Helvetica;color: #42515a;padding-left: 10px;margin: 7px 0px 10px 0px;">
+								${ctx.messages.companydeliveryaddressto}								
+							</td>
+							<td width="29%" style="font-family: Helvetica;font-size: 15px;color: #42515a;padding-left: 10px;$removeStrikeText">
+									#set ($toHHC = $deliveryAdd.deliveryTimeFrameToHH)
+									#set ($toHHCTemp = $toHHC.toString())
+										#if($toHHCTemp.length() == 1 )
+											#set ($toHHCValue = $deliveryAdd.deliveryTimeFrameToHH ) 
+											#set ($prefixHHCValue = "0" ) 						   
+										#else
+											#set ($toHHCValue = $deliveryAdd.deliveryTimeFrameToHH ) 
+											#set ($prefixHHCValue = "" ) 
+										#end
+										
+										#set ($toMMC = $deliveryAdd.deliveryTimeFrameToMM)
+										#set ($toMMCTemp = $toMMC.toString())
+											#if($toMMCTemp.length() == 1 )
+												#set ($toMMCValue = $deliveryAdd.deliveryTimeFrameToMM ) 
+										#set ($prefixMMCValue = "0" ) 						   
+									#else
+										#set ($toMMCValue = $deliveryAdd.deliveryTimeFrameToMM ) 
+										#set ($prefixMMCValue = "" ) 
+									#end
+										$prefixHHCValue$toHHCValue : $prefixMMCValue$toMMCValue
+							</td>
+						</tr>
+						
+					
+					  <tr>
+							<td width="25%"  style="font-size: 15px;font-weight: bold;font-family: Helvetica;color: #42515a;padding-left: 10px;margin: 7px 0px 10px 0px;">
+							 	 ${ctx.messages.companydeliveryaddressdeliveryInstruction}
+							</td>
+								#if ($deliveryAdd.deliveryInstruction  == "Nil" )	
+									#set ( $deliveryInstruction = '' )
+								#else
+									#set ( $deliveryInstruction = $deliveryAdd.deliveryInstruction )
+								#end	
+								<td  colspan="3"  style="font-family: Helvetica;font-size: 15px;color: #42515a;padding-left: 10px;$removeStrikeText">
+										 $deliveryInstruction
+								</td>
+							</tr>
+						
+						<tr>
+								<td width="25%"  style="font-size: 15px;font-weight: bold;font-family: Helvetica;color: #42515a;padding-left: 10px;margin: 7px 0px 10px 0px;">
+								  ${ctx.messages.companydeliveryaddressdeliveryCalendar}
+								</td>
+							#if ($deliveryAdd.deliveryCalendar  == "Nil" )	
+									#set ( $deliveryCalendar = '' )
+								#else
+									#set ( $deliveryCalendar = $deliveryAdd.deliveryCalendar )
+						  	#end
+								<td  colspan="3"  style="font-family: Helvetica;font-size: 15px;color: #42515a;padding-left: 10px;$removeStrikeText">
+									$deliveryCalendar
+								</td>
+							</tr>
+			        #end
+			      #end
+				#end  
+ 
+				#foreach( $companyData in ${ctx.apbCompanyData.deliveryAddresses})
+					   #foreach($deliveryAdd in $companyData.deliveryAddresses)				   
+					   #if ($deliveryAdd.changeRequestAddress == "102" )     
+							#set ( $removeStrikeText = '' )	
+							<tr>
+								<td colspan="4" style="background-color: #EBEBEB;font-size: 15px;font-weight: bold;font-family: Helvetica;padding: 5px 0px 5px 10px;color: #42515a">
+							 		${ctx.messages.companydeliverydefaultaddressnewadded}
+								</td>
+							</tr>
+							<tr>
+								<td width="25%" style="font-size: 15px;font-weight: bold;font-family: Helvetica;color: #42515a;padding-left: 10px;margin: 7px 0px 10px 0px;">
+									${ctx.messages.companydeliveryaddressid}							 
+								</td>
+								<td colspan="3" style="font-family: Helvetica;font-size: 15px;color: #42515a;padding-left: 10px">
+									#if ($deliveryAdd.addressId =='NA')
+									   #set ($addressID = 'NA' )
+									#else
+									  #set ($addressID = $deliveryAdd.addressId )
+									#end
+									 $addressID   
+							</td>							
+						</tr>	
+							<tr>
+								<td width="25%"  style="font-size: 15px;font-weight: bold;font-family: Helvetica;color: #42515a;padding-left: 10px;margin: 7px 0px 10px 0px;">
+									${ctx.messages.companydeliveryaddressdeliveryAddress}							 
+								</td>
+								<td colspan="3"  style="font-family: Helvetica;font-size: 15px;color: #42515a;padding-left: 10px">
+									$deliveryAdd.deliveryAddress 
+								</td>							
+							</tr>	
+							
+							<tr>
+							<td width="25%" style="font-size: 15px;font-weight: bold;font-family: Helvetica;color: #42515a;padding-left: 10px;margin: 7px 0px 10px 0px;">
+								${ctx.messages.companydeliveryaddressfrom}
+							</td>
+							<td width="20%" style="font-family: Helvetica;color: #42515a;padding-left: 10px">
+							
+							#set ($fromHHC = $deliveryAdd.deliveryTimeFrameFromHH)
+							#set ($fromHHCTemp = $fromHHC.toString())
+								#if($fromHHCTemp.length() == 1 )
+									#set ($fromHHCValue = $deliveryAdd.deliveryTimeFrameFromHH ) 
+									#set ($prefixHHCValue = "0" ) 						   
+								#else
+									#set ($fromHHCValue = $deliveryAdd.deliveryTimeFrameFromHH ) 
+									#set ($prefixHHCValue = "" ) 
+								#end
+								
+								#set ($fromMMC = $deliveryAdd.deliveryTimeFrameFromMM)
+								#set ($fromMMCTemp = $fromMMC.toString())
+									#if($fromMMCTemp.length() == 1 )
+										#set ($fromMMCValue = $deliveryAdd.deliveryTimeFrameFromMM ) 
+										#set ($prefixMMCValue = "0" ) 						   
+									#else
+										#set ($fromMMCValue = $deliveryAdd.deliveryTimeFrameFromMM ) 
+										#set ($prefixMMCValue = "" ) 
+									#end
+									$prefixHHCValue$fromHHCValue : $prefixMMCValue$fromMMCValue
+							</td>
+							
+							<td width="26%" style="font-size: 15px;font-weight: bold;font-family: Helvetica;color: #42515a;padding-left: 10px;margin: 7px 0px 10px 0px;">
+								${ctx.messages.companydeliveryaddressto}								
+							</td>
+							<td width="29%" style="font-family: Helvetica;font-size: 15px;color: #42515a;padding-left: 10px">
+									#set ($toHHC = $deliveryAdd.deliveryTimeFrameToHH)
+									#set ($toHHCTemp = $toHHC.toString())
+										#if($toHHCTemp.length() == 1 )
+											#set ($toHHCValue = $deliveryAdd.deliveryTimeFrameToHH ) 
+											#set ($prefixHHCValue = "0" ) 						   
+										#else
+											#set ($toHHCValue = $deliveryAdd.deliveryTimeFrameToHH ) 
+											#set ($prefixHHCValue = "" ) 
+										#end
+										
+										#set ($toMMC = $deliveryAdd.deliveryTimeFrameToMM)
+										#set ($toMMCTemp = $toMMC.toString())
+											#if($toMMCTemp.length() == 1 )
+												#set ($toMMCValue = $deliveryAdd.deliveryTimeFrameToMM ) 
+										#set ($prefixMMCValue = "0" ) 						   
+									#else
+										#set ($toMMCValue = $deliveryAdd.deliveryTimeFrameToMM ) 
+										#set ($prefixMMCValue = "" ) 
+									#end
+										$prefixHHCValue$toHHCValue : $prefixMMCValue$toMMCValue
+							</td>
+						</tr>
+							
+						 <tr>
+							<td width="25%"  style="font-size: 15px;font-weight: bold;font-family: Helvetica;color: #42515a;padding-left: 10px;margin: 7px 0px 10px 0px;">
+							 	 ${ctx.messages.companydeliveryaddressdeliveryInstruction}
+							</td>
+								#if ($deliveryAdd.deliveryInstruction  == "Nil" )	
+									#set ( $deliveryInstruction = '' )
+								#else
+									#set ( $deliveryInstruction = $deliveryAdd.deliveryInstruction )
+								#end	
+								<td  colspan="3"  style="font-family: Helvetica;font-size: 15px;color: #42515a;padding-left: 10px">
+										 $deliveryInstruction
+								</td>
+							</tr>
+						
+						<tr>
+								<td width="25%"  style="font-size: 15px;font-weight: bold;font-family: Helvetica;color: #42515a;padding-left: 10px;margin: 7px 0px 10px 0px;">
+								  ${ctx.messages.companydeliveryaddressdeliveryCalendar}
+								</td>
+							#if ($deliveryAdd.deliveryCalendar  == "Nil" )	
+									#set ( $deliveryCalendar = '' )
+								#else
+									#set ( $deliveryCalendar = $deliveryAdd.deliveryCalendar )
+						  	#end
+								<td  colspan="3"  style="font-family: Helvetica;font-size: 15px;color: #42515a;padding-left: 10px">
+									$deliveryCalendar
+								</td>
+							</tr>
+						   #end
+						#end
+					#end  	
+				
+				<tr>
+				<td colspan="6">
+					<a href="${ctx.baseUrl}" style="padding: 0px 0px 0px 0px;">
+						 			${ctx.cmsSlotContents.BottomContent}
+				</a>
+				</td>
+			</tr>
+			</table>
+		</td>
+	  </tr>
+	</table>				 
+	
+</body>
+</html>

@@ -1,0 +1,12 @@
+insert_update DynamicConstraint;active;annotation[forceWrite=true];expression;id[unique=true];language(code,itemtype(code));message[lang=en];severity(code,itemtype(code));target;type(code)
+;true;de.hybris.platform.validation.annotations.Dynamic;"if(getValidFrom()!=null && getValidTo()!=null && getValidFrom().equals(getValidTo())){
+	return getValidFrom().equals(getValidTo());
+}else if(getValidFrom()!=null && getValidTo()!=null){ return getValidFrom().before(getValidTo());
+} else { return false; }";ProductExclusionValidationDate;BEANSHELL:ValidatorLanguage;The ValidFrom date and ValidTo date cannot be null and the ValidTo date cannot be before ValidFrom date.;ERROR:Severity;com.sabmiller.core.model.ProductExclusionModel;ProductExclusion
+
+insert_update NotBlankConstraint;active[allownull=true];annotation[forceWrite=true];descriptor(enclosingType(code),qualifier);id[unique=true,allownull=true];languages(isocode);message[lang=en];qualifier;severity(code,itemtype(code));target;type(code)
+;true;de.hybris.platform.validation.annotations.NotBlank;ProductExclusion:product;ProductExclusionProductNotBlank;;;product;ERROR:Severity;com.sabmiller.core.model.ProductExclusionModel;ProductExclusion
+
+# Disable the constraint for Customer name
+UPDATE AttributeConstraint;id[unique=true];active;
+;CustomerName;false;

@@ -1,0 +1,30 @@
+import java.util.Collection
+import de.hybris.platform.commerceservices.enums.SalesApplication
+import com.sabmiller.core.enums.B2BUnitStatus
+
+
+fss = spring.getBean("flexibleSearchService")
+ms = spring.getBean("modelService")
+
+
+
+ Map<String, Object> values = new HashMap<String, Object>();
+		values.put("salesApplication", SalesApplication.WEB);
+
+units = fss.search("Select distinct {o.unit} from {Order AS o} where {o.salesapplication} = ?salesApplication",values).result
+
+
+out.println(" The number of total units found " + "  " + units.size())
+for(unit in units){
+  if(B2BUnitStatus.ACTIVE.equals(unit.b2BUnitStatus)){
+ unit.setB2BUnitStatus(B2BUnitStatus.ORDER_PLACED);
+    try{
+      ms.save(unit);
+    }
+    catch(Exception e)
+  {
+   out.println("Exception: " + e.getMessage());
+  }
+
+ }
+}

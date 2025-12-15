@@ -1,0 +1,423 @@
+$blue: #6892be;
+.faq-component {
+  display: table;
+  margin: $double-spacing-unit auto;
+  _padding: 0 $spacing-unit-base*1.5;
+  width: 100%;
+  position: relative;
+  @include coloured-bracket-corner($color: $blue, $size:60px, $desktop-offset:0);
+  
+	input[type="search"]::-ms-clear {  display: none; width : 0; height: 0; }
+	input[type="search"]::-ms-reveal {  display: none; width : 0; height: 0; }
+	input[type="search"]::-webkit-search-decoration,
+	input[type="search"]::-webkit-search-cancel-button,
+	input[type="search"]::-webkit-search-results-button,
+	input[type="search"]::-webkit-search-results-decoration { display: none; }
+  
+  
+  @media (min-width: $tablet) {
+    padding: 0 $spacing-unit-base*1.5;
+  }
+  h2 {
+    margin: $spacing-unit-base*.5 0 $spacing-unit-base*3;
+    text-align: center;
+  }
+  .search {
+    background: $light-medium-grey;
+    border-width: 1px 1px 0;
+    margin-bottom: $spacing-unit-base * 2;
+    padding: $spacing-unit-base*.75;
+    @media (min-width: $tablet) {
+      margin-bottom: $spacing-unit-base;
+      padding: $spacing-unit-base;
+    }
+    .form-group {
+      margin: 0;
+    }
+    .form-control {
+      background: $white;
+      border: 1px solid $white;
+      border-width: 1px 0 1px 1px;
+      color: $primary-blue-new;
+      font-size: $font-medium;
+      font-weight: 500;
+      height: 56px;
+      line-height: 56px;
+      padding: 0 0 0 $spacing-unit-base*.5;
+      transition: none;
+      @media (min-width: $tablet) {
+        padding-left: $spacing-unit-base;
+      }
+      &::placeholder {
+        color: $medium-grey; 
+        font-weight: normal;
+      }
+    }
+    .clear-search {
+      background: $white;
+      border-color: $white;
+      border-width: 1px 0;
+      color: $primary-blue-new;
+      padding: $spacing-unit-base*.2 $spacing-unit-base*.5 0 $spacing-unit-base;
+      & svg {
+        width: 12px;
+        height: 12px;
+      }
+      &:focus, &:hover {
+        color: $blue;
+      }
+    }
+    .search-icon {
+      background: $white;
+      border: 1px solid $white;
+      border-width: 1px 1px 1px 0;
+      border-left: 0;
+      border-radius: 0;
+      color: #666;
+      height: 50px;
+      line-height: 50px;
+      padding: $spacing-unit-base*.2 $spacing-unit-base 0 $spacing-unit-base*.5;
+    }
+    .form-control:focus, .form-control:focus ~ .input-group-addon {
+      border-color: $blue;
+    }
+  }
+  .faq-categories {
+    background: $white;
+    -webkit-box-shadow: 0 0 50px -5px rgba(0,0,0,.1);
+    box-shadow: 0 0 50px -5px rgba(0,0,0,.1);
+    font-size: $font-medium;
+    padding: $spacing-unit-base*.5 $spacing-unit-base;
+    
+    @media (max-width: $mobile-max){
+    	margin-bottom: 50px;
+    	
+    	.dropdown select{
+    		color: $blue;
+    	}
+    }
+    
+    .list-group {
+      margin: 0;
+      li {
+        border: 0;
+        padding: 0;
+      }
+      a {
+        color: $lighter-dark-grey;
+        display: block;
+        padding: $spacing-unit-base*.5 0;
+        &:focus, &:hover {
+          color: $medium-grey;
+        }
+        &:active, &.active {
+          color: $blue;
+          font-weight: 500;
+        }
+      }
+    }
+    .dropdown {
+      -webkit-appearance: none;
+      margin-left: -13px;
+      margin-right: -8px;
+      overflow: hidden;
+      text-indent: 0;
+      cursor: pointer;
+      &:after {
+        background: url($arrow-right-blue) 0 0 no-repeat;
+        content: "";
+        height: 16px;
+        position: absolute;
+        pointer-events: none;
+        right: 0;
+        top: 50%;
+        transform-origin: 50% 50%;
+        transform: rotate(90deg) translateY(0) translateX(-50%);
+        width: 16px;
+        @media (min-width: $tablet) {
+          right: $spacing-unit-base;
+        }
+      }
+    }
+    .form-control {
+      border: 0;
+      box-shadow: none;
+      color: $dark-grey;
+      font-size: $font-medium;
+      width: 110%;
+    }
+
+
+  }
+  .faq-questions {
+    padding: 0;
+
+    @media (min-width: $tablet) {
+      padding: 0 0 0 $spacing-unit-base;
+    }
+    .panel-group {
+      margin-bottom: 0;
+      & + .panel-group {
+        margin-top: $spacing-unit-base*.5;
+      }
+    }
+    .panel {
+      & + .panel {
+        margin-top: $spacing-unit-base*.5;
+      }
+    }
+    .panel-heading {
+      padding: 0;
+      h3 {
+        font-weight: 500;
+        a {
+          background-color: $light-grey;
+          border: 1px solid $cancel-grey-hover;
+          color: $dark-grey;
+          display: block;
+          padding: $spacing-unit-base*.9 $spacing-unit-base*1.5 $spacing-unit-base*.9 $spacing-unit-base*.75;
+          @media (min-width: $tablet) {
+            padding-left: $spacing-unit-base;
+            padding-right: $spacing-unit-base*2.5;
+          }
+          &:after {
+            background: url($arrow-right-blue) 0 0 no-repeat;
+            content: "";
+            height: 16px;
+            position: absolute;
+            right: $spacing-unit-base*.5;
+            top: 50%;
+            transform-origin: 50% 50%;
+            transform: rotate(90deg) translateY(0) translateX(-50%);
+            width: 16px;
+            @media (min-width: $tablet) {
+              right: $spacing-unit-base;
+            }
+          }
+          &.collapsed {
+            background-color: $white;
+            border-color: $medium-grey;
+            color: $lighter-dark-grey;
+            &:focus, &:hover {
+              background: $light-grey;
+            }
+            &:after {
+              transform: rotate(0deg) translateY(-50%);
+            }
+          }
+        }
+      }
+    }
+    .panel-body {
+      background-color: $light-grey;
+      border: 1px solid $cancel-grey-hover;
+      border-top: 0;
+      color: $primary-blue-new;
+      font-size: $font-medium;
+      padding: $spacing-unit-base*.75;
+      @media (min-width: $tablet) {
+        padding-left: $spacing-unit-base;
+        padding-right: $spacing-unit-base;
+      }
+      p {
+        font-size: $font-medium;
+      }
+      ul, ol, dl {
+        padding-left: $spacing-unit-base*2;
+        li {
+          list-style: inherit;
+        }
+      }
+      a {
+        color: $primary-blue-new;
+        text-decoration: underline;
+        &:focus, &:hover {
+          text-decoration: none;
+        }
+      }
+    }
+    .no-results {
+      color: $lighter-dark-grey;
+      font-size: $font-large;
+      font-weight: 500;
+      padding: 0 $spacing-unit-base*.75;
+      @media (min-width: $tablet) {
+        padding-left: $spacing-unit-base;
+      }
+      & .search-query {
+        color: $primary-blue-new;
+      }
+    }
+    .highlight {
+      color: $primary-blue-new;
+      font-size: $font-medium;
+      font-weight: 500;
+      margin-bottom: $spacing-unit-base*2;
+      padding: $spacing-unit-base $spacing-unit-base*.75;
+      @media (min-width: $tablet) {
+        padding-left: $spacing-unit-base;
+      }
+      a {
+        color: $primary-blue-new;
+        display: block;
+        text-decoration: underline;
+        @media (min-width: $tablet) {
+          display: inline;
+        }
+        &:focus, &:hover {
+          text-decoration: none;
+        }
+      }
+    }
+  }
+  .pagination {
+    display: table;
+    margin: 0 auto;
+    padding: $spacing-unit-base*.75;
+    li {
+      display: inline-block;
+      &:not(:last-child) {
+        margin-right: 3px;
+      }
+      &.active {
+        a {
+          background: $blue;
+          border-color: transparent;
+          color: $white;
+          font-weight: 500;
+        }
+      }
+      a {
+        border-color: $medium-grey;
+        border-radius: 21px;
+        box-sizing: content-box;
+        color: $text-inactive;
+        font-size: $font-medium-x;
+        line-height: $line-height-x-large;
+        margin: 0;
+        padding: 0 5px;
+        text-align: center;
+        min-width: 30px;
+        
+        @media (max-width: 522px){
+	        line-height: $line-height-large + 5;
+	        min-width: 25px;
+        }
+        
+        @media (max-width: 398px){
+	        line-height: $line-height-large;
+	        min-width: 20px;
+	        font-size: $font-medium;
+        }
+
+        @media (max-width: 398px){
+	        min-width: 18px;
+        }
+
+        &:hover {
+          border-color: transparent;
+          background: $blue;
+          color: $white;
+        }
+      }
+      &.pagination-first, &.pagination-prev, &.pagination-next, &.pagination-last {
+        a {
+          font-size: 40px;
+          font-weight: 300;
+          line-height: 34px;
+          padding-bottom: 6px;
+          
+          @media (max-width: 522px){
+		    line-height: $line-height-large;
+          }
+
+          @media (max-width: 398px){
+		    line-height: $line-height-large - 5;
+          }
+        }
+        
+        &.disabled{
+        	visibility: hidden;
+        }
+      }
+      
+		&.pagination-first, &.pagination-last{
+			display: none;
+		}
+    }
+  }
+  .alert {
+    background: none;
+    border: none;
+    font-size: $font-medium-x;
+    padding: $spacing-unit-base*.25 0 $spacing-unit-base*.25 $spacing-unit-base;
+    &.alert-success {
+      color: $green-new;
+    }
+    &.alert-danger {
+      color: $red;
+    }
+  }
+}
+// Modals
+#faq-send-question {
+  background-color: $white;
+  border-radius: 0;
+  margin: 0 auto;
+  max-width: 850px;
+  padding: $spacing-medium;
+  position: relative;
+  width:90%;
+  .popup-close {
+    position: absolute;
+    top: $spacing-small;
+    right: $spacing-small;
+    background-size: 100%;
+    width: 20px;
+    height: 20px;
+    display: block;
+    opacity: 1;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  .h1 {
+    color: $primary-blue-new;
+    font-size: $font-large;
+    margin-bottom: 0;
+  }
+  p {
+    font-size: $font-medium;
+    margin-bottom: $spacing-unit-base;
+  }
+  .form-control {
+    color: $dark-grey;
+    font-size: $font-medium;
+    font-weight: 500;
+    padding: $spacing-unit-base*.75 $spacing-unit-base;
+    &::placeholder {
+      color: $medium-grey;
+      font-weight: normal;
+    }
+  }
+  .btn {
+    font-weight: 500;
+    height: $btn-x-small*2;
+    line-height: $btn-x-small*2;
+    margin-top: $spacing-unit-base;
+    min-width: 260px;
+    padding: 0 $spacing-unit-base;
+    & + .btn {
+      @media (min-width: $tablet) {
+        margin-left: $spacing-unit-base*.75;
+      }
+    }
+  }
+  @media(max-width: $mobile-max) {
+    .scroller {
+      overflow-y: visible;
+      overflow-x: visible;
+      max-height: initial;
+    }
+  }
+}

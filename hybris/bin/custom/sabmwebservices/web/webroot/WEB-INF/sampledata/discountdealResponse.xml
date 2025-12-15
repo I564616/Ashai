@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?><n0:PricingDiscountConditionsResponse xmlns:n0="urn:gl.sabmiller.com:com:ecc:mastdata" xmlns:prx="urn:sap.com:proxy:ET7:/1SAI/TASACDF4680C6538E98FA64:701:2013/05/24">
+    <PricingDiscountConditionsHeader>
+        <Customer>0000842292</Customer>
+        <SalesOrganisation>7001</SalesOrganisation>
+    </PricingDiscountConditionsHeader>
+    <PricingDiscountConditionsItem>
+        <Material>000000000000087361</Material>
+        <ConditionType>YDD0</ConditionType>
+        <Amount>14.80-</Amount>
+        <Unit>AUD</Unit>
+        <SaleUnit>1 </SaleUnit>
+        <UnitOfMeasure>CAS</UnitOfMeasure>
+        <MinimumQuantity>1.000 </MinimumQuantity>
+        <UnitOfMeasure2>CAS</UnitOfMeasure2>
+        <ValidFrom>2016-02-01</ValidFrom>
+        <ValidTo>2016-02-16</ValidTo>
+        <CalcType>C</CalcType>
+        <Priority>30</Priority>
+    </PricingDiscountConditionsItem>
+    <PricingDiscountConditionsItem>
+        <Material>000000000000088776</Material>
+        <ConditionType>YDD0</ConditionType>
+        <Amount>13.61-</Amount>
+        <Unit>AUD</Unit>
+        <SaleUnit>1 </SaleUnit>
+        <UnitOfMeasure>CAS</UnitOfMeasure>
+        <MinimumQuantity>1.000 </MinimumQuantity>
+        <UnitOfMeasure2>CAS</UnitOfMeasure2>
+        <ValidFrom>2016-02-01</ValidFrom>
+        <ValidTo>2016-02-16</ValidTo>
+        <CalcType>C</CalcType>
+        <Priority>30</Priority>
+    </PricingDiscountConditionsItem>
+    <PricingDiscountConditionsItem>
+        <Material>000000000000088777</Material>
+        <ConditionType>YDD0</ConditionType>
+        <Amount>2.00-</Amount>
+        <Unit>AUD</Unit>
+        <SaleUnit>1 </SaleUnit>
+        <UnitOfMeasure>CAS</UnitOfMeasure>
+        <MinimumQuantity>0.000 </MinimumQuantity>
+        <UnitOfMeasure2/>
+        <ValidFrom>2016-01-22</ValidFrom>
+        <ValidTo>2016-03-02</ValidTo>
+        <CalcType>C</CalcType>
+        <Priority>09</Priority>
+    </PricingDiscountConditionsItem>
+    <PricingDiscountConditionsItem>
+        <Material>000000000000088777</Material>
+        <ConditionType>YDD0</ConditionType>
+        <Amount>1.71-</Amount>
+        <Unit>AUD</Unit>
+        <SaleUnit>1 </SaleUnit>
+        <UnitOfMeasure>CAS</UnitOfMeasure>
+        <MinimumQuantity>1.000 </MinimumQuantity>
+        <UnitOfMeasure2>CAS</UnitOfMeasure2>
+        <ValidFrom>2016-01-01</ValidFrom>
+        <ValidTo>2016-03-31</ValidTo>
+        <CalcType>C</CalcType>
+        <Priority>30</Priority>
+    </PricingDiscountConditionsItem>
+    <PricingDiscountConditionsItem>
+        <Material>000000000000088778</Material>
+        <ConditionType>YDD0</ConditionType>
+        <Amount>14.80-</Amount>
+        <Unit>AUD</Unit>
+        <SaleUnit>1 </SaleUnit>
+        <UnitOfMeasure>CAS</UnitOfMeasure>
+        <MinimumQuantity>1.000 </MinimumQuantity>
+        <UnitOfMeasure2>CAS</UnitOfMeasure2>
+        <ValidFrom>2016-02-01</ValidFrom>
+        <ValidTo>2016-02-16</ValidTo>
+        <CalcType>C</CalcType>
+        <Priority>30</Priority>
+    </PricingDiscountConditionsItem>
+    <PricingDiscountConditionsItem>
+        <Material>000000000000088779</Material>
+        <ConditionType>YDD0</ConditionType>
+        <Amount>25.00-</Amount>
+        <Unit>AUD</Unit>
+        <SaleUnit>1 </SaleUnit>
+        <UnitOfMeasure>KEG</UnitOfMeasure>
+        <MinimumQuantity>0.000 </MinimumQuantity>
+        <UnitOfMeasure2/>
+        <ValidFrom>2016-01-22</ValidFrom>
+        <ValidTo>2016-03-02</ValidTo>
+        <CalcType>C</CalcType>
+        <Priority>09</Priority>
+    </PricingDiscountConditionsItem>
+    <PricingDiscountConditionsItem>
+        <Material>000000000000088780</Material>
+        <ConditionType>YDD0</ConditionType>
+        <Amount>18.36-</Amount>
+        <Unit>AUD</Unit>
+        <SaleUnit>1 </SaleUnit>
+        <UnitOfMeasure>CAS</UnitOfMeasure>
+        <MinimumQuantity>1.000 </MinimumQuantity>
+        <UnitOfMeasure2>CAS</UnitOfMeasure2>
+        <ValidFrom>2016-02-01</ValidFrom>
+        <ValidTo>2016-02-16</ValidTo>
+        <CalcType>C</CalcType>
+        <Priority>30</Priority>
+    </PricingDiscountConditionsItem>
+    <PricingDiscountConditionsItem>
+        <Material>000000000000088784</Material>
+        <ConditionType>YDD0</ConditionType>
+        <Amount>4.50-</Amount>
+        <Unit>AUD</Unit>
+        <SaleUnit>1 </SaleUnit>
+        <UnitOfMeasure>CAS</UnitOfMeasure>
+        <MinimumQuantity>0.000 </MinimumQuantity>
+        <UnitOfMeasure2/>
+        <ValidFrom>2016-01-22</ValidFrom>
+        <ValidTo>2016-03-02</ValidTo>
+        <CalcType>C</CalcType>
+        <Priority>09</Priority>
+    </PricingDiscountConditionsItem>
+    <PricingDiscountConditionsItem>
+        <Material>000000000000088784</Material>
+        <ConditionType>YDD0</ConditionType>
+        <Amount>5.95-</Amount>
+        <Unit>AUD</Unit>
+        <SaleUnit>1 </SaleUnit>
+        <UnitOfMeasure>CAS</UnitOfMeasure>
+        <MinimumQuantity>1.000 </MinimumQuantity>
+        <UnitOfMeasure2>CAS</UnitOfMeasure2>
+        <ValidFrom>2016-02-03</ValidFrom>
+        <ValidTo>2016-02-16</ValidTo>
+        <CalcType>C</CalcType>
+        <Priority>30</Priority>
+    </PricingDiscountConditionsItem>
+    <PricingDiscountConditionsItem>
+        <Material>000000000000088784</Material>
+        <ConditionType>YDD0</ConditionType>
+        <Amount>6.50-</Amount>
+        <Unit>AUD</Unit>
+        <SaleUnit>1 </SaleUnit>
+        <UnitOfMeasure>CAS</UnitOfMeasure>
+        <MinimumQuantity>10.000 </MinimumQuantity>
+        <UnitOfMeasure2>CAS</UnitOfMeasure2>
+        <ValidFrom>2016-02-01</ValidFrom>
+        <ValidTo>2016-02-16</ValidTo>
+        <CalcType>C</CalcType>
+        <Priority>30</Priority>
+    </PricingDiscountConditionsItem>
+    <PricingDiscountConditionsItem>
+        <Material>000000000000089101</Material>
+        <ConditionType>YDD0</ConditionType>
+        <Amount>8.51-</Amount>
+        <Unit>AUD</Unit>
+        <SaleUnit>1 </SaleUnit>
+        <UnitOfMeasure>CAS</UnitOfMeasure>
+        <MinimumQuantity>1.000 </MinimumQuantity>
+        <UnitOfMeasure2>CAS</UnitOfMeasure2>
+        <ValidFrom>2016-02-01</ValidFrom>
+        <ValidTo>2016-02-16</ValidTo>
+        <CalcType>C</CalcType>
+        <Priority>30</Priority>
+    </PricingDiscountConditionsItem>
+    <PricingDiscountConditionsItem>
+        <Material>000000000000089979</Material>
+        <ConditionType>YDD0</ConditionType>
+        <Amount>8.51-</Amount>
+        <Unit>AUD</Unit>
+        <SaleUnit>1 </SaleUnit>
+        <UnitOfMeasure>CAS</UnitOfMeasure>
+        <MinimumQuantity>1.000 </MinimumQuantity>
+        <UnitOfMeasure2>CAS</UnitOfMeasure2>
+        <ValidFrom>2016-02-01</ValidFrom>
+        <ValidTo>2016-02-16</ValidTo>
+        <CalcType>C</CalcType>
+        <Priority>30</Priority>
+    </PricingDiscountConditionsItem>
+    <PricingDiscountConditionsItem>
+        <Material>000000000000090344</Material>
+        <ConditionType>YDD0</ConditionType>
+        <Amount>8.51-</Amount>
+        <Unit>AUD</Unit>
+        <SaleUnit>1 </SaleUnit>
+        <UnitOfMeasure>CAS</UnitOfMeasure>
+        <MinimumQuantity>1.000 </MinimumQuantity>
+        <UnitOfMeasure2>CAS</UnitOfMeasure2>
+        <ValidFrom>2016-02-01</ValidFrom>
+        <ValidTo>2016-02-16</ValidTo>
+        <CalcType>C</CalcType>
+        <Priority>30</Priority>
+    </PricingDiscountConditionsItem>
+    <PricingDiscountConditionsItem>
+        <Material>000000000000090354</Material>
+        <ConditionType>YDD0</ConditionType>
+        <Amount>13.50-</Amount>
+        <Unit>AUD</Unit>
+        <SaleUnit>1 </SaleUnit>
+        <UnitOfMeasure>CAS</UnitOfMeasure>
+        <MinimumQuantity>0.000 </MinimumQuantity>
+        <UnitOfMeasure2/>
+        <ValidFrom>2016-02-08</ValidFrom>
+        <ValidTo>2016-02-14</ValidTo>
+        <CalcType>C</CalcType>
+        <Priority>72</Priority>
+    </PricingDiscountConditionsItem>
+    <PricingDiscountConditionsItem>
+        <Material>000000000000090355</Material>
+        <ConditionType>YDD0</ConditionType>
+        <Amount>5.95-</Amount>
+        <Unit>AUD</Unit>
+        <SaleUnit>1 </SaleUnit>
+        <UnitOfMeasure>CAS</UnitOfMeasure>
+        <MinimumQuantity>1.000 </MinimumQuantity>
+        <UnitOfMeasure2>CAS</UnitOfMeasure2>
+        <ValidFrom>2016-02-01</ValidFrom>
+        <ValidTo>2016-02-16</ValidTo>
+        <CalcType>C</CalcType>
+        <Priority>30</Priority>
+    </PricingDiscountConditionsItem>
+    <PricingDiscountConditionsItem>
+        <Material>000000000000090357</Material>
+        <ConditionType>YDD0</ConditionType>
+        <Amount>14.80-</Amount>
+        <Unit>AUD</Unit>
+        <SaleUnit>1 </SaleUnit>
+        <UnitOfMeasure>CAS</UnitOfMeasure>
+        <MinimumQuantity>1.000 </MinimumQuantity>
+        <UnitOfMeasure2>CAS</UnitOfMeasure2>
+        <ValidFrom>2016-02-01</ValidFrom>
+        <ValidTo>2016-02-16</ValidTo>
+        <CalcType>C</CalcType>
+        <Priority>30</Priority>
+    </PricingDiscountConditionsItem>
+    <PricingDiscountConditionsItem>
+        <Material>000000000000090358</Material>
+        <ConditionType>YDD0</ConditionType>
+        <Amount>15.93-</Amount>
+        <Unit>AUD</Unit>
+        <SaleUnit>1 </SaleUnit>
+        <UnitOfMeasure>CAS</UnitOfMeasure>
+        <MinimumQuantity>1.000 </MinimumQuantity>
+        <UnitOfMeasure2>CAS</UnitOfMeasure2>
+        <ValidFrom>2016-02-01</ValidFrom>
+        <ValidTo>2016-02-16</ValidTo>
+        <CalcType>C</CalcType>
+        <Priority>30</Priority>
+    </PricingDiscountConditionsItem>
+    <PricingDiscountConditionsItem>
+        <Material>000000000000090362</Material>
+        <ConditionType>YDD0</ConditionType>
+        <Amount>8.25-</Amount>
+        <Unit>AUD</Unit>
+        <SaleUnit>1 </SaleUnit>
+        <UnitOfMeasure>CAS</UnitOfMeasure>
+        <MinimumQuantity>1.000 </MinimumQuantity>
+        <UnitOfMeasure2>CAS</UnitOfMeasure2>
+        <ValidFrom>2016-02-01</ValidFrom>
+        <ValidTo>2016-02-16</ValidTo>
+        <CalcType>C</CalcType>
+        <Priority>30</Priority>
+    </PricingDiscountConditionsItem>
+    <PricingDiscountConditionsItem>
+        <Material>000000000000090363</Material>
+        <ConditionType>YDD0</ConditionType>
+        <Amount>3.50-</Amount>
+        <Unit>AUD</Unit>
+        <SaleUnit>1 </SaleUnit>
+        <UnitOfMeasure>CAS</UnitOfMeasure>
+        <MinimumQuantity>1.000 </MinimumQuantity>
+        <UnitOfMeasure2>CAS</UnitOfMeasure2>
+        <ValidFrom>2016-02-01</ValidFrom>
+        <ValidTo>2016-02-16</ValidTo>
+        <CalcType>C</CalcType>
+        <Priority>30</Priority>
+    </PricingDiscountConditionsItem>
+</n0:PricingDiscountConditionsResponse>

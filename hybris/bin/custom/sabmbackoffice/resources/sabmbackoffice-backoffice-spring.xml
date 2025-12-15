@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2018 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="sabmbackofficeService" class="com.sabmiller.services.SabmbackofficeService" />
+
+	<bean id="sabmbackofficeLabelLocator" class="com.hybris.cockpitng.util.labels.ResourcesLabelLocator" scope="singleton" init-method="init" lazy-init="false">
+  		<property name="location" value="/sabmbackoffice-backoffice-labels/"/>
+  		<property name="name" value="labels"/>
+  	</bean>
+
+	<!-- APB specific -->
+
+	<!-- Pranali - Commented ApbbackofficeService and apbbackofficeLabelLocator beans as sabm ones will be used -->
+	
+	<!-- <bean id="apbbackofficeService"
+		class="com.apb.services.ApbbackofficeService" />
+
+	<bean id="apbbackofficeLabelLocator"
+		class="com.hybris.cockpitng.util.labels.ResourcesLabelLocator"
+		scope="singleton" init-method="init" lazy-init="false">
+		<property name="location"
+			value="/apbbackoffice-backoffice-labels/" />
+		<property name="name" value="labels" />
+	</bean> -->
+	
+	
+	<!-- Handler to create the B2BCustomer -->
+	 <bean id="asahiCreateB2BCustomerWizardHandler" class="com.sabmiller.customersupportbackoffice.widgets.AsahiCreateB2BCustomerWizardHandler" parent="csCreateBaseHandler">
+        <property name="asahiCsCreateB2BCustomerStrategy" ref="asahiCsCreateB2BCustomerStrategy"/>
+        <property name="userService" ref="userService"/>
+         <property name="notificationService" ref="notificationService"/>
+    </bean>
+  	<!-- Changed Strategy for CustomerSupport Roles to create B2BCustomer instead of Customer-->
+	 <bean name="asahiCsCreateB2BCustomerStrategy" class="com.sabmiller.customersupportbackoffice.strategies.impl.AsahiCsCreateB2BCustomerStrategy">
+   		<property name="secureTokenService"  ref="secureTokenService"/>
+   		<property name="timeService" ref="timeService" />
+   		<!-- <property name="csFormInitialsFactory" ref="csFormInitialsFactory"/> -->
+   		<property name="baseSiteService" ref="baseSiteService"/>
+        <property name="modelService" ref="modelService"/>
+        <property name="commonI18NService" ref="commonI18NService"/>
+   </bean>
+    <bean id="b2bcustomerForm" factory-bean="csFormInitialsFactory" factory-method="getB2BCustomerForm" scope="prototype"/>
+    <alias name="asahiCsFormInitialsFactory" alias="csFormInitialsFactory"/>
+	<bean id="asahiCsFormInitialsFactory" parent="defaultCsFormInitialsFactory"  class="com.sabmiller.customersupportbackoffice.widgets.AsahiCsFormInitialsFactory" >
+    </bean>  
+
+    <bean class="com.sabmiller.services.EnableUserService" id="enableUserService" />
+	<!-- <bean id="asahiCreateB2BCustomerWizardHandler"
+		class="com.sabmiller.customersupportbackoffice.widgets.AsahiCreateB2BCustomerWizardHandler"
+		parent="defaultCreateCustomerWizardHandler">
+		<property name="asahiCsCreateB2BCustomerStrategy"
+			ref="asahiCsCreateB2BCustomerStrategy" />
+		<property name="notificationStack" ref="notificationStack" />
+		<property name="userService" ref="userService" />
+	</bean>
+	Changed Strategy for CustomerSupport Roles to create B2BCustomer instead 
+		of Customer
+	<bean name="asahiCsCreateB2BCustomerStrategy"
+		parent="defaultCsCreateCustomerStrategy"
+		class="com.sabmiller.customersupportbackoffice.strategies.impl.AsahiCsCreateB2BCustomerStrategy">
+		<property name="secureTokenService" ref="secureTokenService" />
+		<property name="timeService" ref="timeService" />
+		<property name="csFormInitialsFactory"
+			ref="csFormInitialsFactory" />
+	</bean>
+	<bean id="b2bcustomerForm" factory-bean="csFormInitialsFactory"
+		factory-method="getB2BCustomerForm" scope="prototype" />
+	<alias name="asahiCsFormInitialsFactory"
+		alias="csFormInitialsFactory" />
+	<bean id="asahiCsFormInitialsFactory"
+		parent="defaultCsFormInitialsFactory"
+		class="com.sabmiller.customersupportbackoffice.widgets.AsahiCsFormInitialsFactory">
+	</bean> -->
+
+	<!-- APB specific -->
+</beans>

@@ -1,0 +1,7 @@
+<%@ page trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
+<%@ taglib prefix="cms" uri="http://hybris.com/tld/cmstags" %>
+
+
+<div class="copyright">${notice}</div>

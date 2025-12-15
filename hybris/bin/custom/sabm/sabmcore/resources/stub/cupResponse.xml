@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<n0:CustomerUnitPricingResponse xmlns:n0="urn:gl.sabmiller.com:com:ecc:mastdata" xmlns:prx="urn:sap.com:proxy:EP7:/1SAI/TAS28D24D0B28995612CB5E:701:2013/05/24">
+    <CustomerUnitPricingResponseHeader>
+      <SalesOrganisation>7001</SalesOrganisation>
+      <CustomerID>0000919494</CustomerID>
+   </CustomerUnitPricingResponseHeader>
+   <CustomerUnitPricingDiscountResponse>
+      <MaterialID>000000000000091768</MaterialID>
+      <SaleUnit>1</SaleUnit>
+      <UnitOfMeasure>CAS</UnitOfMeasure>
+      <Unit>AUD</Unit>
+      <UnitOfMeasure2 />
+      <CustomerUnitPricingResponseItem>
+         <BasePrice>62.78</BasePrice>
+         <CustUnitPrice>44.80</CustUnitPrice>
+         <ValidFrom>2021-07-08</ValidFrom>
+         <ValidTo>2021-07-31</ValidTo>
+      </CustomerUnitPricingResponseItem>
+   </CustomerUnitPricingDiscountResponse>
+</n0:CustomerUnitPricingResponse>

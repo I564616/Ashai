@@ -1,0 +1,177 @@
+## messageSource=classpath:/sabmcore/messages/email-dealNotification_$lang.properties
+#macro( genHtmlBoldFont $text )
+<font color="#414a4f" size="2" face="Arial, Helvetica, sans-serif"><b>$text</b></font>
+#end
+#macro(genHtmlLinkStartTag $url)
+	<a href="$url" style="color:#002f5f">
+#end
+#macro(genHtmlLinkEndTag)
+	</a>
+#end
+#macro(genHtmlLink $url $textColor $bodyContent)
+<a href="$url"><font color="$textColor">$bodyContent</font></a>
+#end
+
+#macro(long_date $theDate)
+$date.setTime($theDate)##
+$date.format("dd/MM/yyyy",$date,$date.getLocale(),$date.getTimeZone().getTimeZone("UTC"))##
+#end
+
+<html>
+    <head>
+        <style>
+            td {
+                font-family: 'Helvetica Neue, Helvetica, Arial, sans-serif';
+            }
+        </style>
+    </head>
+    <body style="font-family: sans-serif; color: #666666; font-weight: normal; font-size: 14px;" bgcolor="#ffffff">
+        <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#ffffff">
+            <tr>
+                <td align="center" valign="top" bgcolor="#ffffff">
+                    <table width="610" border="0" align="center" cellpadding="0" cellspacing="0" bordercolor="#fff">
+                        <tbody>
+                        <tr>
+                            <td colspan="2" valign="middle" bgcolor="#002f5f" height="92" style="padding-left: 10px;">${ctx.cmsSlotContents.SiteLogo}</td>
+                        </tr>
+                        <tr>
+                            <td valign="middle">&nbsp;</td>
+                        </tr>
+                        <tr><td>&nbsp;</td></tr>
+                        <tr>
+                            <td colspan="2" align="left" valign="top">
+                                <p><b><font color="#002f5f" size="5" face="Arial, Helvetica, sans-serif">${ctx.messages.getMessage('emailMessageTitle')}</font></b></p>
+                            </td>
+                        </tr>
+                        <tr><td>&nbsp;</td></tr>
+                        <tr>
+                            <td align="left">
+                                <p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.getMessage('salutation',${ctx.customerData.firstName})}</font></p>
+                            </td>
+                        </tr>
+                         <tr>
+                             <td align="left" width="70%">
+                                <p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.getMessage('emailMessageParagraph1')}</font></p>
+                             </td>
+                             <td width="30%" align="center" valign="middle" bgcolor="#002f5f" height="40">
+                                <a href="${ctx.secureBaseUrl}/deals" style="text-decoration: none;"><font color="#ffffff" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.getMessage('goToCubOnline')}</font></a>
+                            </td>
+                         </tr>
+                         <tr>
+                              <td align="left" width="70%">
+                                 <p style="padding-right: 25%;"><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.getMessage('emailMessageParagraph2')}</font></p>
+                              </td>
+                          </tr>
+                        <tr><td>&nbsp;</td></tr>
+                        <tr>
+                            <td colspan="2">
+                                <table cellpadding="0">
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="2">
+                                                <hr />
+                                            </td>
+                                        </tr>
+                                    #foreach($entry in ${ctx.deals})
+                                        <tr>
+                                            <td style="padding-top:10px; padding-right:10px; padding-bottom:10px; padding-top:10px; width: 50px">
+                                                <img src="$entry.imageUrl" width="75" height="75" alt="product-image" title="product-image" />
+                                            </td>
+                                            <td align="left">
+                                                <p style="margin: 10px 0;"><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">$entry.title</font></p>
+                                                <p style="margin: 10px 0;"><b>
+                                                #if($entry.daysRemain > 1)
+                                                    #if($entry.daysRemain <= 7)
+                                                        <font color="#f00d2d" size="2" face="Arial, Helvetica, sans-serif">
+                                                    #end
+                                                    #if($entry.daysRemain > 7)
+                                                        <font color="#666666" size="2" face="Arial, Helvetica, sans-serif">
+                                                    #end
+                                                    ${ctx.messages.getMessage('text.deals.expires.in.days',$entry.daysRemain)} &nbsp;</font></b>
+                                                #end
+                                                #if($entry.daysRemain <= 1)
+                                                    <font color="#f00d2d" size="2" face="Arial, Helvetica, sans-serif">
+                                                    ${ctx.messages.getMessage('text.deals.expires.in.day',$entry.daysRemain)} &nbsp;</font></b>
+                                                #end
+                                                <font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.getMessage('text.deals.valid.from', $entry.validFrom,$entry.validTo)}</font>
+                                                </p>
+                                                <table>
+                                                    <tbody>
+                                                        <tr>
+                                                            #if($entry.lastChance)
+                                                            <td>
+                                                                <a href="#" style="text-decoration: none;">
+                                                                    <img src="${ctx.lastChanceDealUrl}" alt="Last Chance" title="Last Chance"/>
+                                                                </a>
+                                                            </td>
+                                                            <td style="padding: 0">&nbsp;</td>
+                                                            #end
+                                                            #if($entry.limitedOffer)
+                                                            <td bgcolor="517eab">
+                                                                <a href="#" style="text-decoration: none;">
+                                                                    <img src="${ctx.limitedOfferDealUrl}" alt="Limited Offer" title="Limited Offer"/>
+                                                                </a>
+                                                            </td>
+                                                            <td style="padding: 0">&nbsp;</td>
+                                                            #end
+                                                            #if($entry.onlineOnly)
+                                                            <td>
+                                                                <a href="#" style="text-decoration: none;">
+                                                                    <img src="${ctx.onlineOnlyDealUrl}" alt="Online Only" title="Online Only"/>
+                                                                </a>
+                                                            </td>
+                                                            <td style="padding: 0">&nbsp;</td>
+                                                            #end
+                                                            #if($entry.active)
+                                                            <td>
+                                                                <a href="#" style="text-decoration: none;">
+                                                                    <img src="${ctx.agreedInstoreDealUrl}" alt="Agreed Instore" title="Agreed Instore"/>
+                                                                </a>
+                                                            </td>
+                                                            #end
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <hr />
+                                            </td>
+                                        </tr>
+                                    #end
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr><td>&nbsp;</td></tr>
+                        <tr>
+                            <td width="70%" align="left" valign="top">
+                                <b><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.unsubscribeQuestion}</font></b>
+                            </td>
+                            <td width="30%" align="center" valign="middle" bgcolor="#002f5f" height="40">
+                                <a href="${ctx.secureBaseUrl}/deals" style="text-decoration: none;"><font color="#ffffff" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.getMessage('goToCubOnline')}</font></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="left" valign="top">
+                                <a href="${ctx.secureBaseUrl}/your-notifications" style="line-height: 18px;">
+                                    <font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.manageNotificationsLink}</font>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr><td colspan="2">&nbsp;</td></tr>
+                        <tr><td colspan="2">&nbsp;</td></tr>
+                        <tr><td colspan="2">&nbsp;</td></tr>
+                        <tr>
+                            <td colspan="2" align="left" valign="middle" bgcolor="#f5f5f5" height="92" style="font-family: Helvetica Neue, Helvetica, Arial, sans-serif; color: #666666; font-weight: bold; font-size: 12px; padding-left: 15px;">
+                            	&copy; Carlton &amp; United Breweries
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

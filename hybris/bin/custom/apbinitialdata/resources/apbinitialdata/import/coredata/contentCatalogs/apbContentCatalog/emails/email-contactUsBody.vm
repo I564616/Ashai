@@ -1,0 +1,132 @@
+## messageSource=classpath:/sabmcore/messages/email-contactUs_$lang.properties
+#macro(genHtmlLinkStartTag $url)
+<a href="$url"><font color="#666666">
+#end
+#macro(genHtmlLinkEndTag)
+</font></a>
+#end
+#macro(genHtmlLink $url $textColor $bodyContent)
+<a href="$url"><font color="$textColor">$bodyContent</font></a>
+#end
+<html>
+	<head>	
+	</head>
+	<body bgcolor="#ffffff">
+	<table width="50%" cellpadding="0" cellspacing="0" align="center" bgcolor="#ffffff">
+		<tr>
+		 <td style="border:1px solid #EBEBEB;display:inline-table">
+			<table cellpadding="0" cellspacing="0" border="0" style="min-width:320px;display:inline-table"" align="center" bgcolor="#ffffff">
+				<tr>
+					<td align="left" colspan="6">
+						<a href="${ctx.baseUrl}" style="padding: 0px 0px 0px 0px;display:inline-block;margin:0 auto;">
+						    ${ctx.cmsSlotContents.TopContent}
+						</a>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="6" valign="middle" style="font-weight:bold;font-family: Helvetica;color: #42515a;font-size: 18px;padding: 20px 30px 0px 30px;">
+						${ctx.messages.contactusheading}						
+						<!-- <table width="6%" cellpadding="0" cellspacing="0" border="0" valign="10px" >
+							<tr>
+								<td style="width: 10px;margin-top: 5px;border-bottom: 3px solid #42515a;padding:4px"> 							
+								</td>
+							</tr>
+						</table> -->
+					</td>
+				</tr> 
+				 
+				<tr>
+					<td colspan="6" style="font-size: 15px;font-family: Helvetica;padding: 20px 30px 0px 30px;color: #42515a">
+							${ctx.messages.contactuscontent}
+							<br>
+					</td>
+				</tr>	
+				<tr>
+					<td  style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 30px 0px 30px;">
+							<b>${ctx.messages.contactuscustomerservice}</b><br>
+							${ctx.messages.contactuscustomerservicephoneno}
+					</td>	
+					<td  style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 30px 0px 30px;">
+							<b>${ctx.messages.contactussupport}</b><br>
+							${ctx.messages.contactussupportphoneno}
+					</td>
+				</tr>
+				 
+				<tr>
+					<td colspan="6" width="100%" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 36px 30px 0px 30px;">
+						<b>${ctx.messages.contactusyourmessage}<br><br></b>
+						 <table width="100%" style="padding:8px 5px 8px 5px;" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #EBEBEB;" align="center" bgcolor="#ffffff">
+						 	<tr>
+						 		<tr>
+									<td colspan="6" style="font-size: 15px;font-family: Helvetica;padding: 5px 0px 5px 10px;color: #42515a">
+											<b>${ctx.messages.contactussubject}</b><br>										 
+											
+											 #if ( ${ctx.apbContactUsData.subjectOther}=='NA' )
+													#set ( $subject = ${ctx.apbContactUsData.subject} )
+												#else
+												   #if (${ctx.apbContactUsData.subject} == 'Other')
+												     #set ($subject = ${ctx.apbContactUsData.subjectOther})
+												   #else
+													 #set ( $subject = ${ctx.apbContactUsData.subject} )
+												#end
+											 #end
+												$subject
+												 
+											<br><br>
+											<b>${ctx.messages.contactuusmessage}</b><br>
+											${ctx.apbContactUsData.furtherDetail}
+									</td>
+								</tr>											
+						 	</tr>
+						 </table>
+					</td>					 
+				</tr>
+				 
+				<tr>
+					<td colspan="6" width="100%" style="font-weight: bold;color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 36px 30px 0px 30px;">
+							${ctx.messages.contactuscompanyinformation} 
+					</td>	
+				</tr>
+				
+				<tr>
+					<td colspan="6" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 30px 0px 30px;">
+							 ${ctx.messages.contactusaccountnumber} ${ctx.apbContactUsData.accountNumber}
+							 <br>
+							 ${ctx.messages.contactuscompanyname}  ${ctx.apbContactUsData.companyName}
+					</td>	
+				</tr>
+				<tr>
+					<td colspan="6" width="100%" style="font-weight: bold;color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 36px 30px 0px 30px;">
+							${ctx.messages.contactuscontactdetails} 
+					</td>	
+				</tr>
+				
+				<tr>
+					<td colspan="6" width="100%" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 30px 15px 30px;">
+							 ${ctx.messages.contactusname}  ${ctx.apbContactUsData.name}
+							 <br>
+							 ${ctx.messages.contactusemail}  ${ctx.apbContactUsData.emailAddress}
+							 <br>
+							 ${ctx.messages.contactusphone}  ${ctx.apbContactUsData.contactNumber}
+					</td>	
+				</tr>
+				
+				<tr>
+					<td colspan="5" align="left" valign="middle" style="font-family: Helvetica;color: #42515a;font-size: 15px;padding: 0px 30px 20px 30px;">
+					 ${ctx.messages.contactuswiththanks}<br>
+                  ${ctx.messages.contactusapbcustomerteam}		
+					</td>
+				</tr>		
+			<tr>
+				<td colspan="6">
+					<a href="${ctx.baseUrl}" style="padding: 0px 0px 0px 0px;">
+						${ctx.cmsSlotContents.BottomContent}
+				</a>
+				</td>
+			</tr>
+			</table>
+		</td>
+	  </tr>
+	</table>				 
+</body>
+</html>

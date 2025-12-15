@@ -1,0 +1,171 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#
+# Import Two Sample B2B Organizations
+#
+# Language
+$lang=en
+
+INSERT_UPDATE ItemGroups ; code[unique=true] ; name              
+                         ; FG01              ; Beer              
+                         ; FG04              ; Wine And Spirit   
+                         ; FG02              ; RTD               
+                         ; FG03              ; Contract Packaging
+                         ; FG13              ; Private Label     
+                         ; FG15              ; "CSD's"           
+                         ; FG16              ; Non Carbonates    
+                         ; FG18              ; Other             
+                         ; FG16              ; Non Carbonates    
+                         ; FG15              ; CSD's             
+                         ; FG18              ; Other             
+                         
+INSERT_UPDATE AlcoholType ; code[unique=true] ; name         
+                          ; 1                 ; Beer         
+                          ; 2                 ; Bourbon      
+                          ; 3                 ; Gin          
+                          ; 22                ; Whiskey      
+                          ; 7                 ; Tequila      
+                          ; 8                 ; Vodka        
+                          ; 20                ; Malt Whiskey 
+                          ; 4                 ; Rum          
+                          ; 6                 ; Scotch       
+                          ; 19                ; Cider        
+                          ; 9                 ; White Wine   
+                          ; 10                ; Non Alcoholic
+INSERT_UPDATE PackageType ; code[unique=true] ; name                  
+                          ; 28                ; FG Keg                
+                          ; 6                 ; FG Spirit Bottle      
+                          ; 3                 ; FG Bottle             
+                          ; 1                 ; FG Can                
+                          ; 35                ; FG Keg 50L            
+                          ; 25                ; FG 20 Litre drum      
+                          ; 2                 ; FG Slim Can           
+                          ; 5                 ; FG Shot               
+                          ; 31                ; Non Alc Can           
+                          ; 33                ; Non Alc Bag In Box    
+                          ; 32                ; Non Alc Plastic Bottle
+                          ; 30                ; Non Alc Glass Bottle  
+                          ; 16                ; RM Other              
+
+INSERT_UPDATE Flavour ; code[unique=true]     ; name                   
+                      ; 55                    ; LAGER                  
+                      ; 15                    ; BOURBON                
+                      ; 141                   ; LIGHT                  
+                      ; 463                   ; Canadian Spiced Whiskey
+                      ; 464                   ; Tequila                
+                      ; 98                    ; VODKA                  
+                      ; 202                   ; PILSNER                
+                      ; 81                    ; RASPBERRY              
+                      ; 57                    ; "LEMON & LIME"
+                      ; 72                    ; PASSIONFRUIT           
+                      ; 33                    ; CS COWBOY              
+                      ; 25                    ; CHOCOLATE              
+                      ; 246                   ; COFFEE                 
+                      ; 198                   ; "WHISKEY & DRY"          
+                      ; 221                   ; WHISKY                 
+                      ; 211                   ; COLA 6%                
+                      ; 215                   ; GINGER                 
+                      ; 129                   ; COLA 4.8%              
+                      ; 36                    ; DRY                    
+                      ; 200                   ; DRAUGHT                
+                      ; 172                   ; PALE ALE               
+                      ; 292                   ; IPA                    
+                      ; 289                   ; ALE                    
+                      ; 159                   ; "COLA 3.5%"             
+                      ; 154                   ; BLONDE                 
+                      ; 138                   ; GOLD                   
+                      ; 118                   ; AMBER ALE              
+                      ; 290                   ; DRY                    
+                      ; 195                   ; BLACKBERRY             
+                      ; 260                   ; CITRUS                 
+                      ; 120                   ; "LEMON LIME & BITTERS"   
+                      ; 156                   ; MIXED BERRY            
+                      ; 318                   ; POMEGRANATE            
+                      ; 73                    ; PEACH                  
+                      ; 197                   ; MIX FLAVOURS           
+                      ; 44                    ; GUAVA                  
+                      ; 261                   ; WATERMELON             
+                      ; 76                    ; PINEAPPLE              
+                      ; 67                    ; ORANGE                 
+                      ; 56                    ; LEMON                  
+                      ; 259                   ; BERRY                  
+                      ; 90                    ; STRAWBERRY             
+                      ; 168                   ; POM POM                
+                      ; 114                   ; GREEN APPLE            
+                      ; 169                   ; GREEN 6.5%             
+                      ; 133                   ; "COLA 8.0%"              
+                      ; 164                   ; "COLA 10%"               
+                      ; 203                   ; "COLA 12%"               
+                      ; 132                   ; "COLA 8%"                
+                      ; 462                   ; EASY ROLLER            
+                      ; 39                    ; GIN                    
+                      ; 5                     ; BITTER                 
+                      ; 19                    ; BUTTERSCOTCH           
+                      ; 62                    ; MELON                  
+                      ; 125                   ; COCONUT                
+                      ; 327                   ; PEAR                   
+                      ; 459                   ; PINK LADY              
+                      ; 460                   ; ROYAL GALA             
+                      ; 105                   ; APPLE                  
+                      ; 325                   ; "APPLE & PEAR"           
+                      ; 465                   ; CLOUDY APPLE           
+                      ; 244                   ; LEMONADE               
+                      ; 412                   ; COLA                   
+                      ; 58                    ; LIME                   
+                      ; 425                   ; LEMONADE SUGAR FREE    
+                      ; 99                    ; CIT LEMON GRASS        
+                      ; 100                   ; "DRY ORANGE & GINGER"    
+                      ; 174                   ; MOJITO                 
+                      ; 214                   ; COSMOPOLITAN           
+                      ; 324                   ; MARGARITA              
+                      ; 437                   ; SPARKLING              
+                      ; 428                   ; NATURAL                
+                      ; 427                   ; MINERAL                
+                      ; 429                   ; "ORANGE & MANGO"         
+                      ; 401                   ; AGRUM                  
+                      ; 408                   ; BLOOD ORANGE           
+                      ; 413                   ; DIET DRY GINGER ALE    
+                      ; 422                   ; INDIAN TONIC WATER     
+                      ; 406                   ; BITTER LEMON           
+                      ; 417                   ; GINGER ALE             
+                      ; 415                   ; DRY GINGER ALE         
+                      ; 423                   ; LEMON LIME AND BITTERS 
+                      ; 436                   ; SODA WATER             
+                      ; 256                   ; TONIC                  
+                      ; 442                   ; TONIC WATER            
+                      ; 434                   ; RED CREAMING SODA      
+                      ; 411                   ; BROWN CREAMY SODA      
+                      ; 418                   ; GINGER BEER            
+                      ; 435                   ; SARSAPARILLA           
+                      ; 402                   ; "APPLE & BLACKCURRANT"   
+                      ; 206                   ; WILD BERRY             
+                      ; 410                   ; BREKKY WITH VITS ACE   
+                      ; 439                   ; SPRING WATER           
+                      ; 438                   ; SPRING                 
+                      ; 444                   ; WATER                  
+                      ; 449                   ; PINK LEMONADE          
+                      ; 95                    ; VANILLA                
+                      ; 432                   ; PASSIONA               
+                      ; 405                   ; "BANANA & MANGO"         
+                      ; 441                   ; TOMATO                 
+                      ; 31                    ; CRANBERRY              
+                      ; 419                   ; "GOJI & WILD BERRY"      
+                      ; 440                   ; TAHITIAN LIME          
+                      ; 409                   ; BLUE BOLT              
+                      ; 94                    ; TROPICAL               
+                      ; 420                   ; GRAPE                  
+                      ; 431                   ; ORANGE ICE             
+                      ; 446                   ; BERRY CHILL            
+                      ; 61                    ; MANGO                  
+                      ; 455                   ; TUTTI FRUITT           
+                      ; 184                   ; SPIRULINA              
+
+

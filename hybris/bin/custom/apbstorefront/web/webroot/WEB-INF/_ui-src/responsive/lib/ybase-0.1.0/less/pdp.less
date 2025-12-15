@@ -1,0 +1,300 @@
+.image-gallery__image{
+	cursor: pointer;
+}
+
+.image-gallery__zoom-icon{
+	font-size: 20px;
+	opacity: 0.5;
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	z-index: 10;
+}
+
+.page-productDetails {
+  .carousel {
+	@media (min-width: @screen-sm){
+	  padding-left: 30px;
+	}
+  }
+}
+
+#product-suggestions-component {
+    padding: 0;
+}
+
+#product-suggestions-headline {
+    font-size: 14px;
+    text-transform: uppercase;
+    color: @text-color-secondary;
+    margin-bottom: 10px;
+    
+    @media (min-width: @screen-md){
+	  margin-left: 20px;
+	}
+    
+    @media (max-width: @screen-sm-max){
+	  margin-left: 10px;
+	}
+}
+
+.PDPhrTag {
+    margin-top: 0px;
+}
+
+.paddingForPDP {
+    padding-top: 20px;
+}
+
+.product-details,
+.product-details-price{
+  margin-bottom: 10px;
+
+  @media (max-width: @screen-xs-max){
+	padding: 0;
+  }
+
+  .name {
+    .page-headline();
+    font-size: 18px;
+    padding: 0;
+    text-transform: capitalize;
+
+    .sku{
+        font-size: 18px;
+        line-height: 18px;
+        color: @text-color-secondary;
+        position: relative;
+        padding-left: 20px;
+        font-weight: 400;
+
+        &:before {
+            border-left: 1px solid @border-color-2;
+            content: "";
+            height: 14px;
+            position: absolute;
+            top: 7px;
+            left: 10px;
+        }
+    }
+
+    .code {
+        font-size: 18px;
+        line-height: 18px;
+        padding-left: 5px;
+    }
+  }
+
+  .promotion {
+      color: @item-promo-color;
+  }
+
+  .description{
+      padding: (@grid-gutter-width/2) 0 25px;
+  }
+
+  .price{
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      margin-left: -10px;
+  }
+
+  .stock-status{
+      font-weight: 300;
+  }
+}
+
+@media (max-width: @screen-md-max) {
+	.product-details,
+	.product-details-price {
+		.description{
+			border-bottom: 1px solid @border-color-3;
+		}
+	}
+}
+
+.product-details.page-title {
+  .full-width-padding();
+}
+
+.product-main-info {
+ 	.full-width-padding();
+
+  .product-details {
+	padding: 0;
+  }
+ 
+    @media (max-width: @screen-md) {
+        padding-left: 10px;
+    }
+  
+}
+
+.tabs-responsive{
+
+  .tab-container {
+	float: none;
+	padding: 0;
+  }
+
+	@media (max-width: @screen-sm-max) {
+		.tabhead{
+			border-bottom: 1px solid @grayblue;
+			
+		}
+
+	}
+}
+
+.tab-review{
+	.review-pagination-bar{
+		margin: (@grid-gutter-width/2) 0;
+		.clearfix;
+		.right{
+			float: right;
+			.pager{
+				float: left;
+				margin: 0 (@grid-gutter-width/2);
+			}
+
+		}
+	}
+
+
+	.review-list{
+		.list-unstyled;
+		.review-entry{
+			margin: (@grid-gutter-width/2) 0;
+
+			.title{
+				font-weight:bold;
+			}
+
+			.content{
+				
+			}
+
+			.autor{
+				
+				color:@gray-light;
+
+			}
+
+			.date{
+			
+			}
+
+		}
+	}
+
+
+	.write-review{
+		display: none;
+	}
+}
+
+#AddToCart-PickUpInStoreAction{
+	.make-sm-column(6);
+	.make-md-column(12);
+	margin-top: 20px;
+}
+.AddToCart-PickUpInStoreAction {
+    margin-top: @grid-gutter-width/2;
+}
+
+.AddToCart-ShareOnSocialNetworkAction {
+	margin-top: @grid-gutter-width;
+	visibility:hidden;
+}
+
+
+#AddToCart-AddToCartAction{
+	.make-sm-column(6);
+	.make-md-column(12);
+	margin-top: 20px;
+}
+
+
+#AddToCart-ShareOnSocialNetworkAction{
+	.make-xs-column(12);
+	margin-top: 30px;
+}
+
+button#addToCartButton {
+    width: 65px;
+    margin-left: 10px;
+}
+
+.remove_margin {
+    margin-bottom: 0px;
+}
+
+.price_exclude {
+    margin-left: -10px;
+    margin-bottom: 25px;
+}
+
+.PDP-add-to-cart {
+    margin-left: 5px;
+}
+.image-gallery{
+    .pdp-imageThumbnail-col{
+        width:146px;
+        float: left;
+        @media (max-width: @screen-sm-max){
+            width:25%;
+        }
+    }
+    .pdp-image-col{
+        width:350px;
+        float: left;
+        @media (max-width: @screen-sm-max){
+            width:58%;
+        }
+        @media (max-width: @screen-xs-max){
+            width:100%;
+        }
+    }
+    
+}
+.pdpProductDetailTbl{
+    border: 0;
+}
+.productDescriptionText{
+    table{
+        border:0;
+        vertical-align:top;
+    }
+	
+	tr {		
+		@media (max-width: @screen-xs-max) {
+			display: grid;
+			word-wrap: break-word;
+			grid-template-columns: 35% 65%;
+		}
+		
+		@media (min-width: @screen-md) {
+			display: grid;
+			word-wrap: break-word;
+			grid-template-columns: 25% auto 25% 25%;
+		}
+	}
+    td{
+        padding:10px;
+        @media (max-width: @screen-xs-max){
+            padding-left:0px;
+        }
+        
+    }
+}
+
+.pdp-name-and-details {
+	font-size: 18px;
+}
+
+.cart-remove-box {
+    @media (max-width: @screen-xs-max){
+        margin-top: 15px;
+    }
+}

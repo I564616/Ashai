@@ -1,0 +1,11 @@
+#Ant properties
+#Tue Sep 15 23:06:29 CEST 2015
+builddate=20150915 2306
+description=sabminitialdata
+group.id=de.hybris.platform
+module.name=platform-module
+name=sabminitialdata
+releasedate=20150915 1444
+vendor=hybris
+version=5.7.0.0-SNAPSHOT
+version.api=5.7.0

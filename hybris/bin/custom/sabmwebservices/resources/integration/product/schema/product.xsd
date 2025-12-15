@@ -1,0 +1,15 @@
+<xsd:schema targetNamespace="urn:gl.sabmiller.com:3rdp:masterdata"
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:gl.sabmiller.com:3rdp:masterdata"
+			xmlns:p8="http://sap.com/xi/APPL">
+			<xsd:import namespace="http://sap.com/xi/APPL" schemaLocation="appl.xsd"/>
+			<xsd:element name="MaterialERPReplicationBulkRequest"
+				type="MatlERPRplctnReqMsg" />
+			<xsd:complexType name="MatlERPRplctnReqMsg">
+				<xsd:sequence>
+					<xsd:element name="MessageHeader" type="p8:BusinessDocumentMessageHeader" />
+					<xsd:element name="Material" type="p8:MatlERPRplctnReqMsgMatl"
+						maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:complexType>
+		</xsd:schema>
+		

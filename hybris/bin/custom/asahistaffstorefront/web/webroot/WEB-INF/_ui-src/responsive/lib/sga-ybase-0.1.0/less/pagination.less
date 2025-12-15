@@ -1,0 +1,176 @@
+//
+// Pagination (multiple pages)
+// --------------------------------------------------
+
+
+.pagination-wrap {
+	text-align: center;
+}
+
+.pagination {
+    .footable-page-arrow:first-child,
+    .footable-page-arrow:last-child {
+        display: none;
+    }
+
+	border: @pagination-border-width solid @pagination-border;
+	font-weight: @pagination-font-weight;
+	margin: 0;
+
+	> li {
+		vertical-align: top;
+		display: inline-block;
+
+		> a,
+		> span {
+			position: static;
+			border: none;
+			margin: 0;
+			float: none;
+			display: inline-block;
+			font-weight: 400;
+    		font-style: normal;
+			font-size: 16px;
+		}
+
+		&.pagination-prev,
+		&.pagination-next,
+		&.footable-page-arrow{
+			> a, > span {
+				font-size: 11px;
+                /*Changes for ACP-177*/
+                background-color: @btn-tertiary-bg;
+                color: @pagination-prev-next-hover-color;
+				&:hover,
+				&:focus {
+                    background-color: @btn-tertiary-hover-background;
+					color: @pagination-prev-next-hover-color;
+				}
+			}
+			&.disabled {
+				> a, > span {
+					background-color: @pagination-disabled-color;
+					
+					&:hover,
+					&:focus {
+						color: @pagination-prev-next-hover-color;
+						background-color: @pagination-disabled-color;
+						border-color: @pagination-border;
+					}
+				}
+			}
+		}
+
+		&.pagination-prev {
+			float: left;
+			> a, > span {
+				border-right: @pagination-border-width solid @pagination-border;
+			}
+		}
+		&.pagination-next {
+			float: right;
+			> a, > span {
+				border-left: @pagination-border-width solid @pagination-border;
+			}
+		}
+
+		&.footable-page-arrow{
+		    a{
+		        font-size:0;
+
+		        &:before{
+		            .glyphicon;
+		             font-size:11px;
+		             vertical-align:middle;
+		        }
+
+		        &[data-page="prev"]{
+		            .glyphicon-chevron-left;
+		        }
+
+		        &[data-page="next"]{
+		            .glyphicon-chevron-right;
+		        }
+		    }
+		}
+
+		&.footable-page-arrow a[data-page="prev"]{
+        	margin-left:-1px;
+        	border-left: @pagination-border-width solid @pagination-border;
+        }
+
+		&.footable-page-arrow a[data-page="next"]{
+		    margin-left:-1px;
+		    border-left: @pagination-border-width solid @pagination-border;
+		}
+	}
+
+	> .active > a,
+	> .active > span {
+		&,
+		&:hover,
+		&:focus {
+			background-color: transparent;
+			border: none;
+			color: @text-color;
+			font-weight: @pagination-active-font-weight;
+		}
+	}
+
+	.pagination-size(@pagination-height-base; @pagination-width-base; @pagination-font-size; @grid-gutter-width/4);
+}
+
+@media (max-width: @screen-sm-max) {
+	@button-height: floor((@padding-large-vertical * 2) + (@btn-font-size * @btn-line-height) + (@btn-border-width * 2));
+	.pagination {
+		.pagination-size((@button-height - (@pagination-border-width * 2)); @pagination-width-base; @pagination-font-size; @grid-gutter-width/2);
+	}
+}
+
+@media (max-width: @screen-xs-max) {
+	.pagination {
+		> li {
+			> a,
+			> span {
+				float: none;
+			}
+		}
+		.pagination-size(@pagination-height-large; @pagination-width-large; @pagination-font-size; @grid-gutter-width);
+	}
+
+  .pagination-with-pager .pagination-wrap {
+    float: none;
+  }
+}
+
+
+// Pagination size
+.pagination-size(@pagination-height; @pagination-width; @font-size; @next-prev-offset) {
+	> li {
+		> a,
+		> span {
+			line-height: 40px;
+			width: 40px;
+			padding: 0;
+			font-size: @font-size;
+			text-align: center;
+		}
+		&.pagination-prev {
+			> a,
+			> span {
+				margin-right: @pagination-width/3;
+				width: 40px;
+				.border-left-radius(0);
+			}
+		}
+
+		&.pagination-next {
+			> a,
+			> span {
+				margin-left: @pagination-width/3;
+				width: 40px;
+				.border-right-radius(0);
+			}
+	  	}
+	}
+}

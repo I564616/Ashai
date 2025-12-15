@@ -1,0 +1,4 @@
+$defaultLanguage=en
+
+INSERT_UPDATE Unit;unitType[unique=true];code[unique=true];name[lang=en];pluralName[lang=en]
+;bib;BIB;Bib;Bibs

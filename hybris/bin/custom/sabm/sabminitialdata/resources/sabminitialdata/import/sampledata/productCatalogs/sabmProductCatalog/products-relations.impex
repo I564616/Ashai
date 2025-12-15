@@ -1,0 +1,16 @@
+# ImpEx for Related Products
+
+# Macros / Replacement Parameter definitions
+$productCatalog=sabmProductCatalog
+$productCatalogName=SABMiller Product Catalog
+
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+
+# Insert Product References
+INSERT_UPDATE ProductReference;source(code,$catalogVersion)[unique=true];target(code,$catalogVersion)[unique=true];referenceType(code);active[default=true];preselected[default=false]
+# Insert ProductReference for SAB-350 by yuxiao.wang
+;eanVariant02_5;eanVariant01;CROSSELLING
+;eanVariant02_6;eanVariant02_10;CROSSELLING
+;eanVariant02_7;eanVariant02_11;CROSSELLING
+;eanVariant02_8;eanVariant02_12;CROSSELLING
+;eanVariant02_9;eanVariant02_13;CROSSELLING

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="urn:gl.sabmiller.com:com:ecc:mastdata"
+			xmlns="urn:gl.sabmiller.com:com:ecc:mastdata" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+>
+	<xsd:element name="CustomerUnitPricingResponse" type="CustomerUnitPricingResponse" />
+	<xsd:complexType name="CustomerUnitPricingResponse">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="EN">Data type for customer
+				unit pricing Response
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="CustomerUnitPricingDiscountResponse" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="MaterialID" type="xsd:string" />
+						<xsd:element name="SaleUnit" type="xsd:string" />
+						<xsd:element name="UnitOfMeasure" type="xsd:string" />
+						<xsd:element name="Unit" type="xsd:string" />
+						<xsd:element name="UnitOfMeasure2" type="xsd:string" />
+						<xsd:element name="CustomerUnitPricingResponseItem" minOccurs="0">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="BasePrice" type="xsd:string" />
+									<xsd:element name="CustUnitPrice" type="xsd:string" />
+									<xsd:element name="ValidFrom" type="xsd:date" />
+									<xsd:element name="ValidTo" type="xsd:date" />
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="PricingDiscountConditionsItem" minOccurs="0" maxOccurs="unbounded">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="ConditionType" type="xsd:string" minOccurs="0" />
+									<xsd:element name="Amount" type="xsd:string" />
+									<xsd:element name="ValidFrom" type="xsd:date" />
+									<xsd:element name="ValidTo" type="xsd:date" />
+									<xsd:element name="CalcType" type="xsd:string" />
+									<xsd:element name="Priority" type="xsd:string" />
+									<xsd:element name="MinimumQuantity" type="xsd:string" />
+									<xsd:element name="MaxConditionValue" type="xsd:string" minOccurs="0" />
+									<xsd:element name="MaxNumberOfOrders" type="xsd:string" minOccurs="0" />
+									<xsd:element name="MaxConditionBaseValue" type="xsd:string" minOccurs="0" />
+									<xsd:element name="UsedConditionValue" type="xsd:string" minOccurs="0" />
+									<xsd:element name="UsedConditionBaseValue" type="xsd:string" minOccurs="0" />
+									<xsd:element name="UsedNumberOfOrders" type="xsd:string" minOccurs="0" />
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="CustomerUnitPricingResponseHeader">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="SalesOrganisation" type="xsd:string" />
+						<xsd:element name="CustomerID" type="xsd:string" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

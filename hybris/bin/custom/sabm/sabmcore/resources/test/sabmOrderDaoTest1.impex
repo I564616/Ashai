@@ -1,0 +1,14 @@
+
+#Test Sample B2B Admin User
+INSERT_UPDATE B2BCustomer;description;uid[unique=true];email;name;groups(uid);defaultB2BUnit(uid);permissionGroups(uid);sessionCurrency(isocode)[default='AUD'];primaryAdmin
+;Test User 1;user1@testsample123.com;user1@testsample123.com;User 1;b2badmingroup,Test Sample B2B Sydney;Test Sample B2B Sydney;;;true
+;Test User 2;user2@testsample123.com;user2@testsample123.com;User 2;b2badmingroup,Test Sample B2B Brisbane;Test Sample B2B Brisbane;;;true
+
+
+INSERT_UPDATE Order;code[unique=true];user(uid);date[dateformat=dd.MM.yyyy HH:mm];currency(isocode);status(code);unit(uid)
+;testOrder1;user1@testsample123.com;01.04.2011 15:10;AUD;CREATED;Test Sample B2B Sydney;
+;testOrder2;user1@testsample123.com;01.04.2013 15:10;AUD;PROCESSING;Test Sample B2B Sydney;
+;testOrder3;user1@testsample123.com;01.04.2014 15:10;AUD;CANCELLED;Test Sample B2B Sydney;
+;testOrder4;user1@testsample123.com;01.04.2011 15:10;AUD;DISPATCHED;Test Sample B2B Sydney;
+;testOrder5;user1@testsample123.com;01.04.2011 15:10;AUD;RETURNED;Test Sample B2B Sydney;
+;testOrder6;user2@testsample123.com;01.04.2014 15:10;AUD;CANCELLED;Test Sample B2B Brisbane;

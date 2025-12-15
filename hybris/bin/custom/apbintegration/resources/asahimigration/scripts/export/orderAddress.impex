@@ -1,0 +1,214 @@
+INSERT_UPDATE ScriptingJob	;code[unique=true]		;scriptURI
+							;orderaddressExportScriptJob	;model://orderaddressExportScript
+							
+INSERT_UPDATE CronJob	;code[unique=true]			;job(code)				;sessionLanguage(isocode)	;sessionUser(uid)
+						;orderaddressExportScriptCronJob	;orderaddressExportScriptJob	;en		;admin
+
+
+INSERT_UPDATE Script; code[unique=true];content;active[default=true, unique=true]
+;orderaddressExportScript;"
+import java.io.File;
+import java.io.FileWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
+import de.hybris.platform.core.model.order.OrderModel;
+import com.apb.core.model.CutOffDeliveryDateModel;
+
+import de.hybris.platform.core.model.user.AddressModel;
+import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
+import de.hybris.platform.servicelayer.search.FlexibleSearchService;
+import de.hybris.platform.servicelayer.search.SearchResult;
+import de.hybris.platform.util.CSVWriter;
+import com.google.common.base.Stopwatch;
+import de.hybris.platform.catalog.model.CatalogUnawareMediaModel;
+import com.google.common.base.Stopwatch;
+import org.apache.commons.collections.CollectionUtils;
+
+
+final Logger LOG = Logger.getLogger(""asahi"");
+
+def exportService = spring.getBean(""exportService"");
+SimpleDateFormat format = new SimpleDateFormat(""yyyy-MM-dd hh:mm:ss"");
+Calendar cal1 = Calendar.getInstance(); 
+cal1.set(2021, 7, 20)
+cal1.setTime(new Date()); 
+cal1.add(Calendar.MONTH, -18);
+Date d = cal1.getTime();
+String oldDate = format.format(d);
+
+final Map<String, Object> params = new HashMap<>();
+params.put(""creationTime1"", oldDate);
+
+Calendar cal2 = new GregorianCalendar();
+cal2.set(2021, 7, 20)
+cal2.set(Calendar.HOUR_OF_DAY, 0)
+cal2.set(Calendar.MINUTE, 0);
+cal2.set(Calendar.SECOND, 0);
+Date d1 = cal2.getTime();
+String currentDate = new SimpleDateFormat(""yyyy-MM-dd HH:mm:ss.SSS ZZZZ"").format(d1);
+params.put(""creationTime2"", currentDate);
+
+final Stopwatch stopwatch = Stopwatch.createUnstarted();
+stopwatch.start();
+
+final FlexibleSearchQuery query = new FlexibleSearchQuery(""select {a.pk} from {Address as a JOIN Order as b ON {a.owner}={b.pk}} where {b.creationtime}>= ?creationtime1 AND {b.creationtime}<= ?creationtime2"", params);
+final SearchResult<AddressModel> result = flexibleSearchService
+		.search(query);
+int count = result.getCount();
+println(""Total record count ######"" +count);
+LOG.info(""Total record count ######"" +count);
+
+int batch  = count > 10000 ? 10000 : count;
+int i = 0;
+ final File file =new File(""14-orderaddress-""+new SimpleDateFormat(""yyyyMMddHHmmssSSS"").format(new Date())+"".csv"");
+ FileWriter outputfile = new FileWriter(file);
+ CSVWriter writer = new CSVWriter(outputfile);	
+ char c = ',';
+ writer.setFieldseparator(c);
+ HashMap<Integer,String> line = new HashMap();
+ 
+ String header = ""pk,owner(Order.code),addressRecordid,\""addressType(code,itemtype(code))\"",appartment,billingAddress[allownull=true],building,cellphone,changeRequestAddress,company,companyCode,contactAddress[allownull=true],country(isocode),cutOffDeliveryDates(code),dateOfBirth[dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ],defaultAddress,deliveryCalendar,department,district,duplicate,eclDeliveryInstruction,eclDeliveryTimesLotto[dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ],eclDeliveryTimeslotFrom[dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ],eclDlvModeId,email,fax,firstname,\""gender(code,itemtype(code))\"",lastname,middlename,middlename2,phone1,phone2,pobox,postalcode,\""region(country(isocode),isocode)\"",removeRequestAddress,shippingAddress[allownull=true],streetname,streetnumber,title(code),town,unloadingAddress[allownull=true],visibleInAddressBook,\""creationtime[forceWrite=true,dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ]\"",\""modifiedtime[forceWrite=true,dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ]\"",original"";
+ final String[] columns = header.split("",(?=([^\""]*\""[^\""]*\"")*[^\""]*\$)"");
+ for (int k =0; k < columns.length ; k++) {
+	 line.put (Integer.valueOf(k), columns[k]);
+ }
+writer.write(line);
+		while (i < count)
+		{
+			query.setStart(i);
+			query.setCount(batch);
+			final SearchResult<AddressModel> result1 = flexibleSearchService
+					.search(query);
+	
+			List<AddressModel> addresses = result1.getResult();		
+	
+			if (addresses.size() > 0)
+				{								
+					LOG.info(""Last exported Address in batch is :"" + ( null != addresses.get(addresses.size()-1).getPk()  ? addresses.get(addresses.size()-1).getPk()  : StringUtils.EMPTY));
+
+					  	int j =1;
+						for(AddressModel address : addresses)
+						{
+							try {
+								line.put(Integer.valueOf(0), null != address.getPk() ? address.getPk().toString() : StringUtils.EMPTY);
+								if (address.getOwner() instanceof OrderModel) {
+									OrderModel order = (OrderModel)address.getOwner();
+									line.put(Integer.valueOf(1), order.getCode());
+								}
+								line.put(Integer.valueOf(2), address.getAddressRecordid());
+								line.put(Integer.valueOf(3), null != address.getAddressType() 
+										? address.getAddressType().getCode()+"":""+address.getAddressType().getType() : StringUtils.EMPTY);
+								line.put(Integer.valueOf(4), address.getAppartment());
+								line.put(Integer.valueOf(5), null != address.getBillingAddress() ? Boolean.toString(address.getBillingAddress()) : ""FALSE"");
+								line.put(Integer.valueOf(6), address.getBuilding());
+								line.put(Integer.valueOf(7), address.getCellphone());
+								line.put(Integer.valueOf(8), null != address.getChangeRequestAddress()
+										? String.valueOf(address.getChangeRequestAddress()) : ""0"");
+								String company=address.getCompany();
+								 if(null != company)
+								 {
+									 company = company.replace('\u2009','***');
+									
+								 }		
+								
+								line.put(Integer.valueOf(9), company);
+								line.put(Integer.valueOf(10), address.getCompanyCode());					
+								line.put(Integer.valueOf(11), null != address.getContactAddress() ? Boolean.toString(address.getContactAddress()) : ""FALSE"");
+								line.put(Integer.valueOf(12), null != address.getCountry() ? address.getCountry().getIsocode() : StringUtils.EMPTY);
+								StringBuilder builder = new StringBuilder();
+								for (CutOffDeliveryDateModel cutOff: address.getCutOffDeliveryDates()) {
+								    builder.append(cutOff.getCode()).append("","");
+								}
+								String cutOffdates = builder.toString();
+								cutOffdates = StringUtils.isNotBlank(cutOffdates) ? cutOffdates.substring(0, cutOffdates.length() - 1) : StringUtils.EMPTY; 
+								line.put(Integer.valueOf(13), cutOffdates);	
+								line.put(Integer.valueOf(14), null != address.getDateOfBirth() ? new SimpleDateFormat(""yyyy-MM-dd HH:mm:ss.SSS ZZZZ"").format(address.getDateOfBirth()) : StringUtils.EMPTY);
+								line.put(Integer.valueOf(15), null != address.getDefaultAddress() ? String.valueOf(address.getDefaultAddress()) : ""FALSE"");
+								line.put(Integer.valueOf(16), address.getDeliveryCalendar());
+								line.put(Integer.valueOf(17), address.getDepartment());
+								line.put(Integer.valueOf(18), address.getDistrict());
+								line.put(Integer.valueOf(19), null != address.getDuplicate() ? Boolean.toString(address.getDuplicate()) : ""FALSE"");
+								String eclDeliveryInstruction=address.getEclDeliveryInstruction();
+								 if(null!= eclDeliveryInstruction)
+								 {
+									 eclDeliveryInstruction = eclDeliveryInstruction.replace(';','||');
+									 eclDeliveryInstruction = eclDeliveryInstruction.replace('\n','+++');
+									 eclDeliveryInstruction = eclDeliveryInstruction.replace('\r','===');
+								 }
+								
+								line.put(Integer.valueOf(20), eclDeliveryInstruction);
+								line.put(Integer.valueOf(21), null != address.getEclDeliveryTimesLotto() ? new SimpleDateFormat(""yyyy-MM-dd HH:mm:ss.SSS ZZZZ"").format(address.getEclDeliveryTimesLotto()) : StringUtils.EMPTY);
+								line.put(Integer.valueOf(22), null != address.getEclDeliveryTimeslotFrom() ? new SimpleDateFormat(""yyyy-MM-dd HH:mm:ss.SSS ZZZZ"").format(address.getEclDeliveryTimeslotFrom()) : StringUtils.EMPTY);
+								line.put(Integer.valueOf(23), address.getEclDlvModeId());
+								line.put(Integer.valueOf(24), address.getEmail());
+								line.put(Integer.valueOf(25), address.getFax());
+								line.put(Integer.valueOf(26), address.getFirstname());
+								line.put(Integer.valueOf(27), null != address.getGender() ? address.getGender().getCode() : StringUtils.EMPTY);
+								line.put(Integer.valueOf(28), address.getLastname());
+								line.put(Integer.valueOf(29), address.getMiddlename());
+								line.put(Integer.valueOf(30), address.getMiddlename2());
+								line.put(Integer.valueOf(31), address.getPhone1());
+								line.put(Integer.valueOf(32), address.getPhone2());
+								line.put(Integer.valueOf(33), address.getPobox());
+								line.put(Integer.valueOf(34), address.getPostalcode());
+								line.put(Integer.valueOf(35), null != address.getRegion() ? ( address.getRegion().getCountry().getIsocode() + "":"" + address.getRegion().getIsocode()) : StringUtils.EMPTY);
+								line.put(Integer.valueOf(36), null != address.getRemoveRequestAddress() ? address.getRemoveRequestAddress().toString() : ""0"");
+								line.put(Integer.valueOf(37), null != address.getShippingAddress() ? Boolean.toString(address.getShippingAddress()) : ""FALSE"");
+								 String streetName=address.getStreetname();
+								 if(null!= streetName)
+								 {
+									 streetName = streetName.replace(';','||');
+									 streetName = streetName.replace('\n','+++');
+									 streetName = streetName.replace('\r','===');
+								 }
+								
+								line.put(Integer.valueOf(48), streetName);
+								line.put(Integer.valueOf(39), address.getStreetnumber());
+								line.put(Integer.valueOf(40), address.getTitle());
+								line.put(Integer.valueOf(41), address.getTown());
+						        line.put(Integer.valueOf(42), null != address.getUnloadingAddress() ? Boolean.toString(address.getUnloadingAddress()) : ""FALSE"");
+						        line.put(Integer.valueOf(43), null != address.getVisibleInAddressBook() ? Boolean.toString(address.getVisibleInAddressBook()) : ""FALSE"");
+								line.put(Integer.valueOf(44), null != address.getCreationtime() ? new SimpleDateFormat(""yyyy-MM-dd HH:mm:ss.SSS ZZZZ"").format(address.getCreationtime()): StringUtils.EMPTY);
+								line.put(Integer.valueOf(45), null != address.getModifiedtime() ? new SimpleDateFormat(""yyyy-MM-dd HH:mm:ss.SSS ZZZZ"").format(address.getModifiedtime()): StringUtils.EMPTY);
+								line.put(Integer.valueOf(46), null != address.getOriginal() ? address.getOriginal().getPk().toString() :StringUtils.EMPTY );
+								 writer.write(line);
+							}
+							 
+							  catch(final Exception exception)
+							  {
+								LOG.error(""Address failed in export : "" + (null != address.getPk() ? address.getPk().toString() : StringUtils.EMPTY) +exception.getStackTrace());
+							  }
+							}
+							i = i+batch;
+						}
+					}
+	writer.close();	
+				 
+	if (file != null  && file.length() > 0) {
+		try {
+			
+				final InputStream fileInputStream = new FileInputStream(file);
+				final CatalogUnawareMediaModel mediaModel = modelService.create(CatalogUnawareMediaModel.class);
+				LOG.info(""Media File Name is : ""+file.getName());
+				mediaModel.setCode(file.getName() + ""_"" + System.currentTimeMillis());
+				mediaModel.setRealfilename(file.getName());
+				modelService.save(mediaModel);
+				mediaService.setStreamForMedia(mediaModel, fileInputStream);
+				modelService.refresh(mediaModel);
+			}
+		        
+        catch (final Exception ex) {
+			LOG.error(""Exception while preparing file for  Address""+ex);
+   }
+		finally {
+			   LOG.info(""Time taken to export Address : "" + stopwatch.toString());
+		   }
+ }";;
+

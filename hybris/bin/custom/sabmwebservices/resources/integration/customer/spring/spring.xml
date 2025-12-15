@@ -1,0 +1,62 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd
+           http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+		   http://www.springframework.org/schema/integration/file http://www.springframework.org/schema/integration/file/spring-integration-file.xsd
+		   http://www.springframework.org/schema/integration/http http://www.springframework.org/schema/integration/http/spring-integration-http.xsd
+		   http://www.springframework.org/schema/integration/xml
+    	   http://www.springframework.org/schema/integration/xml/spring-integration-xml.xsd
+    	   http://www.springframework.org/schema/oxm http://www.springframework.org/schema/oxm/spring-oxm.xsd
+    	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+    	   http://www.springframework.org/schema/integration/mail http://www.springframework.org/schema/integration/mail/spring-integration-mail.xsd"
+>
+
+
+    <bean id="customerImportService" class="com.sabmiller.webservice.customer.handler.CustomerImportHandler" />
+
+    <bean id="customerUnmarshallingTransformer" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+        <property name="contextPath" value="com.sabmiller.webservice.customer"/>
+    </bean>
+
+    <!--  Converters defined in this extension -->
+    <bean id="customerWsConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="de.hybris.platform.b2bacceleratorfacades.order.data.B2BUnitData"/>
+        <property name="populators">
+            <list>
+                <ref bean="customerBaseWsPopulator"/>
+                <ref bean="customerPayerWsPopulator"/>
+                <ref bean="customerSoldToWsPopulator"/>
+                <ref bean="customerDefaultShipToWsPopulator"/>
+                <ref bean="customerPaymentTermsWsPopulator"/>
+                <ref bean="customerUnloadingPointWsPopulator"/>
+                <ref bean="customerShippingCarrierWsPopulator"/>
+                <ref bean="customerSalesDataWsPopulator"/>
+                <ref bean="customerSalesOrgDataWsPopulator"/>
+                <ref bean="customerGroupWsPopulator"/>
+                <ref bean="customerAddressWsPopulator"/>
+                <ref bean="customerPrimaryAdminWsPopulator"/>
+                <ref bean="customerBlockStatusWsPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="customerBaseWsPopulator" class="com.sabmiller.webservice.customer.converters.populator.CustomerBasePopulator"/>
+    <bean id="customerPayerWsPopulator" class="com.sabmiller.webservice.customer.converters.populator.CustomerPayerPopulator"/>
+    <bean id="customerSoldToWsPopulator" class="com.sabmiller.webservice.customer.converters.populator.CustomerSoldToPopulator"/>
+    <bean id="customerDefaultShipToWsPopulator" class="com.sabmiller.webservice.customer.converters.populator.CustomerDefaultShipToPopulator"/>
+    <bean id="customerPaymentTermsWsPopulator" class="com.sabmiller.webservice.customer.converters.populator.CustomerPaymentTermsPopulator"/>
+    <bean id="customerUnloadingPointWsPopulator" class="com.sabmiller.webservice.customer.converters.populator.CustomerUnloadingPointsPopulator"/>
+    <bean id="customerShippingCarrierWsPopulator" class="com.sabmiller.webservice.customer.converters.populator.CustomerShippingCarrierPopulator"/>
+    <bean id="customerSalesDataWsPopulator" class="com.sabmiller.webservice.customer.converters.populator.CustomerSalesDataPopulator"/>
+    <bean id="customerSalesOrgDataWsPopulator" class="com.sabmiller.webservice.customer.converters.populator.CustomerSalesOrgDataPopulator"/>
+    <bean id="customerGroupWsPopulator" class="com.sabmiller.webservice.customer.converters.populator.CustomerGroupPopulator"/>
+    <bean id="customerAddressWsPopulator" class="com.sabmiller.webservice.customer.converters.populator.CustomerAddressPopulator"/>
+    <bean id="customerPrimaryAdminWsPopulator" class="com.sabmiller.webservice.customer.converters.populator.CustomerPrimaryAdminPopulator"/>
+    <bean id="customerBlockStatusWsPopulator" class="com.sabmiller.webservice.customer.converters.populator.CustomerBlockStatusPopulator"/>
+    <bean id="customerImportRecordReverseConverter" class="com.sabmiller.webservice.customer.converters.CustomerImportRecordReverseConverter"/>
+
+</beans>

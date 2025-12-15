@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2015 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util
+		http://www.springframework.org/schema/util/spring-util.xsd
+		http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+		
+	<context:annotation-config/> 
+	<!-- tenant scoped filter -->
+
+	<bean id="storefrontTenantFilterChain" class="com.sabmiller.staff.storefront.filters.UrlPathFilter" >
+		<property name="defaultFilter" ref="storefrontTenantDefaultFilterChain"/>
+		<property name="urlPathHelper">
+			<bean class="org.springframework.web.util.UrlPathHelper"/>
+		</property>
+		<property name="urlPathMapping">
+			<map>
+				<entry key="/integration/" value-ref="integrationTenantFilterChain"/>
+			</map>
+		</property>
+	</bean>
+
+	<alias name="defaultStorefrontTenantDefaultFilterChainList" alias="storefrontTenantDefaultFilterChainList" />
+	<util:list id="defaultStorefrontTenantDefaultFilterChainList">
+		<!-- generic platform filters -->
+		<ref bean="log4jFilter"/>
+		<ref bean="storefrontSessionFilter"/>
+		<ref bean="addOnDevelopmentFilter"/>
+
+		<!-- filter to log the current request -->
+		<ref bean="requestLoggerFilter"/>
+
+		<!-- filter to setup the cms integration -->
+		<ref bean="cmsSiteFilter"/>
+
+		<!-- filter to initialize the storefront -->
+		<ref bean="storefrontFilter"/>
+
+		<!-- filter to handle url encoding attributes -->
+		<ref bean="urlEncoderFilter"/>
+
+		<!-- Security -->
+		<ref bean="springSecurityFilterChain"/>
+
+		<!-- filter to log out guest user if he/she attempts to access a page outside of checkout flow -->
+<!--  		<ref bean="anonymousCheckoutFilter"/> -->
+
+		<!-- filter to restore items in cart -->
+ 		<!-- <ref bean="cartRestorationFilter"/>  -->
+
+		<!-- filter to restore customer preferred location -->
+ 		<!--  <ref bean="customerLocationRestorationFilter"/>  -->
+
+		<!--SABM SSO Filter-->
+		<ref bean="sabmSSOFilter"/>
+	</util:list>
+	
+	<bean id="storefrontTenantDefaultFilterChain" class="de.hybris.platform.servicelayer.web.PlatformFilterChain" >
+		<constructor-arg>
+			<ref bean="storefrontTenantDefaultFilterChainList"/>
+		</constructor-arg>
+	</bean>
+	
+	<alias name="defaultIntegrationTenantFilterChainList" alias="integrationTenantFilterChainList" />
+	<util:list id="defaultIntegrationTenantFilterChainList">
+		<!-- generic platform filters -->
+		<ref bean="storefrontSessionFilter"/>
+		<ref bean="addOnDevelopmentFilter"/>
+		<!-- filter to log the current request -->
+		<ref bean="requestLoggerFilter"/>	
+	</util:list>
+
+	<bean id="integrationTenantFilterChain" class="de.hybris.platform.servicelayer.web.PlatformFilterChain" >
+		<constructor-arg>
+			<ref bean="integrationTenantFilterChainList" />
+		</constructor-arg>
+	</bean>
+
+	<bean id="urlEncoderFilter" class="com.sabmiller.staff.storefront.filters.UrlEncoderFilter" >
+		<property name="urlEncoderFacade" ref="urlEncoderFacade"/>
+		<property name="sessionService" ref="sessionService"/>
+	</bean>
+
+	<bean id="storefrontSessionFilter" class="de.hybris.platform.servicelayer.web.SessionFilter" >
+		<property name="sessionService" ref="sessionService"/>
+	</bean>
+
+	<bean id="addOnDevelopmentFilter" class="com.sabmiller.staff.storefront.filters.AcceleratorAddOnFilter" >
+		<property name="configurationService" ref="configurationService"/>
+	</bean>
+
+	<bean id="requestLoggerFilter" class="com.sabmiller.staff.storefront.filters.RequestLoggerFilter"/>
+
+	<bean id="cmsSiteFilter" class="com.sabmiller.staff.storefront.filters.cms.CMSSiteFilter" >
+		<property name="previewDataModelUrlResolver" ref="previewDataModelUrlResolver"/>
+		<property name="cmsSiteService" ref="cmsSiteService"/>
+		<property name="cmsPreviewService" ref="cmsPreviewService"/>
+		<property name="baseSiteService" ref="baseSiteService"/>
+		<property name="commerceCommonI18NService" ref="commerceCommonI18NService"/>
+		<property name="sessionService" ref="sessionService"/>
+		<property name="contextInformationLoader" ref="contextInformationLoader"/>
+		<property name="cmsPageContextService" ref="cmsPageContextService"/>
+	</bean>
+
+	<bean id="storefrontFilter" class="com.sabmiller.staff.storefront.filters.StorefrontFilter" >
+		<property name="storeSessionFacade" ref="storeSessionFacade"/>
+		<property name="browseHistory" ref="browseHistory"/>
+		<property name="cookieGenerator" ref="sessionCookieGenerator"/>
+	</bean>
+	
+	<alias name="defaultSessionCookieGenerator" alias="sessionCookieGenerator"/>
+	<bean id="defaultSessionCookieGenerator" class="com.sabmiller.staff.storefront.security.cookie.EnhancedCookieGenerator" >
+		<property name="cookieSecure" value="true"/>
+		<property name="cookieName" value="JSESSIONID"/>
+		<property name="cookieMaxAge" value="-1"/>
+		<property name="useDefaultPath" value="false"/>
+		<property name="httpOnly" value="true"/>
+	</bean>
+	
+	<alias name="defaultCartRestoreCookieGenerator" alias="cartRestoreCookieGenerator"/>
+	<bean id="defaultCartRestoreCookieGenerator" class="com.sabmiller.staff.storefront.security.cookie.CartRestoreCookieGenerator" >
+		<property name="cookieSecure" value="true"/>
+		<property name="cookieMaxAge" value="360000000"/>
+		<property name="useDefaultPath" value="false"/>
+		<property name="httpOnly" value="true"/>
+		<property name="baseSiteService" ref="baseSiteService"/>
+	</bean>
+
+	<alias name="defaultCustomerLocationCookieGenerator" alias="customerLocationCookieGenerator"/>
+	<bean id="defaultCustomerLocationCookieGenerator" class="com.sabmiller.staff.storefront.security.cookie.CustomerLocationCookieGenerator" >
+		<property name="cookieSecure" value="true"/>
+		<property name="cookieMaxAge" value="360000000"/>
+		<property name="useDefaultPath" value="false"/>
+		<property name="httpOnly" value="true"/>
+		<property name="baseSiteService" ref="baseSiteService"/>
+	</bean>
+
+	<!--SSO Filters-->
+	<bean id="sabmSSOFilter" class="com.sabmiller.staff.storefront.filters.SABMSSOFilter">
+		<property name="userDetailsService" ref="coreUserDetailsService" />
+		<property name="guidCookieStrategy" ref="guidCookieStrategy" />
+		<property name="configurationService" ref="configurationService" />
+	</bean>
+
+</beans>

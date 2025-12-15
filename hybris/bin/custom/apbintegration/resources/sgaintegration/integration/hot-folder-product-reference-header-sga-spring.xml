@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:file="http://www.springframework.org/schema/integration/file"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/integration
+		http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/integration/file
+		http://www.springframework.org/schema/integration/file/spring-integration-file.xsd
+		http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+		
+    <context:annotation-config/>
+
+	<bean id="sga_defaultImpexProductHeader" class="java.lang.String">
+		<constructor-arg>
+			<value># ImpEx for importing data into sgaProductCatalog
+				$catalogVersion=catalogversion(catalog(id[default=sgaProductCatalog]),version[default='Staged'])[unique=true]
+				$approved=approvalstatus(code)[default='approved']
+				$supercategories=supercategories(code,$catalogVersion)
+				$lang=$LANGUAGE$</value>
+		</constructor-arg>
+	</bean>
+	
+	<!-- SGA Specific product reference converters mapping start -->
+	
+	
+	<bean id="batchSgaProductRecommendationsConverterMapping" 
+		  class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.mapping.impl.DefaultConverterMapping" 
+		  p:mapping="sga_product-recommendations" 
+		  p:converter-ref="batchSgaProductRecommendationsConverter"/>		  
+  
+	<bean id="batchSgaProductEnRichmentConverterMapping" 
+	  class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.mapping.impl.DefaultConverterMapping" 
+	  p:mapping="sga_product_enrichment" 
+	  p:converter-ref="batchSgaProductEnRichmentConverter"/>
+	  
+	  <bean id="batchSgaProductPackageSizeEnRichmentConverterMapping" 
+	  class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.mapping.impl.DefaultConverterMapping" 
+	  p:mapping="sga_product_package_Size" 
+	  p:converter-ref="batchSgaProductPackageSizeEnRichmentConverter"/>
+	  
+	  <bean id="batchSgaProductUnitVolumeEnRichmentConverterMapping" 
+	  class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.mapping.impl.DefaultConverterMapping" 
+	  p:mapping="sga_product_unit_volume" 
+	  p:converter-ref="batchSgaProductUnitVolumeEnRichmentConverter"/>
+	  
+	  <bean id="batchSgaProductBrandEnRichmentConverterMapping" 
+	  class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.mapping.impl.DefaultConverterMapping" 
+	  p:mapping="sga_product_brand" 
+	  p:converter-ref="batchSgaProductBrandEnRichmentConverter"/>	  
+
+	<!-- SGA Specific product reference converters mapping end --> 
+		  
+	<!-- SGA specific product reference converters start -->
+	
+	<bean id="batchSgaProductRecommendationsConverter" class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.impl.DefaultImpexConverter">
+		<property name="header">
+			<value>#{sga_defaultImpexProductHeader}
+				# Insert Products
+				INSERT_UPDATE ProductReference;source(code,$catalogVersion)[unique=true];target(code,$catalogVersion)[unique=true];referenceType(code);active;preselected
+			</value>
+		</property>
+		<property name="impexRow">
+			<value>;{+0};{1};{2};{3};{4}</value>
+		</property>
+	</bean>
+	
+	
+	<bean id="batchSgaProductEnRichmentConverter" class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.impl.DefaultImpexConverter">
+		<property name="header">
+			<value>#{sga_defaultImpexProductHeader}
+				# Insert Products
+				UPDATE ApbProduct ; code[unique=true] ;name[lang=$lang] ; description[lang=$lang];productDetail[lang=$lang];portalUnitVolume(code) ;packageSize(code);rank[default=1000];premium;venue;diet;bagInBox;$catalogVersion
+			</value>
+		</property>
+		<property name="impexRow">
+			<value>;{+0};{1};{2};{3};{4};{5};{6};{7};{8};{9};{10};{11}</value>
+		</property>
+	</bean>
+	<bean id="batchSgaProductPackageSizeEnRichmentConverter" class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.impl.DefaultImpexConverter">
+		<property name="header">
+			<value>#{sga_defaultImpexProductHeader}
+				# Insert PackageSize
+				INSERT_UPDATE PackageSize ; code[unique=true] ;name[lang=$lang];
+			</value>
+		</property>
+		<property name="impexRow">
+			<value>;{+0};{1}</value>
+		</property>
+	</bean>
+	
+	<bean id="batchSgaProductUnitVolumeEnRichmentConverter" class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.impl.DefaultImpexConverter">
+		<property name="header">
+			<value>#{sga_defaultImpexProductHeader}
+				# Insert UnitVolume
+				INSERT_UPDATE UnitVolume ; code[unique=true] ;name[lang=$lang];
+			</value>
+		</property>
+		<property name="impexRow">
+			<value>;{+0};{1}</value>
+		</property>
+	</bean>
+	
+	<bean id="batchSgaProductBrandEnRichmentConverter" class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.impl.DefaultImpexConverter">
+		<property name="header">
+			<value>#{sga_defaultImpexProductHeader}
+				# Insert Brand
+				INSERT_UPDATE Brand ; code[unique=true] ;name[lang=$lang];
+			</value>
+		</property>
+		<property name="impexRow">
+			<value>;{+0};{1}</value>
+		</property>
+	</bean>
+	<!-- SGA specific product reference  converters End -->
+	
+</beans>

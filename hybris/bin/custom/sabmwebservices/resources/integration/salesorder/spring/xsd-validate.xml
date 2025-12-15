@@ -1,0 +1,67 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd
+           http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+		   http://www.springframework.org/schema/integration/file http://www.springframework.org/schema/integration/file/spring-integration-file.xsd
+		   http://www.springframework.org/schema/integration/http http://www.springframework.org/schema/integration/http/spring-integration-http.xsd
+		   http://www.springframework.org/schema/integration/xml
+    	   http://www.springframework.org/schema/integration/xml/spring-integration-xml.xsd
+    	   http://www.springframework.org/schema/oxm http://www.springframework.org/schema/oxm/spring-oxm.xsd
+    	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
+    xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-file="http://www.springframework.org/schema/integration/file"
+	xmlns:int-http="http://www.springframework.org/schema/integration/http"
+	xmlns:int-xml="http://www.springframework.org/schema/integration/xml"
+	xmlns:int-mail="http://www.springframework.org/schema/integration/mail"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:oxm="http://www.springframework.org/schema/oxm">
+
+	<!-- map the incoming webservice request to a channel -->
+	<int-http:inbound-gateway id="inboundSalesOrderValidationGateway"
+							  supported-methods="POST"
+							  path="/services/validate/salesorder"
+							  request-channel="xsdValidationChannel"
+							  request-payload-type="java.lang.String"
+							  reply-timeout="50000">
+
+	</int-http:inbound-gateway>
+
+	<!--  Customer Channels -->
+	<int:channel id="xsdValidationChannel"/>
+	
+	<!-- map of namespace prefix to URI -->
+	<util:map id="salesorderNamespaceMap">
+		<entry key="salesorderNs" value="urn:gl.sabmiller.com:3rdp:masterdata" />
+	</util:map>
+	
+	<int-xml:xpath-expression id="ons" expression="/salesorderNs:SalesOrderInformation/MessageHeader/ID" namespace-map="salesorderNamespaceMap"/>
+	
+	<int:chain id="sales-order-validate-chain" input-channel="xsdValidationChannel">
+		<!-- this is require to enrich the header to handle the content-type of type "application/xml" -->
+		<int:header-enricher>	
+		    <int:header name="content-type" value="application/xml"></int:header>
+		</int:header-enricher>	
+
+		<!--  Add payload Id to the header -->
+		<int-xml:xpath-header-enricher id="salesOrderAddPayloadId" default-overwrite="true">                               
+			<int-xml:header name="payloadId"                               
+					        overwrite="true"                      
+					        xpath-expression-ref="ons" 
+					        evaluation-type="STRING_RESULT"/>
+		</int-xml:xpath-header-enricher>
+
+		<!--  Validate XML against schema -->
+		<int-xml:validating-filter                     
+		                          id="salesOrderValidationFilter"                                 
+		                          schema-location="integration/salesorder/schema/sales-order.xsd"
+		                          schema-type="xml-schema"              
+		                          throw-exception-on-rejection="true">                     
+		</int-xml:validating-filter>
+		
+	</int:chain>
+	
+</beans>

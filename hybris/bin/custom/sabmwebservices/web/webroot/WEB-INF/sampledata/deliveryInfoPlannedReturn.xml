@@ -1,0 +1,50 @@
+<ns2:DeliveryInformation xmlns:ns2="urn:gl.sabmiller.com:com:3rdp:transdata">
+	<MessageHeader>
+		<ID schemeID="deliveryinfo">56B82C9C6ACB1DA0E10080000AF8CA7D</ID>
+		<CreationDateTime>2016-02-15T05:54:24.035Z</CreationDateTime>
+		<RecipientParty>
+			<InternalID>HYBRIS</InternalID>
+		</RecipientParty>
+	</MessageHeader>
+	<Delivery DeliveryActionCode="01">
+		<DeliveryNumber>3300188837</DeliveryNumber>
+		<RequestedDeliveryDate timeZoneCode="UTC+1">2016-02-15T05:53:50Z</RequestedDeliveryDate>
+		<DeliveryType>YSR1</DeliveryType>
+		<Item>
+			<DeliveryItemNumber>10</DeliveryItemNumber>
+			<CompletedIndicator>0</CompletedIndicator>
+			<SalesOrderReference>
+				<SalesOrderNumber>1300109999</SalesOrderNumber>
+			</SalesOrderReference>
+			<SalesOrderItemNumber>30</SalesOrderItemNumber>
+			<Product>
+				<MaterialNumber>000000000000090355</MaterialNumber>
+			</Product>
+			<ConfirmedQuantity unitCode="CS">26.0</ConfirmedQuantity>
+		</Item>
+		<Item>
+			<DeliveryItemNumber>20</DeliveryItemNumber>
+			<CompletedIndicator>0</CompletedIndicator>
+			<SalesOrderReference>
+				<SalesOrderNumber>1300109999</SalesOrderNumber>
+			</SalesOrderReference>
+			<SalesOrderItemNumber>40</SalesOrderItemNumber>
+			<Product>
+				<MaterialNumber>000000000000090368</MaterialNumber>
+			</Product>
+			<ConfirmedQuantity unitCode="CS">20.0</ConfirmedQuantity>
+		</Item>
+		<Item>
+			<DeliveryItemNumber>30</DeliveryItemNumber>
+			<CompletedIndicator>0</CompletedIndicator>
+			<SalesOrderReference>
+				<SalesOrderNumber>1300109999</SalesOrderNumber>
+			</SalesOrderReference>
+			<SalesOrderItemNumber>50</SalesOrderItemNumber>
+			<Product>
+				<MaterialNumber>000000000000087361</MaterialNumber>
+			</Product>
+			<ConfirmedQuantity unitCode="CS">4.0</ConfirmedQuantity>
+		</Item>
+	</Delivery>
+</ns2:DeliveryInformation>

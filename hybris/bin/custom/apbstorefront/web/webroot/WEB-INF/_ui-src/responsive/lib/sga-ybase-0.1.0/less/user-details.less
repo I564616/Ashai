@@ -1,0 +1,93 @@
+.page-update-profile {
+    .maxwidth-500 {
+        max-width: 500px;
+    }
+    .notifications {
+        .checkbox {
+            margin-bottom: 15px;
+        }
+        .notification-type {
+            margin-left: 93px;
+        }
+        .form-group{
+            margin-bottom: 5px;
+            &.select-all {
+                position: relative;
+                input:checked ~ .checkmark:after {
+                    left: 7px;
+                }
+            }
+
+            .label-text {
+                margin-left: 75px;
+                font-weight: 400;
+                display: inline-block;
+            }
+
+            input[type=checkbox] {
+                position: absolute;
+                opacity: 0;
+                cursor: pointer;
+                height: 0;
+                width: 0;
+            }
+
+            .checkmark {
+                height: 18px;
+                width: 18px;
+                flex: 0 0 18px;
+                border: 1px solid black;
+            }
+
+            /* Create the checkmark/indicator (hidden when not checked) */
+            .checkmark:after {
+                content: "";
+                position: absolute;
+                display: none;
+            }
+
+            /* Style the checkmark/indicator */
+            .checkmark:after {
+                left: 7px;
+                top: 2px;
+                width: 5px;
+                height: 12px;
+                border: solid black;
+                border-width: 0 2px 2px 0;
+                -webkit-transform: rotate(45deg);
+                -ms-transform: rotate(45deg);
+                transform: rotate(45deg);
+            }
+
+            /* Show the checkmark when checked */
+            input:checked ~ .checkmark:after {
+              display: block;
+            }
+        }
+    }
+}
+
+.page-update-profile,
+.page-organizationManagement{
+    .payment-info-icon {
+        display: inline-block;
+    }
+}
+
+@media (max-width: 767px) {
+    .page-update-profile {
+        .btn-vd-primary{
+            font-size: 13px;
+        }
+        .notifications {
+            .notification-type {
+                margin-left: 96px;
+            }
+            .form-group{
+                .label-text {
+                    margin-left: 77px;
+                }
+            }
+        }
+    }
+}

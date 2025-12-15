@@ -1,0 +1,422 @@
+<ns0:MaterialERPReplicationBulkRequest xmlns:ns0="urn:gl.sabmiller.com:3rdp:masterdata">
+	<MessageHeader>
+		<ID schemeID="product">21e10cfae34111e5a85d000000bc05cb</ID>
+		<CreationDateTime>2016-03-06T02:14:18Z</CreationDateTime>
+		<RecipientParty>
+			<InternalID>HYBRIS</InternalID>
+		</RecipientParty>
+	</MessageHeader>
+	<Material>
+		<InternalID>000000000000089324</InternalID>
+		<MaterialTypeCode>FERT</MaterialTypeCode>
+		<MaterialIndustrialSectorCode>B</MaterialIndustrialSectorCode>
+		<DivisionCode>E</DivisionCode>
+		<DeletedIndicator>false</DeletedIndicator>
+		<BatchManagementRequiredIndicator>0</BatchManagementRequiredIndicator>
+		<Description>
+			<Description languageCode="EN">SP Blk Dglas NRD 15L 1x1</Description>
+		</Description>
+		<QuantityUnit>
+			<Quantity unitCode="CS">1</Quantity>
+			<MaterialBaseQuantity unitCode="EA">99999</MaterialBaseQuantity>
+		</QuantityUnit>
+		<QuantityUnit>
+			<Quantity unitCode="EA">1</Quantity>
+			<MaterialBaseQuantity>1</MaterialBaseQuantity>
+		</QuantityUnit>
+		<QuantityUnit>
+			<Quantity unitCode="HLT">1500</Quantity>
+			<MaterialBaseQuantity>10000</MaterialBaseQuantity>
+		</QuantityUnit>
+		<QuantityUnit>
+			<Quantity unitCode="LTR">15</Quantity>
+			<MaterialBaseQuantity>1</MaterialBaseQuantity>
+		</QuantityUnit>
+		<QuantityUnit>
+			<Quantity unitCode="LAY">1</Quantity>
+			<MaterialBaseQuantity>99999</MaterialBaseQuantity>
+		</QuantityUnit>
+		<QuantityUnit>
+			<Quantity unitCode="LOA">6</Quantity>
+			<MaterialBaseQuantity>1</MaterialBaseQuantity>
+		</QuantityUnit>
+		<QuantityUnit>
+			<Quantity unitCode="MLT">15000</Quantity>
+			<MaterialBaseQuantity>1</MaterialBaseQuantity>
+		</QuantityUnit>
+		<QuantityUnit>
+			<Quantity unitCode="PF">1</Quantity>
+			<MaterialBaseQuantity>99999</MaterialBaseQuantity>
+		</QuantityUnit>
+		<PlantSpecification>
+			<PlantID>7AAD</PlantID>
+			<DeletedIndicator>false</DeletedIndicator>
+			<BatchManagementRequiredIndicator>0</BatchManagementRequiredIndicator>
+		</PlantSpecification>
+		<PlantSpecification>
+			<PlantID>7AAE</PlantID>
+			<DeletedIndicator>false</DeletedIndicator>
+			<BatchManagementRequiredIndicator>0</BatchManagementRequiredIndicator>
+		</PlantSpecification>
+		<PlantSpecification>
+			<PlantID>7AAF</PlantID>
+			<DeletedIndicator>false</DeletedIndicator>
+			<BatchManagementRequiredIndicator>0</BatchManagementRequiredIndicator>
+		</PlantSpecification>
+		<PlantSpecification>
+			<PlantID>7ABA</PlantID>
+			<DeletedIndicator>false</DeletedIndicator>
+			<BatchManagementRequiredIndicator>0</BatchManagementRequiredIndicator>
+		</PlantSpecification>
+		<PlantSpecification>
+			<PlantID>7ABC</PlantID>
+			<DeletedIndicator>false</DeletedIndicator>
+			<BatchManagementRequiredIndicator>0</BatchManagementRequiredIndicator>
+		</PlantSpecification>
+		<PlantSpecification>
+			<PlantID>7ABE</PlantID>
+			<DeletedIndicator>false</DeletedIndicator>
+			<BatchManagementRequiredIndicator>0</BatchManagementRequiredIndicator>
+		</PlantSpecification>
+		<PlantSpecification>
+			<PlantID>7ABF</PlantID>
+			<DeletedIndicator>false</DeletedIndicator>
+			<BatchManagementRequiredIndicator>0</BatchManagementRequiredIndicator>
+		</PlantSpecification>
+		<PlantSpecification>
+			<PlantID>7ABG</PlantID>
+			<DeletedIndicator>false</DeletedIndicator>
+			<BatchManagementRequiredIndicator>0</BatchManagementRequiredIndicator>
+		</PlantSpecification>
+		<PlantSpecification>
+			<PlantID>7ADA</PlantID>
+			<DeletedIndicator>false</DeletedIndicator>
+			<BatchManagementRequiredIndicator>0</BatchManagementRequiredIndicator>
+		</PlantSpecification>
+		<PlantSpecification>
+			<PlantID>7AEA</PlantID>
+			<DeletedIndicator>false</DeletedIndicator>
+			<BatchManagementRequiredIndicator>0</BatchManagementRequiredIndicator>
+		</PlantSpecification>
+		<PlantSpecification>
+			<PlantID>7AEB</PlantID>
+			<DeletedIndicator>false</DeletedIndicator>
+			<BatchManagementRequiredIndicator>0</BatchManagementRequiredIndicator>
+		</PlantSpecification>
+		<PlantSpecification>
+			<PlantID>7AEC</PlantID>
+			<DeletedIndicator>false</DeletedIndicator>
+			<BatchManagementRequiredIndicator>0</BatchManagementRequiredIndicator>
+		</PlantSpecification>
+		<PlantSpecification>
+			<PlantID>7AFA</PlantID>
+			<DeletedIndicator>false</DeletedIndicator>
+			<BatchManagementRequiredIndicator>0</BatchManagementRequiredIndicator>
+		</PlantSpecification>
+		<PlantSpecification>
+			<PlantID>7AGA</PlantID>
+			<DeletedIndicator>false</DeletedIndicator>
+			<BatchManagementRequiredIndicator>0</BatchManagementRequiredIndicator>
+		</PlantSpecification>
+		<PlantSpecification>
+			<PlantID>7AGB</PlantID>
+			<DeletedIndicator>false</DeletedIndicator>
+			<BatchManagementRequiredIndicator>0</BatchManagementRequiredIndicator>
+		</PlantSpecification>
+		<PlantSpecification>
+			<PlantID>7AHA</PlantID>
+			<DeletedIndicator>false</DeletedIndicator>
+			<BatchManagementRequiredIndicator>0</BatchManagementRequiredIndicator>
+		</PlantSpecification>
+		<PlantSpecification>
+			<PlantID>7AHB</PlantID>
+			<DeletedIndicator>false</DeletedIndicator>
+			<BatchManagementRequiredIndicator>0</BatchManagementRequiredIndicator>
+		</PlantSpecification>
+		<PlantSpecification>
+			<PlantID>7AHD</PlantID>
+			<DeletedIndicator>false</DeletedIndicator>
+			<BatchManagementRequiredIndicator>0</BatchManagementRequiredIndicator>
+		</PlantSpecification>
+		<Sales>
+			<ns1:SalesOrganization xmlns:ns1="urn:gl.sabmiller.com:ecc:masterdata">7001</ns1:SalesOrganization>
+			<ns1:DistributionChannel xmlns:ns1="urn:gl.sabmiller.com:ecc:masterdata">00</ns1:DistributionChannel>
+			<ns1:ItemCategoryGroup xmlns:ns1="urn:gl.sabmiller.com:ecc:masterdata">NORM</ns1:ItemCategoryGroup>
+			<ns1:MaterialPricingGroup xmlns:ns1="urn:gl.sabmiller.com:ecc:masterdata">02</ns1:MaterialPricingGroup>
+			<ns1:AccountAssignmentGroup xmlns:ns1="urn:gl.sabmiller.com:ecc:masterdata">Y1</ns1:AccountAssignmentGroup>
+		</Sales>
+		<ns1:BaseUnit xmlns:ns1="urn:gl.sabmiller.com:ecc:masterdata" xmlns:ns2="urn:gl.sabmiller.com:masterdata:ecc:commonobjects"
+			ns2:unitCode="EA">EA</ns1:BaseUnit>
+		<ns1:CrossPlantMaterialStatus xmlns:ns1="urn:gl.sabmiller.com:ecc:masterdata">X6</ns1:CrossPlantMaterialStatus>
+		<ns1:EAN11 xmlns:ns1="urn:gl.sabmiller.com:ecc:masterdata" />
+		<ns1:GeneralData xmlns:ns1="urn:gl.sabmiller.com:ecc:masterdata">
+			<OldMaterialNumber>CUB</OldMaterialNumber>
+			<GrossWeight>15.200</GrossWeight>
+			<NetWeight>15.200</NetWeight>
+			<WeightUnit>KGM</WeightUnit>
+			<Volume>0.022</Volume>
+			<VolumeUnit>MTQ</VolumeUnit>
+			<MaterialGroup>GAA01</MaterialGroup>
+			<Dimensions>270X270X300</Dimensions>
+			<GenericItemCatGroup>NORM</GenericItemCatGroup>
+			<ProductHierarchy>F023B68441UB009U01</ProductHierarchy>
+		</ns1:GeneralData>
+		<ns1:ClassificationData xmlns:ns1="urn:gl.sabmiller.com:ecc:masterdata">
+			<ClassType>Z01</ClassType>
+			<InternalCharacteristic>0000000129</InternalCharacteristic>
+			<CharacteristicDescription>Alcohol Strength</CharacteristicDescription>
+			<CharacteristicValue>40,00</CharacteristicValue>
+			<CharacteristicValueDescription>40,00%</CharacteristicValueDescription>
+		</ns1:ClassificationData>
+		<ns1:ClassificationData xmlns:ns1="urn:gl.sabmiller.com:ecc:masterdata">
+			<ClassType>Z01</ClassType>
+			<InternalCharacteristic>0000000126</InternalCharacteristic>
+			<CharacteristicDescription>Brand Owner</CharacteristicDescription>
+			<CharacteristicValue>001</CharacteristicValue>
+			<CharacteristicValueDescription>SABMILLER</CharacteristicValueDescription>
+		</ns1:ClassificationData>
+		<ns1:ClassificationData xmlns:ns1="urn:gl.sabmiller.com:ecc:masterdata">
+			<ClassType>Z01</ClassType>
+			<InternalCharacteristic>0000000136</InternalCharacteristic>
+			<CharacteristicDescription>Country of Origin</CharacteristicDescription>
+			<CharacteristicValue>AU</CharacteristicValue>
+			<CharacteristicValueDescription>AU</CharacteristicValueDescription>
+		</ns1:ClassificationData>
+		<ns1:ClassificationData xmlns:ns1="urn:gl.sabmiller.com:ecc:masterdata">
+			<ClassType>Z01</ClassType>
+			<InternalCharacteristic>0000000132</InternalCharacteristic>
+			<CharacteristicDescription>Pack</CharacteristicDescription>
+			<CharacteristicValue>15L KEG</CharacteristicValue>
+			<CharacteristicValueDescription>15L KEG</CharacteristicValueDescription>
+		</ns1:ClassificationData>
+		<ns1:ClassificationData xmlns:ns1="urn:gl.sabmiller.com:ecc:masterdata">
+			<ClassType>Z01</ClassType>
+			<InternalCharacteristic>0000000133</InternalCharacteristic>
+			<CharacteristicDescription>Pack Configuration</CharacteristicDescription>
+			<CharacteristicValue>01X01</CharacteristicValue>
+			<CharacteristicValueDescription>01X01</CharacteristicValueDescription>
+		</ns1:ClassificationData>
+		<ns1:ClassificationData xmlns:ns1="urn:gl.sabmiller.com:ecc:masterdata">
+			<ClassType>Z01</ClassType>
+			<InternalCharacteristic>0000000141</InternalCharacteristic>
+			<CharacteristicDescription>Product Category</CharacteristicDescription>
+			<CharacteristicValue>200</CharacteristicValue>
+			<CharacteristicValueDescription>OTHER ALCOHOLIC BEVERAGES</CharacteristicValueDescription>
+		</ns1:ClassificationData>
+		<ns1:ClassificationData xmlns:ns1="urn:gl.sabmiller.com:ecc:masterdata">
+			<ClassType>Z01</ClassType>
+			<InternalCharacteristic>0000000137</InternalCharacteristic>
+			<CharacteristicDescription>Product Sub-category</CharacteristicDescription>
+			<CharacteristicValue>005</CharacteristicValue>
+			<CharacteristicValueDescription>OTHER ALCOHOLIC BEVERAGES</CharacteristicValueDescription>
+		</ns1:ClassificationData>
+		<ns1:ClassificationData xmlns:ns1="urn:gl.sabmiller.com:ecc:masterdata">
+			<ClassType>Z01</ClassType>
+			<InternalCharacteristic>0000000134</InternalCharacteristic>
+			<CharacteristicDescription>Product sub-type</CharacteristicDescription>
+			<CharacteristicValue>NA</CharacteristicValue>
+			<CharacteristicValueDescription>Not Assigned</CharacteristicValueDescription>
+		</ns1:ClassificationData>
+		<ns1:ClassificationData xmlns:ns1="urn:gl.sabmiller.com:ecc:masterdata">
+			<ClassType>Z01</ClassType>
+			<InternalCharacteristic>0000000140</InternalCharacteristic>
+			<CharacteristicDescription>Product Type</CharacteristicDescription>
+			<CharacteristicValue>00023</CharacteristicValue>
+			<CharacteristicValueDescription>WHISKEY</CharacteristicValueDescription>
+		</ns1:ClassificationData>
+		<ns1:ClassificationData xmlns:ns1="urn:gl.sabmiller.com:ecc:masterdata">
+			<ClassType>Z01</ClassType>
+			<InternalCharacteristic>0000000138</InternalCharacteristic>
+			<CharacteristicDescription>Secondary Pack</CharacteristicDescription>
+			<CharacteristicValue>NA</CharacteristicValue>
+			<CharacteristicValueDescription>Not Assigned</CharacteristicValueDescription>
+		</ns1:ClassificationData>
+		<ns1:ClassificationData xmlns:ns1="urn:gl.sabmiller.com:ecc:masterdata">
+			<ClassType>Z01</ClassType>
+			<InternalCharacteristic>0000000143</InternalCharacteristic>
+			<CharacteristicDescription>Usage Code</CharacteristicDescription>
+			<CharacteristicValue>001</CharacteristicValue>
+			<CharacteristicValueDescription>SINGLE SERVE</CharacteristicValueDescription>
+		</ns1:ClassificationData>
+		<ns1:ClassificationData xmlns:ns1="urn:gl.sabmiller.com:ecc:masterdata">
+			<ClassType>Z01</ClassType>
+			<InternalCharacteristic>0000000128</InternalCharacteristic>
+			<CharacteristicDescription>Product Group</CharacteristicDescription>
+			<CharacteristicValue>230</CharacteristicValue>
+			<CharacteristicValueDescription>SPIRITS</CharacteristicValueDescription>
+		</ns1:ClassificationData>
+		<ns1:ClassificationData xmlns:ns1="urn:gl.sabmiller.com:ecc:masterdata">
+			<ClassType>Z01</ClassType>
+			<InternalCharacteristic>0000000130</InternalCharacteristic>
+			<CharacteristicDescription>Brand Family</CharacteristicDescription>
+			<CharacteristicValue>00265</CharacteristicValue>
+			<CharacteristicValueDescription>BLACK DOUGLAS</CharacteristicValueDescription>
+		</ns1:ClassificationData>
+		<ns1:ClassificationData xmlns:ns1="urn:gl.sabmiller.com:ecc:masterdata">
+			<ClassType>Z01</ClassType>
+			<InternalCharacteristic>0000000124</InternalCharacteristic>
+			<CharacteristicDescription>Brand Code</CharacteristicDescription>
+			<CharacteristicValue>D560</CharacteristicValue>
+			<CharacteristicValueDescription>BLACK DOUGLAS</CharacteristicValueDescription>
+		</ns1:ClassificationData>
+		<ns1:ClassificationData xmlns:ns1="urn:gl.sabmiller.com:ecc:masterdata">
+			<ClassType>Z01</ClassType>
+			<InternalCharacteristic>0000000148</InternalCharacteristic>
+			<CharacteristicDescription>Pack Return Indicator</CharacteristicDescription>
+			<CharacteristicValue>NRT</CharacteristicValue>
+			<CharacteristicValueDescription>NON-RETURNABLE</CharacteristicValueDescription>
+		</ns1:ClassificationData>
+		<ns1:ClassificationData xmlns:ns1="urn:gl.sabmiller.com:ecc:masterdata">
+			<ClassType>Z01</ClassType>
+			<InternalCharacteristic>0000000121</InternalCharacteristic>
+			<CharacteristicDescription>Pack Volume</CharacteristicDescription>
+			<CharacteristicValue>15000</CharacteristicValue>
+			<CharacteristicValueDescription>15 L</CharacteristicValueDescription>
+		</ns1:ClassificationData>
+		<ns1:ClassificationData xmlns:ns1="urn:gl.sabmiller.com:ecc:masterdata">
+			<ClassType>Z01</ClassType>
+			<InternalCharacteristic>0000000122</InternalCharacteristic>
+			<CharacteristicDescription>Pack Material</CharacteristicDescription>
+			<CharacteristicValue>OT</CharacteristicValue>
+			<CharacteristicValueDescription>OTHER</CharacteristicValueDescription>
+		</ns1:ClassificationData>
+		<ns1:ClassificationData xmlns:ns1="urn:gl.sabmiller.com:ecc:masterdata">
+			<ClassType>Z01</ClassType>
+			<InternalCharacteristic>0000000131</InternalCharacteristic>
+			<CharacteristicDescription>Pack Format</CharacteristicDescription>
+			<CharacteristicValue>TANK</CharacteristicValue>
+			<CharacteristicValueDescription>TANK</CharacteristicValueDescription>
+		</ns1:ClassificationData>
+		<ns1:ClassificationData xmlns:ns1="urn:gl.sabmiller.com:ecc:masterdata">
+			<ClassType>Z90</ClassType>
+			<InternalCharacteristic>0000001697</InternalCharacteristic>
+			<CharacteristicDescription>Beverage Code</CharacteristicDescription>
+			<CharacteristicValue>4</CharacteristicValue>
+			<CharacteristicValueDescription>SPIRITS</CharacteristicValueDescription>
+		</ns1:ClassificationData>
+		<ns1:ClassificationData xmlns:ns1="urn:gl.sabmiller.com:ecc:masterdata">
+			<ClassType>Z90</ClassType>
+			<InternalCharacteristic>0000001694</InternalCharacteristic>
+			<CharacteristicDescription>Item Product Line F Code</CharacteristicDescription>
+			<CharacteristicValue>00731</CharacteristicValue>
+			<CharacteristicValueDescription>BLACK DOUGLAS SCOTCH-x15L BULK</CharacteristicValueDescription>
+		</ns1:ClassificationData>
+		<ns1:ClassificationData xmlns:ns1="urn:gl.sabmiller.com:ecc:masterdata">
+			<ClassType>Z90</ClassType>
+			<InternalCharacteristic>0000001693</InternalCharacteristic>
+			<CharacteristicDescription>Item Product Line Code</CharacteristicDescription>
+			<CharacteristicValue>47073</CharacteristicValue>
+			<CharacteristicValueDescription>BLACK DOUGLAS SCOTCH 15L DRUM</CharacteristicValueDescription>
+		</ns1:ClassificationData>
+		<ns1:ClassificationData xmlns:ns1="urn:gl.sabmiller.com:ecc:masterdata">
+			<ClassType>Z90</ClassType>
+			<InternalCharacteristic>0000001695</InternalCharacteristic>
+			<CharacteristicDescription>VARIETY CODE</CharacteristicDescription>
+			<CharacteristicValue>SPI</CharacteristicValue>
+			<CharacteristicValueDescription>SPIRITS</CharacteristicValueDescription>
+		</ns1:ClassificationData>
+		<ns1:ClassificationData xmlns:ns1="urn:gl.sabmiller.com:ecc:masterdata">
+			<ClassType>Z90</ClassType>
+			<InternalCharacteristic>0000001930</InternalCharacteristic>
+			<CharacteristicDescription>Base SKU</CharacteristicDescription>
+			<CharacteristicValue>X</CharacteristicValue>
+			<CharacteristicValueDescription>Base SKU</CharacteristicValueDescription>
+		</ns1:ClassificationData>
+		<ns1:ClassificationData xmlns:ns1="urn:gl.sabmiller.com:ecc:masterdata">
+			<ClassType>Z90</ClassType>
+			<InternalCharacteristic>0000001931</InternalCharacteristic>
+			<CharacteristicDescription>Style Category Code</CharacteristicDescription>
+			<CharacteristicValue>S020</CharacteristicValue>
+			<CharacteristicValueDescription>Scotch</CharacteristicValueDescription>
+		</ns1:ClassificationData>
+		<ns1:AlternativeUoM xmlns:ns1="urn:gl.sabmiller.com:ecc:masterdata">
+			<AlternativeUoM>CS</AlternativeUoM>
+			<Numerator>99999</Numerator>
+			<Denominator>1</Denominator>
+			<Length>0.000</Length>
+			<Width>0.000</Width>
+			<Height>0.000</Height>
+			<Volume>0.000</Volume>
+			<GrossWeight>0.000</GrossWeight>
+		</ns1:AlternativeUoM>
+		<ns1:AlternativeUoM xmlns:ns1="urn:gl.sabmiller.com:ecc:masterdata">
+			<AlternativeUoM>EA</AlternativeUoM>
+			<Numerator>1</Numerator>
+			<Denominator>1</Denominator>
+			<Length>270.000</Length>
+			<Width>270.000</Width>
+			<Height>300.000</Height>
+			<LWHUnitofDimension>MM</LWHUnitofDimension>
+			<Volume>0.022</Volume>
+			<VolumeUnit>M3</VolumeUnit>
+			<GrossWeight>15.200</GrossWeight>
+			<WeightUnit>KG</WeightUnit>
+		</ns1:AlternativeUoM>
+		<ns1:AlternativeUoM xmlns:ns1="urn:gl.sabmiller.com:ecc:masterdata">
+			<AlternativeUoM>HL</AlternativeUoM>
+			<Numerator>10000</Numerator>
+			<Denominator>1500</Denominator>
+			<Length>0.000</Length>
+			<Width>0.000</Width>
+			<Height>0.000</Height>
+			<Volume>0.000</Volume>
+			<GrossWeight>0.000</GrossWeight>
+		</ns1:AlternativeUoM>
+		<ns1:AlternativeUoM xmlns:ns1="urn:gl.sabmiller.com:ecc:masterdata">
+			<AlternativeUoM>L</AlternativeUoM>
+			<Numerator>1</Numerator>
+			<Denominator>15</Denominator>
+			<Length>0.000</Length>
+			<Width>0.000</Width>
+			<Height>0.000</Height>
+			<Volume>0.000</Volume>
+			<GrossWeight>0.000</GrossWeight>
+		</ns1:AlternativeUoM>
+		<ns1:AlternativeUoM xmlns:ns1="urn:gl.sabmiller.com:ecc:masterdata">
+			<AlternativeUoM>LAY</AlternativeUoM>
+			<Numerator>99999</Numerator>
+			<Denominator>1</Denominator>
+			<Length>1110.000</Length>
+			<Width>1100.000</Width>
+			<Height>0.000</Height>
+			<LWHUnitofDimension>MM</LWHUnitofDimension>
+			<Volume>0.000</Volume>
+			<VolumeUnit>M3</VolumeUnit>
+			<GrossWeight>243.200</GrossWeight>
+			<WeightUnit>KG</WeightUnit>
+		</ns1:AlternativeUoM>
+		<ns1:AlternativeUoM xmlns:ns1="urn:gl.sabmiller.com:ecc:masterdata">
+			<AlternativeUoM>LOA</AlternativeUoM>
+			<Numerator>1</Numerator>
+			<Denominator>6</Denominator>
+			<Length>0.000</Length>
+			<Width>0.000</Width>
+			<Height>0.000</Height>
+			<Volume>0.000</Volume>
+			<GrossWeight>0.000</GrossWeight>
+		</ns1:AlternativeUoM>
+		<ns1:AlternativeUoM xmlns:ns1="urn:gl.sabmiller.com:ecc:masterdata">
+			<AlternativeUoM>ML</AlternativeUoM>
+			<Numerator>1</Numerator>
+			<Denominator>15000</Denominator>
+			<Length>0.000</Length>
+			<Width>0.000</Width>
+			<Height>0.000</Height>
+			<Volume>0.000</Volume>
+			<GrossWeight>0.000</GrossWeight>
+		</ns1:AlternativeUoM>
+		<ns1:AlternativeUoM xmlns:ns1="urn:gl.sabmiller.com:ecc:masterdata">
+			<AlternativeUoM>PAL</AlternativeUoM>
+			<Numerator>99999</Numerator>
+			<Denominator>1</Denominator>
+			<Length>1110.000</Length>
+			<Width>1100.000</Width>
+			<Height>750.000</Height>
+			<LWHUnitofDimension>MM</LWHUnitofDimension>
+			<Volume>0.916</Volume>
+			<VolumeUnit>M3</VolumeUnit>
+			<GrossWeight>530.000</GrossWeight>
+			<WeightUnit>KG</WeightUnit>
+		</ns1:AlternativeUoM>
+	</Material>
+</ns0:MaterialERPReplicationBulkRequest>

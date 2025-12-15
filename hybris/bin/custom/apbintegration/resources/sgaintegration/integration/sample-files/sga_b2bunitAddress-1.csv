@@ -1,0 +1,2 @@
+#customerID,streetname,streetnumber,postalcode,town,country,region,firstname,lastname,email,companyCode,addressRecordid,phone1,eclDeliveryInstruction,shippingAddress,billingAddress,defaultAddress,addressType,visibleInAddressBook,eclDeliveryTimesLotFrom,eclDeliveryTimesLotTo,cutOffDeliveryDates
+1000001,MG Road,45,121251,melbourne,AU,AU-VIC,John,Albert,test@gmail.com,sga,11,9999111333,Sample Instruction,TRUE,TRUE,TRUE,DELIVERY:AddressType,TRUE,8.03.19,18.03.19,1|2

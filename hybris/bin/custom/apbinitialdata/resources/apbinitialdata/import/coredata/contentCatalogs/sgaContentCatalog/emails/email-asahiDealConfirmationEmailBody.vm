@@ -1,0 +1,182 @@
+## messageSource=classpath:/sabmcore/messages/email-dealConfirmation_$lang.properties
+#macro(genHtmlLinkStartTag $url)
+<a href="$url"><font color="#666666">
+    #end
+    #macro(genHtmlLinkEndTag)
+</font></a>
+#end
+#macro(genHtmlLink $url $textColor $bodyContent)
+<a href="$url"><font color="$textColor">$bodyContent</font></a>
+#end
+
+<html lang="en">
+    <head>
+        <title>{ctx.messages.asahi-altdeldate-title}</title>
+    </head>
+    <body bgcolor="#ffffff">
+        <table width="50%" cellpadding="0" cellspacing="0" align="center" bgcolor="#ffffff">
+            <tr>
+                <td style="border:1px solid #42515a;display:inline-table">
+                    <table cellpadding="0" cellspacing="0" border="0" style="min-width:320px;display:inline-table" align="center" bgcolor="#ffffff">
+                        <tr>
+                            <td align="left" colspan="6">
+                                <a href="${ctx.baseUrl}" style="padding: 0px 0px 0px 0px;display:inline-block;margin:0 auto;">
+                                    ${ctx.cmsSlotContents.TopContent}
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="header-image">
+                                <a href="${ctx.baseUrl}" style="padding: 0px 0px 0px 0px;display:inline-block;margin:0 auto;">
+                                    ${ctx.cmsSlotContents.SiteLogo}
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="5" valign="middle" style="font-weight:bold;font-family: Helvetica;color: #42515a;font-size: 18px;padding: 20px 0px 0px 20px;">
+                                ${ctx.messages.sgaEmailSubject}
+                                <table width="6%" cellpadding="0" cellspacing="0" border="0" valign="10px" >
+                                    <tr>
+                                        <td style="width: 10px;margin-top: 5px;border-bottom: 3px solid #42515a;padding:4px">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr><td height="10"></td></tr>
+                        <tr>
+                            <td colspan="5" align="left" valign="middle" style="font-family: Helvetica;color: #42515a;font-size: 15px;padding: 20px 0px 0px 20px;">
+                                #if(!${ctx.displayName})
+                                Hi,<br><br>
+                                #else
+                                ${ctx.messages.getMessage('sgasalutation', ${ctx.displayName})},<br><br>
+                                #end
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="5" align="left" valign="middle" style="font-family: Helvetica;color: #42515a;font-size: 15px;padding: 20px 0px 0px 20px;">
+                                ${ctx.messages.sgacontent1}<br/>
+                                ${ctx.messages.sgacontent2}<br/>
+                                ${ctx.messages.sgacontent3}<br>
+                            </td>
+                        </tr>
+                        <tr><td height="5"></td></tr>
+                        <tr>
+                            <td colspan="5" style="font-family: Helvetica;color: #42515a;font-size: 15px;padding: 20px 0px 0px 20px;">
+                                <strong>${ctx.messages.sgaadditionaldetails}</strong><br /><br />
+                                #if(${ctx.sgaadditionaldetails})
+                                ${ctx.sgaadditionaldetails} <br>
+                                #else
+                                ${ctx.messages.sganoadditionaldetails} <br>
+                                #end<br><br>
+                            </td>
+                        </tr>
+                        <tr><td height="10"></td></tr>
+                        <tr>
+                            <td colspan="5">
+                                <table cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:100%;">
+                                    <tr>
+                                        <td width="5"></td>
+                                        <td>
+                                            <table cellpadding="0" cellspacing="0" border="0" width="100%" style="width:100%;max-width:100%;">
+                                                <tr>
+                                                    <td style="background-color:#f1f1f1;color:#42515a;padding:10px 10px 10px 10px;font-weight:bold;">
+                                                        #if(${ctx.asahiavailableDealData})
+                                                        ${ctx.messages.sgaavailabledeals}
+                                                        #end
+                                                    </td>
+                                                </tr>
+
+                                                #foreach($entry in ${ctx.asahiavailableDealData})
+                                                <tr>
+                                                    <td style="padding:10px 10px 10px 10px;">
+                                                        <a href="${ctx.baseUrl}$entry.conditionProduct.url" style="text-decoration:underline;color:#000;font-weight:bold;">$entry.title</a><br />
+                                                        <span style="color:#cacaca;font-size:13px;font-style:italic;">${ctx.messages.getMessage('sgadealvalidfrom', $ctx.dateTool.format('dd/MM/yyyy',$entry.validFrom), $ctx.dateTool.format('dd/MM/yyyy',$entry.validTo))}</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="1" style="background:#cacaca;"></td>
+                                                </tr>
+                                                #end
+
+                                                #if(${ctx.asahiremoveddeals})
+                                                    <tr>
+                                                        <td style="background-color:#f1f1f1;color:#42515a;padding:10px 10px 10px 10px;font-weight:bold;">
+                                                            ${ctx.messages.sgadealnolongeravailable}
+                                                        </td>
+                                                    </tr>
+                                                    #foreach($entry in ${ctx.asahiremoveddeals})
+                                                    <tr>
+                                                        <td style="padding:10px 10px 10px 10px;">
+                                                            <a style="text-decoration:underline;color:#000;font-weight:bold;">$entry.title</a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td height="1" style="background:#cacaca;"></td>
+                                                    </tr>
+                                                    #end
+                                                #end
+                                            </table>
+
+
+                                        </td>
+                                        <td width="5"></td>
+                                    </tr>
+                                </table>
+
+                            </td>
+                        </tr>
+                        <tr><td height="50"></td></tr>
+                        <tr>
+                            <td colspan="5" style="padding: 20px 0px 0px 20px;">
+                                <table width="100%" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                        <td>
+                                            <table cellspacing="0" cellpadding="0" style="min-width: 240px;width: 100%; max-width: 300px;">
+                                                <tr>
+                                                    <td style="border-radius: 2px; text-align: center;" bgcolor="#f99d32">
+                                                        <a href="${ctx.baseUrl}" target="_blank" style="padding: 10px 40px; border: 1px solid #f99d32;border-radius: 2px;font-family: Helvetica, Arial, sans-serif;font-size: 14px; color: #42515a;text-decoration: none;font-weight:bold;display: inline-block;">
+                                                            ${ctx.messages.sgaviewdeals}
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr><td height="20"></td></tr>
+                        <tr><td height="10"></td></tr>
+                        <tr>
+                            <td colspan="5" style="font-family: Helvetica;color: #42515a;font-size: 15px;padding: 10px 0px 0px 20px;">
+                                ${ctx.messages.sgaContactUs1} <a href="${ctx.baseUrl}/contactus" style="text-decoration:underline;color:#42515a;">contact us</a> ${ctx.messages.sgaContactUs2} <br>
+                            </td>
+                        </tr>
+                        <tr><td height="10"></td></tr>
+                        <tr>
+                            <td colspan="5" style="font-family: Helvetica;color: #42515a;font-size: 15px;padding: 10px 0px 0px 20px;">
+                                ${ctx.messages.sgacomplimentaryClosing}<br>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="5" style="font-family: Helvetica;color: #42515a;font-size: 15px;padding: 5px 0px 0px 20px;">
+                                ${ctx.messages.sgasignature}<br>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="6">
+                                <br>
+                                <a href="${ctx.baseUrl}" style="padding: 0px 0px 0px 0px;">
+                                    ${ctx.cmsSlotContents.BottomContent}
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

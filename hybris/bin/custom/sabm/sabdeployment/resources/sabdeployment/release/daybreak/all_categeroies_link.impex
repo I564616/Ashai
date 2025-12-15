@@ -1,0 +1,366 @@
+
+# Import the CMS content for the site
+#
+$contentCatalog = sabmContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Staged])[default = $contentCatalog:Staged]
+
+
+#### CMS Link Components ####
+INSERT_UPDATE CMSLinkComponent; $contentCV[unique = true]; uid[unique = true]; name; url; &linkRef; &componentRef; target(code)[default = 'sameWindow']
+#Cider
+; ; MountainGoatCiderCategoryLink                   ; Mountain Goat Category Link                      ; /c/11                                                 ; MountainGoatCiderCategoryLink                   ; MountainGoatCiderCategoryLink
+; ; PureBlondeCiderCategoryLink                      ; Pure Blonde Category Link                      ;   /c/11                                               ; PureBlondeCiderCategoryLink                   ; PureBlondeCiderCategoryLink
+; ; PeachCiderCategoryLink                           ; Peach Category Link                      ;     /c/11                                             ; PeachCiderCategoryLink                   ; PeachCiderCategoryLink
+; ; RaspberryCiderCategoryLink                   ; Raspberry Category Link                      ;   /c/11                                               ; RaspberryCiderCategoryLink                   ; RaspberryCiderCategoryLink
+; ; PassionfruitCiderCategoryLink                   ; Passionfruit Category Link                      ; /c/11                                                    ; PassionfruitCiderCategoryLink                   ; PassionfruitCiderCategoryLink
+; ; BlackberryCiderCategoryLink                   ; Blackberry Category Link                      ; /c/11                                                    ; BlackberryCiderCategoryLink                   ; BlackberryCiderCategoryLink
+; ; WatermelonCiderCategoryLink                   ; Watermelon Category Link                      ; /c/11                                                    ; WatermelonCiderCategoryLink                   ; WatermelonCiderCategoryLink
+; ; OrganicCiderCategoryLink                   ; Organic Category Link                      ;  /c/11                                                   ; OrganicCiderCategoryLink                   ; OrganicCiderCategoryLink
+; ; HardCiderCategoryLink                   ; Hard Category Link                      ;    /c/11                                                 ; HardCiderCategoryLink                   ; HardCiderCategoryLink
+; ; LowcarbCiderCategoryLink                   ; Low carb Category Link                      ; /c/11                                                    ; LowcarbCiderCategoryLink                   ; LowcarbCiderCategoryLink
+; ; AppleCiderCategoryLink             ; Apple Cider Category Link               ;  /c/11                ; AppleCiderCategoryLink             ; AppleCiderCategoryLink
+; ; PearCiderCategoryLink              ; Pear Cider Category Link                ; /c/11                  ; PearCiderCategoryLink              ; PearCiderCategoryLink
+
+; ; CiderBottleCategoryLink            ; Cider Bottle Category Link                    ;      /c/11              ; CiderBottleCategoryLink            ; CiderBottleCategoryLink
+; ; CiderCanCategoryLink               ;Cider  Can Category Link                       ;   /c/11                     ; CiderCanCategoryLink               ; CiderCanCategoryLink
+; ; CiderKegCategoryLink               ; Cider Keg Category Link                       ;   /c/11                   ; CiderKegCategoryLink               ; CiderKegCategoryLink
+; ; DomesticPremiumCiderCategoryLink                ;DomesticPremium CategoryLink                     ; /c/11                                                ; DomesticPremiumCiderCategoryLink                 ; DomesticPremiumCiderCategoryLink
+; ; TraditionalRegularCiderCategoryLink                 ;TraditionalRegular Category Link                      ; /c/11                                                ; TraditionalRegularCiderCategoryLink                 ; TraditionalRegularCiderCategoryLink
+; ; CiderSubCategoryLink                 ;Cider Sub Category Link                      ; /c/11                                                ; CiderSubCategoryLink                 ; CiderSubCategoryLink
+
+; ; SomersByCiderLink                 ;SomersBy Cider Category Link                      ; /c/11                                                ; SomersByCiderLink                 ; SomersByCiderLink
+
+
+#Spirits
+; ; NikkaSpiritsCategoryLink                   ;Nikka Category Link                      ;  /c/12                                                ; NikkaSpiritsCategoryLink                   ; NikkaSpiritsCategoryLink
+; ; CougarSpiritsCategoryLink                   ;Cougar Category Link                      ; /c/12                                                  ; CougarSpiritsCategoryLink                   ; CougarSpiritsCategoryLink
+; ; BlackDouglasSpiritsCategoryLink            ;BlackDouglas Category Link                      ;/c/12                                                   ; BlackDouglasSpiritsCategoryLink                   ; BlackDouglasSpiritsCategoryLink
+; ; UntoldSpiritsCategoryLink                   ;Untold Category Link                      ; /c/12                                                  ; UntoldSpiritsCategoryLink                   ; UntoldSpiritsCategoryLink
+; ; WoodstockSpiritsCategoryLink                   ;Woodstock Category Link                      ;/c/12                                                   ; WoodstockSpiritsCategoryLink                   ; WoodstockSpiritsCategoryLink
+; ; VodkaOSpiritsCategoryLink                   ;Vodka O Category Link                      ; /c/12                                                  ; VodkaOSpiritsCategoryLink                   ; VodkaOSpiritsCategoryLink
+; ; ContinentalLiqueursSpiritsCategoryLink      ;Continental LiqueursCategory Link                      ; /c/12                                       ; ContinentalLiqueursSpiritsCategoryLink    ;ContinentalLiqueursSpiritsCategoryLink
+; ;PrinceAlbertSpiritsCategoryLink                   ;PrinceAlbertCategory Link                      ; /c/12                                        ; PrinceAlbertSpiritsCategoryLink   ; PrinceAlbertSpiritsCategoryLink
+; ; AkropolisOyzoSpiritsCategoryLink                   ;AkropolisOyzoCategory Link                      ; /c/12                                                  ; AkropolisOyzoSpiritsCategoryLink                   ; AkropolisOyzoSpiritsCategoryLink
+; ; CoyoteTequilaSpiritsCategoryLink                   ;Coyote Tequila Category Link                      ;/c/12                                                   ; CoyoteTequilaSpiritsCategoryLink                   ; CoyoteTequilaSpiritsCategoryLink
+; ; TequilaBluSpiritsCategoryLink                   ;Tequila Blu CategoryLink                     ;/c/12                                                   ; TequilaBluSpiritsCategoryLink                   ; TequilaBluSpiritsCategoryLink
+; ; Vdka6100SpiritsCategoryLink                   ;Vdka6100 Category Link                      ;/c/12                                                   ; Vdka6100SpiritsCategoryLink                   ; Vdka6100SpiritsCategoryLink
+; ; VodkaSpiritsCategoryLink                   ;Vodka Category Link                      ;/c/12                                                   ; VodkaSpiritsCategoryLink                   ; VodkaSpiritsCategoryLink
+; ; LiqueursSpiritsCategoryLink                   ;Liqueurs Category Link                      ; /c/12                                                  ; LiqueursSpiritsCategoryLink                   ; LiqueursSpiritsCategoryLink
+; ; GinSpiritsCategoryLink                   ;Gin Category Link                      ; /c/12                                                  ; GinSpiritsCategoryLink                  ; GinSpiritsCategoryLink
+; ; OyzoSpiritsCategoryLink                   ;Oyzo Category Link                      ; /c/12                                                  ; OyzoSpiritsCategoryLink                   ; OyzoSpiritsCategoryLink
+; ; WhiskySpiritsCategoryLink                   ;WhiskyCategory Link                      ; /c/12                                                  ; WhiskySpiritsCategoryLink                   ; WhiskySpiritsCategoryLink
+; ; BourbonSpiritsCategoryLink                   ;BourbonCategory Link                      ; /c/12                                                  ; BourbonSpiritsCategoryLink                   ; BourbonSpiritsCategoryLink
+; ; RumSpiritsCategoryLink                   ;RumCategory Link                      ; /c/12                                                  ; RumSpiritsCategoryLink                   ; RumSpiritsCategoryLink
+; ; TequilaSpiritsCategoryLink                   ;TequilaCategory Link                      ;/c/12                                                   ; TequilaSpiritsCategoryLink                   ; TequilaSpiritsCategoryLink
+; ; LightSpiritsCategoryLink                   ;LightCategory Link                      ; /c/12                                                  ; LightSpiritsCategoryLink                   ; LightSpiritsCategoryLink
+; ;DarkSpiritsCategoryLink                   ;DarkCategory Link                      ; /c/12                                                  ; DarkSpiritsCategoryLink                   ; DarkSpiritsCategoryLink
+; ; BottleSpiritsCategoryLink                   ;BottleCategory Link                      ;/c/12                                                 ; BottleSpiritsCategoryLink                   ; BottleSpiritsCategoryLink
+
+; ; DomesticPremiumSpiritsCategoryLink                ;DomesticPremium CategoryLink                     ; /c/12                                                  ; DomesticPremiumSpiritsCategoryLink                 ; DomesticPremiumSpiritsCategoryLink
+; ; TraditionalRegularSpiritsCategoryLink                 ;TraditionalRegular Category Link                      ; /c/12                                                 ; TraditionalRegularSpiritsCategoryLink                 ; TraditionalRegularSpiritsCategoryLink
+; ; ScotchSpiritsCategoryLink                 ;Scotch Category Link                      ; /c/12                                                 ; ScotchSpiritsCategoryLink                 ; ScotchSpiritsCategoryLink
+; ; NewWorldRegularSpiritsCategoryLink                 ;NewWorldRegular Category Link                      ; /c/12                                                 ; NewWorldRegularSpiritsCategoryLink                 ; NewWorldRegularSpiritsCategoryLink
+; ; SpiritsSubCategoryLink                 ;Spirits Sub Category Link                      ; /c/12                                                 ; SpiritsSubCategoryLink                 ; SpiritsSubCategoryLink
+
+#Wine
+; ; BromptonWineCategoryLink                   ;Brompton Category Link                      ;/c/14                                                  ; BromptonWineCategoryLink                   ; BromptonWineCategoryLink
+; ; SpritzWineCategoryLink                   ;Spritz Category Link                      ;/c/14                                                     ; SpritzWineCategoryLink                   ; SpritzWineCategoryLink
+; ; FizzWineCategoryLink            ; Fizz Category Link                      ; /c/14                                                    ; FizzWineCategoryLink                   ; FizzWineCategoryLink
+; ; CanWineCategoryLink                   ; Can Category Link                      ;/c/14                                                     ; CanWineCategoryLink                   ; CanWineCategoryLink
+; ; KegWineCategoryLink                   ; Keg Category Link                      ; /c/14                                                    ; KegWineCategoryLink                   ; KegWineCategoryLink
+; ; WineSubCategoryLink                   ; Wine Sub Category Link                      ; /c/14                                                    ; WineSubCategoryLink                   ; WineSubCategoryLink
+
+#Non Alc &Coffee
+; ; PassionaNonAlcoholicCategoryLink                   ;Passiona Category Link                      ; /c/13                                                 ; PassionaNonAlcoholicCategoryLink         ;PassionaNonAlcoholicCategoryLink  
+; ; NewRoadNonAlcoholicCategoryLink                   ;NewRoad Category Link                      ; /c/13                                                 ; NewRoadNonAlcoholicCategoryLink         ;NewRoadNonAlcoholicCategoryLink  
+; ; LiptonIceTeaNonAlcoholicCategoryLink                   ;LiptonIceTea Category Link                      ; /c/13                                                 ; LiptonIceTeaNonAlcoholicCategoryLink         ;LiptonIceTeaNonAlcoholicCategoryLink  
+; ;WoodroofeNonAlcoholicCategoryLink                   ;Woodroofe Category Link                      ; /c/13                                                 ;WoodroofeNonAlcoholicCategoryLink         ;WoodroofeNonAlcoholicCategoryLink  
+; ; StrangeloveNonAlcoholicCategoryLink                   ;Strangelove Category Link                      ; /c/13                                                 ; StrangeloveNonAlcoholicCategoryLink                   ; StrangeloveNonAlcoholicCategoryLink
+; ; PepsiNonAlcoholicCategoryLink                   ;Pepsi Category Link                      ; /c/13                                                    ; PepsiNonAlcoholicCategoryLink                   ; PepsiNonAlcoholicCategoryLink
+; ; SchweppesNonAlcoholicCategoryLink                   ;Schweppes Category Link                      ;/c/13                                                     ; SchweppesNonAlcoholicCategoryLink                   ; SchweppesNonAlcoholicCategoryLink
+; ; GatoradeNonAlcoholicCategoryLink                   ;Gatorade Category Link                      ;/c/13                                                     ; GatoradeNonAlcoholicCategoryLink                   ; GatoradeNonAlcoholicCategoryLink
+; ; FrantelleNonAlcoholicCategoryLink                   ;Frantelle Category Link                      ;/c/13                                                     ; FrantelleNonAlcoholicCategoryLink                   ; FrantelleNonAlcoholicCategoryLink
+; ; AllpressNonAlcoholicCategoryLink                   ;Allpress Category Link                      ; /c/13                                                    ; AllpressNonAlcoholicCategoryLink                   ; AllpressNonAlcoholicCategoryLink
+; ; CharliesNonAlcoholicCategoryLink                   ;Charlies Category Link                      ; /c/13                                                    ; CharliesNonAlcoholicCategoryLink                   ; CharliesNonAlcoholicCategoryLink
+; ; CoolRidgeNonAlcoholicCategoryLink                   ;Cool Ridge Category Link                      ;/c/13                                                     ; CoolRidgeNonAlcoholicCategoryLink                   ; CoolRidgeNonAlcoholicCategoryLink
+; ; PinesNonAlcoholicCategoryLink                   ;PinesCategory Link                      ;/c/13                                                     ; PinesNonAlcoholicCategoryLink                   ; PinesNonAlcoholicCategoryLink
+; ; AsahiNonAlcoholicCategoryLink                   ;Asahi Category Link                      ; /c/13                                                    ; AsahiNonAlcoholicCategoryLink                   ; AsahiNonAlcoholicCategoryLink
+; ; SpringValleyNonAlcoholicCategoryLink                   ;Spring Valley Category Link                      ; /c/13                                                    ; SpringValleyNonAlcoholicCategoryLink                   ; SpringValleyNonAlcoholicCategoryLink
+; ; SoloNonAlcoholicCategoryLink                   ;Solo Category Link                      ; /c/13                                                    ; SoloNonAlcoholicCategoryLink                  ; SoloNonAlcoholicCategoryLink
+; ; SunkistNonAlcoholicCategoryLink                   ;Sunkist Category Link                      ;/c/13                                                     ; SunkistNonAlcoholicCategoryLink                   ; SunkistNonAlcoholicCategoryLink
+; ; UPNonAlcoholicCategoryLink                   ;UP Category Link                      ;  /c/13                                                   ; UPNonAlcoholicCategoryLink                   ; UPNonAlcoholicCategoryLink
+; ; MountainDewNonAlcoholicCategoryLink                   ;Mountain Dew Category Link                      ;/c/13                                                     ; MountainDewNonAlcoholicCategoryLink                   ; MountainDewNonAlcoholicCategoryLink
+; ; PopTopsNonAlcoholicCategoryLink                   ;Pop Tops Category Link                      ; /c/13                                                   ; PopTopsNonAlcoholicCategoryLink                   ; PopTopsNonAlcoholicCategoryLink
+; ; VossNonAlcoholicCategoryLink                   ;Voss Category Link                      ; /c/13                                                    ; VossNonAlcoholicCategoryLink                   ; VossNonAlcoholicCategoryLink
+; ; CarltonZeroNonAlcoholicCategoryLink                   ;Carlton Zero Category Link                      ; /c/13                                                    ; CarltonZeroNonAlcoholicCategoryLink                   ; CarltonZeroNonAlcoholicCategoryLink
+; ; GreatNorthernNonAlcoholicCategoryLink                   ; GreatNorthern Category Link                      ;/c/13                                                     ; GreatNorthernNonAlcoholicCategoryLink                   ; GreatNorthernNonAlcoholicCategoryLink
+; ; PeroniNonAlcoholicCategoryLink                   ; Peroni Category Link                      ;  /c/13                                                   ; PeroniNonAlcoholicCategoryLink                   ; PeroniNonAlcoholicCategoryLink
+; ; SyrupsNonAlcoholicCategoryLink                   ; Syrups Category Link                      ; /c/13                                                    ; SyrupsNonAlcoholicCategoryLink                   ; SyrupsNonAlcoholicCategoryLink
+; ; SoftDrinkNonAlcoholicCategoryLink                   ; SoftDrink Category Link                      ;/c/13                                                     ; SoftDrinkNonAlcoholicCategoryLink                   ; SoftDrinkNonAlcoholicCategoryLink
+; ; WaterNonAlcoholicCategoryLink                   ; Water Category Link                      ; /c/13                                                    ; WaterNonAlcoholicCategoryLink                   ; WaterNonAlcoholicCategoryLink
+; ; JuiceNonAlcoholicCategoryLink                   ; Juice Category Link                      ; /c/13                                                    ; JuiceNonAlcoholicCategoryLink                   ; JuiceNonAlcoholicCategoryLink
+; ; BeerNonAlcoholicCategoryLink                   ; Beer Category Link                      ; /c/13                                                    ; BeerNonAlcoholicCategoryLink                   ; BeerNonAlcoholicCategoryLink
+; ; CordialNonAlcoholicCategoryLink                   ; Cordial Category Link                      ;  /c/13                                                   ; CordialNonAlcoholicCategoryLink                   ; CordialNonAlcoholicCategoryLink
+; ; CoffeeNonAlcoholicCategoryLink                   ; Coffee Category Link                      ;  /c/13                                                   ; CoffeeNonAlcoholicCategoryLink                   ; CoffeeNonAlcoholicCategoryLink
+; ; IcedTeaNonAlcoholicCategoryLink                   ; IcedTea Category Link                      ; /c/13                                                    ; IcedTeaNonAlcoholicCategoryLink                   ; IcedTeaNonAlcoholicCategoryLink
+; ; StillNonAlcoholicCategoryLink                   ; Still Category Link                      ; /c/13                                                    ; StillNonAlcoholicCategoryLink                   ; StillNonAlcoholicCategoryLink
+; ; SparklingNonAlcoholicCategoryLink                   ; Sparkling Category Link                      ;/c/13                                                     ; SparklingNonAlcoholicCategoryLink                   ; SparklingNonAlcoholicCategoryLink
+; ; PremiumMixersNonAlcoholicCategoryLink                   ; Premium Mixers Category Link                      ;/c/13                                                     ; PremiumMixersNonAlcoholicCategoryLink                   ; PremiumMixersNonAlcoholicCategoryLink
+; ; MixersNonAlcoholicCategoryLink                   ; Mixers Category Link                      ; /c/13                                                    ; MixersNonAlcoholicCategoryLink                   ; MixersNonAlcoholicCategoryLink
+; ; SportsNonAlcoholicCategoryLink                   ; Sports Category Link                      ; /c/13                                                    ; SportsNonAlcoholicCategoryLink                   ; SportsNonAlcoholicCategoryLink
+; ; MixersNonAlcoholicCategoryLink                   ; Mixers Category Link                      ; /c/13                                                    ; MixersNonAlcoholicCategoryLink                   ; MixersNonAlcoholicCategoryLink
+; ; FrozenNonAlcoholicCategoryLink                   ; Frozen Category Link                      ;  /c/13                                                   ; FrozenNonAlcoholicCategoryLink                   ; FrozenNonAlcoholicCategoryLink
+; ; AncillariesNonAlcoholicCategoryLink                   ; Ancillaries Category Link                      ; /c/13                                                    ; AncillariesNonAlcoholicCategoryLink                   ; AncillariesNonAlcoholicCategoryLink
+; ; BIBNonAlcoholicCategoryLink                   ; BIB Category Link                      ; /c/13                                                    ; BIBNonAlcoholicCategoryLink                   ; BIBNonAlcoholicCategoryLink
+; ; CanNonAlcoholicCategoryLink                   ; Can Category Link                      ; /c/13                                                    ; CanNonAlcoholicCategoryLink                   ; CanNonAlcoholicCategoryLink
+; ; BottleNonAlcoholicCategoryLink                   ; Bottle Category Link                      ;/c/13                                                     ; BottleNonAlcoholicCategoryLink                   ; BottleNonAlcoholicCategoryLink
+; ; CoffeePouchNonAlcoholicCategoryLink                   ; CoffeePouch Category Link                      ; /c/13                                                    ; CoffeePouchNonAlcoholicCategoryLink                   ; CoffeePouchNonAlcoholicCategoryLink
+; ; TubNonAlcoholicCategoryLink                   ; Tub Category Link                      ;/c/13                                                     ; TubNonAlcoholicCategoryLink                   ; TubNonAlcoholicCategoryLink
+; ; CupsLidsStrawsNonAlcoholicCategoryLink                   ; Cup Lids Straws Category Link                      ; /c/13                                                    ; CupsLidsStrawsNonAlcoholicCategoryLink       ;CupsLidsStrawsNonAlcoholicCategoryLink
+; ; BeansNonAlcoholicCategoryLink                   ; Beans Category Link                      ; /c/13                                                    ; BeansNonAlcoholicCategoryLink                   ; BeansNonAlcoholicCategoryLink
+
+; ; EnergyNonAlcoholicCategoryLink                   ; Energy Category Link                      ; /c/13                                                    ; EnergyNonAlcoholicCategoryLink                   ; EnergyNonAlcoholicCategoryLink
+
+; ; EnergyDrinkNonAlcoholicCategoryLink                   ; Energy Drink Category Link                      ; /c/13                                                    ; EnergyDrinkNonAlcoholicCategoryLink                   ; EnergyDrinkNonAlcoholicCategoryLink
+
+; ; CoffeeDecafNonAlcoholicCategoryLink                   ; Coffee Decaf Category Link                      ; /c/13                                                    ; CoffeeDecafNonAlcoholicCategoryLink                   ; CoffeeDecafNonAlcoholicCategoryLink
+
+; ; CoffeeEspressoNonAlcoholicCategoryLink                   ; Coffee Espresso Category Link                      ; /c/13                                                    ; CoffeeEspressoNonAlcoholicCategoryLink  ; CoffeeEspressoNonAlcoholicCategoryLink
+
+; ; SportsDrinkNonAlcoholicCategoryLink                   ; Sports Drink Category Link                      ; /c/13                                                    ; SportsDrinkNonAlcoholicCategoryLink  ; SportsDrinkNonAlcoholicCategoryLink
+
+; ; LagerNonAlcoholicCategoryLink                   ; Lager Category Link                      ; /c/13                                                    ; LagerNonAlcoholicCategoryLink  ; LagerNonAlcoholicCategoryLink
+
+; ; MerchandiseNonAlcoholicCategoryLink                   ; Merchandise  Category Link                      ; /c/13                                                    ; MerchandiseNonAlcoholicCategoryLink  ; MerchandiseNonAlcoholicCategoryLink
+; ; NonBeverageNonAlcoholicCategoryLink                   ; NonBeverage Category Link                      ; /c/13                                                    ; NonBeverageNonAlcoholicCategoryLink  ; NonBeverageNonAlcoholicCategoryLink
+
+; ; PetNonAlcoholicCategoryLink                   ; Pet NonAlcoholic Category Link                     ; /c/13                                                    ; PetNonAlcoholicCategoryLink                   ; PetNonAlcoholicCategoryLink
+; ; PhoenixNonAlcoholicCategoryLink                   ; Phoenix NonAlcoholic Category Link                     ; /c/13                                                    ; PhoenixNonAlcoholicCategoryLink                   ; PhoenixNonAlcoholicCategoryLink
+; ;SchweppesCordialNonAlcoholicCategoryLink                   ;SchweppesCordial Category Link                      ; /c/13                                                 ;SchweppesCordialNonAlcoholicCategoryLink         ;SchweppesCordialNonAlcoholicCategoryLink
+; ;SchweppesMineralWaterNonAlcoholicCategoryLink                   ;SchweppesMineralWater Category Link                      ; /c/13                                                 ;SchweppesMineralWaterNonAlcoholicCategoryLink ;SchweppesMineralWaterNonAlcoholicCategoryLink
+; ;SchweppesMixersNonAlcoholicCategoryLink                   ;SchweppesMixers Category Link                      ; /c/13                                                 ;SchweppesMixersNonAlcoholicCategoryLink        ;SchweppesMixersNonAlcoholicCategoryLink
+; ; NonBeverageBrandNonAlcoholicCategoryLink                   ; NonBeverage Brand Category Link                      ; /c/13                                                    ; NonBeverageBrandNonAlcoholicCategoryLink  ; NonBeverageBrandNonAlcoholicCategoryLink
+; ; PremixNonAlcoholicCategoryLink                   ; Premix Brand Category Link                      ; /c/13                                                    ; PremixNonAlcoholicCategoryLink  ; PremixNonAlcoholicCategoryLink
+
+; ; WaterSubNonAlcoholicCategoryLink                   ; Water Sub Category Link                      ; /c/13                                                    ; WaterSubNonAlcoholicCategoryLink                   ; WaterSubNonAlcoholicCategoryLink
+; ; JuiceSubNonAlcoholicCategoryLink                   ; JuiceSub Category Link                      ; /c/13                                                    ; JuiceSubNonAlcoholicCategoryLink                   ; JuiceSubNonAlcoholicCategoryLink
+; ; IcedTeaSubNonAlcoholicCategoryLink                   ; Iced TeaSub Category Link                      ; /c/13                                                    ; IcedTeaSubNonAlcoholicCategoryLink                   ; IcedTeaSubNonAlcoholicCategoryLink
+; ; TraditionalRegularNonAlcoholicCategoryLink                   ; Traditional Regular NonAlcoholicCategoryLink                      ; /c/13                                                    ; TraditionalRegularNonAlcoholicCategoryLink                   ; TraditionalRegularNonAlcoholicCategoryLink
+
+#Cider
+; ; MercuryCategoryLink                ; Mercury Category Link                   ; /c/11?q=%3Arelevance%3AsabmBrand%3AMercury                   ; MercuryCategoryLink                ; MercuryCategoryLink
+; ; BulmersCategoryLink                ; Bulmers Category Link                   ; /c/11?q=%3Arelevance%3AsabmBrand%3ABulmers                   ; BulmersCategoryLink                ; BulmersCategoryLink
+
+#Wine
+; ; RiotWineCategoryLink                ; Riot wine Category Link                   ; /c/14q=%3Abestseller%3AsabmBrand%3ARiot&text=#                  ; RiotWineCategoryLink                ; RiotWineCategoryLink
+; ;RedWineCategoryLink                ; Red wine Category Link                   ; /c/14?q=%3Abestseller%3Astyle%3AStill%2BWine%2B%25E2%2580%2593%2BRed&text=#                 ; RedWineCategoryLink                ; RedWineCategoryLink
+; ; WhiteWineCategoryLink                ; White wine Category Link                   ;/c/14?q=%3Abestseller%3Astyle%3AStill%2BWine%2B%25E2%2580%2593%2BWhite&text=#                 ; WhiteWineCategoryLink                ; WhiteWineCategoryLink
+; ; RoseWineCategoryLink                ; Rose wine Category Link                   ; /c/14?q=%3Abestseller%3Astyle%3AStill%2BWine%2B%25E2%2580%2593%2BRose&text=#                  ; RoseWineCategoryLink                ; RoseWineCategoryLink
+; ; SparklingWhiteWineCategoryLink                ; SparklingWhite Category Link                   ; /c/14?q=%3Abestseller%3Astyle%3ASparkling%2BWine%2B%25E2%2580%2593%2BWhite&text=#                  ; SparklingWhiteWineCategoryLink                ; SparklingWhiteWineCategoryLink
+; ; SparklingRedWineCategoryLink                ; SparklingRed Category Link                   ; c/14?q=%3Abestseller%3Astyle%3ASparkling%2BWine%2B%25E2%2580%2593%2BRose&text=#                 ; SparklingRedWineCategoryLink                ; SparklingRedWineCategoryLink
+; ; CanWineCategoryLink                ;Can wine Category Link                   ; /c/14                 ; CanWineCategoryLink                ; CanWineCategoryLink
+; ; KegWineCategoryLink                ; Keg wine Category Link                   ; /c/14?q=%3Abestseller%3Acontainer%3AKeg&text=#                  ; KegWineCategoryLink                ; KegWineCategoryLink
+
+INSERT_UPDATE CMSNavigationNode; uid[unique = true]; $contentCV[unique = true]; name; parent(uid, $contentCV); links(&componentRef); &nodeRef
+;CiderPopularNavNode;;Popular Category;CiderNavNode;MercuryCategoryLink,BulmersCategoryLink;CiderPopularNavNode
+;CiderBrandNavNode;;Brand Category;CiderNavNode;MountainGoatCiderCategoryLink,PureBlondeCiderCategoryLink,SomersByCiderLink;CiderBrandNavNode
+;CiderStyleNavNode;;Style Category;CiderNavNode;AppleCiderCategoryLink,PearCiderCategoryLink,PeachCiderCategoryLink,RaspberryCiderCategoryLink,PassionfruitCiderCategoryLink,BlackberryCiderCategoryLink,WatermelonCiderCategoryLink;CiderStyleNavNode
+; CiderSubcategoryNavNode   ; ; SubCategory Category        ; CiderNavNode     ; OrganicCiderCategoryLink,HardCiderCategoryLink,LowcarbCiderCategoryLink,DomesticPremiumCiderCategoryLink,TraditionalRegularCiderCategoryLink,CiderSubCategoryLink                                                          ; CiderSubcategoryNavNode
+;CiderPackageTypeNavNode;;Package Type Category;CiderNavNode;CiderBottleCategoryLink,CiderCanCategoryLink,CiderKegCategoryLink;CiderPackageTypeNavNode
+; SpiritsPopularNavNode ; ; Popular Category        ; SpiritsNavNode   ; NikkaSpiritsCategoryLink,CougarSpiritsCategoryLink,BlackDouglasSpiritsCategoryLink,UntoldSpiritsCategoryLink,WoodstockSpiritsCategoryLink,VodkaOSpiritsCategoryLink ;SpiritsPopularNavNode                                                                                                                                                             
+; SpiritsBrandNavNode ; ; Brand Category        ; SpiritsNavNode   ; ContinentalLiqueursSpiritsCategoryLink,PrinceAlbertSpiritsCategoryLink,AkropolisOyzoSpiritsCategoryLink,CoyoteTequilaSpiritsCategoryLink,TequilaBluSpiritsCategoryLink,Vdka6100SpiritsCategoryLink  ;SpiritsBrandNavNode                                                                                                                                                           
+; SpiritsStyleNavNode ; ; Style Category        ; SpiritsNavNode   ; VodkaSpiritsCategoryLink,LiqueursSpiritsCategoryLink,GinSpiritsCategoryLink,OyzoSpiritsCategoryLink,WhiskySpiritsCategoryLink,BourbonSpiritsCategoryLink,RumSpiritsCategoryLink,TequilaSpiritsCategoryLink,ScotchSpiritsCategoryLink ;SpiritsStyleNavNode                                                                                                                                                            
+; SpiritsSubcategoryNavNode ; ; Subcategory Category        ; SpiritsNavNode   ; DomesticPremiumSpiritsCategoryLink,TraditionalRegularSpiritsCategoryLink,NewWorldRegularSpiritsCategoryLink,SpiritsSubCategoryLink                                                                                                                                                ; SpiritsSubcategoryNavNode
+; SpiritsPackageTypeNavNode ; ;Package Type Category        ; SpiritsNavNode   ; BottleSpiritsCategoryLink;SpiritsPackageTypeNavNode
+; ChildWineNavNode         ; ; Popular Category             ; WineNavNode     ;  RiotWineCategoryLink          ; ChildWineNavNode
+; WineBrandNavNode         ; ; Brand Category              ; WineNavNode     ;  BromptonWineCategoryLink  ;WineBrandNavNode
+; WineStyleNavNode         ; ; Style Category              ; WineNavNode     ;  RedWineCategoryLink,WhiteWineCategoryLink,RoseWineCategoryLink,SparklingWhiteWineCategoryLink,SparklingRedWineCategoryLink; WineStyleNavNode
+                                                                                                                                                       
+; WineSubcategoryNavNode   ; ; SubCategory Category        ; WineNavNode     ;   SpritzWineCategoryLink,FizzWineCategoryLink,WineSubCategoryLink ;WineSubcategoryNavNode
+; WinePackageTypeNavNode         ; ; Package Type Category              ; WineNavNode     ;  CanWineCategoryLink,KegWineCategoryLink;WinePackageTypeNavNode                                                                                                                                                       
+; ChildNonAlcoholicNavNode ; ;Popular Category ; NonAlcoholicNavNode   ; StrangeloveNonAlcoholicCategoryLink,PassionaNonAlcoholicCategoryLink,PepsiNonAlcoholicCategoryLink,SchweppesNonAlcoholicCategoryLink,GatoradeNonAlcoholicCategoryLink,FrantelleNonAlcoholicCategoryLink,AllpressNonAlcoholicCategoryLink,CharliesNonAlcoholicCategoryLink,CoolRidgeNonAlcoholicCategoryLink,PinesNonAlcoholicCategoryLink,AsahiNonAlcoholicCategoryLink,SchweppesCordialNonAlcoholicCategoryLink,SchweppesMineralWaterNonAlcoholicCategoryLink,SchweppesMixersNonAlcoholicCategoryLink;ChildNonAlcoholicNavNode
+; NonAlocoholicBrandNavNode         ; ; Brand Category              ; NonAlcoholicNavNode     ;NewRoadNonAlcoholicCategoryLink,LiptonIceTeaNonAlcoholicCategoryLink,WoodroofeNonAlcoholicCategoryLink,SpringValleyNonAlcoholicCategoryLink,SoloNonAlcoholicCategoryLink,SunkistNonAlcoholicCategoryLink,UPNonAlcoholicCategoryLink,MountainDewNonAlcoholicCategoryLink,PopTopsNonAlcoholicCategoryLink,VossNonAlcoholicCategoryLink,CarltonZeroNonAlcoholicCategoryLink,GreatNorthernNonAlcoholicCategoryLink,PeroniNonAlcoholicCategoryLink,PhoenixNonAlcoholicCategoryLink,NonBeverageBrandNonAlcoholicCategoryLink                                                                                                                                                           ; NonAlocoholicBrandNavNode
+; NonAlocoholicStyleNavNode ; ;Style Category         ; NonAlcoholicNavNode   ; SyrupsNonAlcoholicCategoryLink,SparklingNonAlcoholicCategoryLink,MixersNonAlcoholicCategoryLink,WaterNonAlcoholicCategoryLink,JuiceNonAlcoholicCategoryLink,BeerNonAlcoholicCategoryLink,CordialNonAlcoholicCategoryLink,CoffeeNonAlcoholicCategoryLink,IcedTeaNonAlcoholicCategoryLink,EnergyDrinkNonAlcoholicCategoryLink,CoffeeDecafNonAlcoholicCategoryLink,CoffeeEspressoNonAlcoholicCategoryLink,SportsDrinkNonAlcoholicCategoryLink,LagerNonAlcoholicCategoryLink,MerchandiseNonAlcoholicCategoryLink,PremixNonAlcoholicCategoryLink;NonAlocoholicStyleNavNode
+; NonAlocoholicSubcategoryNavNode   ; ; SubCategory Category        ; NonAlcoholicNavNode     ; StillNonAlcoholicCategoryLink,SoftDrinkNonAlcoholicCategoryLink,PremiumMixersNonAlcoholicCategoryLink,SportsNonAlcoholicCategoryLink,FrozenNonAlcoholicCategoryLink,AncillariesNonAlcoholicCategoryLink,BeansNonAlcoholicCategoryLink,EnergyNonAlcoholicCategoryLink,NonBeverageNonAlcoholicCategoryLink,WaterSubNonAlcoholicCategoryLink,JuiceSubNonAlcoholicCategoryLink,IcedTeaSubNonAlcoholicCategoryLink,TraditionalRegularNonAlcoholicCategoryLink                                                                                                               ; NonAlocoholicSubcategoryNavNode
+; NonAlocoholicPackageTypeNavNode ; ;Package Type Category ; NonAlcoholicNavNode   ;BIBNonAlcoholicCategoryLink,CanNonAlcoholicCategoryLink,BottleNonAlcoholicCategoryLink,PetNonAlcoholicCategoryLink,CoffeePouchNonAlcoholicCategoryLink,TubNonAlcoholicCategoryLink,CupsLidsStrawsNonAlcoholicCategoryLink ;NonAlocoholicPackageTypeNavNode
+
+
+
+# Import the CMS content for the site
+#
+$contentCatalog = sabmContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Staged])[default = $contentCatalog:Staged]
+$lang=en
+UPDATE CMSLinkComponent; $contentCV[unique = true]; uid[unique = true]  ;linkName[lang=$lang]
+                       ;                          ; SpiritsCategoryLink ; Spirits;
+                       ;                          ;NonAlcoholicComponentLink;Non Alc & Coffee;
+
+
+
+
+# CMS Navigation Nodes
+UPDATE CMSNavigationNode;$contentCV[unique=true];uid[unique=true];title[lang=en]
+;;CiderPopularNavNode;"Popular"
+;;CiderBrandNavNode;"Brand"
+;;CiderStyleNavNode;"Style"
+;;CiderSubcategoryNavNode;"Subcategory"
+;;CiderPackageTypeNavNode;"Package Type"
+;;SpiritsPopularNavNode;"Popular"
+;;SpiritsBrandNavNode;"Brand"
+;;SpiritsStyleNavNode;"Style"
+;;SpiritsSubcategoryNavNode;"Subcategory"
+;;SpiritsPackageTypeNavNode;"Package Type"
+;;ChildWineNavNode;"Popular"
+;;WineBrandNavNode;"Brand"
+;;WineStyleNavNode;"Style"
+;;WineSubcategoryNavNode;"Subcategory"
+;;WinePackageTypeNavNode;"Package Type"
+;;ChildNonAlcoholicNavNode;"Popular"
+;;NonAlocoholicBrandNavNode;"Brand"
+;;NonAlocoholicStyleNavNode;"Style"
+;;NonAlocoholicSubcategoryNavNode;"Subcategory"
+;;NonAlocoholicPackageTypeNavNode;"Package Type"
+
+
+#### CMS Link Components ####
+UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];linkName[lang=$lang]
+#Cider
+;;MercuryCategoryLink;"Mercury";
+;;BulmersCategoryLink;"Bulmers";
+;;AppleCiderCategoryLink;"Apple Cider";
+;;PearCiderCategoryLink;"Pear Cider";
+;;MountainGoatCiderCategoryLink;"Mountain Goat";
+;;PureBlondeCiderCategoryLink;"Pure Blonde";
+;;PeachCiderCategoryLink;"Peach Cider";
+;;RaspberryCiderCategoryLink;"Raspberry";
+;;PassionfruitCiderCategoryLink;"Passion fruit";
+;;BlackberryCiderCategoryLink;"Blackberry";
+;;WatermelonCiderCategoryLink;"Watermelon";
+;;OrganicCiderCategoryLink;"Organic";
+;;HardCiderCategoryLink;"Hard";
+;;LowcarbCiderCategoryLink;"Low Carb";
+;;DomesticPremiumCiderCategoryLink;"Domestic Premium";
+;;TraditionalRegularCiderCategoryLink;"Traditional Regular";
+;;CiderBottleCategoryLink;"Bottle";
+;;CiderCanCategoryLink;"Can";
+;;CiderKegCategoryLink;"Keg";
+;;CiderSubCategoryLink;"Cider";
+;;SomersByCiderLink;"Somersby";
+
+
+#Spirits
+;;NikkaSpiritsCategoryLink;"Nikka";
+;;CougarSpiritsCategoryLink;"Cougar";
+;;BlackDouglasSpiritsCategoryLink;"Black Douglas";
+;;UntoldSpiritsCategoryLink;"Untold";
+;;WoodstockSpiritsCategoryLink;"WoodStock";
+;;VodkaOSpiritsCategoryLink;"Vodka O";
+;;ContinentalLiqueursSpiritsCategoryLink;"Continental";
+;;PrinceAlbertSpiritsCategoryLink;"Prince Albert";
+;;AkropolisOyzoSpiritsCategoryLink;"Akropolis";
+;;CoyoteTequilaSpiritsCategoryLink;"Coyote Tequila";
+;;TequilaBluSpiritsCategoryLink;"Tequila Blu";
+;;Vdka6100SpiritsCategoryLink;"Vodka6100";
+;;VodkaSpiritsCategoryLink;"Vodka";
+;;LiqueursSpiritsCategoryLink;"Liqueurs";
+;;GinSpiritsCategoryLink;"Gin";
+;;OyzoSpiritsCategoryLink;"Oyzo";
+;;WhiskySpiritsCategoryLink;"Whisky";
+;;BourbonSpiritsCategoryLink;"Bourbon";
+;;RumSpiritsCategoryLink;"Rum";
+;;TequilaSpiritsCategoryLink;"Tequila";
+;;LightSpiritsCategoryLink;"Light";
+;;DarkSpiritsCategoryLink;"Dark";
+;;BottleSpiritsCategoryLink;"Bottle";
+;;DomesticPremiumSpiritsCategoryLink;"Domestic Premium";
+;;TraditionalRegularSpiritsCategoryLink;"Traditional Regular";
+;;ScotchSpiritsCategoryLink;"Scotch";
+;;NewWorldRegularSpiritsCategoryLink;"New World";
+;;SpiritsSubCategoryLink;"Spirits";
+#Wine
+;;BromptonWineCategoryLink;"Brompton & Co.";
+;;SpritzWineCategoryLink;"Spritz";
+;;FizzWineCategoryLink;"Fizz";
+;;CanWineCategoryLink;"Can";
+;;KegWineCategoryLink;"Keg";
+;;RiotWineCategoryLink;"Riot";
+;;RedWineCategoryLink;"Red";
+;;WhiteWineCategoryLink;"White";
+;;RoseWineCategoryLink;"Rose";
+;;SparklingWhiteWineCategoryLink;"Sparkling White";
+;;SparklingRedWineCategoryLink;"Sparkling Rose";
+;;WineSubCategoryLink;"Wine"
+
+#Non Alc &Coffee
+;;LiptonIceTeaNonAlcoholicCategoryLink;"Lipton Ice Tea";
+;;WoodroofeNonAlcoholicCategoryLink;"Woodroofe";
+;;NewRoadNonAlcoholicCategoryLink;"New Road";
+;;PassionaNonAlcoholicCategoryLink;"Passiona";
+;;StrangeloveNonAlcoholicCategoryLink;"Strangelove";
+;;PepsiNonAlcoholicCategoryLink;"Pepsi";
+;;SchweppesNonAlcoholicCategoryLink;"Schweppes";
+;;GatoradeNonAlcoholicCategoryLink;"Gatorade";
+;;FrantelleNonAlcoholicCategoryLink;"Frantelle";
+;;AllpressNonAlcoholicCategoryLink;"Allpress";
+;;CharliesNonAlcoholicCategoryLink;"Charlies";
+;;CoolRidgeNonAlcoholicCategoryLink;"Cool Ridge";
+;;PinesNonAlcoholicCategoryLink;"4Pines";
+;;AsahiNonAlcoholicCategoryLink;"Asahi";
+;;SpringValleyNonAlcoholicCategoryLink;"Spring Valley";
+;;SoloNonAlcoholicCategoryLink;"Solo";
+;;SunkistNonAlcoholicCategoryLink;"Sunkist";
+;;UPNonAlcoholicCategoryLink;"7UP";
+;;MountainDewNonAlcoholicCategoryLink;"Mountain Dew";
+;;PopTopsNonAlcoholicCategoryLink;"Pop Tops";
+;;VossNonAlcoholicCategoryLink;"Voss";
+;;CarltonZeroNonAlcoholicCategoryLink;"Carlton Zero";
+;;GreatNorthernNonAlcoholicCategoryLink;"Great Northern";
+;;PeroniNonAlcoholicCategoryLink;"Peroni";
+;;SyrupsNonAlcoholicCategoryLink;"Post Mix Syrups";
+;;SoftDrinkNonAlcoholicCategoryLink;"Soft Drink";
+;;WaterNonAlcoholicCategoryLink;"Water";
+;;JuiceNonAlcoholicCategoryLink;"Juice";
+;;BeerNonAlcoholicCategoryLink;"Ginger Beer";
+;;CordialNonAlcoholicCategoryLink;"Cordial";
+;;CoffeeNonAlcoholicCategoryLink;"Coffee";
+;;IcedTeaNonAlcoholicCategoryLink;"Iced Tea";
+;;StillNonAlcoholicCategoryLink;"Still";
+;;SparklingNonAlcoholicCategoryLink;"Sparkling Soft Drink";
+;;PremiumMixersNonAlcoholicCategoryLink;"Premium Mixers";
+;;MixersNonAlcoholicCategoryLink;"Soft Drink Mixer";
+;;SportsNonAlcoholicCategoryLink;"Sports";
+;;FrozenNonAlcoholicCategoryLink;"Frozen";
+;;AncillariesNonAlcoholicCategoryLink;"Ancillaries";
+;;BIBNonAlcoholicCategoryLink;"Bag In Box";
+;;CanNonAlcoholicCategoryLink;"Can";
+;;BottleNonAlcoholicCategoryLink;"Bottle";
+;;CoffeePouchNonAlcoholicCategoryLink;"Bag";
+;;TubNonAlcoholicCategoryLink;"Tub";
+;;CupsLidsStrawsNonAlcoholicCategoryLink;"Other";
+;;BeansNonAlcoholicCategoryLink;"Beans";
+;;EnergyNonAlcoholicCategoryLink;"Energy";
+;;EnergyDrinkNonAlcoholicCategoryLink;"Energy Drink";
+;;CoffeeDecafNonAlcoholicCategoryLink;"Coffee Decaf";
+;;CoffeeEspressoNonAlcoholicCategoryLink;"Coffee Espresso";
+;;SportsDrinkNonAlcoholicCategoryLink;"Sports Drink";
+;;LagerNonAlcoholicCategoryLink;"Lager";
+;;MerchandiseNonAlcoholicCategoryLink;"Merchandise";
+;;NonBeverageNonAlcoholicCategoryLink;"Non Beverage";
+;;PetNonAlcoholicCategoryLink;"PET Bottle";
+;;SchweppesCordialNonAlcoholicCategoryLink;"SchweppesCordial";
+;;SchweppesMineralWaterNonAlcoholicCategoryLink;"SchweppesMineral";
+;;SchweppesMixersNonAlcoholicCategoryLink;"SchweppesMixers";
+;;PhoenixNonAlcoholicCategoryLink;"Phoenix";
+;;NonBeverageBrandNonAlcoholicCategoryLink;"Non Beverage";
+;;PremixNonAlcoholicCategoryLink;"Premix";
+;;WaterSubNonAlcoholicCategoryLink;"Water";
+;;JuiceSubNonAlcoholicCategoryLink;"Juice";
+;;IcedTeaSubNonAlcoholicCategoryLink;"Iced Tea";
+;;TraditionalRegularNonAlcoholicCategoryLink;"Traditional Regular";
+
+
+
+
+
+
+

@@ -1,0 +1,125 @@
+
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#
+# Import the CMS Site configuration for the SGA store
+#
+$productCatalog=sgaProductCatalog
+$contentCatalog=sgaContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$defaultLanguage=en
+$storeUid=sga
+$siteUid=sga
+$webServiceSiteUid=$siteUidWS
+$siteMapLangCur=enAud
+$siteMapUrlLimitPerFile=50000
+$siteMapPage=Homepage,Product,CategoryLanding,Category,Store,Content,Custom
+$customSiteMapUrls=
+
+# Import config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+
+# Import modulegen config properties into impex macros                                                     
+$jarResource=$config-jarResource                                                                           
+
+# Load the storefront context root config param                                                            
+$storefrontContextRoot=$config-storefrontContextRoot                                                       
+
+# CMS Site                                                                                                 
+INSERT_UPDATE CMSSite ; uid[unique=true] ; theme(code) ; channel(code) ; stores(uid) ; contentCatalogs(id) ; defaultCatalog(id) ; defaultLanguage(isoCode) ; urlPatterns                                                                                            													 ; active ; previewURL                            ; startingPage(uid,$contentCV) ; urlEncodingAttributes       ;cartRemovalAge;anonymousCartRemovalAge; defaultPromotionGroup(Identifier)
+                      ; $siteUid         ; lambda      ; B2B           ; $storeUid   ; $contentCatalog     ; $productCatalog    ; $defaultLanguage         ; (?i)^https?://[^/]+(/[^?]*)?\?(.*\&)?(site=sga)(|\&.*)$,(?i)^https?://([^\s]+)/sga/.*$; true   ; $storefrontContextRoot/?site=$siteUid ; homepage                     ; storefront,language,currency;604800		  ;604800
+
+UPDATE BaseSite ; uid[unique=true] ; requiresAuthentication
+				; sga   ; false
+
+
+# SiteMap Configuration
+# SiteMap Language Currencies
+INSERT_UPDATE SiteMapLanguageCurrency ; &siteMapLanguageCurrency ; language(isoCode)[unique=true] ; currency(isocode)[unique=true] ;  
+                                     ; enAud	                  ; en                             ; AUD
+
+INSERT_UPDATE CatalogUnawareMedia ; &siteMapMediaId       ; code[unique=true]     ; realfilename       ; @media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator] ; mime[default='text/plain']
+                                  ; $siteUid-siteMapMedia ; $siteUid-siteMapMedia ; siteMapTemplate.vm ; $jarResource/site-siteMapTemplate.vm                                       ;                           
+
+INSERT_UPDATE RendererTemplate ; &siteMapRenderer         ; code[unique=true]        ; content(&siteMapMediaId) ; contextClass                                                           ; rendererType(code)[default='velocity'] ;  
+                               ; $siteUid-siteMapTemplate ; $siteUid-siteMapTemplate ; $siteUid-siteMapMedia    ; de.hybris.platform.acceleratorservices.sitemap.renderer.SiteMapContext ;                                        
+
+INSERT_UPDATE SiteMapPage ; &siteMapPage    ; code(code)[unique=true] ; frequency(code)[unique=true] ; priority[unique=true] ; active[default=true]
+                          ; Homepage        ; Homepage                ; daily                        ; 1.0                   ;                     ;  
+                          ; Product         ; Product                 ; weekly                       ; 0.6                   ;                     ;  
+                          ; CategoryLanding ; CategoryLanding         ; daily                        ; 0.9                   ;                     ;  
+                          ; Category        ; Category                ; daily                        ; 0.8                   ;                     ;  
+                          ; Store           ; Store                   ; weekly                       ; 0.6                   ;                     ;  
+                          ; Content         ; Content                 ; monthly                      ; 0.4                   ;                     ;  
+                          ; Custom          ; Custom                  ; daily                        ; 1.0                   ;                     ;  
+
+INSERT_UPDATE SiteMapConfig ; &siteMapConfigId      ; configId[unique=true] ; siteMapLanguageCurrencies(&siteMapLanguageCurrency) ; siteMapPages(&siteMapPage) ; siteMapTemplate(&siteMapRenderer)[unique=true] ;                    
+                            ; $siteUidSiteMapConfig ; $siteUidSiteMapConfig ; $siteMapLangCur                                     ; $siteMapPage               ; $siteUid-siteMapTemplate                       ; $customSiteMapUrls ;  
+
+
+# Cart Cleanup CronJobs     
+INSERT_UPDATE CartRemovalCronJob ; code[unique=true]      ; job(code)[default=cartRemovalJob] ; sites(uid)[default=$siteUid] ; sessionLanguage(isoCode)[default=en]
+                                 ; $siteUid-CartRemovalJob
+
+# Old Cart Cleanup CronJobs
+# This is only sample cron job but to make it work correctly you need to set also sites property for it
+#####INSERT_UPDATE OldCartRemovalCronJob;code[unique=true];job(code);cartRemovalAge;anonymousCartRemovalAge;sessionLanguage(isoCode)[default=en];sites(uid)
+###;oldCartRemovalCronJob;oldCartRemovalJob;604800;604800;;$siteUid
+
+#####INSERT_UPDATE Trigger;cronJob(code)[unique=true];second;minute;hour;day;month;year;relative;active;maxAcceptableDelay
+###;oldCartRemovalCronJob;0;0;0;7;-1;-1;false;true;7
+
+#SendOrder
+INSERT_UPDATE CronJob;code[unique=true];job(code);sessionLanguage(isoCode);
+;asahiSendOrderJob;asahiSendOrderJob;$defaultLanguage
+
+
+# Uncollected orders cronjob     
+INSERT_UPDATE UncollectedOrdersCronJob ; code[unique=true]            ; job(code)[default=uncollectedOrdersJob] ; sites(uid)[default=$siteUid] ; sessionLanguage(isoCode)[default=en]
+                                       ; $siteUid-UncollectedOrdersJob
+
+
+INSERT_UPDATE AsahiSendFailedOrderCronJob;code[unique=true];job(code);cmsSite(uid);sessionLanguage(isoCode)
+;SGASendFailedOrderJob;asahiSendFailedOrderJob;$siteUid;$defaultLanguage
+
+INSERT_UPDATE Trigger;active;second;minute;hour;day;month;year;cronExpression;cronJob(code)[unique=true];relative
+;true;0;0;0;0;0;0;    0 0/5 * 1/1 * ? *;SGASendFailedOrderJob;true    
+
+############ asahi cart removal cronjob #######
+
+# Cart Cleanup CronJobs     
+INSERT_UPDATE CartRemovalCronJob ; code[unique=true]      ; job(code) 			; sites(uid)[default=$siteUid] ; sessionLanguage(isoCode)[default=en]
+                                 ; asahiCartRemovalJob	  ; asahiCartRemovalJob ;	$siteUid				   ;									;
+
+INSERT_UPDATE Trigger;cronJob(code)[unique=true];second;minute;hour;day;month;year;relative;active;maxAcceptableDelay
+;asahiCartRemovalJob;0;0;0;7;-1;-1;false;true;-1								 
+
+INSERT_UPDATE AsahiSendFailedOrderCronJob;code[unique=true];job(code);cmsSite(uid);sessionLanguage(isoCode)
+;albRemoveOrderCronJob;asahiRemoveOldOrderJob;$siteUid;$defaultLanguage
+
+INSERT_UPDATE ServicelayerJob;code[unique=true];sessionLanguage(isoCode);active;springId;
+;asahiRemoveOldOrderJob;$defaultLanguage;true;asahiRemoveOldOrderJob
+
+INSERT_UPDATE Configuration;configKey[unique=true];configValue
+;sga.order.export.available;true
+;sga.order.history.duration;30
+;sga.product.status.available;true
+;order.history.export.list.size.sga;100000
+
+
+INSERT_UPDATE InStockStatus ; code[unique=true] ; name[lang=en]  
+                          ; lowstock    ; Low Stock  
+						  ;outofstock   ; Out of Stock
+						  
+INSERT_UPDATE StockLevelStatus ; code[unique=true] ; name[lang=en]  
+                          ; lowStock    ; Low Stock  
+						  ;outOfStock   ; Out of Stock						  
+						  

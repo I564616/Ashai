@@ -1,0 +1,36 @@
+{
+  "name": "fedscaffold",
+  "version": "0.1.0",
+  "dependencies": {},
+  "devDependencies": {
+    "assemble": "0.4.x",
+    "grunt": "0.4.x",
+    "grunt-autoprefixer": "0.7.x",
+    "grunt-browser-sync": "1.x.x",
+    "grunt-contrib-clean": "0.6.x",
+    "grunt-contrib-concat": "0.4.x",
+    "grunt-contrib-copy": "0.5.x",
+    "grunt-contrib-cssmin": "0.10.x",
+    "grunt-contrib-imagemin": "0.7.x",
+    "grunt-contrib-jshint": "0.10.x",
+    "grunt-contrib-uglify": "0.5.x",
+    "grunt-contrib-watch": "0.6.x",
+    "grunt-grunticon": "^2.2.2",
+    "grunt-rigger": "0.6.x",
+    "grunt-sass": "^1.0.0",
+    "grunt-search": "0.1.x",
+    "grunt-spritesmith": "2.1.x",
+    "grunt-svgmin": "2.0.x",
+    "grunt-svgstore": "^1.0.0",
+    "handlebars-helper-repeat": "*",
+    "load-grunt-config": "0.16.x",
+    "lodash": "2.4.x",
+    "time-grunt": "0.3.x"
+  },
+  "keywords": [
+    "handlebars-helper-repeat"
+  ],
+  "engines": {
+    "node": "0.10.x"
+  }
+}

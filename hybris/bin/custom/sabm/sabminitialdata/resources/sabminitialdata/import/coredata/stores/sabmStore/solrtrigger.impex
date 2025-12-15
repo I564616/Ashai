@@ -1,0 +1,7 @@
+#
+# Import the Solr CronJob Trigger configuration for the Product Catalog
+#
+
+INSERT_UPDATE Trigger;cronJob(code)[unique=true];second;minute;hour;day;month;year;relative;active;maxAcceptableDelay
+;full-sabmStoreIndex-cronJob;0;5;13;-1;-1;-1;false;false;-1
+;update-sabmStoreIndex-cronJob;0;1;-1;-1;-1;-1;true;false;-1

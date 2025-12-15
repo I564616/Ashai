@@ -1,0 +1,89 @@
+#
+# Import Delivery Modes / Zones
+#
+#% impex.setLocale(Locale.GERMAN)
+
+# Currencies
+$ukCurrency=GBP
+$jpCurrency=JPY
+$usCurrency=USD
+$europeCurrency=EUR
+$audCurrency=AUD
+# Delivery Zones
+INSERT_UPDATE Zone                  ; code[unique=true]               ; countries(isocode)
+                                    ; uk                              ; GB,GG,IM,JE
+                                    ; continentalEurope               ; AD,AL,AT,BA,BE,BG,BY,CH,CY,CZ,DE,DK,EE,ES,FI,FO,FR,GI,GL,GR,HR,HU,IE,IS,IT,LI,LT,LU,LV,MC,MD,ME,MK,MT,NL,NO,PL,PT,RO,RS,RU,SE,SI,SK,SM,TR,UA,VA
+                                    ; usa                             ; US
+                                    ; ca                              ; CA
+                                    ; japan                           ; JP
+                                    ; china                           ; CN
+                                    ; australia			      ;	AU
+# Combining Zone for Asahi with CUB, will use australia for for all three sites now
+#				    ; au                              ; AU
+
+# Zone Delivery Modes
+INSERT_UPDATE ZoneDeliveryMode      ; code[unique=true]               ; net    		;	deliveryType(code)          ; active[default=true]
+                                    ; CUB-Arranged-Delivery           ; false		;	CUB_DELIVERY
+                                    ; Customer-Arranged-Delivery      ; false		;	CUSTOMER_DELIVERY
+# Asahi data
+				    ; standard-net                    ; true      ;;false
+
+# Asahi data
+# Pickup Delivery Mode
+INSERT_UPDATE PickUpDeliveryMode    ; code[unique=true]               ; active[default=true]                                                                                                                            ; supportedMode(code)
+                                    ; pickup                          ;                                                                                                                                                 ; BUY_AND_COLLECT
+
+# AUD
+INSERT_UPDATE ZoneDeliveryModeValue ; deliveryMode(code)[unique=true] ; zone(code)[default='australia'][unique=true]                                                                                                    ; currency(isocode)[unique=true] ; value  ; minimum[unique=true]
+                                    ; CUB-Arranged-Delivery           ;                                                                                                                                                 ; $audCurrency                    ; 1,50   ; 0,00
+                                    ; Customer-Arranged-Delivery      ;                                                                                                                                                 ; $audCurrency                    ; 1,50   ; 0,00                                  
+
+###### Asahi data ###########
+				    
+##############################
+# Insert DeliveryMode taxes
+##############################
+INSERT_UPDATE ProductTaxCode        ; productCode[unique=true]        ; taxCode                                                                                                                                         ; taxArea[unique=true]
+                                    ; premium-gross                   ; FR000000                                                                                                                                        ; GB
+                                    ; premium-net                     ; FR000000                                                                                                                                        ; GB
+                                    ; standard-gross                  ; FR000000                                                                                                                                        ; GB
+                                    ; standard-net                    ; FR000000                                                                                                                                        ; GB
+                                    ; pickup                          ; FR000000                                                                                                                                        ; GB
+                                    ; premium-gross                   ; FR000000                                                                                                                                        ; US
+                                    ; standard-gross                  ; FR000000                                                                                                                                        ; US
+                                    ; standard-net                    ; FR000000                                                                                                                                        ; US
+                                    ; pickup                          ; FR000000                                                                                                                                        ; US
+                                    ; premium-net                     ; FR000000                                                                                                                                        ; US
+                                    ; premium-gross                   ; FR000000                                                                                                                                        ; JP
+                                    ; standard-gross                  ; FR000000                                                                                                                                        ; JP
+                                    ; pickup                          ; FR000000                                                                                                                                        ; JP
+                                    ; standard-net                    ; FR000000                                                                                                                                        ; JP
+                                    ; premium-net                     ; FR000000                                                                                                                                        ; JP
+                                    ; premium-gross                   ; FR000000                                                                                                                                        ; FR
+                                    ; standard-gross                  ; FR000000                                                                                                                                        ; FR
+                                    ; standard-net                    ; FR000000                                                                                                                                        ; FR
+                                    ; pickup                          ; FR000000                                                                                                                                        ; FR
+                                    ; premium-net                     ; FR000000                                                                                                                                        ; FR
+                                    ; premium-gross                   ; FR000000                                                                                                                                        ; PL
+                                    ; standard-gross                  ; FR000000                                                                                                                                        ; PL
+                                    ; standard-net                    ; FR000000                                                                                                                                        ; PL
+                                    ; pickup                          ; FR000000                                                                                                                                        ; PL
+                                    ; premium-net                     ; FR000000                                                                                                                                        ; PL
+                                    ; premium-gross                   ; FR000000                                                                                                                                        ; DE
+                                    ; standard-gross                  ; FR000000                                                                                                                                        ; DE
+                                    ; standard-net                    ; FR000000                                                                                                                                        ; DE
+                                    ; pickup                          ; FR000000                                                                                                                                        ; DE
+                                    ; premium-net                     ; FR000000                                                                                                                                        ; DE
+                                    ; premium-gross                   ; FR000000                                                                                                                                        ; CA
+                                    ; standard-gross                  ; FR000000                                                                                                                                        ; CA
+                                    ; standard-net                    ; FR000000                                                                                                                                        ; CA
+                                    ; pickup                          ; FR000000                                                                                                                                        ; CA
+                                    ; premium-net                     ; FR000000                                                                                                                                        ; CA
+                                    ; premium-gross                   ; FR000000                                                                                                                                        ; CN
+                                    ; standard-gross                  ; FR000000                                                                                                                                        ; CN
+                                    ; standard-net                    ; FR000000                                                                                                                                        ; CN
+                                    ; pickup                          ; FR000000                                                                                                                                        ; CN
+                                    ; premium-net                     ; FR000000                                                                                                                                        ; CN
+
+
+				      

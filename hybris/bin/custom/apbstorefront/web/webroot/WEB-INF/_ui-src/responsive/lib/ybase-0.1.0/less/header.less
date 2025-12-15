@@ -1,0 +1,363 @@
+@import "_navigation.less";
+@import "variables.less";
+
+header {
+
+  .page-cartPage &,
+  .page-homepage &,
+  .page-productGrid &,
+  .page-searchGrid &,
+  .page-search &,
+  .page-cartPage &,
+  .pageType-CategoryPage & {
+	margin-bottom: 0;
+  }
+}
+
+.page-homepage {
+    #cubNotification {
+        overflow-y: auto !important;
+        z-index: 99999;
+    }
+}
+
+.nav__logo {
+    text-align: center;
+}
+
+#hamburger-menu-btn {
+    background-color: transparent;
+}
+
+#close-btn-text {
+    padding: 0px 10px;
+    height: 50px;
+    margin-top: 10px;
+	font-weight: 700;
+    background-color: @nav-responsive-background-color // Changing this to a new variable for just the text on nav menu. 
+}
+
+.js-mobile-logo {
+    text-align: center;
+
+	img {
+	    margin-top: 5px;
+        height: 30px !important;
+        width: auto !important;
+    }
+}
+
+.js-site-logo {
+    text-align: center;
+
+	img {
+		height: 38px !important;
+		width: auto !important;
+	}
+}
+
+#hamburger-nav-menu {
+    background-color: @nav-responsive-background-color;
+    padding-left: 0px;
+    padding-right: 0px;
+    height: 50px;
+}
+
+#search-bar-nav-res {
+    background-color: transparent; // This should not be transparent to match VD. 
+}
+
+#search-header-icon {
+	background-color: transparent;
+    border: 0px;
+    padding: 0px;
+	
+	img {
+		float: right;
+	}
+}
+
+#navRightText {
+    float: right;
+    text-transform: uppercase;
+    
+    @media(max-width: @screen-xs-max) {
+        margin-right: 10px;
+    }
+    
+    a {
+        color: @nav-header-text-color;
+        font-weight: 700;
+		font-family: @font-family-gotham-narrow;
+    }
+}
+
+.nav-left-padding-li {
+    padding-right: 10px;
+    padding-top: 10px;
+    margin-bottom: 10px;
+}
+
+#log_in_header {
+    padding: 0px 0px; 
+    height: 60px;
+}
+
+.minicart-colorbox {
+    #cboxContent{
+        background: transparent;
+        top: 35px;
+    }
+}
+
+.nav-left-logged-in-padding {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.nav-left-logged-in-padding-symbol{
+    padding-left: 20px;
+    padding-right: 10px;
+}
+
+.header-nav-logout-text {
+    @media (min-width: @screen-md) {
+        padding-left: 10px;
+    }
+}
+
+.nav-margin-right {
+    margin-right: 0px;
+}
+
+.link-selected-state {
+            background-color: rgba(66, 81, 90, 0.6);
+}
+
+a.myAccountLinksHeader.js-myAccount-toggle {
+    text-decoration: none;
+}
+
+a.myAccountLinksHeader.js-myAccount-toggle.add-bottom-border:after {
+                content: ""; /* This is necessary for the pseudo element to work. */ 
+                display: block; /* This will put the pseudo element on its own line. */
+                margin: 0 auto; /* This will center the border. */
+                width: 70%; /* Change this to whatever width you want. */
+                padding-top: 5px; /* This creates some space between the element and the border. */
+                border-bottom: 3px solid @border-color-white; /* This creates the border. Replace black with whatever color you want. */
+}
+
+.addPaddingMyAccount, .addPaddingMultiAccount {
+    padding: 10px 10px 13px 10px;
+    margin-left: -10px;
+}
+
+.add-nav-bottom-padding {
+    padding-bottom: 20px;
+}
+
+.addPadding-nav{
+    padding: 10px 10px 0px 0px;
+    
+    @media (max-width: @screen-xs-max) {
+        padding: 10px 10px 0px 10px;
+    }
+}
+
+.nav-padding-top {
+    padding-top: 10px;
+}
+
+.no-padding-left-text {
+    padding-left: 0px !important;
+    color: @nav-header-text-color;
+    margin-bottom: 0px;
+}
+
+.no-padding-right-text {
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+.no-padding-left {
+    
+    @media (max-width: @screen-xs) {
+        padding-left: 0px;
+    }
+}
+
+#search-btn-header {
+	border-bottom: 1px solid rgba(235, 235, 235, 0.4);
+}
+
+.search-bar-header {
+    .site-search {
+      z-index: 2;
+
+      @media (min-width: @screen-sm) and (max-width: @screen-sm-max){
+        margin-left: -10px;
+      }
+
+      @media (max-width: @screen-md) {
+        padding-left: 0;
+      }
+
+      @media (max-width: @screen-xs-max) {
+        &.active {
+          display: block!important;
+        }
+
+        display: none!important;
+        left: 0;
+        position: absolute;
+        width: 100%;
+        padding: 0 10px;
+        border-top: 1px solid @nav-border-color;
+      }
+
+      .ui-front {
+        padding-top: 10px;
+        margin-right: 10px;
+      }
+
+      .glyphicon-search {
+        color: @searchbar-icon-color;
+      }
+
+      .input-group {
+        background-color: transparent;
+        min-height: 38px;
+        background-color: transparent;
+        margin-top: -10px;
+
+        @media (min-width: @screen-md) {
+          width: 100%;
+          margin-top: -10px;
+        }
+
+        .form-control {
+          border:0;
+          box-shadow:none;
+          height: 38px;
+          background-color: transparent;
+          color: @text-color-primary;
+          border-bottom: 1px solid rgba(235, 235, 235, 0.4);
+		  max-width: 150px;
+		  float: right;
+		  padding: 10px 0px 0px 10px;
+        }
+
+        .btn {
+          width: 25px;
+          padding: 0;
+          margin-top: 10px;
+
+          &:hover {
+            background-color: transparent;
+          }
+        }
+      }
+
+      ul.ui-autocomplete {
+        display:none;
+        position:absolute;
+        background: @autocomplete-background;
+
+        
+        -webkit-box-shadow: 0 8px 15px rgba(0,0,0,0.5);
+        box-shadow: 0 8px 15px rgba(0,0,0,0.5);
+        z-index:100;
+        
+        padding-left:0;
+        padding-top: 0;
+        list-style:none;
+        margin:0;
+          
+          &::after {
+                position: absolute;
+                content: "";
+                width: 0;
+                height: 0;
+                border-right: 10px solid rgba(0, 0, 0, 0);
+                border-left: 10px solid rgba(0, 0, 0, 0);
+                border-bottom: 10px solid #ffffff;
+                display: block;
+                left: 95%;
+                bottom: 100%;
+                margin: 0 0 0 -10px;
+                z-index: 1001;
+          }
+
+        li {
+          border-bottom:1px solid @border-color-4;
+          display:block;
+      
+         
+
+          a {
+            display:inline-flex;
+            width:100%;
+            color:inherit;
+            text-decoration:none;
+            padding:0px;
+          }
+
+          .thumb {
+            display:table-cell;
+            vertical-align:middle;
+            padding:0 10px 0 10px;
+              
+          }
+
+          .name {
+            padding:10px;
+            vertical-align:middle;
+            width: @full-width;
+          }
+
+          .thumb + .name {
+            padding: 25px 10px;
+            font-size: 16px;
+          }
+            
+            .title {
+                font-weight: bold;
+            }
+
+          .price {
+            display:table-cell;
+            vertical-align:middle;
+            padding:0 10px;
+          }
+        }
+
+        li.ui-state-focus {
+          border-left: none;
+          border-right: none;
+          border-bottom: none;
+          margin: 0;
+          background: @table-2n-line-bg;
+          color: @text-color;
+        }
+      }
+
+      ul.ui-autocomplete.active {
+        display:block;
+      }
+    }
+}
+
+#search-bar-container-fluid {
+    padding: 0px;
+	
+	@media (max-width: @screen-sm-max) {
+		max-height: 50px;	
+	}
+}
+
+#hamburger-text {
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 1px;
+	font-family: @font-family-gotham-narrow;
+}

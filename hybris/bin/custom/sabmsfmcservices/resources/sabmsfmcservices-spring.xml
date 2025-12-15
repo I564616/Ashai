@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2013 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+-->
+
+<!-- <beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd"> -->
+           
+    
+    <beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:cache="http://www.springframework.org/schema/cache"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans  http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+       http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
+
+	<!--
+	The hybris platform provides one single Spring application context for beans located at the jalo layer.
+	Each extension can add beans to this context by specifying them at this configuration file.
+	 
+	You can use and/or redefine beans defined at configuration files of other extensions as well as
+	adding new one.
+		
+	If you want to locate this file at a different location or want to use several files for better,
+	structuring, please use the '<yourextension>.application-context' property at your project.properties file.
+	There you can specify a comma separated list of files where first is tried to find a file per classpath and
+	then per file system.
+
+	
+	If you want to configure beans for your web module please have a look at
+	your web/webroot/WEB-INF/<extname>-web-spring.xml.
+	-->
+	
+	<!--  Example how to override a manager -->
+	<!--
+	<bean id="core.productManager"   class="com.sabmiller.sfmc.jalo.SabmsfmcservicesProductManager" 	init-method="init"	destroy-method="destroy" />
+	-->
+	
+	
+ 	<!--  Example how to configure the class to use for jalo session creation -->
+	<!--
+	<bean id="jalosession"   class="de.hybris.platform.jalo.JaloSessionFactory">
+		<property name="targetClassName" value="com.sabmiller.sfmc.jalo.SabmsfmcservicesJaloSession"/>
+	</bean>
+	-->
+
+	
+	<!--  Example how to override an item  -->
+	<!-- 
+	<bean id="de.hybris.platform.jalo.product.Product" class="com.sabmiller.sfmc.jalo.SabmsfmcservicesProduct" scope="prototype" />		
+ 	-->
+
+	<!--  
+	 Example how to register and use an AOP aspect 
+     Also see http://static.springframework.org/spring/docs/2.5.x/reference/aop.html	
+     -->
+	
+	<!-- 
+	<bean id="sabmsfmcservicesProfBean" class="com.sabmiller.sfmc.aop.SabmsfmcservicesProfilingAspect"/>
+	<aop:config proxy-target-class="true">
+  		<aop:aspect id="sabmsfmcservicesProfAspect" ref="sabmsfmcservicesProfBean" >
+    	  <aop:pointcut id="profiledMethods" 
+	      	expression="execution(* getModificationTime(..))" />  	            
+	   		<aop:around pointcut-ref="profiledMethods" method="profile" />
+  		</aop:aspect>
+	</aop:config>
+	 -->
+
+	
+	<!-- some other examples of a pointcut that matches everything:
+
+    	  <aop:pointcut id="profiledMethods" 
+	      	expression="bean(de.hybris.platform.jalo.user.Customer) &amp;&amp; 
+	      	            !execution(* getPK(..))" />  	            
+	       <aop:pointcut id="profiledMethods" expression="execution(* *(..))" />	
+	  -->
+
+
+	<!--Service types to be served from Salesforce has to be added here-->
+	<bean id="sabmSFMCService"
+		  class="com.sabmiller.sfmc.service.impl.SabmSFMCServiceImpl">
+		<property name="strategyMap">
+			<map>
+				<entry key="#{T(com.sabmiller.sfmc.enums.SFMCRequestType).EMAIL}" value-ref="sabmEmailSFMCStrategy" />
+                <entry key="#{T(com.sabmiller.sfmc.enums.SFMCRequestType).SMS}" value-ref="sabmSmsFMCStrategy" />
+			</map>
+		</property>
+	</bean>
+
+	<!--SMS configuration which has to be sent via SalesForce has to be added here-->
+    <bean id="sabmSmsFMCStrategy"
+          class="com.sabmiller.sfmc.strategy.impl.SABMSmsSFMCStrategy">
+		<property name="strategyToKeyMap">
+			<map>
+				<entry key="#{T(com.sabmiller.sfmc.enums.SFMCRequestSMSTemplate).TEST.code}" value="${sfmc.sms.template.test.key}" />
+				<entry key="#{T(com.sabmiller.sfmc.enums.SFMCRequestSMSTemplate).CREDITAPPROVEDSMS.code}" value="${sfmc.sms.template.credit.approved.key}" />
+				<entry key="#{T(com.sabmiller.sfmc.enums.SFMCRequestSMSTemplate).ORDERCUTOFFSMS.code}" value="${sfmc.sms.template.order.cutoff.key}" />
+				<entry key="#{T(com.sabmiller.sfmc.enums.SFMCRequestSMSTemplate).ORDERDISPATCHED.code}" value="${sfmc.sms.template.order.dispatched.key}" />
+				<entry key="#{T(com.sabmiller.sfmc.enums.SFMCRequestSMSTemplate).TMDDELIVERED.code}" value="${sfmc.sms.template.tmd.delivered.key}" />
+				<entry key="#{T(com.sabmiller.sfmc.enums.SFMCRequestSMSTemplate).TMDINTRANSIT.code}" value="${sfmc.sms.template.tmd.inTransit.key}" />
+				<entry key="#{T(com.sabmiller.sfmc.enums.SFMCRequestSMSTemplate).TMDNEXTINQUEUE.code}" value="${sfmc.sms.template.tmd.NextInQueue.key}" />
+				<entry key="#{T(com.sabmiller.sfmc.enums.SFMCRequestSMSTemplate).TMDPASSETA.code}" value="${sfmc.sms.template.tmd.passETA.key}" />
+				<entry key="#{T(com.sabmiller.sfmc.enums.SFMCRequestSMSTemplate).TMDEXCEEDETA.code}" value="${sfmc.sms.template.tmd.exceedETA2h.key}" />
+			</map>
+		</property>
+    </bean>
+
+	<!--Email configuration which has to be sent via SalesForce has to be added here-->
+	<bean id="sabmEmailSFMCStrategy"
+		  class="com.sabmiller.sfmc.strategy.impl.SABMEmailSFMCStrategy">
+		<property name="strategyToKeyMap">
+			<map>
+				<entry key="#{T(com.sabmiller.sfmc.enums.SFMCRequestEmailTemplate).TEST.code}" value="${sfmc.email.template.test.key}" />
+				<entry key="#{T(com.sabmiller.sfmc.enums.SFMCRequestEmailTemplate).CREDITAPPROVEDEMAIL.code}" value="${sfmc.email.template.credit.approved.key}" />
+				<entry key="#{T(com.sabmiller.sfmc.enums.SFMCRequestEmailTemplate).CREDITRECIEVEDEMAIL.code}" value="${sfmc.email.template.credit.recieved.key}" />
+			</map>
+		</property>
+	</bean>
+
+	<bean id="sabmDefaultSFMCStrategy"
+		  class="com.sabmiller.sfmc.strategy.impl.SABMDefaultSFMCStrategyImpl">
+	</bean>
+
+	<bean id="sabmSFMCClient"
+		  class="com.sabmiller.sfmc.client.SabmSFMCClient">
+	</bean>
+
+	
+	<!--  Rest client for salesforce start -->
+
+    <bean id="sabmSFRestClient" class="com.sabmiller.salesforcerestclient.SABMSFRestClient">
+        <property name="connectionManager" ref="SFClientConnectionManager" />
+    </bean>
+
+    <bean id="SFHost" class="org.apache.hc.core5.http.HttpHost">
+        <constructor-arg name="scheme" value="${sap.host.protocol}" />
+        <constructor-arg name="hostname" value="${sap.host.name}" />
+        <constructor-arg name="port" value="${sap.host.port}" />
+    </bean>
+
+    <bean id="SFClientbufferingRequestFactory" class="org.springframework.http.client.BufferingClientHttpRequestFactory">
+        <constructor-arg type="org.springframework.http.client.ClientHttpRequestFactory" ref="SFClientRequestFactory" />
+    </bean>
+
+    <bean id="SFClientRequestFactory" class="com.sabmiller.salesforcerestclient.SABMSFHttpComponentsClientHttpRequestFactory">
+        <constructor-arg type="com.sabmiller.salesforcerestclient.SABMSFRestClient" ref="sabmSFRestClient" />
+        <property name="httpHost" ref="SFHost" />
+        <property name="connectionTimeout" value="${salesforce.host.connection.timeout.milli.sec}" />
+        <property name="connectTimeout" value="${salesforce.host.connection.timeout.milli.sec}" />
+        <property name="readTimeout" value="${salesforce.host.connection.timeout.milli.sec}" />
+        <property name="authCache" ref="SFAuthCache" />
+        <property name="basicAuthScheme" ref="SFBasicAuthScheme" />
+        <property name="localHttpcontext" ref="SFLocalHttpcontext" />
+    </bean>
+
+    <bean id="SFAuthCache" class="org.apache.hc.client5.http.impl.auth.BasicAuthCache" />
+    <bean id="SFBasicAuthScheme" class="org.apache.hc.client5.http.impl.auth.BasicScheme" />
+    <bean id="SFLocalHttpcontext" class="org.apache.hc.core5.http.protocol.BasicHttpContext" />
+
+    <bean id="SFClientConnectionManager" class="org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager">
+        <property name="defaultMaxPerRoute" value="${salesforce.host.max.route.connections}" />
+        <property name="maxTotal" value="${salesforce.host.max.total.connections}" />
+    </bean>
+    
+    <!-- <bean id="sabmSFRestTemplate" class="org.springframework.web.client.RestTemplate">
+        <constructor-arg ref="SFClientbufferingRequestFactory" />       
+    </bean> -->
+
+    <bean id="sabmSFRestTemplate" class="org.springframework.web.client.RestTemplate">
+        <constructor-arg ref="SFClientbufferingRequestFactory" />
+        <property name="interceptors">
+            <list>
+                <ref bean="sabmSFRestRequestInterceptor" />
+            </list>
+        </property>
+    </bean>
+
+    <bean id="sabmSFRestRequestInterceptor" class="com.sabmiller.salesforcerestclient.SABMSFRestClientHttpRequestInterceptor"></bean>
+    
+    <bean id="sabmSalesForceAsyncLogHelper" class="com.sabmiller.salesforcerestclient.SabmSalesForceAsyncLogHelper"></bean>
+    
+
+    <!-- <bean id="restTemplate" class="org.springframework.web.client.RestTemplate" /> -->
+
+    <!-- <bean id="defaultSABMPostRestRequestHandler" class="com.sabmiller.integration.restclient.commons.DefaultSABMPostRestRequestHandler"
+            parent="sabmAbstractGetRestRequestHandler" /> -->
+
+    <bean id="sabmSFPostRestRequestHandler" class="com.sabmiller.salesforcerestclient.DefaultSABMSFPostRestRequestHandler"
+            parent="sabmSFAbstractGetRestRequestHandler">
+        <property name="plainCredentials">
+            <value>${salesforce.host.userid}:${salesforce.host.password}</value>
+        </property>
+
+    </bean>
+
+    <bean id="sabmSFAbstractGetRestRequestHandler" class="com.sabmiller.salesforcerestclient.SABMSFAbstractGetRestRequestHandler"
+            abstract="true">
+        <property name="sabmRestTemplate" ref="sabmSFRestTemplate" />
+    </bean>
+    
+    <!-- Rest client for salesforce end -->
+    
+    
+    <alias name="sabmSalesForceAccessTokenRequestHandler" alias="sabmSalesForceAccessTokenRequestHandler" />
+    <bean id="sabmSalesForceAccessTokenRequestHandler" class="com.sabmiller.salesforcerestclient.SABMSalesForceAccessTokenRequestHandler"
+            parent="sabmSFPostRestRequestHandler">
+    </bean>
+    
+    <alias name="sabmSalesForceCreditEmailSMSPostHandler" alias="sabmSalesForceCreditEmailSMSPostHandler" />
+    <bean id="sabmSalesForceCreditEmailSMSPostHandler" class="com.sabmiller.salesforcerestclient.SABMSalesForceCreditEmailSMSPostHandler"
+            parent="sabmSFPostRestRequestHandler">
+    </bean>
+    
+    <alias name="sabmSalesForceTmdSMSPostHandler" alias="sabmSalesForceTmdSMSPostHandler" />
+    <bean id="sabmSalesForceTmdSMSPostHandler" class="com.sabmiller.salesforcerestclient.SABMSalesForceTmdSMSPostHandler"
+            parent="sabmSFPostRestRequestHandler">
+    </bean>
+    
+    <alias name="sabmSalesForceWelcomeMailPostHandler" alias="sabmSalesForceWelcomeMailPostHandler" />
+    <bean id="sabmSalesForceWelcomeMailPostHandler" class="com.sabmiller.salesforcerestclient.SABMSalesForceWelcomeMailPostHandler"
+            parent="sabmSFPostRestRequestHandler">
+    </bean>
+            
+
+	<util:map id="salesforceEventMap" key-type="java.lang.String" value-type="java.lang.String">
+        <entry key="#{T(com.sabmiller.sfmc.enums.SFMCRequestSMSTemplate).CREDITAPPROVEDSMS.code}" value="CREDITAPPROVEDSMS"/>
+        <entry key="#{T(com.sabmiller.sfmc.enums.SFMCRequestSMSTemplate).ORDERCUTOFFSMS.code}" value="ORDERCUTOFFSMS"/>
+        <entry key="#{T(com.sabmiller.sfmc.enums.SFMCRequestSMSTemplate).ORDERDISPATCHED.code}" value="ORDERDISPATCHED"/>
+        <entry key="#{T(com.sabmiller.sfmc.enums.SFMCRequestSMSTemplate).TMDNEXTINQUEUE.code}" value="TMDNEXTINQUEUE"/>
+        <entry key="#{T(com.sabmiller.sfmc.enums.SFMCRequestSMSTemplate).TMDDELIVERED.code}" value="TMDDELIVERED"/>
+        <entry key="#{T(com.sabmiller.sfmc.enums.SFMCRequestSMSTemplate).TMDEXCEEDETA.code}" value="TMDEXCEEDETA"/>
+        <entry key="#{T(com.sabmiller.sfmc.enums.SFMCRequestSMSTemplate).TMDINTRANSIT.code}" value="TMDINTRANSIT"/>
+        <entry key="#{T(com.sabmiller.sfmc.enums.SFMCRequestSMSTemplate).TMDPASSETA.code}" value="TMDPASSETA"/>
+		<entry key="#{T(com.sabmiller.sfmc.enums.SFMCRequestEmailTemplate).CREDITAPPROVEDEMAIL.code}" value="Credit Discrepancy Approved"/>
+		<entry key="#{T(com.sabmiller.sfmc.enums.SFMCRequestEmailTemplate).CREDITRECIEVEDEMAIL.code}" value="Credit Discrepancy Received"/>
+		<entry key="#{T(com.sabmiller.sfmc.enums.SFMCRequestSMSTemplate).TEST.code}" value="10"/>
+	</util:map>
+	
+	
+
+</beans>

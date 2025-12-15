@@ -1,0 +1,131 @@
+.quickorderpage {
+	margin-right: -10px;
+	
+	.pagination-bar {
+		.sort_by {
+			margin-right: 10px;
+			
+			@media (min-width: @screen-sm) and (max-width: @screen-sm-max) {
+				float: right;
+				margin-right: 20px;
+			}
+			
+			@media (max-width: @screen-xs-max) {
+				float: left;
+				margin: 10px 0px 20px 0px;
+			}
+		}
+		
+		.prices-text {
+			@media (min-width: @screen-sm) and (max-width: @screen-sm-max) {
+				margin-left: 10px;
+			}
+		}
+	} 
+}
+
+#quickOrder {
+	.responsive-table {
+		@media (max-width: @screen-xs-max) {
+			border-top: 1px solid @border-color-3;
+		}
+	}
+}
+
+.quickordersummary {
+	@media (max-width: @screen-xs-max) {
+		margin-left: 0px;
+	}
+}
+
+.quickorder-date, .quickorder-date-heading {
+	width: 10%;
+    text-align: center;
+    font-weight: bold;
+}
+
+.quickorder-product {
+	font-size: 16px;
+	padding-left: 0px;
+
+	.thumb {
+		margin-right: 10px;
+		padding-right: 10px;
+	}
+	
+	a {
+		font-weight: normal !important;
+		display: flex;
+	}
+	
+	.addtocart-component {
+		@media (max-width: @screen-xs-max) {
+			margin-top: 10px;
+			margin-left: 124px;
+		}
+	}
+}
+
+.quickorder-addtocart, .quickorder-addtocart-heading {
+	width: 15%;
+}
+
+.quickorder-date {
+	border-right: 1px dashed @border-color-4;
+}
+
+.quick-order-table {
+	border-bottom: 1px solid @border-color-4;
+	
+	&:last-child {
+		border-bottom: 0px;
+	}
+}
+
+.quickorder-addtocart {
+	padding: 0px !important;
+	
+	.addtocart-component {
+		margin-top: 0px;
+	}
+}
+
+#quickorderDateLastChild {
+	border-right: 0px;
+}
+
+.quickorder-product-details {
+	display: inline-block;
+	
+	div {
+		@media (max-width: @screen-xs-max) {
+			margin-bottom: 10px;
+		}
+	}
+}
+
+.quick-order-product-image {
+	//margin-right: 20px; //Fix ALM defect #362
+	max-width: 96px;
+    max-height: 96px;
+	
+	@media (max-width: @screen-sm-max) {
+		margin-right: 10px;
+	}
+}
+
+.quick-order-section {
+	margin-bottom: 40px;
+
+	.section-subheading {
+        margin-top: 20px;
+        margin-bottom: 25px;
+    }
+}
+
+.order-templates-section {
+	.section-subheading {
+        margin-top: 20px;
+        margin-bottom: 25px;
+    }
+}

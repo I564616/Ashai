@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<process xmlns="http://www.hybris.de/xsd/processdefinition" start="generateOrderDispatchNotificationEmail" name="orderDispatchNotificationEmailProcess"
+		processClass="com.sabm.core.model.OrderDispatchNotificationEmailProcessModel" onError="error">
+
+	<action id="generateOrderDispatchNotificationEmail" bean="generateOrderDispatchNotificationEmail">
+		<transition name="OK" to="sendEmail"/>
+		<transition name="NOK" to="error"/>
+	</action>
+
+ 	<action id="sendEmail" bean="sendEmail">
+		<transition name="OK" to="orderDispatchNotificationEmailSentAction"/>
+		<transition name="NOK" to="failed"/>
+	</action>
+
+	<action id="orderDispatchNotificationEmailSentAction" bean="orderDispatchNotificationEmailSentAction">
+		<transition name="OK" to="success"/>
+		<transition name="NOK" to="error"/>
+	</action>
+
+	<end id="error" state="ERROR">Something went wrong.</end>
+	<end id="failed" state="FAILED">Could not send order dispatch notification email.</end>
+	<end id="success" state="SUCCEEDED">Sent order dispatch notification email.</end>
+
+</process>

@@ -1,0 +1,92 @@
+INSERT_UPDATE ScriptingJob	;code[unique=true]		;scriptURI
+							;deltaSolrScriptJob	;model://deltaSolrScript
+							
+INSERT_UPDATE CronJob	;code[unique=true]			;job(code)				;sessionLanguage(isocode)	;sessionUser(uid)
+						;deltaSolrCronJob	;deltaSolrScriptJob	;en		;admin
+
+INSERT_UPDATE Script; code[unique=true];content;active[default=true, unique=true]
+;deltaSolrScript;"import java.io.File; 
+import java.lang.Exception;
+import java.io.InputStream; 
+import de.hybris.platform.util.CSVConstants; 
+import java.io.IOException;
+import java.util.Date; 
+import java.text.SimpleDateFormat; 
+import java.sql.Timestamp;   
+import org.apache.log4j.*; 
+import org.apache.commons.io.IOUtils;  
+import de.hybris.platform.servicelayer.impex.ExportConfig; 
+import de.hybris.platform.servicelayer.impex.ExportConfig.ValidationMode;
+import de.hybris.platform.servicelayer.impex.ExportResult; 
+import de.hybris.platform.servicelayer.impex.ExportService; 
+import de.hybris.platform.servicelayer.impex.ImpExResource; 
+import de.hybris.platform.servicelayer.impex.impl.StreamBasedImpExResource;  
+ 
+ 
+final Logger LOG = Logger.getLogger(""asahi""); 
+def exportService = spring.getBean(""exportService"");  
+
+
+Calendar cal1 = Calendar.getInstance(); 
+cal1.set(Calendar.HOUR_OF_DAY, 0)
+cal1.set(Calendar.MINUTE, 0);
+cal1.set(Calendar.SECOND, 0);
+cal1.add(Calendar.DAY_OF_MONTH, -7);
+Date d = cal1.getTime();
+String oldDate = new SimpleDateFormat(""yyyy-MM-dd HH:mm:ss.SSS ZZZZ"").format(d);
+final Map<String, Object> params = new HashMap<>();
+params.put(""modifiedTime1"", oldDate);
+def modifiedTime1 = oldDate;
+
+header =  ""INSERT SolrIndexedType ; identifier[unique=true] ; type(code) ; variant ; sorts(&sortRefID) ;\n"" + 
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {SolrIndexedType} where {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1  );\""\n"" +   
+""INSERT_UPDATE SolrFacetSearchConfig ; name[unique=true]      ; description                   ; indexNamePrefix        ; languages(isocode) ; currencies(isocode) ; solrServerConfig(name) ; solrSearchConfig(description) ; solrIndexConfig(name) ; solrIndexedTypes(identifier) ; enabledLanguageFallbackMechanism ; catalogVersions(catalog(id),version);solrValueRangeSets(name) \n"" +  
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {SolrFacetSearchConfig} where {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1  );\""\n"" +  
+""UPDATE BaseSite ; uid[unique=true] ; solrFacetSearchConfiguration(name) \n"" +  
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {BaseSite} where {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1  );\""\n"" +   
+""INSERT SolrValueRangeSet ; name[unique=true] ; qualifier ; type   ; solrValueRanges(&rangeValueRefID)       \n"" + 
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {SolrValueRangeSet} where {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1  );\""\n"" +  
+""INSERT SolrValueRange ; &rangeValueRefID ; solrValueRangeSet(name)[unique=true] ; name[unique=true] ; from ; to     \n"" + 
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {SolrValueRange} where {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1  );\""\n"" +  
+""INSERT SolrIndexedProperty ; solrIndexedType(identifier)[unique=true] ; name[unique=true]      ; type(code) ; sortableType(code) ; currency[default=false] ; localized[default=false] ; multiValue[default=false] ; useForSpellchecking[default=false] ; useForAutocomplete[default=false] ; fieldValueProvider                         ; valueProviderParameter ; ftsPhraseQuery[default=false] ; ftsPhraseQueryBoost ; ftsQuery[default=false] ; ftsQueryBoost ; ftsFuzzyQuery[default=false] ; ftsFuzzyQueryBoost ; ftsWildcardQuery[default=false] ; ftsWildcardQueryType(code)[default=POSTFIX] ; ftsWildcardQueryBoost ; ftsWildcardQueryMinTermLength;displayName[lang=en];categoryField[default=true] ;facet;facetType(code) ;facetSort(code);priority ; visible;facetDisplayNameProvider         ; topValuesProvider; customFacetSortProvider   ;rangeSets(name)     ;\n"" + 
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {SolrIndexedProperty} where {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1  );\""\n"" +   
+""INSERT SolrIndexerQuery ; solrIndexedType(identifier)[unique=true] ; identifier[unique=true]            ; type(code) ; injectCurrentDate[default=true] ; injectCurrentTime[default=true] ; injectLastIndexTime[default=true] ; query;user(uid)\n"" + 
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {SolrIndexerQuery} where {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1  );\""\n"" +   
+""INSERT SolrSort ; &sortRefID ; indexedType(identifier)[unique=true] ; code[unique=true] ; useBoost ; name[lang=en];\n"" +   
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {SolrSort} where {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1  );\""\n"" +   
+""INSERT SolrSortField ; sort(indexedType(identifier),code)[unique=true] ; fieldName[unique=true] ; ascending[unique=true];\n"" +   
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {SolrSortField} where {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1  );\""\n"" +    
+""INSERT SolrSearchQueryTemplate ; name[unique=true] ; indexedType(identifier)[unique=true] ; ftsQueryBuilder ;\n"" +      
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {SolrSearchQueryTemplate} where {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1  );\""\n"" +  
+""INSERT SolrSearchQueryProperty ; indexedProperty(name, solrIndexedType(identifier))[unique=true] ; facet[default=true] ; facetType(code) ; priority ; facetDisplayNameProvider         ; facetSortProvider ; facetTopValuesProvider   ; includeInResponse[default=true] ; searchQueryTemplate(name, indexedType(identifier))[unique=true];ftsPhraseQuery[default=false] ; ftsPhraseQueryBoost ; ftsQuery[default=false] ; ftsQueryBoost ; ftsFuzzyQuery[default=false] ; ftsFuzzyQueryBoost ; ftsWildcardQuery[default=false] ; ftsWildcardQueryType(code)[default=POSTFIX] ; ftsWildcardQueryBoost ; ftsWildcardQueryMinTermLength ;\n"" +  
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {SolrSearchQueryProperty} where {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1  );\""\n"" + 
+""INSERT SolrURIRedirect;&redirectRefID;url[allownull=true];\n"" +  
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {SolrURIRedirect}\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1  );\""\n"" +   
+""INSERT SolrCategoryRedirect;&redirectRefID;redirectItem(catalogVersion(catalog(id),version),code)[allownull=true] ;\n"" +  
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {SolrCategoryRedirect} where {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1  );\""\n"" +   
+""INSERT SolrFacetSearchKeywordRedirect;facetSearchConfig(name);ignoreCase[allownull=true];keyword[allownull=true];language(isocode)[allownull=true];matchType(code,itemtype(code))[allownull=true];redirect(&redirectRefID)[allownull=true] ;\n"" +  
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {SolrFacetSearchKeywordRedirect} where {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1  );\""\n"";   
+
+
+InputStream resourceAsStream = null;
+try 
+	{ 	
+		resourceAsStream = new ByteArrayInputStream(header.getBytes()); 	
+		final ImpExResource resource = new StreamBasedImpExResource(resourceAsStream, CSVConstants.DEFAULT_ENCODING); 	
+		final ExportConfig config = new ExportConfig();
+		config.setScript(resource);
+		config.setSingleFile(true);
+		config.setValidationMode(ValidationMode.WITHOUT);
+		config.setExportedDataCode(""solr-""+new SimpleDateFormat(""yyyyMMddHHmmssSSS"").format(new Date())); 	
+		final ExportResult result = exportService.exportData(config); 	 	
+		if (result.isError()) { 		
+				LOG.info(""Exception occurred during export of Solr Configurations""); 
+			} 
+	} catch (final Exception exception) { 
+			LOG.log(Level.ERROR, exception.getMessage()); 	
+	} finally
+		{
+			resourceAsStream.close();
+		}";;
+
+

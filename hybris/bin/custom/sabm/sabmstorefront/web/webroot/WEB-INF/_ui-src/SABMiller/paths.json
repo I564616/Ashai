@@ -1,0 +1,16 @@
+{
+	"iisHostname": "reactivizr.local",
+	"src": ".",
+	"dist": "../../../_ui/desktop/SABMiller",
+	"portalDist": "../../../../../../sabmstaffstorefront/web/webroot/_ui/desktop/SABMiller",
+	"portalTags": "../../../../../../sabmstaffstorefront/web/webroot/WEB-INF/tags",
+	"stylesDir": "css",
+	"scriptsDir": "js",
+	"pages": "pages",
+	"imagesDir": "img",
+	"spriteDir": "sprites",
+	"retinaSpriteDir": "retinaSprites",
+	"svgIconsDir": "svgRaw",
+	"svgIconsCompressedDir": "svgCompressed",
+	"tags": "../../tags/desktop"
+}

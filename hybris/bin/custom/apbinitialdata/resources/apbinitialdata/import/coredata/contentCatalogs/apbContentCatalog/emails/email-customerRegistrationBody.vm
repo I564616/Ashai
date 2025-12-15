@@ -1,0 +1,129 @@
+## messageSource=classpath:/sabmcore/messages/email-customerRegistration_$lang.properties
+#macro(genHtmlLinkStartTag $url)
+<a href="$url"><font color="#666666">
+#end
+#macro(genHtmlLinkEndTag)
+</font></a>
+#end
+#macro(genHtmlLink $url $textColor $bodyContent)
+<a href="$url"><font color="$textColor">$bodyContent</font></a>
+#end
+
+<html>
+	<head>
+	</head>
+	<body bgcolor="#ffffff">
+	<table width="50%" cellpadding="0" cellspacing="0" align="center" bgcolor="#ffffff">
+		<tr>
+		 <td style="border:1px solid #EBEBEB;display:inline-table">
+			<table cellpadding="0" cellspacing="0" border="0" style="min-width:320px;display:inline-table"" align="center" bgcolor="#ffffff">
+				<tr>
+					<td align="left" colspan="6">
+						<a href="${ctx.baseUrl}" style="padding: 0px 0px 0px 0px;display:inline-block;margin:0 auto;">
+						    ${ctx.cmsSlotContents.TopContent}
+						</a>
+					</td>
+				</tr>		 
+				<tr>
+					<td colspan="5" valign="middle" style="font-weight:bold;font-family: Helvetica;color: #42515a;font-size: 18px;padding: 30px 30px 0px 30px;">
+						${ctx.messages.registerWelcome}					
+						<!-- <table width="6%" cellpadding="0" cellspacing="0" border="0" valign="10px" >
+							<tr>
+								<td style="width: 10px;margin-top: 5px;border-bottom: 3px solid #42515a;padding:4px"> 							
+								</td>
+							</tr>
+						</table> -->
+					</td>
+				</tr> 
+				
+				<tr>
+					<td colspan="5" align="left" valign="middle" style="font-family: Helvetica;color: #42515a;font-size: 15px;padding: 20px 30px 0px 30px;">
+					${ctx.messages.dear}&nbsp;${ctx.customerData.firstName}, 				
+					</td>
+				</tr> 
+				 
+				<tr>
+					<td colspan="5" align="left" valign="middle" style="font-family: Helvetica;color: #42515a;font-size: 15px;padding: 20px 30px 0px 30px;">
+					 	${ctx.messages.content1}			
+					</td>
+				</tr>
+				
+				<tr>
+					<td colspan="5" align="left" valign="middle" style="font-family: Helvetica;color: #42515a;font-size: 15px;padding: 0px 30px 0px 30px;">
+					 	<br>${ctx.messages.registerBenifit}				
+					</td>
+				</tr>
+			 
+				<tr>
+					<td colspan="5" width="80%" align="left" style="padding: 0px 30px 0px 30px;">
+						<table width="100%" cellpadding="0" cellspacing="0" border="0" align="left" bgcolor="#ffffff">
+							<tr>
+								<td align="left" style="font-family: Helvetica;color: #42515a;font-size: 15px">											 
+								<strong>&#8226;&nbsp;</strong>${ctx.messages.registerBenifit1quickly} 
+								</td>
+							</tr>
+							<tr>
+								<td align="left" style="font-family: Helvetica;color: #42515a;font-size: 15px;">											 
+									<strong>&#8226;&nbsp;</strong>${ctx.messages.registerBenifit1view}
+								</td>
+							</tr>
+							<tr>
+								<td align="left" style="font-family: Helvetica;color: #42515a;font-size: 15px;">											 
+									<strong>&#8226;&nbsp;</strong>${ctx.messages.registerBenifit1manage} 
+								</td>
+							</tr>
+							<tr>
+								<td align="left" style="font-family: Helvetica;color: #42515a;font-size: 15px;">											 
+									<strong>&#8226;&nbsp;</strong>${ctx.messages.registerBenifit1update}
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				 
+			    <tr>
+					<td style="padding: 20px 20px 0px 30px;">
+					   <a href="${ctx.baseUrl}/login" style="display: block;text-align:center;text-decoration:none;font-family: Helvetica;underline:none;text-transform: uppercase;">
+							<table cellpadding="0" cellspacing="0" border="0" style="cursor:pointer;underline:inherit">
+								<tr>				 
+									<td align="center" style="height:35px;color: #ffffff;background-color: #0b7f80;padding:0px 25px 0px 25px;">
+										<a href="${ctx.baseUrl}/login" style="display: block;text-align:center;text-decoration:none;font-family: Helvetica;underline:none;text-transform: uppercase;font-size: 14px;line-height: 1.375;color:#fff;">
+												 <b>&nbsp;&nbsp;Start&nbsp;exploring!&nbsp;Sign&nbsp;In&nbsp;&nbsp;</b>												
+									   </a>						 
+									</td>
+								</tr>
+							</table>	
+							</a> 
+						</td>				
+				</tr>
+				<tr>
+					<td colspan="5" style="font-family: Helvetica;color: #42515a;font-size: 15px;padding: 20px 30px 0px 30px;">
+						${ctx.messages.registerContent}					
+					</td>
+									
+				</tr>
+				<tr>
+					<td colspan="5" style="font-family: Helvetica;color: #42515a;font-size: 15px;padding: 10px 30px 0px 30px;">
+						${ctx.messages.registerCheers}			
+					</td>									
+				</tr>
+				
+				<tr>
+					<td colspan="5" style="font-family: Helvetica;color: #42515a;font-size: 15px;padding: 0px 30px 10px 30px;"> 						
+						${ctx.messages.complimentaryClosing}
+					</td>									
+				</tr>	
+			<tr>
+				<td colspan="6">
+					<br><a href="${ctx.baseUrl}" style="padding: 0px 0px 0px 0px;">
+						${ctx.cmsSlotContents.BottomContent}
+					</a>
+				</td>
+			</tr>
+			</table>
+		</td>
+	  </tr>
+	</table>				 
+	
+</body>
+</html>

@@ -1,0 +1,12 @@
+INSERT_UPDATE Planogram;&code1;code[unique=true];associationtype(code, itemType(code))[default='CUSTOMER_SEGMENT:PlanogramAssociationType'];documentName;uploadedBy;media(code)
+"#% impex.includeExternalDataMedia( ""Planograms.csv"" , ""UTF-8"", ';',  1 , -1 );"
+
+INSERT_UPDATE AsahiCatalogProductMapping; catalogId[unique=true];defaultPlanogram(&code1)
+"#% impex.includeExternalDataMedia( ""AsahiCatalogProductMapping.csv"" , ""UTF-8"", ';',  1 , -1 );"
+
+
+
+
+
+
+

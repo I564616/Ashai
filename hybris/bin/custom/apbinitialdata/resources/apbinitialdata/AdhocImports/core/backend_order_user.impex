@@ -1,0 +1,2 @@
+INSERT_UPDATE B2BCustomer;description;uid[unique=true];originalUid;email;name;groups(uid);sessionCurrency(isocode)[default='AUD'];defaultB2BUnit(uid)
+;Backend Order will be placed by this Customer K;crm_admin@asahi.com;crm_admin@asahi.com;crm_admin@asahi.com;Backend Order will be placed by this ;AsahiProntoSample;;AsahiProntoSample

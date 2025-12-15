@@ -1,0 +1,96 @@
+## messageSource=classpath:/sabmcore/messages/email-dispatchedTemplate_$lang.properties
+#macro(genHtmlLinkStartTag $url)
+<a href="$url"><font color="#666666">
+#end
+#macro(genHtmlLinkEndTag)
+</font></a>
+#end
+#macro(genHtmlLink $url $textColor $bodyContent)
+<a href="$url"><font color="$textColor">$bodyContent</font></a>
+#end
+<html>
+	<head>
+		<style>
+			*, html, body{
+				font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+				box-sizing: border-box;
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+			}
+		</style>
+	</head>
+	<body style="font-family: sans-serif; color: #666666; font-weight: normal; font-size: 14px; width: 50%; margin: 0 auto">
+		<header style="max-height: 92px; line-height: 92px; background: #002f5f; margin-bottom: 3%; padding-left:20px">
+			<h1 style="color: #fff; font-weight:bold; margin: 0">Carlton & United</h1>
+		</header>
+
+		<div style="padding: 0 50px">
+		
+			<h1 style="font-family: Arial; color: #002f5f; font-weight: bold; font-size: 32px;">Your ordered items have been dispatched!</h1>
+	
+			<p>Hi Sarah, </p>
+	
+			<p>Just to let you know your order has now been dispatched and will be with your shortly.</p>
+
+			<h2 style="font-family: Arial; color: #002f5f; font-weight: bold; font-size: 24px;">Estimated Time of Arrival 12:30 to 14:30</h2>
+
+			<p>Please note that ETA is only indicative and may change throughout the day.</p>
+		
+			<p>Check out our Track Your Order page to get regular updates on the estimated time of arrival for your order throughout the day.</p>
+	
+			<p>Would you would like to receive a text or an email when you are next in the queue? You can now set up customised <a href="#" style="text-decoration: none; border-bottom: 1px solid #666666; padding-bottom:1px;  color: inherit">delivery notifications</a> and stay up to date on the status of your order.</p>
+		
+			<p>Please note any products where 'zero' is displayed in the quantity dispatched column may be out of stock and will not be delivered. </p>
+		
+			<button style="background: #002f5f; cursor: pointer; color: #fff; font-size: 12pt; white-space: no-wrap; text-transform: uppercase; padding: 0 45px; height: 50px; line-height: 50px; margin: 3% 0">Track Your Delivery</button>
+		
+			<hr />
+		
+			<h2 style="font-family: Arial; color: #002f5f; font-weight: bold; font-size: 24px;">Order Number 1007323786</h2>
+			
+			<p>
+				<strong>Status:</strong> Created <br />
+				<strong>Customer number:</strong> 0000859342 <br />
+				<strong>Payer number:</strong> 0001233483 <br />
+				<strong>Ordered channel:</strong> Online
+			</p>
+					
+			<table border="0" cellpadding="5" cellspacing="0" style="width:100%; font-size: 10pt">
+				<thead style="background: #f5f5f5;">
+				<tr>
+					<th>Item</th>
+					<th>Quantity Ordered</th>
+					<th>Quantity Dispatched</th>
+				</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td valign="center">
+							<img src="https://placeholdit.co//i/70x50?&bg=f5f5f5&fc=66666&text=70x50" style="display: inline-block; vertical-align: middle" />
+							<div style="display:inline-block; vertical-align: middle; margin-left:10px">
+								<strong>Carlton Draught</strong> <br />
+								375ml 3x10 Pack Cans 
+							</div>
+						</td>
+						<td align="center">1</td>
+						<td align="center">1</td>
+					</tr>
+					<tr>
+						<td valign="center">
+							<img src="https://placeholdit.co//i/70x50?&bg=f5f5f5&fc=66666&text=70x50" style="display: inline-block; vertical-align: middle" />
+							<div style="display:inline-block; vertical-align: middle; margin-left:10px">
+								<strong>Aguila</strong> <br />
+								330ml 4x6 Pack Bottles 
+							</div>
+						</td>
+						<td align="center">1</td>
+						<td align="center">1</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<footer style="background: #f5f5f5; max-height: 92px; line-height: 92px; font-weight: bold; margin-top:3%; padding-left:20px">
+			<p>&copy; Carlton &amp; United Breweries</p>
+		</footer>		
+	</body>
+</html>

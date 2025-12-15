@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="urn:gl.sabmiller.com:com:3rdp:mastdata" xmlns="urn:gl.sabmiller.com:com:3rdp:mastdata" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:p6="http://sap.com/xi/APPL">
+	<xsd:import namespace="http://sap.com/xi/APPL"
+		schemaLocation="../../BusinessDocumentMessageHeader.xsd" />
+	<xsd:import namespace="http://sap.com/xi/APPL" />
+	<xsd:element name="ProductExclusionResponse">
+		<xsd:complexType>
+			<xsd:annotation>
+				<xsd:documentation xml:lang="EN">Data Type for Product Exclusion to Hybris</xsd:documentation>
+			</xsd:annotation>
+			<xsd:sequence>
+				<xsd:element name="ProductExclusionHeader">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="Customer" type="xsd:string" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>Customer Number</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element name="SalesOrg" type="xsd:string" minOccurs="0">
+                            <xsd:annotation>
+                                <xsd:documentation>Sales Organisation the data belongs to</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+           
+				<xsd:element maxOccurs="unbounded" name="ProductExclusion" minOccurs="0">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element minOccurs="0" name="Material" type="xsd:string">
+								<xsd:annotation>
+									<xsd:documentation>General Material  Data</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element minOccurs="0" name="ValidFrom" type="xsd:string">
+								<xsd:annotation>
+									<xsd:documentation>Start Date Range</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element minOccurs="0" name="ValidTo" type="xsd:string">
+								<xsd:annotation>
+									<xsd:documentation>End Date Range</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="Priority" type="xsd:string" />
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

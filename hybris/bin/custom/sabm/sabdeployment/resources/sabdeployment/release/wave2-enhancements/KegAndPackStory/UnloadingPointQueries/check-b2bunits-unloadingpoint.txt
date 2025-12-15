@@ -1,0 +1,103 @@
+import com.sabmiller.core.enums.DeliveryModeType
+import org.apache.commons.lang.StringUtils
+
+/**
+ * Created by evariz.p.papellero on 8/22/17.
+ */
+
+fss = spring.getBean("flexibleSearchService")
+
+b2bUnits = fss.search("Select {pk} from {B2BUnit} where {accountGroup} ='ZALB'").result
+//mappingModels = fss.search("Select {pk} from {SabmDeliveryModeMapping}").result
+def deliveryModeMapping = [1:DeliveryModeType.CUB_DELIVERY,
+                           2:DeliveryModeType.CUSTOMER_DELIVERY,
+                           3:DeliveryModeType.CUSTOMER_DELIVERY,
+                           5:DeliveryModeType.CUB_DELIVERY,
+                           6:DeliveryModeType.CUB_DELIVERY,
+                           11:DeliveryModeType.CUB_DELIVERY,
+                           13:DeliveryModeType.CUSTOMER_DELIVERY,
+                           16:DeliveryModeType.CUSTOMER_DELIVERY]
+//Map the delivery methods
+//for (methodMapping in mappingModels) {
+//    if (methodMapping.getMethod() != null) {
+//        deliveryModeMapping.put(methodMapping.getMode(), methodMapping.getMethod())
+//    }
+//}
+
+def noProperDataCounter = 0
+out.println("B2BUNIT ID,B2BUNIT NAME,UNLOADING POINTS,DEFAULT CARRIER,DEFAULT CARRIER - CUSTOMER OWNED,DEFAULT DELIVERY MODE,ERROR")
+
+//Loop all b2bUnits
+for (b2bUnit in b2bUnits) {
+    id = b2bUnit.getUid()
+    name = b2bUnit.getName()
+    carrierCodeName = null
+    carrierCustomerOwned = null
+
+    if (b2bUnit.getUnloadingPoints().size() < 1) {
+        out.println(id + "," + name + "," + b2bUnit.getUnloadingPoints() +",,,,Empty Unloading Point!")
+        ++noProperDataCounter
+        continue
+    }
+
+    //Check delivery mode
+    defaultDeliveryMode = null
+    defaultCarrier = b2bUnit.getDefaultCarrier()
+    if (defaultCarrier != null) {
+        carrierCodeName = defaultCarrier.getCarrierCode()+" - "+defaultCarrier.getCarrierDescription()
+        carrierCustomerOwned = defaultCarrier.getCustomerOwned()
+        if(defaultCarrier.getCustomerOwned()) {
+            isCustomerOwned = false
+            defaultDeliveryMode = DeliveryModeType.CUSTOMER_DELIVERY
+            for(shippingCarrier in b2bUnit.getShippingCarriers()) {
+                if(shippingCarrier.getCustomerOwned()) {
+                    isCustomerOwned = true
+                    break
+                }
+            }
+            if(!isCustomerOwned){
+                out.println(id + "," + name + ",,"+carrierCodeName+","+carrierCustomerOwned+","+defaultDeliveryMode+",No Customer Owned Shipping Carrier!")
+            }
+        } else if(defaultCarrier.getCustomerOwned() == false) {
+            defaultDeliveryMode = DeliveryModeType.CUB_DELIVERY
+        } else {
+            out.println(id + "," + name + ",,"+carrierCodeName+","+carrierCustomerOwned+",,N/A Customer Owned flag!")
+        }
+    } else {
+        out.println(id + "," + name + ",,"+defaultCarrier+",,,Default Carrier is null!")
+    }
+    if (defaultDeliveryMode == null) {
+        ++noProperDataCounter
+        continue
+    }
+
+    //Check the unloading points
+    incorrectUnloadPoint = true
+    errorMessage = ''<<''
+    for (unloadingPoint in b2bUnit.getUnloadingPoints()) {
+        if (StringUtils.isNotEmpty(unloadingPoint.getCode()) && unloadingPoint.getCode().matches("([BULK]|[PACK])+-\\w+-\\d+")) {
+            //Derive the Delivery Mode from unloading point code format : PACKTYPE-DAYS-MODE
+            codes = unloadingPoint.getCode().split("-")
+
+            mode = Integer.parseInt(codes[2])
+            unloadingPointmethod = deliveryModeMapping.get(mode)
+
+            if (unloadingPointmethod == defaultDeliveryMode) {
+                incorrectUnloadPoint = false
+                break
+            } else {
+                errorMessage.append(unloadingPoint.getCode()+";")
+            }
+        } else {
+            errorMessage.append(unloadingPoint.getCode()+";")
+        }
+    }
+
+    if (incorrectUnloadPoint) {
+        ++noProperDataCounter
+        out.println(id + "," + name + ","+errorMessage+","+carrierCodeName+","+carrierCustomerOwned+","+defaultDeliveryMode+",Incorrect/No unloading point matches the delivery method!!")
+    }
+}
+
+out.println("\nTotal number of b2bUnits found " + "  " + b2bUnits.size())
+out.println("Total number of noProperDataB2bUnit found " + "  " + noProperDataCounter)

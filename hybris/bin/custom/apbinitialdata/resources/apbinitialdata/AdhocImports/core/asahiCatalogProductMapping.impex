@@ -1,0 +1,10 @@
+$productCatalog=sgaProductCatalog
+$productCV=catalogVersion(catalog(id[default=$productCatalog]),version[default='Online'])[unique=true,default=$productCatalog:Online]
+
+
+INSERT_UPDATE AsahiCatalogProductMapping; catalogId[unique=true];products(code, $productCV)
+;testCatalog1;10000838,10000840
+
+
+INSERT_UPDATE AsahiB2BUnit;uid[unique=true];cataloghierarchy;locName[lang=en]
+;100711;testCatalog1;Test catalog1

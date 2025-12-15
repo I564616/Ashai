@@ -1,0 +1,516 @@
+// ==========================================================================
+//   Smart Orders Styles
+// ==========================================================================
+.page-smartOrders {
+	h1 {
+		margin-bottom: $spacing-gutter;
+	}
+	p {
+		font-size: $font-small;
+	}
+	.prod-headers {
+		background-color: $light-grey;
+		padding-top: $spacing-x-small;
+		padding-bottom: $spacing-x-small;
+		margin-top: $spacing-x-small;
+		font-size: $font-x-small;
+		text-align: center;
+		@media (min-width: $desktop-992) {
+			margin-top: 0;
+		}
+		@media (min-width: $tablet) {
+			font-size: $font-small;
+		}
+		.img-title-head {
+			display: inline-block;
+			text-align: left;
+		}
+		.cta-head {
+			margin-left: -12px;
+		}
+	}
+	.mobile-prod-headers {
+		padding: $spacing-x-small 0;
+		overflow: hidden;
+		.icon-arrows {
+			cursor: pointer;
+			display: none;
+			position: absolute;
+			top: 12px;
+			z-index: 100;
+			@media (max-width: $mobile-360) {
+				display: block;
+			}
+			&.left {
+				left: 0;
+			}
+			&.right {
+				right: 0;
+			}
+		}
+		
+		.dates {
+			@media (max-width: $mobile-360) {
+			    overflow: hidden;
+			    width: 90%;
+			    margin: 0 auto;
+			    padding: 0;
+			    float: none;
+				ul {
+				    width: 445px;
+				    float: left;
+				    transition: margin-left 2s;
+				    margin-bottom: 0;
+				    @media (max-width: $mobile-320) {
+			    	    width: 390px;
+				    }
+				}
+			    &.prev {
+			    	margin-left: 0;
+			    	ul {
+				   	 	margin-left: 0;
+				   	}
+			    }
+			    &.next {
+			    	margin-right: 0;
+			    	ul {
+			    		margin-left: -150px;
+			    	}
+			    }
+			}
+			@media (max-width: $mobile-320) {
+			    &.next {
+			    	ul {
+			    		margin-left: -130px;
+			    	}
+			    }
+			}
+		}
+
+	}
+	.lowstock {
+		@media (min-width: $desktop-992) {
+			.prod-history .quantities ul li {
+				line-height: 105px;
+			}
+			.prod-cta {
+				padding-top: $spacing-medium;
+			}
+		}
+	}
+	.prod-row {
+		margin-bottom: $spacing-x-small;
+		@media (min-width: $desktop-992) {
+			margin-bottom: 0;
+		}
+	}
+	.select {
+		.arrow {
+			background-color: $white;
+			&:after {
+				width: 10px;
+			}
+		}
+		input.basic-datepicker[type="text"] {
+			height: 35px;
+			background-color: $white;
+			padding-right: $spacing-small;
+			font-size: $font-small;
+		}
+	}
+	.dropdown-options {
+		margin-bottom: 5px;
+		@media (min-width: $desktop-992) {
+			margin-bottom: $spacing-gutter;
+		}
+		.select {
+			margin-bottom: $spacing-x-small;
+			&.form-group input[readonly] {
+				&::placeholder {
+					color: $dark-grey;
+				}
+				&:hover {
+					cursor: pointer;
+				}
+			}
+			@media(min-width: $tablet){
+				display: inline-block;
+				margin-bottom: 0;
+				float: left;
+			}
+		}
+		.next-prev {
+			margin-top: -4px;
+			ul.list-inline {
+				margin-bottom: 0;
+				span.disabled {
+					opacity: 0.5;
+					&:hover {
+						cursor: not-allowed;
+					}
+				}
+			}
+		}
+		.dateLink{
+			font-size: $font-small;
+	  		color: $marine-blue;
+	    	border-bottom:0px !important;
+	    	&.disabled {
+	    		color: $text-inactive;
+	    	}
+	  	}
+	  	.sortby {
+	  		font-size: $font-small;
+	  		.select-btn {
+	  			height: 35px;
+	  			line-height: 35px;
+	  			display: none;
+	  			@media (min-width: $tablet-max) {
+	  				display: block;
+	  			}
+	  			&:after {
+					top: 14px;
+					width: 10px;
+					right: 6px;
+	  			}
+	  		}
+	  		.mobile-sortby {
+	  			display: block;
+	  			@media (min-width: $tablet-max) {
+	  				display: none;
+	  			}
+		  		select {
+	  			    -webkit-appearance: none;
+	  			    -moz-appearance: none;
+					background-color: transparent;
+					border: 1px solid $medium-grey;
+					border-radius: 0;
+				    padding: 5px 10px;
+	    			width: 100%;
+		  		}
+	  		}
+	  	}
+  	}
+	.prod-title-image {
+		padding-top: $spacing-small;
+		.prod-img-block {
+			width: 55px;
+			.badge {
+		        left: 34px;
+			}
+		}
+		img {
+			max-width: 50px;
+			max-height: 50px;
+			display: inline-block;
+			align-self: center;
+		}
+		.prod-title {
+			display: inline-block;
+			align-self: center;
+			@media (max-width: $mobile-360) {
+				width: 80%;
+			}
+			h4 {
+				margin-bottom: 0;
+				color: $primary-blue;
+				@media (min-width: $desktop-992) {
+			    	max-height: 40px;
+    				overflow: hidden;
+				}
+			}
+			@media(min-width: $desktop){
+				.h4-subheader {
+					margin-bottom: 0;
+				}
+			}
+			.low-stock-status-label {
+				font-size: $font-small;
+			}
+		}
+	}
+	.toggle-btn {
+		@media(max-width: $tablet-max){
+			display: inline-block;
+			margin-bottom: $spacing-small;
+		}
+	}
+	.prod-history,
+	.history-head {
+		li {
+			display: inline-block;
+			text-align: left;
+			padding-right: 0;
+			.qty {
+				display: inline-block;
+				width: 100%;
+				@media (min-width: $mobile-480) {
+					width: 40px;
+				}
+			}
+		}
+	}
+	.history-head {
+		li {
+			text-align: center;
+			@media (min-width: $desktop-992) {
+				width: 16.4%;
+			}
+		}
+	}
+	.icon-arrows {
+      	width: 20px;
+      	height: 10px;
+      	margin-top: 3px;
+  	}
+	.prod-history {
+		overflow: hidden;
+		.quantities {
+			@media (max-width: $mobile-360) {
+			    width: 90%;
+			    margin: 0 auto;
+			    float: none;
+			    overflow: hidden;
+			}
+		    &.prev {
+		    	margin-left: 0;
+		    	ul {
+			    	margin-left: 0px;
+			    }
+		    }
+		    &.next {
+		    	margin-right: 0;
+		    	ul {
+		    		margin-left: -150px;
+		    	}
+		    }
+		    @media (max-width: $mobile-320) {
+			    &.next {
+			    	ul {
+			    		margin-left: -130px;
+			    	}
+			    }
+		    }
+			ul {
+				height: 100%;
+				border: none;
+				padding-bottom: 0;
+				margin-bottom: 0;
+				margin-left: 0;
+				@media (max-width: $mobile-360) {
+			    	width: 445px;
+				    float: left;
+				    transition: margin-left 2s;
+				    margin-bottom: 0;
+				}
+			    @media (max-width: $mobile-320) {
+		    	    width: 390px;
+			    }
+				li {
+					font-size: $font-x-small;
+					height: 100%;
+				    text-align: center;
+				    line-height: 50px;
+				    padding: 0 12px;
+				    width: 16.6666666667%;
+				    @media (min-width: $desktop-992) {
+				    	border-right: 1px solid $light-medium-datepicker;
+				    	width: auto;
+				    	line-height: 85px;
+					    &:first-child {
+					    	border-left: 1px solid $light-medium-datepicker;
+					    }
+				    }
+				    @media (min-width: $tablet) {
+			    		font-size: $font-small;
+				    }
+				    @media (max-width: $mobile-480) {
+				    	padding: 0;
+				    }
+				}
+			}
+		}
+	}
+	.prod-cta {
+		padding-left: $spacing-x-small; 
+		@media (min-width: $desktop-992) {
+			padding-left: 0;
+			padding-top: $spacing-small-plus;
+		}
+		@media (max-width: $mobile-max) {
+			padding-left: 0;
+		}
+		.select-quantity {
+			margin-bottom: 0;
+			display: inline-block;
+			@media (min-width: $desktop-992) {
+				margin-left: -13px!important;
+			}
+			@media (min-width: $tablet) {
+				margin-left: 10px;
+			}
+			li {
+				line-height: $line-height-x-large;
+				height: $btn-small;
+				svg {
+			    	width: 12px;
+				}
+			}
+		}
+		.select-list {
+			line-height: $line-height-x-large;
+			height: $btn-small;
+			display: inline-block;
+			width: 79px;
+			margin-left: 3px;
+			@media (max-width: $desktop-991) {
+				width: 37%;
+			}
+			@media (max-width: $mobile-480) {
+				width: 65%;
+    			float: right;
+			}
+			@media (max-width: $mobile-359) {
+				width: 60%;
+			}
+			.select-dropdown {
+				float: none;
+				@media (min-width: $desktop-992) {
+					float: left;
+				}
+			}
+			.select-btn, .select-single {
+				line-height: $line-height-x-large;
+				height: $btn-small;
+				font-size: $font-small;
+				&:after {
+					top: 17px;
+					width: 10px;
+				}
+			}
+		}
+		.prod-uom {
+			display: inline-block;
+			width: 50px;
+			text-align: left;
+			position: relative;
+			top: 10px;
+			margin-left: $spacing-x-small;
+		}
+		.prod-uom {
+			@media(min-width: $desktop){
+				align-self: center;
+				top: 0;
+			}
+		}
+		.btn {
+			padding: 3px;
+		    white-space: normal;
+		    font-size: $font-x-small;
+		    line-height: $line-height-x-small;
+		    width: 105px;
+		    display: inline-block;
+		    height: $btn-small;
+		    float: right;
+			@media (min-width: $mobile-max) and (max-width: $desktop-991) {
+				width: 37.5%;
+			}
+			@media (min-width: $mobile-680) and (max-width: $mobile-max) {
+				width: 44.5%;
+			}
+			@media (max-width: $mobile-680) {
+				width: 40%;
+			}
+			@media (max-width: $mobile-580) {
+				width: 36%;
+			}
+			@media (max-width: $mobile-480) {
+				width: 100%;
+				margin-top: 5px;
+			}
+			&.btn-invert {
+				line-height: $line-height-large + 2;
+				@media (min-width: $desktop-992) {
+					line-height: $line-height-x-small;
+				}
+			}
+		}
+	}
+	.link-cta {
+		position: relative;
+		&:after {
+			margin-top: 0;
+			top: 6px;
+			width: 13px;
+			height: 8px;
+		}
+		@media(min-width: $tablet){
+			margin-left: $spacing-small;
+			float: left;
+			top: 10px;
+			&:after {
+				top: 7px;
+			}
+		}
+		@media(min-width: $desktop){
+			float: left;
+			top: 7px;
+			&:after {
+				top: 8px;
+				width: 10px;
+				height: 6px;
+			}
+		}
+	}
+	.smart-orders-foot {
+		margin-top: $spacing-gutter;
+		p {
+			font-size: $font-small;
+			margin-bottom: $spacing-x-small;
+			@media(min-width: $tablet){
+				p {
+					font-size: $font-x-small;
+					margin-bottom: 0;
+				}
+			}
+		}
+		.inline {
+			margin-bottom: $spacing-small;
+			color: $marine-blue;
+			float: none;
+			text-align: center;
+			display: block;
+			border: none;
+			margin-top: 0; 
+			@media (min-width: $tablet) {
+				display: inline-block;
+				text-align: right;
+				float: right;
+				margin-bottom: 0;
+				border: none;
+				margin-top: $spacing-x-small; 
+			}
+			span {
+				font-size: $font-small;
+				font-weight: normal;
+				color: $primary-blue;
+				padding-right: 8px;
+			}
+		}
+		span {
+			color: $red;
+		}
+		.btn {
+			font-size: $font-x-small;
+			padding: 0 $spacing-gutter;
+			margin-left: $spacing-small;
+			float: right;
+			margin-bottom: $spacing-x-small;
+		    height: $btn-small;
+    		line-height: $line-height-x-large;
+			@media (min-width: $tablet) {
+				margin-bottom: 0;
+			}
+		}
+	}
+}

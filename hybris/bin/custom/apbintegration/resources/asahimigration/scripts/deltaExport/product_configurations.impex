@@ -1,0 +1,135 @@
+
+INSERT_UPDATE ScriptingJob	;code[unique=true]		;scriptURI
+							;productconfigDeltaExportScriptJob	;model://productconfigDeltaExportScript
+							
+INSERT_UPDATE CronJob	;code[unique=true]			;job(code)				;sessionLanguage(isocode)	;sessionUser(uid)
+						;productconfigDeltaExportScriptCronJob	;productconfigDeltaExportScriptJob	;en	;admin	
+
+INSERT_UPDATE Script; code[unique=true];content;active[default=true, unique=true]
+;productconfigDeltaExportScript;"import java.io.File;
+import java.lang.Exception;
+import java.io.InputStream;
+import de.hybris.platform.util.CSVConstants;
+import java.io.IOException;
+
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.sql.Timestamp;
+import org.apache.log4j.*;
+import org.apache.commons.io.IOUtils;
+
+import de.hybris.platform.servicelayer.impex.ExportConfig;
+import de.hybris.platform.servicelayer.impex.ExportConfig.ValidationMode;
+import de.hybris.platform.servicelayer.impex.ExportResult;
+import de.hybris.platform.servicelayer.impex.ExportService;
+import de.hybris.platform.servicelayer.impex.ImpExResource;
+import de.hybris.platform.impex.model.ImpExMediaModel;
+import de.hybris.platform.impex.jalo.exp.ImpExExportMedia;
+import de.hybris.platform.servicelayer.impex.impl.StreamBasedImpExResource;
+import de.hybris.platform.impex.model.exp.ImpExExportMediaModel;
+
+import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
+import de.hybris.platform.servicelayer.search.SearchResult;
+import de.hybris.platform.impex.model.cronjob.ImpExExportCronJobModel;
+
+final Logger LOG = Logger.getLogger(""asahi"");
+
+def exportService = spring.getBean(""exportService"");
+def modelService = spring.getBean(""modelService"");
+
+
+Calendar cal1 = Calendar.getInstance(); 
+cal1.set(Calendar.HOUR_OF_DAY, 0)
+cal1.set(Calendar.MINUTE, 0);
+cal1.set(Calendar.SECOND, 0);
+cal1.add(Calendar.DAY_OF_MONTH, -7);
+Date d = cal1.getTime();
+String oldDate = new SimpleDateFormat(""yyyy-MM-dd HH:mm:ss.SSS ZZZZ"").format(d);
+final Map<String, Object> params = new HashMap<>();
+params.put(""modifiedTime1"", oldDate);
+def modifiedTime1 = oldDate;
+
+final Date start = new Date();
+
+
+
+header = ""insert_update AlcoholType;backendID;code[unique=true,allownull=true];name[lang=en];\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {AlcoholType} where {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update BannerGroups;backendID;code[unique=true,allownull=true];familyId;name[lang=en];\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {BannerGroups} where {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update Brand;backendBrandName;backendID;code[unique=true,allownull=true];name[lang=en];\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {Brand} where {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update Channel;backendID;code[unique=true,allownull=true];name[lang=en];\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {Channel} where {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update Flavour;backendID;code[unique=true,allownull=true];name[lang=en];\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {Flavour} where {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update ItemGroups;backendID;code[unique=true,allownull=true];name[lang=en];\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {ItemGroups} where {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update KegReturnSize;active[allownull=true];backendID;code[unique=true];kegQuantity;kegSize;site(uid);name[lang=en];\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {KegReturnSize} where {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update LicenceClass;backendID;code[unique=true,allownull=true];name[lang=en];\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {LicenceClass} where {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update LicenseTypes;backendID;code[unique=true,allownull=true];name[lang=en];\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {LicenseTypes} where {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+//Multiple execution leads to duplicate entries
+""insert OfflineProductPrice;accNumber;discount;freight;freightGST;gST;listPrice;netPrice;productCode;wET;\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {OfflineProductPrice} where {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update PackageSize;backendID;code[unique=true];name[lang=en];\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {PackageSize} where {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update PackageType;backendID;code[unique=true,allownull=true];name[lang=en];\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {PackageType} where {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update ProductGroup;backendID;code[unique=true,allownull=true];name[lang=en];\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {ProductGroup} where {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update SubChannel;backendID;code[unique=true,allownull=true];name[lang=en];\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {SubChannel} where {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update SubProductGroup;backendID;code[unique=true,allownull=true];name[lang=en];\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {SubProductGroup} where {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update UnitVolume;backendID;code[unique=true];name[lang=en];\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {UnitVolume} where {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update ProdPricingTier;pricTierCode[unique=true];products(catalogVersion(catalog(id),version),code);\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {ProdPricingTier} where {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update Outlet;backendID;code[unique=true,allownull=true];name[lang=en];\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {Outlet} where {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n"";
+
+
+InputStream resourceAsStream = null;
+try {
+	resourceAsStream = new ByteArrayInputStream(header.getBytes());
+	final ImpExResource resource = new StreamBasedImpExResource(resourceAsStream, CSVConstants.DEFAULT_ENCODING);
+	
+	final ExportConfig config = new ExportConfig();
+	config.setScript(resource);
+	config.setSingleFile(true);
+	config.setValidationMode(ValidationMode.WITHOUT);
+	config.setExportedDataCode(""productconfiguration-""+new SimpleDateFormat(""yyyyMMddHHmmssSSS"").format(new Date()));
+	final ExportResult result = exportService.exportData(config);
+	
+	if (result.isError()){
+		LOG.info(""Exception occurred during export"");
+	}
+}
+catch (final Exception exception) {
+		LOG.error(""Exception occurred during export"", exception.getMessage());
+	} finally
+		{
+			resourceAsStream.close();
+		}";;
+
+	

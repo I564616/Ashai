@@ -1,0 +1,12 @@
+#
+# Import the BaseStore
+#
+
+# Language
+$lang=en
+
+$storeUid=sabmStore
+
+# Create Base Store
+UPDATE BaseStore;uid[unique=true][default=$storeUid];name[lang=$lang]
+;;SAB Miller Store

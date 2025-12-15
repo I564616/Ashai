@@ -1,0 +1,98 @@
+$contentCatalog=sabmContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$productCV=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$defaultLanguage=en
+
+# Import modulegen config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+$jarResourceCms=$config-jarResourceCmsValue
+
+
+### NOTIFICATIONS TEMPLATE AND PAGE ###
+
+# STEP 1 - Create a new page template
+# Create PageTemplates
+# These define the layout for pages
+# "FrontendTemplateName" is used to define the JSP that should be used to render the page for pages with multiple possible layouts.
+# "RestrictedPageTypes" is used to restrict templates to page types
+INSERT_UPDATE PageTemplate;$contentCV[unique=true];uid[unique=true];name;frontendTemplateName;restrictedPageTypes(code);active[default=true]
+;;NotificationsPageTemplate;Notification Page Template;notification/notificationsPage;ContentPage
+
+# STEP 2 - Create new pages
+# Functional Content Pages
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false'];previewImage(code, $contentCV)[default='ContentPageModel__function_preview']
+;;notificationsPage;Notifications Page;NotificationsPageTemplate;/your-notifications
+
+
+# STEP 3 - Create content slot names required for the template
+# Notification Page Template
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='NotificationsPageTemplate'];validComponentTypes(code);compTypeGroup(code)
+;SiteLogo;;;logo
+;HeaderLinks;;;headerlinks
+;SearchBox;;;searchbox
+;MiniCart;;;minicart
+;MiniCart;;;minicart
+;NavigationBar;;;navigation
+;TopContentSlot;;;wide
+;BottomContentSlot;;;wide
+;Footer;;;footer
+;TopHeaderSlot;;;wide
+;BottomHeaderSlot;;;wide
+;PlaceholderContentSlot;;;;
+
+
+# STEP 4 - Create the components required for the pages
+### Jsp Include Component ###
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;NotificationsPageComponent;Notification JSP component;notificationsPage.jsp;;NotificationsPageComponent
+
+# STEP 5 - Create content slots for the pages
+# ContentSlot for NotificationsPage
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;TopContentSlot-NotificationsPage;TopContentSlot for Notifications Page;true;
+;;BottomContentSlot-NotificationsPage;BottomContentSlot for Notifications Page;true;NotificationsPageComponent
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='notificationsPage'];contentSlot(uid,$contentCV)[unique=true]
+;;TopContentSlot-NotificationsPage;TopContentSlot;;TopContentSlot-NotificationsPage
+;;BottomContentSlot-NotificationsPage;BottomContentSlot;;BottomContentSlot-NotificationsPage
+
+
+# STEP 6 - Link the content slots for the Notification Page Template
+# Content slot for Notification Page Template
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='NotificationsPageTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-NotificationsPageTemplate;SiteLogo;;SiteLogoSlot;true
+;;HomepageLink-NotificationsPageTemplate;HomepageNavLink;;HomepageNavLinkSlot;true
+;;DeliveryDatepickerSlot-NotificationsPageTemplate;DeliveryDatepickerBar;;DeliveryDatepickerSlot;true
+;;MiniCart-NotificationsPageTemplate;MiniCart;;MiniCartSlot;true
+;;NavigationBar-NotificationsPageTemplate;NavigationBar;;NavigationBarSlot;true
+;;BreadcrumbSlot-NotificationsPageTemplate;BreadcrumbBar;;BreadcrumbSlot;true
+;;Footer-NotificationsPageTemplate;Footer;;FooterSlot;true
+;;HeaderLinks-NotificationsPageTemplate;HeaderLinks;;HeaderLinksSlot;true
+;;SearchBox-NotificationsPageTemplate;SearchBox;;SearchBoxSlot;true
+;;TopHeaderSlot-NotificationsPageTemplate;TopHeaderSlot;;TopHeaderSlot;true
+;;BottomHeaderSlot-NotificationsPageTemplate;BottomHeaderSlot;;BottomHeaderSlot;true
+;;TopContentSlot-NotificationsPageTemplate;TopContentSlot;;TopContentSlot;true
+;;BottomContentSlot-NotificationsPageTemplate;BottomContentSlot;;BottomContentSlot;true
+;;PlaceholderContentSlot-NotificationsPageTemplate;PlaceholderContentSlot;;PlaceholderContentSlot;true
+
+# STEP 7 - Create CUB Notifications link
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];name;url;linkName[lang=en];category(code, $productCV);target(code)[default='sameWindow'];;
+;;NotificationsLink;Notifications Link;/your-notifications;"Your Notifications";;;;
+
+# LAST STEP - Displaying the new template in CMS Cockpit
+# Add Velocity templates that are in the CMS Cockpit. These give a better layout for editing pages
+# The FileLoaderValueTranslator loads a File into a String property. The templates could also be inserted in-line in this file.
+UPDATE PageTemplate;$contentCV[unique=true];uid[unique=true];velocityTemplate[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+;;NotificationsPageTemplate;$jarResourceCms/structure-view/structure_notificationsPageTemplate.vm
+
+
+$defaultLanguage=en
+INSERT_UPDATE CronJob;code[unique=true];job(code);user(uid);nodegroup;sessionLanguage(isocode)
+;orderCutOffNotificationCronjob;orderCutOffnotificationsJob;admin;admin;$defaultLanguage
+;deliveryNotificationCronjob;deliveryNotificationsJob;admin;admin;$defaultLanguage
+;dealNotificationCronjob;dealNotificationsJob;admin;admin;$defaultLanguage
+
+INSERT_UPDATE Trigger;cronJob(code)[unique=true];cronExpression;relative;active;maxAcceptableDelay
+;orderCutOffNotificationCronjob;0 0/5 * * * ?;false;true;-1
+;deliveryNotificationCronjob;0 0/10 * * * ?;false;true;-1
+;dealNotificationCronjob;0 0 7 * * ?;false;true;-1

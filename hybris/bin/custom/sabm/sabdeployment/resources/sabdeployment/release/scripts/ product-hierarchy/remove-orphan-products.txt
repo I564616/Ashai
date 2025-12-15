@@ -1,0 +1,37 @@
+import com.sabmiller.core.model.SABMAlcoholProductModel
+import com.sabmiller.core.model.SABMAlcoholVariantProductEANModel
+import de.hybris.platform.catalog.model.CatalogModel
+import org.apache.commons.lang.BooleanUtils
+import org.apache.commons.collections4.CollectionUtils
+import java.lang.String;
+
+fss = spring.getBean("flexibleSearchService")
+ms = spring.getBean("modelService")
+ps = spring.getBean("productService")
+cs = spring.getBean("catalogVersionDeterminationStrategy")
+
+alcoholProducts = fss.search("SELECT {alcoholProduct.pk} from {SABMAlcoholProduct AS alcoholProduct LEFT JOIN CatalogVersion AS catalog ON {alcoholProduct.catalogversion} = {catalog.PK}} WHERE {catalog.version} = 'Staged'").result
+eans = fss.search("SELECT {ean.pk} from {SABMAlcoholVariantProductEAN! AS ean LEFT JOIN CatalogVersion AS catalog ON {ean.catalogversion} = {catalog.PK}} WHERE {catalog.version} = 'Staged'").result
+materials = fss.search("SELECT {material.pk} from {SABMAlcoholVariantProductMaterial AS material LEFT JOIN CatalogVersion AS catalog ON {material.catalogversion} = {catalog.PK}} WHERE {catalog.version} = 'Staged'").result
+
+out.println(String.format("Printing all orphans...")
+
+for (alc in alcoholProducts) {
+
+    if (CollectionUtils.isEmpty(alc.variants)) {
+        out.println(String.format("Alcohol Product [%s] has no variants and should be deleted.", alc.code))
+        //ms.remove(alc);
+    }
+}
+
+for (ean in eans) {
+    if (CollectionUtils.isEmpty(ean.variants)) {
+        out.println(String.format("EAN [%s] has no materials", ean.code))
+    }
+
+    if (ean.baseProduct == null) out.println(String.format("EAN [%s] has no Alcohol Product", ean.code))
+}
+
+for (material in materials) {
+    if (material.baseProduct == null) out.println(String.format("Material [%s] has no EAN", material.code))
+}

@@ -1,0 +1,31 @@
+#Warehouse Address List  
+INSERT_UPDATE Address ; owner(PointOfService.name)[unique=true] ; &addId     ; addressRecordid ; addressType(code,itemtype(code)) ; defaultAddress[default=Yes] ; streetname[unique=true] ; streetnumber ; town      ; region(isocode) ; country(isocode)
+                      ; apbPOSVIC                                ;  AddapbPOS_VIC ; 4321            ; DELIVERY:AddressType             ; true                        ; NA         ; NA           ; NA ; AU-VIC          ; AU              
+                      ; apbPOSTAS                                ;  AddapbPOS_TAS ; 4322            ; DELIVERY:AddressType             ; true                        ; NA         ; NA           ; NA ; AU-TAS          ; AU              
+                      ; apbPOSNSW                                ;  AddapbPOS_NSQ ; 4323            ; DELIVERY:AddressType             ; true                        ; NA         ; NA           ; NA ; AU-NSW          ; AU              
+                      ; apbPOSQLD                                ;  AddapbPOS_QLD ; 4324            ; DELIVERY:AddressType             ; true                        ; NA         ; NA           ; NA ; AU-QLD          ; AU              
+                      ; apbPOSNT                                 ;  AddapbPOS_NT  ; 4325            ; DELIVERY:AddressType             ; true                        ; NA         ; NA           ; NA ; AU-NT          ; AU              
+                      ; apbPOSWA                                 ;  AddapbPOS_WA  ; 4326            ; DELIVERY:AddressType             ; true                        ; NA         ; NA           ; NA ; AU-WA          ; AU              
+                      ; apbPOSSA                                 ;  AddapbPOS_SA  ; 4327            ; DELIVERY:AddressType             ; true                        ; NA         ; NA           ; NA ; AU-SA          ; AU              
+                                                                                                                                                                                                        
+					  
+INSERT_UPDATE PointOfService ; name[unique=true] ; type(code) ; address(&addId) ; basestore(uid)
+                             ; apbPOSVIC           ; WAREHOUSE  ; AddapbPOS_VIC      ; apb           
+                             ; apbPOSTAS         ; WAREHOUSE  ;   AddapbPOS_TAS      ; apb           
+                             ; apbPOSNSW         ; WAREHOUSE  ;   AddapbPOS_NSQ      ; apb           
+                             ; apbPOSQLD         ; WAREHOUSE  ;   AddapbPOS_QLD      ; apb           
+                             ; apbPOSNT           ; WAREHOUSE  ;  AddapbPOS_NT      ; apb           
+                             ; apbPOSWA           ; WAREHOUSE  ;  AddapbPOS_WA      ; apb           
+                             ; apbPOSSA           ; WAREHOUSE  ;  AddapbPOS_SA      ; apb           
+
+#Address assign to warehouse 
+INSERT_UPDATE Warehouse ; code[unique=true] ; name ; cutOffTime      ; pointsOfService(name); disableDeferredDelivery [default=false]; vendor(code)[default=default]
+;	SVC	;"Somerton, VIC"; "12:30 PM AEST"	;	apbPOSVIC	; false
+;	STA	;"Tasmania, TAS"; "12:30 PM AEST"	;	apbPOSTAS	; false
+;	SNS	;"Prospect, NSW"; "12:30 PM AEST"	;	apbPOSNSW	; false
+;	SQB	;"Stradbroke St, QLD"; "12:30 PM AEST"	;	apbPOSQLD	; false
+;	SQC	;"Cairns, QLD"; "12:30 PM AEST"	;	apbPOSQLD	; false
+;	SQT	;"Townsville, QLD"; "12:30 PM AEST"	;	apbPOSQLD	; false
+;	SNT	;"Darwin, NT"; "12:30 PM ACST"	;	apbPOSNT	; false
+;	SWA	;"Welshpool, WA"; "12:30 PM AWST"	;	apbPOSWA	; false
+;	SSA	;"Wingfield, SA"; "12:30 PM ACST"	;	apbPOSSA	; false

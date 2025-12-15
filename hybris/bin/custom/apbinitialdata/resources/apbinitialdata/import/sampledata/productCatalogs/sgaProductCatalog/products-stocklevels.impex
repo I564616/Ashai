@@ -1,0 +1,106 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# ImpEx for Importing Products stock levels into SGA Store
+
+# Macros / Replacement Parameter definitions
+$productCatalog=sgaProductCatalog
+$productCatalogName=SGA Product Catalog
+$storeUid=sga
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$vendor=default
+
+INSERT_UPDATE StockLevel ; productCode[unique=true] ; warehouse(code)[unique=true,default=default] ; available ; inStockStatus(code) ; maxPreOrder[default=1] ; maxStockLevelHistoryCount[default=-1] ; overSelling[default=0] ; preOrder[default=0] ; reserved[default=0]
+#                         ; asahi_soukai             ; pw_warehouse_s                               ; 414       ; notSpecified        
+
+INSERT_UPDATE AsahiB2BUnit;&B2BUnitID;uid[unique=true];name;locName[lang=en];companyCode;backendRecordId;salesRepCode;accountNum;abnNumber;distributionChannel;custOrderType;salesOrg;emailAddress;paymentterm 
+;0123;0123;Test;Test;sga;0123;03201039;0123;11111111111;01;ZORH;3011;abc@test.com;C008 
+;0145;0145;Second Unit;Second Unit;sga;0145;03201031;0145;22222222222;01;ZORH;def@test.com;C008
+;0167;0167;Third Unit;Third Unit;sga;0167;03201032;0167;33333333333;01;ZORH;ghi@test.com;C008 
+;0189;0189;Fourth Unit;Fourth Unit;sga;0189;03201033;0189;44444444444;01;ZORH;jkl@test.com;C008
+
+
+INSERT_UPDATE B2BCustomer;uid[unique=true];active[allownull=true];groups(uid)[collection-delimiter=,];defaultB2BUnit(uid);asahiRole(code,itemtype(code));authorizedToUnlockPages[allownull=true];contactNumber;customerID;description;disableDebitInvRefPopup;showCCInfoPopup;disableEmailNotification[allownull=true];email[allownull=true];encodedPassword;hmcLoginDisabled;lastLogin[dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ];loggedInBefore[allownull=true];loginDisabled[allownull=true];name;originalUid;password;passwordAnswer;passwordEncoding;passwordQuestion;previewCatalogVersions(catalog(id),version);roleOther;sessionCurrency(isocode);sessionLanguage(isocode);site(uid);title(code);token;type(code,itemtype(code));adminUnits(uid); 
+;testcustomer@test.com;TRUE;0123,0145,0167,0189,b2bcustomergroup;0123;OWNER:AsahiRole;FALSE;;06a1e89a-6d71-46f6-ab0b-4548de089f4a;;;TRUE;;testcustomer@test.com;1000:2f7c73841eef874545218a7fb68c7dca:2222d482775f1144553ba5c9358d005fe5dad756b31a14451be2dbbea3c988bd519bbc860c3c64d8eb37a9fa63cd0202043e4f2cd4a1db3b6ce15aa84143388f;;;;FALSE;Test test;testcustomer@test.com;1234;;pbkdf2;;;;AUD;en;;7;;REGISTERED:CustomerType;0123,0145,0167,0189
+
+INSERT_UPDATE PointOfService ; name[unique=true] ; type(code) ; address(&addId) ; basestore(uid)
+                             ; POS_Sample4       ; WAREHOUSE  ; addr_sample5     ; sga           ;  
+							                      
+INSERT_UPDATE Address ; owner(PointOfService.name)[unique=true] ; &addId     ; addressRecordid ; addressType(code,itemtype(code)) ; defaultAddress[default=Yes] ; streetname[unique=true] ; streetnumber ; town      ; region(isocode) ; country(isocode)
+                      ; POS_Sample4                                 ; addr_sample5 ; 4321            ; DELIVERY:AddressType             ; true                        ; Coventry Street         ; 99           ; Melbourne ; AU-VIC          ; AU              
+
+INSERT_UPDATE Warehouse ; code[unique=true] ; cutOffTime      ; pointsOfService(name)
+                        ; SVC    ; "11:24 PM AEST" ; POS_Sample4    
+                              
+INSERT_UPDATE BaseStore;uid[unique=true];defaultDeliveryOrigin(name)
+;$storeUid;POS_Sample4
+
+#Warehouse Address List  
+INSERT_UPDATE Address ; owner(PointOfService.name)[unique=true] ; &addId     ; addressRecordid ; addressType(code,itemtype(code)) ; defaultAddress[default=Yes] ; streetname[unique=true] ; streetnumber ; town      ; region(isocode) ; country(isocode)
+                      ; sgaPOS1                                 ; AddsgaPOS1 ; 4321            ; DELIVERY:AddressType             ; true                        ; Coventry Street         ; 99           ; Melbourne ; AU-VIC          ; AU              
+
+INSERT_UPDATE PointOfService ; name[unique=true] ; type(code) ; address(&addId) ; basestore(uid)
+                             ; sgaPOS1           ; WAREHOUSE  ; AddsgaPOS1      ; sga           
+
+						                  
+INSERT_UPDATE Holiday ; code[unique=true] ; region(isoCode) ; date[dateformat=dd-MM-yyyy] ; description   
+                      ; Sample_Holiday1   ; AU-VIC           ; 01-01-2010                  ; SampleHoliday1
+                      ; Sample_Holiday2   ; AU-VIC           ; 02-10-2017                  ; SampleHoliday2
+                      ; Sample_Holiday3   ; AU-VIC           ; 05-10-2017                  ; SampleHoliday3
+
+
+#######Change products to Online Version after catalog sync is performed after System Initialization#######
+$productCatalog=sgaProductCatalog
+$productCV=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default='Staged']
+
+INSERT_UPDATE AsahiCatalogProductMapping; catalogId[unique=true];products(code, $productCV)
+;0900009017;10000840,3221,10000844,2919
+
+INSERT_UPDATE AsahiB2BUnit;uid[unique=true];cataloghierarchy; 
+;0123;0900009017; 
+;0145;0900009017; 
+;0167;0900009017; 
+;0189;0900009017;
+
+
+INSERT_UPDATE AccountGroups; code[unique=true]
+;Z001
+UPDATE AsahiB2BUnit;uid[unique=true];eclAccountGroupId(code);payerAccount(uid);shipToAccounts(uid);backendCustomerType(code);b2BUnitStatus(code) 
+;0123;Z001;0123;0123;11;ACTIVE 
+;0145;Z001;0145;0145;11;ACTIVE 
+;0167;Z001;0167;0167;11;ACTIVE 
+;0189;Z001;0189;0189;11;ACTIVE
+
+$customer_name = testcustomer@test.com
+$B2BUnit = 0123
+INSERT_UPDATE AsahiSAMAccess; b2bCustomer(uid)[unique=true];payer(uid)[unique=true];pendingApproval
+;$customer_name;$B2BUnit;false
+
+
+INSERT_UPDATE CutOffDeliveryDate ;&cutoffId ; code[unique=true] ; cutOffDate[dateformat=dd-MM-yyyy] ; deliveryDate[dateformat=dd-MM-yyyy]    
+ 
+                                 ; cutoff1  ;addressID_cutOffDel1 ;14-10-2023                       ;16-10-2023 
+ ; cutoff2  ;addressID_cutOffDel2 ;14-10-2023                       ;16-10-2023 
+ ; cutoff3  ;addressID_cutOffDel3 ;14-10-2023                       ;16-10-2023 
+ ; cutoff4  ;addressID_cutOffDel4 ;14-10-2023                       ;16-10-2023 
+ 
+ 
+INSERT_UPDATE Address ; &addId        ; owner(&B2BUnitID)[unique=true] ; addressRecordid ; addressType(code,itemtype(code)) ; defaultAddress[default=Yes] ; streetname[unique=true] ; streetnumber ; town      ; region(isocode) ; country(isocode);cutOffDeliveryDates(&cutoffId) 
+	 ; address100025 ; 0123                         ; 1234            ; DELIVERY:AddressType             ; true                        ; Cecil Street            ; 111          ; Melbourne ; AU-VIC          ; AU                ;cutoff1 
+  ; address100026 ; 0145						 ; 1235			   ; DELIVERY:AddressType			  ; true                        ; Street 1                ; 222          ; Melbourne ; AU-VIC          ; AU				   ;cutoff2   
+  ; address100027 ; 0167						 ; 1236			   ; DELIVERY:AddressType			  ; true                        ; Street 2                ; 333          ; Melbourne ; AU-VIC          ; AU				   ;cutoff3
+  ; address100028 ; 0189						 ; 1237			   ; DELIVERY:AddressType			  ; true                        ; Street 3                ; 444          ; Melbourne ; AU-VIC          ; AU				   ;cutoff4   
+
+INSERT_UPDATE AsahiB2BUnit;uid[unique=true];name;locName[lang=en];companyCode;backendRecordId;backendCustomerType(code);salesRepCode;accountNum;abnNumber;distributionChannel;custOrderType;salesOrg;emailAddress;&B2BUnitID;Addresses(&addId) 
+;0123			   ;Test;Test            ;sga        ;0123           ;11                       ;03201039    ;0123      ;11111111111;01;ZORH;3011;abc@test.com;0123;address100025 
+;0145;Second Unit;Second Unit;sga;0145;11;03201031;0145;22222222222;01;ZORH;3011;def@test.com;0145;address100026
+;0167;Third Unit;Third Unit;sga;0167;11;03201032;0167;33333333333;01;ZORH;3011;ghi@test.com;0156 ;address100027
+;0189;Fourth Unit;Fourth Unit;sga;0189;11;03201033;0189;44444444444;01;ZORH;3011;jkl@test.com;0157;address100028 
+ 

@@ -1,0 +1,204 @@
+@import "variables.less";
+
+// ==========================================================================
+//   Button Styles
+// ==========================================================================
+.btn {
+  color: @whiteColor;
+  text-align: center;
+  border-radius: @buttonBorderRadius;
+  outline: 0;
+  border: 0 none;
+  width: 100%;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding-left: 2px;
+  padding-right: 2px;
+  &.btn-primary {
+    background-color: @btnPrimaryBlueBackgroundColor;
+    box-shadow:none;
+    -webkit-box-shoadow:none;
+    &:hover {
+      background-color: @btnSendaryBlueBackgroundColor;
+      color: $white;
+    }
+  }
+  &.btn-secondary {
+    background-color: @btnSendaryBlueBackgroundColor;
+    &:hover {
+      background-color: @btnPrimaryBlueBackgroundColor;
+      color: @whiteColor;
+    }
+  }
+  &.btn-small {
+
+  }
+  &.btn-medium {
+    height: 35px;
+    font-size: @fontXSmall;
+    line-height: 25px;
+  }
+  &.btn-large {
+    height: 45px;
+    font-size: @fontSmall;
+    line-height: 35px;
+  }
+}
+
+.btn-inline {
+  font-size: @fontSmall;
+  color: @btnPrimaryBlueBackgroundColor;
+  margin: @spacingSmall 0;
+  display: inline-block;
+  i svg {
+    fill: @btnPrimaryBlueBackgroundColor;
+    height: 12px;
+    width: 12px;
+    position: relative;
+    top: -1px;
+    margin-left: 5px;
+  }
+}
+
+// Dropdown - Select Package
+.select-list {
+  position: relative;
+}
+.select-btn {
+  border: 1px solid @mediumGray;
+  height: 40px;
+  padding-left: @spacingXSmall;
+  position: relative;
+  line-height: 38px;
+  &:after {
+    content: "";
+    width: 10px;
+    height: 20px;
+    right: @spacingXSmall;
+    position: absolute;
+    top: 17px;
+    background: svg-url('<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" viewBox="0 0 10 5.969"><path d="M9.8 1.162L5.454 5.756c-.257.27-.674.27-.93 0L.177 1.162C-.08.892-.08.45.178.178c.257-.272.674-.272.93 0l3.88 4.1L8.87.18c.258-.272.675-.272.932 0s.257.713 0 .984z" class="cls-1"/></svg>') 0 0 no-repeat;
+  }
+}
+
+.select-package {
+  padding: @spacingXSmall 0;
+  display: none;
+  border: 1px solid @mediumGray;
+  border-top: 0 none;
+  position: absolute;
+  width: 100%;
+  z-index: 2;
+  background-color: @whiteColor;
+  li {
+    line-height: 25px;
+    padding: 0 @spacingXSmall;
+    &:hover {
+    //  background-color: $light-grey;
+    }
+  }
+}
+
+/*
+.select-quantity {
+  padding: 0;
+  li {
+    float: left;
+    height: 40px;
+    width: 33.3%;
+    border: 1px solid $medium-grey;
+    background: $light-grey;
+    font-size: $font-medium;
+    text-align: center;
+    text-align: center;
+    line-height: 41px;
+    list-style: none;
+    & + li {
+      border-left: 0 none;
+    }
+    &.up,
+    &.down {
+      background: $white;
+    }
+    svg {
+      width: 15px;
+      height: 20px;
+      fill: $dark-grey;
+      position: relative;
+      top: -2px;
+    }
+    &.disabled {
+      svg {
+        fill: $light-grey;
+      }
+    }
+    .qty-input {
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      border: 0 none;
+      line-height: 39px;
+      &:focus {
+        outline: none;
+        border: 0 none;
+      }
+    }
+  }
+  &.select-quantity-sm {
+    li {
+      height: 35px;
+      line-height: 37px;
+      .qty-input {
+        line-height: 37px;
+      }
+    }
+  }
+  & + span {
+    color: $dark-grey;
+    font-size: $font-x-small;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    margin-top: 3px;
+  }
+}
+
+.slider-nav {
+  padding: 0;
+  li {
+    list-style: none;
+    width: 28px;
+    height: 28px;
+    border: 1px solid $medium-grey;
+    text-align: center;
+    float: left;
+    padding-top: 2px;
+    & + li {
+      border-left: 0 none;
+    }
+    svg {
+      width: 16px;
+      height: 16px;
+      fill: $dark-grey;
+    }
+  }
+}
+
+.panel-group {
+  .nav-tabs {
+    li {
+      width: 50%;
+    }
+  }
+  .tab-pane {
+    padding: $spacing-small $spacing-x-small;
+  }
+  .panel-body {
+    border: 0 none !important;
+  }
+}
+
+.panel-default {
+  border: 0 none;
+}
+*/

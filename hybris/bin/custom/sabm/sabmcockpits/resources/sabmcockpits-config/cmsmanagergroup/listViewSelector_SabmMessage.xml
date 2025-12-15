@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list-view unassigned-group-name="Other">
+	<group name="General">
+		<property qualifier="SabmMessage.code" visible="true"/>
+		<property qualifier="SabmMessage.type" visible="true"/>
+		<property qualifier="SabmMessage.text" visible="true"/>
+		<property qualifier="SabmMessage.expiry" visible="true"/>
+		<property qualifier="SabmMessage.b2bUnit" visible="true"/>
+		<property qualifier="SabmMessage.restrictions" visible="true"/>
+	</group>
+</list-view>

@@ -1,0 +1,142 @@
+.track-your-order-homepage{
+	.track-order-table{
+		background:rgba(3, 169, 244, 0.08);
+		padding:15px 30px;	
+		margin-bottom:3%;
+		
+		.table-header{
+			color:$primary-blue;
+			font-weight:bold !important;
+			padding-bottom:10px;
+		}
+		
+		.table-body{
+			.item{
+				position:relative;
+				line-height:3em;
+				padding-top:10px;
+				padding-bottom:10px;
+				border-top:1px solid rgba(0, 0, 0, 0.08);
+				
+				&:first-child{
+					padding-left:40px;
+				}
+				
+				&:last-child{
+					text-align:right;
+					padding-right:0px;
+				}
+			}
+		}
+	}
+
+
+	.icon{
+		height:25px;
+		width:25px; 
+		position:absolute;
+		left:0;
+		top:17px;
+		
+		&.icon-6{ //unable to deliver
+			background-image:svg-url($icon-black-nobg-unabletodeliver);
+			background-repeat:no-repeat;
+		}
+
+		&.icon-5{ //delivered
+			background-image: svg-url($icon-black-nobg-delivered);
+			background-repeat:no-repeat;
+		}
+
+		&.icon-4{ //in transit
+			background-image: svg-url($icon-black-nobg-intransit);
+			background-repeat:no-repeat;
+			height: 30px;
+		    width: 30px;
+		    top: 22px;
+		}
+
+		&.icon-3{ //dispatched
+			background-image: svg-url($icon-black-nobg-dispatched);
+			background-repeat:no-repeat;
+			height: 30px;
+		    width: 30px;
+		    top: 22px;
+		}
+	
+	
+		&.icon-2{ //being picked
+			background-image: svg-url($icon-black-nobg-beingpicked);
+			background-repeat:no-repeat;
+		}
+	
+		&.icon-1{ //confirmed
+			background-image: svg-url($icon-black-nobg-confirmed);
+			background-repeat:no-repeat;
+		}
+	
+	}
+
+
+	@media only screen and (max-width:991px){
+		.track-order-table{
+				background:#fff;
+				padding:0;
+		
+		.table-body{
+			.row{
+				background:rgba(3, 169, 244, 0.08);
+				margin:5% 0;
+				display:inline-block;
+				padding:30px 40px 30px 50px;
+				border-radius:5px;
+
+				.item{
+					line-height:1.5em;
+					padding:0;
+					border-top:none !important;
+					
+					label{
+						font-weight:bold;
+						color:$primary-blue;
+					}
+
+					.icon{
+						left:-30px;
+						top:0;
+						
+						&.icon-4{ //In Transit
+							top:3px;
+							left:-35px;
+						}	
+						
+						&.icon-3{
+							top:3px;
+							left:-40px;
+						}				
+					}
+					
+					&:first-child{
+						padding-left:0;
+						color:$primary-blue;
+						font-weight:bold;
+					}
+					
+					
+					.btn{
+						margin-top:3%;
+						width:100%;
+					}
+					
+				}
+			}
+		
+		}				
+		}		
+
+	}
+
+}
+
+
+

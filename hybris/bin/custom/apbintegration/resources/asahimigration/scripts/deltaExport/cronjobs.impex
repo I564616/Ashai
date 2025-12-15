@@ -1,0 +1,206 @@
+1. Run the below query to get all eligible cronjobs to be exported.
+
+
+SELECT {code} FROM {Cronjob} WHERE {active} =1 AND {code} NOT LIKE '000%' and {code} not like '%Script%' and {code} NOT IN ('tempgetAttribute')
+
+2. Create an impex for all these manually as some will require import for custom type created for cronjob.(verify any custom configurations values in any type)
+
+
+Below is the result of above query
+
+removeOrphanedFilesCronJob
+generateOrgUnitPathsCronJob
+SessionEventsRemovalJob
+generateB2BUnitPathsCronJob
+cleanUpFraudOrderCronJob
+oldPaymentSubscriptionResultRemovalCronJob -
+productExpressUpdateCleanerCronJob
+
+backofficeSolrIndexerDeleteCronJob
+backofficeSolrIndexerUpdateCronJob
+
+apb-CartRemovalJob
+oldCartRemovalCronJob
+apb-UncollectedOrdersJob
+compositeCronjobWithSyncFullIndexing 
+full-apbIndex-cronJob -created
+update-apbIndex-cronJob  
+delete-apbIndex-cronJob 
+asahiSendFailedOrderJob
+sga-CartRemovalJob
+sga-UncollectedOrdersJob
+SGASendFailedOrderJob
+asahiCartRemovalJob
+sga-solr-indexer-job 
+asahiSendOrderJob
+asahiRemoveOrderCronJob
+albRemoveOrderCronJob
+processSIPFailedObjectsCronjob
+extractDirectDebitJob  -Cronjob for scripting job
+prepareUserReportSGAJob - Cronjob for scripting job
+prepareContactUsReportSGAJob - Cronjob for scripting job
+full-sgaIndex-cronJob 
+update-sgaIndex-cronJob 
+delete-sgaIndex-cronJob 
+cleanupLogs 
+
+3. Run the impex to create cronjobs,jobs
+###############Impex for Cronjob and job #####################################
+
+
+INSERT_UPDATE ServicelayerJob;code[unique=true];sessionLanguage(isoCode);active;springId;
+;asahiRemoveOldOrderJob;en;true;asahiRemoveOldOrderJob
+;asahiSendFailedOrderJob;en;true;asahiSendFailedOrderJob
+;asahiSendOrderJob;en;true;asahiSendOrderJob
+;asahiCartRemovalJob;en;true;asahiCartRemovalJob
+
+INSERT_UPDATE AsahiSendFailedOrderCronJob;code[unique=true];job(code);cmsSite(uid);sessionLanguage(isoCode);sessionUser(uid)[default=admin]
+;asahiSendFailedOrderJob;asahiSendFailedOrderJob;apb;en
+;asahiRemoveOrderCronJob;asahiRemoveOldOrderJob;apb;en
+;albRemoveOrderCronJob;asahiRemoveOldOrderJob;sga;en
+;SGASendFailedOrderJob;asahiSendFailedOrderJob;sga;en
+
+
+INSERT_UPDATE CronJob;code[unique=true];job(code);sessionLanguage(isoCode);sessionUser(uid)[default=admin]
+;asahiSendOrderJob;asahiSendOrderJob;en
+
+INSERT_UPDATE CartRemovalCronJob ; code[unique=true]      ; job(code) 			; sites(uid) ; sessionLanguage(isoCode)[default=en];sessionUser(uid)[default=admin]
+                                 ; asahiCartRemovalJob	  ; asahiCartRemovalJob ;	sga
+                                 
+# Cart Cleanup CronJobs  Not used in Production currently   
+INSERT_UPDATE CartRemovalCronJob ; code[unique=true]      ; job(code)[default=cartRemovalJob] ; sites(uid); sessionLanguage(isoCode)[default=en];sessionUser(uid)[default=admin]
+                                 ; apb-CartRemovalJob      ; ;apb
+                                 ; sga-CartRemovalJob      ;
+
+
+#Changed oldCartRemovalCronJob to apbCartRemovalJob as same job exists in CUB with different frequency and cartremoval age
+INSERT_UPDATE OldCartRemovalCronJob;code[unique=true];job(code);cartRemovalAge;anonymousCartRemovalAge;sessionLanguage(isoCode)[default=en];sites(uid)[mode=append];sessionUser(uid)[default=admin]
+;apbCartRemovalCronJob;oldCartRemovalJob;86400;86400;;apb
+
+#Remove Old SAM Document
+INSERT_UPDATE ServicelayerJob;code[unique=true];sessionLanguage(isoCode);active;springId;
+;asahiRemoveOldDocumentJob;en;true;asahiRemoveOldDocumentJob
+
+#Remove Old SAM Document
+INSERT_UPDATE CronJob;code[unique=true];job(code);sessionLanguage(isoCode);sessionUser(uid)[default=admin]
+;asahiRemoveOldDocumentJob;asahiRemoveOldDocumentJob;en
+
+INSERT_UPDATE CatalogVersionSyncJob;active;code;sourceVersion(catalog(id),version)[unique=true];targetVersion(catalog(id),version)[unique=true];
+;true;product_sync_catalog;apbProductCatalog:Staged;apbProductCatalog:Online
+
+INSERT_UPDATE CatalogVersionSyncCronJob; code[unique=true];job(code);singleExecutable;sessionLanguage(isocode);
+;product_sync1_catalog;product_sync_catalog;false;en;
+
+#ERROR# : cannot resolve value 'product_sync1_catalog' for attribute 'compositecronjob'
+INSERT_UPDATE CompositeEntry;code[unique=true];triggerableJob(code);compositecronjobpos;compositecronjob(code)
+;entry1;product_sync_catalog;1;product_sync1_catalog
+
+INSERT_UPDATE CompositeEntry;code[unique=true];triggerableJob(code);compositecronjob(code);compositecronjobpos;executableCronJob(code)[unique=true]
+;entry2;;;2;full-apbIndex-cronJob  
+
+INSERT_UPDATE CompositeCronJob;code[unique=true];job(code);compositeentries(code);sessionLanguage(isocode)
+;compositeCronjobWithSyncFullIndexing;compositeJobPerformable;entry1,entry2;en
+
+
+INSERT_UPDATE UncollectedOrdersCronJob ; code[unique=true]            ; job(code)[default=uncollectedOrdersJob] ; sites(uid) ; sessionLanguage(isoCode)[default=en];sessionUser(uid)[default=admin]
+                                       ; apb-UncollectedOrdersJob     ;;apb
+                                       ; sga-UncollectedOrdersJob     ;;sga
+
+#Impexes for solr index 
+
+INSERT_UPDATE SolrIndexerCronJob;code[unique=true];job(code);facetSearchConfig(name);indexerOperation(code)
+;full-apbIndex-cronJob;solrIndexerJob;apbIndex;full
+;full-sgaIndex-cronJob;solrIndexerJob;sgaIndex;full
+
+
+INSERT_UPDATE SolrIndexerCronJob;code[unique=true];job(code);facetSearchConfig(name);indexerOperation(code)
+;update-apbIndex-cronJob;solrIndexerJob;apbIndex;update
+;update-sgaIndex-cronJob;solrIndexerJob;sgaIndex;update
+
+
+
+
+4. Run below groovy to get all triggers and import the csv formed. It also contains csv for SIPFailedObjectProcessorCronjob.
+   Replace the  failedDirectDebits(pk) with failedDirectDebits(code) while importing
+
+INSERT_UPDATE ScriptingJob	;code[unique=true]		;scriptURI
+							;cronjobTriggerDeltaScriptJob	;model://cronjobTriggerDeltaScript
+							
+INSERT_UPDATE CronJob	;code[unique=true]			;job(code)				;sessionLanguage(isocode)	;sessionUser(uid)
+						;cronjobTriggerDeltaScriptCronJob	;cronjobTriggerDeltaScriptJob	;en		;admin
+
+
+
+INSERT_UPDATE Script; code[unique=true];content;active[default=true, unique=true]
+;cronjobTriggerDeltaScript;"import org.apache.log4j.*;
+import org.apache.commons.io.IOUtils;
+import java.io.File;
+import java.lang.Exception;
+import java.io.InputStream;
+import de.hybris.platform.util.CSVConstants;
+import java.io.IOException;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.sql.Timestamp;
+
+import de.hybris.platform.servicelayer.impex.ExportConfig;
+import de.hybris.platform.servicelayer.impex.ExportConfig.ValidationMode;
+import de.hybris.platform.servicelayer.impex.ExportResult;
+import de.hybris.platform.servicelayer.impex.ExportService;
+import de.hybris.platform.servicelayer.impex.ImpExResource;
+import de.hybris.platform.servicelayer.impex.impl.StreamBasedImpExResource;
+
+final Logger LOG = Logger.getLogger(""asahi"");
+def exportService = spring.getBean(""exportService"");
+
+
+Calendar cal1 = Calendar.getInstance(); 
+cal1.set(Calendar.HOUR_OF_DAY, 0)
+cal1.set(Calendar.MINUTE, 0);
+cal1.set(Calendar.SECOND, 0);
+cal1.add(Calendar.DAY_OF_MONTH, -7);
+Date d = cal1.getTime();
+String oldDate = new SimpleDateFormat(""yyyy-MM-dd HH:mm:ss.SSS ZZZZ"").format(d);
+final Map<String, Object> params = new HashMap<>();
+params.put(""modifiedTime1"", oldDate);
+def modifiedTime1 = oldDate;
+
+header =  ""INSERT_UPDATE Trigger;cronJob(code)[unique=true];cronExpression;second;minute;hour;day;month;year;relative;active;maxAcceptableDelay;\n"" +
+ ""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {t.pk} FROM {Trigger as t JOIN Cronjob as c ON {t.cronJob}={c.pk}} where {c.code} NOT IN ('oldCartRemovalCronJob') and  {modifiedTime}>='$modifiedTime1' \""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1  );\""\n""+
+ ""INSERT_UPDATE ScriptingJob	;code[unique=true]		;scriptURI;\n"" +
+ ""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {ScriptingJob} where {code} not like '%Script%' and {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1  );\""\n""+
+  ""INSERT_UPDATE Script; code[unique=true];content;active[unique=true];\n"" +
+ ""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {Script} where {code} NOT IN ('tempgetAttribute') AND {code} not like '%Script%' AND  {active}=1 and {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1  );\""\n""+
+ ""INSERT_UPDATE SIPFailedObjectProcessorCronjob;code[unique=true];job(code);failedDirectDebits(pk);failedInvoicePayments(pk);sessionLanguage(isoCode);\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {SIPFailedObjectProcessorCronjob} where {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+""INSERT_UPDATE CatalogVersionSyncJob;active;code[unique=true];copyCacheSize;createNewItems[allownull=true];emailAddress;errorMode(code,itemtype(code));exclusiveMode[allownull=true,forceWrite=true];logLevelDatabase(code,itemtype(code));logLevelFile(code,itemtype(code));logToDatabase;logToFile;maxSchedulerThreads;maxThreads;nodeGroup;nodeID[forceWrite=true];priority;removeMissingItems[allownull=true];removeOnExit;requestAbort;requestAbortStep;retry[allownull=true];sendEmail;sessionContextValues;sessionCurrency(isocode);sessionLanguage(isocode);sessionUser(uid);singleExecutable;sourceVersion(catalog(id),version)[forceWrite=true,unique=true,allownull=true];syncOrder;syncPrincipalsOnly[allownull=true];targetVersion(catalog(id),version)[forceWrite=true,unique=true,allownull=true];roottypes(code);\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {CatalogVersionSyncJob} where {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1  );\""\n""+
+""INSERT_UPDATE ServicelayerJob;code[unique=true];sessionLanguage(isoCode);active;springId;\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {ServicelayerJob} where {code}='sipProcessFailedObjectsJob' and {modifiedTime}>='$modifiedTime1'  \""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+""INSERT_UPDATE CronJob	;code[unique=true]			;job(code)				;sessionLanguage(isocode)	;sessionUser(uid);\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {CronJob} where {code} IN ('prepareUserReportSGAJob','prepareContactUsReportSGAJob','extractDirectDebitJob','cleanupLogs') and {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1  );\""\n"";
+try {
+	resourceAsStream = new ByteArrayInputStream(header.getBytes());
+	final ImpExResource resource = new StreamBasedImpExResource(resourceAsStream, CSVConstants.DEFAULT_ENCODING);
+	final ExportConfig config = new ExportConfig();
+	config.setScript(resource);
+	config.setSingleFile(true);
+	config.setValidationMode(ValidationMode.WITHOUT);
+	config.setExportedDataCode(""cronjobs-""+new SimpleDateFormat(""yyyyMMddHHmmssSSS"").format(new Date()));
+	final ExportResult result = exportService.exportData(config);
+	
+	if (result.isError()){
+		LOG.info(""Exception occurred during export of Cronjobs"");
+	}
+}
+catch (final Exception exception) {
+		LOG.log(Level.ERROR, exception.getMessage());
+	}
+finally
+	{
+			resourceAsStream.close();
+	}";;
+	
+
+
+

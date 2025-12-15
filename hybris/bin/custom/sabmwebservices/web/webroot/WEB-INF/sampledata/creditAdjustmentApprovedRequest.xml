@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<n0:CreditAdjustment xmlns:n0="urn:gl.sabmiller.com:com:ecc:mastdata" xmlns:prx="urn:sap.com:proxy:EQ7:/1SAI/TAS601318CAD7D72ACDC2F1:701:2013/05/24">
+    <Invoice>
+        <InvoiceNumber>7620119074</InvoiceNumber>
+        <PurchaseOrderNumber>7502232597</PurchaseOrderNumber>
+        <Amount>5760.33</Amount>
+        <Status>Approved</Status>
+        <Type>YSCR</Type>
+        <SoldTo>853254</SoldTo>
+        <DueDate>27092018</DueDate>
+    </Invoice>
+    <Invoice>
+        <InvoiceNumber>7620119075</InvoiceNumber>
+        <PurchaseOrderNumber>7502205425 | 8796256920017</PurchaseOrderNumber>
+        <Amount>4709.67</Amount>
+        <Status>Approved</Status>
+        <Type>YSCR</Type>
+        <SoldTo>853741</SoldTo>
+        <DueDate>27092018</DueDate>
+    </Invoice>
+    <Invoice>
+        <InvoiceNumber>7620119076</InvoiceNumber>
+        <PurchaseOrderNumber>7502273163 | 8796224152017 | approv</PurchaseOrderNumber>
+        <Amount>1695.90</Amount>
+        <Status>Approved</Status>
+        <Type>YSCR</Type>
+        <SoldTo>1298381</SoldTo>
+        <DueDate>14092018</DueDate>
+    </Invoice>
+</n0:CreditAdjustment>

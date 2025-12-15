@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<advanced-search>
+    <group type="B2BCustomer" visible="true" name="root">
+        <label key="config.general.searchfor" />
+        <group visible="true" name="general">
+            <label key="config.wizardConfig.properties" />
+            <property sort-enabled="true" visible="true" qualifier="Principal.uid"/>
+            <property sort-enabled="true" visible="true" qualifier="Principal.name"/>
+            <property sort-enabled="true" visible="true" qualifier="Customer.customerID"/>
+            <property sort-enabled="true" visible="true" qualifier="B2BCustomer.active" editor="checkbox" />
+            <property sort-enabled="true" visible="true" qualifier="Customer.onboardWithWelcomeEmail" editor="checkbox" />
+            <property sort-enabled="true" visible="true" qualifier="Customer.welcomeEmailStatus" editor="checkbox"/>
+            <property sort-enabled="true" visible="true" qualifier="B2BCustomer.primaryAdmin"  editor="checkbox" />
+            <property sort-enabled="true" visible="true" qualifier="User.lastLogin" />
+		     <property sort-enabled="true" visible="true" qualifier="User.encodedPassword" />
+	
+   
+        </group>
+         <group visible="false" name="additional">
+            <label key="config.wizardConfig.properties" />
+         <property sort-enabled="true" visible="false" qualifier="Principal.groups"/>
+        </group>
+        
+        
+    </group>
+</advanced-search>
+

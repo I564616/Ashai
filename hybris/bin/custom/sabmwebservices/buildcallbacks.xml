@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2013 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+-->
+<project name="sabmwebservices_buildcallbacks">
+	<macrodef name="sabmwebservices_before_ear">
+		<sequential>
+
+		</sequential>
+	</macrodef>
+	<macrodef name="sabmwebservices_before_build">
+		<sequential>
+			<mkdir dir="${ext.sabmwebservices.path}/gensrc"/>
+			<property name="sabmwebservices.gen.src" value="${ext.sabmwebservices.path}/gensrc" />
+			<property name="sabmwebservices.res" value="${ext.sabmwebservices.path}/resources" />
+			
+			<xjc schema="${sabmwebservices.res}/integration/customer/schema/customer_lean.xsd" package="com.sabmiller.webservice.customer" destdir="${sabmwebservices.gen.src}"/>
+			
+			<xjc schema="${sabmwebservices.res}/integration/product/schema/product_lean.xsd" package="com.sabmiller.webservice.product" destdir="${sabmwebservices.gen.src}"/>
+
+			<xjc schema="${sabmwebservices.res}/integration/productexclusion/schema/product-exclusion_lean.xsd" package="com.sabmiller.webservice.productexclusion" destdir="${sabmwebservices.gen.src}"/>
+			
+			<xjc schema="${sabmwebservices.res}/integration/deliverycreation/schema/delivery-creation_lean.xsd" package="com.sabmiller.webservice.deliveryinfo" destdir="${sabmwebservices.gen.src}"/>
+
+			<xjc schema="${sabmwebservices.res}/integration/deliverydispatch/schema/delivery-dispatch_lean.xsd" package="com.sabmiller.webservice.dispatchinfo" destdir="${sabmwebservices.gen.src}"/>
+			
+			<xjc schema="${sabmwebservices.res}/integration/salesorder/schema/sales-order_lean.xsd" package="com.sabmiller.webservice.salesorder" destdir="${sabmwebservices.gen.src}"/>
+			
+			<xjc schema="${sabmwebservices.res}/integration/complexdeals/schema/complex-deals_lean.xsd" package="com.sabmiller.webservice.complexdeals" destdir="${sabmwebservices.gen.src}"/>
+
+			<xjc schema="${sabmwebservices.res}/integration/trackorders/schema/trackorders.xsd" package="com.sabmiller.webservice.trackorders" destdir="${sabmwebservices.gen.src}"/>
+
+			<xjc schema="${sabmwebservices.res}/integration/creditadjustment/schema/credit-adjustment.xsd" package="com.sabmiller.webservice.creditadjustment" destdir="${sabmwebservices.gen.src}"/>
+		</sequential>
+	</macrodef>
+</project>

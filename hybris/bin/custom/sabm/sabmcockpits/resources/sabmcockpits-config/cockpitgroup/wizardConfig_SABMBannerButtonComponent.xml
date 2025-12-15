@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wizard-config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="wizard-config.xsd"
+               showPrefilledValues="true" selectMode="true" createMode="true">
+	<displayed-properties>
+		<group qualifier="Base" visible="true" initially-opened="true">
+			<label key="cockpit.config.label.General" />
+			<property qualifier="SABMBannerButtonComponent.code"/>
+			<property qualifier="SABMBannerButtonComponent.color"/>
+			<property qualifier="SABMBannerButtonComponent.urlLink"/>
+			<property qualifier="SABMBannerButtonComponent.isVideo"/>
+			<property qualifier="SABMBannerButtonComponent.text"/>
+			<property qualifier="SABMBannerButtonComponent.textColor"/>
+			<property qualifier="SABMBannerButtonComponent.offsetTop"/>		
+			<property qualifier="SABMBannerButtonComponent.offsetLeft"/>
+		</group>		
+	</displayed-properties>
+</wizard-config>
+
+

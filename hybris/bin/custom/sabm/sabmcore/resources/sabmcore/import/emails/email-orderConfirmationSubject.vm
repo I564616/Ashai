@@ -1,0 +1,2 @@
+﻿## messageSource=classpath:/sabmcore/messages/email-orderConfirmation_$lang.properties
+${ctx.messages.getMessage('emailSubject', ${ctx.order.sapSalesOrderNumber})}

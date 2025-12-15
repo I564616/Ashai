@@ -1,0 +1,176 @@
+$lang=en
+
+$contentCatalog = sabmContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Staged])[default = $contentCatalog:Staged]
+$productCV = catalogVersion(catalog(id[default = $productCatalog]), version[default = 'Staged'])[unique = true, default = $productCatalog:Staged]
+
+$pageId = AutopayLandingPage
+$pageIdTemplate = AutopayLandingPageTemplate
+$picture = media(code, $contentCV);
+
+# Import modulegen config properties into impex macros
+UPDATE GenericItem[processor = de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor]; pk[unique = true]
+$jarResourceCms = $config-jarResourceCmsValue
+
+# Create PageTemplates
+# These define the layout for pages
+# "FrontendTemplateName" is used to define the JSP that should be used to render the page for pages with multiple possible layouts.
+INSERT_UPDATE PageTemplate; $contentCV[unique = true]; uid[unique = true]; name; frontendTemplateName; restrictedPageTypes(code); active[default = true]
+; ; $pageIdTemplate ; Autopay Landing Page ; autopay/autopayLandingPageTemplate ; ContentPage
+
+# STEP 2 - Create new pages
+# Functional Content Pages
+INSERT_UPDATE ContentPage; $contentCV[unique = true]; uid[unique = true]; name; masterTemplate(uid, $contentCV); label; defaultPage[default = 'true']; approvalStatus(code)[default = 'approved']; homepage[default = 'false'];
+; ; $pageId ; Autopay Page ; $pageIdTemplate ; $pageId
+
+# STEP 3 - Create content slot names required for the template
+INSERT_UPDATE ContentSlotName; name[unique = true]; template(uid, $contentCV)[unique = true][default = 'GenericComponentsPageTemplate']; validComponentTypes(code); compTypeGroup(code)
+; SiteLogo                 ; ; ; logo
+; HeaderLinks              ; ; ; headerlinks
+; SearchBox                ; ; ; searchbox
+; MiniCart                 ; ; ; minicart
+; NavigationBar            ; ; ; navigation
+; BannerSlot               ; ; ; wide
+; InformationBoxSlot       ; ; ; wide
+; TextImageFourColumnsSlot ; ; ; wide
+; JoinAutopaySlot          ; ; ; wide
+; NeedACreditCardSlot      ; ; ; wide
+; FaqsContentSlot          ; ; ; wide
+; Footer                   ; ; ; footer
+; PlaceholderContentSlot   ; ; ;
+
+#HERO BANNER COMPONENTS START
+#Hero Banner Component list for AutoPay landing page carousel
+INSERT_UPDATE SABMHeroBannerComponent; $contentCV[unique = true]; uid[unique = true]; name; urlLink; desktopHeroImage(code, $contentCV); mobileHeroImage(code, $contentCV); &componentRef
+; ; AutopayPageSABMHeroBannerComponent1 ; Autopay Hero Banner Component ; /autopay/download-form ; autopaypage-hero-banner01-desktop.jpg ; autopaypage-hero-banner01-mobile.jpg ; AutopayPageSABMHeroBannerComponent1 ;
+
+#Hero Banner Rotating Images Component for AutoPay landing page carousel
+INSERT_UPDATE HeroBannerRotatingImagesComponent; $contentCV[unique = true]; uid[unique = true]; name; heroBanners(uid, $contentCV); timeout; &componentRef
+; ; AutopayPageHeroBannerRotatingImagesComponent ; Hero Banner Rotating Autopay Banner Carousel Component ; AutopayPageSABMHeroBannerComponent1 ; 4000 ; AutopayPageHeroBannerRotatingImagesComponent ;
+#HERO BANNER COMPONENTS END
+
+#INFORMATION BOX START
+INSERT_UPDATE GenericTextContentItem; $contentCV[unique = true]; uid[unique = true]; name; sabmSubText; $picture
+; ; SABMInformationBoxComponentAutopay1 ; "Pay by Automatic Direct Debit on invoice" ; "<p>All members of the 'AutoPay Advantage' program must setup their account to a Automatic Direct Debit with payment on invoice date. Direct Debit is available from bank account or credit card.</p>" ; receivepoints_36x36.svg
+; ; SABMInformationBoxComponentAutopay2 ; "Receive a 0.5% discount on every order"   ; "<p>Your discount will be applied to every order after we have processed your application.</p>" ; receivepoints_36x36.svg
+
+INSERT_UPDATE SABMInformationBoxComponent; $contentCV[unique = true]; uid[unique = true]; name; desktopTitle; titleIconDesktop(code, $contentCV); textList(uid, $contentCV); &componentRef
+; ; SABMInformationBoxComponentAutopay ; Autopay Information Box ; What you need to know ; info-icon.svg ; SABMInformationBoxComponentAutopay1,SABMInformationBoxComponentAutopay2 ; SABMInformationBoxComponentAutopay ;
+#INFORMATION BOX END
+
+#TEXT AND IMAGE CONTENT 4 COLUMNS START
+INSERT_UPDATE GenericTextAndImageContentItem; $contentCV[unique = true]; uid[unique = true]; name; textTitle; textDescription; hoverText; desktopImage(code, $contentCV); mobileImage(code, $contentCV); imageTitle
+; ; four_columns_AutopayGenericTextAndImageContentItem1 ; "Text Image 1" ; Download the form ; Download and print the application form found on this page. ; ; icon-cursor-112x112.svg ; icon-cursor-112x112.svg ; "Step 1"
+; ; four_columns_AutopayGenericTextAndImageContentItem2 ; "Text Image 2" ; Complete and sign ; Complete and sign all relevant fields in the form.          ; ; icon-email-112x112.svg  ; icon-email-112x112.svg  ; "Step 2"
+; ; four_columns_AutopayGenericTextAndImageContentItem3 ; "Text Image 3" ; Email us the form ; Scan and send your form to cub.credit@cub.com.au            ; ; icon-letter-112x112.svg ; icon-letter-112x112.svg ; "Step 3"
+; ; four_columns_AutopayGenericTextAndImageContentItem4 ; "Text Image 4" ; We’ll be in touch ; Hold tight and we’ll be in touch within 5 days.             ; ; icon-phone-112x112.svg  ; icon-phone-112x112.svg  ; "Step 4"
+
+INSERT_UPDATE SABMTextImageBannerComponent; $contentCV[unique = true]; uid[unique = true]; name; textAndImages(uid, $contentCV); textTitle; &componentRef
+; ; four_columns_AutopaySABMTextImageBannerComponent ; Text Image Banner Component ; four_columns_AutopayGenericTextAndImageContentItem1,four_columns_AutopayGenericTextAndImageContentItem2,four_columns_AutopayGenericTextAndImageContentItem3,four_columns_AutopayGenericTextAndImageContentItem4 ; Steps to join ; four_columns_AutopaySABMTextImageBannerComponent ;
+#TEXT AND IMAGE CONTENT 4 COLUMNS END
+
+#HERO BANNER COMPONENT JOIN AUTOPAY START
+INSERT_UPDATE GenericTextContentItem; $contentCV[unique = true]; uid[unique = true]; text; name;
+; ; JoinAutopayGenericTextContentItem ; "" ; "Download our form and complete all the relevant fields. Send the signed form back to us at cub-credit@cub.com.au" ;
+
+INSERT_UPDATE CMSLinkEnhancedComponent; $contentCV[unique = true]; uid[unique = true]; name; url; renderType(code);
+; ; JoinAutopayCMSLinkEnhancedComponent ; "DOWNLOAD FORM" ; /autopay/download-form ; BUTTON
+
+INSERT_UPDATE SABMHeroBannerComponent; $contentCV[unique = true]; uid[unique = true]; name; desktopTitle; mobileTitle; textList(uid, $contentCV); colorTreatment(code); ctaLinks(uid, $contentCV); &componentRef
+; ; JoinAutopaySABMHeroBannerComponent_backgroundimage ; "Hero Banner Redeem Points" ; Ready to join AutoPay <i>ADVANTAGE?</i> ; Ready to join AutoPay Advantage? ; JoinAutopayGenericTextContentItem ; DARK ; JoinAutopayCMSLinkEnhancedComponent ; JoinAutopaySABMHeroBannerComponent_backgroundimage ;
+#HERO BANNER COMPONENT JOIN AUTOPAY END
+
+#NEED A CREDIT CARD START
+INSERT_UPDATE GenericTextContentItem; $contentCV[unique = true]; uid[unique = true]; text; sabmSubText[path-delimiter=|];
+; ; NeedACreditCardGenericTextContentItem ; "" ; "<p><strong>ANZ Business Black</strong></p>
+<p>Take your business places and be rewarded, with a business credit card issued by ANZ.</p>
+<ul>
+  <li>Up to 55 days interest-free1 credit on purchases to improve your cashflow</li>
+  <li>Earn reward points2 on a range of eligible purchases and redeem on eligible rewards</li>
+  <li>Exclusive offer for CUB Customers: apply for ANZ Business Black by 31 December 2018 for zero Annual Card and Annual Rewards Fees.</li>
+</ul>
+<p><em>Please note, if applications are made using the 'apply now' button on anz.com, customers will not receive the special offer.</em></p> 
+<p><a href='#' target='_blank'>Apply for ANZ Business Black</a></p>
+<p><a href='https://www.anz.com.au/business/products/credit-cards/business-black' target='_blank'>Find out more about ANZ Business Black</a></p>
+<p><strong>PLEASE NOTE:</strong><br>Applications need to be received by 31 December 2018 to qualify for the zero fee waiver on annual card fee and annual rewards fee on the ANZ Business Black Card.</p>
+<p>Any advice does not take into account your personal needs and financial circumstances and you should consider whether it is appropriate for you. ANZ recommends you read the applicable <a href='https://www.anz.com.au/business/help-support/terms-conditions/?section=SBS' target='_blank'>Terms and Conditions</a> and the <a href='https://www.anz.com.au/content/dam/anzcomau/documents/pdf/financial-services-guide.pdf' target='_blank'>ANZ Financial Services Guide (PDF 104kB)</a> before acquiring the product. All applications for credit are subject to ANZ's normal credit approval criteria. Terms and conditions available on application. <a href='https://www.anz.com.au/business/help-support/terms-conditions/?section=SBS' target='_blank'>Fees and charges</a> apply. <a href='http://www.anz.com/resources/4/8/48ebe5a1-942b-4f89-9e39-1ee862fefa75/ANZ+Commercial+Cards+Terms+and+Conditions.pdf?MOD=AJPERES' target='_blank'>ANZ Commercial Card Terms and Conditions (PDF 800kB)</a> and <a href='http://www.anz.com/resources/5/2/52dd88a0-729e-469c-90d8-a71d4fd9c678/504128_ANZ+COMMERCIAL+CARDS+FEES+AND+CHARGES_79903.pdf?MOD=AJPERES' target='_blank'>ANZ Commercial Cards Fees and Charges (PDF 84kB)</a> apply.</p>
+<p>1. Interest free days do not apply if you do not pay your Closing Balance (which includes any outstanding balance transfers, cash advances, purchases and Promotional Plans) in full by the due date each month. Payments to your account are applied in the order set out in the <a href='https://www.anz.com.au/content/dam/anzcomau/documents/pdf/commercial-cards-tcs.pdf?MOD=AJPERES' target='_blank'>ANZ Commercial Card Terms and Conditions (PDF 675kB)</a>.</p>
+<p>2. Reward Points and Bonus Reward Points accrue in accordance with the <a href='https://www.anz.com.au/content/dam/anzcomau/documents/pdf/anz-business-one-rewards-options-tcs.pdf?MOD=AJPERES' target='_blank'>ANZ Business Rewards Program Terms and Conditions (PDF 235kB)</a>. Eligible purchases exclude interest, government charges (apart from taxation payments), fees, balance transfers and cash and cash equivalent transactions. Taxation payments include all payments to the Australian Taxation Office and other taxation bodies.</p>" ;
+
+INSERT_UPDATE SABMInformationBoxComponent; $contentCV[unique = true]; uid[unique = true]; name; desktopTitle; titleIconDesktop(code, $contentCV); textList(uid, $contentCV); ctaLinks(uid, $contentCV); &componentRef
+; ; NeedACreditCardSABMInformationBoxComponent_smallbox ; Autopay Information Box ; Exclusive offer for CUB Customers - apply by 31 December 2018 ; credit-card-60x60.svg ; NeedACreditCardGenericTextContentItem ;  ; NeedACreditCardSABMInformationBoxComponent_smallbox ;
+#NEED A CREDIT CARD START
+
+#FAQS START
+INSERT_UPDATE GenericTextContentItem; $contentCV[unique = true]; uid[unique = true]; name; text; sabmSubText;
+#QA START
+; ; AutoPayQAGenericTextContentItem1   ; QA 1   ; "How do I join AutoPay Advantage?"													   ; "<p>The application process is easy and for most will only take a few minutes to complete.</p><ol><li>Download, complete and sign the AutoPay Advantage application form available from CUB Online by clicking on the banner on the home page.</li><li>Scan and email it back to us at cub <a href='mailto:cub.credit@cub.com.au'>cub.credit@cub.com.autopay</a>.</li><li>Our Credit team will process your application and be in touch within 5 days.</li></ol><p>If you don't currently have an Automated Direct Debit set up with us or want to change an existing, simply complete the Direct Debit Request form along with the Join AutoPay Advantage form.</p>";
+; ; AutoPayQAGenericTextContentItem2   ; QA 2   ; "How long will it take to process my application for AutoPay Advantage?"                 ; "<p>Once you submit your application we'll be in touch within 5 business days.</p>";
+; ; AutoPayQAGenericTextContentItem3   ; QA 3   ; "When does my discount start?"                                                           ; "<p>Your discount will start on your next order after our Credit team have confirmed your application.</p>";
+; ; AutoPayQAGenericTextContentItem4   ; QA 4   ; "What orders do I receive the discount on?"                                              ; "<p>All orders placed through 13BEER or Online will receive the discount.</p>";
+; ; AutoPayQAGenericTextContentItem5   ; QA 5   ; "Who can I contact about more information?"                                              ; "";
+; ; AutoPayQAGenericTextContentItem6   ; QA 6   ; "Who can apply for the program?"                                                         ; "<p>The program is open to all CUB customers with a CUB Online account.</p>";
+; ; AutoPayQAGenericTextContentItem7   ; QA 7   ; "I have muliple venues in my business. Will every venue get a discount?"                 ; "<p>All venues within your CUB Customer Account will receive the discount. If you have more than one CUB Customer Account you'll need to submit a joining application for each account.</p>";
+; ; AutoPayQAGenericTextContentItem8   ; QA 8   ; "I am a cash customer. Do I received the discount as I pay immediately?"                 ; "<p>Unfortunately, you don't qualify. You must be on an Automatic Direct Debit with us to join AutoPay Advantage.</p>";
+; ; AutoPayQAGenericTextContentItem9   ; QA 9   ; "I don't have an Automatic Direct Debit set up. How do I set it up?"                     ; "<p>Simply <a href='/autopay/download-form'>download</a> our Automatic Direct Debit form, sign and complete and scan and return to <a href='mailto:cub.credit@cub.com.au'>cub.credit@cub.com.au</a>. You must also complete the Join AutoPay Advantage application form.</p>";
+; ; AutoPayQAGenericTextContentItem10  ; QA 10  ; "I need to change my current payment method. How do I do it?"                            ; "<p>Simply <a href='/autopay/download-form'>download</a> our Automatic Direct Debit form, sign and complete and scan and return to <a href='mailto:cub.credit@cub.com.au'>cub.credit@cub.com.au</a>.</p>";
+; ; AutoPayQAGenericTextContentItem11  ; QA 11  ; "What payment methods are there?"                                                        ; "<p>Your Automatic Direct Debit can be processed for your nominated bank account or credit card (Visa, Mastercard, AMEX). Merchant fees apply if paying by credit card.</p>";
+; ; AutoPayQAGenericTextContentItem12  ; QA 12  ; "What happens if I don't have sufficient credit on my Automatic Direct Debit account?"   ; "<p>You can pay for your order using an alternative Credit Card. At checkout simply select 'Pay by card' instead of 'Pay on account'. Alternatively, please contact our Credit Team – Option 1 on 13BEER.</p>";
+; ; AutoPayQAGenericTextContentItem13  ; QA 13  ; "I want to make a one-off payment on an alternative Credit Card. Can I do this and how?" ; "<p>You can pay for your order using an alternative Credit Card. At checkout simply select 'Pay by card' instead of 'Pay on account'. Alternatively, please contact our Credit Team – Option 1 on 13BEER.</p><p>Please note, if they chose to pay at Cart instead of via the configured direct debit process, there is a risk that the payment transmission (which takes 1-2 business days) may not reach CUB before the scheduled direct debit process.</p><p>Your Credit Representative can temporarily disable the direct debit on your account. Please contact your Credit Representative asap on 13 BEER.</p>";
+; ; AutoPayQAGenericTextContentItem14  ; QA 14  ; "Will my account go on hold or block?"                                                   ; "<p>Your account may be suspended and placed temporarily on hold should your direct debit fail on multiple attempts. Our Credit team will be in contact to discuss options alternatively, please contact our Credit Team – Option 1 on 13BEER.</p>";
+; ; AutoPayQAGenericTextContentItem15a ; QA 15a ; "What benefits does the ANZ BUSINESS BLACK credit card have?"                            ; "<p>ANZ Business Black card features:</p><ul><li>Get ANZ highest <strong>Reward Points</strong> earn rate on eligible purchases and redeem for a great range of rewards</li><li><strong>Up to 55 days interest-free</strong> credit on purchases to improve your cash flow</li><li>Get <strong>complimentary</strong> overseas travel and medical insurance and ANZ Global Business Concierge service</li></ul><p>In addition to the above card features our partnership with ANZ also offers all CUB Customers.</p><ul><li><strong>Waived annual fees</strong> for the lifetime of your card (valued at $300 per annum)</li></ul><p>See ANZ for further details, terms and conditions and mention you're a CUB Customer when applying.</p>";
+; ; AutoPayQAGenericTextContentItem15  ; QA 15  ; "How do I apply for an ANZ credit card?"                                                 ; "<p>Contact ANZ direct and mention you are a CUB customer interested in the ANZ Business Black Credit Card</p>";
+; ; AutoPayQAGenericTextContentItem16  ; QA 16  ; "I have additional questions about the Automatic Direct Debit? Who can I speak to?"      ; "<p>Please contact your Credit Representative call 13 BEER, Option 1.</p>";
+; ; AutoPayQAGenericTextContentItem17  ; QA 17  ; "Is there a fee to join AutoPay Advantage?"                                                ; "<p>There is no program fee to joining AutoPay Advantage.</p>";
+; ; AutoPayQAGenericTextContentItem18  ; QA 18  ; "Is there a merchant fee for Credit Card payments?"                                      ; "<p>If you choose to set up your Automatic Direct Debit by credit card, merchant fees will apply.</p><p>There are no merchant fees for paying by EFT.</p>";
+; ; AutoPayQAGenericTextContentItem19  ; QA 19  ; "Is there a merchant fee for EFT?"                                                       ; "<p>There are no merchant fees for paying by EFT.</p>";
+; ; AutoPayQAGenericTextContentItem20  ; QA 20  ; "What happens if there is a pricing discrepancy?"                                        ; "<p>Simply raise your pricing discrepancy with your BDE. The discrepancy will be investigated.</p><p>Once approved, a credit will be applied to your account on the next Automatic Direct Debit.</p>";
+; ; AutoPayQAGenericTextContentItem21  ; QA 21  ; "How long does it take to raise a credit discrepancy?"                                   ; "<p>On average our Credit team process all Credit Discrepancies within 3-4 days from when they are received by the team.</p><p>We encourage you to raise pricing discrepancies asap with your BDE to avoid unnecessary delay in processing.</p><p>We're currently working on new functionality where you'll be able to raise a price discrepancy through CUB Online. We're aiming to release the new solution end of September.</p>";
+#QA END
+
+INSERT_UPDATE FAQCategoryItemComponent; $contentCV[unique = true]; uid[unique = true]; name; title; questionList(uid, $contentCV);
+; ; AutopayFAQCategoryItemComponent1 ; Most Popular      ; "Most Popular"      ;
+; ; AutopayFAQCategoryItemComponent2 ; How to Join       ; "How to Join"       ; AutoPayQAGenericTextContentItem1,AutoPayQAGenericTextContentItem2,AutoPayQAGenericTextContentItem6
+; ; AutopayFAQCategoryItemComponent3 ; About the Program ; "About the Program" ; AutoPayQAGenericTextContentItem3,AutoPayQAGenericTextContentItem4,AutoPayQAGenericTextContentItem7
+; ; AutopayFAQCategoryItemComponent4 ; Payments          ; "Payments"          ; AutoPayQAGenericTextContentItem11,AutoPayQAGenericTextContentItem9,AutoPayQAGenericTextContentItem10,AutoPayQAGenericTextContentItem8,AutoPayQAGenericTextContentItem12,AutoPayQAGenericTextContentItem13,AutoPayQAGenericTextContentItem14,AutoPayQAGenericTextContentItem15a,AutoPayQAGenericTextContentItem15,AutoPayQAGenericTextContentItem16,AutoPayQAGenericTextContentItem17,AutoPayQAGenericTextContentItem18,AutoPayQAGenericTextContentItem19
+
+INSERT_UPDATE CMSLinkEnhancedComponent; $contentCV[unique = true]; uid[unique = true]; name; url; renderType(code);
+; ; AutopayCMSLinkEnhancedComponent ; "Send us your question." ; # ; LINK
+
+INSERT_UPDATE FAQComponent; $contentCV[unique = true]; uid[unique = true]; name; title; sendQuestionText; sendQuestionCTA(uid, $contentCV); categories(uid, $contentCV); &componentRef
+; ; AutopayFAQComponent ; FAQ Component ; "Have a question?" ; "Can’t find what you are looking for?" ; AutopayCMSLinkEnhancedComponent ; AutopayFAQCategoryItemComponent1,AutopayFAQCategoryItemComponent2,AutopayFAQCategoryItemComponent3,AutopayFAQCategoryItemComponent4 ; AutopayFAQComponent ;
+#FAQS END
+
+# ContentSlot
+INSERT_UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]; name; active; cmsComponents(&componentRef);
+; ; BannerSlot-autopayContentSlot               ; BannerSlot               ; true ; AutopayPageHeroBannerRotatingImagesComponent        ;
+; ; InformationBoxSlot-autopayContentSlot       ; InformationBoxSlot       ; true ; SABMInformationBoxComponentAutopay                  ;
+; ; TextImageFourColumnsSlot-autopayContentSlot ; TextImageFourColumnsSlot ; true ; four_columns_AutopaySABMTextImageBannerComponent    ;
+; ; JoinAutopaySlot-autopayContentSlot          ; JoinAutopaySlot          ; true ; JoinAutopaySABMHeroBannerComponent_backgroundimage  ;
+; ; NeedACreditCardSlot-autopayContentSlot      ; NeedACreditCardSlot      ; true ; NeedACreditCardSABMInformationBoxComponent_smallbox ;
+; ; FaqsContentSlot-autopayContentSlot          ; FaqsContentSlot          ; true ; AutopayFAQComponent                                 ;
+
+
+# ContentSlotForPage
+INSERT_UPDATE ContentSlotForPage; $contentCV[unique = true]; uid[unique = true]; position[unique = true]; page(uid, $contentCV)[unique = true][default = 'AutopayLandingPage']; contentSlot(uid, $contentCV)[unique = true];
+; ; BannerSlot-autopayContentSlot               ; BannerSlot               ; ; BannerSlot-autopayContentSlot               ;
+; ; InformationBoxSlot-autopayContentSlot       ; InformationBoxSlot       ; ; InformationBoxSlot-autopayContentSlot       ;
+; ; TextImageFourColumnsSlot-autopayContentSlot ; TextImageFourColumnsSlot ; ; TextImageFourColumnsSlot-autopayContentSlot ;
+; ; JoinAutopaySlot-autopayContentSlot          ; JoinAutopaySlot          ; ; JoinAutopaySlot-autopayContentSlot          ;
+; ; NeedACreditCardSlot-autopayContentSlot      ; NeedACreditCardSlot      ; ; NeedACreditCardSlot-autopayContentSlot      ;
+; ; FaqsContentSlot-autopayContentSlot          ; FaqsContentSlot          ; ; FaqsContentSlot-autopayContentSlot          ;
+
+
+
+INSERT_UPDATE ContentSlotForTemplate; $contentCV[unique = true]; uid[unique = true]; position[unique = true]; pageTemplate(uid, $contentCV)[unique = true][default = 'AutopayLandingPageTemplate']; contentSlot(uid, $contentCV)[unique = true]; allowOverwrite
+; ; SiteLogo-$pageIdTemplate               ; SiteLogo               ; ; SiteLogoSlot           ; true
+; ; HomepageLink-$pageIdTemplate           ; HomepageNavLink        ; ; HomepageNavLinkSlot    ; true
+; ; SearchBox-$pageIdTemplate              ; SearchBox              ; ; SearchBoxSlot          ; true
+; ; MiniCart-$pageIdTemplate               ; MiniCart               ; ; MiniCartSlot           ; true
+; ; BreadcrumbSlot-$pageIdTemplate         ; BreadcrumbBar          ; ; BreadcrumbSlot         ; true
+; ; HeaderLinks-$pageIdTemplate            ; HeaderLinks            ; ; HeaderLinksSlot        ; true
+; ; Footer-$pageIdTemplate                 ; Footer                 ; ; FooterSlot             ; true
+; ; PlaceholderContentSlot-$pageIdTemplate ; PlaceholderContentSlot ; ; PlaceholderContentSlot ; true
+; ; DeliveryDatepickerSlot-$pageIdTemplate ; DeliveryDatepickerBar  ; ; DeliveryDatepickerSlot ; true
+; ; NavigationBar-$pageIdTemplate          ; NavigationBar          ; ; NavigationBarSlot      ; true
+

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- [y] hybris Platform Copyright (c) 2000-2015 hybris AG All rights reserved. 
+	This software is the confidential and proprietary information of hybris ("Confidential 
+	Information"). You shall not disclose such Confidential Information and shall 
+	use it only in accordance with the terms of the license agreement you entered 
+	into with hybris. -->
+
+
+<!-- . WARNING: This is the CUSTOM Spring WEB configuration file used for 
+	cmscockpit . web application. -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+	default-autowire="byName">
+
+	<bean id="rememberMeServices" class="de.hybris.platform.spring.security.CoreRememberMeService">
+		<property name="key" value="cockpit" />
+		<property name="cookieName" value="LoginToken" />
+		<!-- avoiding hard reference to tenant-scoped 'coreUserDetailsService' -->
+		<lookup-method name="lookupUserDetailsService" bean="coreUserDetailsService" />
+	</bean>
+
+	<bean id="loginService" class="com.sabmiller.cockpits.cockpit.services.impl.LoginServiceImpl" scope="tenant">
+		<property name="i18nService" ref="i18nService"/>
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="userService" ref="userService"/>
+		<property name="loginTokenDeleteService" ref="loginTokenDeleteService" />
+	</bean>
+
+</beans>

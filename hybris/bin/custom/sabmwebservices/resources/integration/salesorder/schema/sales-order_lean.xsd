@@ -1,0 +1,210 @@
+<xsd:schema xmlns:p7="http://sap.com/xi/APPL/SE/Global"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:element name="SalesOrder">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="ProcessingTypeCode" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="SalesOrderNumber" type="xsd:string" />
+				<xsd:element name="CreationDate" type="xsd:date"
+					minOccurs="0" />
+				<xsd:element name="SystemAdministrativeData">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="CreationUserAccountID">
+								<xsd:complexType>
+									<xsd:simpleContent>
+										<xsd:extension base="xsd:string">
+											<xsd:attribute name="schemeAgencyID" type="xsd:token" />
+											<xsd:attribute name="schemeAgencySchemeAgencyID"
+												type="xsd:token" />
+										</xsd:extension>
+									</xsd:simpleContent>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="BuyerDocument">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="PONumber">
+								<xsd:complexType>
+									<xsd:simpleContent>
+										<xsd:extension base="xsd:string">
+											<xsd:attribute name="schemaID" type="xsd:token" />
+											<xsd:attribute name="schemaAgencyID" type="xsd:token" />
+											<xsd:attribute name="schemaAgencySchemaAgencyID"
+												type="xsd:token" />
+										</xsd:extension>
+									</xsd:simpleContent>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="DataOriginCategoryCode" minOccurs="0">
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="xsd:string">
+								<xsd:attribute name="listID" type="xsd:token" />
+								<xsd:attribute name="listVersionID" type="xsd:token" />
+								<xsd:attribute name="listAgencyID" type="xsd:token" />
+								<xsd:attribute name="listAgencySchemaID" type="xsd:token" />
+								<xsd:attribute name="listAgencySchemaAgency" type="xsd:token" />
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="SalesAndServiceBusinessArea">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="SalesOrganisation" type="xsd:string" />
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="BuyerParty">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="SoldTo" type="xsd:string" />
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="GoodsRecepientParty">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="ShipTo" type="xsd:string" />
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="DateTerms">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="RequestedDeliveryDate" type="xsd:date" />
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="Party" minOccurs="0" maxOccurs="unbounded">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="RoleCode" type="xsd:string" />
+							<xsd:element name="RoleName">
+								<xsd:complexType>
+									<xsd:simpleContent>
+										<xsd:extension base="xsd:string">
+											<xsd:attribute name="LanguageCode" type="xsd:language" />
+										</xsd:extension>
+									</xsd:simpleContent>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="BillTo">
+								<xsd:complexType>
+									<xsd:attribute name="schemaID" type="xsd:token" />
+									<xsd:attribute name="schemaAgencyID" type="xsd:token" />
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="Item" minOccurs="0" maxOccurs="unbounded">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="ItemNumber" type="xsd:string" />
+							<xsd:element name="FreeGoodsIdentifier" type="xsd:string"
+								minOccurs="0" />
+							<xsd:element name="Product">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="MaterialNumber">
+											<xsd:complexType>
+												<xsd:simpleContent>
+													<xsd:extension base="xsd:string">
+														<xsd:attribute name="schemaID" type="xsd:token" />
+														<xsd:attribute name="schemaAgencyID" type="xsd:token" />
+													</xsd:extension>
+												</xsd:simpleContent>
+											</xsd:complexType>
+										</xsd:element>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="ScheduleLine" minOccurs="0"
+								maxOccurs="unbounded">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="ConfirmedMaterialQuantity">
+											<xsd:complexType>
+												<xsd:simpleContent>
+													<xsd:extension base="xsd:string">
+														<xsd:attribute name="unitCode" type="xsd:token" />
+													</xsd:extension>
+												</xsd:simpleContent>
+											</xsd:complexType>
+										</xsd:element>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="SalesTerms" minOccurs="0">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="RejectionReason" type="xsd:string"
+											minOccurs="0" />
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="Status" minOccurs="0">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="RejectionReason" type="xsd:string"
+											minOccurs="0" />
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="PriceComponent" minOccurs="0"
+								maxOccurs="unbounded">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="PriceSpecificationElementTypeCode"
+											minOccurs="0">
+											<xsd:complexType>
+												<xsd:simpleContent>
+													<xsd:extension base="xsd:string">
+														<xsd:attribute name="listID" type="xsd:token" />
+														<xsd:attribute name="listVersionID" type="xsd:token" />
+														<xsd:attribute name="listAgencyID" type="xsd:token" />
+														<xsd:attribute name="listAgencySchemeID"
+															type="xsd:token" />
+														<xsd:attribute name="listAgencySchemeAgencyID"
+															type="xsd:token" />
+													</xsd:extension>
+												</xsd:simpleContent>
+											</xsd:complexType>
+										</xsd:element>
+										<xsd:element name="PriceSpecificationElementTypeName"
+											minOccurs="0">
+											<xsd:complexType>
+												<xsd:simpleContent>
+													<xsd:extension base="xsd:string">
+														<xsd:attribute name="languageCode" type="xsd:token" />
+													</xsd:extension>
+												</xsd:simpleContent>
+											</xsd:complexType>
+										</xsd:element>
+										<xsd:element name="CalculatedAmount" minOccurs="0">
+											<xsd:complexType>
+												<xsd:simpleContent>
+													<xsd:extension base="xsd:string">
+														<xsd:attribute name="currencyCode" type="xsd:token" />
+													</xsd:extension>
+												</xsd:simpleContent>
+											</xsd:complexType>
+										</xsd:element>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

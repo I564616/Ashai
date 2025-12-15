@@ -1,0 +1,2 @@
+amount,clrDocNumber[unique=true],custAccount(uid),paymentDocIdentifier[unique=true],paymentReference,"""paymentType(code,itemtype(code))""",receiptNumber,totalDocs[unique=true],transactionDate[dateformat=dd.MM.yyyy hh:mm:ss]
+123,123456,,X,no,07:AsahiSAMPaymentType,1234567,1,

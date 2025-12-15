@@ -1,0 +1,934 @@
+#################Footer issue fix start#####################
+$contentCatalog = sabmContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Staged])[default = $contentCatalog:Staged]
+
+INSERT_UPDATE CMSInverseRestriction ; $contentCV[unique=true] ; name;originalRestriction(uid,$contentCV) ; uid[unique=true];components(uid,$contentCV)
+                                    ;                         ; Logged in User ; AnonymousUserRestriction; loggedInUser    ; ServiceRequestLink,FAQsLink,VideosLink,TermsAndConditionsLink,PrivacySecurityLink,Over18Link
+
+INSERT_UPDATE FooterNavigationComponent ; $contentCV[unique=true] ; uid[unique=true]; wrapAfter ; name; showLanguageCurrency ; navigationNode(uid,$contentCV);visible;slots(uid,$contentCV);notice;
+                                        ;                         ; FooterNavigationComponent ; 2; FooterNavigationComponent ; true ; SABMFooterNavNode;true;FooterSlot;"© Carlton & United Breweries";
+
+UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(uid,$contentCV);
+					;                  ;FooterSlot; FooterNavigationComponent;
+
+#################Footer issue fix end#####################
+#################Deal issue fix start#####################
+UPDATE SearchRestriction;code[unique=true];query
+;Frontend_Deals_SAPCallInProgress;"EXISTS (
+	{{
+		SELECT 1  FROM {B2BUnit as b2bUnit} WHERE {b2bUnit.pk}=(?session.user.defaultb2bunit) 
+		AND {b2bUnit.discountCallStatus} NOT IN ({{ SELECT {s.pk} FROM {SapServiceCallStatus AS s} WHERE {s.code}= ('IN_PROGRESS')}})
+	}}
+)"
+#################Deal issue fix end#####################
+#################contact us phone number and address change start#########################
+$contentCatalog = sabmContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Staged])[default = $contentCatalog:Staged]
+
+UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];content[lang=en]
+;;comp_000000SE;"<h2>Contact Us</h2> <p>The CUB Online Team can be contacted in one of the following ways:&nbsp;</p> <h3>Email:</h3> <p><a href=""mailto:onlinesupport@asahibeverages.com"">onlinesupport@asahibeverages.com</a></p> <p>&nbsp;</p> <h3>Phone:&nbsp;</h3> <p>1300 127 244</p>  <p>&nbsp;</p> <h3>Write to us:</h3> <p>CUB Online, Asahi Beverages, 58 Queens Bridge St, Southbank, Victoria 3006&nbsp;</p> <p>&nbsp;</p> <h2>Contact Centre opening hours:</h2> <p><strong>Monday to Friday:</strong>&nbsp;9:00am to 6:00pm AEST.</p> <p><strong>Saturday:</strong> Closed.</p> <p><strong>Sunday:</strong> Closed.</p> <p>&nbsp;</p>  <p>&nbsp;</p>"
+
+#################contact us phone number and address change end#########################
+
+######ALB : Manage My Notifications Page Title/Link name Changes########################
+
+$contentCatalog=sgaContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$lang=en
+
+# CMS Link Components        
+UPDATE CMSLinkComponent ; $contentCV[unique=true] ; uid[unique=true]    ; linkName[lang=$lang]
+
+                        ;                         ; PersonalDetailsLink ; "USER DETAILS & NOTIFICATIONS"  
+                        
+                        
+UPDATE ContentPage ; $contentCV[unique=true] ; uid[unique=true]                     ; title[lang=$lang]     
+                   ;                         ; update-profile                       ; "Update Profile & Notifications"   
+                   
+                   
+######ALB : Manage My Notifications Page Title/Link name Changes########################
+#################change for max order quantity for CUB start############################
+$solrIndexedType = sabmStoreProductType
+INSERT_UPDATE SolrIndexedProperty; solrIndexedType(identifier)[unique = true]; name[unique = true]; type(code); sortableType(code); currency[default = false]; localized[default = false]; multiValue[default = true]; useForSpellchecking[default = false]; useForAutocomplete[default = false]; fieldValueProvider; valueProviderParameter
+; $solrIndexedType ; customerMaxOrderQty     ; string  ;              ; ;      ;      ;      ;      ;maxOrderQuantityValueResolver						;
+; $solrIndexedType ; plantMaxOrderQty        ; string  ;              ; ;      ;      ;      ;      ;maxOrderQuantityValueResolver                      ;
+; $solrIndexedType ; globalMaxOrderQty       ; string  ;              ; ;      ;      ;      ;      ;maxOrderQuantityValueResolver                      ;
+; $solrIndexedType ; wetEligible	         ; boolean ;              ; ;      ;false ;      ;      ;wetPriceFlagValueResolver                      	;
+; $solrIndexedType ; level4					 ; string  ;         	  ;	;	   ;false ;		 ;      ;cdlCheckLevel4ValueResolver						;	
+; $solrIndexedType ; presentation			 ; string  ;         	  ;	;	   ;false ;		 ;      ;productPresentationValueResolver					;	
+#################change for max order quantity for CUB end############################
+
+########################CUB CDL Values as per ECC###############################
+INSERT_UPDATE CDLValue;Location[unique=true];ContainerType[unique=true];value
+;NSW;C;0.118
+;WA;C;0.117
+;ACT;C;0.118
+;NT;C;0.127273
+;QLD;C;0.123
+;SA;C;0.127
+;NSW;N;0.118
+;WA;N;0.117
+;ACT;N;0.118
+;NT;N;0.127273
+;QLD;N;0.123
+;SA;N;0.127
+########################CUB CDL Values as per ECC###############################
+
+
+################### Start - HC-1316 Staff Portal - Search customer Solr changes ####################################
+
+#
+# Import the Solr configuration for the store
+#
+
+
+$indexBaseSite = sga
+$indexLanguages=en
+$indexCurrencies=AUD
+$lang=en
+$facetSearchConfigName=sgaIndex
+$facetSearchConfigDescription=SGA Solr Index
+$searchIndexNamePrefix=sga
+$solrIndexedType=sgaProductType
+$solrCustomerIndexedType = sgaStoreB2bCustomerType
+
+#
+# Setup the Solr server, indexer, and search configs
+#
+
+# Declare the indexed type Product
+INSERT_UPDATE SolrIndexedType; identifier[unique = true]; type(code); variant; sorts(&sortRefID)
+                             ; $solrCustomerIndexedType ; AsahiB2BUnit ; false ; sortRef1,sortRef2
+							 
+INSERT_UPDATE SolrFacetSearchConfig ; name[unique=true]      ; solrIndexedTypes(identifier)[append=true] 
+                             		; $facetSearchConfigName ; $solrCustomerIndexedType,$solrIndexedType        
+
+
+#
+# Setup the indexed types, their properties, and the update queries
+#
+
+# Define the available sorts
+INSERT_UPDATE SolrSort; &sortRefID; indexedType(identifier)[unique = true]; code[unique = true]; useBoost; visible; name[lang=$lang]
+					  ; sortRef1  ; $solrCustomerIndexedType              ; customername-asc   ; false   ; true   ; Customer Name (A-Z)
+					  ; sortRef2  ; $solrCustomerIndexedType              ; customername-desc  ; false   ; true   ; Customer Name (Z-A)
+
+# Define the sort fields
+INSERT_UPDATE SolrSortField; sort(indexedType(identifier), code)[unique = true]; fieldName[unique = true]; ascending[unique = true]
+						   ; $solrCustomerIndexedType:customername-asc          ; customername            ; true
+						   ; $solrCustomerIndexedType:customername-desc         ; customername            ; false
+
+# Create the queries that will be used to extract data for Solr
+INSERT_UPDATE SolrIndexerQuery; solrIndexedType(identifier)[unique = true]; identifier[unique = true]                  ; type(code); injectCurrentDate[default = true]; injectCurrentTime[default = true]; injectLastIndexTime[default = true]; query                                                                             							; user(uid)
+							  ; $solrCustomerIndexedType                  ; $searchIndexNamePrefix-customerFullQuery   ; full      ;                                  ;                                  ; false                              ; "SELECT DISTINCT{q:PK} as pk FROM {AsahiB2BUnit as q}  WHERE {q:companyCode}='sga' and {q:UID} is not NULL" ; anonymous
+							  ; $solrCustomerIndexedType                  ; $searchIndexNamePrefix-customerUpdateQuery ; update    ;                                  ;                                  ;                                    ; "SELECT DISTINCT tbl.pk, tbl.uid from ({{SELECT DISTINCT {abu:PK},{abu:uid} as uid from {AsahiB2BUnit AS abu} where {abu:companyCode}='sga' and {abu:UID} is not NULL and {abu:modifiedtime} >= ?lastIndexTime}} 
+UNION {{SELECT DISTINCT {abu:PK},{abu:uid} as uid from {AsahiB2BUnit AS abu JOIN Order as o on {abu:pk}={o:unit}} where {abu:companyCode}='sga' and {abu:UID} is not NULL and {o:creationtime} >= ?lastIndexTime}}) tbl ORDER BY tbl.uid" ; anonymous
+
+$solrCustomerIndexedType = sgaStoreB2bCustomerType
+# Customer fields
+INSERT_UPDATE SolrIndexedProperty; solrIndexedType(identifier)[unique = true]; name[unique = true]; type(code)   ; sortableType(code); currency[default = false]; localized[default = false]; multiValue[default = false]; useForSpellchecking[default = false]; useForAutocomplete[default = false]; fieldValueProvider; valueProviderParameters(key, value)[map-delimiter = |]; valueProviderParameter;
+								 ; $solrCustomerIndexedType                  ; customername       ; sortabletext ;                   ;                          ;                           ; ; ; 																									; asahiCustomerNameProvider                ;                       ; ;
+								 ; $solrCustomerIndexedType 				 ; customerID         ; string       ; 				 ;                          ;                           ; ; ; 																										; asahiCustomerIDProvider                  ;                       ; ;
+								 ; $solrCustomerIndexedType                  ; addressStreetName  ; sortabletext ; ; ; ; ; ; 																																										; asahiCustomerAddressProvider             ; attribute->line1      ; ;
+								 ; $solrCustomerIndexedType                  ; addressSuburb      ; sortabletext ; ; ; ; ; ; 																																										; asahiCustomerAddressProvider             ; attribute->town       ; ;
+								 ; $solrCustomerIndexedType                  ; addressPostCode    ; string       ; ; ; ; ; ; 																																										; asahiCustomerAddressProvider             ; attribute->postalcode ; ;
+								 ; $solrCustomerIndexedType 				 ; addressIsocodeShort; string       ; ; ; ; ; ; 																																										; asahiCustomerAddressRegionProvider       ;                       ; ;
+								 ; $solrCustomerIndexedType 				 ; accountPayerNumber ; string       ; ; ; ; ; ; 																																										; asahiCustomerAccountPayerNumberProvider  ;                       ; ;
+								 ; $solrCustomerIndexedType 				 ; accountOrPayerNumber; string      ; ; ; ; ; ; 																																										; asahiB2BUnitAccountOrPayerNumberProvider ;                       ; ;
+								 ; $solrCustomerIndexedType       			 ; orderingStatus     ; string       ; ; ; ; ; ; 																																						                ; asahiOrderingStatusProvider              ;                       ; ;
+								 ; $solrCustomerIndexedType                  ; primaryAdminStatus ; string       ; ; ; ; ; ;     																																								    ; asahiPrimaryAdminStatusProvider          ;                       ; ;    
+								 ; $solrCustomerIndexedType                  ; dealStatus 		  ; boolean      ; ; ; ; ; ;     																																								    ; asahiDealStatusValueResolver             ;                       ; ;
+INSERT_UPDATE SolrIndexedProperty; solrIndexedType(identifier)[unique = true]; name[unique = true]; type(code); sortableType(code); currency[default = false]; localized[default = false]; multiValue[default = true]; useForSpellchecking[default = false]; useForAutocomplete[default = false]; fieldValueProvider; valueProviderParameters(key, value)[map-delimiter = |];  valueProviderParameter; 
+								 ; $solrCustomerIndexedType       			 ; customeremail      ; string    ;  ; ;      ;      ;      ; 																																						; asahiCustomerEmailProvider                 ;                        ;    ;    
+
+#cronJob - sgaIndex
+                      
+$defaultLanguage=en
+UPDATE SolrIndexerCronJob;code[unique=true];sessionLanguage(isoCode)
+						 ;full-sgaIndex-cronJob;$defaultLanguage
+						 ;update-sgaIndex-cronJob;$defaultLanguage
+						 
+INSERT_UPDATE Trigger;Cronjob(code)[unique=true] ;cronExpression;second;minute;hour;day;month;year;active[default=true];relative[default=false]
+			  		 ;full-sgaIndex-cronJob      ;0 5 3 ? * *	;0     ;5     ;15  ;-1 ;-1   ;-1
+			  		 ;update-sgaIndex-cronJob    ;* * 0/4 ? * *  ;-1    ;-1    ;-1  ;-1 ;-1   ;-1
+
+
+########CMS - sgaContentCatalog - staged###########################
+
+$contentCatalog=sgaContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+
+UPDATE GenericItem[processor = de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor]; pk[unique = true]
+$jarResourceCms = $config-jarResourceCmsValue
+
+######  Asahi Staff Portal Pages ######
+# Create PageTemplates
+# These define the layout for pages
+# "FrontendTemplateName" is used to define the JSP that should be used to render the page for pages with multiple possible layouts.
+# "RestrictedPageTypes" is used to restrict templates to page types
+INSERT_UPDATE PageTemplate; $contentCV[unique = true]; uid[unique = true]           ; name                                ; frontendTemplateName              ; restrictedPageTypes(code); active[default = true]
+#ContentPage3Template : header, navigation, section1, section2, section3 and footer.
+						  ;                          ; Portal-ContentPage3Template ; Portal Content Page Template         ; layout/contentLayout3Page         ; ContentPage
+						  ;                          ; Portal-LoginPageTemplate    ; Login Page Template                  ; account/accountLoginPage          ; ContentPage
+						  ;                          ; Portal-LogoutPageTemplate   ; Logout Page Template                 ; account/staffAccountLogoutPage    ; ContentPage
+						  ;                          ; Portal-SSOErrorPageTemplate ; SSO Error Page Template              ; account/staffAccountErrorPage     ; ContentPage
+					      ;                          ; ConfirmationSentTemplate    ; Deal Confirmation Sent Template Page ; confirmation/confirmationSentPage ; ContentPage
+
+
+# Add Velocity templates that are in the CMS Cockpit. These give a better layout for editing pages
+# The FileLoaderValueTranslator loads a File into a String property. The templates could also be inserted in-line in this file.
+UPDATE PageTemplate; $contentCV[unique = true]; uid[unique = true]          ; velocityTemplate[translator = de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+				   ;                          ; Portal-ContentPage3Template ; $jarResourceCms/structure-view/portal/structure_contentPage3Template.vm
+				   ;                          ; Portal-LoginPageTemplate    ; $jarResourceCms/structure-view/portal/structure_loginPageTemplate.vm
+				   ;                          ; ConfirmationSentTemplate    ; $jarResourceCms/structure-view/portal/structure_confirmationSentTemplate.vm
+
+
+# Simple Content Page 3 Templates
+INSERT_UPDATE ContentSlotName; name[unique = true]; template(uid, $contentCV)[unique = true][default = 'Portal-ContentPage3Template']; validComponentTypes(code); compTypeGroup(code)
+; SiteLogo               ; ; ; logo
+; Section1               ; ; ; wide
+; Section2               ; ; ; wide
+; Section3               ; ; ; wide
+; Footer                 ; ; ; footer
+; TopHeaderSlot          ; ; ; wide
+; BottomHeaderSlot       ; ; ; wide
+; PlaceholderContentSlot ; ; ;
+
+
+# Login Page Templates
+INSERT_UPDATE ContentSlotName; name[unique = true]; template(uid, $contentCV)[unique = true][default = 'Portal-LoginPageTemplate']; validComponentTypes(code); compTypeGroup(code)
+; SiteLogo               ; ; ; logo
+#;NavigationBar;;;navigation
+; Footer                 ; ; ; footer
+; TopHeaderSlot          ; ; ; wide
+; BottomHeaderSlot       ; ; ; wide
+#;RightContentSlot;;;wide
+; PlaceholderContentSlot ; ; ;
+
+# Deal Confirmation Sent Template Page Template
+INSERT_UPDATE ContentSlotName; name[unique = true]; template(uid, $contentCV)[unique = true][default = 'ConfirmationSentTemplate']; validComponentTypes(code); compTypeGroup(code)
+; SiteLogo         ; ; ; logo
+; Footer           ; ; ; footer
+; TopHeaderSlot    ; ; ; wide
+; BottomHeaderSlot ; ; ; wide
+
+
+# Bind Content Slots to Page Templates
+INSERT_UPDATE ContentSlotForTemplate; $contentCV[unique = true]; uid[unique = true]; position[unique = true]; pageTemplate(uid, $contentCV)[unique = true][default = 'Portal-ContentPage3Template']; contentSlot(uid, $contentCV)[unique = true]; allowOverwrite
+#; ; Portal-SiteLogo-ContentPage3               ; SiteLogo               ; ; Portal-SiteLogoSlot           ; true
+; ; Portal-BreadcrumbSlot-ContentPage3         ; BreadcrumbBar          ; ; Portal-BreadcrumbSlot         ; true
+; ; Portal-Footer-ContentPage3                 ; Footer                 ; ; Portal-FooterSlot             ; true
+; ; Portal-TopHeaderSlot-ContentPage3          ; TopHeaderSlot          ; ; Portal-TopHeaderSlot          ; true
+; ; Portal-BottomHeaderSlot-ContentPage3       ; BottomHeaderSlot       ; ; Portal-BottomHeaderSlot       ; true
+; ; Portal-PlaceholderContentSlot-ContentPage3 ; PlaceholderContentSlot ; ; Portal-PlaceholderContentSlot ; true
+; ; Portal-Section1-ContentPage3               ; Section1               ; ; Portal-Section1Slot           ; true
+; ; Portal-Section2-ContentPage3               ; Section2               ; ; Portal-Section2Slot           ; true
+; ; Portal-Section3-ContentPage3               ; Section3               ; ; Portal-Section3Slot           ; true
+
+
+
+# Bind Content Slots to Page Templates
+INSERT_UPDATE ContentSlotForTemplate; $contentCV[unique = true]; uid[unique = true]; position[unique = true]; pageTemplate(uid, $contentCV)[unique = true][default = 'Portal-LoginPageTemplate']; contentSlot(uid, $contentCV)[unique = true]; allowOverwrite
+#; ; Portal-SiteLogo-LoginPage               ; SiteLogo               ; ; Portal-SiteLogoSlot           ; true
+#;;Portal-BreadcrumbSlot-LoginPage;BreadcrumbBar;;Portal-BreadcrumbSlot;true
+; ; Portal-Footer-LoginPage                 ; Footer                 ; ; Portal-FooterSlot             ; true
+; ; Portal-TopHeaderSlot-LoginPage          ; TopHeaderSlot          ; ; Portal-TopHeaderSlot          ; true
+; ; Portal-BottomHeaderSlot-LoginPage       ; BottomHeaderSlot       ; ; Portal-BottomHeaderSlot       ; true
+#;;Portal-RightContentSlot-LoginPage;RightContentSlot;;RightContentSlot;true
+; ; Portal-PlaceholderContentSlot-LoginPage ; PlaceholderContentSlot ; ; Portal-PlaceholderContentSlot ; true
+
+# Content slot for Confirmation Sent Page Template
+INSERT_UPDATE ContentSlotForTemplate; $contentCV[unique = true]; uid[unique = true]; position[unique = true]; pageTemplate(uid, $contentCV)[unique = true][default = 'ConfirmationSentTemplate']; contentSlot(uid, $contentCV)[unique = true]; allowOverwrite
+; ; SiteLogo-ConfirmationSentPage         ; SiteLogo         ; ; SiteLogoSlot      ; true
+; ; Portal-Footer-ConfirmationSentPage    ; Footer           ; ; Portal-FooterSlot ; true
+; ; TopHeaderSlot-ConfirmationSentPage    ; TopHeaderSlot    ; ; TopHeaderSlot     ; true
+; ; BottomHeaderSlot-ConfirmationSentPage ; BottomHeaderSlot ; ; BottomHeaderSlot  ; true
+
+
+
+# Create Content Slots
+INSERT_UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]; name; active
+; ; Portal-TopHeaderSlot          ; Top Header          ; true
+; ; Portal-BottomHeaderSlot       ; Bottom Header       ; true
+; ; Portal-PlaceholderContentSlot ; Placeholder Content ; true
+; ; Portal-Section1Slot           ; Section1            ; true
+; ; Portal-Section2Slot           ; Section2            ; true
+; ; Portal-Section3Slot           ; Section3            ; true
+; ; Portal-FooterSlot             ; Footer              ; true
+; ; Portal-BreadcrumbSlot         ; Breadcrumb          ; true
+
+# Simple Content Pages (Portal-ContentPage3Template)
+INSERT_UPDATE ContentPage; $contentCV[unique = true]; uid[unique = true]     ; name                          ; masterTemplate(uid, $contentCV); label; defaultPage[default = 'true']; approvalStatus(code)[default = 'approved']; homepage[default = 'false']
+					     ;                          ; customerSearch         ; Customer Search               ; Portal-ContentPage3Template    ;
+# LoginPage
+                         ;                          ; portalLogin            ; Portal Login Page             ; Portal-LoginPageTemplate       ; portalLogin
+# LogoutRedirectPage
+                         ;                          ; portalLogoutRedirect   ; Portal Logout Page            ; Portal-LogoutPageTemplate      ; logoutRedirect
+# SSOErrorPage
+                         ;                          ; portalSSOError         ; Portal SSO Login Error Page   ; Portal-SSOErrorPageTemplate    ; ssoError
+# ConfirmationSentPage
+                         ;                          ; confirmationSent       ; Confirmation Sent Page        ; ConfirmationSentTemplate       ; /confirmationSent
+# Customer Search Results page
+                         ;                          ; customerSearchResults  ; Customer Search Results Page  ; Portal-ContentPage3Template    ; /customerSearchResults
+; ; confirmRep-DrivenDeals ; Confirm Rep-Driven Deals Page ; Portal-ContentPage3Template ;
+; ; specificDeals          ; The Specific Deals Page       ; Portal-ContentPage3Template ; /specificDealsPage
+
+
+
+
+# ContentSlotForPage
+INSERT_UPDATE ContentSlotForPage; $contentCV[unique = true]; uid[unique = true]      ; position[unique = true]; page(uid, $contentCV)[unique = true][default = 'customerSearch']; contentSlot(uid, $contentCV)[unique = true];;;
+                                ;                          ; Section2-customerSearch ; Section2               ;                                                                 ; Section2-customerSearch ; ; ;
+INSERT_UPDATE ContentSlotForPage; $contentCV[unique = true]; uid[unique = true]             ; position[unique = true]; page(uid, $contentCV)[unique = true][default = 'customerSearchResults']; contentSlot(uid, $contentCV)[unique = true];;;
+                                ;                          ; Section2-customerSearchResults ; Section2               ;                                                                        ; Section2-customerSearchResults ; ; ;
+INSERT_UPDATE ContentSlotForPage; $contentCV[unique = true]; uid[unique = true]; position[unique = true]; page(uid, $contentCV)[unique = true][default = 'confirmRep-DrivenDeals']; contentSlot(uid, $contentCV)[unique = true];;;
+; ; Section2-confirmRep-DrivenDeals ; Section2 ; ; Section2-confirmRep-DrivenDeals ; ; ;
+
+#### Jsp Include Component ####
+INSERT_UPDATE JspIncludeComponent; $contentCV[unique = true]; uid[unique = true]              ; name                                    ; page                                      ; actions(uid, $contentCV); &componentRef
+                                 ;                          ; CustomerSearchComponent         ; Customer Search Page Component          ; ../customer/customerSearchPage.jsp        ;                         ; CustomerSearchComponent
+; ; CustomerSearchResultsComponent  ; Customer Search Results Page Component  ; ../customer/customerSearchResultsPage.jsp ; ; CustomerSearchResultsComponent
+; ; ConfirmRep-DrivenDealsComponent ; Confirm Rep-Driven Deals Page Component ; ../customer/confirmRepDrivenDealsPage.jsp ; ; ConfirmRep-DrivenDealsComponent
+; ; SpecificDealsPageComponent      ; The Specific Deals Page Component       ; ../deal/specificDealsPage.jsp             ; ; SpecificDealsPageComponent
+
+#### Content Slots ####
+INSERT_UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]; cmsComponents(&componentRef)
+#; ; Portal-SiteLogoSlot   ; SiteLogoComponent
+#; ; Portal-BreadcrumbSlot ; breadcrumbComponent
+#; ; Portal-FooterSlot     ; Portal-FooterComponent
+
+# ContentSlot
+INSERT_UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]              ; name                                 ; active; cmsComponents(&componentRef);;;
+				         ;                          ; Section2-customerSearch         ; Staff Portal Customer Search         ; true  ; CustomerSearchComponent         ; ; ;
+                         ;                          ; Section2-customerSearchResults  ; Staff Portal Customer Search Results ; true  ; CustomerSearchResultsComponent  ; ; ;
+                         ;                          ; Section2-confirmRep-DrivenDeals ; Confirm Rep-Driven Deals             ; true  ; ConfirmRep-DrivenDealsComponent ; ; ;
+                         ;                          ; Section2-specificDealsPage      ; Staff Portal Specific Deals          ; true  ; SpecificDealsPageComponent      ; ; ;
+
+#INSERT_UPDATE FooterComponent; $contentCV[unique = true]; uid[unique = true]; wrapAfter; &componentRef
+#; ; Portal-FooterComponent ; 2 ; Portal-FooterComponent
+
+################### End - HC-1316 Staff Portal - Search customer Solr changes ####################################
+
+
+#############ALB Reset Password Link and Welcome Email CMS Setup for Staff Portal ###############
+
+
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#
+# Import the CMS content for the SGA site emails
+#
+$contentCatalog=sgaContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/coredata/contentCatalogs/sgaContentCatalog/emails
+
+$wideContent=CMSImageComponent,BannerComponent
+
+# Language                                                                                                 
+$lang=en     
+
+
+# Import modulegen config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$jarResourceCms=$config-jarResourceCmsValue                                                                
+$emailPackageName=$config-emailAsahiContextPackageName                                                          
+
+
+###########################ALB Resend Welcome Email #########################
+# Email page Template                                                                                      
+INSERT_UPDATE EmailPageTemplate ; $contentCV[unique=true] ; uid[unique=true]; name ; active ; frontendTemplateName; subject(code)          ; htmlTemplate(code)  ; restrictedPageTypes(code)
+   
+;; AsahiCustomerWelcomeEmailTemplate ; Asahi Customer Welcome  Email Template        ; true   ; asahiCustomerWelcomeEmail      ; sga_Customer_Welcome_Email_Subject      ; sga_Customer_Welcome_Email_Body      ; EmailPage                
+
+
+# Templates for CMS Cockpit Page Edit
+UPDATE EmailPageTemplate ; $contentCV[unique=true] ; uid[unique=true]; velocityTemplate[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                     
+;; AsahiCustomerWelcomeEmailTemplate      ; $jarResourceCms/structure-view/asahi/structure_asahiWelcomeEmailTemplate.vm  
+   
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='AsahiCustomerWelcomeEmailTemplate'] ; validComponentTypes(code)
+  ; SiteLogo          ;; ; logo
+  ; TopContent        ;; $wideContent             ;     
+  ; BottomContent     ;; $wideContent             ;     
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]                     ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='AsahiCustomerWelcomeEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+         ;; SiteLogo-asahiCustomerWelcomeEmail      ; SiteLogo              ; ; EmailSiteLogoSlot                        ; true          
+         ;; TopContent-asahiCustomerWelcomeEmail    ; TopContent            ; ; EmailTopSlot ; true          
+         ;; BottomContent-asahiCustomerWelcomeEmail ; BottomContent         ; ; EmailBottomSlot ; true          
+
+# Email Pages                        
+INSERT_UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]                    ; name         ; masterTemplate(uid,$contentCV)              ; defaultPage ; approvalStatus(code)[default='approved']               ;   
+                        ;; asahiCustomerWelcomeEmail      ; Asahi Customer Welcome  Email        ; AsahiCustomerWelcomeEmailTemplate      ; true        ;             
+
+
+
+# Email velocity templates     
+INSERT_UPDATE RendererTemplate ; code[unique=true]      ; contextClass                        ; rendererType(code)[default='velocity']
+   ; sga_Customer_Welcome_Email_Body         ; $emailPackageName.AsahiCustomerWelcomeEmailContext                 
+   ; sga_Customer_Welcome_Email_Subject      ; $emailPackageName.AsahiCustomerWelcomeEmailContext 
+   
+   
+   
+# CMS components and Email velocity templates                                                              
+UPDATE RendererTemplate ; code[unique=true]                                 ; description[lang=$lang]                            ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+  
+                        ; sga_Customer_Welcome_Email_Body        ; "Asahi Customer Welcome Email Body"           ; $jarEmailResource/email-asahiCustomerWelcomeEmailBody.vm                                                                 
+                        ; sga_Customer_Welcome_Email_Subject     ; "Asahi Customer Welcome Email Subject"        ; $jarEmailResource/email-asahiCustomerWelcomeEmailSubject.vm
+  
+# Preview Image for use in the CMS Cockpit
+INSERT_UPDATE Media ; $contentCV[unique=true] ; code[unique=true]      ; mime     ; realfilename               ; @media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true]
+                    ;; EmailPageModel_preview ; text/gif ; EmailPageModel_preview.gif ; $jarResourceCms/preview-images/EmailPageModel_preview.gif      
+
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]                    ; previewImage(code, $contentCV)
+				;                		   ; asahiCustomerWelcomeEmail      ; EmailPageModel_preview        
+
+
+##################################Customer Registration Email Upon User Creation by Staff Person/SuperAdmin#######################
+# Email page Template                                                                                      
+INSERT_UPDATE EmailPageTemplate ; $contentCV[unique=true] ; uid[unique=true]; name ; active ; frontendTemplateName; subject(code)          ; htmlTemplate(code)  ; restrictedPageTypes(code)
+   
+;; AsahiPasswordResetEmailTemplate ; Asahi Password Reset  Email Template        ; true   ; asahiPasswordResetEmail      ; sga_Password_Reset_Email_Subject      ; sga_Password_Reset_Email_Body      ; EmailPage                
+
+
+# Templates for CMS Cockpit Page Edit
+UPDATE EmailPageTemplate ; $contentCV[unique=true] ; uid[unique=true]; velocityTemplate[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                     
+;; AsahiPasswordResetEmailTemplate      ; $jarResourceCms/structure-view/asahi/structure_forgottenPasswordEmailTemplate.vm  
+   
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='AsahiPasswordResetEmailTemplate'] ; validComponentTypes(code)
+  ; SiteLogo          ;; ; logo
+  ; TopContent        ;; $wideContent             ;     
+  ; BottomContent     ;; $wideContent             ;     
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]                     ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='AsahiPasswordResetEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+         ;; SiteLogo-asahiPasswordResetEmail      ; SiteLogo              ; ; EmailSiteLogoSlot                        ; true          
+         ;; TopContent-asahiPasswordResetEmail    ; TopContent            ; ; EmailTopSlot ; true          
+         ;; BottomContent-asahiPasswordResetEmail ; BottomContent         ; ; EmailBottomSlot ; true          
+
+# Email Pages                        
+INSERT_UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]                    ; name         ; masterTemplate(uid,$contentCV)              ; defaultPage ; approvalStatus(code)[default='approved']               ;   
+                        ;; asahiPasswordResetEmail      ; Asahi Password Reset  Email        ; AsahiPasswordResetEmailTemplate      ; true        ;             
+
+
+
+# Email velocity templates     
+INSERT_UPDATE RendererTemplate ; code[unique=true]      ; contextClass                        ; rendererType(code)[default='velocity']
+   ; sga_Password_Reset_Email_Body         ; $emailPackageName.ForgottenPasswordEmailContext                 
+   ; sga_Password_Reset_Email_Subject      ; $emailPackageName.ForgottenPasswordEmailContext 
+   
+   
+   
+# CMS components and Email velocity templates                                                              
+UPDATE RendererTemplate ; code[unique=true]                                 ; description[lang=$lang]                            ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+  
+                        ; sga_Password_Reset_Email_Body        ; "Asahi Password Reset Email Body"           ; $jarEmailResource/email-asahiPasswordResetBody.vm                                                                 
+                        ; sga_Password_Reset_Email_Subject     ; "Asahi Password Reset Email Subject"        ; $jarEmailResource/email-asahiPasswordResetSubject.vm
+  
+# Preview Image for use in the CMS Cockpit
+INSERT_UPDATE Media ; $contentCV[unique=true] ; code[unique=true]      ; mime     ; realfilename               ; @media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true]
+                    ;; EmailPageModel_preview ; text/gif ; EmailPageModel_preview.gif ; $jarResourceCms/preview-images/EmailPageModel_preview.gif      
+
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]                    ; previewImage(code, $contentCV)
+				;                		   ; asahiPasswordResetEmail      ; EmailPageModel_preview 				
+				
+				
+##################Property for Create User/Resend Welcome Email through ALB Staff Portal View ############################
+
+INSERT_UPDATE Configuration ; configKey[unique=true]                                       ; configValue                           
+                       
+                            ;customer.welcome.email.from.emailid.sga						;ACCConnect@oc.globalasahi.com
+                            ;customer.welcome.email.from.email.name.sga                     ;ALB Connect
+                            ;customer.welcome.email.subject.sga								;Welcome to ALB Connect
+                           	;staff.flow.customer.registration.subject.sga					;Welcome to ALB Connect
+                       	
+
+################################################################################################################################################ End - HC-1316 Staff Portal - Search customer Solr changes ####################################
+################## Property for managing the user removal for sga#################################################
+INSERT_UPDATE Configuration ; configKey[unique=true]                              ; configValue 								 
+						    ;storefront.enable.remove.user.sga                     ; true
+################## Property for managing the user removal for sga#################################################
+
+#########################Add a restriction to display only ZALB unit in search result page start##################################
+$solrCustomerIndexedType = sabmStoreB2bCustomerType
+$searchIndexNamePrefix = sabmStore
+
+INSERT_UPDATE SolrIndexerQuery; solrIndexedType(identifier)[unique = true]; identifier[unique = true]; type(code); injectCurrentDate[default = true]; injectCurrentTime[default = true]; injectLastIndexTime[default = true]; query; user(uid)
+; $solrCustomerIndexedType ; $searchIndexNamePrefix-customerFullQuery   ; full   ; ; ; false ; "SELECT DISTINCT{q:PK} as pk FROM {B2BUnit as q}  WHERE {q:accountGroup}='ZALB' AND {q:UID} is not NULL " ; anonymous
+; $solrCustomerIndexedType ; $searchIndexNamePrefix-customerUpdateQuery ; update ; ; ;       ; "
+		SELECT DISTINCT {k:PK} AS lpk
+		FROM {B2BUnit AS k }
+		WHERE {k:accountGroup}='ZALB' AND {k:modifiedtime} >= ?lastIndexTime
+"                                                                                                                          ; anonymous
+#########################Add a restriction to display only ZALB unit in search result page end##################################
+##################################Customer removal Email Upon User removal by Staff Person/SuperAdmin#######################
+$contentCatalog=sgaContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/coredata/contentCatalogs/sgaContentCatalog/emails
+
+$wideContent=CMSImageComponent,BannerComponent
+
+# Language                                                                                                 
+$lang=en  
+
+UPDATE GenericItem[processor = de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor]; pk[unique = true]
+$jarResourceCms = $config-jarResourceCmsValue
+$emailPackageName=$config-emailAsahiContextPackageName
+# Email page Template                                                                                      
+INSERT_UPDATE EmailPageTemplate ; $contentCV[unique=true] ; uid[unique=true]; name ; active ; frontendTemplateName; subject(code)          ; htmlTemplate(code)  ; restrictedPageTypes(code)
+   
+;; AsahiProfileUpdateEmailTemplate ; Asahi Profile update Email Template        ; true   ; asahiProfileUpdateEmailTemplate      ; sga_Profile_Update_Email_Subject      ; sga_Profile_Update_Email_Body      ; EmailPage                
+
+
+# Templates for CMS Cockpit Page Edit
+UPDATE EmailPageTemplate ; $contentCV[unique=true] ; uid[unique=true]; velocityTemplate[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                     
+;; AsahiProfileUpdateEmailTemplate      ; $jarResourceCms/structure-view/asahi/structure_asahiProfileUpdateEmailTemplate.vm  
+   
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='AsahiProfileUpdateEmailTemplate'] ; validComponentTypes(code)
+  ; SiteLogo          ;; ; logo
+  ; TopContent        ;; $wideContent             ;     
+  ; BottomContent     ;; $wideContent             ;     
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]                     ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='AsahiProfileUpdateEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+         ;; SiteLogo-asahiProfileUpdateEmail      ; SiteLogo              ; ; EmailSiteLogoSlot                        ; true          
+         ;; TopContent-asahiProfileUpdateEmail    ; TopContent            ; ; EmailTopSlot ; true          
+         ;; BottomContent-asahiProfileUpdateEmail ; BottomContent         ; ; EmailBottomSlot ; true          
+
+# Email Pages                        
+INSERT_UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]                    ; name         ; masterTemplate(uid,$contentCV)              ; defaultPage ; approvalStatus(code)[default='approved']               ;   
+                        ;; asahiProfileUpdateEmail      ; Asahi Profile Update Email        ; AsahiProfileUpdateEmailTemplate      ; true        ;             
+
+
+
+# Email velocity templates     
+INSERT_UPDATE RendererTemplate ; code[unique=true]      ; contextClass                        ; rendererType(code)[default='velocity']
+   ; sga_Profile_Update_Email_Subject         ; $emailPackageName.SgaProfileUpdatedNoticeEmailContext                 
+   ; sga_Profile_Update_Email_Body      ; $emailPackageName.SgaProfileUpdatedNoticeEmailContext 
+   
+   
+   
+# CMS components and Email velocity templates                                                              
+UPDATE RendererTemplate ; code[unique=true]                                 ; description[lang=$lang]                            ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+  
+                        ; sga_Profile_Update_Email_Subject        ; "Asahi Profile Update Email Subject"           ; $jarEmailResource/email-asahiProfileUpdateEmailSubject.vm                                                                 
+                        ; sga_Profile_Update_Email_Body     ; "Asahi Profile Update Email Body"        ; $jarEmailResource/email-asahiProfileUpdateEmailBody.vm
+  
+# Preview Image for use in the CMS Cockpit
+INSERT_UPDATE Media ; $contentCV[unique=true] ; code[unique=true]      ; mime     ; realfilename               ; @media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true]
+                    ;; EmailPageModel_preview ; text/gif ; EmailPageModel_preview.gif ; $jarResourceCms/preview-images/EmailPageModel_preview.gif      
+
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]                    ; previewImage(code, $contentCV);fromName;fromEmail;		
+;                		   					; asahiProfileUpdateEmail      ; EmailPageModel_preview 			;ALB Connect;	ACCConnect@oc.globalasahi.com;		
+				
+
+$contentCatalog=sgaContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/coredata/contentCatalogs/sgaContentCatalog/emails
+
+$wideContent=CMSImageComponent,BannerComponent
+
+# Language                                                                                                 
+$lang=en  
+UPDATE GenericItem[processor = de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor]; pk[unique = true]
+$jarResourceCms = $config-jarResourceCmsValue                                                              
+$emailPackageName=$config-emailAsahiContextPackageName  
+
+# Email page Template                                                                                      
+INSERT_UPDATE EmailPageTemplate ; $contentCV[unique=true] ; uid[unique=true]; name ; active ; frontendTemplateName; subject(code)          ; htmlTemplate(code)  ; restrictedPageTypes(code)
+   
+;; AsahiProfileUpdateEmailTemplate ; Asahi Profile update Email Template        ; true   ; asahiProfileUpdateEmailTemplate      ; sga_Profile_Update_Email_Subject      ; sga_Profile_Update_Email_Body      ; EmailPage                
+
+
+# Templates for CMS Cockpit Page Edit
+UPDATE EmailPageTemplate ; $contentCV[unique=true] ; uid[unique=true]; velocityTemplate[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                     
+;; AsahiProfileUpdateEmailTemplate      ; $jarResourceCms/structure-view/asahi/structure_asahiProfileUpdateEmailTemplate.vm  
+   
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='AsahiProfileUpdateEmailTemplate'] ; validComponentTypes(code)
+  ; SiteLogo          ;; ; logo
+  ; TopContent        ;; $wideContent             ;     
+  ; BottomContent     ;; $wideContent             ;     
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]                     ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='AsahiProfileUpdateEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+         ;; SiteLogo-asahiProfileUpdateEmail      ; SiteLogo              ; ; EmailSiteLogoSlot                        ; true          
+         ;; TopContent-asahiProfileUpdateEmail    ; TopContent            ; ; EmailTopSlot ; true          
+         ;; BottomContent-asahiProfileUpdateEmail ; BottomContent         ; ; EmailBottomSlot ; true          
+
+# Email Pages                        
+INSERT_UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]                    ; name         ; masterTemplate(uid,$contentCV)              ; defaultPage ; approvalStatus(code)[default='approved']               ;   
+                        ;; asahiProfileUpdateEmail      ; Asahi Profile Update Email        ; AsahiProfileUpdateEmailTemplate      ; true        ;             
+
+
+
+# Email velocity templates     
+INSERT_UPDATE RendererTemplate ; code[unique=true]      ; contextClass                        ; rendererType(code)[default='velocity']
+   ; sga_Profile_Update_Email_Subject         ; $emailPackageName.SgaProfileUpdatedNoticeEmailContext                 
+   ; sga_Profile_Update_Email_Body      ; $emailPackageName.SgaProfileUpdatedNoticeEmailContext 
+   
+   
+   
+# CMS components and Email velocity templates                                                              
+UPDATE RendererTemplate ; code[unique=true]                                 ; description[lang=$lang]                            ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+  
+                        ; sga_Profile_Update_Email_Subject        ; "Asahi Profile Update Email Subject"           ; $jarEmailResource/email-asahiProfileUpdateEmailSubject.vm                                                                 
+                        ; sga_Profile_Update_Email_Body     ; "Asahi Profile Update Email Body"        ; $jarEmailResource/email-asahiProfileUpdateEmailBody.vm
+  
+# Preview Image for use in the CMS Cockpit
+INSERT_UPDATE Media ; $contentCV[unique=true] ; code[unique=true]      ; mime     ; realfilename               ; @media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true]
+                    ;; EmailPageModel_preview ; text/gif ; EmailPageModel_preview.gif ; $jarResourceCms/preview-images/EmailPageModel_preview.gif      
+
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]                    ; previewImage(code, $contentCV);fromName;fromEmail;		
+;                		   					; asahiProfileUpdateEmail      ; EmailPageModel_preview 			;ALB Connect;	ACCConnect@oc.globalasahi.com;		
+				
+								
+##################Property for Create User/Resend Welcome Email through ALB Staff Portal View ############################
+
+INSERT_UPDATE Configuration ; configKey[unique=true]                                       ; configValue                           
+                       
+                            ;customer.profile.update.email.from.emailid.sga						;ACCConnect@oc.globalasahi.com
+                            ;customer.profile.update.email.from.email.name.sga                     ;ALB Connect
+                            ;customer.profile.update.email.subject.sga								;Change to your account details
+                       	
+#########################new BDE customer group for ALB BDE customers start##########################
+INSERT_UPDATE Usergroup;uid[unique=true];locname[lang=en];
+;bdecustomergroup;bdecustomergroup;
+;b2bNAPGroup;b2bNAPGroup
+
+$contentCatalog=sgaContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+INSERT_UPDATE CMSUserGroupRestriction; $contentCV[unique = true]; uid[unique = true]; name; userGroups(uid); includeSubgroups;
+; ; BDECustomerGroupRestriction    ; BDE Customer Group Restriction    ; bdecustomergroup    ; false ;
+; ; NAPGroupRestriction			   ; NAP Group Restriction			   ; b2bNAPGroup         ; false ;
+
+INSERT_UPDATE CMSInverseRestriction ; $contentCV[unique=true] ; name;originalRestriction(uid,$contentCV) ; uid[unique=true];components(uid,$contentCV)
+                                    ;                         ; Non BDE Customers; BDECustomerGroupRestriction; NonBDECustomerRestriction    ; UpdatePasswordLink,UpdatePasswordComponent
+                                    ;						  ; Non NAP Group Restriction; NAPGroupRestriction; NonNAPGroupRestriction       ; OrderTemplateLink,MiniCart
+
+$contentCatalog=sabmContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+INSERT_UPDATE CMSUserGroupRestriction; $contentCV[unique = true]; uid[unique = true]; name; userGroups(uid); includeSubgroups;
+; ; NAPGroupRestriction			   ; NAP Group Restriction			   ; b2bNAPGroup         ; false ;
+
+INSERT_UPDATE CMSInverseRestriction ; $contentCV[unique=true] ; name;originalRestriction(uid,$contentCV) ; uid[unique=true];components(uid,$contentCV)
+                                    ;						  ; Non NAP Group Restriction; NAPGroupRestriction; NonNAPGroupRestriction       ; BestsellerComponent,SupportInvoiceDescrepancyComponent_backgroundimage,InvoiceDiscrepancyLink,SupportProductComponent_backgroundimage,ProductOrPricingEnquiryLink
+
+
+                                    
+#########################new BDE customer group for ALB BDE customers end##########################
+
+
+##################################Recommendation#####################################################
+
+
+$contentCatalog=sgaContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+
+# Import modulegen config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$jarResourceCms=$config-jarResourceCmsValue                                                                
+
+INSERT_UPDATE ContentPage ; $contentCV[unique=true] ; uid[unique=true]                     ; name                     ; masterTemplate(uid,$contentCV)         ; label                               ; defaultPage[default='true'] ; approvalStatus(code)[default='approved'] ; homepage[default='false'] ;  ; backgroundImage(code, $contentCV)[default='backgroundImage']
+     
+                          ;							; repRecommendation  					; BDE Recommendation Page ; AccountPageTemplate 					;/recommendation 
+
+INSERT_UPDATE JspIncludeComponent ; $contentCV[unique=true] ; uid[unique=true] ; name ; page ; actions(uid,$contentCV) ; &componentRef
+                                  ;  						; RepRecommendationComponent    ; Rep Recommendation Component     ; /WEB-INF/views/responsive/pages/recommendation/repRecommendationPage.jsp; ; RepRecommendationComponent   
+                                
+INSERT_UPDATE ContentSlot ; $contentCV[unique=true] ; uid[unique=true] ; name ; active ; cmsComponents(&componentRef)                            
+                          ;							; BodyContent-repRecommendation ; Body Content for BDE Recommendation Page ; true   ; RepRecommendationComponent  
+
+
+INSERT_UPDATE ContentSlotForPage ; $contentCV[unique=true] ; uid[unique=true]; position[unique=true] ; page(uid,$contentCV)[unique=true][default='repRecommendation'] ;contentSlot(uid,$contentCV)[unique=true]             
+                                 ;   						; BodyContent-repRecommendation ; BodyContent ;  ; BodyContent-repRecommendation    
+
+                                 
+########################################################################################################               
+$contentCatalog = sgaContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]), CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged][unique=true]
+INSERT_UPDATE AsahiRecommendationsComponent; uid[unique = true]   ; name                             ; title                 ; model1Title     ; model2Title          ; model3Title     ; $contentCV; &componentRef
+                                           ; asahiRecommendations ; "SGA Recommendation Component" ; "Recommended based on your history and profile" ; "FOR VENUES LIKE YOURS" ; "HOT RIGHT NOW" ; "RECOMMENDED BY YOUR REP" ;           ; asahiRecommendations
+
+INSERT_UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]                      ; cmsComponents(&componentRef)[mode = append]
+                         ;                          ; Section2BSlot-Homepage                  ; asahiRecommendations                  
+########################################################################################################   
+
+########################################HC-1223:Order Status enrichment - Start###############################################################
+
+INSERT_UPDATE OrderStatusMapping ; statusCode[unique=true] 		; dynamicsStatusCode[unique=true] ; DisplayStatus 			;apbDisplayStatus
+								 ; ASSIGNED_TO_ADMIN			;01							      ; Order Placed   			;Order Placed
+								 ; CREATED						;01								  ; Order Placed   			;Order Placed
+								 ; IN_PROGRESS					;10								  ; Order being processed   ;In Progress
+								 ; PICKING_IN_PROGRESS			;20								  ; Picking in progress     ;In Progress
+								 ; PAYMENT_CAPTURED				;01								  ; Order Placed            ;Order Placed
+								 ; PAYMENT_APPROVED				;01								  ; Order Placed            ;Order Placed
+								 ; PAYMENT_NOT_CAPTURED			;01								  ; Order Placed            ;Order Placed
+								 ; PAYMENT_AUTHORIZED			;01								  ; Order Placed            ;Order Placed
+								 ; SENT_TO_BACKEND_FAILED		;01								  ; In Progress             ;In Progress
+								 ; PROCESSING_ERROR				;10								  ; In Progress             ;In Progress
+								 ; SENT_TO_BACKEND				;15								  ; In Progress             ;In Progress
+								 ; IN_TRANSIT			        ;30								  ; In Transit              ;In Progress 
+								 ; CANCELLED					;40								  ; Cancelled               ;Cancelled
+								 ; COMPLETED					;50								  ; Completed               ;Completed
+								 ; DELIVERED					;60								  ; Delivered               ;Delivered
+								 ; ORDER_SENT_TO_BACKEND_FAILED	;70								  ; In Progress             ;In Progress
+
+REMOVE  OrderStatusMapping ; statusCode[unique=true] 		; dynamicsStatusCode[unique=true]
+						   ; PROCESSING_ERROR               ; 10
+						   ; ORDER_SENT_TO_BACKEND          ; 60
+						   ; IN_PROGRESS					; 20
+						   ; PICKLIST_GENERATED             ; 30
+						   ; SENT_TO_BACKEND                ; 20
+
+########################################HC-1223:Order Status enrichment - Start###############################################################
+###########################################HC-1527 email body change start############################################################# 
+$contentCatalog=sgaContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/coredata/contentCatalogs/sgaContentCatalog/emails
+# Language                                                                                                 
+$lang=en                                                                                                   
+  
+# CMS components and Email velocity templates                                                              
+UPDATE RendererTemplate ; code[unique=true]                        ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+  
+                        ; sga_Email_Order_Confirmation_Body        ; $jarEmailResource/email-orderConfirmationBody.vm    
+#############################################HC-1527 email body change End########################################################### 
+
+
+
+#################################### HC-1214 : Planograms ######################################################################################
+
+$lang=en
+$contentCatalog=sgaContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+
+# Import modulegen config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$jarResourceCms=$config-jarResourceCmsValue                                                                
+
+
+INSERT_UPDATE CMSNavigationNode ; uid[unique=true]       ; $contentCV[unique=true] ; name             ; parent(uid, $contentCV) ; links(&linkRef) ; &nodeRef              
+
+                                    ; PlanogramsNavNode  ;                            ; Planograms Listing    ; MyAccountNavNode      ;                  ; PlanogramsNavNode
+
+## entries of the above navigation nodes ##
+INSERT_UPDATE CMSNavigationEntry ; uid[unique=true]            ; $contentCV[unique=true] ; name                        ; navigationNode(&nodeRef) ; item(&linkRef)      ;  
+                                 ; PlanogramsNavNodeEntry  ;                         ; PlanogramsNavNodeEntry  ; PlanogramsNavNode    ; MyPlanogramsLink  ;
+
+								
+INSERT_UPDATE CMSLinkComponent ; $contentCV[unique=true] ; uid[unique=true]    ; name      ;linkName[lang=$lang]          ; url                                              ; &linkRef            ; target(code)[default='sameWindow']	;	accessType(code)
+                              ;                         ; MyPlanogramsLink  ; MyPlanogramsLink  ;MY PLANOGRAMS; /my-account/planograms	                        ; MyPlanogramsLink  ;                                     ;               ;
+
+INSERT_UPDATE ContentPage ; $contentCV[unique=true] ; uid[unique=true]                     ; name                     ; masterTemplate(uid,$contentCV)         ; label                               ; defaultPage[default='true'] ; approvalStatus(code)[default='approved'] ; homepage[default='false'] ;  ; backgroundImage(code, $contentCV)[default='backgroundImage']
+     
+                          ;							; planograms 					; My Planogram Page ; AccountPageTemplate 					;/planograms 
+
+INSERT_UPDATE JspIncludeComponent ; $contentCV[unique=true] ; uid[unique=true] ; name ; page ; actions(uid,$contentCV) ; &componentRef
+                                  ;  						; PlanogramComponent    ; Planogram Component     ; /WEB-INF/views/responsive/pages/planogram/myPlanogram.jsp; ; PlanogramComponent   
+                                
+INSERT_UPDATE ContentSlot ; $contentCV[unique=true] ; uid[unique=true] ; name ; active ; cmsComponents(&componentRef)                            
+                          ;							; BodyContent-Planogram ; Body Content for Planogram Page ; true   ; PlanogramComponent  
+
+
+INSERT_UPDATE ContentSlotForPage ; $contentCV[unique=true] ; uid[unique=true]; position[unique=true] ; page(uid,$contentCV)[unique=true][default='planograms'] ;contentSlot(uid,$contentCV)[unique=true]             
+                                 ;   						; BodyContent-Planogram ; BodyContent ;  ; BodyContent-Planogram  
+
+
+######Clean up Jobs to delete default and store specific planograms before a certain modified date####
+
+$twelveWeeks = 7257600
+## Default Planograms at CL Cleanup
+INSERT_UPDATE FlexibleSearchRetentionRule;code[unique=true];searchQuery;retentionTimeSeconds;actionReference;
+                                         ;defaultPlanogramsCleanupRule;"select {p:pk},{p:itemtype}
+   from {Planogram as p} where {p.associationtype} IN ({{select {t:pk} from {PlanogramAssociationType as t} where {t:code}='CUSTOMER_SEGMENT'}}) 
+   AND {p:modifiedTime} < ?CALC_RETIREMENT_TIME"; $twelveWeeks; basicRemoveCleanupAction;
+INSERT_UPDATE RetentionJob;code[unique=true];retentionRule(code);batchSize
+                          ; defaultPlanogramsRemovalJob; defaultPlanogramsCleanupRule; 1000						  						 						  
+INSERT_UPDATE CronJob;code[unique=true];job(code);sessionLanguage(isoCode)[default=en];active[default=true]
+                     ; defaultPlanogramsRemovalCronJob; defaultPlanogramsRemovalJob;								 
+
+					 
+## Additional Planograms with Customer Account Cleanup
+INSERT_UPDATE FlexibleSearchRetentionRule;code[unique=true];searchQuery;retentionTimeSeconds;actionReference;
+                                         ;accountPlanogramsCleanupRule;"select {p:pk},{p:itemtype}
+   from {Planogram as p} where {p.associationtype} IN ({{select {t:pk} from {PlanogramAssociationType as t} where {t:code}='CUSTOMER_ACCOUNT'}}) 
+   AND {p:modifiedTime} < ?CALC_RETIREMENT_TIME"; $twelveWeeks; basicRemoveCleanupAction;
+INSERT_UPDATE RetentionJob;code[unique=true];retentionRule(code);batchSize
+                          ; accountPlanogramsRemovalJob; accountPlanogramsCleanupRule; 1000						  						 						  
+INSERT_UPDATE CronJob;code[unique=true];job(code);sessionLanguage(isoCode)[default=en];active[default=true]
+                     ; accountPlanogramsRemovalCronJob; accountPlanogramsRemovalJob;
+
+#################################### HC-1214 : Planograms ######################################################################################
+
+$contentCatalog=sgaContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+
+# Import modulegen config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$jarResourceCms=$config-jarResourceCmsValue                                                                
+
+INSERT_UPDATE ContentPage ; $contentCV[unique=true] ; uid[unique=true]                     ; name                     ; masterTemplate(uid,$contentCV)         ; label                               ; defaultPage[default='true'] ; approvalStatus(code)[default='approved'] ; homepage[default='false'] ;  ; backgroundImage(code, $contentCV)[default='backgroundImage']
+     
+                          ;							; asahiDeals  							; BDE Deals Page 		; AccountPageTemplate 					;/deals 
+
+INSERT_UPDATE JspIncludeComponent ; $contentCV[unique=true] ; uid[unique=true] ; name ; page ; actions(uid,$contentCV) ; &componentRef
+                                  ;  						; RepDealsComponent    ; Rep Deals Component     ; ../deal/asahiRepDealsPage.jsp; ; RepDealsComponent   
+                                
+INSERT_UPDATE ContentSlot ; $contentCV[unique=true] ; uid[unique=true] ; name ; active ; cmsComponents(&componentRef)                            
+                          ;							; BodyContent-repDeals ; Body Content for BDE Deals Page ; true   ; RepDealsComponent  
+
+
+INSERT_UPDATE ContentSlotForPage ; $contentCV[unique=true] ; uid[unique=true]; position[unique=true] ; page(uid,$contentCV)[unique=true][default='asahiDeals'] ;contentSlot(uid,$contentCV)[unique=true]                         
+                                 ;   						; BodyContent-repDeals ; BodyContent ;  ; BodyContent-repDeals    
+
+INSERT_UPDATE JspIncludeComponent ; $contentCV[unique=true] ; uid[unique=true] ; name ; page ; &componentRef
+; ; AsahiHomePageDealsComponent ; Rep Deals Component ; /WEB-INF/views/responsive/pages/deal/asahiHomePageDeals.jsp; AsahiHomePageDealsComponent
+
+
+
+INSERT_UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true] ; cmsComponents(&componentRef)[mode = append]
+; ; Section2ASlot-Homepage ; AsahiHomePageDealsComponent
+###################################################################################################################################################################
+########################################################Deals email change######################################################################################
+$contentCatalog=sgaContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/coredata/contentCatalogs/sgaContentCatalog/emails
+
+$wideContent=CMSImageComponent,BannerComponent
+
+# Language                                                                                                 
+$lang=en  
+UPDATE GenericItem[processor = de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor]; pk[unique = true]
+$jarResourceCms = $config-jarResourceCmsValue                                                              
+$emailPackageName=$config-emailAsahiContextPackageName  
+
+# Email page Template                                                                                      
+INSERT_UPDATE EmailPageTemplate ; $contentCV[unique=true] ; uid[unique=true]; name ; active ; frontendTemplateName; subject(code)          ; htmlTemplate(code)  ; restrictedPageTypes(code)
+   
+;; AsahiDealsChangeEmailTemplate ; Asahi Deals change Email Template        ; true   ; asahiDealsChangeEmailTemplate      ; asahi_Deals_Change_Email_Subject      ; asahi_Deals_Change_Email_Body      ; EmailPage                
+
+
+# Templates for CMS Cockpit Page Edit
+UPDATE EmailPageTemplate ; $contentCV[unique=true] ; uid[unique=true]; velocityTemplate[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                     
+;; AsahiDealsChangeEmailTemplate      ; $jarResourceCms/structure-view/asahi/structure_asahiDealsChangeEmailTemplate.vm  
+   
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='AsahiDealsChangeEmailTemplate'] ; validComponentTypes(code)
+  ; SiteLogo          ;; ; logo
+  ; TopContent        ;; $wideContent             ;     
+  ; BottomContent     ;; $wideContent             ;     
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]                     ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='AsahiDealsChangeEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+         ;; SiteLogo-asahiDealsChangeEmail      ; SiteLogo              ; ; EmailSiteLogoSlot                        ; true          
+         ;; TopContent-asahiDealsChangeEmail    ; TopContent            ; ; EmailTopSlot ; true          
+         ;; BottomContent-asahiDealsChangeEmail ; BottomContent         ; ; EmailBottomSlot ; true          
+
+# Email Pages                        
+INSERT_UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]                    ; name         ; masterTemplate(uid,$contentCV)              ; defaultPage ; approvalStatus(code)[default='approved']               ;   
+                        ;; asahiDealsChangeEmail      ; Asahi Deal change Email        ; AsahiDealsChangeEmailTemplate      ; true        ;             
+
+
+
+# Email velocity templates     
+INSERT_UPDATE RendererTemplate ; code[unique=true]      ; contextClass                        ; rendererType(code)[default='velocity']
+   ; asahi_Deals_Change_Email_Subject         ; $emailPackageName.AsahiDealsChangeNotificationEmailContext                 
+   ; asahi_Deals_Change_Email_Body      ; $emailPackageName.AsahiDealsChangeNotificationEmailContext 
+   
+   
+   
+# CMS components and Email velocity templates                                                              
+UPDATE RendererTemplate ; code[unique=true]                                 ; description[lang=$lang]                            ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+  
+                        ; asahi_Deals_Change_Email_Subject        ; "Asahi Deal Change Email Subject"           ; $jarEmailResource/email-asahiDealConfirmationEmailSubject.vm                                                                
+                        ; asahi_Deals_Change_Email_Body     ; "Asahi Deal Change Email Body"        ; $jarEmailResource/email-asahiDealConfirmationEmailBody.vm
+  
+# Preview Image for use in the CMS Cockpit
+INSERT_UPDATE Media ; $contentCV[unique=true] ; code[unique=true]      ; mime     ; realfilename               ; @media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true]
+                    ;; EmailPageModel_preview ; text/gif ; EmailPageModel_preview.gif ; $jarResourceCms/preview-images/EmailPageModel_preview.gif      
+
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]                    ; previewImage(code, $contentCV);fromName;fromEmail;		
+					;                	; asahiDealsChangeEmail      ; EmailPageModel_preview 			;ALB Connect;	ACCConnect@oc.globalasahi.com;
+
+
+INSERT_UPDATE Configuration ; configKey[unique=true]                                       ; configValue                           
+                       
+                            ;asahi.deal.update.email.from.emailid.sga						;ACCConnect@oc.globalasahi.com
+                            ;asahi.deal.update.email.name.sga                     			;ALB Connect
+                            ;asahi.deal.update.email.subject.sga							;It's a Deal! Bottled just for you
+########################################################Deals email change end######################################################################################		
+
+
+#########################################################HC-1525 Start###############################
+
+INSERT_UPDATE AsahiOnAccountRestrictedCode;code[unique=true]
+;C00A
+;C00B
+		
+#########################################################HC-1525 End#################################
+
+
+
+##########################################################ProductDealComponent on PDP###############################################################
+
+###################################################################################################################################################################
+########################################################Deals email change######################################################################################
+$contentCatalog=sgaContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+
+
+# CMS tabs components     
+INSERT_UPDATE JspIncludeComponent ; $contentCV[unique=true] ; uid[unique=true]           ; name                ; page                                                          ; actions(uid,$contentCV) ; &componentRef             
+                                  ;                         ; ProductDetailsDealsComponent ; Product Details     ; /WEB-INF/views/responsive/pages/product/productDetailsDealsTab.jsp ;                         ; ProductDetailsDealsComponent
+                    
+UPDATE JspIncludeComponent ; $contentCV[unique=true] ; uid[unique=true]           ; title[lang=en] 
+                           ;                         ; ProductDetailsDealsComponent ; Deals    
+								  
+								  
+INSERT_UPDATE CMSTabParagraphContainer ; $contentCV[unique=true] ; uid[unique=true] ; simpleCMSComponents(uid, $contentCV); &componentRef    
+   ;                         ; TabPanelContainer ; ProductDetailsDealsComponent,ProductDetailsTabComponent,ProductSpecsTabComponent ; TabPanelContainer
+
+##################################################Bonus stock configuration for ALB#########################################################################
+INSERT_UPDATE Configuration ; configKey[unique=true]                                       ; configValue  
+							;bonus.stock.global.max.quantity.sga						;100
+							;bonus.stock.product.max.quantity.sga						;50
+###################################################Bonus stock configuration for ALB#########################################################################
+
+########################################### HC-1210- Remove doc start with 130 from disable checkbox list #################################
+INSERT_UPDATE Configuration ; configKey[unique=true]                              ; configValue 								 
+						    ;invoice.no.checkbox.prefix                           ; 5
+########################################### HC-1210- Remove doc start with 130 from disable checkbox list #################################
+
+ 
+####################################### Property change for street name, street number update issue ##############################################
+
+INSERT_UPDATE Configuration ; configKey[unique=true]                                       ; configValue                           
+							; update.address.street.with.backend.record.sga                ; false
+							
+####################################### Property change for street name, street number update issue ##############################################
+###########################################ALM#332 change start #############################################
+$contentCatalog=apbContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/coredata/contentCatalogs/apbContentCatalog/emails
+# Language
+$lang=en
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$emailResource=$config-emailResourceValue   
+
+UPDATE RendererTemplate ; code[unique=true]                                 ; description[lang=$lang]                            ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                      ; apb_Email_Customer_Registration_Body              ; "Customer Registration Email Body"                 ; $jarEmailResource/email-customerRegistrationBody.vm
+###########################################ALM#332 change end #############################################
+ 

@@ -1,0 +1,21 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# ImpEx for Importing Units into SGA Store
+
+# Macros / Replacement Parameter definitions
+$systemVersion=systemVersion(catalog(id[default='SgaClassification']),version[default='1.0'])[unique=true]
+
+#
+# Localization en
+#
+$lang=en
+
+UPDATE ClassificationAttributeUnit ; code[unique=true] ; $systemVersion ; name[lang=$lang]               

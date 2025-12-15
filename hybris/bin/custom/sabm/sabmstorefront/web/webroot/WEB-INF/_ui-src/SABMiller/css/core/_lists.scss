@@ -1,0 +1,105 @@
+// ==========================================================================
+//   Custom list styles
+// ==========================================================================
+
+//Bordered lists used on portal pages
+.list-bordered {
+  font-size: $font-small;
+  font-weight:bold;
+  border-bottom: 1px solid $medium-grey;
+  li {
+    border-top: 1px solid $medium-grey;
+    line-height: $line-height-medium;
+    padding: $spacing-x-small 0;
+    @media (min-width: $tablet) {
+      line-height: $line-height-large;
+    }
+  }
+}
+
+//List badge used to denote moving through a series of results or pages
+.list-badge {
+  font-size: $font-small;
+  margin: $spacing-x-small 0 $spacing-small;
+  li {
+    display: inline-block;
+    margin-right: $spacing-small-plus;
+  }
+}
+
+//Standard list disc
+.list-disc {
+  margin-bottom: $spacing-large;
+  li {
+    margin-left: $spacing-large;
+    list-style: disc;
+  }
+}
+
+
+.list-checkbox-bordered{
+  font-size: $font-small;
+  border-bottom: 1px solid $medium-grey;
+  margin-bottom: $spacing-medium;
+  li{
+    border-top: 1px solid $medium-grey;
+    padding-top: $spacing-small;
+  }
+}
+
+
+
+
+.list-split{
+  li{
+    float: left;
+    line-height:$line-height-large;
+    &:first-child{
+      margin-right: $spacing-x-large;
+    }
+  }
+}
+
+.list-modal{
+  li{
+    display: block;
+    @media (min-width: $tablet) {
+      display: inline-block;
+    }
+    &:first-child{
+      margin-right: 0;
+      @media (min-width: $tablet) {
+        margin-right: $spacing-x-small;
+      }
+    }
+  }
+}
+
+.list-calendar{
+
+  border-bottom: 2px solid $light-lighter-grey;
+  padding-left: $spacing-gutter;
+  padding-right: $spacing-gutter;
+  margin-left: -$spacing-gutter;
+  margin-right: -$spacing-gutter;
+  margin-bottom: $spacing-small;
+  padding-bottom: $spacing-x-small;
+  @media (min-width: $tablet) {
+      border-bottom: none;
+  }
+  li{
+    float: left;
+    display: block;
+    width:100%;
+    line-height:$line-height-large;
+    &:first-child{
+      margin-right: $spacing-medium;
+    }
+    @media (min-width: $tablet) {
+      width:auto;
+      &:first-child{
+        width:50%;
+      }
+    }
+  }
+}

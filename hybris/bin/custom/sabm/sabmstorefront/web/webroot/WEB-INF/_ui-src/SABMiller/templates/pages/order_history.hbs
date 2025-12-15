@@ -1,0 +1,116 @@
+---
+title: Order History
+bodyClass: page-orders
+---
+
+<div class="row">
+
+  <div class="col-sm-12">
+
+    <div class="banner-image banner-top banner-image-desktop">
+      <img src="http://placehold.it/940x140?text=CMS+Content" alt="CMS Content">
+    </div>
+    <div class="banner-image banner-top banner-image-mobile">
+      <img src="http://placehold.it/768x140?text=CMS+Content" alt="CMS Content">
+    </div>
+    
+    <div class="row order-filters">
+      <div class="col-md-6">
+        <h1>Order History</h1>
+        <span class="numItems"><span></span> Orders</span>
+        <span class="numItem">1 Order</span>
+      </div>
+      <div class="col-md-6">
+        <div class="input-daterange form-group clearfix" id="orderHistoryRange">
+          <div class="input-icon-group">
+            <input type="text" class="form-control" name="start" placeholder="From" />
+            <span class="icon-calendar" data-grunticon-embed></span>
+          </div>
+          <div class="input-icon-group">
+            <input type="text" class="form-control" name="end" placeholder="To" />
+            <span class="icon-calendar" data-grunticon-embed></span>
+          </div>
+        </div>
+        <div class="footer-note"><span>*</span> Shows last 3 months by default. For previous orders please enter a date range.</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-8">
+        <div class="pagination pagination-top hide-if-no-paging"></div>
+      </div>
+      <div class="col-md-4 sort-wrap"> 
+        <span>Sort by</span>
+        <div class="select-list" >
+         <div data-value="" class="select-btn">Open transactions</div>
+         <!-- DEV TO-DO: Add package options here -->
+         <ul class="select-items">
+           <li class="columnSort" data-index="1" data-ascending="true">Date (Ascending)</li>
+           <li class="columnSort" data-index="1" data-ascending="false">Date (Descending)</li>
+           <li class="columnSort" data-index="0" data-ascending="true">Order No (Ascending)</li>
+           <li class="columnSort" data-index="0" data-ascending="false">Order No (Descending)</li>
+           <li class="columnSort" data-index="4" data-ascending="true">Status (A-Z)</li>
+           <li class="columnSort" data-index="4" data-ascending="false">Status (Z-A)</li>
+         </ul>
+       </div>
+     </div>
+   </div>
+
+
+
+   <table id="order-table" class="table sortable sortable-json order-table" data-page-navigation=".pagination" data-filter-text-only="true" data-filter="#orderFilter" data-url='jsondata/orders.json' data-page-size="25" data-limit-navigation="3">
+
+    <!-- Table head start -->
+    <thead>
+      <tr>
+        <th data-toggle="true">Order No.</th>
+        <th data-toggle="true" data-sort-initial="true" data-hide="mobile,tablet">Date Placed</th>
+        <th data-toggle="true" data-hide="mobile">Requested Delivery Date</th>
+        <th data-toggle="true" data-hide="mobile,tablet">Status</th>
+        <th data-toggle="true" id="tableActionText" data-text="Add to cart" data-sort-ignore="true">Actions</th>
+      </tr>
+    </thead>
+    <!-- Table head end -->
+
+    <!-- Table body is filled in via js/json --> 
+    <tbody>    
+    </tbody>
+    <!-- End table body -->
+
+  </table>
+
+  {{!-- Message if no data available --}}
+
+  <div id="noDataError" class="row">
+    <div class="col-xs-12">
+      <h4>No order history is available</h4>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-8">
+      <div class="pagination pagination-bottom hide-if-no-paging"></div>
+    </div>
+    <div class="col-sm-4 num-rows">
+      <ul class="list-inline">
+        <li>Show</li>
+        <li data-value="25" class="option active">25</li>
+        <li data-value="50" class="option">50</li>
+        <li data-value="10000" class="option">All</li>
+      </ul>
+    </div>
+  </div>
+
+
+
+  <div class="banner-image banner-bottom banner-image-desktop">
+    <img src="http://placehold.it/940x140?text=CMS+Content" alt="CMS Content">
+  </div>
+  <div class="banner-image banner-bottom banner-image-mobile">
+    <img src="http://placehold.it/768x140?text=CMS+Content" alt="CMS Content">
+  </div>
+
+</div>
+
+</div>
+

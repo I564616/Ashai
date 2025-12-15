@@ -1,0 +1,700 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#
+# Import the CMS content for the SGA site emails
+#
+$contentCatalog=sgaContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$wideContent=CMSImageComponent,BannerComponent
+
+# Import modulegen config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$jarResourceCms=$config-jarResourceCmsValue                                                                
+$emailPackageName=$config-emailAsahiContextPackageName                                                          
+
+
+# Email page Template                                                                                      
+INSERT_UPDATE EmailPageTemplate ; $contentCV[unique=true] ; uid[unique=true]                            ; name                                              ; active ; frontendTemplateName                ; subject(code)                                      ; htmlTemplate(code)                              ; restrictedPageTypes(code)
+                                ;                         ; AsahiPaymentConfirmationTemplate                   ; Asahi Payment Confirmation Template                   ; true   ; asahiPaymentConfirmationEmail                   ; asahi_Email_PaymentConfirmation__Subject                   ; asahi_Email_PaymentConfirmation__Body                   ; EmailPage
+                                ;                         ; AsahiNoDeliveryTemplate                   ; Asahi No Delivery Template                   ; true   ; asahiNoDeliveryEmail                   ; asahi_Email_NoDelivery__Subject                   ; asahi_Email_NoDelivery__Body                   ; EmailPage
+                                ;                         ; AsahiAlternateCallDayTemplate                   ; Asahi Alternate Call Day Template                   ; true   ; asahiAlternateCallDayEmail                   ; asahi_Email_AlternateCallDay__Subject                   ; asahi_Email_AlternateCallDay__Body                   ; EmailPage
+                                ;                         ; AsahiAlternateDeliveryDateTemplate                   ; Asahi Alternate Delivery Template                   ; true   ; asahiAlternateDeliveryDateEmail                   ; asahi_Email_AlternateDeliveryDate__Subject                   ; asahi_Email_AlternateDeliveryDate__Body                   ; EmailPage								
+                                ;                         ; CustomerRegistrationEmailTemplate           ; Customer Registration Email Template              ; true   ; customerRegistrationEmail           ; sga_Email_Customer_Registration_Subject            ; sga_Email_Customer_Registration_Body            ; EmailPage                
+                                ;                         ; CustomerSuperRegistrationEmailTemplate      ; Customer Super Registration Email Template        ; true   ; customerSuperRegistrationEmail      ; sga_Email_Customer_Super_Registration_Subject      ; sga_Email_Customer_Super_Registration_Body      ; EmailPage                
+                                ;                         ; RequestRegistrationEmailTemplate            ; Request Registration Email Template               ; true   ; requestRegistrationEmail            ; sga_Email_Request_Registration_Subject             ; sga_Email_Request_Registration_Body             ; EmailPage                
+                                ;                         ; ApbCompanyDetailsEmailTemplate              ; Apb Company Details Email Template                ; true   ; apbCompanyDetailsEmail              ; sga_Email_Apb_Company_Details_Subject              ; sga_Email_Apb_Company_Details_Body              ; EmailPage                
+                                ;                         ; ApbContactUsEmailTemplate                   ; SGA Contact Us Email Template                     ; true   ; apbContactUsEmail                   ; sga_Email_Contact_Us_Subject                   	; sga_Email_Contact_Us_Body                   	  ; EmailPage                
+                                ;                         ; ApbKegReturnEmailTemplate                   ; Apb Keg Return Email Template                     ; true   ; apbKegReturnEmail                   ; sga_Email_Apb_Keg_Return_Subject                   ; sga_Email_Apb_Keg_Return_Body                   ; EmailPage
+                                ;                         ; ForgottenPasswordEmailTemplate              ; Forgotten Password Email Template                 ; true   ; forgottenPasswordEmail              ; sga_Email_Forgotten_Password_Subject               ; sga_Email_Forgotten_Password_Body               ; EmailPage                
+                                ;                         ; OrderConfirmationEmailTemplate              ; Order Confirmation Email Template                 ; true   ; orderConfirmationEmail              ; sga_Email_Order_Confirmation_Subject               ; sga_Email_Order_Confirmation_Body               ; EmailPage                
+                                ;                         ; DeliverySentEmailTemplate                   ; Delivery Sent Email Template                      ; true   ; deliverySentEmail                   ; sga_Email_Delivery_Sent_Subject                    ; sga_Email_Delivery_Sent_Body                    ; EmailPage                
+                                ;                         ; ReadyForPickupEmailTemplate                 ; Ready For Pickup Email Template                   ; true   ; readyForPickupEmail                 ; sga_Email_Ready_For_Pickup_Subject                 ; sga_Email_Ready_For_Pickup_Body                 ; EmailPage                
+                                ;                         ; OrderCancelledEmailTemplate                 ; Order Cancelled Email Template                    ; true   ; orderCancelledEmail                 ; sga_Email_Order_Cancelled_Subject                  ; sga_Email_Order_Cancelled_Body                  ; EmailPage                
+                                ;                         ; OrderRefundEmailTemplate                    ; Order Refund Email Template                       ; true   ; orderRefundEmail                    ; sga_Email_Order_Refund_Subject                     ; sga_Email_Order_Refund_Body                     ; EmailPage                
+                                ;                         ; OrderCollectionReminderEmailTemplate        ; Order Collection Reminder Email Template          ; true   ; orderCollectionReminderEmail        ; sga_Email_Order_Collection_Reminder_Subject        ; sga_Email_Order_Collection_Reminder_Body        ; EmailPage                
+                                ;                         ; OrderMoveToCsEmailTemplate                  ; Order Moved To CS Email Template                  ; true   ; orderMoveToCsEmail                  ; sga_Email_Order_Move_To_CS_Subject                 ; sga_Email_Order_Move_To_CS_Body                 ; EmailPage                
+                                ;                         ; OrderPartiallyCanceledEmailTemplate         ; Order Partially Canceled Email Template           ; true   ; orderPartiallyCanceledEmail         ; sga_Email_Order_Partially_Canceled_Subject         ; sga_Email_Order_Partially_Canceled_Body         ; EmailPage                
+                                ;                         ; OrderPartiallyRefundedEmailTemplate         ; Order Partially Refunded Email Template           ; true   ; orderPartiallyRefundedEmail         ; sga_Email_Order_Partially_Refunded_Subject         ; sga_Email_Order_Partially_Refunded_Body         ; EmailPage                
+                                ;                         ; NotPickedUpConsignmentCanceledEmailTemplate ; Not Picked Up Consignment Canceled Email Template ; true   ; notPickedUpConsignmentCanceledEmail ; sga_Email_NotPickedUpConsignment_Canceled_Subject  ; sga_Email_NotPickedUpConsignment_Canceled_Body  ; EmailPage                
+                                ;                         ; OrderApprovalRejectionEmailTemplate         ; Order Approval Rejection Email Template           ; true   ; orderApprovalRejectionEmail         ; sga_Email_Order_ApprovalRejection_Subject          ; sga_Email_Order_ApprovalRejection_Body          ; EmailPage                
+                                ;                         ; OrderPendingApprovalEmailTemplate           ; Order Pending Approval Email Template             ; true   ; orderPendingApprovalEmail           ; sga_Email_Order_PendingApproval_Subject            ; sga_Email_Order_PendingApproval_Body            ; EmailPage                
+                                ;                         ; ReplenishmentOrderPlacedEmailTemplate       ; Replenishment Order Placed Email Template         ; true   ; replenishmentOrderPlacedEmail       ; sga_Email_Replenishment_Order_Placed_Subject       ; sga_Email_Replenishment_Order_Placed_Body       ; EmailPage                
+                                ;                         ; ReplenishmentOrderConfirmationEmailTemplate ; Replenishment Order Confirmation Email Template   ; true   ; replenishmentOrderConfirmationEmail ; sga_Email_Replenishment_Order_Confirmation_Subject ; sga_Email_Replenishment_Order_Confirmation_Body ; EmailPage                
+                                ;                         ; QuoteBuyerSubmissionEmailTemplate           ; Quote Buyer Submission Email Template             ; true   ; quoteBuyerSubmissionEmail           ; sga_Email_Quote_Buyer_Submission_Subject           ; sga_Email_Quote_Buyer_Submission_Body           ; EmailPage                
+                                ;                         ; QuoteToExpireSoonEmailTemplate              ; Quote To Expire Soon Email Template               ; true   ; quoteToExpireSoonEmail              ; sga_Email_Quote_To_Expire_Soon_Subject             ; sga_Email_Quote_To_Expire_Soon_Body             ; EmailPage                
+                                ;                         ; QuoteExpiredEmailTemplate                   ; Quote Expired Email Template                      ; true   ; quoteExpiredEmail                   ; sga_Email_Quote_Expired_Subject                    ; sga_Email_Quote_Expired_Body                    ; EmailPage                
+                                ;                         ; QuoteBuyerCancellationEmailTemplate         ; Quote Buyer Cancellation Email Template           ; true   ; quoteBuyerCancellationEmail         ; sga_Email_Quote_Buyer_Cancellation_Subject         ; sga_Email_Quote_Buyer_Cancellation_Body         ; EmailPage                
+                                ;                         ; AssistedForgottenPasswordEmailTemplate      ; Assisted Forgotten Password Email Template        ; true   ; assistedForgottenPasswordEmail      ; sga_Email_Assisted_Forgotten_Password_Subject      ; sga_Email_Assisted_Forgotten_Password_Body      ; EmailPage                
+
+
+# Templates for CMS Cockpit Page Edit
+UPDATE EmailPageTemplate ; $contentCV[unique=true] ; uid[unique=true]                            ; velocityTemplate[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                         ;                         ; AsahiPaymentConfirmationTemplate            ; $jarResourceCms/structure-view/asahi/structure_asahiPaymentConfirmationTemplate.vm
+                         ;                         ; AsahiNoDeliveryTemplate                     ; $jarResourceCms/structure-view/asahi/structure_asahiCustomerNotifyTemplate.vm
+                         ;                         ; AsahiAlternateCallDayTemplate               ; $jarResourceCms/structure-view/asahi/structure_asahiCustomerNotifyTemplate.vm
+                         ;                         ; AsahiAlternateDeliveryDateTemplate          ; $jarResourceCms/structure-view/asahi/structure_asahiCustomerNotifyTemplate.vm	
+                         ;                         ; CustomerRegistrationEmailTemplate           ; $jarResourceCms/structure-view/asahi/structure_customerRegistrationEmailTemplate.vm                        
+                         ;                         ; CustomerSuperRegistrationEmailTemplate      ; $jarResourceCms/structure-view/asahi/structure_customerSuperRegistrationEmailTemplate.vm                   
+                         ;                         ; RequestRegistrationEmailTemplate            ; $jarResourceCms/structure-view/asahi/structure_requestRegistrationEmailTemplate.vm                         
+                         ;                         ; ApbCompanyDetailsEmailTemplate              ; $jarResourceCms/structure-view/asahi/structure_apbCompanyDetailsEmailTemplate.vm                           
+                         ;                         ; ApbContactUsEmailTemplate                   ; $jarResourceCms/structure-view/asahi/structure_apbContactUsEmailTemplate.vm                                
+                         ;                         ; ApbKegReturnEmailTemplate                   ; $jarResourceCms/structure-view/asahi/structure_apbKegReturnEmailTemplate.vm
+                         ;                         ; ForgottenPasswordEmailTemplate              ; $jarResourceCms/structure-view/asahi/structure_forgottenPasswordEmailTemplate.vm                           
+                         ;                         ; OrderConfirmationEmailTemplate              ; $jarResourceCms/structure-view/asahi/structure_orderConfirmationEmailTemplate.vm                           
+                         ;                         ; DeliverySentEmailTemplate                   ; $jarResourceCms/structure-view/asahi/structure_deliverySentEmailTemplate.vm                                
+                         ;                         ; ReadyForPickupEmailTemplate                 ; $jarResourceCms/structure-view/asahi/structure_readyForPickupEmailTemplate.vm                              
+                         ;                         ; OrderCancelledEmailTemplate                 ; $jarResourceCms/structure-view/asahi/structure_orderCancelledEmailTemplate.vm                              
+                         ;                         ; OrderRefundEmailTemplate                    ; $jarResourceCms/structure-view/asahi/structure_orderRefundEmailTemplate.vm                                 
+                         ;                         ; OrderCollectionReminderEmailTemplate        ; $jarResourceCms/structure-view/asahi/structure_orderCollectionReminderEmailTemplate.vm                     
+                         ;                         ; OrderMoveToCsEmailTemplate                  ; $jarResourceCms/structure-view/asahi/structure_orderMoveToCSEmailTemplate.vm                               
+                         ;                         ; OrderPartiallyCanceledEmailTemplate         ; $jarResourceCms/structure-view/asahi/structure_orderPartiallyCanceledEmailTemplate.vm                      
+                         ;                         ; OrderPartiallyRefundedEmailTemplate         ; $jarResourceCms/structure-view/asahi/structure_orderPartiallyRefundedEmailTemplate.vm                      
+                         ;                         ; NotPickedUpConsignmentCanceledEmailTemplate ; $jarResourceCms/structure-view/asahi/structure_notPickedUpConsignmentCanceledEmailTemplate.vm              
+                         ;                         ; OrderApprovalRejectionEmailTemplate         ; $jarResourceCms/structure-view/asahi/structure_orderApprovalRejectionEmailTemplate.vm                    
+                         ;                         ; OrderPendingApprovalEmailTemplate           ; $jarResourceCms/structure-view/asahi/structure_orderPendingApprovalEmailTemplate.vm                      
+                         ;                         ; ReplenishmentOrderPlacedEmailTemplate       ; $jarResourceCms/structure-view/asahi/structure_replenishmentOrderPlacedEmailTemplate.vm                  
+                         ;                         ; ReplenishmentOrderConfirmationEmailTemplate ; $jarResourceCms/structure-view/asahi/structure_replenishmentOrderConfirmationEmailTemplate.vm            
+                         ;                         ; QuoteBuyerSubmissionEmailTemplate           ; $jarResourceCms/structure-view/asahi/structure_quoteNotificationEmailTemplate.vm                           
+                         ;                         ; QuoteToExpireSoonEmailTemplate              ; $jarResourceCms/structure-view/asahi/structure_quoteNotificationEmailTemplate.vm                           
+                         ;                         ; QuoteExpiredEmailTemplate                   ; $jarResourceCms/structure-view/asahi/structure_quoteNotificationEmailTemplate.vm                           
+                         ;                         ; QuoteBuyerCancellationEmailTemplate         ; $jarResourceCms/structure-view/asahi/structure_quoteNotificationEmailTemplate.vm                           
+                         ;                         ; AssistedForgottenPasswordEmailTemplate      ; $jarResourceCms/structure-view/asahi/structure_forgottenPasswordEmailTemplate.vm                           
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='AsahiPaymentConfirmationTemplate'] ; validComponentTypes(code)
+                              ; SiteLogo          ;                                                                            ;                          ; logo
+                              ; TopContent        ;                                                                            ; $wideContent             ;     
+                              ; BottomContent     ;                                                                            ; $wideContent             ;     
+
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='AsahiNoDeliveryTemplate'] ; validComponentTypes(code)
+                              ; SiteLogo          ;                                                                            ;                          ; logo
+                              ; TopContent        ;                                                                            ; $wideContent             ;     
+                              ; BottomContent     ;                                                                            ; $wideContent             ;     
+
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='AsahiAlternateCallDayTemplate'] ; validComponentTypes(code)
+                              ; SiteLogo          ;                                                                            ;                          ; logo
+                              ; TopContent        ;                                                                            ; $wideContent             ;     
+                              ; BottomContent     ;                                                                            ; $wideContent             ;     
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='AsahiAlternateDeliveryDateTemplate'] ; validComponentTypes(code)
+                              ; SiteLogo          ;                                                                            ;                          ; logo
+                              ; TopContent        ;                                                                            ; $wideContent             ;     
+                              ; BottomContent     ;                                                                            ; $wideContent             ;     
+
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='CustomerRegistrationEmailTemplate'] ; validComponentTypes(code)
+                              ; SiteLogo          ;                                                                                    ;                          ; logo
+                              ; TopContent        ;                                                                                    ; $wideContent             ;     
+                              ; BottomContent     ;                                                                                    ; $wideContent             ;     
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='CustomerSuperRegistrationEmailTemplate'] ; validComponentTypes(code)
+                              ; SiteLogo          ;                                                                                         ;                          ; logo
+                              ; TopContent        ;                                                                                         ; $wideContent             ;     
+                              ; BottomContent     ;                                                                                         ; $wideContent             ;     
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='RequestRegistrationEmailTemplate'] ; validComponentTypes(code)
+                              ; SiteLogo          ;                                                                                   ;                          ; logo
+                              ; TopContent        ;                                                                                   ; $wideContent             ;     
+                              ; BottomContent     ;                                                                                   ; $wideContent             ;     
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='ApbCompanyDetailsEmailTemplate'] ; validComponentTypes(code)
+                              ; SiteLogo          ;                                                                                 ;                          ; logo
+                              ; TopContent        ;                                                                                 ; $wideContent             ;     
+                              ; BottomContent     ;                                                                                 ; $wideContent             ;     
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='ApbContactUsEmailTemplate'] ; validComponentTypes(code)
+                              ; SiteLogo          ;                                                                            ;                          ; logo
+                              ; TopContent        ;                                                                            ; $wideContent             ;     
+                              ; BottomContent     ;                                                                            ; $wideContent             ;     
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='ApbKegReturnEmailTemplate'] ; validComponentTypes(code)
+                              ; SiteLogo          ;                                                                            ;                          ; logo
+                              ; TopContent        ;                                                                            ; $wideContent             ;     
+                              ; BottomContent     ;                                                                            ; $wideContent             ;     
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='ForgottenPasswordEmailTemplate'] ; validComponentTypes(code)
+                              ; SiteLogo          ;                                                                                 ;                          ; logo
+                              ; TopContent        ;                                                                                 ; $wideContent             ;     
+                              ; BottomContent     ;                                                                                 ; $wideContent             ;     
+
+
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='OrderConfirmationEmailTemplate'] ; validComponentTypes(code)
+                              ; SiteLogo          ;                                                                                 ;                          ; logo
+                              ; TopContent        ;                                                                                 ; $wideContent             ;     
+                              ; BottomContent     ;                                                                                 ; $wideContent             ;     
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='OrderCancelledEmailTemplate'] ; validComponentTypes(code)
+                              ; SiteLogo          ;                                                                              ;                          ; logo
+                              ; TopContent        ;                                                                              ; $wideContent             ;     
+                              ; BottomContent     ;                                                                              ; $wideContent             ;     
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='OrderRefundEmailTemplate'] ; validComponentTypes(code)
+                              ; SiteLogo          ;                                                                           ;                          ; logo
+                              ; TopContent        ;                                                                           ; $wideContent             ;     
+                              ; BottomContent     ;                                                                           ; $wideContent             ;     
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='DeliverySentEmailTemplate'] ; validComponentTypes(code)
+                              ; SiteLogo          ;                                                                            ;                          ; logo
+                              ; TopContent        ;                                                                            ; $wideContent             ;     
+                              ; BottomContent     ;                                                                            ; $wideContent             ;     
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='ReadyForPickupEmailTemplate'] ; validComponentTypes(code)
+                              ; SiteLogo          ;                                                                              ;                          ; logo
+                              ; TopContent        ;                                                                              ; $wideContent             ;     
+                              ; BottomContent     ;                                                                              ; $wideContent             ;     
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='OrderCollectionReminderEmailTemplate'] ; validComponentTypes(code)
+                              ; SiteLogo          ;                                                                                       ;                          ; logo
+                              ; TopContent        ;                                                                                       ; $wideContent             ;     
+                              ; BottomContent     ;                                                                                       ; $wideContent             ;     
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='OrderMoveToCsEmailTemplate'] ; validComponentTypes(code)
+                              ; SiteLogo          ;                                                                             ;                          ; logo
+                              ; TopContent        ;                                                                             ; $wideContent             ;     
+                              ; BottomContent     ;                                                                             ; $wideContent             ;     
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='OrderPartiallyCanceledEmailTemplate'] ; validComponentTypes(code)
+                              ; SiteLogo          ;                                                                                      ;                          ; logo
+                              ; TopContent        ;                                                                                      ; $wideContent             ;     
+                              ; BottomContent     ;                                                                                      ; $wideContent             ;     
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='OrderPartiallyRefundedEmailTemplate'] ; validComponentTypes(code)
+                              ; SiteLogo          ;                                                                                      ;                          ; logo
+                              ; TopContent        ;                                                                                      ; $wideContent             ;     
+                              ; BottomContent     ;                                                                                      ; $wideContent             ;     
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='NotPickedUpConsignmentCanceledEmailTemplate'] ; validComponentTypes(code)
+                              ; SiteLogo          ;                                                                                              ;                          ; logo
+                              ; TopContent        ;                                                                                              ; $wideContent             ;     
+                              ; BottomContent     ;                                                                                              ; $wideContent             ;     
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='OrderApprovalRejectionEmailTemplate'] ; validComponentTypes(code)
+                              ; SiteLogo          ;                                                                                      ;                          ; logo
+                              ; TopContent        ;                                                                                      ; $wideContent             ;     
+                              ; BottomContent     ;                                                                                      ; $wideContent             ;     
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='OrderPendingApprovalEmailTemplate'] ; validComponentTypes(code)
+                              ; SiteLogo          ;                                                                                    ;                          ; logo
+                              ; TopContent        ;                                                                                    ; $wideContent             ;     
+                              ; BottomContent     ;                                                                                    ; $wideContent             ;     
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='ReplenishmentOrderPlacedEmailTemplate'] ; validComponentTypes(code)
+                              ; SiteLogo          ;                                                                                        ;                          ; logo
+                              ; TopContent        ;                                                                                        ; $wideContent             ;     
+                              ; BottomContent     ;                                                                                        ; $wideContent             ;     
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='ReplenishmentOrderConfirmationEmailTemplate'] ; validComponentTypes(code)
+                              ; SiteLogo          ;                                                                                              ;                          ; logo
+                              ; TopContent        ;                                                                                              ; $wideContent             ;     
+                              ; BottomContent     ;                                                                                              ; $wideContent             ;     
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='QuoteBuyerSubmissionEmailTemplate'] ; validComponentTypes(code)
+                              ; SiteLogo          ;                                                                                    ;                          ; logo
+                              ; TopContent        ;                                                                                    ; $wideContent             ;     
+                              ; BottomContent     ;                                                                                    ; $wideContent             ;     
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='QuoteToExpireSoonEmailTemplate'] ; validComponentTypes(code)
+                              ; SiteLogo          ;                                                                                 ;                          ; logo
+                              ; TopContent        ;                                                                                 ; $wideContent             ;     
+                              ; BottomContent     ;                                                                                 ; $wideContent             ;     
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='QuoteExpiredEmailTemplate'] ; validComponentTypes(code)
+                              ; SiteLogo          ;                                                                            ;                          ; logo
+                              ; TopContent        ;                                                                            ; $wideContent             ;     
+                              ; BottomContent     ;                                                                            ; $wideContent             ;     
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='QuoteBuyerCancellationEmailTemplate'] ; validComponentTypes(code)
+                              ; SiteLogo          ;                                                                                      ;                          ; logo
+                              ; TopContent        ;                                                                                      ; $wideContent             ;     
+                              ; BottomContent     ;                                                                                      ; $wideContent             ;     
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='AssistedForgottenPasswordEmailTemplate'] ; validComponentTypes(code)
+                              ; SiteLogo          ;                                                                                 ;                          ; logo
+                              ; TopContent        ;                                                                                 ; $wideContent             ;     
+                              ; BottomContent     ;                                                                                 ; $wideContent             ;     
+
+
+
+# Create Content Slots        
+INSERT_UPDATE ContentSlot ; $contentCV[unique=true] ; uid[unique=true]  ; name                      ; active
+                          ;                         ; EmailTopSlot      ; Default Email Top Slot    ; true  
+                          ;                         ; EmailBottomSlot   ; Default Email Bottom Slot ; true  
+                          ;                         ; EmailSiteLogoSlot ; Default Email Site Slot   ; true  
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]            ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='AsahiPaymentConfirmationTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogoPaymentConfirmationEmail      ; SiteLogo              ;                                                                                ; EmailSiteLogoSlot                        ; true          
+                                     ;                         ; TopContentPaymentConfirmationEmail   ; TopContent            ;                                                                                ; EmailTopSlot                             ; true          
+                                     ;                         ; BottomContentPaymentConfirmationEmail ; BottomContent         ;                                                                                ; EmailBottomSlot                          ; true          
+
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]            ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='AsahiNoDeliveryTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogoNoDeliveryEmail      ; SiteLogo              ;                                                                                ; EmailSiteLogoSlot                        ; true          
+                                     ;                         ; TopContentNoDeliveryEmail   ; TopContent            ;                                                                                ; EmailTopSlot                             ; true          
+                                     ;                         ; BottomContentNoDeliveryEmail ; BottomContent         ;                                                                                ; EmailBottomSlot                          ; true          
+
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]            ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='AsahiAlternateCallDayTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogoAlternateCallDayEmail      ; SiteLogo              ;                                                                                ; EmailSiteLogoSlot                        ; true          
+                                     ;                         ; TopContentAlternateCallDayEmail   ; TopContent            ;                                                                                ; EmailTopSlot                             ; true          
+                                     ;                         ; BottomContentAlternateCallDayEmail ; BottomContent         ;                                                                                ; EmailBottomSlot                          ; true          
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]            ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='AsahiAlternateDeliveryDateTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogoAlternateDeliveryDateEmail      ; SiteLogo              ;                                                                                ; EmailSiteLogoSlot                        ; true          
+                                     ;                         ; TopContentAlternateDeliveryDateEmail   ; TopContent            ;                                                                                ; EmailTopSlot                             ; true          
+                                     ;                         ; BottomContentAlternateDeliveryDateEmail ; BottomContent         ;                                                                                ; EmailBottomSlot                          ; true          									 
+
+
+# Bind Content Slots to Email Page Templates
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]                        ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='CustomerRegistrationEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogo-CustomerRegistrationEmail      ; SiteLogo              ;                                                                                        ; EmailSiteLogoSlot                        ; true          
+                                     ;                         ; TopContent-CustomerRegistrationEmail    ; TopContent            ;                                                                                        ; EmailTopSlot                             ; true          
+                                     ;                         ; BottomContent-CustomerRegistrationEmail ; BottomContent         ;                                                                                        ; EmailBottomSlot                          ; true          
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]                             ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='CustomerSuperRegistrationEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogo-CustomerSuperRegistrationEmail      ; SiteLogo              ;                                                                                             ; EmailSiteLogoSlot                        ; true          
+                                     ;                         ; TopContent-CustomerSuperRegistrationEmail    ; TopContent            ;                                                                                             ; EmailTopSlot                             ; true          
+                                     ;                         ; BottomContent-CustomerSuperRegistrationEmail ; BottomContent         ;                                                                                             ; EmailBottomSlot                          ; true          
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]                      ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='RequestRegistrationEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogoRequestRegistrationEmail      ; SiteLogo              ;                                                                                       ; EmailSiteLogoSlot                        ; true          
+                                     ;                         ; TopContentRequestRegistrationEmail    ; TopContent            ;                                                                                       ; EmailTopSlot                             ; true          
+                                     ;                         ; BottomContentRequestRegistrationEmail ; BottomContent         ;                                                                                       ; EmailBottomSlot                          ; true          
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]                 ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='ApbCompanyDetailsEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogoCompanyDetailsEmail      ; SiteLogo              ;                                                                                     ; EmailSiteLogoSlot                        ; true          
+                                     ;                         ; TopContentCompanyDetailsEmail    ; TopContent            ;                                                                                     ; EmailTopSlot                             ; true          
+                                     ;                         ; BottomContentCompanyDetailsEmail ; BottomContent         ;                                                                                     ; EmailBottomSlot                          ; true          
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]            ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='ApbContactUsEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogoContactUsEmail      ; SiteLogo              ;                                                                                ; EmailSiteLogoSlot                        ; true          
+                                     ;                         ; TopContentContactUssEmail   ; TopContent            ;                                                                                ; EmailTopSlot                             ; true          
+                                     ;                         ; BottomContentContactUsEmail ; BottomContent         ;                                                                                ; EmailBottomSlot                          ; true          
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]            ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='ApbKegReturnEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogoKegReturnEmail      ; SiteLogo              ;                                                                                ; EmailSiteLogoSlot                        ; true          
+                                     ;                         ; TopContentKegReturnEmail   ; TopContent            ;                                                                                ; EmailTopSlot                             ; true          
+                                     ;                         ; BottomContentKegReturnEmail ; BottomContent         ;                                                                                ; EmailBottomSlot                          ; true          
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]                     ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='ForgottenPasswordEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogo-ForgottenPasswordEmail      ; SiteLogo              ;                                                                                     ; EmailSiteLogoSlot                        ; true          
+                                     ;                         ; TopContent-ForgottenPasswordEmail    ; TopContent            ;                                                                                     ; EmailTopSlot                             ; true          
+                                     ;                         ; BottomContent-ForgottenPasswordEmail ; BottomContent         ;                                                                                     ; EmailBottomSlot                          ; true          
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]                     ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='OrderConfirmationEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogo-OrderConfirmationEmail      ; SiteLogo              ;                                                                                     ; EmailSiteLogoSlot                        ; true          
+                                     ;                         ; TopContent-OrderConfirmationEmail    ; TopContent            ;                                                                                     ; EmailTopSlot                             ; true          
+                                     ;                         ; BottomContent-OrderConfirmationEmail ; BottomContent         ;                                                                                     ; EmailBottomSlot                          ; true          
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]                  ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='OrderCancelledEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogo-OrderCancelledEmail      ; SiteLogo              ;                                                                                  ; EmailSiteLogoSlot                        ; true          
+                                     ;                         ; TopContent-OrderCancelledEmail    ; TopContent            ;                                                                                  ; EmailTopSlot                             ; true          
+                                     ;                         ; BottomContent-OrderCancelledEmail ; BottomContent         ;                                                                                  ; EmailBottomSlot                          ; true          
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]               ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='OrderRefundEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogo-OrderRefundEmail      ; SiteLogo              ;                                                                               ; EmailSiteLogoSlot                        ; true          
+                                     ;                         ; TopContent-OrderRefundEmail    ; TopContent            ;                                                                               ; EmailTopSlot                             ; true          
+                                     ;                         ; BottomContent-OrderRefundEmail ; BottomContent         ;                                                                               ; EmailBottomSlot                          ; true          
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]                ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='DeliverySentEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogo-DeliverySentEmail      ; SiteLogo              ;                                                                                ; EmailSiteLogoSlot                        ; true          
+                                     ;                         ; TopContent-DeliverySentEmail    ; TopContent            ;                                                                                ; EmailTopSlot                             ; true          
+                                     ;                         ; BottomContent-DeliverySentEmail ; BottomContent         ;                                                                                ; EmailBottomSlot                          ; true          
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]                  ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='ReadyForPickupEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogo-ReadyForPickupEmail      ; SiteLogo              ;                                                                                  ; EmailSiteLogoSlot                        ; true          
+                                     ;                         ; TopContent-ReadyForPickupEmail    ; TopContent            ;                                                                                  ; EmailTopSlot                             ; true          
+                                     ;                         ; BottomContent-ReadyForPickupEmail ; BottomContent         ;                                                                                  ; EmailBottomSlot                          ; true          
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]                          ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='OrderPartiallyCanceledEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogo-OrderPartiallyCanceledEmail      ; SiteLogo              ;                                                                                          ; EmailSiteLogoSlot                        ; true          
+                                     ;                         ; TopContent-OrderPartiallyCanceledEmail    ; TopContent            ;                                                                                          ; EmailTopSlot                             ; true          
+                                     ;                         ; BottomContent-OrderPartiallyCanceledEmail ; BottomContent         ;                                                                                          ; EmailBottomSlot                          ; true          
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]                          ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='OrderPartiallyRefundedEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogo-OrderPartiallyRefundedEmail      ; SiteLogo              ;                                                                                          ; EmailSiteLogoSlot                        ; true          
+                                     ;                         ; TopContent-OrderPartiallyRefundedEmail    ; TopContent            ;                                                                                          ; EmailTopSlot                             ; true          
+                                     ;                         ; BottomContent-OrderPartiallyRefundedEmail ; BottomContent         ;                                                                                          ; EmailBottomSlot                          ; true          
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]                                  ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='NotPickedUpConsignmentCanceledEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogo-NotPickedUpConsignmentCanceledEmail      ; SiteLogo              ;                                                                                                  ; EmailSiteLogoSlot                        ; true          
+                                     ;                         ; TopContent-NotPickedUpConsignmentCanceledEmail    ; TopContent            ;                                                                                                  ; EmailTopSlot                             ; true          
+                                     ;                         ; BottomContent-NotPickedUpConsignmentCanceledEmail ; BottomContent         ;                                                                                                  ; EmailBottomSlot                          ; true          
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]                           ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='OrderCollectionReminderEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogo-OrderCollectionReminderEmail      ; SiteLogo              ;                                                                                           ; EmailSiteLogoSlot                        ; true          
+                                     ;                         ; TopContent-OrderCollectionReminderEmail    ; TopContent            ;                                                                                           ; EmailTopSlot                             ; true          
+                                     ;                         ; BottomContent-OrderCollectionReminderEmail ; BottomContent         ;                                                                                           ; EmailBottomSlot                          ; true          
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]                          ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='OrderApprovalRejectionEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogo-OrderApprovalRejectionEmail      ; SiteLogo              ;                                                                                          ; SiteLogoSlot                             ; true          
+                                     ;                         ; TopContent-OrderApprovalRejectionEmail    ; TopContent            ;                                                                                          ; EmailTopSlot                             ; true          
+                                     ;                         ; BottomContent-OrderApprovalRejectionEmail ; BottomContent         ;                                                                                          ; EmailBottomSlot                          ; true          
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]                        ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='OrderPendingApprovalEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogo-OrderPendingApprovalEmail      ; SiteLogo              ;                                                                                        ; SiteLogoSlot                             ; true          
+                                     ;                         ; TopContent-OrderPendingApprovalEmail    ; TopContent            ;                                                                                        ; EmailTopSlot                             ; true          
+                                     ;                         ; BottomContent-OrderPendingApprovalEmail ; BottomContent         ;                                                                                        ; EmailBottomSlot                          ; true          
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]                                  ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='ReplenishmentOrderConfirmationEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogo-ReplenishmentOrderConfirmationEmail      ; SiteLogo              ;                                                                                                  ; SiteLogoSlot                             ; true          
+                                     ;                         ; TopContent-ReplenishmentOrderConfirmationEmail    ; TopContent            ;                                                                                                  ; EmailTopSlot                             ; true          
+                                     ;                         ; BottomContent-ReplenishmentOrderConfirmationEmail ; BottomContent         ;                                                                                                  ; EmailBottomSlot                          ; true          
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]                            ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='ReplenishmentOrderPlacedEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogo-ReplenishmentOrderPlacedEmail      ; SiteLogo              ;                                                                                            ; SiteLogoSlot                             ; true          
+                                     ;                         ; TopContent-ReplenishmentOrderPlacedEmail    ; TopContent            ;                                                                                            ; EmailTopSlot                             ; true          
+                                     ;                         ; BottomContent-ReplenishmentOrderPlacedEmail ; BottomContent         ;                                                                                            ; EmailBottomSlot                          ; true          
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]                        ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='QuoteBuyerSubmissionEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogo-QuoteBuyerSubmissionEmail      ; SiteLogo              ;                                                                                        ; EmailSiteLogoSlot                        ; true          
+                                     ;                         ; TopContent-QuoteBuyerSubmissionEmail    ; TopContent            ;                                                                                        ; EmailTopSlot                             ; true          
+                                     ;                         ; BottomContent-QuoteBuyerSubmissionEmail ; BottomContent         ;                                                                                        ; EmailBottomSlot                          ; true          
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]                     ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='QuoteToExpireSoonEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogo-QuoteToExpireSoonEmail      ; SiteLogo              ;                                                                                     ; EmailSiteLogoSlot                        ; true          
+                                     ;                         ; TopContent-QuoteToExpireSoonEmail    ; TopContent            ;                                                                                     ; EmailTopSlot                             ; true          
+                                     ;                         ; BottomContent-QuoteToExpireSoonEmail ; BottomContent         ;                                                                                     ; EmailBottomSlot                          ; true          
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]                ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='QuoteExpiredEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogo-QuoteExpiredEmail      ; SiteLogo              ;                                                                                ; EmailSiteLogoSlot                        ; true          
+                                     ;                         ; TopContent-QuoteExpiredEmail    ; TopContent            ;                                                                                ; EmailTopSlot                             ; true          
+                                     ;                         ; BottomContent-QuoteExpiredEmail ; BottomContent         ;                                                                                ; EmailBottomSlot                          ; true          
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]                          ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='QuoteBuyerCancellationEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogo-QuoteBuyerCancellationEmail      ; SiteLogo              ;                                                                                          ; EmailSiteLogoSlot                        ; true          
+                                     ;                         ; TopContent-QuoteBuyerCancellationEmail    ; TopContent            ;                                                                                          ; EmailTopSlot                             ; true          
+                                     ;                         ; BottomContent-QuoteBuyerCancellationEmail ; BottomContent         ;                                                                                          ; EmailBottomSlot                          ; true          
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]                     ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='AssistedForgottenPasswordEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogo-AssistedForgottenPasswordEmail      ; SiteLogo              ;                                                                                     ; EmailSiteLogoSlot                        ; true          
+                                     ;                         ; TopContent-AssistedForgottenPasswordEmail    ; TopContent            ;                                                                                     ; EmailTopSlot                             ; true          
+                                     ;                         ; BottomContent-AssistedForgottenPasswordEmail ; BottomContent         ;                                                                                     ; EmailBottomSlot                          ; true          
+
+# Email Pages                        
+INSERT_UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]                    ; name                                     ; masterTemplate(uid,$contentCV)              ; defaultPage ; approvalStatus(code)[default='approved']
+						;                         ; AsahiPaymentConfirmationEmail       ; Asahi Payment Confirmation Email                     ; AsahiPaymentConfirmationTemplate                   ; true        ;                                         
+						;                         ; AsahiNoDeliveryEmail                   ; Asahi No Delivery Email                     ; AsahiNoDeliveryTemplate                   ; true        ;                                         
+						;                         ; AsahiAlternateCallDayEmail             ; Asahi Alternate Call Day Email              ; AsahiAlternateCallDayTemplate                   ; true        ;                                         
+						;                         ; AsahiAlternateDeliveryDateEmail        ; Asahi Alternate Delivery Date Email         ; AsahiAlternateDeliveryDateTemplate                   ; true        ;                                         
+                        ;                         ; CustomerRegistrationEmail           ; Customer Registration Email              ; CustomerRegistrationEmailTemplate           ; true        ;                                         
+                        ;                         ; CustomerSuperRegistrationEmail      ; Customer Super Registration Email        ; CustomerSuperRegistrationEmailTemplate      ; true        ;                                         
+                        ;                         ; RequestRegistrationEmail            ; Request Registration Email               ; RequestRegistrationEmailTemplate            ; true        ;                                         
+                        ;                         ; ApbCompanyDetailsEmail              ; Apb Company Details Email                ; ApbCompanyDetailsEmailTemplate              ; true        ;                                         
+                        ;                         ; ApbContactUsEmail                   ; Apb Contact Us Email                     ; ApbContactUsEmailTemplate                   ; true        ;                                         
+                        ;                         ; ApbKegReturnEmail                   ; Apb Keg Return Email                     ; ApbKegReturnEmailTemplate                   ; true        ;                                         
+                        ;                         ; ForgottenPasswordEmail              ; Forgotten Password Email                 ; ForgottenPasswordEmailTemplate              ; true        ;                                         
+                        ;                         ; OrderConfirmationEmail              ; Order Confirmation Email                 ; OrderConfirmationEmailTemplate              ; true        ;                                         
+                        ;                         ; DeliverySentEmail                   ; Delivery Sent Email                      ; DeliverySentEmailTemplate                   ; true        ;                                         
+                        ;                         ; ReadyForPickupEmail                 ; Ready For Pickup Email                   ; ReadyForPickupEmailTemplate                 ; true        ;                                         
+                        ;                         ; OrderCancelledEmail                 ; Order Cancelled Email                    ; OrderCancelledEmailTemplate                 ; true        ;                                         
+                        ;                         ; OrderRefundEmail                    ; Order Refund Email                       ; OrderRefundEmailTemplate                    ; true        ;                                         
+                        ;                         ; OrderCollectionReminderEmail        ; Order Collection Reminder Email          ; OrderCollectionReminderEmailTemplate        ; true        ;                                         ; CustomerSupport@asahidirect.com.au ; Customer Services Team
+                        ;                         ; OrderMoveToCsEmail                  ; Order Move To CS Email                   ; OrderMoveToCsEmailTemplate                  ; true        ;                                         ; CustomerSupport@asahidirect.com.au ; Customer Services Team
+                        ;                         ; OrderPartiallyCanceledEmail         ; Order Partially Canceled Email           ; OrderPartiallyCanceledEmailTemplate         ; true        ;                                         
+                        ;                         ; OrderPartiallyRefundedEmail         ; Order Partially Refunded Email           ; OrderPartiallyRefundedEmailTemplate         ; true        ;                                         
+                        ;                         ; NotPickedUpConsignmentCanceledEmail ; Not Picked Up Consignment Canceled Email ; NotPickedUpConsignmentCanceledEmailTemplate ; true        ;                                         
+                        ;                         ; OrderApprovalRejectionEmail         ; Order Approval Rejection Email           ; OrderApprovalRejectionEmailTemplate         ; true        ;                                         ; CustomerSupport@asahidirect.com.au ; Customer Services Team
+                        ;                         ; OrderPendingApprovalEmail           ; Order Pending Approval Email             ; OrderPendingApprovalEmailTemplate           ; true        ;                                         ; CustomerSupport@asahidirect.com.au ; Customer Services Team
+                        ;                         ; ReplenishmentOrderPlacedEmail       ; Order Confirmation Email                 ; ReplenishmentOrderPlacedEmailTemplate       ; true        ;                                         ; CustomerSupport@asahidirect.com.au ; Customer Services Team
+                        ;                         ; ReplenishmentOrderConfirmationEmail ; Order Confirmation Email                 ; ReplenishmentOrderConfirmationEmailTemplate ; true        ;                                         ; CustomerSupport@asahidirect.com.au ; Customer Services Team
+                        ;                         ; QuoteBuyerSubmissionEmail           ; Quote Buyer Submission Email             ; QuoteBuyerSubmissionEmailTemplate           ; true        ;                                         
+                        ;                         ; QuoteToExpireSoonEmail              ; Quote To Expire Soon Email               ; QuoteToExpireSoonEmailTemplate              ; true        ;                                         
+                        ;                         ; QuoteExpiredEmail                   ; Quote Expired Email                      ; QuoteExpiredEmailTemplate                   ; true        ;                                         
+                        ;                         ; QuoteBuyerCancellationEmail         ; Quote Buyer Cancellation Email           ; QuoteBuyerCancellationEmailTemplate         ; true        ;                                         
+                        ;                         ; AssistedForgottenPasswordEmail      ; Assisted Forgotten Password Email        ; AssistedForgottenPasswordEmailTemplate      ; true        ;                                         
+	
+# CMS components velocity templates
+INSERT_UPDATE RendererTemplate ; code[unique=true]                  ; contextClass ; rendererType(code)[default='velocity']
+                               ; sga-CMSImageComponent-template     ; java.util.Map
+                               ; sga-BannerComponent-template       ; java.util.Map
+                               ; sga-SimpleBannerComponent-template ; java.util.Map
+                               ; sga-CMSLinkComponent-template      ; java.util.Map
+                               ; sga-CMSParagraphComponent-template ; java.util.Map
+
+# Email velocity templates     
+INSERT_UPDATE RendererTemplate ; code[unique=true]                                  ; contextClass                                                                                ; rendererType(code)[default='velocity']
+                               ; sga_Email_Customer_Registration_Body               ; $emailPackageName.ApbCustomerEmailContext                                                   
+                               ; sga_Email_Customer_Super_Registration_Body         ; $emailPackageName.ApbSuperCustomerEmailContext                                              
+                               ; sga_Email_Request_Registration_Body                ; $emailPackageName.RequestRegistrationEmailContext                                           
+                               ; sga_Email_Apb_Company_Details_Body                 ; $emailPackageName.ApbCompanyDetailsEmailContext                                             
+                               ; sga_Email_Contact_Us_Body                      	; $emailPackageName.ApbContactUsEmailContext                                                  
+                               ; sga_Email_Apb_Keg_Return_Body                      ; $emailPackageName.ApbKegReturnEmailContext                                                  
+                               ; sga_Email_Forgotten_Password_Body                  ; $emailPackageName.ForgottenPasswordEmailContext                                             
+                               ; sga_Email_Order_Confirmation_Body                  ; $emailPackageName.APBOrderNotificationEmailContext                                             
+                               ; sga_Email_Delivery_Sent_Body                       ; $emailPackageName.DeliverySentEmailContext                                                  
+                               ; sga_Email_Ready_For_Pickup_Body                    ; $emailPackageName.ReadyForPickupEmailContext                                                
+                               ; sga_Email_Order_Cancelled_Body                     ; $emailPackageName.OrderCancelledEmailContext                                                
+                               ; sga_Email_Order_Refund_Body                        ; $emailPackageName.OrderRefundEmailContext                                                   
+                               ; sga_Email_Order_Collection_Reminder_Body           ; $emailPackageName.ConsignmentCollectionReminderEmailContext                                 
+                               ; sga_Email_Order_Move_To_CS_Body                    ; $emailPackageName.ConsignmentCollectionReminderEmailContext                                 
+                               ; sga_Email_Order_Partially_Canceled_Body            ; $emailPackageName.OrderPartiallyCanceledEmailContext                                        
+                               ; sga_Email_Order_Partially_Refunded_Body            ; $emailPackageName.OrderPartiallyRefundedEmailContext                                        
+                               ; sga_Email_NotPickedUpConsignment_Canceled_Body     ; $emailPackageName.NotPickedUpConsignmentCanceledEmailContext                                
+                               ; sga_Email_Request_Registration_Subject             ; $emailPackageName.RequestRegistrationEmailContext                                           
+                               ; sga_Email_Apb_Company_Details_Subject              ; $emailPackageName.ApbCompanyDetailsEmailContext                                             
+                               ; sga_Email_Customer_Registration_Subject            ; $emailPackageName.ApbCustomerEmailContext                                                   
+                               ; sga_Email_Customer_Super_Registration_Subject      ; $emailPackageName.ApbSuperCustomerEmailContext                                                      
+                               ; sga_Email_Contact_Us_Subject                   	; $emailPackageName.ApbContactUsEmailContext  
+                               ; sga_Email_Apb_Keg_Return_Subject                   ; $emailPackageName.ApbKegReturnEmailContext                                                  
+                               ; sga_Email_Forgotten_Password_Subject               ; $emailPackageName.ForgottenPasswordEmailContext                                             
+                               ; sga_Email_Order_Confirmation_Subject               ; $emailPackageName.APBOrderNotificationEmailContext                                             
+                               ; sga_Email_Delivery_Sent_Subject                    ; $emailPackageName.DeliverySentEmailContext                                                  
+                               ; sga_Email_Ready_For_Pickup_Subject                 ; $emailPackageName.ReadyForPickupEmailContext                                                
+                               ; sga_Email_Order_Cancelled_Subject                  ; $emailPackageName.OrderCancelledEmailContext                                                
+                               ; sga_Email_Order_Refund_Subject                     ; $emailPackageName.OrderRefundEmailContext                                                   
+                               ; sga_Email_Order_Collection_Reminder_Subject        ; $emailPackageName.ConsignmentCollectionReminderEmailContext                                 
+                               ; sga_Email_Order_Move_To_CS_Subject                 ; $emailPackageName.ConsignmentCollectionReminderEmailContext                                 
+                               ; sga_Email_Order_Partially_Canceled_Subject         ; $emailPackageName.OrderPartiallyCanceledEmailContext                                        
+                               ; sga_Email_Order_Partially_Refunded_Subject         ; $emailPackageName.OrderPartiallyRefundedEmailContext                                        
+                               ; sga_Email_NotPickedUpConsignment_Canceled_Subject  ; $emailPackageName.NotPickedUpConsignmentCanceledEmailContext                                
+                               ; sga_Email_Order_ApprovalRejection_Body             ; $emailPackageName.APBOrderNotificationEmailContext                                             
+                               ; sga_Email_Order_ApprovalRejection_Subject          ; $emailPackageName.APBOrderNotificationEmailContext                                             
+                               ; sga_Email_Order_PendingApproval_Subject            ; $emailPackageName.APBOrderNotificationEmailContext                                             
+                               ; sga_Email_Order_PendingApproval_Body               ; $emailPackageName.APBOrderNotificationEmailContext                                             
+                               ; sga_Email_Replenishment_Order_Placed_Body          ; de.hybris.platform.b2bacceleratoraddon.proccess.email.context.OrderReplenishmentEmailContext
+                               ; sga_Email_Replenishment_Order_Placed_Subject       ; de.hybris.platform.b2bacceleratoraddon.proccess.email.context.OrderReplenishmentEmailContext
+                               ; sga_Email_Replenishment_Order_Confirmation_Subject ; $emailPackageName.APBOrderNotificationEmailContext                                             
+                               ; sga_Email_Replenishment_Order_Confirmation_Body    ; $emailPackageName.APBOrderNotificationEmailContext                                             
+                               ; sga_Email_Quote_Buyer_Submission_Subject           ; $emailPackageName.QuoteNotificationEmailContext                                             
+                               ; sga_Email_Quote_Buyer_Submission_Body              ; $emailPackageName.QuoteNotificationEmailContext                                             
+                               ; sga_Email_Quote_To_Expire_Soon_Subject             ; $emailPackageName.QuoteNotificationEmailContext                                             
+                               ; sga_Email_Quote_To_Expire_Soon_Body                ; $emailPackageName.QuoteNotificationEmailContext                                             
+                               ; sga_Email_Quote_Expired_Subject                    ; $emailPackageName.QuoteNotificationEmailContext                                             
+                               ; sga_Email_Quote_Expired_Body                       ; $emailPackageName.QuoteNotificationEmailContext                                             
+                               ; sga_Email_Quote_Buyer_Cancellation_Subject         ; $emailPackageName.QuoteNotificationEmailContext                                             
+                               ; sga_Email_Quote_Buyer_Cancellation_Body            ; $emailPackageName.QuoteNotificationEmailContext                                             
+                               ; sga_Email_Assisted_Forgotten_Password_Body         ; $emailPackageName.ForgottenPasswordEmailContext                                             
+                               ; sga_Email_Assisted_Forgotten_Password_Subject      ; $emailPackageName.ForgottenPasswordEmailContext                                             
+                                                                      
+          
+# Email velocity templates     
+INSERT_UPDATE RendererTemplate ; code[unique=true]                                  ; contextClass                                                                                ; rendererType(code)[default='velocity']
+                               ; asahi_Email_PaymentConfirmation__Body                      ; $emailPackageName.AsahiPaymentConfirmationEmailContext                                                  
+                               ; asahi_Email_PaymentConfirmation__Subject                   ; $emailPackageName.AsahiPaymentConfirmationEmailContext                                                  
+                               ; asahi_Email_NoDelivery__Body                      ; $emailPackageName.AsahiCustomerNotifyEmailContext                                                  
+                               ; asahi_Email_NoDelivery__Subject                   ; $emailPackageName.AsahiCustomerNotifyEmailContext                                                  
+                               ; asahi_Email_AlternateCallDay__Body                      ; $emailPackageName.AsahiCustomerNotifyEmailContext                                                  
+                               ; asahi_Email_AlternateCallDay__Subject                   ; $emailPackageName.AsahiCustomerNotifyEmailContext                                                  
+                               ; asahi_Email_AlternateDeliveryDate__Body                      ; $emailPackageName.AsahiCustomerNotifyEmailContext                                                  
+                               ; asahi_Email_AlternateDeliveryDate__Subject                   ; $emailPackageName.AsahiCustomerNotifyEmailContext                                                  
+
+
+# Preview Image for use in the CMS Cockpit
+INSERT_UPDATE Media ; $contentCV[unique=true] ; code[unique=true]      ; mime     ; realfilename               ; @media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true]
+                    ;                         ; EmailPageModel_preview ; text/gif ; EmailPageModel_preview.gif ; $jarResourceCms/preview-images/EmailPageModel_preview.gif                                  
+
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]                    ; previewImage(code, $contentCV)
+                 ;                         ; CustomerRegistrationEmail           ; EmailPageModel_preview        
+                 ;                         ; CustomerSuperRegistrationEmail      ; EmailPageModel_preview        
+                 ;                         ; RequestRegistrationEmail            ; EmailPageModel_preview        
+                 ;                         ; ApbCompanyDetailsEmail              ; EmailPageModel_preview        
+                 ;                         ; ApbContactUsEmail                   ; EmailPageModel_preview        
+                 ;                         ; ApbKegReturnEmail                   ; EmailPageModel_preview        
+                 ;                         ; ForgottenPasswordEmail              ; EmailPageModel_preview        
+                 ;                         ; OrderConfirmationEmail              ; EmailPageModel_preview        
+                 ;                         ; DeliverySentEmail                   ; EmailPageModel_preview        
+                 ;                         ; ReadyForPickupEmail                 ; EmailPageModel_preview        
+                 ;                         ; OrderCancelledEmail                 ; EmailPageModel_preview        
+                 ;                         ; OrderRefundEmail                    ; EmailPageModel_preview        
+                 ;                         ; OrderCollectionReminderEmail        ; EmailPageModel_preview        
+                 ;                         ; OrderMoveToCsEmail                  ; EmailPageModel_preview        
+                 ;                         ; OrderPartiallyCanceledEmail         ; EmailPageModel_preview        
+                 ;                         ; OrderPartiallyRefundedEmail         ; EmailPageModel_preview        
+                 ;                         ; NotPickedUpConsignmentCanceledEmail ; EmailPageModel_preview        
+                 ;                         ; OrderApprovalRejectionEmail         ; EmailPageModel_preview        
+                 ;                         ; OrderPendingApprovalEmail           ; EmailPageModel_preview        
+                 ;                         ; ReplenishmentOrderPlacedEmail       ; EmailPageModel_preview        
+                 ;                         ; QuoteBuyerSubmissionEmail           ; EmailPageModel_preview        
+                 ;                         ; QuoteToExpireSoonEmail              ; EmailPageModel_preview        
+                 ;                         ; QuoteExpiredEmail                   ; EmailPageModel_preview        
+                 ;                         ; QuoteBuyerCancellationEmail         ; EmailPageModel_preview        
+                 ;                         ; ReplenishmentOrderConfirmationEmail ; EmailPageModel_preview        
+                 ;                         ; AssistedForgottenPasswordEmail      ; EmailPageModel_preview        
+				 ;                         ; AsahiPaymentConfirmationEmail       ; EmailPageModel_preview        
+				 ;                         ; AsahiNoDeliveryEmail                   ; EmailPageModel_preview        
+				 ;                         ; AsahiAlternateCallDayEmail                   ; EmailPageModel_preview        
+				 ;                         ; AsahiAlternateDeliveryDateEmail                   ; EmailPageModel_preview      
+				 
+				 
+				 
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#
+# Import the CMS content for the SGA site emails
+#
+$contentCatalog=sgaContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$wideContent=CMSImageComponent,BannerComponent
+$jarEmailResource=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/coredata/contentCatalogs/sgaContentCatalog/emails
+
+# Import modulegen config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$jarResourceCms=$config-jarResourceCmsValue                                                                
+$emailPackageName=$config-emailContextPackageName                                                          
+
+
+# Email page Template                                                                                      
+INSERT_UPDATE EmailPageTemplate ; $contentCV[unique=true] ; uid[unique=true]                            ; name                                              ; active ; frontendTemplateName                ; subject(code)                                      ; htmlTemplate(code)                              ; restrictedPageTypes(code)
+                                ;                         ; RequestPayerAccessEmailTemplate   		     ; Request Payer Access  Email Template        		; true   ; assistedForgottenPasswordEmail      ; sga_Email_Request_Payer_Access_Subject      		 ; sga_Email_Request_Payer_Access_Body      			; EmailPage                
+                                ;                         ; ApprovePayerAccessEmailTemplate   		     ; Approve Payer Access  Email Template        		; true   ; assistedForgottenPasswordEmail      ; sga_Email_Approve_Payer_Access_Subject      		 ; sga_Email_Approve_Payer_Access_Body      			; EmailPage                
+                                ;                         ; RejectPayerAccessEmailTemplate   		     ; Reject Payer Access  Email Template        			; true   ; assistedForgottenPasswordEmail      ; sga_Email_Reject_Payer_Access_Subject      		 	 ; sga_Email_Reject_Payer_Access_Body      			; EmailPage                
+                                ;                         ; ExpiredPayerAccessEmailTemplate   		     ; Expired Payer Access  Email Template        			; true   ; assistedForgottenPasswordEmail      ; sga_Email_Expired_Payer_Access_Subject      		 	 ; sga_Email_Expired_Payer_Access_Body      			; EmailPage                
+                                ;                         ; SuperUserRequestPayerAccessEmailTemplate   	; Super User Request Payer Access  Email Template        			; true   ; assistedForgottenPasswordEmail      ; sga_Email_SuperUserRequest_Payer_Access_Subject      		 	 ; sga_Email_SuperUserRequest_Payer_Access_Body      			; EmailPage                
+ 
+# Templates for CMS Cockpit Page Edit
+UPDATE EmailPageTemplate ; $contentCV[unique=true] ; uid[unique=true]                            ; velocityTemplate[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                         ;                         ; RequestPayerAccessEmailTemplate      		 ; $jarResourceCms/structure-view/asahi/structure_payerAccessEmailTemplate.vm 
+                         ;                         ; ApprovePayerAccessEmailTemplate      		 ; $jarResourceCms/structure-view/asahi/structure_payerAccessEmailTemplate.vm 
+                         ;                         ; RejectPayerAccessEmailTemplate      			 ; $jarResourceCms/structure-view/asahi/structure_payerAccessEmailTemplate.vm 
+                         ;                         ; ExpiredPayerAccessEmailTemplate      			 ; $jarResourceCms/structure-view/asahi/structure_payerAccessEmailTemplate.vm 
+                         ;                         ; SuperUserRequestPayerAccessEmailTemplate      			 ; $jarResourceCms/structure-view/asahi/structure_payerAccessEmailTemplate.vm 
+
+
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='RequestPayerAccessEmailTemplate'] ; validComponentTypes(code)
+                              ; SiteLogo          ;                                                                            ;                          ; logo
+                              ; TopContent        ;                                                                            ; $wideContent             ;     
+                              ; BottomContent     ;                                                                            ; $wideContent             ;     
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='ApprovePayerAccessEmailTemplate'] ; validComponentTypes(code)
+                              ; SiteLogo          ;                                                                            ;                          ; logo
+                              ; TopContent        ;                                                                            ; $wideContent             ;     
+                              ; BottomContent     ;                                                                            ; $wideContent             ;     
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='RejectPayerAccessEmailTemplate'] ; validComponentTypes(code)
+                              ; SiteLogo          ;                                                                            ;                          ; logo
+                              ; TopContent        ;                                                                            ; $wideContent             ;     
+                              ; BottomContent     ;                                                                            ; $wideContent             ;     
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='ExpiredPayerAccessEmailTemplate'] ; validComponentTypes(code)
+                              ; SiteLogo          ;                                                                            ;                          ; logo
+                              ; TopContent        ;                                                                            ; $wideContent             ;     
+                              ; BottomContent     ;                                                                            ; $wideContent             ;     
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='SuperUserRequestPayerAccessEmailTemplate'] ; validComponentTypes(code)
+                              ; SiteLogo          ;                                                                            ;                          ; logo
+                              ; TopContent        ;                                                                            ; $wideContent             ;     
+                              ; BottomContent     ;                                                                            ; $wideContent             ;     
+							  
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]                     ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='RequestPayerAccessEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogo-RequestPayerAccessEmail      ; SiteLogo              ;                                                                                     ; EmailSiteLogoSlot                        ; true          
+                                     ;                         ; TopContent-RequestPayerAccessEmail    ; TopContent            ;                                                                                     ; EmailTopSlot                             ; true          
+                                     ;                         ; BottomContent-RequestPayerAccessEmail ; BottomContent         ;                                                                                     ; EmailBottomSlot                          ; true          
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]                     ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='ApprovePayerAccessEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogo-ApprovePayerAccessEmail      ; SiteLogo              ;                                                                                     ; EmailSiteLogoSlot                        ; true          
+                                     ;                         ; TopContent-ApprovePayerAccessEmail    ; TopContent            ;                                                                                     ; EmailTopSlot                             ; true          
+                                     ;                         ; BottomContent-ApprovePayerAccessEmail ; BottomContent         ;                                                                                     ; EmailBottomSlot                          ; true          
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]                     ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='RejectPayerAccessEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogo-RejectPayerAccessEmail      ; SiteLogo              ;                                                                                     ; EmailSiteLogoSlot                        ; true          
+                                     ;                         ; TopContent-RejectPayerAccessEmail    ; TopContent            ;                                                                                     ; EmailTopSlot                             ; true          
+                                     ;                         ; BottomContent-RejectPayerAccessEmail ; BottomContent         ;                                                                                     ; EmailBottomSlot                          ; true          
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]                     ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='ExpiredPayerAccessEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogo-ExpiredPayerAccessEmail      ; SiteLogo              ;                                                                                     ; EmailSiteLogoSlot                        ; true          
+                                     ;                         ; TopContent-ExpiredPayerAccessEmail    ; TopContent            ;                                                                                     ; EmailTopSlot                             ; true          
+                                     ;                         ; BottomContent-ExpiredPayerAccessEmail ; BottomContent         ;                                                                                     ; EmailBottomSlot                          ; true          
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]                     ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='SuperUserRequestPayerAccessEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogo-SuperUserRequestPayerAccessEmail      ; SiteLogo              ;                                                                                     ; EmailSiteLogoSlot                        ; true          
+                                     ;                         ; TopContent-SuperUserRequestPayerAccessEmail    ; TopContent            ;                                                                                     ; EmailTopSlot                             ; true          
+                                     ;                         ; BottomContent-SuperUserRequestPayerAccessEmail ; BottomContent         ;                                                                                     ; EmailBottomSlot                          ; true          
+									 
+									 # Email Pages                        
+INSERT_UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]                    ; name                                     ; masterTemplate(uid,$contentCV)              ; defaultPage ; approvalStatus(code)[default='approved']
+                        ;                         ; RequestPayerAccessEmail      		 ; Request Payer Access Email        		  ; RequestPayerAccessEmailTemplate      ; true        ;                                         
+                        ;                         ; ApprovePayerAccessEmail      		 ; Approve Payer Access Email        		  ; ApprovePayerAccessEmailTemplate      ; true        ;                                         
+                        ;                         ; RejectPayerAccessEmail      			 ; Reject Payer Access Email        		  ; RejectPayerAccessEmailTemplate      ; true        ;                                         
+                        ;                         ; ExpiredPayerAccessEmail      			 ; Expired Payer Access Email        		  ; ExpiredPayerAccessEmailTemplate      ; true        ;                                         
+                        ;                         ; SuperUserRequestPayerAccessEmail      			 ; Super User Request Payer Access Email        		  ; SuperUserRequestPayerAccessEmailTemplate      ; true        ;                                         
+
+
+# Email velocity templates     
+INSERT_UPDATE RendererTemplate ; code[unique=true]                                  ; contextClass                                                                                ; rendererType(code)[default='velocity']
+                               ; sga_Email_Request_Payer_Access_Body         			; $emailPackageName.AsahiPayerAccessEmailContext                                             
+                               ; sga_Email_Request_Payer_Access_Subject		         ; $emailPackageName.AsahiPayerAccessEmailContext                                             
+                               ; sga_Email_Approve_Payer_Access_Body         			; $emailPackageName.AsahiPayerAccessEmailContext                                             
+                               ; sga_Email_Approve_Payer_Access_Subject		         ; $emailPackageName.AsahiPayerAccessEmailContext                                             
+                               ; sga_Email_Reject_Payer_Access_Body         			; $emailPackageName.AsahiPayerAccessEmailContext                                             
+                               ; sga_Email_Reject_Payer_Access_Subject		         ; $emailPackageName.AsahiPayerAccessEmailContext                                             
+                               ; sga_Email_Expired_Payer_Access_Body         			; $emailPackageName.AsahiPayerAccessEmailContext                                             
+                               ; sga_Email_Expired_Payer_Access_Subject		         ; $emailPackageName.AsahiPayerAccessEmailContext                                             
+                               ; sga_Email_SuperUserRequest_Payer_Access_Body         			; $emailPackageName.AsahiPayerAccessEmailContext                                             
+                               ; sga_Email_SuperUserRequest_Payer_Access_Subject		         ; $emailPackageName.AsahiPayerAccessEmailContext                                             
+
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]                    ; previewImage(code, $contentCV)
+				 	  ;                         ; RequestPayerAccessEmail     			; EmailPageModel_preview        
+				 	  ;                         ; ApprovePayerAccessEmail     			; EmailPageModel_preview        
+				 	  ;                         ; RejectPayerAccessEmail     			; EmailPageModel_preview        
+				 	  ;                         ; ExpiredPayerAccessEmail     			; EmailPageModel_preview        
+				 	  ;                         ; SuperUserRequestPayerAccessEmail     			; EmailPageModel_preview        
+
+$contentCatalog=sgaContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/coredata/contentCatalogs/sgaContentCatalog/emails
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$emailResource=$config-emailResourceValue                                                                  
+
+# Language                                                                                                 
+$lang=en                                                                                                   
+					  
+UPDATE RendererTemplate ; code[unique=true]                                  ; description[lang=$lang]                           ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                        ; sga_Email_Request_Payer_Access_Body                  ; "Payer Access Email Body"                   ; $jarEmailResource/email-requestPayerAccessBody.vm                                                                 
+                        ; sga_Email_Request_Payer_Access_Subject               ; "Payer Access Email Subject"                ; $jarEmailResource/email-requestPayerAccessSubject.vm                                                
+                        ; sga_Email_Approve_Payer_Access_Body                  ; "Payer Access Email Body"                   ; $jarEmailResource/email-approvePayerAccessBody.vm                                                                 
+                        ; sga_Email_Approve_Payer_Access_Subject               ; "Payer Access Email Subject"                ; $jarEmailResource/email-approvePayerAccessSubject.vm                                                
+                        ; sga_Email_Reject_Payer_Access_Body                  ; "Payer Access Email Body"                    ; $jarEmailResource/email-rejectPayerAccessBody.vm                                                                 
+                        ; sga_Email_Reject_Payer_Access_Subject               ; "Payer Access Email Subject"                 ; $jarEmailResource/email-rejectPayerAccessSubject.vm                                                
+                        ; sga_Email_Expired_Payer_Access_Body                  ; "Payer Access Email Body"                    ; $jarEmailResource/email-expiredPayerAccessBody.vm                                                                 
+                        ; sga_Email_Expired_Payer_Access_Subject               ; "Payer Access Email Subject"                 ; $jarEmailResource/email-expiredPayerAccessSubject.vm                                                
+                        ; sga_Email_SuperUserRequest_Payer_Access_Body                  ; "Payer Access Email Body"                    ; $jarEmailResource/email-superUserRequestPayerAccessBody.vm                                                                 
+                        ; sga_Email_SuperUserRequest_Payer_Access_Subject               ; "Payer Access Email Subject"                 ; $jarEmailResource/email-superUserRequestPayerAccessSubject.vm                                                
+                                                                        
+					  
+					  # Email Pages           
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]                    ; fromEmail[lang=$lang]                ; fromName[lang=$lang]            
+                 ;                         ; RequestPayerAccessEmail      			; "ACCSchweppesConnect@asahi.com.au"   ; "Customer Services Team"        
+                 ;                         ; ApprovePayerAccessEmail      			; "ACCSchweppesConnect@asahi.com.au"   ; "Customer Services Team"        
+                 ;                         ; RejectPayerAccessEmail      			; "ACCSchweppesConnect@asahi.com.au"   ; "Customer Services Team"        
+                 ;                         ; ExpiredPayerAccessEmail      			; "ACCSchweppesConnect@asahi.com.au"   ; "Customer Services Team"        
+                 ;                         ; SuperUserRequestPayerAccessEmail      			; "ACCSchweppesConnect@asahi.com.au"   ; "Customer Services Team"        
+  
+                 

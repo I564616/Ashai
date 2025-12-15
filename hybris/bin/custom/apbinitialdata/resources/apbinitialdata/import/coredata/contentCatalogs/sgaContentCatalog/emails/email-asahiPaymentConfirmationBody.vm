@@ -1,0 +1,210 @@
+## messageSource=classpath:/sabmcore/messages/email-asahiPaymentConfirmation_$lang.properties
+#macro(genHtmlLinkStartTag $url)
+<a href="$url"><font color="#42515a">
+#end
+#macro(genHtmlLinkEndTag)
+</font></a>
+#end
+#macro(genHtmlLink $url $textColor $bodyContent)
+<a href="$url"><font color="$textColor">$bodyContent</font></a>
+#end
+#macro(displayNegationForDiscount $priceData)
+	#if (${priceData.value} > 0)
+    -
+	#end
+	${priceData.formattedValue}
+#end
+
+<html lang="en">
+    <head>
+    </head>
+    <body style="margin: -3px -3px 0 -3px;">
+		#set ($accountUrl = "${ctx.baseUrl}/my-account/orders")
+        <div class="tg-wrap" style="
+            font-family: 'Open Sans';, Helvetica, Arial, sans-serif;
+            color: #42515a;
+            font-size: 16px;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;">
+            <table class="tg" style="
+                undefined;table-layout: fixed;
+                width: 100%;
+                display: block;
+                width: auto !important;">
+                <tr>
+					<td class="tg-yw43" colspan="2">
+				        <a href="${ctx.baseUrl}" style="padding: 0px 0px 0px 0px; display: inline-block; margin: 0 auto;">
+						    ${ctx.cmsSlotContents.TopContent}
+						</a>
+					</td>
+				</tr>
+                <tr>
+                    <table style="margin: 30px 20px 0px 20px;">
+                        <tr>
+                            <td class="tg-yw43" colspan="2">
+                                <a href="${ctx.baseUrl}" style="padding: 0px 0px 0px 0px; display: inline-block; margin: 0 auto;">
+									${ctx.cmsSlotContents.SiteLogo}
+								</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="
+                                color: #42515a;
+                                font-family:'Open Sans', Helvetica, Arial, sans-serif;
+                                font-size: 25px;
+                                line-height: 35px;
+                                padding: 25px 0px 5px 0px;
+                                margin: 0;">
+                                <b>${ctx.messages.asahipaymentConfirmationtitle}</b>
+                            </td>
+                        </tr>
+                    </table>
+                    <table style="margin: 0px 20px 0px 20px;">    
+                        <tr>
+                            <td style="
+                                width: 50px;
+                                border: none;
+                                border-top: solid #42515a 4px;
+                                padding: 0px 3.0px 0 3.0px;">
+                            </td>
+                            <td style="border-top:none">
+                            </td>
+                        </tr>
+                    </table>
+                    <table style="margin: 30px 20px 20px 20px;">    
+                        <tr>
+                            <td class="body-text" colspan="2" style="color: #42515a; font-family:'Open Sans', Helvetica, Arial, sans-serif;">
+                                ${ctx.messages.asahipaymentConfirmationsalutation} $ctx.asahiUserName,<br><br>
+                                ${ctx.messages.asahipaymentConfirmationmsgLine1}<br>
+                            </td>
+                        </tr>
+					</table>
+					<table style="width:100%;">
+                        <tr>
+                            <td class="tg-9hbo" colspan="2" style="
+                                padding: 10px 0px 10px 20px;
+                                background-color: #EBEBEB;
+                                font-family:'Open Sans', Helvetica, Arial, sans-serif;
+                                color: #42515a;
+                                font-size: 13px;">
+                            <b>${ctx.messages.asahipaymentConfirmationpaymentDetails}</b></td>
+                        </tr>
+                    </table>
+					<table>
+                        <tr>
+                            <td class="tg-9hbo" style="width: 250px; padding: 0px 20px 0px 20px; color: #42515a; font-family:'Open Sans', Helvetica, Arial, sans-serif;font-size: 13px;">
+                                <b>
+									${ctx.messages.asahipaymentConfirmationcustomer}<br>
+									${ctx.messages.asahipaymentConfirmationcustomerNo}<br>
+									${ctx.messages.asahipaymentConfirmationamtPaid}<br>
+									${ctx.messages.asahipaymentConfirmationpmtDate}<br>
+									${ctx.messages.asahipaymentConfirmationrefNo}<br>
+									#if($ctx.paymentReference != "")
+									${ctx.messages.asahipaymentConfirmationpmtRef}<br>
+									#end
+									${ctx.messages.asahipaymentConfirmationpmtMethod}
+								</b>
+                            </td>
+                            <td class="tg-yw4l" style="padding: 30px 20px 20px 20px; color: #42515a; font-family:'Open Sans', Helvetica, Arial, sans-serif;font-size: 14px;">
+                                $ctx.customerName<br>
+                                $ctx.customerId<br>
+                                ${ctx.messages.asahipaymentConfirmationcurrency}$ctx.amountPaid<br>
+                                $ctx.paymentDate<br>
+                                $ctx.referenceNo<br>
+								#if($ctx.paymentReference != "")
+								$ctx.paymentReference<br>
+								#end
+								#if($ctx.paymentMethod == "MASTER" || $ctx.paymentMethod == "MASTERCARD")
+								${ctx.messages.asahipaymentConfirmationpmtMethodMasterCard}
+								#end
+								#if($ctx.paymentMethod == "VISA")
+								${ctx.messages.asahipaymentConfirmationpmtMethodVisa}
+								#end
+								#if($ctx.paymentMethod == "AMEX")
+								${ctx.messages.asahipaymentConfirmationpmtMethodAmex}
+								#end
+                            </td>
+                        </tr>
+                    </table>
+                  
+                    <table style="width:100%;">
+                        <tr>
+                            <td class="tg-9hbo" colspan="2" style="
+                                padding: 10px 0px 10px 20px;
+                                background-color: #EBEBEB;
+                                font-family:'Open Sans', Helvetica, Arial, sans-serif;
+                                color: #42515a;
+                                font-size: 13px;">
+                            	<b>${ctx.messages.asahipaymentConfirmationpmtSummary}</b>
+							</td>
+                        </tr>
+                    </table>
+                    <table style="margin: 20px 20px 0px 20px;">
+                        <tr>
+                            <td class="tg-yw42" colspan="4">
+                                <table class="tb" style="
+                                    table-layout: fixed;
+                                    font-family:'Open Sans', Helvetica, Arial, sans-serif;
+                                    color: #42515a;
+                                    width: 100%;
+                                    padding: 0px 0px;
+                                    font-size: 13px;
+                                    overflow: hidden;">
+                                    <tr>
+                                        <td style="padding: 0px 0px 10px 0px; text-align: left; vertical-align: top; width: 25%;"><b>${ctx.messages.asahipaymentConfirmationpmtSummaryDocNo}</b></td>
+                                        <td style="padding: 0px 0px 10px 0px; text-align: left; vertical-align: top; width: 25%; "><b>${ctx.messages.asahipaymentConfirmationpmtSummaryDescription}</b></td>
+                                        <td style="padding: 0px 0px 10px 0px; text-align: left; vertical-align: top; width: 25%; "><b>${ctx.messages.asahipaymentConfirmationpmtSummaryPmtAmt}</b></td>
+                                        <td style="padding: 0px 0px 10px 0px; text-align: left; vertical-align: top; width: 25%; "><b>${ctx.messages.asahipaymentConfirmationpmtSummaryRemaining}</b></td>
+                                    </tr>
+										#foreach( $invoice in ${ctx.invoices} )
+											<tr>
+												<td style="vertical-align: top; padding: 0px 0px 10px 0px;">$invoice.documentNumber</td>
+												#if($invoice.documentType == "10")
+												<td style="vertical-align: top; padding: 0px 0px 10px 0px;">${ctx.messages.asahipaymentConfirmationdocTypeCredit}</td>
+												#end
+												#if($invoice.documentType == "11")
+												<td style="vertical-align: top; padding: 0px 0px 10px 0px;">${ctx.messages.asahipaymentConfirmationdocTypeInvoice}</td>
+												#end
+												#if($invoice.documentType == "12")
+												<td style="vertical-align: top; padding: 0px 0px 10px 0px;">${ctx.messages.asahipaymentConfirmationdocTypePayment}</td>
+												#end
+												#if($invoice.paidAmount.contains("-"))
+												<td style="vertical-align: top; padding: 0px 0px 10px 0px;">-${ctx.messages.asahipaymentConfirmationcurrency}$invoice.paidAmount.replace("-", "")</td>
+												#else
+												<td style="vertical-align: top; padding: 0px 0px 10px 0px;">${ctx.messages.asahipaymentConfirmationcurrency}$invoice.paidAmount</td>
+												#end
+												#if($invoice.samRemainingAmount.contains("-"))
+												<td style="vertical-align: top; padding: 0px 0px 10px 0px;">-${ctx.messages.asahipaymentConfirmationcurrency}$invoice.samRemainingAmount.replace("-", "")</td>
+												#else		
+												<td style="vertical-align: top; padding: 0px 0px 10px 0px;">${ctx.messages.asahipaymentConfirmationcurrency}$invoice.samRemainingAmount</td>
+												#end
+											</tr>
+										#end
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+					<table style="margin: 0px 20px 0px 20px;">
+						<tr>
+							<td class="tg-yw4l" colspan="2" style="padding: 20px 0px 20px 0px; color: #42515a;"><br>
+							${ctx.messages.asahipaymentConfirmationanotherPmt} <a href="${ctx.invoicePageUrl}">${ctx.messages.asahipaymentConfirmationmakePayment}</a>&nbsp;${ctx.messages.asahipaymentConfirmationpage}<br><br>
+							${ctx.messages.asahipaymentConfirmationviewPmtHistory}<a href="${ctx.samPaymentHistoryUrl}">${ctx.messages.asahipaymentConfirmationpmtHistory}</a>&nbsp;${ctx.messages.asahipaymentConfirmationpage}<br></td>
+						</tr>
+						<tr>
+							<td class="tg-yw4l" colspan="2" style="padding: 0px 0px 20px 0px;color: #42515a;"><br>
+							${ctx.messages.asahipaymentConfirmationthanks}<br>
+							${ctx.messages.asahipaymentConfirmationschweppesteam}<br></td>
+						</tr>
+					</table>
+                </tr>
+                <tr>
+                    <td class="footer-image" colspan="2">
+                        <a href="${ctx.baseUrl}" style="padding: 0px 0px 0px 0px; display: inline-block; margin: 0 auto;">
+                            ${ctx.cmsSlotContents.BottomContent}
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>

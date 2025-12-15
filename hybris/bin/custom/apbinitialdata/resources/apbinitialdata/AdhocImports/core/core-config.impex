@@ -1,0 +1,27 @@
+INSERT_UPDATE Configuration;configKey[unique=true];configValue
+
+;integration.price.service.stub.check.apb;true;
+;integration.stock.onHand.service.stub.check.apb;true;
+;integration.credit.check.service.stub.check.apb;true
+;integration.credit.check.service.stub.response.apb;"{ ""creditCheckResponse"":[ { ""accountNum"": ""56565656"", ""creditRemaining"": ""20000"", ""isBlocked"": ""false"" }]}";
+;checkout.deferred.delivery.dates.days.apb;30;
+;payment.integration.visa.card.list.apb;VISA;
+;payment.integration.amex.card.list.apb;AMEX;
+;payment.integration.master.card.list.apb;MASTERCARD;
+
+; integration.checkout.inclusion.stub.response        ; { "checkoutResponse": { "isBlocked": "false", "items": [ { "isPromoFlag" : "true", "isExcluded" : "false", "netPrice": "7.78", "isListed": "true", "materialNumber": "3221", "gst": "10", "totalGst": "5", "totalCdl":"4" ,"listPrice": "31.74", "containerDepositLevy": "3.03", "dicount": "3.03", "promoText" : "You will get 10 % discount" }, { "isPromoFlag" : "true", "isExcluded" : "false", "netPrice": "7.78", "isListed": "true", "materialNumber": "10000844", "gst": "10", "totalGst": "5", "totalCdl":"4" , "listPrice": "31.74", "containerDepositLevy": "3.03", "discount": "3.03", "promoText" : "You will get 10 % discount" } ] } } 
+ ; inclusion.stub.enabled.sga                          ; true 
+; integration.login.inclusion.stub.response       	  ; { "loginResponse": { "isBlocked": false, "items": [ { "isPromoFlag" : true, "isExcluded" : false, "netPrice": 7.78, "isListed": true, "materialNumber": "3221", "gst": 10, "listPrice": 31.74, "containerDepositLevy": 3.03, "promoText" : "You will get 10 % discount" }, { "isPromoFlag" : true, "isExcluded" : false, "netPrice": 7.78, "isListed": true, "materialNumber": "10000840", "gst": 10, "listPrice": 31.74, "containerDepositLevy": 3.03, "promoText" : "You will get 10 % discount" },{ "isPromoFlag" : true, "isExcluded" : false, "netPrice": 7.78, "isListed": true, "materialNumber": "2919", "gst": 10, "listPrice": 31.74, "containerDepositLevy": 3.03, "promoText" : "You will get 10 % discount" },{ "isPromoFlag" : true, "isExcluded" : false, "netPrice": 7.78, "isListed": true, "materialNumber": "10000844", "gst": 10, "listPrice": 31.74, "containerDepositLevy": 3.03, "promoText" : "You will get 10 % discount" } ] } }	
+
+; credit.card.enable.sga						      ; true								
+; payment.integration.visa.card.list.sga			 ; Visa,VISA
+; payment.integration.master.card.list.sga 			 ; MasterCard
+; payment.integration.amex.card.list.sga			 ; AMEX
+
+
+INSERT_UPDATE AsahiSAMInvoiceStatus; code[unique = true]; name[lang = en];  
+;10;CLOSED;
+;11;OPEN;
+
+ INSERT_UPDATE AsahiSAMInvoice;documentNumber[unique=true];lineNumber[unique=true];custAccount(uid);documentType(code);soldToName;status(code);remainingAmount;invoiceDate[dateformat=dd.MM.yyyy];invoiceDueDate[dateformat=dd.MM.yyyy];documentPostedDate[dateformat=dd.MM.yyyy]
+;123456;001;0123;CREDIT;Test;11;2.22;23.09.2022;10.10.2022;23.09.2022							

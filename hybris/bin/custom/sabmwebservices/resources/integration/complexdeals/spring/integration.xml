@@ -1,0 +1,115 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd
+           http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+		   http://www.springframework.org/schema/integration/file http://www.springframework.org/schema/integration/file/spring-integration-file.xsd
+		   http://www.springframework.org/schema/integration/http http://www.springframework.org/schema/integration/http/spring-integration-http.xsd
+		   http://www.springframework.org/schema/integration/xml
+    	   http://www.springframework.org/schema/integration/xml/spring-integration-xml.xsd
+    	   http://www.springframework.org/schema/oxm http://www.springframework.org/schema/oxm/spring-oxm.xsd
+    	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+    	   http://www.springframework.org/schema/integration/mail http://www.springframework.org/schema/integration/mail/spring-integration-mail.xsd"
+
+       xmlns:int="http://www.springframework.org/schema/integration"
+       xmlns:int-file="http://www.springframework.org/schema/integration/file"
+       xmlns:int-http="http://www.springframework.org/schema/integration/http"
+       xmlns:int-xml="http://www.springframework.org/schema/integration/xml"
+       xmlns:int-mail="http://www.springframework.org/schema/integration/mail"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:oxm="http://www.springframework.org/schema/oxm">
+
+
+    <!-- map the incoming webservice request to a channel -->
+    <int-http:inbound-gateway id="inboundcomplexDealsRequestGateway"
+                              supported-methods="POST"
+                              path="/services/complexdeals"
+                              request-channel="preComplexDealsImportChannel"
+                              request-payload-type="java.lang.String"
+                              reply-timeout="50000">
+    </int-http:inbound-gateway>
+
+    <int:channel id="complexDealsChannel"/>
+    <int:channel id="complexDealsRequestChannel"/>
+    <int:channel id="complexDealsPersistRequestChannel"/>
+    <int:channel id="complexDealsRequestValidationChannel"/>
+    <int:channel id="complexDealsRequestSplitChannel"/>
+    <int:channel id="complexDealsResponseChannel"/>
+    <int:channel id="complexDealsValidationErrorChannel"/>
+    <int:channel id="complexDealsItemsChannel"/>
+    <int:channel id="complexDealsProcessingChannel"/>
+    <int:channel id="convertToPOJOChannel"/>
+    <int:channel id="splitcomplexDealssChannel"/>
+    <int:channel id="preComplexDealsImportChannel"/>
+    <int:channel id="complexDealsImportChannel"/>
+    <int:channel id="postcomplexDealsImportChannel"/>
+
+
+    <int:chain id="pre-complexDeals-import-chain" input-channel="preComplexDealsImportChannel" output-channel="complexDealsImportChannel">
+        
+         <!--  Security filter -->
+        <int-xml:validating-filter discard-channel="productXSDValidationErrorChannel"
+                                   throw-exception-on-rejection="true"
+                                   xml-validator="securityValidationFilter">
+        </int-xml:validating-filter>
+     
+        <!-- this is require to enrich the header to handle the content-type of type "application/xml" -->
+        <int:header-enricher>
+            <int:header name="content-type" value="application/xml"/>
+        </int:header-enricher>
+
+        <!--  Add payload Id to the header -->
+        <int-xml:xpath-header-enricher id="complexDealsAddPayloadId" default-overwrite="true">
+            <int-xml:header name="payloadId"
+                            overwrite="true"
+                            xpath-expression="//*[local-name()='MessageHeader']/ID"
+                            evaluation-type="STRING_RESULT"/>
+        </int-xml:xpath-header-enricher>
+
+        <!--  Save the incoming payload in Hybris -->
+        <int:service-activator ref="complexDealsImportService" method="savePayload" />
+
+        <!--  Validate XML against schema -->
+        <int-xml:validating-filter discard-channel="complexDealsXSDValidationErrorChannel"
+                                   id="complexDealsValidationFilter"
+                                   schema-location="integration/complexdeals/schema/complex-deals.xsd"
+                                   schema-type="xml-schema"
+                                   throw-exception-on-rejection="false">
+        </int-xml:validating-filter>
+
+    </int:chain>
+
+    <int:chain id="complexDeals-validation-error-chain" input-channel="complexDealsXSDValidationErrorChannel">
+        <int:service-activator ref="complexDealsImportService" method="handleXSDValidationError"/>
+    </int:chain>
+
+    <int:chain id="import-complexDeals-chain" input-channel="complexDealsImportChannel" output-channel="postComplexDealsImportChannel">
+
+        <!--Add import context which is shared by this single request. useful for having logic which should be called only once and shared by all split docs-->
+        <int:header-enricher>
+            <int:header name="importContext" ref="complexDealsImportService" method="createImportContext" />
+        </int:header-enricher>
+
+        <!-- Split the customers(customers) into items creating a new document for each item -->
+        <int-xml:xpath-splitter id="complexDealsItemDocumentSplitter" create-documents="true" >
+            <int-xml:xpath-expression expression="//*[local-name()='DealCondition']" />
+        </int-xml:xpath-splitter>
+
+        <!-- Convert Document to POJO -->
+        <int-xml:unmarshalling-transformer id="defaultcomplexDealsUnmarshaller" unmarshaller="complexDealsUnmarshallingTransformer"/>
+
+
+        <!--  Import Customer -->
+        <int:service-activator ref="complexDealsImportService" method="executeImport"/>
+        
+
+    </int:chain>
+
+    <int:chain id="post-complexDeals-import-chain" input-channel="postComplexDealsImportChannel" >
+        <int:service-activator ref="complexDealsImportService" method="logImportStatus"></int:service-activator>
+    </int:chain>
+
+</beans>

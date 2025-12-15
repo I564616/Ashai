@@ -1,0 +1,181 @@
+## messageSource=classpath:/sabmcore/messages/email-welcome_$lang.properties
+#macro(genHtmlLinkStartTag $url)
+<a href="$url"><font color="#666666">
+#end
+#macro(genHtmlLinkEndTag)
+</font></a>
+#end
+#macro(genHtmlLink $url $textColor $bodyContent)
+<a href="$url"><font color="$textColor">$bodyContent</font></a>
+#end
+
+<html>
+	<head>
+	<style>
+		table .paymentTable, th .paymentTable, td .paymentTable {
+			border: 1px solid black;
+		}
+		table .paymentTable{
+			border-collapse: collapse;
+		}
+		#resetbtn {
+    		text-decoration: none !important;
+		}
+	</style>
+	</head>
+	<body bgcolor="#ffffff"
+	<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#ffffff"
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td align="center" valign="top">
+				<table width="610" border="0" align="center" cellpadding="0" cellspacing="0" bordercolor="#fff">
+					<tr>
+						<td align="center" valign="top" bgcolor="#FFFFFF">
+							<table width="570" cellpadding="0" cellspacing="0" border="0" align="center">
+								<tr>
+									<td valign="middle" bgcolor="#002f5f" height="92" style="padding-left: 10px;">${ctx.cmsSlotContents.SiteLogo}</td>
+								</tr>
+								<tr>
+									<td valign="middle">&nbsp;</td>
+								</tr>
+								<tr>
+									<td align="center" valign="middle">
+										<a href="${ctx.secureBaseUrl}" style="display:block; margin-top:10px;margin-bottom:10px;">${ctx.cmsSlotContents.TopContent}</a>
+									</td>
+								</tr>
+								<tr>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<td align="left" valign="top">
+									#set ($secureAccountUrl = "${ctx.secureBaseUrl}/my-account")
+									#set ($securePswdResetUrl = "${ctx.secureBaseUrl}/login/pw/request/external")
+									#set ($mailToUrl = "mailto:${ctx.messages.contactUsEmailAddress}")
+									#if(${ctx.baseSite.Uid} == "electronics")
+									#set ( $instructionsContactUs = ${ctx.messages.getMessage('instructionsContactUs_electronics', "#genHtmlLinkStartTag(${ctx.messages.contactUsPage})", "#genHtmlLinkEndTag()", "#genHtmlLink($mailToUrl '#666666' ${ctx.messages.contactUsEmailAddress})")} )
+									#else
+									#set ($faqPage = "${ctx.baseUrl}/faq")
+									#set ( $instructionsContactUs = ${ctx.messages.getMessage('instructionsContactUs', "#genHtmlLinkStartTag($faqPage)", "#genHtmlLinkEndTag()", "#genHtmlLinkStartTag(${ctx.messages.contactUsPage})", "#genHtmlLinkEndTag()", "#genHtmlLink($mailToUrl '#666666' ${ctx.messages.contactUsEmailAddress})")} )
+									#end
+
+									#set ($faqPage = "${ctx.baseUrl}/faq")
+									
+									<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><b>${ctx.messages.getMessage('salutation', ${ctx.displayName})}</b>,</font></p>
+									
+#if(${ctx.customerType} == "primaryAdmin" )
+
+						#if(${ctx.accountType} == "CASH")
+							#set ($accountTypeText = ${ctx.messages.getMessage('accounttype.cash.text')})
+						#elseif(${ctx.accountType} == "CREDIT")
+							#set ($accountTypeText = ${ctx.messages.getMessage('accounttype.credit.text')})
+						#end
+									<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.getMessage('text.primaryadmin.part1',$accountTypeText)}</font></p>
+									<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.getMessage('text.primaryadmin.part2')}</font></p>
+									<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.getMessage('text.how.passwordSetup')}</font></p>
+									<table width="250" border="0" align="center" cellpadding="0" cellspacing="0" bordercolor="#ffffff">
+											<tr>
+												<td align="center" valign="middle" height="40" bgcolor="#002f5f">
+													<a id="resetbtn" href="${ctx.securePasswordUrlInWelcomeEmail}"><font color="#ffffff" size="2" face="Arial, Helvetica, sans-serif">Click to Set Password</font></a>
+												</td>
+											</tr>
+										</table>
+									<p><font color="#666666" size="1" face="Arial, Helvetica, sans-serif">${ctx.messages.getMessage('text.password.guidelines')}</font></p>
+									<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.getMessage('text.primaryadmin.accountInformation',${ctx.accountNumber})}</font></p>
+									<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.getMessage('text.primaryadmin.payerInformation',${ctx.payerNumber})}</font></p>
+									
+									#if(${ctx.accountType} == "CASH")
+										<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif" weight="bold">${ctx.messages.getMessage('text.primaryadmin.cash')}</font></p>
+									#elseif(${ctx.accountType} == "CREDIT")
+										<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.getMessage('text.primaryadmin.credit')}</font></p>
+									#end
+									
+									<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.getMessage('text.primaryadmin.part3')}</font></p>
+									<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.getMessage('text.primaryadmin.part4')}</font></p>
+									
+									<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.getMessage('primaryAdmin.complimentaryClosing')}</font></p>
+									<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.signature}</font></p>
+									
+									<p><font color="#666666" size="1" face="Arial, Helvetica, sans-serif">${ctx.messages.termsAndCondition}</font></p>
+
+#else
+
+
+									<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.getMessage('welcomeEcommercePortal')}</font></p>
+									
+										
+									<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.getMessage('text.how')}</font></p>
+									<table width="250" border="0" align="center" cellpadding="0" cellspacing="0" bordercolor="#ffffff">
+											<tr>
+												<td align="center" valign="middle" height="40" bgcolor="#002f5f">
+													<a id="resetbtn" href="${ctx.securePasswordUrlInWelcomeEmail}"><font color="#ffffff" size="2" face="Arial, Helvetica, sans-serif">Click to Set Password</font></a>
+												</td>
+											</tr>
+										</table>
+									
+									<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.getMessage('text.password')}</font></p>
+									<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.getMessage('text.password.format')}</font></p>
+									
+									<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.complimentaryClosing}</font></p>
+									<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.signature}</font></p>
+									
+									<p><font color="#666666" size="1" face="Arial, Helvetica, sans-serif">${ctx.messages.termsAndCondition}</font></p>
+#end									
+
+									##if(${ctx.customerType} == "primaryAdmin" )
+
+										##<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.getMessage('text.primaryadmin.portal')}</font></p> 
+										##<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.getMessage('text.primaryadmin.why')}</font></p> 
+										##<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.getMessage('text.how', '<a href="', ${ctx.securePasswordUrlInWelcomeEmail},'">', ${ctx.messages.accountSetupUrlText}, '</a>')}</font></p> 
+										##<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.getMessage('text.what')}</font></p> 
+										##<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.complimentaryClosing}</font></p>
+										##<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.signature}</font></p>
+										
+										##<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.termsAndCondition}</font></p>
+
+									##elseif(${ctx.customerType} == "b2bAdmin")
+
+										##<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.getMessage('text.admin.portal')}</font></p> 
+										##<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.getMessage('text.admin.why')}</font></p> 
+										##<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.getMessage('text.how', '<a href="', ${ctx.securePasswordUrlInWelcomeEmail},'">', ${ctx.messages.accountSetupUrlText}, '</a>')}</font></p> 
+										##<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.getMessage('text.what')}</font></p> 
+										##<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.complimentaryClosing}</font></p>
+										##<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.signature}</font></p>
+										##<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.termsAndCondition}</font></p>
+
+									##else
+										##<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.getMessage('text.staff.portal')}</font></p> 
+										##<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.getMessage('text.staff.why')}</font></p> 
+										##<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.getMessage('text.how', '<a href="', ${ctx.securePasswordUrlInWelcomeEmail},'">', ${ctx.messages.accountSetupUrlText}, '</a>')}</font></p> 
+										##<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.getMessage('text.what')}</font></p> 
+										##<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.complimentaryClosing}</font></p>
+										##<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.signature}</font></p>
+										
+										##<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.termsAndCondition}</font></p>
+									##end
+									</td>
+								</tr>
+								<tr>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<td align="center" valign="middle">
+										<a href="${ctx.s}" style="display:block; margin-top:10px;margin-bottom:10px;">${ctx.cmsSlotContents.BottomContent}</a>
+									</td>
+								</tr>
+								<tr>
+									<td>&nbsp;</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+	</table>
+</body>
+</html>

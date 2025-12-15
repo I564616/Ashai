@@ -1,0 +1,84 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# ImpEx for Importing Categories into SGA Store 
+
+# Macros / Replacement Parameter definitions
+$productCatalog=sgaProductCatalog
+$productCatalogName=SGA Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+
+$lang=en
+
+ 
+ 
+UPDATE Category ; $catalogVersion ; code[unique=true] ; name[lang=$lang] 							; description[lang=$lang]       
+                ;                 ;L00000					;View all Products							;View all
+                ;                 ;L10001					;Non Alc											;Non Alc
+                ;                 ;L10002					;Alc												;Alc
+                
+                
+                ;                 ;L20001					;Soft Drink										;Soft Drink
+                ;                 ;L20002					;Frozen											;Frozen
+                ;                 ;L20003					;Energy											;Energy
+                ;                 ;L20004					;Water											;Water
+                ;                 ;L20005					;Sport											;Sport
+                ;                 ;L20006					;Juice											;Juice
+                ;                 ;L20007					;Tea												;Tea
+                ;                 ;L20008					;Cordial											;Cordial
+                
+                
+                
+                ;                 ;L30001					;Cans 250ml x 24				;Cans 250ml x 24
+                ;                 ;L30002					;Cans 300ml x 46								;Cans 300ml x 46
+                ;                 ;L30003					;Cans 375ml x 10								;Cans 375ml x 10
+                ;                 ;L30004					;Cans 375ml x 24								;Cans 375ml x 24
+                ;                 ;L30005					;Cans 440ml x 24						;Cans 440ml x 24
+                ;                 ;L30006					;Plastic Bottles 450ml x 12				;Plastic Bottles 450ml x 12
+                ;                 ;L30007					;Plastic Bottles 450ml x 24				;Plastic Bottles 450ml x 24
+                ;                 ;L30008					;Plastic Bottles 600ml x 24				;Plastic Bottles 600ml x 24
+                ;                 ;L30009					;Plastic Bottles 1.1L x 12					;Plastic Bottles 1.1L x 12
+                ;                 ;L30010					;Plastic Bottles 1.25L x 12				;Plastic Bottles 1.25L x 12
+                ;                 ;L30011					;Glass 300ML X 12								;Glass 300ML X 12
+                ;                 ;L30012					;Glass 300ml x 24								;Glass 300ml x 24
+                ;                 ;L30013					;Glass 300ml x 4 x 6							;Glass 300ml x 4 x 6
+                ;                 ;L30014					;Glass 330ml x 1 x 5							;Glass 330ml x 1 x 5
+                ;                 ;L30015					;Glass 330ml x 4 x 6							;Glass 330ml x 4 x 6
+                ;                 ;L30016					;Bag-in-Box 10L x 1							;Bag-in-Box 10L x 1
+                ;                 ;L30017					;Bag-in-Box 15L x 1							;Bag-in-Box 15L x 1
+                ;                 ;L30018					;Cups-Lids-straws							;Cups-Lids-straws
+                
+                ;                 ;L30019					;Frozen Uncarbonated Beverages			;Frozen Uncarbonated Beverages
+                ;                 ;L30020					;Frozen Carbonated Beverages				;Frozen Carbonated Beverages
+                
+                ;                 ;L30021					;Cool Ridge										;Cool Ridge
+                ;                 ;L30022					;Voss Water										;Voss Water
+                ;                 ;L30023					;Frantelle										;Frantelle
+                ;                 ;L30024					;Pop Tops										;Pop Tops
+                ;                 ;L30025					;Gatorade										;Gatorade
+                ;                 ;L30026					;Charlies										;Charlies
+                
+                ;                 ;L30027					;Gatorade										;Gatorade
+                
+                ;                 ;L30028					;Spring Valley									;Spring Valley
+                ;                 ;L30029					;Charlies										;Charlies
+                ;                 ;L30030					;Phoenix											;Phoenix
+                ;                 ;L30031					;Pop Tops										;Pop Tops
+                ;                 ;L30032					;Extra Juicy									;Extra Juicy
+                
+                ;                 ;L30033					;Mountain Dew Kickstart							;Mountain Dew Kickstart
+                ;                 ;L30034					;Real Iced Tea Co						;Real Iced Tea Co
+			    ;				  		 ;L30035					;Cottee's										;Cottee's
+				;				  		 ;L30036					;Schweppes										;Schweppes
+				;				  		 ;L30037					;phoenixOrganics										;phoenixOrganics
+                ;                 ;L30041					;CANS 200ML x 24						;CANS 200ML x 24
+                ;                 ;L30042					;GLASS 750ML X 6						;GLASS 750ML X 6
+                ;                 ;L30043					;PLASTIC BOTTLES 2L X 8				;PLASTIC BOTTLES 2L X 8
+				

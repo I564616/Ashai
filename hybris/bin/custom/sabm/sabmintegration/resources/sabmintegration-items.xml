@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2013 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+
+  
+-->
+<!--
+	ATTENTION: This is just an example file. You have to edit it according to your needs.
+-->
+
+<items xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="items.xsd">
+
+    <enumtypes>
+        <enumtype code="ErrorEventType" autocreate="true" generate="true">
+            <value code="SAP"/>
+            <value code="CONNECTIVITY"/>
+            <value code="HYBRIS"/>
+            <value code="RETRIEVER"/>
+            <value code="NOTSPECIFIED"/>
+        </enumtype>
+    </enumtypes>
+
+    <itemtypes>
+        <typegroup name="System">
+            <itemtype code="ErrorEvent" extends="GenericItem" autocreate="true" generate="true">
+                <description>Keep a log of system errors</description>
+                <deployment table="errorEvent" typecode="25101"/>
+                <attributes>
+                    <attribute qualifier="code" type="java.lang.String">
+                        <persistence type="property"/>
+                        <modifiers optional="false"/>
+                    </attribute>
+                    <attribute qualifier="integration" type="java.lang.String">
+                        <persistence type="property"/>
+                        <modifiers optional="true"/>
+                    </attribute>
+                    <attribute qualifier="rootCause" type="java.lang.String">
+                        <persistence type="property">
+                            <columntype database="oracle">
+                                <value>CLOB</value>
+                            </columntype>
+                            <columntype database="mysql">
+                                <value>LONGTEXT</value>
+                            </columntype>
+                            <columntype database="sqlserver">
+                                <value>nvarchar(max)</value>
+                            </columntype>
+                            <columntype>
+                                <value>HYBRIS.LONG_STRING</value>
+                            </columntype>
+                        </persistence>
+                        <modifiers optional="true"/>
+                    </attribute>
+                    <attribute qualifier="requestData" type="WebServiceLog">
+                        <persistence type="property"/>
+                        <modifiers optional="true"/>
+                    </attribute>
+                    <attribute qualifier="additionalDetails" type="java.lang.String">
+                        <persistence type="property">
+                            <columntype database="oracle">
+                                <value>CLOB</value>
+                            </columntype>
+                            <columntype database="mysql">
+                                <value>LONGTEXT</value>
+                            </columntype>
+                            <columntype database="sqlserver">
+                                <value>nvarchar(max)</value>
+                            </columntype>
+                            <columntype>
+                                <value>HYBRIS.LONG_STRING</value>
+                            </columntype>
+                        </persistence>
+                        <modifiers optional="true"/>
+                    </attribute>
+                    <attribute qualifier="errorType" type="ErrorEventType">
+                        <persistence type="property"/>
+                        <modifiers optional="false"/>
+                    </attribute>
+                </attributes>
+            </itemtype>
+
+            <itemtype code="WebServiceLog" extends="GenericItem" autocreate="true" generate="true">
+                <deployment table="WebServiceLog" typecode="25100"/>
+                <attributes>
+
+                    <attribute qualifier="userId" type="java.lang.String">
+                        <persistence type="property"/>
+                    </attribute>
+                    <attribute qualifier="url" type="java.lang.String">
+                        <persistence type="property"/>
+                    </attribute>
+
+                    <attribute qualifier="request" type="java.lang.String">
+                        <persistence type="property">
+                            <columntype database="oracle">
+                                <value>CLOB</value>
+                            </columntype>
+                            <columntype database="mysql">
+                                <value>LONGTEXT</value>
+                            </columntype>
+                            <columntype database="sqlserver">
+                                <value>nvarchar(max)</value>
+                            </columntype>
+                            <columntype>
+                                <value>HYBRIS.LONG_STRING</value>
+                            </columntype>
+                        </persistence>
+                    </attribute>
+                    <attribute qualifier="response" type="java.lang.String">
+                        <persistence type="property">
+                            <columntype database="oracle">
+                                <value>CLOB</value>
+                            </columntype>
+                            <columntype database="mysql">
+                                <value>LONGTEXT</value>
+                            </columntype>
+                            <columntype database="sqlserver">
+                                <value>nvarchar(max)</value>
+                            </columntype>
+                            <columntype>
+                                <value>HYBRIS.LONG_STRING</value>
+                            </columntype>
+                        </persistence>
+                    </attribute>
+                    <attribute qualifier="responseStatus" type="java.lang.String">
+                        <persistence type="property"/>
+                    </attribute>
+                    <attribute qualifier="requestDate" type="java.util.Date">
+                        <persistence type="property"/>
+                    </attribute>
+                    <attribute qualifier="responseDate" type="java.util.Date">
+                        <persistence type="property"/>
+                    </attribute>
+                    <attribute qualifier="totalTimeTaken" type="java.lang.Long">
+                        <persistence type="property"/>
+                    </attribute>
+                    <attribute qualifier="sessionId" type="java.lang.String">
+                        <persistence type="property"/>
+                    </attribute>
+
+                </attributes>
+
+            </itemtype>
+        </typegroup>
+
+
+    </itemtypes>
+</items>

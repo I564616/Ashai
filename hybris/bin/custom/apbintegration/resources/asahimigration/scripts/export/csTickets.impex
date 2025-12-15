@@ -1,0 +1,66 @@
+
+INSERT_UPDATE ScriptingJob	;code[unique=true]		;scriptURI
+							;csTicketsScriptJob	;model://csTicketsScript
+							
+INSERT_UPDATE CronJob	;code[unique=true]			;job(code)				;sessionLanguage(isocode)	;sessionUser(uid)
+						;csTicketsScriptCronJob	;csTicketsScriptJob	;en		;admin
+
+
+INSERT_UPDATE Script; code[unique=true];content;active[default=true, unique=true]
+;csTicketsScript;"import java.io.File;
+import java.lang.Exception;
+import java.io.InputStream;
+import de.hybris.platform.util.CSVConstants;
+
+import java.io.IOException;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.sql.Timestamp;
+
+import org.apache.log4j.*;
+import org.apache.commons.io.IOUtils;
+
+import de.hybris.platform.servicelayer.impex.ExportConfig;
+import de.hybris.platform.servicelayer.impex.ExportConfig.ValidationMode;
+import de.hybris.platform.servicelayer.impex.ExportResult;
+import de.hybris.platform.servicelayer.impex.ExportService;
+import de.hybris.platform.servicelayer.impex.ImpExResource;
+import de.hybris.platform.servicelayer.impex.impl.StreamBasedImpExResource;
+import org.apache.commons.lang.exception.ExceptionUtils;
+
+final Logger LOG = Logger.getLogger(""asahi"");
+
+def exportService = spring.getBean(""exportService"");
+
+
+header =  ""INSERT_UPDATE CsTicket;assignedAgent(uid);assignedGroup(uid);baseSite(uid);category(code,itemtype(code));customer(uid);headline;order(code);priority(code,itemtype(code));resolution(code);state(code,itemtype(code));ticketID[forceWrite=true,unique=true];creationtime[forceWrite=true,dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ];modifiedtime[forceWrite=true,dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ];\n"" +
+ ""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {CsTicket} where  {creationTime} >= '2020-01-02 00:00:00.0' and  {creationTime} <= '2021-07-02 00:00:00.0' \""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1  );\""\n"";
+
+InputStream resourceAsStream = null;
+
+try {
+	resourceAsStream = new ByteArrayInputStream(header.getBytes());
+	final ImpExResource resource = new StreamBasedImpExResource(resourceAsStream, CSVConstants.DEFAULT_ENCODING);
+	final ExportConfig config = new ExportConfig();
+	config.setScript(resource);
+	config.setSingleFile(true);
+	config.setValidationMode(ValidationMode.WITHOUT);
+	config.setExportedDataCode(""CsTickets-""+new SimpleDateFormat(""yyyyMMddHHmmssSSS"").format(new Date()));
+	final ExportResult result = exportService.exportData(config);
+	
+	if (result.isError()){
+		println (""Error occurred"");
+		LOG.info(""Exception occurred during export of CSTickets"");
+	}
+}
+catch (final Exception exception) {
+		println (ExceptionUtils.getStackTrace(exception));
+		LOG.error (ExceptionUtils.getStackTrace(exception));
+		LOG.log(Level.ERROR, exception.getMessage());
+	} 
+finally
+{
+			resourceAsStream.close();
+}";;
+	
+

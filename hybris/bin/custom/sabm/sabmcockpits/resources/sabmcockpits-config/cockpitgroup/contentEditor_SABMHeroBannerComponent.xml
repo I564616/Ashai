@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-editor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="content-editor.xsd"
+                hideEmpty="true" hideReadOnly="true" groupCollections="true">
+    <template>
+        <![CDATA[
+		<table width="100%" style="margin:0;padding:0">
+			<tbody>
+					<tr>
+						<td colspan="2"><div style="height:6px"/></td>
+					</tr>
+					<tr>
+						<td><cockpit code="property" value="SABMHeroBannerComponent.desktopTitle"/></td>
+						<td><div style="height:6px"/></td>
+					</tr>
+					<tr>
+						<td><cockpit code="property" value="SABMHeroBannerComponent.mobileTitle"/></td>
+						<td><div style="height:6px"/></td>
+					</tr>
+					<tr>
+						<td><cockpit code="property" value="SABMHeroBannerComponent.desktopHeroImage"/></td>
+						<td><div style="height:6px"/></td>
+					</tr>
+					<tr>
+						<td><cockpit code="property" value="SABMHeroBannerComponent.mobileHeroImage"/></td>
+						<td><div style="height:6px"/></td>
+					</tr>
+					<tr>
+						<td><cockpit code="property" value="SABMHeroBannerComponent.colorTreatment"/></td>
+						<td><div style="height:6px"/></td>
+					</tr>
+					<tr>
+						<td><cockpit code="property" value="SABMHeroBannerComponent.textList"/></td>
+						<td><div style="height:6px"/></td>
+					</tr>
+					<tr>
+						<td><cockpit code="property" value="SABMHeroBannerComponent.ctaLinks"/></td>
+						<td><div style="height:6px"/></td>
+					</tr>
+					<tr>
+						<td><cockpit code="property" value="SABMHeroBannerComponent.textAlignment"/></td>
+						<td><div style="height:6px"/></td>
+					</tr>
+					<tr>
+						<td><cockpit code="property" value="SABMHeroBannerComponent.urlLink"/></td>
+						<td><div style="height:6px"/></td>
+					</tr>
+					<tr>
+						<td><cockpit code="property" value="SABMHeroBannerComponent.external"/></td>
+						<td><div style="height:6px"/></td>
+					</tr>
+			</tbody>
+		</table>
+	]]>
+    </template>
+    <custom-editors>
+        <property qualifier="SABMHeroBannerComponent.desktopHeroImage" editorCode="simpleMediaReferenceSelector">
+            <parameter>
+                <name>mimeTypes</name>
+                <value>image/jpeg;image/gif;image/png</value>
+            </parameter>
+            <parameter>
+                <name>allowCreate</name>
+                <value>true</value>
+            </parameter>
+            <parameter>
+                <name>restrictToCreateTypes</name>
+                <value>Media</value>
+            </parameter>
+            <parameter>
+                <name>imageHeight</name>
+                <value>80px</value>
+            </parameter>
+            <parameter>
+                <name>celumMediaFormat</name>
+                <value>picture</value>
+            </parameter>
+            <parameter>
+                <name>predefinedValuesStrategy</name>
+                <value>imageMediaPredefinedValuesStrategy</value>
+            </parameter>
+        </property>
+        <property qualifier="SABMHeroBannerComponent.mobileHeroImage" editorCode="simpleMediaReferenceSelector">
+            <parameter>
+                <name>mimeTypes</name>
+                <value>image/jpeg;image/gif;image/png</value>
+            </parameter>
+            <parameter>
+                <name>allowCreate</name>
+                <value>true</value>
+            </parameter>
+            <parameter>
+                <name>restrictToCreateTypes</name>
+                <value>Media</value>
+            </parameter>
+            <parameter>
+                <name>imageHeight</name>
+                <value>80px</value>
+            </parameter>
+            <parameter>
+                <name>celumMediaFormat</name>
+                <value>picture</value>
+            </parameter>
+            <parameter>
+                <name>predefinedValuesStrategy</name>
+                <value>imageMediaPredefinedValuesStrategy</value>
+            </parameter>
+        </property>
+    </custom-editors>
+</content-editor>

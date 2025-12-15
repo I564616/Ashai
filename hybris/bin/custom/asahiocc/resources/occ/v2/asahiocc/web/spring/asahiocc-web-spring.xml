@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">
+           
+    <context:component-scan base-package="com.apb.occ.v2.controllers"/>
+
+	<!-- Cache manager for addon -->
+
+	<!-- <alias name="defaultAsahioccCacheManager" alias="asahioccCacheManager"/>
+	<bean id="defaultAsahioccCacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+		<property name="cacheManager" ref="asahioccEhcache"/>
+	</bean>
+
+	<alias name="defaultAsahioccEhcache" alias="asahioccEhcache"/>
+	<bean id="defaultAsahioccEhcache" class="de.hybris.platform.webservicescommons.cache.TenantAwareEhCacheManagerFactoryBean">
+		<property name="cacheNamePrefix" value="asahioccCache_"/>
+		<property name="configLocation" value="/WEB-INF/cache/addons/asahiocc/ehcache.xml"/>
+	</bean> -->
+<!-- to be verified and corrected -->
+    <bean id="asahiWSLoggingFilter" class="com.apb.occ.v2.filters.AsahiWSLoggingFilter" /> 
+
+    <bean parent="listMergeDirective" depends-on="commerceWebServicesFilterChainListV2">
+        <property name="add" ref="asahiWSLoggingFilter" />
+    </bean>
+<!-- 
+	<bean depends-on="wsCacheManagerList" parent="listMergeDirective">
+		<property name="add" ref="asahioccCacheManager"/>
+	</bean> -->
+	
+	<bean id="asahiProductWsDataFieldMapper" parent="fieldMapper">
+		<property name="sourceClass"
+				  value="de.hybris.platform.commercewebservicescommons.dto.product.ProductWsDTO"/>
+		<property name="destClass"
+				  value="de.hybris.platform.commercefacades.product.data.ProductData"/>
+		<property name="fieldMapping">
+			<map>
+				<entry key="brand" value="apbBrand"/>
+			</map>
+		</property>
+	</bean>
+	
+	
+	
+</beans>

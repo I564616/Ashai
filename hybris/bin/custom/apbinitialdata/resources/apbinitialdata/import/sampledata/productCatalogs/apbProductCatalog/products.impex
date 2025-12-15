@@ -1,0 +1,105 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# ImpEx for Importing Products
+
+# Macros / Replacement Parameter definitions
+$productCatalog=apbProductCatalog
+$productCatalogName=Apb Product Catalog
+
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$supercategories=supercategories(code, $catalogVersion)
+$baseProduct=baseProduct(code,$catalogVersion)
+$approved=approvalstatus(code)[default='approved']
+
+INSERT_UPDATE Brand ; code[unique=true] ; name[lang=en]     
+;342;Asahi
+;483;Asahi
+;482;Asahi
+;488;Cricketers
+;490;Cricketers
+;491;Cricketers
+;469;Estrella Damm
+;126;Kingfisher
+;495;Mountain Goat
+;496;Mountain Goat
+
+INSERT_UPDATE AlcoholType ; code[unique=true] ; name[lang=en] 
+                         ; 1                 ; Beer 
+
+
+
+INSERT_UPDATE Flavour ; code[unique=true] ; name[lang=en]  
+;55;LAGER
+;200;DRAUGHT
+;289;ALE
+
+INSERT_UPDATE ItemGroups ; code[unique=true] ; name              
+                         ; FG01              ; Beer  
+						 
+INSERT_UPDATE AlcoholSubType;code[unique=true]
+;OTHERS
+
+INSERT_UPDATE PackageSize; code[unique=true] ; name[lang=en]
+; samplePackageSize1; 24 (6 x 4)
+
+INSERT_UPDATE PackageType ; code[unique=true] ; name[lang=en]  
+;35;FG Keg 50L
+;28;FG Keg
+
+
+INSERT_UPDATE UnitVolume; code[unique=true] ; name[lang=en]
+;200006; 19L
+;200036;49.5L
+;200023;30L
+;200015;25L
+
+
+INSERT_UPDATE ApbProduct;catalogVersion(catalog(id),version)[unique=true,allownull=true];code[unique=true];active[allownull=true];alcoholPercent;alcoholSubType(code,itemtype(code));alcoholType(code);approvalStatus(code,itemtype(code))[allownull=true];backendUnitPerCase;backendUnitVolume;bagInBox;brand(code);catalog(id)[allownull=true];companyCode;contentUnit(code);deliveryTime;depth;diet;ean;flavour(code);height;itemGroup(code);maxOrderQuantity;maxQty;minOrderQuantity;minQty;newProduct[allownull=true];numberContentUnits;order;orderQuantityInterval;packageSize(code);packageType(code);portalUnitVolume(code);premium[allownull=true];priceQuantity;productGroup(code);productType(code,itemtype(code));qtyPerLayer;rank;sequenceId;standardPalletQuantity;unit(code);unitPerInner;variantType(code);width;buyerIDS;specialTreatmentClasses;name[lang=en];backendName[lang=en];summary[lang=en];supercategories(code, catalogVersion(catalog(id),version));outlet(code);articleStatus;modifiedtime[forceWrite=true,dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ];
+
+
+;apbProductCatalog:Staged;110005;TRUE;0.05;OTHERS:AlcoholSubType;1;approved:ArticleApprovalStatus;1;19;;342;apbProductCatalog;apb;;;0;;;55;0;FG01;999;0;0;;;;;;samplePackageSize1;28;200006;FALSE;1;;PRODUCT:ProductType;25;2;1,001;25;pieces;1;;0;;;Super Dry 5.0%;DP ASAHI SUPER DRY 19L 5% KEG;;L4008:apbProductCatalog:Staged;;;2022-02-01 06:00:35.205 +1100;
+;apbProductCatalog:Staged;11210016;TRUE;0.055;OTHERS:AlcoholSubType;1;approved:ArticleApprovalStatus;1;19;;483;apbProductCatalog;apb;;;0;;;55;0;FG01;999;0;0;;;;;;samplePackageSize1;28;200006;FALSE;1;;PRODUCT:ProductType;25;7;1,001;25;pieces;1;;0;;;Super Dry Black 5.5%;DP ASAHI SUPER DRY BLACK 19L 5.5% KEG;;L4008:apbProductCatalog:Staged;;;2022-02-01 06:02:37.514 +1100;
+;apbProductCatalog:Staged;12210022;FALSE;0.035;OTHERS:AlcoholSubType;1;approved:ArticleApprovalStatus;1;49.5;;482;apbProductCatalog;apb;;;0;;;200;0;FG01;999;;0;;;;;;samplePackageSize1;28;200036;FALSE;1;;PRODUCT:ProductType;9;5;1,001;9;pieces;1;;0;;;Soukai 3.5%;EP ASAHI SOUKAI DRAUGHT 3.5% 49.5L KEG;;L4008:apbProductCatalog:Staged;;;2019-03-15 13:19:42.150 +1100;
+;apbProductCatalog:Staged;12215004;FALSE;0.046;OTHERS:AlcoholSubType;1;approved:ArticleApprovalStatus;1;49.5;;488;apbProductCatalog;apb;;;0;;;55;0;FG01;999;0;0;;;;;;samplePackageSize1;35;200036;FALSE;1;;PRODUCT:ProductType;9;37;1,001;9;pieces;1;;0;;;Draught 4.6%;EP CRICKETERS ARMS LAGER DRAUGHT 49.5 LTR KEG;;L40015:apbProductCatalog:Staged;;;2021-09-15 17:10:20.940 +1000;
+;apbProductCatalog:Staged;12215013;FALSE;0.052;OTHERS:AlcoholSubType;1;approved:ArticleApprovalStatus;1;49.5;;490;apbProductCatalog;apb;;;0;;;55;0;FG01;999;;0;;;;;;samplePackageSize1;35;200036;FALSE;1;;PRODUCT:ProductType;9;33;1,001;9;pieces;1;;0;;;Spearhead Pale Ale 5.2%;EP CRICKETERS ARMS SPEARHEAD PALE ALE DRAUGHT 49.5 LTR KEG;;L40015:apbProductCatalog:Staged;;;2019-01-09 10:04:08.320 +1100;
+;apbProductCatalog:Staged;12215024;FALSE;0.046;OTHERS:AlcoholSubType;1;approved:ArticleApprovalStatus;1;49.5;;491;apbProductCatalog;apb;;;0;;;55;0;FG01;999;0;0;;;;;;samplePackageSize1;35;200036;FALSE;1;;PRODUCT:ProductType;9;39;1,001;9;pieces;1;;0;;;Summer Ale 4.6%;EP CRICKETERS ARMS SCORCHER SUMMER ALE 4.6% 49.5 LTR KEG;;L40015:apbProductCatalog:Staged;;;2021-12-30 08:07:21.795 +1100;
+;apbProductCatalog:Staged;11205001;FALSE;0.046;OTHERS:AlcoholSubType;1;approved:ArticleApprovalStatus;1;30;;469;apbProductCatalog;apb;;;0;;;55;0;FG01;999;;0;;;;;;samplePackageSize1;28;200023;FALSE;1;;PRODUCT:ProductType;6;13;1,001;6;pieces;1;;0;;;Cerveza 4.6%;DP ESTRELLA DAMM 4.6% 30L KEG;;L40010:apbProductCatalog:Staged;;;2019-06-24 08:39:45.232 +1000;
+;apbProductCatalog:Staged;12210006;FALSE;0.05;OTHERS:AlcoholSubType;1;approved:ArticleApprovalStatus;1;25;;126;apbProductCatalog;apb;;;0;;;55;0;FG01;999;;0;;;;;;samplePackageSize1;28;200015;FALSE;1;;PRODUCT:ProductType;9;16;1,001;9;pieces;1;;0;;;Lager 5.0%;EP KINGFISHER LAGER 5% DRAUGHT 25LTR KEG;;L40012:apbProductCatalog:Staged;;;2020-01-31 08:33:37.661 +1100;
+;apbProductCatalog:Staged;12243001;TRUE;0.045;OTHERS:AlcoholSubType;1;approved:ArticleApprovalStatus;1;49.5;;495;apbProductCatalog;apb;;;0;;;289;0;FG01;999;0;0;;;;;;samplePackageSize1;35;200036;FALSE;1;;PRODUCT:ProductType;9;22;1,001;9;pieces;1;;0;;;Organic Steam Ale 4.5%;EP GOAT ORGANIC STEAM ALE 4.5% DRAUGHT 49.5 LTR KEG ACO11481;;L40014:apbProductCatalog:Staged;;;2022-02-01 06:02:36.977 +1100;
+;apbProductCatalog:Staged;12243002;TRUE;0.047;OTHERS:AlcoholSubType;1;approved:ArticleApprovalStatus;1;49.5;;496;apbProductCatalog;apb;;;0;;;289;0;FG01;999;0;0;;;;;;samplePackageSize1;35;200036;FALSE;1;;PRODUCT:ProductType;9;23;1,405,201,810;9;pieces;1;;0;;;Summer Ale 4.7%;EP MOUNTAIN GOAT SUMMER ALE 4.7% DRAUGHT 49.5 LTR KEG;;L40014:apbProductCatalog:Staged;;;2022-02-01 06:02:38.307 +1100;
+
+
+INSERT_UPDATE OfflineProductPrice 	; accNumber[unique=true] ; productCode[unique=true] ; listPrice ; netPrice ; discount ; wET ; gST ; freight ; freightGST;
+									; 56565656;*;2000;1500;100;100;50;50;10;
+									; *;110005;2000;1500;100;100;50;50;10;
+									
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		                       

@@ -1,0 +1,941 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+##******************************This file is generated - please do not edit it. It will be regenerated after every build.********************************#
+
+$contentCatalog=sgaContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$picture=media(code, $contentCV);
+$siteResource=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/sampledata/contentCatalogs/$contentCatalog
+$medias=medias(code, $contentCV);
+$mediaContainer=media(qualifier, $contentCV)[lang=$lang];
+
+
+# Language
+$lang=en
+
+# Site Logo Component
+UPDATE SimpleBannerComponent ; $contentCV[unique=true] ; uid[unique=true]  ; $picture[lang=$lang]                        
+                             ;                         ; SiteLogoComponent ; /images/theme/logo_asahi_b2b_responsive4.png
+
+# CMS Link Components        
+UPDATE CMSLinkComponent ; $contentCV[unique=true] ; uid[unique=true]    ; linkName[lang=$lang]
+                        ;                         ; ContactUsLink       ; "Contact Us"        
+                        ;                         ; DocumentationLink   ; "Documentation"     
+                        ;                         ; FAQLink             ; "FAQ"               
+                        ;                         ; FacebookLink        ; "Facebook"          
+                        ;                         ; HomepageNavLink     ; "Home"              
+                        ;                         ; ImportSavedCartLink ; "Import Saved Cart" 
+                        ;                         ; OrderFormsLink      ; "Order Forms"       
+                        ;                         ; QuickOrderLink      ; "QUICK ORDER"       
+                        ;                         ; OrderTemplateLink   ; "MY ORDER TEMPLATES"
+                        ;                         ; OrderHistoryLink    ; "MY ORDER HISTORY"
+                        ;                         ; EnquiryListingLink  ; "MY ENQUIRIES"      
+                        ;                         ; CompanyDetailsLink  ; "COMPANY DETAILS"   
+                        ;                         ; PersonalDetailsLink ; "USER DETAILS & NOTIFICATIONS"      
+                        ;                         ; ManageUsersLink     ; "MANAGE PROFILES"   
+                        ;                         ; UpdatePasswordLink  ; "CHANGE PASSWORD"   
+                        ;                         ; SavedCardsLink      ; "SAVED CARDS"       
+                        ;                         ; InvoiceANDPaymentLink      ; "Invoices & Payments"       
+
+# CMS Link Components   
+UPDATE CMSLinkComponent ; $contentCV[unique=true] ; uid[unique=true]       ; linkName[lang=en]
+                        ;                         ; AllProductsLink    ; "VIEW All PRODUCTS"        
+                        ;                         ; SoftDrinkCategoryLink        ; "SOFT DRINK"            
+                        ;                         ; FrozenCategoryLink ; "FROZEN"   
+                        ;                         ; WaterCategoryLink     ; "WATER"         
+                        ;                         ; SportCategoryLink     ; "SPORT"    
+                        ;                         ; JuiceCategoryLink    ; "JUICE & FRUIT DRINKS"        
+                        ;                         ; EnergyCategoryLink        ; "ENERGY"            
+                        ;                         ; TeaCategoryLink     ; "TEA"         
+                        ;                         ; CordialCategoryLink     ; "CORDIAL" 
+						 ;	; SoftDrinkCans25024CategoryLink          ;Cans 250ml x 24
+						 ;	; SoftDrinkCans30046CategoryLink          ;CANS 300ML X 4 X 6
+						 ;	; SoftDrinkCans37510CategoryLink          ;Cans 375ml x 10
+						 ;	; SoftDrinkCans37524CategoryLink          ;Cans 375ml x 24
+						 ;	; SoftDrinkCans44024CategoryLink          ;Cans 440ml x 24
+						 ;	; SoftDrinkPlastic45012CategoryLink          ;Plastic Bottles 450ml x 12
+						 ;	; SoftDrinkPlastic45024CategoryLink          ;Plastic Bottles 450ml x 24
+						 ;	; SoftDrinkPlastic60024CategoryLink          ;Plastic Bottles 600ml x 24
+						 ;	; SoftDrinkPlastic1112CategoryLink          ;Plastic Bottles 1.1L x 12
+						 ;	; SoftDrinkPlastic12512CategoryLink          ;Plastic Bottles 1.25L x 12
+						 ;	; SoftDrinkGlass30012CategoryLink          ;Glass 300ML X 12
+						 ;	; SoftDrinkGlass30024CategoryLink          ;Glass 300ml x 24
+						 ;	; SoftDrinkGlass30046CategoryLink          ;Glass 300ml x 4 x 6
+						 ;	; SoftDrinkGlass33015CategoryLink          ;Glass 330ml x 15
+						 ;	; SoftDrinkGlass33046CategoryLink          ;Glass 330ml x 4 x 6
+						 ;	; SoftDrinkBag101CategoryLink          ;Bag-in-Box 10L
+						 ;	; SoftDrinkBag151CategoryLink          ;Bag-in-Box 15L
+						 ;	; SoftDrinkMiscCategoryLink          ;CUPS, LIDS, STRAWS
+						 
+						 ;	; FrozenUncarbonatedBevCategoryLink          ;Frozen Uncarbonated Beverages
+						 ;	; FrozenCarbonatedBevCategoryLink          ;Frozen Carbonated Beverages
+						 
+						 ;	; WaterCoolRidgeCategoryLink          ;Cool Ridge
+						 ;	; WaterVossWaterCategoryLink          ;Voss
+						 ;	; WaterFrantelleCategoryLink          ;Frantelle
+						 ;	; WaterPopTopsCategoryLink          ;Pop Tops
+						 ;	; WaterGatoradeCategoryLink          ;GATORADE G-ACTIVE
+						 ;	; WaterCharliesCategoryLink          ;Charlie's
+						 
+						 ;	; SportGatoradeCategoryLink          ;Gatorade
+						 
+						 ;	; JuiceSpringValleyCategoryLink          ;Spring Valley
+						 ;	; JuiceCharliesCategoryLink          ;Charlie's
+						 ;	; JuicePhoenixCategoryLink          ;PHOENIX ORGANICS
+						 ;	; JuicePopTopsCategoryLink          ;Pop Tops
+						 ;	; JuiceExtraJuicyCategoryLink          ;Extra Juicy
+						 
+						 ;	; EnergyMountainDewCategoryLink          ;Mountain Dew
+						 ;	; TeaRealIcedTeaCategoryLink          ;Real Iced Tea Co
+						 ;	; CordialCottiesCategoryLink          ;Cottee's
+						 ;	; CordialSchweppesCategoryLink          ;Schweppes
+						 ;	; CordialPhoenixOrganicsCategoryLink          ;PHOENIX ORGANICS
+						 ;	; SoftDrinkCans20024CategoryLink		          ;CANS 200ML x 24
+						 ;	; SoftDrinkPlastic20008CategoryLink	          ;PLASTIC BOTTLES 2L X 8
+						 ;	; SoftDrinkGlass75006CategoryLink	          ;GLASS 750ML X 6
+		
+                                                                                                                         				                  
+
+# Lightbox Banner for Mini Cart (banner is not localizable so we must create a separate banner per language)
+INSERT_UPDATE Media ; $contentCV[unique=true] ; code[unique=true]                              ; @media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator]       ; mime[default='image/jpeg'] ; &imageRef                                      ; folder(qualifier)[default='images'] ; altText                                 
+                    ;                         ; Powertools_358x45_HomeDeliveryBanner_EN_01.gif ; $siteResource/images/banners/site/Powertools_358x45_HomeDeliveryBanner_EN_01.gif ;                            ; Powertools_358x45_HomeDeliveryBanner_EN_01.gif ;                                     ; "Order before 6pm for next day delivery"
+
+UPDATE SimpleBannerComponent ; $contentCV[unique=true] ; uid[unique=true]                    ; $picture[lang=$lang]                          
+                             ;                         ; LightboxHomeDeliveryBannerComponent ; Powertools_358x45_HomeDeliveryBanner_EN_01.gif
+
+# CMS Mini Cart Component    
+UPDATE MiniCartComponent ; $contentCV[unique=true] ; uid[unique=true] ; name      ; title[lang=$lang]   
+                         ;                         ; MiniCart         ; Mini Cart ; "YOUR SHOPPING CART"
+
+# CMS tabs components    
+UPDATE CMSTabParagraphComponent ; $contentCV[unique=true] ; uid[unique=true] ; title[lang=$lang] ; content[lang=$lang]
+#                                ;                         ; deliveryTab      ; Delivery          ; "<div class=""tab-delivery"">Lorem ipsum dolor sit amet, dolor sed, ut nam ut. Senectus mauris egestas a massa, enim placeat wisi congue purus fermentum. Ut aptent mauris dapibus congue in sit. Sed dolor varius amet feugiat volutpat dignissim, pede a rhoncus sodales aliquam adipiscing, dapibus massa fusce. Dui egestas ornare urna nibh facilisi, cras posuere. Lorem aliquam accumsan eleifend sem libero lorem, aliquam sequi sed urna nec. Eget dolor quisque dolor, amet suspendisse ullamcorper minus elit lectus nunc, est mattis dui id eu et facilisis, conubia sit tristique. Ac fusce gravida condimentum iaculis neque, a platea curabitur accumsan porttitor vel justo. Amet potenti ac, eget amet ducimus sit nulla, ac porttitor rhoncus, justo proin tortor integer turpis nulla vitae. Egestas mollis litora nunc platea dui, eu semper mauris diam, erat quam, porta maecenas fusce libero non aliquet. Amet tellus taciti ligula sed sollicitudin, nonummy cursus enim, hendrerit nec, sed lacus sed at sit quis, semper a arcu mollis sapien nec pretium. Ante mauris eros nec, nonummy mauris, nulla lacinia vel. Volutpat luctus velit eu.</div>"
+
+# JSP include components        
+UPDATE JspIncludeComponent ; $contentCV[unique=true] ; uid[unique=true]           ; title[lang=en] 
+                           ;                         ; ProductDetailsTabComponent ; Description    
+                           ;                         ; ProductSpecsTabComponent   ; Product Details
+
+# CMS Footer Component     
+UPDATE FooterNavigationComponent ; $contentCV[unique=true] ; uid[unique=true]          ; notice[lang=$lang]              
+                                 ;                         ; FooterNavigationComponent ; "© 2018 Asahi Beverages"
+
+# CMS Paragraph Component (Contact information)
+UPDATE CMSParagraphComponent ; $contentCV[unique=true] ; uid[unique=true]                 ; content[lang=$lang]                                                                                        
+                             ;                         ; QuickOrderInfoParagraphComponent ; "You can add up to 25 valid SKUs below and add to cart. Stock is reserved once products are added to cart."
+
+# CMS ProductReferences Components
+UPDATE ProductReferencesComponent ; $contentCV[unique=true] ; uid[unique=true] ; title[lang=$lang]  
+                                  ;                         ; Similar          ; "YOU MAY ALSO LIKE"
+                                  ;                         ; accessories      ; "Accessories"      
+
+# CMS PurchasedCategorySuggestion Components
+UPDATE PurchasedCategorySuggestionComponent ; $contentCV[unique=true] ; uid[unique=true] ; title[lang=$lang]
+
+# CMS CartSuggestion Components             
+UPDATE CartSuggestionComponent ; $contentCV[unique=true] ; uid[unique=true] ; title[lang=$lang]  
+                               ;                         ; CartSuggestions  ; "YOU MAY ALSO LIKE"
+
+# Category Pages               
+UPDATE CategoryPage ; $contentCV[unique=true] ; uid[unique=true] ; title[lang=$lang]
+
+# CMS Navigation Nodes
+UPDATE CMSNavigationNode ; $contentCV[unique=true] ; uid[unique=true] ; title[lang=$lang]
+                         ;                         ; FollowUsNavNode  ; "Follow Us"      
+                         ;                         ; HybrisNavNode    ; "Hybris"         
+                         ;                         ; MyAccountNavNode ; "My Account"     
+                         ;                         ; SgaNavNode       ; "Sga Site"       
+                         ;                         ; SiteRootNode     ; "SiteRoot"       
+
+# CMS Navigation Nodes   
+UPDATE CMSNavigationNode ; $contentCV[unique=true] ; uid[unique=true] ; title[lang=en]
+
+# Sga FAQ Page           
+
+# CMS Paragraph Component (Contact information)
+UPDATE CMSParagraphComponent ; $contentCV[unique=true] ; uid[unique=true] ; content[lang=en]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     ;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+                             ;                         ; faqMenuParagraph ; "<div class=""nav_column"">	<div class=""title_holder"">		<div class=""title"">			<div class=""title-top"">				<span></span>			</div>		</div>		<h2>Frequently asked questions</h2>	</div>	<div class=""item"">		<ul class=""facet_block indent"">			<li><a href=""#a00"">Returns and refunds</a></li>			<li><a href=""#b00"">Delivery information</a></li>			<li><a href=""#c00"">Registration</a></li>			<li><a href=""#d00"">Your Online account</a></li>			<li><a href=""#e00"">Orders</a></li>			<li><a href=""#f00"">Promotions and discounts</a></li>			<li><a href=""#g00"">Product and general Informations</a></li>			<li><a href=""#h00"">Store information</a></li>			<li><a href=""#i00"">Business contacts</a></li>			<li><a href=""#j00"">Buying guides</a></li>			<li><a href=""#k00"">Size guides</a></li>			<li><a href=""#l00"">Privacy and security</a></li>		</ul>	</div></div>" ;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+                             ;                         ; faqTextParagraph ; "<div class=""global-alerts""><div class=""alert alert-info"" role=""alert""><strong>Information:</strong> Page Under Construction - Not Completely Functional</div></div><a name=""00""></a><div class=""textpage textpage-faqs""><div class=""item_container"">		<h2><a name=""a00""></a>Returns and refunds</h2>		<p>Text</p>		<a class=""pagetop-link"" href=""#00"">back to top</a>	</div>		<div class=""item_container"">		<h2><a name=""b00""></a>Delivery information</h2>		<a class=""faq-menulink"" href=""#b01"">Delivery Options</a>		<a class=""faq-menulink"" href=""#b02"">Delivery times &amp                                                                                                                                                                                                                                                                                        ; charges</a>		<a class=""faq-menulink"" href=""#b03"">Order tracking information</a>		<a class=""faq-menulink"" href=""#b04"">Courier status information</a>			<h3><a name=""b01""></a>Delivery Options</h3>		<p>			The delivery options available to you are shown in the Checkout area under Delivery Method.<br><br>			Based on your deliver address, these options may not all be available:			</p><ul>			<li>					<b>Home Delivery</b> - Free UK standard delivery on all orders over L50 within 4 working days (*exceptions may apply)				</li>				<li>					<b>Standard delivery</b> -  1 to 2 business days				</li>				<li>					<b>Other delivery method</b>  &ndash ; 3 to 5 business days				</li>				<li>				<b>International delivery</b> &ndash ; 7 to 10 business days (not all countries are available)				</li>			</ul>		<p></p>		<h3><a name=""b02""></a>Delivery times &amp ; charges</h3>		<p>			We deliver the majority of our orders within 4 working days* for L3.99 or FREE on orders over L50 (*exceptions apply, see table below).			</p><ul>				<li>					Deliveries to UK addresses are made Monday to Friday between 9am to 6pm, excluding Bank Holidays. 				</li>				<li>					Deliveries to the Scottish Highlands and Islands, offshore locations and Northern Ireland may take a little longer.<br>					For delivery to ROI addresses please visit our Irish website at hybris.com				</li>				<li>					Multiple items may be delivered in more than one parcel and at different times.				</li>			</ul>		<p></p>	<h3><a name=""b03""></a>Order tracking information</h3>		<p>			We will send you email updates through every stage of your order. In each email your current order's status will be shown. Each order status is explained in the table below. We deliver most parcels via our courier. You can track these parcels by clicking on the parcel reference link on your email. Once you have clicked on the link you will be directed to the courier website. For information on courier statuses please <a href=""#b04"">click here</a>.		</p>		<table width=""100%"" cellspacing=""0"" cellpadding=""0"" border=""0"">			<tbody>				<tr>					<th>Status</th>					<th>Description</th>				</tr>				<!--ROW 1-->				<tr>					<td class=""blue3"">						<strong>Processing</strong><br>					</td>					<td class=""grey3"">						Your order is being processed.<br>					</td>				</tr>				<!--ROW 2-->	<tr>					<td class=""blue3"">						<strong>Despatched</strong><br>					</td>					<td class=""grey3"">						Your order has been despatched to the courier.<br><br>    For heavy and large products your order is ready to be despatched by our carrier. The carrier will contact you to arrange a suitable date for delivery.<br><br>For Collect from store orders you will receive a further order status update when your item(s) are ready to collect (see below for more information on collect from store statuses)<br><br>					</td>				</tr>				<!--ROW 3-->				<tr>					<td class=""blue3"">						<strong>Cancelled<br>Unable to fulfill<br> payment reversal</strong><br>					</td>					<td class=""grey3"">						Your order has been cancelled due to stock availability, no payment has been taken.<br><br>					</td>				</tr>				<!--ROW 4-->				<tr>					<td class=""blue3"">						<strong>Cancelled<br>Unable to fulfil<br>Payment refunded</strong><br>				</td>					<td class=""grey3"">						Your order has been cancelled due to stock availability. We have processed a refund to your payment card.<br><br>					</td>				</tr>				<!--ROW 5-->				<tr>					<td class=""blue3"">						<strong>Return received</strong><br>					</td>					<td class=""grey3"">Your return has been received. However, due to goods being addressed to the incorrect warehouse there may be a short delay in your refund being processes while the goods are being re-directed.<br><br>					</td>				</tr>				<!--ROW 6-->				<tr>					<td class=""blue3"">						<strong>Order ready for collection</strong><br>					</td>					<td class=""grey3"">						Your order is ready for collection at your chosen store.<br><br><strong><i>Please note:</i></strong> You must collect your order within 14 days of receiving your notification email.<br><br>					</td>				</tr>				<!--ROW 7-->				<tr>					<td class=""blue3"">						<strong>Collected</strong><br>					</td>					<td class=""grey3"">					Your order has been collected.<br><br>					</td>				</tr>				<!--ROW 8-->				<tr>					<td class=""blue3"">						<strong>Return in progress</strong><br>					</td>					<td class=""grey3"">						We are processing your return.<br><br>					</td>				</tr>				<!--ROW 9-->				<tr>					<td class=""blue3"">						<strong>Return refund complete</strong><br>					</td>					<td class=""grey3"">						We have processed your return.<br><br><strong><i>Please note:</i></strong>  Some banks may take longer than others to process refunds.<br><br>					</td>				</tr>			</tbody>		</table>		<p></p>		<h3><a name=""b04""></a>Courier status information</h3>		<p></p>		<table width=""100%"" cellspacing=""0"" cellpadding=""0"" border=""0"">			<tbody>				<tr>					<th>Status</th>					<th>Description</th>				</tr>			<!--ROW 1-->				<tr>					<td class=""blue3"">						<strong>Order generated</strong><br>					</td>					<td class=""grey3"">						Your order is ready for delivery and has entered into the courier system.<br>					</td>				</tr>				<!--ROW 2-->				<tr>					<td class=""blue3"">						<strong>Receipt at depot </strong><br>					</td>					<td class=""grey3"">					Your parcel has been received at the depot. <br><br>					</td>				</tr>				<!--ROW 3-->				<tr>					<td class=""blue3"">						<strong>Processed at depot</strong><br>					</td>					<td class=""grey3"">						Your parcel has processed through the depot operation and is ready for onward despatch to the courier.<br><br>					</td>				</tr>				<!--ROW 4-->				<tr>					<td class=""blue3"">						<strong>Out for delivery to courier</strong><br>					</td>					<td class=""grey3"">						Your parcel has left the depot for delivery to courier.<br><br>					</td>				</tr>				<!--ROW 5-->				<tr>					<td class=""blue3"">						<strong>Courier to re-attempt</strong><br>					</td>					<td class=""grey3"">						The courier has attempted to deliver your parcel and will try again. You will receive a card to confirm delivery has been attempted.<br><br>					</td>				</tr>			<!--ROW 6-->				<tr>					<td class=""blue3"">						<strong>Delivered to</strong><br>					</td>					<td class=""grey3"">						Your parcel has been delivered.<br><br>					</td>				</tr>			</tbody>		</table>		<p></p>		<a class=""pagetop-link"" href=""#00"">back to top</a>	</div>		<div class=""item_container"">		<h2><a name=""c00""></a>Registration</h2>		<p>Text</p>		<a class=""pagetop-link"" href=""#00"">back to top</a>	</div>	<div class=""item_container"">		<h2><a name=""d00""></a>Your Online account</h2>		<p>Text</p>		<a class=""pagetop-link"" href=""#00"">back to top</a>	</div>	<div class=""item_container"">		<h2><a name=""e00""></a>Orders</h2>		<p>Text</p>		<a class=""pagetop-link"" href=""#00"">back to top</a>	</div>	<div class=""item_container"">		<h2><a name=""f00""></a>Promotions and discounts</h2>		<p>Text</p>		<a class=""pagetop-link"" href=""#00"">back to top</a>	</div>	<div class=""item_container"">		<h2><a name=""g00""></a>Product and general informations</h2>		<p>Text</p>		<a class=""pagetop-link"" href=""#00"">back to top</a>	</div>	<div class=""item_container"">		<h2><a name=""h00""></a>Store information</h2>		<p>Text</p>		<a class=""pagetop-link"" href=""#00"">back to top</a>	</div>	<div class=""item_container"">		<h2><a name=""i00""></a>Business contacts</h2>		<p>Text</p>		<a class=""pagetop-link"" href=""#00"">back to top</a>	</div>		<div class=""item_container"">		<h2><a name=""j00""></a>Buying guides</h2>		<p>Text</p>		<a class=""pagetop-link"" href=""#00"">back to top</a>	</div>		<div class=""item_container"">		<h2><a name=""k00""></a>Size guides</h2>		<p>Text</p>		<a class=""pagetop-link"" href=""#00"">back to top</a>	</div>		<div class=""item_container"">		<h2><a name=""l00""></a>Privacy and security</h2>		<p>Text</p>		<a class=""pagetop-link"" href=""#00"">back to top</a>	</div></div>" ;  
+
+# Sga Order Expired Page     
+
+UPDATE CMSParagraphComponent ; $contentCV[unique=true] ; uid[unique=true]          ; content[lang=en]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ;  
+                             ;                         ; orderExpiredMenuParagraph ;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     ;  
+                             ;                         ; orderExpiredTextParagraph ; "<div class='cms-content order-expired'><div class='information_message neutral'><span class='single'></span><p>This page has expired.</p></div><h2>Dear Customer,</h2><p>Order Status for guest users are only kept for 3 months following the date the order was placed.<br>If you have not received your delivery or have other inquiries, please contact our Customer Service Dept.</p><h3>Be prepared with:</h3><ul class='bullet-list'><li>Your Name</li><li>Order Number (Your Order Number can be found on the confirmation email sent shortly after your order was placed.)</li><li>Order Delivery Address or Pick Up in Store Location</li></ul><p>Our Customer Service professionals will be happy to update you on the status of your order.</p><p class='cms-content-emphasized-big'>Thank you for shopping at hybrisstore.</p></div>" ;  
+
+# Sga Terms and Conditions Page
+
+# CMS Paragraph Component (Contact information)
+UPDATE CMSParagraphComponent ; $contentCV[unique=true] ; uid[unique=true]                ; content[lang=en];  
+; ; termsAndConditionsTextParagraph ; "<div class="" tandc-section-body "">
+    <div id="" u9807 "" class="" ax_default heading_3 "">
+        <div id="" u9808 "" class="" user-register__headline "">
+            <p><span>Terms & Conditions</span></p>
+        </div>
+    </div>
+    <div id="" u10109 "" class="" tandc-section "">
+        <div class="" tandc-section-heading checkout_subheading row-margin-fix ""><span class="" tandc-right-space "">SECTION 1.</span>PRIVACY</div>
+        <span class="" tandc-section-subheading ""><span class=""tandc-right-space"">1.1</span>Consent</span><br>
+            <span>The applicant consents to APB collecting and using personal information of or relating to the Applicant and the Guarantor (if applicable) for the purpose of:</span>
+            <ol type=""a"">
+                <li class=""tandc-li-outter""><span class=""tandl-li"">assessing this Application and the credit worthiness of the Applicant and Guarantor;</span></li>
+                <li class=""tandc-li-outter""><span class=""tandl-li"">to the maximum extent permitted by law, assisting APB in the exercise of its rights against the Applicant and the Guarantor, including the right to enforce payment of any amount payable by the Applicant or the Guarantor to APB whether in relation to this Application or otherwise, and any other lawful purpose required by APB, and APB may disclose that personal information and details of this Application to any person considered reasonably appropriate by APB to achieve any such purpose, including disclosing such information to a credit reporting agency.</span></li>
+            </ol>
+        <div class="" tandc-section-subheading ""><span class="" tandc-right-space "">1.2</span>Credit Report</div>
+        <p><span>To the extent APB considers it relevant to assessing the Applicant&rsquo;s application for credit set out in this Application, the Applicant agrees to APB obtaining a credit report from a credit reporting agency, and information about the Applicant and the Guarantor from credit providers, including information about the Applicant&rsquo;s and the Guarantor&rsquo;s credit worthiness, credit standing, credit history and credit capacity.</span></p>
+    </div>
+    <div id="" u10109 "" class="" tandc-section "">
+        <div class="" tandc-section-heading checkout_subheading row-margin-fix ""><span class="" tandc-right-space "">SECTION 2.</span><span class="" tandc-right-space "">BALANCE SHEET AND PROFIT AND LOSS STATEMENT</span>BODY CORPORATES ONLY</div>
+        <span class="" tandc-section-subheading ""></span>
+            <span>For applicants that are bodies corporate, when submitting this Application, please attach:</span>
+            <ol type=""a"">
+                <li class=""tandc-li-outter""><span class=""tandl-li"">a copy of the Balance Sheet for the Applicant as at the end of the most recently completed financial year of the Applicant; and</span></li>
+                <li class=""tandc-li-outter""><span class=""tandl-li"">a copy of the Profit and Loss Statement for the Applicant in respect in respect of that financial year.</span></li>
+            </ol>
+    </div>
+    <div id="" u10109 "" class="" tandc-section "">
+        <div class="" tandc-section-heading checkout_subheading row-margin-fix ""><span class="" tandc-right-space "">SECTION 3.</span>CREDIT APPLICATION TERMS</div>
+        <p><span class="" tandc-section-subheading ""><span class=""tandc-right-space"">3.1</span>Additional Information</span><br>The Applicant must promptly provide APB with such documents and information as APB may request from time to time (in the format required by APB) for the purpose of assisting APB in assessing this Application or determining whether to continue to provide credit. If the Applicant does not provide APB with such documents, then APB may not be able to assess this Application or continue to provide Credit.</p>
+        <p><span class="" tandc-section-subheading ""><span class=""tandc-right-space"">3.2</span>Contents of Application</span><br>The Applicant represents and warrants that as at the date this Application is submitted to APB and as at each day that credit is provided to the Applicant, the contents of this Application completed by or on behalf of the Applicant and any documents and information provided by the Applicant are complete, true and correct in every particular and are not misleading or deceptive in any way.</p>
+        <p><span class="" tandc-section-subheading ""><span class=""tandc-right-space"">3.3</span>Notification by Applicant</span><br>The Applicant must immediately notify APB in writing as soon as it becomes aware of any matter or thing which renders or may render any information disclosed to APB as part of this Applicant incomplete, untrue, incorrect, misleading or deceptive. With or promptly following such notice, the Applicant must provide APB with all necessary information to ensure compliance with clause 2.2.</p>
+        <p><span class="" tandc-section-subheading ""><span class=""tandc-right-space"">3.4</span>Acceptance or rejection of Application</span><br>APB may in its absolute discretion accept or reject this Application and to the maximum extent permitted by law, is under no obligation to provide reasons for any such rejection.</p>
+        <span class="" tandc-section-subheading ""><span class=""tandc-right-space"">3.5</span>Withdrawal of credit by notice</span><br>
+        <span>The Applicant acknowledges and agrees that APB may in its absolute discretion, withdraw or withhold credit from the Applicant or alter the Applicant&rsquo;s credit limit by providing the Applicant with notice of such withdrawal or withholding in the following circumstances:</span>
+        <ol type=""a"">
+            <li class=""tandc-li-outter""><span class=""tandl-li"">any payment the Applicant is required to make to APB in connection with its Trading Account remains unpaid beyond its due date;</span></li>
+            <li class=""tandc-li-outter""><span class=""tandl-li"">the Applicant breaches a material term of these Credit Application Terms (or the Terms and Conditions of Sale set out in Part B of this Application (Terms)); or</span></li>
+            <li class=""tandc-li-outter""><span class=""tandl-li"">any person who has guaranteed the Applicant&rsquo;s obligations under this Application withdraws their guarantee.</span></li>
+        </ol>
+        <span class="" tandc-section-subheading ""><span class=""tandc-right-space"">3.6</span>Immediate withdrawal of credit</span><br>
+        <span>The Applicant acknowledges and agrees that APB may in its absolute discretion, withdraw or withhold credit from the Applicant or alter the Applicant&rsquo;s credit limit immediately in the following circumstances: </span>
+        <ol type=""a"">
+            <li class=""tandc-li-outter""><span class=""tandl-li"">the Applicant enters or threatens to enter into bankruptcy, liquidation or other form of external administration, management or receivership or the Applicant enters into any scheme or arrangement with its creditors;</span></li>
+            <li class=""tandc-li-outter""><span class=""tandl-li"">the Applicant attempts to make payment to APB by dishonoured cheque; or</span></li>
+            <li class=""tandc-li-outter""><span class=""tandl-li"">APB was induced by a misrepresentation on the Applicant&rsquo;s part to accept this Application.</span></li>
+        </ol>
+        <p><span class="" tandc-section-subheading ""><span class=""tandc-right-space"">3.7</span>Credit restriction</span><br>The Applicant must not use any credit provided to it by APB wholly or predominantly for personal, domestic or household use.</p>
+        <p><span class="" tandc-section-subheading ""><span class=""tandc-right-space"">3.8</span>Terms and Conditions</span><br>The Applicant acknowledges having received, read and understood the Ordering Service Terms and Conditions Terms and agrees to be bound by the Terms in all dealings between the parties where credit is extended by APB.</p>
+        <p><span class="" tandc-section-subheading ""><span class=""tandc-right-space"">3.9</span>Change of Details</span><br>The Applicant must notify APB immediately on any material change to the Applicant&rsquo;s business or contact details, including (without limitation) any change of address, trading name, ownership or effective control. The Applicant indemnifies APB against any loss, damage, cost or expense as a direct result of the Applicant&rsquo;s failure to promptly notify APB of such changes.</p>
+    </div>
+    <div id="" u10109 "" class="" tandc-section "">
+        <div class="" tandc-section-heading checkout_subheading row-margin-fix ""><span class="" tandc-right-space "">SECTION 4.</span>GUARANTEE</div>
+        <span class="" tandc-section-subheading ""><span class=""tandc-right-space"">4.1</span>Guarantee of the Applicant&rsquo;s performance</span><br>
+        <span>The Guarantor guarantees to APB that the person named below as the &ldquo;Applicant&rdquo; will punctually perform its obligations under: </span>
+        <ol type=""a"">
+            <li class=""tandc-li-outter""><span class=""tandl-li"">this Application; and</span></li>
+            <li class=""tandc-li-outter""><span class=""tandl-li"">the Terms, as varied from time to time, </span></li>
+            <span>including the Applicant&rsquo;s obligations to pay money.</span>
+        </ol>
+        <span class="" tandc-section-subheading ""><span class=""tandc-right-space"">4.2</span>Continuing security</span><br>
+        <span>The guarantee under clause 3.1 (&ldquo;Guarantee&rdquo;) is a continuing obligation which: </span>
+        <ol type=""a"">
+            <li class=""tandc-li-outter""><span class=""tandl-li"">remains in full force and effect for so long as the Applicant has any liability or obligation to APB and until all of those liabilities or obligations are fully discharged; and</span></li>
+            <li class=""tandc-li-outter""><span class=""tandl-li"">is not discharged by any one payment.</span></li>
+        </ol>
+        <span class="" tandc-section-subheading ""><span class=""tandc-right-space"">4.3</span>Obligations and rights not affected by certain matters</span><br>
+        <span>To the extent permissible at law, the Guarantor&rsquo;s obligations and the rights of APB under the Guarantee are not affected by anything which might otherwise affect them at law, including: </span>
+        <ol type=""a"">
+            <li class=""tandc-li-outter""><span class=""tandl-li"">APB&rsquo;s failure or delay in taking action or asserting a right, or any other act, omission or mistake by APB or the Applicant;</span></li>
+            <li class=""tandc-li-outter""><span class=""tandl-li"">the assignment or novation or a right or obligation of APB ; or</span></li>
+            <li class=""tandc-li-outter""><span class=""tandl-li"">an  obligation  or  liability  of  a  person  other  than  the  Guarantor being invalid or unenforceable.</span></li>
+        </ol>
+        <span class="" tandc-section-subheading ""><span class=""tandc-right-space"">4.4</span>Guarantor&rsquo;s rights suspended</span><br>
+        <span>The Guarantor must not do any of the following, without the consent of APB, before or until all money due and payable to APB by the Applicant or the Guarantor in connection with this Application, the relevant agreement between APB and the Applicant or the Guarantor is paid:</span>
+        <ol type=""a"">
+            <li class=""tandc-li-outter""><span class=""tandl-li"">Exercise a right of contribution or indemnity against the Applicant;</span></li>
+            <li class=""tandc-li-outter""><span class=""tandl-li"">Claim the benefit of (for example, by subrogation), or seek the transfer of, a guarantee, indemnity or security APB holds as provided by the Applicant or the Guarantor in connection with this Application or the relevant agreement;</span></li>
+            <li class=""tandc-li-outter""><span class=""tandl-li"">Try to reduce its liability under the Guarantee through set-off or counterclaim; or</span></li>
+            <li class=""tandc-li-outter""><span class=""tandl-li"">Prove in competition with APB if the Applicant is unable to pay its debts when due.</span></li>
+        </ol>
+        <p><span class="" tandc-section-subheading ""><span class=""tandc-right-space"">4.5</span>Reinstating APB&rsquo;s rights</span><br>If a claim is made (such as a claim under the law relating to insolvency) that a payment or transfer to APB by the Applicant or the Guarantor in connection with this Application, the relevant agreement between APB and the Applicant or the Guarantee is void or voidable and that claim is upheld, conceded or compromised, then APB is immediately entitled to the rights it had against the Guarantor before the payment of transfer was made.</p>
+        <span class="" tandc-section-subheading ""><span class=""tandc-right-space"">4.6</span>Reimbursing APB for costs</span><br>
+        <span>The Guarantor must (within 7 days after a request by APB) pay or reimburse APB for: </span>
+        <ol type=""a"">
+            <li class=""tandc-li-outter""><span class=""tandl-li"">APB&rsquo;s costs (including legal costs on a full indemnity basis) in connection with enforcing the Guarantee; and</span></li>
+            <li class=""tandc-li-outter""><span class=""tandl-li"">all tax payable in connection with the Guarantee or any transaction, including a payment, contemplated by it.</span></li>
+        </ol>
+        <p><span class="" tandc-section-subheading ""><span class=""tandc-right-space"">4.7</span>Applying money paid by the Guarantor</span><br>APB may apply amounts it receives from the Guarantor under the Guarantee in any manner or order it chooses.</p>
+        <p><span class="" tandc-section-subheading ""><span class=""tandc-right-space"">4.8</span>Indemnity</span><br>The Guarantor indemnifies APB against all actions, claims, proceedings, demands, liabilities, losses, damages, expenses and costs (including legal costs on a full indemnity basis) that may by brought against APB or which APB may pay, sustain or incur as a direct or indirect result of any breach or non-performance by the Applicant of this Application, except to the extent that APB has caused or contributed to the loss.</p>
+        <span class="" tandc-section-subheading ""><span class=""tandc-right-space"">4.9</span>Consent</span><br>
+        <span>The Guarantor consents to APB collecting and using personal information of or relating to the Applicant and the Guarantor for the purpose of:</span>
+        <ol type=""a"">
+            <li class=""tandc-li-outter""><span class=""tandl-li"">assessing this Application and the Guarantee and the credit worthiness of the Applicant and the Guarantor; and</span></li>
+            <li class=""tandc-li-outter""><span class=""tandl-li"">to the maximum extent permitted by law, assisting APB in the exercise of its rights against the Applicant and the Guarantor, including the right to enforce payment or any amount payable by the Applicant or the Guarantor to APB whether in relation to this Guarantee or otherwise and APB may disclose that personal information and details of the Guarantee to any person considered reasonably appropriate by APB to achieve any such purpose, including disclosing such information to a credit reporting agency.</span></li>
+        </ol>
+        <p><span class="" tandc-section-subheading ""><span class=""tandc-right-space"">4.10</span>Credit Report</span><br>To the extent that APB considers it relevant to assessing this Application or the Guarantee, the Guarantor agrees to APB obtaining a credit report from a credit reporting agency, and information about the Applicant and the Guarantor from credit providers, including information about the Applicant&rsquo;s and the Guarantor&rsquo;s credit worthiness, credit standing, credit history and credit capacity.</p><br></div>
+</div>";
+    
+; ; termsAndLegalTextParagraph ; "<div id=""accordian"">
+    <a data-toggle=""collapse"" data-parent=""#accordion"" href=""#collapse1"">
+        <div class=""checkout_subheading row-margin-fix""><span id=""tandl1ToggleIcon"" class=""glyphicon glyphicon-minus""></span><span class=""tandl-link"">Privacy Policy</span></div>
+    </a>
+    <div id=""collapse1"" class=""panel-collapse collapse in js-tandl-1-body"">
+        <div>
+            <div class=""tandl-section-subheading"">Asahi Beverages - Privacy Policy (including Credit Reporting) </div>
+            <div class=""tandl-section"">
+                <hr class=""tandl-hr"">
+                <div class=""tandl-section-subheading""><span class=""tandc-right-space"">1</span>Privacy Policy</div>
+                <ol type=""a"">
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">In this policy, the terms, &ldquo;Asahi Beverages&rdquo; ""we"", ""us"" and ""our"" means Asahi Holdings (Australia) Pty Ltd (ABN 48 135 315 767) and its subsidiaries. Please read this policy carefully as it explains the way in which we manage and handle personal information, including information collected through this website (the Website). We will handle your personal information in accordance with the applicable privacy principles in Australian and New Zealand laws, including the Australian Privacy Principles set out in the Privacy Act 1988 (Cth) and the Information Privacy Principles in the Privacy Act 1993 (NZ). </span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">We may revise this policy from time to time.  We will display a notice on the Website indicating when any such revisions have been made. </span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">This policy should be read together with our Website <a class=""site-anchor-link"" href=""./termsAndConditions"">Terms and Conditions</a>. Together, these form the Terms of Use for this site. </span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">At Asahi Beverages, we take the protection of privacy seriously, including information about minors. We operate our websites and market our products and services in compliance with all applicable Australian and/or New Zealand laws. </span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">Persons under the age of 18 are not permitted to use our alcohol branded websites. All visitors to these websites will be required to confirm they are of legal purchase age before they can access alcohol websites. </span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">For non-alcohol websites, children under the age of 15 should have the consent of their parent or guardian before providing any personal information to us. If we determine that a person providing us with personal information is under the age of 15, we will not use or maintain his or her personal information without the consent of a parent or guardian. </span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">Please be aware that any information that is voluntarily given by a minor to Asahi Beverages on our websites or through our social media channels may in some circumstances be accessed by other parties to generate unsolicited emails or other contacts. We encourage all parents to instruct their children in the safe and responsible use of the internet. </span></li>
+            </ol>
+            </div>
+            <div class=""tandl-section"">
+                <hr class=""tandl-hr"">
+                <div class=""tandl-section-subheading""><span class=""tandc-right-space"">2</span>Who does this policy apply to and what personal information does Asahi Beverages collect and hold?</div>
+                <div class=""tandl-section-subheading2""><span class=""tandc-right-space"">2.1</span>Collection of personal information by Asahi Beverages</div>
+                <ol type=""a"">
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">This policy applies to all people who deal with Asahi Beverages. This includes customers and consumers of our products, individuals who participate in a game, promotion, survey or other feature conducted or operated by us, and individuals who use our websites. It also includes suppliers to Asahi Beverages, individuals or other entities that enter into sponsorship or other agreements with Asahi Beverages. </span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">We may also provide commercial credit to individuals and the Credit Reporting section of this policy applies in that instance.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">The Website provides the platform through which we can efficiently, conveniently and directly connect with the persons listed above in order to perform our various functions and activities. </span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">To carry out such activities we collect a range of personal information, including the following: </span></li>
+                    <ol type=""i"">
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">name, date of birth and other identification details; </span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">contact details; </span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">financial information (such as credit card or bank account numbers); </span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">information about how you use our products and services;  </span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">the personal information specified in the game, promotion, survey or other feature you are participating in; and </span></li>
+                        <li class=""tandl-li-inner ""><span class=""tandl-li"">your employment history where you apply for a job with us. </span></li>
+                    </ol>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">We do not collect any sensitive information about individuals unless we are authorised or required by law to do so, or you have consented to us collecting that information from you for a particular purpose. If you have provided us with sensitive information for a particular purpose, we will only use it for that purpose. In particular, we will not use your sensitive information for direct marketing, unless you have previously agreed to this. </span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">You do not have to provide us with your personal or sensitive information. However, if you do not provide us with the personal information we request, we may not be able to provide you with the products, services or other assistance or participation you require. </span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">You also have the option of dealing with us anonymously or with a pseudonym. However, this only applies where it is practical for us to deal with you acting anonymously or under a pseudonym (for example, a general enquiry).
+                </span></li>
+                </ol>
+                <div class=""tandl-section-subheading2""><span class=""tandc-right-space"">2.2</span>Our use of Cookies</div>
+                <ol type=""a"">
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">We also collect data about your website usage through the use of cookies and other technologies. Cookies are information that the site sends to your browser, which are stored as small files on your hard drive. The use of cookies allows the site to record what specific pages you have visited. Websites can provide services and tailored information by using cookies together with the information provided by you. </span></li>
+                   <ol type=""i"">
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">To improve the content of our websites and e-mail to enhance your experience on our websites, and to tailor the websites to individual users; </span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">To customise our products and services according to the interests of individual users; </span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">To regulate advertising so that members are not repeatedly shown the same ads, and to make adjustments so that members view ads likely to be of interest to them; </span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">To statistically analyse, compile and publish information. No personal information will be included in the end result of this process.  </span></li>
+                    </ol>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">You can adjust your browser settings to block the use of cookies or to warn that a cookie has been accepted. Most of the services provided on our websites can be accessed even if the browser blocks cookies. There may be some services that only offer limited access, or no access, if cookies are disabled. </span></li>
+                </ol>
+            </div>
+            <div class=""tandl-section"">
+                <hr class=""tandl-hr"">
+                <div class=""tandl-section-subheading""><span class=""tandc-right-space"">3</span>How do we collect and hold personal information?</div>
+                <ol type=""a"">
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">Generally, we endeavour to collect personal information directly from the individuals concerned where it is practical for us to do so.  However, if this is not practicable, we may also collect personal information from third parties such as our related companies, credit reporting agencies, marketing and PR agencies or your representatives. We may also collect personal information by other means such as through our websites, social media sites or other publicly available sources of information. </span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">Sometimes we may also ask you to give us personal information about other people, such as your family or an authorised representative. If you provide us with this personal information, we rely on you to tell those people that you are giving their personal information to us and to provide them with a copy of this policy.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">We take reasonable steps to ensure the security of your personal information and have put in place reasonable security measures to prevent loss, misuse, or unauthorised access and alterations to personal information under our control. Our employees and service providers are required to maintain the confidentiality of any personal information we hold. </span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">Unfortunately, we cannot and do not guarantee that unauthorised access to your personal information will not occur</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">It is important for you to protect against unauthorised access to your password and to your computer. Be sure to sign off when you finish using a shared computer.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">If we no longer require your personal information, we will take reasonable steps to destroy or alter that information so that it no longer identifies you. Any data destroyed is disposed of in an appropriate manner that protects the privacy of your information. </span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">We engage third party service providers to manage some of our business functions. While all information (including personal information) remains stored on servers in Australia and New Zealand, our offshore service providers may access this information from the Philippines. We have taken reasonable steps to ensure that your information will only be used or disclosed by our service providers in a way that is consistent with Australian and New Zealand privacy laws. If you do not consent to our offshore service providers accessing your personal information, you should not provide this to us.
+                </span></li>
+                </ol>
+            </div>
+            <div class=""tandl-section"">
+                <hr class=""tandl-hr"">
+                <div class=""tandl-section-subheading""><span class=""tandc-right-space"">4</span>Why do we collect, hold, use and disclose personal information?</div>
+                <ol type=""a"">
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">We collect your personal information so that we can perform our various functions and activities. </span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">We may also provide commercial credit to individuals and the Credit Reporting section of this policy applies in that instance.</span></li>
+                    <ol type=""i"">
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">verify your identify; </span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">facilitate your registration as a Website user; </span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">enable you to participate in promotions and other activities; </span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">provide you with products or services that you have requested, and to provide you with any other benefits you may subsequently be entitled to in relation to these products and services;  </span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">manage and administer a product or service, including charging, billing and collecting debts; </span></li>
+                        <li class=""tandl-li-inner ""><span class=""tandl-li"">conduct checks for creditworthiness or fraud; </span></li>
+                        <li class=""tandl-li-inner ""><span class=""tandl-li"">provide you with news and information in relation to Asahi Beverages and our products and services; </span></li>
+                        <li class=""tandl-li-inner ""><span class=""tandl-li"">develop and improve products and services; </span></li>
+                        <li class=""tandl-li-inner ""><span class=""tandl-li"">promote and market to you products, services and special offers made available by us or our related companies, licensees and suppliers; </span></li>
+                        <li class=""tandl-li-inner ""><span class=""tandl-li"">maintain and develop our business systems and infrastructure, including testing and upgrading these systems; </span></li>
+                        <li class=""tandl-li-inner ""><span class=""tandl-li"">comply with our legal obligations, including for the purpose of or in connection with legal proceedings or if necessary for establishing, defending or exercising legal rights; </span></li>
+                        <li class=""tandl-li-inner ""><span class=""tandl-li"">facilitate other purposes that are notified to you prior to you giving your information to us or that are authorised or required by law; </span></li>
+                        <li class=""tandl-li-inner ""><span class=""tandl-li"">provide or facilitate related purposes to those set out above, where you would reasonably expect us to use or disclose information for that purpose; </span></li>
+                        <li class=""tandl-li-inner ""><span class=""tandl-li"">tell you about other products or services that may be of interest to you; </span></li>
+                        <li class=""tandl-li-inner ""><span class=""tandl-li"">assess your suitability for a job where you have applied for a role; </span></li>
+                        <li class=""tandl-li-inner ""><span class=""tandl-li"">consider any concerns or complaints you raise with Asahi Beverages; and; </span></li>
+                        <li class=""tandl-li-inner ""><span class=""tandl-li"">comply with our legal obligations. </span></li>
+                            <ol class=""tandl-li-inner"" type=""a"">
+                                <li class=""tandl-li-inner""><span class=""tandl-li"">If you wish to opt out of the direct marketing communications we send you (including by email), please follow the unsubscribe instructions in the relevant communications, or email us at: <a class=""site-anchor-link"" href=""mailto:consumerrelations@asahi.com.au""> consumerrelations@asahi.com.au.</a></span></li>
+                            </ol>
+                    </ol>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">To give effect to the purposes described above, we may disclose your personal information to the following individuals and entities: </span></li>
+                    <ol type=""i"">
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">our professional advisers (such as lawyers and accountants) and service providers (such as marketing and PR agencies); </span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">organisations that we have engaged to provide services or carry out other functions on our behalf (such as outsourcing contractors, marketing, telemarketing, market researchers, website usage analysts) but only to the extent it is necessary to the services they provide to us;</span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">credit providers and credit related service providers; </span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">third party service providers managing some of our business functions; and </span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">government and regulatory authorities and other organisations, or as otherwise required by or authorised under the Privacy Act.</span></li>
+                    </ol>
+                </ol>
+            </div>
+            <div class=""tandl-section"">
+                <hr class=""tandl-hr"">
+                <div class=""tandl-section-subheading""><span class=""tandc-right-space"">5</span>How can you access and correct your information?</div>
+                <ol type=""a"">
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">Under the relevant privacy laws, you have the right to:</span></li>
+                    <ol type=""i"">
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">seek access to the personal information that we collect and hold; and </span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">facilitate your registration as a Website user; </span></li>
+                    </ol>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">If you wish to access the personal information that we hold about you, please set out your request in writing, and send it to: <a class=""site-anchor-link"" href=""mailto:consumerrelations@asahi.com.au""> consumerrelations@asahi.com.au</a>. Generally we will not charge you for lodging a request, however please note that in some instances we may charge reasonable fees to cover the administrative cost of retrieving and providing access to your personal information. </span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">If you seek access to your credit information, we will not require any charge unless you have already made a request in the previous 12 months. If you have made a request in the previous 12 months, we may request a reasonable charge for providing access. </span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">If you are of the view that personal information we hold about you is inaccurate, or out-of-date, or if you have other queries about accessing and correcting your personal information, please contact us using the contact details noted above. </span></li>
+                </ol>
+            </div>
+            <div class=""tandl-section"">
+                <hr class=""tandl-hr"">
+                <div class=""tandl-section-subheading""><span class=""tandc-right-space"">6</span>Credit Reporting</div>
+                <div class=""tandl-section-subheading2""><span class=""tandc-right-space"">6.1</span>Credit Reporting</div>
+                <ol type=""a"">
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">We may provide credit as contemplated by the privacy laws to individuals in connection with our products and services (for example, we may provide commercial credit to individuals, and conduct associated credit checks on these individuals). As a result, we may collect credit related information and credit eligibility information about you. For ease of understanding in this policy we refer to this as credit information. This section of the policy sets out how we manage your credit information. </span></li>
+                </ol>
+                <div class=""tandl-section-subheading2""><span class=""tandc-right-space"">6.2</span>What credit information do we collect?</div>
+                <ol type=""a"">
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">We may collect the following types of credit information about you:</span></li>
+                    <ol type=""i"">
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">identification information;</span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">basic information about your credit account and your credit history (including any missed or late repayments that you have made);</span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">details of any credit provided to you by other credit providers or details about information request we make about you to other credit reporting bodies;</span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">any credit rating or credit assessment score that we have derived or that is provided to us by a credit reporting body; and</span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">details of any credit-related court proceedings or insolvency applications that relate to you;</span></li>
+                    </ol>
+                </ol>
+                <div class=""tandl-section-subheading2""><span class=""tandc-right-space"">6.3</span>How do we collect and hold this credit information? </div>
+                <ol type=""a"">
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">Please see paragraph 3 of this policy ‘How do we collect and hold personal information&rsquo;.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">In addition to the information listed at point 3, we obtain credit information from credit reporting bodies.</span></li>
+                </ol>
+                <div class=""tandl-section-subheading2""><span class=""tandc-right-space"">6.4</span>How do we collect and hold this credit information? </div>
+                <ol type=""a"">
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">We may use your credit information in the following ways:</span></li>
+                    <ol type=""i"">
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">processing credit-related applications and managing credit that we provide;</span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">determining a credit assessment score for you to help us decide whether or not to provide credit to you;</span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">collecting payments that are owed to us in respect of any credit that we have previously provided to you;</span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">assessing your suitability as guarantor or communicating with a third party who acts as your guarantor</span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">participating in the credit reporting system and providing information to other credit reporting bodies;</span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">dealing with complaints or regulatory matters relating to credit or credit reporting;</span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">as required or authorised by another law; and</span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">where you otherwise expressly consent to the use of disclosure.</span></li>
+                    </ol>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">In some cases, the people to whom we may disclose your credit information may be based outside of Australia or New Zealand – please see paragraph 3 of this policy for further information ‘How do we collect and hold Personal Information&rsquo;.</span></li>
+                </ol>
+                <div class=""tandl-section-subheading2""><span class=""tandc-right-space"">6.5</span>Access and correction to credit-related information</div>
+                <ol type=""a"">
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">Please refer to paragraph 5 of this policy – ‘How can you access and correct your information?&rsquo;</span></li>
+                </ol>
+            </div>
+            <div class=""tandl-section"">
+                <hr class=""tandl-hr"">
+                <div class=""tandl-section-subheading""><span class=""tandc-right-space"">7</span>Making a complaint</div>
+                <ol type=""a"">
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">If you wish to make a complaint about how we handle your personal information or your credit information, please contact us at <a class=""site-anchor-link"" href=""mailto:consumerrelations@asahi.com.au""> consumerrelations@asahi.com.au </a>setting out your complaint in writing. We will deal with all requests for access to personal information or complaints as quickly as possible and will endeavour to get back to you within a reasonable time frame.  </span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">If you have not received a response in less than 30 days or are not satisfied with our response to your complaint, you may lodge a complaint as follows:</span></li>
+                    <ol type=""i"">
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">in Australia with the Office of the Australian Information Commissioner <strong>(&ldquo;OAIC&rdquo;)</strong> via their website at <a class=""site-anchor-link"" href=""http://www.oaic.gov.au/"">http://www.oaic.gov.au/; or </a></span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">in New Zealand with the Office of the Privacy Commissioner via its website at <a class=""site-anchor-link"" href=""http://www.privacy.org.nz/"">http://www.privacy.org.nz/.</a></span></li>
+                    </ol>
+                </ol>
+            </div>
+            <div class=""tandl-section"">
+                <hr class=""tandl-hr"">
+                <div class=""tandl-section-subheading""><span class=""tandc-right-space"">8</span>Additional information and how to contact us</div>
+                <ol type=""a"">
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">If you have any questions or comments about this policy, please set it out in writing, and forward it to us using the contact details below.</span></li>
+                    <div class=""row no-margin"">
+                        <div class=""col-md-1 col-lg-1 col-sm-2 col-xs-3"">Email:</div><div class=""col-md-11 col-lg-11 col-sm-10 col-xs-9""><a class=""site-anchor-link"" href=""mailto:consumerrelations@asahi.com.au"">consumerrelations@asahi.com.au</a></div><br><br>
+                        <div class=""col-md-1 col-lg-1 col-sm-2 col-xs-3"">Telephone:</div><div class=""col-md-11 col-lg-11 col-sm-10 col-xs-9"">Australia:  1800 244 054</div>
+                        <div class=""col-md-1 col-lg-1 col-sm-2 col-xs-3""></div><div class=""col-md-11 col-lg-11 col-sm-10 col-xs-9"">New Zealand: 0800 242 754</div>
+                    </div>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <a data-toggle=""collapse"" data-parent=""#accordion"" href=""#collapse2"">
+        <div class=""checkout_subheading row-margin-fix""><span id=""tandl2ToggleIcon"" class=""glyphicon glyphicon-minus""></span><span class=""tandl-link"">Terms of Use</span></div>
+    </a>
+    <div id=""collapse2"" class=""panel-collapse collapse in js-tandl-2-body"">
+        <div>
+            <div class=""tandl-section-subheading"">Asahi Beverages Website Terms of Use </div>
+            <div class=""tandl-section"">
+                <hr class=""tandl-hr"">
+                <div class=""tandl-section-subheading""><span class=""tandc-right-space"">1</span>Terms of use</div>
+                <ol type=""a"">
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">In these terms of use, the terms ‘Asahi Beverages&rsquo;, ‘we&rsquo;, ‘us&rsquo; and ‘our&rsquo; means Asahi Holdings (Australia) Pty Ltd (ABN 48 135 315 767) and its subsidiaries.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">These terms of use set out the terms on which you use the website of Asahi Beverages or the Asahi Beverages Group (the &ldquo;<strong>Site</strong>&rdquo;). By accessing and using the Site, you accept that all of these terms of use apply. If you do not agree and accept that all of these terms of use apply to your use of the Site, please exit the Site immediately and refrain from using the Site in the future.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">These terms of use should be read together with our Privacy Policy, which explains how we collect, use, disclose and manage your personal information.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">We may revise these terms of use from time to time. We will display a notice on the Site indicating when any such revisions have been made. </span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">Persons under the age of 18 are not permitted to use our alcohol branded websites. All visitors to these websites will be required to confirm they are of legal purchase age before they can access alcohol websites. </span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">For non-alcohol websites, children under the age of 15 should have the consent of their parent or guardian before providing any personal information to us. Please refer to our Privacy Policy for further information on the collection of personal information. </span></li>
+                </ol>
+            </div>
+            <div class=""tandl-section"">
+                <hr class=""tandl-hr"">
+                <div class=""tandl-section-subheading""><span class=""tandc-right-space"">2</span>Your use of the Site</div>
+                <ol type=""a"">
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">The Site is for your personal entertainment, information and communication only. This means that all content provided on the Site is for your non-commercial use, and you may not distribute, modify, transmit, reuse, repost or use the content of the Site for public or commercial purposes without the written permission of Asahi Beverages. </span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">You may not send any material to the Site that:</span></li>
+                    <ol type=""i"">
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">infringes the intellectual property or other rights of another person; </span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">is otherwise unlawful, harmful (including any virus), threatening, libellous, defamatory, obscene, scandalous, inflammatory, pornographic, indecent or profane or that could be a violation of any law (including encouraging any other person to violate any law). This includes information that racially or religiously vilifies, incites violence or hatred, or is likely to insult or humiliate others based on race, religion, ethnicity, gender, age, sexual orientation or any physical or mental disability; </span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">relates to unlawful conduct; </span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">creates a privacy or security risk to any person, including by soliciting personal information from any person; </span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">solicits money from any person; </span></li>
+                        <li class=""tandl-li-inner ""><span class=""tandl-li"">is false, misleading or deceptive; </span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">contains financial, legal, medical or other professional advice;</span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">would harm, abuse, harass, stalk, threaten or otherwise offend;</span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">would reflect negatively on us, including our goodwill, name and reputation;</span></li>
+                        <li class=""tandl-li-inner ""><span class=""tandl-li"">tampers with, hinders the operation of, or makes unauthorised modifications to the Site;</span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">would breach any applicable laws; or</span></li>
+                        <li class=""tandl-li-inner ""><span class=""tandl-li"">would otherwise result in civil or criminal liability for you, us or any third party.</span></li>
+                    </ol>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">In using the Site, you must not:</span></li>
+                    <ol type=""i"">
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">violate any applicable laws, or use the Site for any purpose that is unlawful; </span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">distribute viruses, spyware, corrupted files, or any other similar software or programs that may damage the operation of any computer hardware or software; </span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">use any automated system or software to extract data from this Site for commercial purposes; </span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">collect or store data about other users of the Site; </span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">engage in any other conduct that inhibits any other person form using or enjoying the Site;</span></li>
+                    </ol>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">You agree to indemnify and hold us (including any of our directors, officers, employees and contractors) harmless from:</span></li>
+                    <ol type=""i"">
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">any claim made by any third party; and</span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">any loss or damage that we may suffer,</span></li>
+                        <div class=""tandl-li-inner tandl-li"">arising (directly or otherwise) out of your breach of the restrictions in this clause 2.</div>
+                    </ol>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">Occasionally Asahi Beverages will post information to the Site which includes references to third parties which are not associated with or owned by Asahi Beverages. You may not use these parties&rsquo; likenesses, names, and/or properties without their express permission (to seek this permission you will need to contact these third parties directly).</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">Any personal information (for example your name, address, telephone number or e-mail address) you submit to the Site will be used by us in accordance with the Privacy Policy. Information which is not personal (including questions, comments or suggestions) will not be covered by the Privacy Policy.</span></li>
+                </ol>
+            </div>
+            <div class=""tandl-section"">
+                <hr class=""tandl-hr"">
+                <div class=""tandl-section-subheading""><span class=""tandc-right-space"">3</span>Material on the Site</div>
+                <div class=""tandl-section-subheading2""><span class=""tandc-right-space"">3.1</span>Ownership of intellectual property on the Site</div>
+                <ol type=""a"">
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">The Site is subject to copyright and other intellectual property rights. </span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">Unless otherwise indicated, we own or license from third parties all content on the Site. All content on the Site remains the sole property of the applicable content owner (i.e. Asahi Beverages or the third parties from which we license the content) and is protected under all relevant copyright, trade mark, and other applicable laws. Nothing you do on or in relation to the Site will transfer any intellectual property rights to you or licence you to exercise any intellectual property rights unless this is expressly stated.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">Asahi Beverages takes the protection of intellectual property very seriously.  Please be advised that Asahi Beverages, in their sole discretion, may take all actions to enforce its intellectual property rights to the fullest extent of the law.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">Except as provided in these terms of use, any use or copying of the Site for any purpose is expressly prohibited, unless prior written consent is obtained from us. You may contact us at <a class=""site-anchor-link"" href=""mailto:consumerrelations@asahi.com.au""> consumerrelations@asahi.com.au</a> if you wish to seek such consent. We may revoke any consent we provide at any time and may suspend or deny your access or use of the Site without notice for any reason, including if you breach or we reasonably believe you have breached any of these terms of use. </span></li>
+                </ol>
+                <div class=""tandl-section-subheading2""><span class=""tandc-right-space"">3.2</span>Material you send to the Site</div>
+                <ol type=""a"">
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">By providing us with any material that you send to the Site, you:</span></li>
+                    <ol type=""i"">
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">grant us a non-exclusive, worldwide, royalty-free, perpetual, licence (including a right of sub licence) to use, copy, modify and otherwise exploit the material in any form or on any medium and for any purpose; and </span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">warrant that you have the right to grant such licence. </span></li>
+                    </ol>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">We (or any party we nominate) are entitled to use any or all material which you send to the Site for any purpose without requesting consent from you or providing you with any compensation. Please keep this in mind when you send any data, questions, comments, suggestions, ideas or other information, material or property to the Site.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">You agree to indemnify and hold us (including any of our directors, officers, employees and contractors) harmless from any claim made by any third party arising out of material you send to the Site.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">We may, without notice to you, review, modify or remove any of the material you send to the Site in our absolute discretion including where we believe it violates these terms of use. </span></li>
+                </ol>
+            </div>
+            <div class=""tandl-section"">
+                <hr class=""tandl-hr"">
+                <div class=""tandl-section-subheading""><span class=""tandc-right-space"">4</span>Linking to this Site</div>
+                <ol type=""a"">
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">You must not frame this Site or represent or imply that any part of the Site belongs to anyone other than us. </span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">If we notify you that we object to the manner in which you provide links to this Site, you must immediately cease providing such links.</span></li>
+                </ol>
+            </div>
+            <div class=""tandl-section"">
+                <hr class=""tandl-hr"">
+                <div class=""tandl-section-subheading""><span class=""tandc-right-space"">5</span>Our rights</div>
+                <ol type=""a"">
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">The Site is provided by Asahi Beverages. We may review, edit or delete materials that any person sends to the Site, but we are not under an obligation to do this. </span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">We may cancel any registration(s) or account(s) on the Site at any time or remove any content you have sent or posted on the Site without giving any notice to you or any other person. We may do this without any liability, and for any reason whatsoever.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">We may change information on the Site, these Terms of Use and / or the Privacy Policy, at any time without notice. You should regularly review these Terms of Use and the Privacy Policy for any changes. Changes will be effective as soon as they are posted on the Site, and by continuing to use the Site, you agree to any changes. By providing continued access to the Site, we are providing you consideration for agreement to any changes.</span></li>
+                </ol>
+            </div>
+            <div class=""tandl-section"">
+                <hr class=""tandl-hr"">
+                <div class=""tandl-section-subheading""><span class=""tandc-right-space"">6</span>Warranties and liability</div>
+                <ol type=""a"">
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">We try to make the Site and its contents as reliable as possible, but inaccuracies may occur. Because of this, regardless of anything else on the Site or in these Terms of Use, use of this Site is at your own risk. </span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">The Site is provided to you on an &ldquo;as is&rdquo; basis, and to the fullest extent permitted by law Asahi Beverages disclaims any and all express or implied guarantees, warranties, representations, statements, terms and conditions regarding the Site.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">In particular, and without limiting paragraph (b), we shall not be responsible or liable for any damages due to:</span></li>
+                    <ol type=""i"">
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">statements, errors or omissions on the site </span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">content infringing any third party rights </span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">viruses or other harmful components that may be transmitted to your computer </span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">your use of the Site being interrupted or any loss, corruption or interception of data sent to or from our Site which occurs outside of our computer systems</span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">linking to any other site, or</span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">any other matter regarding this Site and your use of it.</span></li>
+                    </ol>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">We recommend that you install and use up-to-date anti-virus, anti-spyware and firewall software on your computer.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">Nothing in these terms of use excludes, restricts or modifies any guarantee, term, condition, warranty, or any right or remedy, implied or imposed by any legislation which cannot lawfully be excluded or limited, including the Australian Consumer Law which contains guarantees that protect the purchasers of goods and services in certain circumstances.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">We will not be liable for any failure to delay in performing any of our obligations under these terms of use if such delay is caused by circumstances beyond that party&rsquo;s reasonable control.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">As a condition of using the Site, you agree to defend, indemnify and hold harmless Asahi Beverages and any other related party of Asahi Beverages from all damages, costs and expenses including reasonable legal fees and costs, arising out of:</span></li>
+                    <ol type=""i"">
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">your use of, or activities in connection with, the Site</span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">any breach or violation of any of these Terms of Use</span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">any allegation that any material which you send to the Site or create through the Site infringes or otherwise violates the intellectual property, privacy, or other rights of a third party, or gives rise to a claim of libel or defamation, or </span></li>
+                        <li class=""tandl-li-inner""><span class=""tandl-li"">any other matter regarding this Site and your use of it.</span></li>
+                    </ol>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">You agree to work in cooperation with us in the defence of any such matter. We reserve our rights to assume the exclusive defence and control of any matter (at your expense) subject to indemnification by you.</span></li>
+                </ol>
+            </div>
+            <div class=""tandl-section"">
+                <hr class=""tandl-hr"">
+                <div class=""tandl-section-subheading""><span class=""tandc-right-space"">7</span>Jurisdiction</div>
+                <ol type=""a"">
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">We control and operate the Site from Victoria, Australia. All matters relating to the Site are governed by the laws of Victoria, Australia, without reference to any conflict or choice of law principles.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">You agree that any legal proceedings relating to the Site will be held in Victoria, Australia and these proceedings will be determined in accordance with Victorian law.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">You also agree that the courts of Victoria are an appropriate forum to hear any legal proceeding in relation to the Site</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">Please note that we do not warrant or imply that the Site or materials on it are appropriate for use outside of Australia. Information contained in the Site concerning products or services is applicable only in Australia.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">If you are located outside of Australia, you are solely responsible for compliance with any applicable local laws.</span></li>
+                </ol>
+            </div>
+            <div class=""tandl-section"">
+                <hr class=""tandl-hr"">
+                <div class=""tandl-section-subheading""><span class=""tandc-right-space"">8</span>General</div>
+                <ol type=""a"">
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">If any part of these terms of use is held to be unenforceable, the unenforceable part is to be given effect to the greatest extent possible and the remainder will remain in full force and effect.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">These terms of use constitute the entire agreement between us and you in relation to the Site and supersede any other communications or displays between us and you in relation to the Site.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">The provisions of these terms of use which by their nature survive termination or expiry of these terms of use will survive termination or expiry of these terms of use.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">No waiver, delay or failure by us to take any action shall constitute or be construed as a waiver of that or any other term, condition, option, privilege or right we may have.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">The world &ldquo;including&rdquo; when used in these terms of use is not a term of limitation.</span></li>
+                </ol>
+            </div>
+            <div class=""tandl-section"">
+                <hr class=""tandl-hr"">
+                <div class=""tandl-section-subheading""><span class=""tandc-right-space"">9</span>Contact us</div>
+                <ol type=""a"">
+                    <div class=""row no-margin""><div class=""col-md-2 col-lg-2 col-sm-3 col-xs-3"">Mail:</div><div class=""col-md-10 col-lg-10 col-sm-9 col-xs-9"">Consumer Relations Centre, Private Bag 1, Tullamarine VIC 3043</div></div><br>
+                    <div class=""row no-margin""><div class=""col-md-2 col-lg-2 col-sm-3 col-xs-3"">Telephone Toll Free:</div><div class=""col-md-10 col-lg-10 col-sm-9 col-xs-9"">Australia:  1800 244 054</div></div>
+                    <div class=""row no-margin""><div class=""col-md-2 col-lg-2 col-sm-3 col-xs-3""></div><div class=""col-md-10 col-lg-10 col-sm-9 col-xs-9"">New Zealand: 0800 242 754</div></div><br>
+                    <div class=""row no-margin""><div class=""col-md-2 col-lg-2 col-sm-3 col-xs-3"">Email:</div><div class=""col-md-10 col-lg-10 col-sm-9 col-xs-9""><a class=""site-anchor-link"" href=""mailto:consumerrelations@asahi.com.au"">consumerrelations@asahi.com.au.</a></div></div>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <a class=""tandl-link"" data-toggle=""collapse"" data-parent=""#accordion"" href=""#collapse3"">
+        <div class=""checkout_subheading row-margin-fix""><span id=""tandl3ToggleIcon"" class=""glyphicon glyphicon-minus""></span><span class=""tandl-link"">Ordering Service Terms and Conditions</span></div>
+    </a>
+    <div id=""collapse3"" class=""panel-collapse collapse in js-tandl-3-body"">
+        
+        <div>
+            <div class=""tandl-section-subheading"">Ordering Service Terms and Conditions </div>
+            <div class=""tandl-section"">
+                <ol>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">The Asahi Premium Beverages ordering service ('<strong>Service</strong>') is a service provided by Asahi Premium Beverages Pty Ltd (ABN 49 077 568 480) ('<strong>us</strong>', '<strong>we</strong>', '<strong>our</strong>') for Asahi Premium Beverages customers ('<strong>you</strong>'), via the Asahi Premium Beverages website or any replacement website we notify to you from time to time (&ldquo;<strong>Site</strong>&rdquo;).</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">Your access to and use of the Service is subject to these terms, our website <u>Terms of Use</u> and our <u>Privacy Policy</u> ('<strong>Terms</strong>;).</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">We recommend that you carefully read these Terms before you use the Service. If you do not agree to these Terms, you should not use the Service.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">These Terms operate in addition to any terms of trade you have agreed with us (for example, when you applied to become a Asahi Premium Beverages account holder or any agreement for the supply of products). Those other terms are incorporated by reference into these Terms. If there is any inconsistency between these Terms and the other terms, the other terms prevail to the extent of the inconsistency. </span></li>
+                    <div class=""tandl-section-subheading2 ordering-service-sub"">Changes to these Terms</div>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">From time to time, we may need to change these Terms to reflect our changing business. We may also need to change these Terms if we are required by law, for security reasons or for technical or infrastructure reasons.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">Without limiting the rights in clause 20 and 21 of these Terms, we may change the Terms at any time by posting the changed Terms on the Site and by emailing a notice to you stating that a change has occurred. Continuing to use the Service after our notice to you will be deemed acceptance of the amended terms and conditions.</span></li>
+                    <div class=""tandl-section-subheading2 ordering-service-sub"">Registration</div>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">You may not use the Service unless and until you have registered with us as a user of the Service.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">When you register, we will give you a username and password to access the Service. You may be asked to change your username and password when you first access the Service and at subsequent intervals.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">You are responsible for keeping your username and password secret, and (if you are not an individual) for ensuring that it is only disclosed to your authorised representatives. You are also responsible for all transactions carried out via the Service using your username and password.</span></li>
+                    <div class=""tandl-section-subheading2 ordering-service-sub2"">Use of the Service</div>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">You may use the Service to order Asahi Premium Beverages products from the product list on the Site ('<strong>Product List</strong>').</span></li>
+                    <div class=""tandl-section-subheading2 ordering-service-sub2"">Information about products</div>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">We will use reasonable efforts to ensure that we have in stock the products shown in the Product List. However, we do not guarantee the availability of any products, and we will not be liable for any loss, damage or costs incurred by you or any other person if we are unable to provide you with products shown in the Product List.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">We will use reasonable efforts to include in the Product List up-to-date pictures of our products. However, at times, the pictures in the Product List may differ from the products actually supplied to you.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">Some products may have a minimum order requirement. If so, we will use all reasonable efforts to specify this in the Product List.</span></li>
+                    <div class=""tandl-section-subheading2 ordering-service-sub2"">Ordering</div>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">You are responsible for correctly entering all requested order information. If incorrect information is entered, it may result in you receiving and being liable to pay for unwanted products. If you need to make changes to or cancel your order before it has been delivered, contact us on 1800 090 378 and we can discuss options with you.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">You may be issued with an order confirmation or receipt for orders you place via the Service. Issue of an order confirmation or receipt does not mean that your order has been accepted by us or that we will be able to complete the order in whole or in part. Orders will not be binding on us until we have delivered the order to your nominated address and you have accepted the order by signing the delivery docket.</span></li>
+                    <div class=""tandl-section-subheading2 ordering-service-sub2"">Acceptance or Rejection of an Order</div>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">We reserve the right to accept or reject your order for any reason.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">If your order is accepted by us at one of our licensed premises (see clause 18), a separate binding agreement will arise between you and us at the time of acceptance with respect to that order of products.  That agreement will incorporate these Terms and any additional offer terms or promotions notified to you, or that you are aware of, at or before acceptance of your order.</span></li>
+                    <div class=""tandl-section-subheading2 ordering-service-sub2"">Restricted Products </div>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">All orders that we accept for liquor products are only accepted, processed and distributed by us from, and are transmitted from, one of our licenced premises.  Orders and any acceptance or agreement concerning those orders are subject to our obligations under the various liquor licensing Acts in the jurisdictions in which we operate and our obligations to comply with responsible service of alcohol obligations.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">By accepting these terms and conditions and you:</span></li>
+                    <ol class=""tandl-li-inner"" type=""a"">
+                        <li class=""tandl-li-outter""><span class=""tandl-li"">acknowledge that it is against the law to sell or supply alcohol products to, or obtain alcohol products on behalf of, a person under the age of 18 years; and</span></li>
+                        <li class=""tandl-li-outter""><span class=""tandl-li"">warrant that you are over 18 years of age and are not obtaining alcohol on behalf of a person under the age of 18 years.</span></li>
+                    </ol>
+                    <div class=""tandl-section-subheading2 ordering-service-sub2"">Pricing</div>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">You must pay us the price for the products within 28 business days from the date of our statement to you.  The price is exclusive of applicable taxes (including GST) unless expressly stated otherwise.  Subject to clause 21, we may vary the price for the products in the following circumstances</span></li>
+                    <ol class=""tandl-li-inner"" type=""a"">
+                        <li class=""tandl-li-outter""><span class=""tandl-li"">in accordance with changes to our published price list;</span></li>
+                        <li class=""tandl-li-outter""><span class=""tandl-li"">to reflect an increase in the cost of supplying the products to you; or</span></li>
+                        <li class=""tandl-li-outter""><span class=""tandl-li"">in accordance with the cumulative movement in the CPI of the preceding 12 months.</span></li>
+                    </ol>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">If the price variation referred to in clause 20 results in a material price increase (being one where the average increase is more than 10% of the current price for all products you order from us under these Terms) you have the option to terminate these Terms by giving us written notice. We may not be able to provide the Service to you if you do not accept these Terms.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">In addition to the price for the products, we may charge a container deposit levy for products supplied for sale in any State or Territory that has a container deposit scheme.  If applicable, we will notify you of the relevant container deposit levy that will apply to products supplied under these Terms</span></li>
+                    <div class=""tandl-section-subheading2 ordering-service-sub2"">Dispatch and carriage</div>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">We will use all reasonable efforts to supply the quantity of products ordered, by the agreed delivery date. If we are unable to do so, we will work with you to minimise the impact to your business.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">Title to products will not pass to you until you have paid for them in full. However, risk will pass to you when the products are delivered to you.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">We reserve the right to take possession of and to dispose of products as we see fit at any time until you have paid for the products in full. You authorise us to access and enter your land and premises in order to exercise these rights. For the purposes of determining which of the products in your premises have been paid in full, you and we agree that operating inventory will be treated on a first in, first out basis.</span></li>
+                    <div class=""tandl-section-subheading2 ordering-service-sub2"">Authorised receipt of products and liquor licence</div>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">Products are supplied on the condition that you have a current liquor licence which permits the purchase and acceptance of the products to the premises directed.  You must notify us if your liquor licence is suspended or cancelled or the supply of the products will not comply with your licence.  You agree to provide proof of your licence on request.  We are entitled to not supply products where you do not provide proof (or we have reason to believe) that supply of the products will not comply with your licence.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">We are entitled to assume that any person at your delivery address that takes delivery of products is authorised by you to do so.  You must ensure that any person taking delivery of products from us is over the age of 18 years. You acknowledge that liquor licensing requirements apply to the delivery of alcohol and we are unable to deliver to premises which are declared to be restricted areas or premises or to persons who are under 18 years of age or deemed to be unsuitable.  We are entitled to and may request evidence that the person accepting the products is 18 years or older, and may refuse to deliver the products if the person receiving the products is unable or unwilling to provide satisfactory evidence of proof of age.</span></li>
+                    <div class=""tandl-section-subheading2 ordering-service-sub2"">Payment</div>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">Payment on account – On delivery, we will provide you with a tax invoice specifying the total price for your ordered products including any applicable credits, taxes, service and delivery fees. You must pay all invoices by the date specified on the invoice.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">Online payment – You may pay for the products online using a credit card. You authorise us to debit the amount that is payable for an accepted order from your nominated credit card. If we are unable to process your payment for whatever reason, we may cancel your order and notify you of the unsuccessful transaction.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">You must not pay, or attempt to pay for products through fraudulent or unlawful means.</span></li>
+                    <div class=""tandl-section-subheading2 ordering-service-sub2"">Product warranties and liability</div>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">We warrant that products supplied by us will, on the date of dispatch, be of merchantable quality and will comply with all applicable laws. To the extent permitted by law, we exclude our liability for any loss, damage or injury arising from any defect, or non-compliance with a condition or warranty, in products and if our liability cannot be excluded, we limit it, subject to law, to the replacement of the product.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">For the avoidance of doubt, nothing in these Terms exclude, restrict or modify any rights, remedies, guarantees, conditions or warranties that are implied or imposed by law that may not be excluded, restricted or modified.</span></li>
+                    <div class=""tandl-section-subheading2 ordering-service-sub2"">Service Availability</div>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">The Service may be accessed via the Asahi Premium Beverages website or any replacement website we notify to you from time to time.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">We will use reasonable efforts to provide access to the Service 24 hours each day, seven days per week. We will use reasonable efforts to notify you in advance of any planned disruptions to the Service by way of a service notice on the Site.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">However, we cannot and do not guarantee the availability of the Service, and to the extent permitted by law, we will not be liable for any loss, damage or costs incurred by you or any other person if the Service is unavailable at any time.</span></li>
+                    <div class=""tandl-section-subheading2 ordering-service-sub2"">Security</div>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">In addition to our obligations at law, we will use all reasonable efforts to ensure that the Service is secure and that the information you provide via the Service is kept confidential and secure.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">However, you acknowledge that all electronic and telephonic data transfers are potentially susceptible to interception by others. We cannot and do not guarantee that information you submit via the Service will not be monitored, read, or intercepted by others, and we will not be liable for any loss, damage or costs incurred by you or any other person if your information is monitored, read or intercepted in this way.</span></li>
+                    <div class=""tandl-section-subheading2 ordering-service-sub2"">Our liability to you</div>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">To the extent permitted by law, we exclude our liability for any loss, damage or injury arising from any defect, or non-compliance with a condition or warranty, in products and if our liability cannot be excluded, we limit it, subject to the law, to the replacement of the product.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">For the avoidance of doubt, nothing in these Terms exclude, restrict or modify any rights, remedies, guarantees, conditions or warranties that are implied or imposed by law that may not be excluded, restricted or modified.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">You must indemnify us against any claim, loss, liability, cost or expense which may be incurred or sustained by us in connection with.</span></li>
+                    <ol class=""tandl-li-inner"" type=""a"">
+                        <li class=""tandl-li-outter""><span class=""tandl-li"">third party claims; and</span></li>
+                        <li class=""tandl-li-outter""><span class=""tandl-li"">product recalls,</span></li>
+                        <div class=""ol-line-fix"">except to the extent that we have caused or contributed to the loss</div>
+                    </ol>
+                    <div class=""tandl-section-subheading2 ordering-service-sub2"">Confidentiality</div>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">These Terms, the Product List, and any pricing information (howsoever described) is our confidential information ('<strong>Confidential Information</strong>').  However, Confidential Information does not include: information which is or becomes generally available in the public domain (other than through a breach of confidence); or information rightfully received by you from a third person who is under no obligation of confidentiality in relation to the information and who has not obtained that information either directly or indirectly as a result of a breach of any duty of confidence owed to us.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">You acknowledge and agree that you must:</span></li>
+                    <ol class=""tandl-li-inner"" type=""a"">
+                        <li class=""tandl-li-outter""><span class=""tandl-li"">not disclose the Confidential Information to any person except as permitted under clause 43;</span></li>
+                        <li class=""tandl-li-outter""><span class=""tandl-li"">use or reproduce the Confidential Information only for the purposes of these Terms; and</span></li>
+                        <li class=""tandl-li-outter""><span class=""tandl-li"">take all steps reasonably necessary to secure the Confidential Information against theft, loss or unauthorised disclosure.</span></li>
+                    </ol>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">You may disclose the Confidential Information:</span></li>
+                    <ol class=""tandl-li-inner"" type=""a"">
+                        <li class=""tandl-li-outter""><span class=""tandl-li"">to persons acting on your behalf who need to know the Confidential Information for the purposes of these Terms and subject to you taking reasonable steps to ensure that person is fully aware of the confidential nature of the Confidential Information before the disclosure is made;</span></li>
+                        <li class=""tandl-li-outter""><span class=""tandl-li"">if required by law, provided you have given us prior notice where practicable; or</span></li>
+                        <li class=""tandl-li-outter""><span class=""tandl-li"">with our prior written consent.</span></li>
+                    </ol>
+                    <div class=""tandl-section-subheading2 ordering-service-sub2"">Termination</div>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">Either party may terminate or suspend these Terms immediately by notice in writing to the other party if:</span></li>
+                    <ol class=""tandl-li-inner"" type=""a"">
+                        <li class=""tandl-li-outter""><span class=""tandl-li"">the other party breaches any material term of these Terms and the breach is not remedied within ten (10) business days of receipt of notice of the breach; or</span></li>
+                        <li class=""tandl-li-outter""><span class=""tandl-li"">the other party becomes bankrupt, goes into liquidation, is under external administration or any other event which is indicative of insolvency. </span></li>
+                    </ol>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">In addition to the circumstances described in clause 44, we may also terminate or suspend these Terms immediately by notice in writing to you if you:</span></li>
+                    <ol class=""tandl-li-inner"" type=""a"">
+                        <li class=""tandl-li-outter""><span class=""tandl-li"">bring into disrepute our name, reputation, products or interests in a way that materially prejudices us; or</span></li>
+                        <li class=""tandl-li-outter""><span class=""tandl-li"">you endanger our employees by engaging in conduct that would reasonably be considered as aggressive or threatening; or</span></li>
+                        <li class=""tandl-li-outter""><span class=""tandl-li"">you transfer or dispose of these Terms without our prior written consent.</span></li>
+                    </ol>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">If the Service or your access to the Service is terminated or suspended in accordance with clause 44 or 45, you will still be responsible for any fees and charges you incurred in relation to the Service before the termination or suspension date.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">We may stop making the Site or the Service (or any part of it) available without prior notice. If so, any orders that we have accepted will not be affected by this unless the products that have been ordered are no longer available or we are prevented from supplying the products, in which case, we will notify you and will refund to you all valid payments received by us for those products.</span></li>
+                    <div class=""tandl-section-subheading2 ordering-service-sub2"">Intellectual Property </div>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">We and our licensors own all intellectual property rights relating to the Site or the Service, including all intellectual property rights in any pictures, catalogues, trade marks and other content appearing on the Site. This content is provided for reference purposes only and must not be copied or otherwise reproduced without our prior written permission.</span></li>
+                    <div class=""tandl-section-subheading2 ordering-service-sub2"">General </div>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">We and you are independent contractors and no agency, partnership, joint venture or employment relationship is intended or created by these Terms.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">If any of these Terms are invalid, unenforceable or illegal, that term will be struck out and the remaining terms will remain in force.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">If we do not act in relation to a particular breach by you of these Terms, this will not be treated as a waiver by us of our right to act with respect to subsequent or similar breaches.</span></li>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">These Terms (and your dealings with us) are governed by the law in force in the State of Victoria, Australia. You and we each submit to the non-exclusive jurisdiction of the courts of that State.</span></li>
+					
+					
+					
+					<div class=""tandl-section-subheading2 ordering-service-sub2"">Returns and Refunds </div>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">You can return the products or make a claim for a refund if:</span></li>
+					<ol class=""tandl-li-inner"" type=""a"">
+                        <li class=""tandl-li-outter""><span class=""tandl-li"">you believe that Goods we charged you for were not provided; or</span></li>
+                        <li class=""tandl-li-outter""><span class=""tandl-li"">there is a fault or defect with the products you have purchased.</span></li>
+                    </ol>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">Any returned products will be refunded using the same method of payment and price as the original transaction and must:</span></li>
+					<ol class=""tandl-li-inner"" type=""a"">
+                        <li class=""tandl-li-outter""><span class=""tandl-li"">be returned within 28 days of purchase;</span></li>
+                        <li class=""tandl-li-outter""><span class=""tandl-li"">be unopened;</span></li>
+                        <li class=""tandl-li-outter""><span class=""tandl-li"">be in a re-saleable condition; and</span></li>
+                        <li class=""tandl-li-outter""><span class=""tandl-li"">be returned as full cartons.</span></li>
+                    </ol>
+                    <li class=""tandl-li-outter""><span class=""tandl-li"">Call us on 1800 090 378 and our representative will assess your request to return the products. Products may be accepted for return at our absolute discretion.</span></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>";                                                                                                                        ;  
+
+# Sga Homepage               
+
+UPDATE ProductCarouselComponent ; $contentCV[unique=true] ; uid[unique=true]                                   ; title[lang=en]            
+                                ;                         ; SgaHomepageNewProductCarouselComponent             ; "WHAT'S NEW"              
+                                ;                         ; SgaHomepageProductCarouselComponent                ; "Our Bestselling Products"
+                                ;                         ; PremiumbuyersgroupHomepageProductCarouselComponent ; "Our Bestselling Products"
+
+INSERT_UPDATE Media ; mediaFormat(qualifier) ; code[unique=true]                               ; @media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true]      ; realfilename                                    ; altText ; mime[default='image/jpeg'] ; $contentCV[unique=true] ; folder(qualifier)[default=images] ;  
+                    ; widescreen             ; Powertools_1400x480_BigSplash_EN_01_1400W.jpg   ; $siteResource/images/banners/homepage/responsive/Powertools_1400x480_BigSplash_EN_01_1400W.jpg   ; Powertools_1400x480_BigSplash_EN_01_1400W.jpg   ;         ;                            
+                    ; widescreen             ; Powertools_1400x70_Brands_EN_01_1400W.jpg       ; $siteResource/images/banners/homepage/responsive/Powertools_1400x70_Brands_EN_01_1400W.jpg       ; Powertools_1400x70_Brands_EN_01_1400W.jpg       ;         ;                            
+                    ; mobile                 ; Powertools_160x139_24Service_EN_01_160W.jpg     ; $siteResource/images/banners/homepage/responsive/Powertools_160x139_24Service_EN_01_160W.jpg     ; Powertools_160x139_24Service_EN_01_160W.jpg     ;         ;                            
+                    ; mobile                 ; Powertools_160x139_25Deal_EN_01_160W.jpg        ; $siteResource/images/banners/homepage/responsive/Powertools_160x139_25Deal_EN_01_160W.jpg        ; Powertools_160x139_25Deal_EN_01_160W.jpg        ;         ;                            
+                    ; mobile                 ; Powertools_160x139_30Day_EN_01_160W.jpg         ; $siteResource/images/banners/homepage/responsive/Powertools_160x139_30Day_EN_01_160W.jpg         ; Powertools_160x139_30Day_EN_01_160W.jpg         ;         ;                            
+                    ; mobile                 ; Powertools_160x139_6pm_EN_01_160W.jpg           ; $siteResource/images/banners/homepage/responsive/Powertools_160x139_6pm_EN_01_160W.jpg           ; Powertools_160x139_6pm_EN_01_160W.jpg           ;         ;                            
+                    ; desktop                ; Powertools_240x200_24Service_EN_01_240W.jpg     ; $siteResource/images/banners/homepage/responsive/Powertools_240x200_24Service_EN_01_240W.jpg     ; Powertools_240x200_24Service_EN_01_240W.jpg     ;         ;                            
+                    ; desktop                ; Powertools_240x200_25Deal_EN_01_240W.jpg        ; $siteResource/images/banners/homepage/responsive/Powertools_240x200_25Deal_EN_01_240W.jpg        ; Powertools_240x200_25Deal_EN_01_240W.jpg        ;         ;                            
+                    ; desktop                ; Powertools_240x200_30Day_EN_01_240W.jpg         ; $siteResource/images/banners/homepage/responsive/Powertools_240x200_30Day_EN_01_240W.jpg         ; Powertools_240x200_30Day_EN_01_240W.jpg         ;         ;                            
+                    ; desktop                ; Powertools_240x200_6pm_EN_01_240W.jpg           ; $siteResource/images/banners/homepage/responsive/Powertools_240x200_6pm_EN_01_240W.jpg           ; Powertools_240x200_6pm_EN_01_240W.jpg           ;         ;                            
+                    ; desktop                ; Powertools_240x200_AngleGrinders_EN_01_240W.jpg ; $siteResource/images/banners/homepage/responsive/Powertools_240x200_AngleGrinders_EN_01_240W.jpg ; Powertools_240x200_AngleGrinders_EN_01_240W.jpg ;         ;                            
+                    ; desktop                ; Powertools_240x200_PowerDrills_EN_01_240W.jpg   ; $siteResource/images/banners/homepage/responsive/Powertools_240x200_PowerDrills_EN_01_240W.jpg   ; Powertools_240x200_PowerDrills_EN_01_240W.jpg   ;         ;                            
+                    ; desktop                ; Powertools_240x200_Sanders_EN_01_240W.jpg       ; $siteResource/images/banners/homepage/responsive/Powertools_240x200_Sanders_EN_01_240W.jpg       ; Powertools_240x200_Sanders_EN_01_240W.jpg       ;         ;                            
+                    ; desktop                ; Powertools_240x200_Screwdrivers_EN_01_240W.jpg  ; $siteResource/images/banners/homepage/responsive/Powertools_240x200_Screwdrivers_EN_01_240W.jpg  ; Powertools_240x200_Screwdrivers_EN_01_240W.jpg  ;         ;                            
+                    ; mobile                 ; Powertools_320x100_Brands_EN_01_320W.jpg        ; $siteResource/images/banners/homepage/responsive/Powertools_320x100_Brands_EN_01_320W.jpg        ; Powertools_320x100_Brands_EN_01_320W.jpg        ;         ;                            
+                    ; mobile                 ; Powertools_320x260_AngleGrinders_EN_01_320W.jpg ; $siteResource/images/banners/homepage/responsive/Powertools_320x260_AngleGrinders_EN_01_320W.jpg ; Powertools_320x260_AngleGrinders_EN_01_320W.jpg ;         ;                            
+                    ; mobile                 ; Powertools_320x260_PowerDrills_EN_01_320W.jpg   ; $siteResource/images/banners/homepage/responsive/Powertools_320x260_PowerDrills_EN_01_320W.jpg   ; Powertools_320x260_PowerDrills_EN_01_320W.jpg   ;         ;                            
+                    ; mobile                 ; Powertools_320x260_Sanders_EN_01_320W.jpg       ; $siteResource/images/banners/homepage/responsive/Powertools_320x260_Sanders_EN_01_320W.jpg       ; Powertools_320x260_Sanders_EN_01_320W.jpg       ;         ;                            
+                    ; mobile                 ; Powertools_320x260_Screwdrivers_EN_01_320W.jpg  ; $siteResource/images/banners/homepage/responsive/Powertools_320x260_Screwdrivers_EN_01_320W.jpg  ; Powertools_320x260_Screwdrivers_EN_01_320W.jpg  ;         ;                            
+                    ; mobile                 ; Powertools_320x300_BigSplash_EN_01_320W.jpg     ; $siteResource/images/banners/homepage/responsive/Powertools_320x300_BigSplash_EN_01_320W.jpg     ; Powertools_320x300_BigSplash_EN_01_320W.jpg     ;         ;                            
+                    ; widescreen             ; Powertools_350x280_24Service_EN_01_350W.jpg     ; $siteResource/images/banners/homepage/responsive/Powertools_350x280_24Service_EN_01_350W.jpg     ; Powertools_350x280_24Service_EN_01_350W.jpg     ;         ;                            
+                    ; widescreen             ; Powertools_350x280_25Deal_EN_01_350W.jpg        ; $siteResource/images/banners/homepage/responsive/Powertools_350x280_25Deal_EN_01_350W.jpg        ; Powertools_350x280_25Deal_EN_01_350W.jpg        ;         ;                            
+                    ; widescreen             ; Powertools_350x280_30Day_EN_01_350W.jpg         ; $siteResource/images/banners/homepage/responsive/Powertools_350x280_30Day_EN_01_350W.jpg         ; Powertools_350x280_30Day_EN_01_350W.jpg         ;         ;                            
+                    ; widescreen             ; Powertools_350x280_6pm_EN_01_350W.jpg           ; $siteResource/images/banners/homepage/responsive/Powertools_350x280_6pm_EN_01_350W.jpg           ; Powertools_350x280_6pm_EN_01_350W.jpg           ;         ;                            
+                    ; widescreen             ; Powertools_350x290_AngleGrinders_EN_01_350W.jpg ; $siteResource/images/banners/homepage/responsive/Powertools_350x290_AngleGrinders_EN_01_350W.jpg ; Powertools_350x290_AngleGrinders_EN_01_350W.jpg ;         ;                            
+                    ; widescreen             ; Powertools_350x290_PowerDrills_EN_01_350W.jpg   ; $siteResource/images/banners/homepage/responsive/Powertools_350x290_PowerDrills_EN_01_350W.jpg   ; Powertools_350x290_PowerDrills_EN_01_350W.jpg   ;         ;                            
+                    ; widescreen             ; Powertools_350x290_Sanders_EN_01_350W.jpg       ; $siteResource/images/banners/homepage/responsive/Powertools_350x290_Sanders_EN_01_350W.jpg       ; Powertools_350x290_Sanders_EN_01_350W.jpg       ;         ;                            
+                    ; widescreen             ; Powertools_350x290_Screwdrivers_EN_01_350W.jpg  ; $siteResource/images/banners/homepage/responsive/Powertools_350x290_Screwdrivers_EN_01_350W.jpg  ; Powertools_350x290_Screwdrivers_EN_01_350W.jpg  ;         ;                            
+                    ; tablet                 ; Powertools_385x280_24Service_EN_01_385W.jpg     ; $siteResource/images/banners/homepage/responsive/Powertools_385x280_24Service_EN_01_385W.jpg     ; Powertools_385x280_24Service_EN_01_385W.jpg     ;         ;                            
+                    ; tablet                 ; Powertools_385x280_25Deal_EN_01_385W.jpg        ; $siteResource/images/banners/homepage/responsive/Powertools_385x280_25Deal_EN_01_385W.jpg        ; Powertools_385x280_25Deal_EN_01_385W.jpg        ;         ;                            
+                    ; tablet                 ; Powertools_385x280_30Day_EN_01_385W.jpg         ; $siteResource/images/banners/homepage/responsive/Powertools_385x280_30Day_EN_01_385W.jpg         ; Powertools_385x280_30Day_EN_01_385W.jpg         ;         ;                            
+                    ; tablet                 ; Powertools_385x280_6pm_EN_01_385W.jpg           ; $siteResource/images/banners/homepage/responsive/Powertools_385x280_6pm_EN_01_385W.jpg           ; Powertools_385x280_6pm_EN_01_385W.jpg           ;         ;                            
+                    ; tablet                 ; Powertools_385x290_AngleGrinders_EN_01_385W.jpg ; $siteResource/images/banners/homepage/responsive/Powertools_385x290_AngleGrinders_EN_01_385W.jpg ; Powertools_385x290_AngleGrinders_EN_01_385W.jpg ;         ;                            
+                    ; tablet                 ; Powertools_385x290_PowerDrills_EN_01_385W.jpg   ; $siteResource/images/banners/homepage/responsive/Powertools_385x290_PowerDrills_EN_01_385W.jpg   ; Powertools_385x290_PowerDrills_EN_01_385W.jpg   ;         ;                            
+                    ; tablet                 ; Powertools_385x290_Sanders_EN_01_385W.jpg       ; $siteResource/images/banners/homepage/responsive/Powertools_385x290_Sanders_EN_01_385W.jpg       ; Powertools_385x290_Sanders_EN_01_385W.jpg       ;         ;                            
+                    ; tablet                 ; Powertools_385x290_Screwdrivers_EN_01_385W.jpg  ; $siteResource/images/banners/homepage/responsive/Powertools_385x290_Screwdrivers_EN_01_385W.jpg  ; Powertools_385x290_Screwdrivers_EN_01_385W.jpg  ;         ;                            
+                    ; tablet                 ; Powertools_770x350_BigSplash_EN_01_770W.jpg     ; $siteResource/images/banners/homepage/responsive/Powertools_770x350_BigSplash_EN_01_770W.jpg     ; Powertools_770x350_BigSplash_EN_01_770W.jpg     ;         ;                            
+                    ; tablet                 ; Powertools_770x70_Brands_EN_01_770W.jpg         ; $siteResource/images/banners/homepage/responsive/Powertools_770x70_Brands_EN_01_770W.jpg         ; Powertools_770x70_Brands_EN_01_770W.jpg         ;         ;                            
+                    ; desktop                ; Powertools_960x400_BigSplash_EN_01_960W.jpg     ; $siteResource/images/banners/homepage/responsive/Powertools_960x400_BigSplash_EN_01_960W.jpg     ; Powertools_960x400_BigSplash_EN_01_960W.jpg     ;         ;                            
+                    ; desktop                ; Powertools_960x70_Brands_EN_01_960W.jpg         ; $siteResource/images/banners/homepage/responsive/Powertools_960x70_Brands_EN_01_960W.jpg         ; Powertools_960x70_Brands_EN_01_960W.jpg         ;         ;                            
+
+INSERT_UPDATE MediaContainer ; qualifier[unique=true]        ; $medias                                                                                                                                                                                        ; $contentCV[unique=true]
+                             ; sga-homepage-24/7service-en   ; Powertools_350x280_24Service_EN_01_350W.jpg,Powertools_240x200_24Service_EN_01_240W.jpg,Powertools_160x139_24Service_EN_01_160W.jpg,Powertools_385x280_24Service_EN_01_385W.jpg                
+                             ; sga-homepage-25%-deal-en      ; Powertools_350x280_25Deal_EN_01_350W.jpg,Powertools_240x200_25Deal_EN_01_240W.jpg,Powertools_160x139_25Deal_EN_01_160W.jpg,Powertools_385x280_25Deal_EN_01_385W.jpg                            
+                             ; sga-homepage-30Day-en         ; Powertools_350x280_30Day_EN_01_350W.jpg,Powertools_240x200_30Day_EN_01_240W.jpg,Powertools_160x139_30Day_EN_01_160W.jpg,Powertools_385x280_30Day_EN_01_385W.jpg                                
+                             ; sga-homepage-6pm-en           ; Powertools_350x280_6pm_EN_01_350W.jpg,Powertools_240x200_6pm_EN_01_240W.jpg,Powertools_160x139_6pm_EN_01_160W.jpg,Powertools_385x280_6pm_EN_01_385W.jpg                                        
+                             ; sga-homepage-anglegranders-en ; Powertools_350x290_AngleGrinders_EN_01_350W.jpg,Powertools_240x200_AngleGrinders_EN_01_240W.jpg,Powertools_320x260_AngleGrinders_EN_01_320W.jpg,Powertools_385x290_AngleGrinders_EN_01_385W.jpg
+                             ; sga-homepage-brands-en        ; Powertools_1400x70_Brands_EN_01_1400W.jpg,Powertools_960x70_Brands_EN_01_960W.jpg,Powertools_320x100_Brands_EN_01_320W.jpg,Powertools_770x70_Brands_EN_01_770W.jpg                             
+                             ; sga-homepage-powerdrills-en   ; Powertools_350x290_PowerDrills_EN_01_350W.jpg,Powertools_240x200_PowerDrills_EN_01_240W.jpg,Powertools_320x260_PowerDrills_EN_01_320W.jpg,Powertools_385x290_PowerDrills_EN_01_385W.jpg        
+                             ; sga-homepage-sanders-en       ; Powertools_350x290_Sanders_EN_01_350W.jpg,Powertools_240x200_Sanders_EN_01_240W.jpg,Powertools_320x260_Sanders_EN_01_320W.jpg,Powertools_385x290_Sanders_EN_01_385W.jpg                        
+                             ; sga-homepage-screwdrivers-en  ; Powertools_350x290_Screwdrivers_EN_01_350W.jpg,Powertools_240x200_Screwdrivers_EN_01_240W.jpg,Powertools_320x260_Screwdrivers_EN_01_320W.jpg,Powertools_385x290_Screwdrivers_EN_01_385W.jpg    
+                             ; sga-homepage-spalsh-en        ; Powertools_1400x480_BigSplash_EN_01_1400W.jpg,Powertools_960x400_BigSplash_EN_01_960W.jpg,Powertools_320x300_BigSplash_EN_01_320W.jpg,Powertools_770x350_BigSplash_EN_01_770W.jpg              
+
+INSERT_UPDATE SimpleResponsiveBannerComponent ; $contentCV[unique=true] ; uid[unique=true]                       ; $mediaContainer              
+                                              ;                         ; SgaHompage24/7BannerComponent          ; sga-homepage-24/7service-en  
+                                              ;                         ; SgaHompage25%BannerComponent           ; sga-homepage-25%-deal-en     
+                                              ;                         ; SgaHompage30dayBannerComponent         ; sga-homepage-30Day-en        
+                                              ;                         ; SgaHompage6pmBannerComponent           ; sga-homepage-6pm-en          
+                                              ;                         ; SgaHompageAngleGrindersBannerComponent ; sga-homepage-anglegranders-en
+                                              ;                         ; SgaHompageBrandsBannerComponent        ; sga-homepage-brands-en       
+                                              ;                         ; SgaHompagePowerDrillsBannerComponent   ; sga-homepage-powerdrills-en  
+                                              ;                         ; SgaHompageSandersBannerComponent       ; sga-homepage-sanders-en      
+                                              ;                         ; SgaHompageScrewdriversBannerComponent  ; sga-homepage-screwdrivers-en 
+                                              ;                         ; SgaHompageSplashBannerComponent        ; sga-homepage-spalsh-en       
+
+
+# Sga Search Results Page                     
+
+# Media Content                               
+INSERT_UPDATE Media ; $contentCV[unique=true] ; code[unique=true]                                    ; @media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator]             ; mime[default='image/jpeg'] ; folder(qualifier)[default='images'] ; altText
+                    ;                         ; Powertools_148x318_SearchResultsSideBanner_EN_01.jpg ; $siteResource/images/banners/site/Powertools_148x318_SearchResultsSideBanner_EN_01.jpg ;                            ;                                     ; ""     
+
+UPDATE SimpleBannerComponent ; $contentCV[unique=true] ; uid[unique=true]        ; $picture[lang=$lang]                                
+                             ;                         ; SearchResultsSideBanner ; Powertools_148x318_SearchResultsSideBanner_EN_01.jpg
+
+UPDATE CMSParagraphComponent ; $contentCV[unique=true] ; uid[unique=true]                  ; content[lang=$lang]                                                                                                                                                                                                                                                                                         
+                             ;                         ; EmptyCartParagraphComponent       ; "<p>No items to show                                                                                                                                                                                                                                                                                        
+</p>"                                                                                                                                                                                                             
+                             ;                         ; NoSearchResultsParagraphComponent ; "<p>You can:</p><ul>	<li>Check for typos and spelling errors (they happen to the best of us!) then search again.</li>	<li>Try broader search terms (e.g. ""Pepsi"" rather than ""Pepsi Max Vanilla"").</li>	<li>Select one of the above categories and browse our available products that way.</li></ul>"
+
+# Sga Cart Page              
+
+# Media Content              
+INSERT_UPDATE Media ; $contentCV[unique=true] ; code[unique=true]                               ; @media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator]        ; mime[default='image/jpeg'] ; folder(qualifier)[default='images'] ; altText                                           
+                    ;                         ; Powertools_148x300_HelpBanner_EN_01.jpg         ; $siteResource/images/banners/site/Powertools_148x300_HelpBanner_EN_01.jpg         ;                            ;                                     ; "Need Help? Click here for help with checking out"
+                    ;                         ; Powertools_788x120_HomeDeliveryBanner_EN_01.jpg ; $siteResource/images/banners/site/Powertools_788x120_HomeDeliveryBanner_EN_01.jpg ;                            ;                                     ; "Order before 6pm for next day delivery"          
+
+UPDATE SimpleBannerComponent ; $contentCV[unique=true] ; uid[unique=true]         ; $picture[lang=$lang]                           
+                             ;                         ; HelpBanner               ; Powertools_148x300_HelpBanner_EN_01.jpg        
+                             ;                         ; NextDayDeliveryBanner120 ; Powertools_788x120_HomeDeliveryBanner_EN_01.jpg
+
+UPDATE CMSParagraphComponent ; $contentCV[unique=true] ; uid[unique=true]            ; content[lang=$lang]                                                                                   
+                             ;                         ; EmptyCartParagraphComponent ; "<p>No items to show</p>"                                                                             
+                             ;                         ; HelpParagraphComponent      ; "<strong>Need Help with your checkout process?</strong> <span>Contact Us or Call phone number.</span>"
+
+# Sga Store Finder Page      
+
+# Media Content              
+INSERT_UPDATE Media ; $contentCV[unique=true] ; code[unique=true]                                  ; @media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator]           ; mime[default='image/jpeg'] ; folder(qualifier)[default='images'] ; altText
+                    ;                         ; Powertools_148x318_StoreFinderSideBanner_EN_01.jpg ; $siteResource/images/banners/site/Powertools_148x318_StoreFinderSideBanner_EN_01.jpg ;                            ;                                     ; ""     
+
+UPDATE SimpleBannerComponent ; $contentCV[unique=true] ; uid[unique=true]      ; $picture[lang=$lang]                               
+                             ;                         ; StoreFinderSideBanner ; Powertools_148x318_StoreFinderSideBanner_EN_01.jpg ;  
+
+
+INSERT_UPDATE Media ; mediaFormat(qualifier) ; code[unique=true]                          ; @media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true] ; realfilename                               ; altText          ; mime[default='image/svg+xml'] ; $contentCV[unique=true] ; folder(qualifier)[default=images]
+                    ; widescreen             ; Powertools_1400x401_ErrorPage_EN_1400W.svg ; $siteResource/images/banners/site/Powertools_1400x401_ErrorPage_EN_1400W.svg                ; Powertools_1400x401_ErrorPage_EN_1400W.svg ; "Page not found" ;                               
+                    ; mobile                 ; Powertools_480x170_ErrorPage_EN_480W.svg   ; $siteResource/images/banners/site/Powertools_1400x401_ErrorPage_EN_1400W.svg                ; Powertools_1400x401_ErrorPage_EN_1400W.svg ; "Page not found" ;                               
+                    ; tablet                 ; Powertools_770x221_ErrorPage_EN_770W.svg   ; $siteResource/images/banners/site/Powertools_1400x401_ErrorPage_EN_1400W.svg                ; Powertools_1400x401_ErrorPage_EN_1400W.svg ; "Page not found" ;                               
+                    ; desktop                ; Powertools_960x275_ErrorPage_EN_960W.svg   ; $siteResource/images/banners/site/Powertools_1400x401_ErrorPage_EN_1400W.svg                ; Powertools_1400x401_ErrorPage_EN_1400W.svg ; "Page not found" ;                               
+
+INSERT_UPDATE MediaContainer ; qualifier[unique=true]        ; $medias                                                                                                                                                              ; $contentCV[unique=true]
+                             ; sga-errorpage-pagenotfound-en ; Powertools_480x170_ErrorPage_EN_480W.svg,Powertools_770x221_ErrorPage_EN_770W.svg,Powertools_960x275_ErrorPage_EN_960W.svg,Powertools_1400x401_ErrorPage_EN_1400W.svg
+
+INSERT_UPDATE SimpleResponsiveBannerComponent ; $contentCV[unique=true] ; uid[unique=true]                   ; name                                   ; &componentRef                      ; $mediaContainer              
+                                              ;                         ; SgatronicsErrorpageBannerComponent ; Sgatronics Error Page Banner Component ; SgatronicsErrorpageBannerComponent ; sga-errorpage-pagenotfound-en
+
+UPDATE CMSParagraphComponent ; $contentCV[unique=true] ; uid[unique=true]                            ; content[lang=$lang]                                                                                      
+#                             ;                         ; StockCheckWarningParagraphComponent         ; "<p>The ordered stocks may or may not be available.</p>"                                                 
+                             ;                         ; CustomerCreditLimitExceedParagraphComponent ; "<div class=""home-credit-exceed""><div class=""content""><div class=""glyphicon glyphicon-alert"">&nbsp ; </div><span class=""account-hold-text"">Your account is on hold! </span>There are several reasons why this might be. Call 1800 090 378 and we&rsquo ; ll help you get this sorted.</div></div>"
+
+INSERT_UPDATE OAuthClientDetails ; clientId[unique=true] ; resourceIds ; scope    ; authorizedGrantTypes                                         ; authorities                     ; clientSecret ; registeredRedirectUri ; refreshTokenValiditySeconds ; accessTokenValiditySeconds
+                                 ; cbma-v1               ; hybris      ; extended ; authorization_code,refresh_token,password,client_credentials ; ROLE_CLIENT,ROLE_TRUSTED_CLIENT ; cbmasecret   ;                       ; 2592000                     ; 43200                     
+
+                                 ## links of the above navigation nodes ##
+INSERT_UPDATE CMSLinkComponent ; $contentCV[unique=true] ; uid[unique=true]     ; name                   ; url ; &linkRef             ; &componentRef       ; target(code)[default='sameWindow']
+                               ;                         ; AboutUsFooterLink    ; AboutUs Footer Link    ;     ; AboutUsFooterLink    ; AboutUsFooterLink   
+                               ;                         ; ContactUsFooterLink  ; ContactUs Footer Link  ;     ; ContactUsFooterLink  ; ContactUsFooterLink 
+                               ;                         ; SupportFooterLink    ; Support Footer Link    ;     ; SupportFooterLink    ; SupportFooterLink   
+                               ;                         ; TermsOfUseFooterLink ; TermsOfUse Footer Link ;     ; TermsOfUseFooterLink ; TermsOfUseFooterLink
+			                            
+##--- level 3. children of sgaNavNode ---##
+UPDATE CMSNavigationNode ; uid[unique=true] ; $contentCV[unique=true] ; name         ; parent(uid, $contentCV) ; links(&componentRef)                                                         ; &nodeRef     
+                         ; FooterNavNode    ;                         ; Footer Pages ; SgaNavNode              ; AboutUsFooterLink,ContactUsFooterLink,SupportFooterLink,TermsOfUseFooterLink ; FooterNavNode
+
+
+# CMS Paragraph Component (Contact information)
+UPDATE CMSParagraphComponent ; $contentCV[unique=true] ; uid[unique=true]                           ; content[lang=en]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+                             ;                         ; serverErrorParagraphComponent              ; "<div class=""row""><div class=""col-md-12 col-sm-12""><img border=""0"" align=""middle"" src=""/storefront/_ui/responsive/common/images/error.png"" /></div></div> <div class=""row""><div class=""col-md-12""><h2>There&rsquo;s been a small problem</h2></div></div> <div class=""row""><div class=""col-md-8 col-sm-8 col-xs-12""><p>It seems we&rsquo;re experiencing some technical difficulties. This could have caused your session to time out, which is why you&rsquo;re seeing this page.</p> <p>Try heading back to the homepage, hitting back, or refreshing your browser.</p> <p>If none of that works give our Customer Service Team a call and we&rsquo;ll help you get this sorted.</p></div></div>"
+                             ;                         ; companyDetailsParagraphComponent           ; "<p><br /><br /><span class=""user-register__headline"">Company Detail Change Submitted</span></p></div><p>&nbsp</p><p>Thanks! Your request to update your company details has been sent to the Asahi <br>Customer Service Team.<br /><br>Please allow a bit of time for these changes to appear on Asahi Direct.</p><p></p><p><a class=""site-anchor-link"" href=""./"">Continue Shopping</a></p>"
+                             ;                         ; errorParagraphComponent                    ; "<p>Page not found</p>The page your trying to access cannot be found<br><br><br>"
+                             ;                         ; SGACustomerServicesComponent               ; "<div class=""customer-service-content-heading"">Asahi Contact Centre</div><div class=""customer-service-details""><span class=""customer-service-content-subheading"">Phone:</span><span class=""customer-service-content"">1800 222 212</span><br><span class=""customer-service-content-subheading"">Email:</span><span class=""customer-service-content""><a href=""mailto:accconnect@asahi.com.au"">ACCConnect&#64;asahi&#8228;com&#8228;au</a></span></div>"
+                             ;                         ; SGATechServicesComponent                   ; "<div class=""customer-service-content-heading"">Equipment & Technical Services</div><div class=""customer-service-details""><span class=""customer-service-content-subheading"">Phone:</span><span class=""customer-service-content"">1300 364 246</span><br></div>"
+                             ;                         ; kegReturnConfirmationParagraphComponent    ; "<div class=""login-page__headline"">Keg Returns</div>Thanks for requesting to return your kegs! A confirmation email has been sent.<p><br><br><a class=""site-anchor-link"" href=""./"">Continue Shopping</a></p></div>"
+                             ;                         ; registrationConfirmationParagraphComponent ; "<p>Welcome to ALB Connect.<br><br> Now that you're registered, you can: <br>                                                                                                                                                                                                                                                                                                                    
+			<ul class=""registerContent"">
+			 		<li>Quickly and conveniently place orders</li>
+			 		<li>View your order history</li>
+			 		<li>Manage your account and</li>
+			 		<li>Update your details</li>
+			</ul><br>                              
+				<span> Should you need further support call us on <strong>1800 222 212</strong>, (8am - 5pm, Monday - Friday). Alternatively, you can call your Territory Manager.</span>
+					<br><br><span>We hope you enjoy the ALB Connect experience.</span><br><br><span> Cheers, <br> <br>Asahi Lifestyle Beverages team
+				</span>                  
+			  <br><br>                
+		</p>"                      
+		                           
+# CMS Paragraph Component (Empty cart)
+UPDATE CMSParagraphComponent ; $contentCV[unique=true] ; uid[unique=true]   ; content[lang=en]            ;  
+                             ;                         ; emptyCartParagraph ; "<div class=""cart-header"">
+	    		<div class=""row"">     
+	       			<div class=""col-xs-12 col-sm-5 no-padding"">
+	       				<h1 class=""cart-headline""> My Cart</h1>
+	            		<div class=""border""></div>
+					</div>                  
+				</div>                   
+			</div>                    
+			<p>Your cart's empty. Starting an order is simple.</p>
+			You can: <br>             
+			<ul class=""registerContent"">
+				<li>Search for available products using the search function and navigation bar</li>
+				<li>Select products from your <a href=""/storefront/sga/en/AUD/my-account/orders"">Order History</a> and add to cart or,</li>
+				<li>Choose one of your <a href=""/storefront/sga/en/AUD/my-account/saved-carts"">Order Templates</a>  to quickly and easily fill up your cart</li>
+			</ul>";		                  
+
+                             ;                         ; SAMPayerAccountSetUpComponent                  ; To Make Payments on your account <a href="contactus"><b>click here</b></a> and we'll help you get set up.; 

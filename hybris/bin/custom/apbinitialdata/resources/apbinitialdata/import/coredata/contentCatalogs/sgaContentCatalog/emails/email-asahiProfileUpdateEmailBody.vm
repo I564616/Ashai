@@ -1,0 +1,94 @@
+## messageSource=classpath:/sabmcore/messages/email-profileUpdated_$lang.properties
+#macro(genHtmlLinkStartTag $url)
+<a href="$url"><font color="#42515a">
+#end
+#macro(genHtmlLinkEndTag)
+</font></a>
+#end
+#macro(genHtmlLink $url $textColor $bodyContent)
+<a href="$url"><font color="$textColor">$bodyContent</font></a>
+#end
+<html>
+	<head>
+	</head>
+	<body bgcolor="#ffffff">
+	<table width="50%" cellpadding="0" cellspacing="0" align="center" bgcolor="#ffffff">
+		<tr>
+		 <td style="border:1px solid #42515a;display:inline-table">
+			<table cellpadding="0" cellspacing="0" border="0" style="min-width:320px;display:inline-table" align="center" bgcolor="#ffffff">
+				<tr>
+					<td align="left" colspan="6">
+						<a href="${ctx.baseUrl}" style="padding: 0px 0px 0px 0px;display:inline-block;margin:0 auto;">
+						    ${ctx.cmsSlotContents.TopContent}
+						</a>
+					</td>
+				</tr>
+				<tr>
+                    <td class="header-image">
+                        <a href="${ctx.baseUrl}" style="padding: 0px 0px 0px 0px;display:inline-block;margin:0 auto;">
+						    ${ctx.cmsSlotContents.SiteLogo}
+						</a>
+                    </td>
+        		</tr>		 
+				<tr>
+					<td colspan="5" valign="middle" style="font-weight:bold;font-family: Helvetica;color: #42515a;font-size: 18px;padding: 20px 0px 0px 10px;">
+						${ctx.messages.sgaEmailSubject}					
+						<table width="6%" cellpadding="0" cellspacing="0" border="0" valign="10px" >
+							<tr>
+								<td style="width: 10px;margin-top: 5px;border-bottom: 3px solid #42515a;padding:4px"> 							
+								</td>
+							</tr>
+						</table> 
+					</td>
+				</tr> 
+				<tr><td height="10"></td></tr>
+				<tr>
+					<td colspan="5" align="left" valign="middle" style="font-family: Helvetica;color: #42515a;font-size: 15px;padding: 20px 0px 0px 10px;">
+					${ctx.messages.sgadear}&nbsp;${ctx.customerName}, 				
+					</td>
+				</tr> 
+				 
+				<tr>
+					<td colspan="5" align="left" valign="middle" style="font-family: Helvetica;color: #42515a;font-size: 15px;padding: 20px 0px 0px 10px;">
+					 	${ctx.messages.getMessage('sgaSuccessfullyRemoved',${ctx.customerAccount},${ctx.customerAccountName})}<br>		
+					</td>
+				</tr>
+				<tr>
+					<td colspan="5" align="left" valign="middle" style="font-family: Helvetica;color: #42515a;font-size: 15px;padding: 20px 0px 0px 10px;">
+					 	${ctx.messages.sgaSuccessfullyRemoved2}<br>		
+					</td>
+				</tr>
+				<tr><td height="10"></td></tr>
+				<tr> 
+					<td colspan="5" style="font-family: Helvetica;color: #42515a;font-size: 15px;padding: 20px 0px 0px 10px;">
+						${ctx.messages.sgaContactUstext1}<a href="${ctx.baseUrl}/contactus">contact us </a>${ctx.messages.sgaContactUstext2}<br><br>
+					</td>
+									
+				</tr>
+				<tr><td height="10"></td></tr>
+				<tr>
+					<td colspan="5" style="font-family: Helvetica;color: #42515a;font-size: 15px;padding: 10px 0px 0px 10px;">
+						${ctx.messages.sgaComplimentaryClosing}<br>			
+					</td>									
+				</tr>
+				
+				<tr>
+					<td colspan="5" style="font-family: Helvetica;color: #42515a;font-size: 15px;padding: 5px 0px 0px 10px;"> 						
+						${ctx.messages.sgaSignature}<br>
+					</td>									
+				</tr>		
+				
+				<tr>
+				<td colspan="6">
+					<br><a href="${ctx.baseUrl}" style="padding: 0px 0px 0px 0px;">
+						${ctx.cmsSlotContents.BottomContent}
+					</a>
+				</td>
+			</tr>	 			
+			</table>
+		</td>
+	  </tr>
+	</table>				 
+	
+</body>
+</html>

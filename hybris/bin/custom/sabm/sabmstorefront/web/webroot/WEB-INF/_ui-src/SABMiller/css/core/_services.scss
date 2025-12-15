@@ -1,0 +1,297 @@
+// ==========================================================================
+//   Services Forms Classes (for both service request and authenticated contact us)
+// ==========================================================================
+.page-businessEnquiry{
+	.label {
+		display: inline-block;
+		color: $primary-blue;
+		line-height: 24px;
+		font-weight: bold;
+		margin-bottom: 10px;
+		font-size: $font-medium;
+		padding: 0;
+		white-space: initial;
+		text-align: left;
+		@media (min-width: $tablet){
+			font-size: $font-small;
+			line-height: 30px;
+			margin-bottom: 5px;
+		}
+	}
+
+	textarea{
+		border: 1px solid $medium-grey;
+		overflow:auto;
+		padding:$spacing-x-small;
+	}
+
+	.list-radio {
+		li {
+			margin-bottom: 5px;
+			label:before {
+				top: 3px;
+			}
+			input[type=radio]:checked + label:after {
+				top: 9px;
+			}
+			@media (min-width: $tablet){
+				label:before {
+					top: 5px;
+				}
+				input[type=radio]:checked + label:after {
+					top: 10px;
+				}
+			}
+		}
+	}
+
+	.select-quantity {
+		li {
+			@media (max-width: $tablet-max){
+				height: 40px;
+				input {
+					line-height: 40px;
+				}
+				svg {
+					top: -5px;
+				}
+			}
+		}
+	}
+	
+	.subject{
+		input{
+			width:100%;
+		}
+	}
+
+	.datepicker {
+		.heading {
+			display: none;
+		}
+		table tr td.day.disabled {
+			background-color: transparent;
+		}
+		.footer-message {
+			display: none;
+		}
+	}
+
+	.form-group input[readonly] {
+		color: $dark-grey;
+		&:hover {
+			cursor: pointer;
+		}
+	}
+
+	.request-content {
+		&.ng-hide-remove, &.ng-hide-add {
+		    display: block !important;
+		    &.ng-hide-remove-active {
+		      animation:0.5s fadeIn ease;
+		    }
+		    &.ng-hide-add-active {
+		      animation:0.3s fadeOut ease;
+		    }
+		}
+	}
+
+	// Specific Forms
+
+	.delivery-issue {
+		.list-checkbox {
+			li {
+				margin-bottom: $spacing-x-small;
+				label {
+					padding-left: 35px;
+					color: $dark-grey;
+					font-weight: normal;
+					&:before {
+						top: 3px;
+					}
+				}
+				@media (min-width: $tablet){
+					width: 50%;
+					float: left;
+					&:nth-child(even){
+						padding-left: 15px;
+					}
+					label {
+						padding-left: 30px;
+						&:before {
+							top: 5px;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+.page-businessEnquirySent {
+	@media (min-width: $tablet){
+		.btn-primary {
+			margin-right: $spacing-small;
+		}
+	}
+}
+
+.contactus-section{
+	margin-top:10px;
+	margin-bottom:25px;
+}
+
+.conatctus-logo{
+	  height: 32px;
+	  width: 32px;
+}
+
+.contactus-label {
+  height: 20px;
+  font-family: Helvetica;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1.25;
+  text-align: left;
+  color: #1b315c;
+  margin-left:8px;
+}
+
+// ==========================================================================
+// New Service Request Class
+// ==========================================================================
+
+.service-request{
+	.title{
+		font-size: 32px;
+	}
+	
+	nav{
+		margin-top: 50px;
+		margin-bottom: 30px;
+		
+		.nav-item{
+			@media (max-width: $desktop-991){
+				padding: 10px;
+			}
+			
+			@media (max-width: 353px){
+				width: 100%;
+				padding: 5px;
+			}
+			
+			.nav-link{
+				border: 1px solid #03305e;
+				border-radius: 4px;
+				display: block;
+				text-align: center;
+				padding: 30px 0;
+				color: #03305e;
+				background: #fff;
+
+				@media (max-width: $desktop-991){
+					text-align: left;
+					padding: 0 10px;
+					height: 50px;
+					line-height: 50px;
+				}
+				
+				&:not([disabled="disabled"]):hover, &.active{
+					color: #fff;
+					background: #6a93bc;
+					border: 1px solid transparent;
+				}
+				
+				&.active, &[disabled="disabled"]{
+					cursor: default;
+				}
+				
+				svg{
+					width: 36px;
+					height: 36px;
+
+					@media (max-width: $desktop-991){
+						width: 26px;
+						height: 26px;
+					}
+				}
+				
+				span{
+					display: block;
+					font-weight: 400;
+					font-size: 18px;
+					padding-top: 15px;
+
+					@media(max-width: $desktop-991){
+						padding-top: 0;
+						font-size: 16px;
+						display: inline-block;
+					}
+				}
+			}
+		}
+	}
+	
+	/* Contact us Tab */
+	#contact-us-tab{
+
+	    .title-image-text-box-component{
+	    	margin-top: 10px;
+	    	margin-bottom: 10px;
+	    		    	
+	    	p, strong{
+		    	font-size: 16px;
+		    	font-weight: 300;
+		    	min-height: 60px;
+				max-height: 70px;
+	    	}
+	    }
+	}
+	
+	.phone-livechat{
+		margin-top: 30px;
+		
+		.contact-us-icon{
+			height: 32px;
+			width: 32px;
+		}
+		
+		svg{
+			top: 1px;
+		}
+		
+		@media (max-width: 549px){
+			[class*="col-"]{
+				width: 100%;
+				margin-top: 0;
+			}
+			
+			.live-chat{
+				margin-top: 20px;
+			}
+		}
+		
+		h3{
+			font-size: 18px;
+			font-weight: 500;
+			margin-bottom: 10px;
+
+			@media (max-width: 549px){
+				margin-bottom: 5px;
+			}	
+		}
+	}
+	
+	#learn-more-tab{
+		.desc{
+			color: $primary-blue;
+			margin: 0;
+			font-size: 18px;
+			font-weight: 500;
+		}
+		
+		.title-image-text-box-component{
+			margin: $spacing-unit-base/2 0;
+		}
+	}
+}

@@ -1,0 +1,232 @@
+.page-customerSearch,
+.page-customerSearchResults {
+    overflow: auto;
+
+    //Styling for 'State' dropdown in search form
+     select.form-control {
+        height: 40px;
+        line-height: initial;
+     }
+
+    .form-group {
+        margin-bottom: 0px;
+    }
+
+
+    .site-anchor-link {
+        cursor: pointer;
+        font-weight: 700;
+        text-transform: capitalize;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    select.form-control {
+        @media (max-width: @screen-xs-max) {
+            padding: 5px;
+        }
+    }
+
+    .liOffcanvas a{
+        margin-top:  15px;
+    }
+
+    .error {
+        margin-top: 5px;
+    }
+}
+
+.page-customerSearchResults {
+    .definitions {
+        .mr-30 {
+            margin-right: 30px;
+        }
+
+        ul {
+            list-style-type: none;
+
+            li {
+                margin-bottom: 20px;
+            }
+        }
+    }
+}
+
+.activity-icon {
+    width: 65px;
+    display: inline-block;
+    border: 1px solid transparent;
+    text-align: center;
+    padding: 5px;
+    border-radius: 7px;
+    color: #ffffff;
+    margin-right: 18px;
+    height: 32px;
+
+    &-darkgrey {
+        background-color: @brand-primary;
+        &::after {
+            content: 'X';
+        }
+    }
+
+    &-red {
+        background-color: @brand-red;
+        &::after {
+            content: '0%';
+        }
+    }
+
+    &-orange {
+        background-color: @asahi-orange;
+        &::after {
+            content: '< 70%';
+        }
+    }
+
+    &-green {
+        background-color: green;
+        &::after {
+            content: '\2265\20 70%'; // \2265 = css code for greater than or equal to. \20 = single space
+        }
+    }
+}
+
+//Class to add | seperator after every anchor
+.a-seperator {
+    a::after {
+        margin: 0 3px;
+        content: "|";
+    }
+}
+
+//Class to remove | seperator from last anchor
+.no-seperator {
+    a::after {
+        display: none;
+    }
+}
+
+.has-error {
+    select.form-control {
+        border-color: @brand-red;
+    }
+}
+
+/*
+ * Customer search result
+ */
+.search-result {
+    table tr td .info-label,
+    table tr td .mobile-content{
+        display:none;
+    }
+    .table > thead > tr > th,
+    .table > tbody > tr > th,
+    .table > tfoot > tr > th,
+    .table > thead > tr > td,
+    .table > tbody > tr > td,
+    .table > tfoot > tr > td {
+        border-top: none;
+    }
+
+    table {
+        margin-bottom: 0px;
+        border: none;
+        thead {
+            border-bottom: 2px solid @brand-primary;
+        }
+
+        th {
+            background-color: #ffffff;
+            text-transform: capitalize;
+            white-space: nowrap;
+            &:first-child {
+                padding-left: 0;
+            }
+        }
+
+        th, td {
+            text-align: left;
+        }
+
+        tr {
+            border-bottom: 1px solid @border-color-4;
+            td {
+                vertical-align: middle;
+                &.actions {
+                    text-align: right;
+
+                    form {
+                        display: inline-block;
+                    }
+                }
+                &:last-child {
+                    white-space: nowrap;
+                }
+            }
+        }
+    }
+    .empty {
+        ul li{
+            text-indent: 10px;
+        }
+    }
+}
+
+@media screen and (max-width: @screen-xs-max){
+    .page-customerSearch {
+        .form-control {
+            padding: 5px;
+        }
+    }
+    .search-result {
+        table {
+            thead{
+                display:none;
+            }
+
+            tr {
+                padding: 5px 0;
+                td {
+                     display: flex;
+                     padding: 3px 0 3px 0;
+                     border: none;
+                     &:first-child {
+                        padding-top: 10px;
+                     }
+                     &:last-child {
+                         padding-bottom: 10px;
+                     }
+                     &:first-child .info-label {
+                         padding-top: 7px;
+                     }
+                     &:nth-child(5),
+                     &:nth-child(6){
+                         display:none;
+                     }
+
+                     .info-label{
+                         flex: 0 0 50%;
+                         width:50%;
+                         display:block;
+                     }
+                     .mobile-content{
+                         display:inline;
+                     }
+                }
+                &:first-child td:first-child {
+                    border-top: 2px solid @brand-primary;
+                    padding-top: 5px;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: @screen-sm-max){
+    .checkout_subheading {
+        margin: 10px -20px !important;
+    }
+}

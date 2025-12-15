@@ -1,0 +1,109 @@
+
+1.##CUB Records associated with conflicting Employee UIDs from Asahi. UIDs here are as of 19th Sept.Get the final during cutover
+
+
+INSERT_UPDATE ScriptingJob	;code[unique=true]		;scriptURI
+							;employeeAssociatedRecordsExportScriptJob	;model://employeeAssociatedRecordsExportScript
+							
+INSERT_UPDATE CronJob	;code[unique=true]			;job(code)				;sessionLanguage(isocode)	;sessionUser(uid)
+						;employeeAssociatedRecordsScriptCronJob	;employeeAssociatedRecordsExportScriptJob	;en		;admin
+
+INSERT_UPDATE Script; code[unique=true];content;active[default=true, unique=true]
+;employeeAssociatedRecordsExportScript;"import java.io.File;
+import java.lang.Exception;
+import java.io.InputStream;
+import de.hybris.platform.util.CSVConstants;
+import java.io.IOException;
+
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.sql.Timestamp;
+import org.apache.log4j.*;
+import org.apache.commons.io.IOUtils;
+import de.hybris.platform.servicelayer.impex.ExportConfig;
+import de.hybris.platform.servicelayer.impex.ExportConfig.ValidationMode;
+import de.hybris.platform.servicelayer.impex.ExportResult;
+import de.hybris.platform.servicelayer.impex.ExportService;
+import de.hybris.platform.servicelayer.impex.ImpExResource;
+import de.hybris.platform.impex.model.ImpExMediaModel;
+import de.hybris.platform.impex.jalo.exp.ImpExExportMedia;
+import de.hybris.platform.servicelayer.impex.impl.StreamBasedImpExResource;
+import de.hybris.platform.impex.model.exp.ImpExExportMediaModel;
+
+import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
+import de.hybris.platform.servicelayer.search.SearchResult;
+import de.hybris.platform.impex.model.cronjob.ImpExExportCronJobModel;
+
+final Logger LOG = Logger.getLogger(""asahi"");
+
+def exportService = spring.getBean(""exportService"");
+employeeUids = ""('Louise.Mansfield@cub.com.au','Luke.Barrie@cub.com.au','Marc.Raffa@cub.com.au','Marcus.Ford@cub.com.au','Marianna.Kotoulas@cub.com.au','Mark.Beckers@cub.com.au','Mark.Cox@cub.com.au','Mark.Elisha@cub.com.au','matt.smith@cub.com.au','Matt.Timbrell@cub.com.au','Matthew.Camm@cub.com.au','Matthew.Grant@cub.com.au','Matthew.Hales@cub.com.au','Matthew.Healey@cub.com.au','Matthew.Hutton@cub.com.au','Matthew.McGowan@cub.com.au','Matthew.McPhee@cub.com.au','Matthew.Osborne@cub.com.au','Matthew.Pfeiffer@cub.com.au','Matthew.Ross-Soden@cub.com.au','Matthew.Russell@cub.com.au','Matthew.Schafer@cub.com.au','Matthew.Turner@cub.com.au','Matthew.Wane@cub.com.au','Maurice.Collins@cub.com.au','megan.hunter@cub.com.au','Michael.Bailey@cub.com.au','Michael.Debono@cub.com.au','Michael.Egan@cub.com.au','Michael.Ferro@cub.com.au','Michael.Nolan@cub.com.au','Michael.OConnor@cub.com.au','Michael.Parlby@cub.com.au','Michael.Williams@cub.com.au','Michelle.Davie@cub.com.au','Michelle.Nievaart@cub.com.au','Mike.ODonoghue@cub.com.au','Mike.Smith@cub.com.au','Mitchell.Alexander@cub.com.au','Mitchell.Eastman@cub.com.au','Moira.Heath@cub.com.au','Molly.Resic@cub.com.au','Natalie.Gunn@beercollective.com.au','Nathan.Warner@cub.com.au','Nicholas.Johnson@cub.com.au','Nicholas.Kovarik@cub.com.au','Nicholas.OConnell@cub.com.au','Nicholas.Pogas@cub.com.au','Nicholas.Sargeant@cub.com.au','Nick.Zull@cub.com.au','Nicole.Turner@cub.com.au','Nigel.Wilson@cub.com.au','Nolan.Fuazudeen@cub.com.au','Paul.Noake@cub.com.au','Peter.VandeCamp@cub.com.au','Raelene.Buecker@cub.com.au','Rakshith.Shetty@cub.com.au','Ray.Ruck@beercollective.com.au','Rebecca.OMahony@cub.com.au','Rebecca.Postma@cub.com.au','Rhys.Murtha@cub.com.au','Rhys.Wallis@cub.com.au','Richard.Shrosbery@cub.com.au','Ricky.Dalby@cub.com.au','Robert.Akesson@cub.com.au','Rod.Higbid@cub.com.au','Ross.Brodie@cub.com.au','Rozlyn.Gibson@cub.com.au','Ryan.Brown@cub.com.au','ryan.mcgrath@4pinesbeer.com.au','Sam.Broadhurst@cub.com.au','Samuel.Ferguson@cub.com.au','Sara.Hesse@cub.com.au','Sarah.Evans@cub.com.au','Sarah.Messina@cub.com.au','Sarah.Murphy@cub.com.au','Sarah.Oxley@cub.com.au','Scott.Elix@cub.com.au','Scott.Harris@cub.com.au','Scott.Kavanagh@cub.com.au','Scott.McCallum@cub.com.au','Sean.Akers@cub.com.au','Sean.Bradshaw@cub.com.au','Sean.Chambers@cub.com.au','Sean.Hugg@cub.com.au','Sean.Rusling@cub.com.au','Sean.Wright@cub.com.au','sebastian.quirk@cub.com.au','Shannon.Rowe@cub.com.au','Shikha.Ganguly1@cub.com.au','Simon.Willing@cub.com.au','Stephen.Davies@cub.com.au','Stephen.DeWitt@cub.com.au','Stephen.Howard@cub.com.au','Stephen.Woods@cub.com.au','Steve.Halpin@cub.com.au','Steven.Hardingham@cub.com.au','Steven.Roy@cub.com.au','Stewart.Meredith@cub.com.au','Stuart.Bethell@cub.com.au','Thomas.Murray@cub.com.au','Tim.Barber@cub.com.au','Tim.Cooksley@cub.com.au','Tim.Mcinerney@cub.com.au','Tim.Milroy@cub.com.au','Timothy.Dyson@cub.com.au','Timothy.Hedley@cub.com.au','Todd.Grech@cub.com.au','Tony.Butcher@cub.com.au','Tony.French@cub.com.au','Trent.Fowler@cub.com.au','Troy.Bailey@cub.com.au','Troy.Galbraith@cub.com.au','Vin.Armstrong@cub.com.au','Viswa.Kirsz@cub.com.au','Warren.Weaver@cub.com.au','Wayne.Todman@cub.com.au','William.Horbacz@cub.com.au','William.Lester@cub.com.au','William.Walker@cub.com.au','Xanthe.Lenior@cub.com.au','Yosephine.Puspitasari@cub.com.au','Zoran.Zlatic@cub.com.au')""
+
+header = ""UPDATE RepDrivenDealConditionStatus;dealConditionNumber[unique=true];assignedTo[unique=true];date[unique=true];changedBy(uid);\n""+
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {RepDrivenDealConditionStatus} where {changedBy} IN ({{select {pk} from {Employee} where {uid} IN $employeeUids }}) \""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+""UPDATE Order;code[unique=true];placedBy(uid);\n""+
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {Order} where {placedBy} IN ({{select {pk} from {Employee} where {uid} IN $employeeUids }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+""UPDATE Cart;code[unique=true];user(uid);savedBy(uid);\n""+
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {Cart} where {user} IN ({{select {pk} from {Employee} where {uid} IN $employeeUids }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+""UPDATE InvoicePayment;paymentCode[unique = true];user(uid);\n""+
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {InvoicePayment} where {user} IN ({{select {pk} from {Employee} where {uid} IN $employeeUids }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n"";
+
+
+InputStream resourceAsStream = null;
+try {
+	resourceAsStream = new ByteArrayInputStream(header.getBytes());
+	final ImpExResource resource = new StreamBasedImpExResource(resourceAsStream, CSVConstants.DEFAULT_ENCODING);
+	final ExportConfig config = new ExportConfig();
+	config.setScript(resource);
+	config.setSingleFile(true);
+	config.setValidationMode(ValidationMode.WITHOUT);
+	config.setExportedDataCode(""empployeeAssociatedRecords-""+new SimpleDateFormat(""yyyyMMddHHmmssSSS"").format(new Date()));
+	final ExportResult result = exportService.exportData(config);
+	
+	if (result.isError()){
+		LOG.info(""Exception occurred during export"");
+	}
+}
+catch (final Exception exception) {
+		LOG.log(Level.ERROR, exception.getMessage());
+	} 
+finally
+		{
+			resourceAsStream.close();
+		}";;
+	
+2. ##Update conflicting CUB Employee UIDs with prefix cub_##
+
+
+
+
+import de.hybris.platform.servicelayer.search.SearchResult;
+import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
+import java.util.Collections;
+import de.hybris.platform.core.model.user.EmployeeModel;
+import java.lang.Exception;
+import org.apache.commons.lang3.StringUtils;
+
+flexibleSearchService = spring.getBean("flexibleSearchService");
+modelService = spring.getBean("modelService");
+
+employeeUids = "('Louise.Mansfield@cub.com.au','Luke.Barrie@cub.com.au','Marc.Raffa@cub.com.au','Marcus.Ford@cub.com.au','Marianna.Kotoulas@cub.com.au','Mark.Beckers@cub.com.au','Mark.Cox@cub.com.au','Mark.Elisha@cub.com.au','matt.smith@cub.com.au','Matt.Timbrell@cub.com.au','Matthew.Camm@cub.com.au','Matthew.Grant@cub.com.au','Matthew.Hales@cub.com.au','Matthew.Healey@cub.com.au','Matthew.Hutton@cub.com.au','Matthew.McGowan@cub.com.au','Matthew.McPhee@cub.com.au','Matthew.Osborne@cub.com.au','Matthew.Pfeiffer@cub.com.au','Matthew.Ross-Soden@cub.com.au','Matthew.Russell@cub.com.au','Matthew.Schafer@cub.com.au','Matthew.Turner@cub.com.au','Matthew.Wane@cub.com.au','Maurice.Collins@cub.com.au','megan.hunter@cub.com.au','Michael.Bailey@cub.com.au','Michael.Debono@cub.com.au','Michael.Egan@cub.com.au','Michael.Ferro@cub.com.au','Michael.Nolan@cub.com.au','Michael.OConnor@cub.com.au','Michael.Parlby@cub.com.au','Michael.Williams@cub.com.au','Michelle.Davie@cub.com.au','Michelle.Nievaart@cub.com.au','Mike.ODonoghue@cub.com.au','Mike.Smith@cub.com.au','Mitchell.Alexander@cub.com.au','Mitchell.Eastman@cub.com.au','Moira.Heath@cub.com.au','Molly.Resic@cub.com.au','Natalie.Gunn@beercollective.com.au','Nathan.Warner@cub.com.au','Nicholas.Johnson@cub.com.au','Nicholas.Kovarik@cub.com.au','Nicholas.OConnell@cub.com.au','Nicholas.Pogas@cub.com.au','Nicholas.Sargeant@cub.com.au','Nick.Zull@cub.com.au','Nicole.Turner@cub.com.au','Nigel.Wilson@cub.com.au','Nolan.Fuazudeen@cub.com.au','Paul.Noake@cub.com.au','Peter.VandeCamp@cub.com.au','Raelene.Buecker@cub.com.au','Rakshith.Shetty@cub.com.au','Ray.Ruck@beercollective.com.au','Rebecca.OMahony@cub.com.au','Rebecca.Postma@cub.com.au','Rhys.Murtha@cub.com.au','Rhys.Wallis@cub.com.au','Richard.Shrosbery@cub.com.au','Ricky.Dalby@cub.com.au','Robert.Akesson@cub.com.au','Rod.Higbid@cub.com.au','Ross.Brodie@cub.com.au','Rozlyn.Gibson@cub.com.au','Ryan.Brown@cub.com.au','ryan.mcgrath@4pinesbeer.com.au','Sam.Broadhurst@cub.com.au','Samuel.Ferguson@cub.com.au','Sara.Hesse@cub.com.au','Sarah.Evans@cub.com.au','Sarah.Messina@cub.com.au','Sarah.Murphy@cub.com.au','Sarah.Oxley@cub.com.au','Scott.Elix@cub.com.au','Scott.Harris@cub.com.au','Scott.Kavanagh@cub.com.au','Scott.McCallum@cub.com.au','Sean.Akers@cub.com.au','Sean.Bradshaw@cub.com.au','Sean.Chambers@cub.com.au','Sean.Hugg@cub.com.au','Sean.Rusling@cub.com.au','Sean.Wright@cub.com.au','sebastian.quirk@cub.com.au','Shannon.Rowe@cub.com.au','Shikha.Ganguly1@cub.com.au','Simon.Willing@cub.com.au','Stephen.Davies@cub.com.au','Stephen.DeWitt@cub.com.au','Stephen.Howard@cub.com.au','Stephen.Woods@cub.com.au','Steve.Halpin@cub.com.au','Steven.Hardingham@cub.com.au','Steven.Roy@cub.com.au','Stewart.Meredith@cub.com.au','Stuart.Bethell@cub.com.au','Thomas.Murray@cub.com.au','Tim.Barber@cub.com.au','Tim.Cooksley@cub.com.au','Tim.Mcinerney@cub.com.au','Tim.Milroy@cub.com.au','Timothy.Dyson@cub.com.au','Timothy.Hedley@cub.com.au','Todd.Grech@cub.com.au','Tony.Butcher@cub.com.au','Tony.French@cub.com.au','Trent.Fowler@cub.com.au','Troy.Bailey@cub.com.au','Troy.Galbraith@cub.com.au','Vin.Armstrong@cub.com.au','Viswa.Kirsz@cub.com.au','Warren.Weaver@cub.com.au','Wayne.Todman@cub.com.au','William.Horbacz@cub.com.au','William.Lester@cub.com.au','William.Walker@cub.com.au','Xanthe.Lenior@cub.com.au','Yosephine.Puspitasari@cub.com.au','Zoran.Zlatic@cub.com.au')"
+final FlexibleSearchQuery query = new FlexibleSearchQuery("select {pk} from {Employee} where {uid} IN $employeeUids ");
+final SearchResult<EmployeeModel> result = flexibleSearchService
+                                                          .search(query);
+println("Total count: "+result.getCount()) ;                                                         
+for(EmployeeModel employee : result.getResult())
+{
+  try
+  {
+      String uid = employee.getUid();	
+      employee.setUid("cub_"+uid);    	 
+      modelService.save(employee);
+  
+  }
+  catch(Exception ex)
+  {
+        println("Model Saving exception" + ex.getMessage());
+  }
+
+}

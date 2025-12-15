@@ -1,0 +1,104 @@
+## messageSource=classpath:/sabmcore/messages/email-trackOrderTimePassesETANotification_$lang.properties
+#macro(genHtmlLinkStartTag $url)
+<a href="$url"><font color="#666666">
+#end
+#macro(genHtmlLinkEndTag)
+</font></a>
+#end
+#macro(genHtmlLink $url $textColor $bodyContent)
+<a href="$url"><font color="$textColor">$bodyContent</font></a>
+#end
+
+<html>
+<body>
+	<table  width="600" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#ffffff">
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td valign="middle" bgcolor="#002f5f" height="92" style="padding-left: 10px;">
+				${ctx.cmsSlotContents.SiteLogo}
+			</td>
+		</tr>	
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>
+				<p><font color="#666" size="3" face="Arial, Helvetica, sans-serif">${ctx.messages.getMessage('salutation', ${ctx.customerData.firstName})}</font></p>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>
+				<p><font size="3" color="#666" face="Arial, Helvetica, sans-serif">
+				${ctx.messages.paragraph1}
+				<a href="${ctx.secureBaseUrl}/trackorders&code=${ctx.orderCode}" style="color: #002f5f; text-decoration: underline;">${ctx.messages.trackYourDelivery}</a>
+				${ctx.messages.paragraph2}
+				</font></p>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>
+				<a href ="${ctx.secureBaseUrl}/trackorders&code=${ctx.orderCode}"  target="_blank">
+					<img style="background: #002f5f; padding: 10px 15px; max-width: 230px" alt="${ctx.messages.trackYourDelivery}" src="${ctx.staticHostPath}/_ui/desktop/SABMiller/img/svg/track-my-delivery/truck-icon-track-delivery.png"  />
+				</a>
+			</td>
+		</tr>
+		<tr>
+			<td><hr style="border: 1px solid rgba(102, 102, 102, 0.08); margin: 3% 0" /></td>
+		</tr>
+		<tr>
+			<td>
+				<h3><font size="4" color="#002f5f" face="Arial, Helvetica, sans-serif"><b>${ctx.messages.NotificationsHeading}</b></font></h3>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>
+				<p><font size="3" color="#666" face="Arial, Helvetica, sans-serif">
+				${ctx.messages.NotificationsText} 
+				<a href="${ctx.secureBaseUrl}/your-notifications" style="text-decoration: underline; color: #002f5f">${ctx.messages.NotificationsLinkText1}</a> 
+				${ctx.messages.NotificationsText2}
+				</font></p>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>
+				<p><font color="#666666" size="3" face="Arial, Helvetica, sans-serif">
+					${ctx.messages.needHelp} <a href="${ctx.secureBaseUrl}/serviceRequest" style="color: #002f5f; text-decoration: underline">${ctx.messages.getInTouchText}</a>			
+				</font></p>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>
+				<footer style="background: #f5f5f5; height: 52px; line-height: 52px; font-weight: bold; margin-top:5%; padding-left:20px">
+					<p>&copy; Carlton &amp; United Breweries</p>
+				</footer>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>

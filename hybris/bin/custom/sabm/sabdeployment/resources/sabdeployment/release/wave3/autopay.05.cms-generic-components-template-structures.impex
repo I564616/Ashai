@@ -1,0 +1,27 @@
+$contentCatalog = sabmContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Staged])[default = $contentCatalog:Staged]
+$productCV = catalogVersion(catalog(id[default = $productCatalog]), version[default = 'Staged'])[unique = true, default = $productCatalog:Staged]
+$siteResource = jar:com.sabmiller.initialdata.setup.InitialDataSystemSetup&/sabminitialdata/import/sampledata/contentCatalogs/$contentCatalog
+$picture = media(code, $contentCV);
+
+# Import modulegen config properties into impex macros
+UPDATE GenericItem[processor = de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor]; pk[unique = true]
+$jarResourceCms = $config-jarResourceCmsValue
+
+
+#PAGE TEMPLATE FOR GENERIC HOMEPAGE START
+INSERT_UPDATE PageTemplate; $contentCV[unique = true]; uid[unique = true]; velocityTemplate[translator = de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+; ; GenericComponentsPageTemplate ; $jarResourceCms/structure-view/structure_genericComponentsHomePageTemplate.vm
+#PAGE TEMPLATE FOR GENERIC HOMEPAGE END
+
+#PAGE TEMPLATE FOR GENRIC CONFIRMATION START
+INSERT_UPDATE PageTemplate; $contentCV[unique = true]; uid[unique = true]; velocityTemplate[translator = de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+; ; GenericComponentsConfirmationPageTemplate ; $jarResourceCms/structure-view/structure_genericConfirmationPageTemplate.vm
+#PAGE TEMPLATE FOR GENRIC CONFIRMATION end
+
+#PAGE TEMPLATE FOR AUTOPAY LANDING START
+INSERT_UPDATE PageTemplate; $contentCV[unique = true]; uid[unique = true]; velocityTemplate[translator = de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+; ; AutopayLandingPageTemplate ; $jarResourceCms/structure-view/structure_autopayLandingPageTemplate.vm
+#PAGE TEMPLATE FOR AUTOPAY LANDING END
+
+

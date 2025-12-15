@@ -1,0 +1,8 @@
+$contentCatalog = sabmContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Staged])[default = $contentCatalog:Staged]
+$productCV = catalogVersion(catalog(id[default = $productCatalog]), version[default = 'Staged'])[unique = true, default = $productCatalog:Staged]
+
+# CMS Navigation Nodes
+UPDATE CMSNavigationNode; uid[unique = true]       ; $contentCV[unique = true]; name                         ; parent(uid, $contentCV); title
+                               ; NonAlcoholicNavNode      ;                          ; Non Alc & Coffee Category        ; SABMillerNavNode       ; Non Alc & Coffee
+

@@ -1,0 +1,2286 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<config xmlns="http://www.hybris.com/cockpit/config" xmlns:na="http://www.hybris.com/cockpitng/config/notifications">
+    <context merge-by="module" parent="auto" component="explorer-tree">
+		<explorer-tree:explorer-tree xmlns:explorer-tree="http://www.hybris.com/cockpitng/config/explorertree" xmlns="http://www.hybris.com/cockpitng/config/explorertree">
+			<navigation-node id="B2B Import">
+				<type-node code="MasterImport" id="MasterImport"/>
+				<type-node code="CustomerImportRecord" id="CustomerImportRecord"/>
+				<type-node code="ProductImportRecord" id="ProductImportRecord"/>
+				<type-node code="SalesOrderImportRecord" id="SalesOrderImportRecord"/>
+				<type-node code="ProductExclusionImportRecord" id="ProductExclusionImportRecord"/>
+				<type-node code="DeliveryInfoImportRecord" id="DeliveryInfoImportRecord"/>
+				<type-node code="DispatchInfoImportRecord" id="DispatchInfoImportRecord"/>
+				<type-node code="ComplexDealImportRecord" id="ComplexDealImportRecord"/>
+				<type-node code="TrackOrderImportRecord" id="TrackOrderImportRecord"/>
+				<type-node code="CreditAdjustmentImportRecord" id="CreditAdjustmentImportRecord"/>
+			</navigation-node>
+			<navigation-node id="SABM Custom">
+				<type-node code="sabmMessage" id="sabmMessage"/>
+				<type-node code="sabmUserMessagesStatus" id="sabmUserMessagesStatus"/>
+				<type-node code="Deal" id="Deal"/>
+				<type-node code="InvoiceType" id="InvoiceType"/>
+				<type-node code="SabmCoreProductRange" id="SabmCoreProductRange"/>
+				<type-node code="Plant" id="Plant"/>
+				<type-node code="PlantCutOff" id="PlantCutOff"/>
+				<type-node code="PlantHolidayCalendar" id="PlantHolidayCalendar"/>
+				<type-node code="PlantDeliveryDay" id="PlantDeliveryDay"/>
+				<type-node code="AdditionalDeliveryDay" id="AdditionalDeliveryDay"/>
+				<type-node code="ExcludedDeliveryDay" id="ExcludedDeliveryDay"/>
+				<type-node code="SABMUserAccessHistory" id="SABMUserAccessHistory"/>
+				<type-node code="RepDrivenDealConditionStatus" id="RepDrivenDealConditionStatus"/>
+				<type-node code="SabmConfiguration" id="SabmConfiguration"/>
+				<type-node code="RegistrationRequest" id="RegistrationRequest"/>
+				<type-node code="SABMRecommendation" id="SABMRecommendation"/>
+				<type-node code="SABMNotification" id="SABMNotification"/>
+				<type-node code="sabmDeliveryModeMapping" id="sabmDeliveryModeMapping"/>
+				<type-node code="CUBStockInformation" id="CUBStockInformation"/>
+				<type-node code="SabmCartRule" id="SabmCartRule"/>
+				<type-node code="LiveChatComponent" id="LiveChatComponent"/>
+				<type-node code="SabmPilotCondition" id="SabmPilotCondition"/>
+				<type-node code="InvoiceDiscrepancyRequest" id="InvoiceDiscrepancyRequest"/>
+				<type-node code="SmartRecommendation" id="SmartRecommendation"/>
+				<type-node code="MaxOrderQty" id="MaxOrderQty"/>
+			</navigation-node>
+			<navigation-node id="hmc_treenode_c2l" merge-mode="merge">
+				<type-node code="PublicHoliday" id="PublicHoliday"/>
+				<type-node code="TimeZone" id="TimeZone"/>
+			</navigation-node>
+			<navigation-node id="hmc_treenode_catalog" merge-mode="merge">
+				<type-node code="ProductExclusion" id="ProductExclusion"/>
+			</navigation-node>
+			<navigation-node id="hmc_treenode_order" merge-mode="merge">
+				<type-node code="SABMOrderTemplate" id="SABMOrderTemplate"/>
+			</navigation-node>
+		</explorer-tree:explorer-tree>
+	</context>
+	<context merge-by="type" type="PriceRow" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="basePrice"/>
+		</list-view:list-view>
+	</context>
+
+	<context merge-by="type" type="UnloadingPoint" component="sambUnloadingPointlistView">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+			<list-view:column qualifier="code" />
+		</list-view:list-view>
+	</context>
+
+	<context merge-by="type" type="AdditionalDeliveryDay" component="listView">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+			<list-view:column qualifier="calendarDay" />
+		</list-view:list-view>
+	</context>
+	
+	<context merge-by="type" type="ExcludedDeliveryDay" component="listView">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+			<list-view:column qualifier="calendarDay" />
+		</list-view:list-view>
+	</context>
+
+	<context merge-by="type" type="LastUpdateTimeEntity" component="listView">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+			<list-view:column qualifier="entityType" />
+			<list-view:column qualifier="deliveryDate" />
+			<list-view:column qualifier="lastUpdateTime" />
+		</list-view:list-view>
+	</context>
+
+	<context merge-by="type" type="SABMCMSUserGroupRestriction" component="listView">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+			<list-view:column qualifier="uid" width="50" />
+			<list-view:column qualifier="name" width="300"/>
+			<list-view:column qualifier="type" width="200"/>
+		</list-view:list-view>
+	</context>
+
+	<context merge-by="type" type="PriceRow" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="basePrice"/>
+		</list-view:list-view>
+	</context>
+
+	<context merge-by="type" type="B2BUnit" component="sabmB2BUnitlistView">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+			<list-view:column qualifier="uid" />
+			<list-view:column qualifier="locName" />
+		</list-view:list-view>
+	</context>
+
+	<context merge-by="type" type="SABMOrderTemplate" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="name"/>
+		</list-view:list-view>
+	</context>
+
+
+	<context merge-by="type" type="InvoiceDiscrepancyRequest" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="invoiceNumber"/>
+			<column qualifier="b2bUnit"/>
+			<column qualifier="type"/>
+			<column qualifier="processResult"/>
+			<column qualifier="raisedDate"/>
+			<column qualifier="raisedBy"/>
+			<column qualifier="raisedByBDE"/>
+		</list-view:list-view>
+	</context>
+	<context merge-by="type" type="DeliveryInfoImportRecord" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="deliveryNumber"/>
+			<column qualifier="deliveryActionCode"/>
+			<column qualifier="salesOrderNumber"/>
+			<column qualifier="customerId"/>
+			<column qualifier="status"/>
+			<column qualifier="operation"/>
+			<column qualifier="creationtime"/>
+		</list-view:list-view>
+	</context>
+	<context merge-by="type" type="DispatchInfoImportRecord" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="deliveryNumber"/>
+			<column qualifier="deliveryActionCode"/>
+			<column qualifier="salesOrderNumber"/>
+			<column qualifier="customerId"/>
+			<column qualifier="status"/>
+			<column qualifier="operation"/>
+			<column qualifier="creationtime"/>
+		</list-view:list-view>
+	</context>
+	<context merge-by="type" type="PlantCutOff" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="plantCutOffCode"/>
+			<column qualifier="shippingCondition"/>
+			<column qualifier="cutOffTime"/>
+			<column qualifier="leadTime"/>
+			<column qualifier="dayOfWeek"/>
+		</list-view:list-view>
+	</context>
+	<context merge-by="type" type="SABMRecommendation" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="b2bUnit"/>
+			<column qualifier="recommendedBy"/>
+			<column qualifier="status"/>
+			<column qualifier="recommendationType"/>
+			<column qualifier="recommendedDate"/>
+			<column qualifier="customerActionDate"/>
+			<column qualifier="dealExpiryDate"/>
+		</list-view:list-view>
+	</context>
+	<context merge-by="type" type="SmartRecommendation" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="product"/>
+			<column qualifier="type"/>
+		</list-view:list-view>
+	</context>
+	<context merge-by="type" type="EntryOfferInfo" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="offerType"/>
+			<column qualifier="scaleAmount"/>
+			<column qualifier="scaleUnit"/>
+			<column qualifier="scaleQuantity"/>
+			<column qualifier="freeGoodProduct"/>
+			<column qualifier="freeGoodQuantity"/>
+			<column qualifier="scaleAmountType"/>
+		</list-view:list-view>
+	</context>
+	<context merge-by="type" type="RegistrationRequest" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="email"/>
+			<column qualifier="accountName"/>
+			<column qualifier="workPhoneNum"/>
+		</list-view:list-view>
+	</context>
+	<context merge-by="type" type="WebServiceLog" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="userId"/>
+			<column qualifier="url"/>
+			<column qualifier="responseStatus"/>
+			<column qualifier="requestDate"/>
+			<column qualifier="totalTimeTaken"/>
+			<column qualifier="sessionId"/>
+		</list-view:list-view>
+	</context>
+	<context merge-by="type" type="PublicHoliday" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="name"/>
+			<column qualifier="description"/>
+			<column qualifier="holidayDate"/>
+		</list-view:list-view>
+	</context>
+	<context merge-by="type" type="Plant" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="plantId"/>
+			<column qualifier="description"/>
+			<column qualifier="salesOrg"/>
+			<column qualifier="creationtime"/>
+		</list-view:list-view>
+	</context>
+	<context merge-by="type" type="SABMUserAccessHistory" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="uid"/>
+			<column qualifier="publicIPAddress"/>
+			<column qualifier="rememberMeEnabled"/>
+			<column qualifier="userAgent"/>
+		</list-view:list-view>
+	</context>
+	<context merge-by="type" type="PlantDeliveryDay" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="dayOfWeek"/>
+			<column qualifier="name"/>
+		</list-view:list-view>
+	</context>
+	<context merge-by="type" type="SABMNotificationPref" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="notificationType"/>
+			<column qualifier="emailEnabled"/>
+			<column qualifier="emailOptedTime"/>
+			<column qualifier="emailOptedTimeUnit"/>
+			<column qualifier="smsEnabled"/>
+			<column qualifier="smsOptedTime"/>
+			<column qualifier="smsOptedTimeUnit"/>
+		</list-view:list-view>
+	</context>
+
+	<context merge-by="type" type="ProductImportRecord" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="material"/>
+			<column qualifier="hierarchy"/>
+			<column qualifier="operation"/>
+			<column qualifier="status"/>
+			<column qualifier="hybrisCategory"/>
+			<column qualifier="masterRecord"/>
+		</list-view:list-view>
+	</context>
+	<context merge-by="type" type="SalesOrderImportRecord" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="salesOrderNumber"/>
+			<column qualifier="orderId"/>
+			<column qualifier="operation"/>
+			<column qualifier="source"/>
+			<column qualifier="customerId"/>
+			<column qualifier="status"/>
+			<column qualifier="masterRecord"/>
+		</list-view:list-view>
+	</context>
+	<context merge-by="type" type="SabmCoreProductRange" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="name"/>
+			<column qualifier="eans"/>
+		</list-view:list-view>
+	</context>
+	<context merge-by="type" type="AbstractOrderEntry" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="product"/>
+			<column qualifier="quantity"/>
+			<column qualifier="basePrice"/>
+			<column qualifier="discountedBasePrice"/>
+			<column qualifier="totalPrice"/>
+			<column qualifier="deliveryCost"/>
+		</list-view:list-view>
+	</context>
+	<context merge-by="type" type="AbstractOrderEntry" component="sabmAbstractOrderEntrylistview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="product"/>
+			<column qualifier="quantity"/>
+			<column qualifier="unit"/>
+			<column qualifier="basePrice"/>
+			<column qualifier="totalPrice"/>
+		</list-view:list-view>
+	</context>
+	<context merge-by="type" type="SabmCartRule" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="code"/>
+			<column qualifier="minCases"/>
+			<column qualifier="minKegs"/>
+			<column qualifier="errorMessage"/>
+			<column qualifier="status"/>
+		</list-view:list-view>
+	</context>
+	<context merge-by="type" type="Deal" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="b2bUnit"/>
+			<column qualifier="code"/>
+			<column qualifier="dealType"/>
+			<column qualifier="validFrom"/>
+			<column qualifier="validTo"/>
+			<column qualifier="conditionGroup"/>
+		</list-view:list-view>
+	</context>
+	<context merge-by="type" type="CustomerImportRecord" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="customerId"/>
+			<column qualifier="customerType"/>
+			<column qualifier="operation"/>
+			<column qualifier="status"/>
+			<column qualifier="masterRecord"/>
+			<column qualifier="creationtime"/>
+			<column qualifier="modifiedtime"/>
+		</list-view:list-view>
+	</context>
+	<context merge-by="type" type="TrackOrderImportRecord" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="SAPDeliveryNumber"/>
+			<column qualifier="messageType"/>
+			<column qualifier="DateTime"/>
+			<column qualifier="NextInQueueIndicator"/>
+			<column qualifier="TimeZoneCode"/>
+			<column qualifier="NotDeliveredReason"/>
+			<column qualifier="creationtime"/>
+		</list-view:list-view>
+	</context>
+	<context merge-by="type" type="InvoiceType" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="accountingType"/>
+			<column qualifier="description"/>
+			<column qualifier="displayText"/>
+		</list-view:list-view>
+	</context>
+
+	<context merge-by="type" type="ShippingCarrier" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="carrierCode"/>
+			<column qualifier="b2bUnit"/>
+		</list-view:list-view>
+	</context>
+
+	<context merge-by="type" type="AdditionalDeliveryDay" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="calendarDay"/>
+			<column qualifier="description"/>
+		</list-view:list-view>
+	</context>
+	
+	<context merge-by="type" type="ExcludedDeliveryDay" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="calendarDay"/>
+			<column qualifier="description"/>
+		</list-view:list-view>
+	</context>
+
+	<context merge-by="type" type="AdditionalDeliveryDay" component="additionalDeliveryDayListview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="calendarDay"/>
+		</list-view:list-view>
+	</context>
+	
+	<context merge-by="type" type="ExcludedDeliveryDay" component="excludedDeliveryDayListview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="calendarDay"/>
+		</list-view:list-view>
+	</context>
+
+	<context merge-by="type" type="MaxOrderQty" component="maxOrderQtyListview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="ruleType"/>
+			<column qualifier="startDate"/>
+			<column qualifier="endDate"/>
+			<column qualifier="code"/>
+			<column qualifier="product"/>
+			<column qualifier="b2bunit"/>
+			<column qualifier="plant"/>
+		</list-view:list-view>
+	</context>
+	<context merge-by="type" type="RepDrivenDealConditionStatus" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="dealConditionNumber"/>
+			<column qualifier="assignedTo"/>
+			<column qualifier="status"/>
+			<column qualifier="changedBy"/>
+			<column qualifier="date"/>
+		</list-view:list-view>
+	</context>
+	<context merge-by="type" type="AbstractOrder" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="sapSalesOrderNumber"/>
+			<column qualifier="Unit"/>
+			<column qualifier="date"/>
+			<column qualifier="totalPrice"/>
+			<column qualifier="user"/>
+			<column qualifier="bdeOrder"/>
+			<column qualifier="bdeOrderUserEmails"/>
+			<column qualifier="bdeOrderCustomerEmails"/>
+			<column qualifier="bdeOrderEmailText"/>
+		</list-view:list-view>
+	</context>
+	<context merge-by="type" type="TimeZone" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="code"/>
+		</list-view:list-view>
+	</context>
+	<context merge-by="type" type="ProductExclusionImportRecord" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="customerId"/>
+			<column qualifier="status"/>
+			<column qualifier="masterRecord"/>
+			<column qualifier="creationtime"/>
+			<column qualifier="modifiedtime"/>
+		</list-view:list-view>
+	</context>
+	<context merge-by="type" type="ProductExclusion" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="customer"/>
+			<column qualifier="product"/>
+			<column qualifier="validFrom"/>
+			<column qualifier="validTo"/>
+		</list-view:list-view>
+	</context>
+	<context merge-by="type" type="SABMNotification" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="user"/>
+			<column qualifier="b2bUnit"/>
+			<column qualifier="orderCutOffPrefString"/>
+			<column qualifier="orderCutOffPrefSMS"/>
+			<column qualifier="orderCutOffPrefDetailsString"/>
+			<column qualifier="orderDispatchPrefString"/>
+			<column qualifier="dealPrefString"/>
+			<column qualifier="dealPrefDetailsString"/>
+			<column qualifier="isTypeTransitPref"/>
+			<column qualifier="isTypeNextInQueuePref"/>
+			<column qualifier="isTypeUpdateForETAPref"/>
+			<column qualifier="isTypeDeliveredPref"/>
+			<column qualifier="isTypeInvoiceDiscrepancyRequestPref"/>
+			<column qualifier="userStatus"/>
+			<column qualifier="contactNumber"/>
+		</list-view:list-view>
+	</context>
+	<context merge-by="type" type="OrderMessage" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="code"/>
+			<column qualifier="arugments"/>
+		</list-view:list-view>
+	</context>
+	<context merge-by="type" type="PlantHolidayCalendar" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="code"/>
+			<column qualifier="name"/>
+		</list-view:list-view>
+	</context>
+	<context merge-by="type" type="ComplexDealImportRecord" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="code"/>
+			<column qualifier="status"/>
+			<column qualifier="operation"/>
+			<column qualifier="creationtime"/>
+			<column qualifier="masterRecord"/>
+		</list-view:list-view>
+	</context>
+	<context merge-by="type" type="MasterImport" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="payloadId"/>
+			<column qualifier="entity"/>
+			<column qualifier="status"/>
+			<column qualifier="error"/>
+			<column qualifier="creationtime"/>
+			<column qualifier="modifiedtime"/>
+		</list-view:list-view>
+	</context>
+	<context merge-by="type" type="sabmDeliveryModeMapping" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="mode"/>
+			<column qualifier="method"/>
+			<column qualifier="description"/>
+		</list-view:list-view>
+	</context>
+	<context merge-by="type" type="SabmMessage" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="code"/>
+			<column qualifier="type"/>
+			<column qualifier="text"/>
+			<column qualifier="expiry"/>
+			<column qualifier="b2bUnit"/>
+			<column qualifier="restrictions"/>
+			<column qualifier="lastUpdateTime"/>
+		</list-view:list-view>
+	</context>
+
+	<context merge-by="type" type="ProductUOMMapping" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="fromUnit"/>
+			<column qualifier="toUnit"/>
+			<column qualifier="qtyConversion"/>
+		</list-view:list-view>
+	</context>
+
+	<context merge-by="type" type="ProductSubchannelPopularityMapping" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+			<column qualifier="subChannel"/>
+			<column qualifier="ranking"/>
+		</list-view:list-view>
+	</context>
+
+	<context merge-by="type" type="B2BUnit" component="editor-area">
+		<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea" xmlns="http://www.hybris.com/cockpitng/component/editorArea">
+			<tab name="hmc.tab.sabmiller.custom">
+				<section name="hmc.section.sabmiller.b2bunit">
+					<attribute qualifier="soldto"/>
+					<attribute qualifier="payerId"/>
+					<attribute qualifier="defaultShipTo"/>
+					<attribute qualifier="salesOrgId"/>
+					<attribute qualifier="externalCustomerId"/>
+					<attribute qualifier="blockType"/>
+					<attribute qualifier="customerFlag"/>
+					<attribute qualifier="blockReason"/>
+					<attribute qualifier="paymentRequired"/>
+					<attribute qualifier="plant"/>
+					<attribute qualifier="defaultCarrier"/>
+					<attribute qualifier="defaultUnloadingPoint"/>
+					<attribute editor="com.hybris.cockpitng.editor.extendedmultireferenceeditor" qualifier="shippingCarriers">
+						<editor-parameter>
+							<name>listConfigContext</name>
+							<value>listview</value>
+						</editor-parameter>
+					</attribute>
+					<attribute editor="com.hybris.cockpitng.editor.extendedmultireferenceeditor" qualifier="unloadingPoints">
+						<editor-parameter>
+							<name>listConfigContext</name>
+							<value>sambUnloadingPointlistView</value>
+						</editor-parameter>
+					</attribute>
+					<attribute qualifier="accountGroup"/>
+					<attribute qualifier="salesData"/>
+					<attribute qualifier="salesOrgData"/>
+					<attribute qualifier="sapGroup"/>
+					<attribute qualifier="bogofCallStatus"/>
+					<attribute qualifier="discountCallStatus"/>
+					<attribute qualifier="cupCallStatus"/>
+					<attribute qualifier="productExclCallStatus"/>
+					<attribute editor="com.hybris.cockpitng.editor.extendedmultireferenceeditor" qualifier="additionalDeliveryDates">
+						<editor-parameter>
+							<name>listConfigContext</name>
+							<value>additionalDeliveryDayListview</value>
+						</editor-parameter>
+					</attribute>
+					<attribute editor="com.hybris.cockpitng.editor.extendedmultireferenceeditor" qualifier="excludedDeliveryDates">
+						<editor-parameter>
+							<name>listConfigContext</name>
+							<value>excludedDeliveryDayListview</value>
+						</editor-parameter>
+					</attribute>
+				</section>
+			</tab>
+		</editorArea:editorArea>
+	</context>
+	<context merge-by="type" type="InvoiceDiscrepancyRequest" component="editor-area">
+		<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea" xmlns="http://www.hybris.com/cockpitng/component/editorArea">
+			<tab name="hmc.tab.sabmiller.custom">
+				<section name="hmc.section.sabmiller.attributes">
+					<attribute qualifier="raisedDate"/>
+					<attribute qualifier="b2bUnit"/>
+					<attribute qualifier="raisedBy"/>
+					<attribute qualifier="raisedByBDE"/>
+					<attribute qualifier="invoiceNumber"/>
+					<attribute qualifier="type"/>
+					<attribute qualifier="processResult"/>
+					<attribute qualifier="description"/>
+					<attribute qualifier="totalDiscountExpected"/>
+					<attribute qualifier="totalAmountToCredit"/>
+					<attribute qualifier="totalFreightAmountToCredit"/>
+					<attribute qualifier="confirmationEmailList"/>
+					<attribute qualifier="items"/>
+				</section>
+			</tab>
+		</editorArea:editorArea>
+	</context>
+	<context merge-by="type" type="Consignment" component="editor-area">
+		<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea" xmlns="http://www.hybris.com/cockpitng/component/editorArea">
+			<tab name="hmc.properties">
+				<section name="hmc.consignment.details">
+					<attribute qualifier="pk"/>
+					<attribute qualifier="dispatchNotifEmailSent"/>
+					<attribute qualifier="dispatchNotifSmsSent"/>
+					<attribute qualifier="estimatedArrivedTime"/>
+					<attribute qualifier="inTransitNextInQueue"/>
+					<attribute qualifier="inTransitArrived"/>
+					<attribute qualifier="consignmentBeingPickedDate"/>
+					<attribute qualifier="consignmentDispatchedDate"/>
+					<attribute qualifier="consignmentInTransitDate"/>
+					<attribute qualifier="consignmentConfirmedDate"/>
+					<attribute qualifier="consignmentDeliveredDate"/>
+					<attribute qualifier="signature"/>
+					<attribute qualifier="notDeliveredReason"/>
+				</section>
+			</tab>
+		</editorArea:editorArea>
+	</context>
+	<context merge-by="type" type="SABMRecommendation" component="editor-area">
+		<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea" xmlns="http://www.hybris.com/cockpitng/component/editorArea">
+			<tab name="hmc.tab.sabmiller.custom">
+				<section name="hmc.section.sabmiller.attributes">
+					<attribute qualifier="b2bUnit"/>
+					<attribute qualifier="recommendedBy"/>
+					<attribute qualifier="status"/>
+					<attribute qualifier="recommendationType"/>
+					<attribute qualifier="recommendedDate"/>
+					<attribute qualifier="customerActionDate"/>
+					<attribute qualifier="productCode"/>
+					<attribute qualifier="qty"/>
+					<attribute qualifier="unit"/>
+					<attribute qualifier="dealCode"/>
+					<attribute qualifier="dealProducts"/>
+					<attribute qualifier="dealExpiryDate"/>
+				</section>
+			</tab>
+		</editorArea:editorArea>
+	</context>
+	<context merge-by="type" type="SmartRecommendation" component="editor-area">
+		<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea" xmlns="http://www.hybris.com/cockpitng/component/editorArea">
+			<tab name="hmc.tab.sabmiller.custom">
+				<section name="hmc.section.sabmiller.attributes">
+					<attribute qualifier="product"/>
+					<attribute qualifier="type"/>
+					<attribute qualifier="b2bUnits"/>
+				</section>
+			</tab>
+		</editorArea:editorArea>
+	</context>
+	<context merge-by="type" type="RegistrationRequest" component="editor-area">
+		<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea" xmlns="http://www.hybris.com/cockpitng/component/editorArea">
+			<tab name="hmc.tab.sabmiller.custom">
+				<section name="hmc.section.sabmiller.attributes">
+					<attribute qualifier="firstName"/>
+					<attribute qualifier="lastName"/>
+					<attribute qualifier="email"/>
+					<attribute qualifier="cubAccount"/>
+					<attribute qualifier="accountName"/>
+					<attribute qualifier="workPhoneNum"/>
+					<attribute qualifier="mobilePhoneNum"/>
+					<attribute qualifier="accountType"/>
+					<attribute qualifier="accessRequired"/>
+					<attribute qualifier="haveMoreAccount"/>
+				</section>
+			</tab>
+		</editorArea:editorArea>
+	</context>
+	<context merge-by="type" type="WebServiceLog" component="editor-area">
+		<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea" xmlns="http://www.hybris.com/cockpitng/component/editorArea">
+			<essentials>
+				<essentialSection name="hmc.essential">
+					<attribute qualifier="userId"/>
+					<attribute qualifier="sessionId"/>
+					<attribute qualifier="url"/>
+					<attribute qualifier="requestDate"/>
+					<attribute qualifier="responseDate"/>
+					<attribute qualifier="totalTimeTaken"/>
+				</essentialSection>
+			</essentials>
+			<tab name="hmc.webservice.details">
+				<section name="hmc.definition">
+					<attribute qualifier="responseStatus"/>
+					<attribute qualifier="request"/>
+					<attribute qualifier="response"/>
+				</section>
+			</tab>
+		</editorArea:editorArea>
+	</context>
+	<context merge-by="type" type="Product" component="editor-area">
+		<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea" xmlns="http://www.hybris.com/cockpitng/component/editorArea">
+			<editorArea:essentials>
+				<editorArea:essentialSection name="hmc.essential" merge-mode="append">
+					<editorArea:attribute xmlns="http://www.hybris.com/cockpitng/component/editorArea" qualifier="baseProduct"/>
+				</editorArea:essentialSection>
+			</editorArea:essentials>
+		</editorArea:editorArea>
+	</context>
+	<context merge-by="type" type="SABMAlcoholVariantProductEAN" component="editor-area">
+		<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea" xmlns="http://www.hybris.com/cockpitng/component/editorArea">
+			<tab name="hmc.tab.sabmiller.custom">
+				<section name="hmc.section.sabmiller.attributes">
+					<attribute qualifier="container"/>
+					<attribute qualifier="capacity"/>
+					<attribute qualifier="presentation"/>
+					<attribute qualifier="weight"/>
+					<attribute qualifier="length"/>
+					<attribute qualifier="width"/>
+					<attribute qualifier="height"/>
+					<attribute editor="com.hybris.cockpitng.editor.extendedmultireferenceeditor" qualifier="uomMappings">
+						<editor-parameter>
+							<name>listConfigContext</name>
+							<value>listview</value>
+						</editor-parameter>
+					</attribute>
+					<attribute qualifier="lifecycleStatus"/>
+					<attribute qualifier="leadSku"/>
+					<attribute editor="com.hybris.cockpitng.editor.extendedmultireferenceeditor" qualifier="subchannelRankingMappings">
+						<editor-parameter>
+							<name>listConfigContext</name>
+							<value>listview</value>
+						</editor-parameter>
+					</attribute>
+				</section>
+			</tab>
+			<tab name="hmc.tab.product.prices">
+				<section name="hmc.section.product.pricesdiscounts" >
+					<attribute qualifier="Europe1PriceFactory_PDG"/>
+					<attribute qualifier="Europe1PriceFactory_PTG"/>
+				</section>
+			</tab>
+			<!-- HC-297 adding new BMECat tab -->
+			<tab name="hmc.tab.product.bmecat">
+				<section name="hmc.section.sabmiller.product.ids">
+					<attribute qualifier="manufacturertypeDescription" />
+					<attribute qualifier="supplierAlternativeAID" />
+					<attribute qualifier="erpGroupBuyer" />
+					<attribute qualifier="erpGroupSupplier" />
+					<attribute qualifier="buyerIDS" />
+					<attribute qualifier="articleStatus" />
+					<attribute qualifier="specialTreatmentClasses" />
+				</section>
+				<section name="hmc.tab.sabmiller.additionalproperties">
+					<attribute qualifier="segment" />
+					<attribute qualifier="order" />
+					<attribute qualifier="orderQuantityInterval" />
+				</section>
+				<section name="hmc.tab.sabmiller.xml">
+					<attribute qualifier="xmlcontent" />
+					<attribute qualifier="startLineNumber" />
+					<attribute qualifier="endLineNumber" />
+				</section>
+
+			</tab>
+			<tab name="hmc.administration" merge-mode="merge">
+				<section name="hmc.unbound">
+				<attribute qualifier="manufacturertypeDescription" merge-mode="remove"/>
+				<attribute qualifier="supplierAlternativeAID" merge-mode="remove"/>
+				<attribute qualifier="startLineNumber" merge-mode="remove"/>
+				<attribute qualifier="endLineNumber" merge-mode="remove"/>
+				<attribute qualifier="segment" merge-mode="remove"/>
+				<attribute qualifier="xmlcontent" merge-mode="remove"/>
+				<attribute qualifier="order" merge-mode="remove"/>
+				<attribute qualifier="orderQuantityInterval" merge-mode="remove"/>
+				</section>
+
+			</tab>
+			
+		</editorArea:editorArea>
+	</context>
+	<context merge-by="type" type="LiveChatComponent" component="editor-area">
+		<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea" xmlns="http://www.hybris.com/cockpitng/component/editorArea">
+			<tab name="hmc.properties">
+				<section name="hmc.section.cmscomponent.opertatingtimings">
+					<attribute qualifier="fromHour"/>
+					<attribute qualifier="fromMinute"/>
+					<attribute qualifier="toHour"/>
+					<attribute qualifier="toMinute"/>
+				</section>
+			</tab>
+		</editorArea:editorArea>
+	</context>
+	<context merge-by="type" type="AbstractOrderEntry" component="editor-area">
+		<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea" xmlns="http://www.hybris.com/cockpitng/component/editorArea">
+			<essentials>
+				<essentialSection name="hmc.essential">
+					<attribute qualifier="product"/>
+					<attribute qualifier="order"/>
+				</essentialSection>
+			</essentials>
+			<tab name="hmc.common">
+				<section name="hmc.orderentries">
+					<attribute qualifier="quantity"/>
+					<attribute qualifier="unit"/>
+				</section>
+				<section name="hmc.orderentries.subtotal">
+					<attribute qualifier="basePrice"/>
+					<attribute qualifier="totalPrice"/>
+					<attribute qualifier="totalEntryDiscount"/>
+					<attribute qualifier="deliveryCost"/>
+					<attribute qualifier="deposit"/>
+					<attribute qualifier="loyaltyFee"/>
+					<attribute qualifier="freightLimit"/>
+					<attribute qualifier="taxValues"/>
+					<attribute qualifier="offerInfo"/>
+				</section>
+			</tab>
+			<tab name="hmc.info">
+				<section name="hmc.info">
+					<attribute qualifier="info"/>
+					<attribute qualifier="entryNumber"/>
+				</section>
+			</tab>
+		</editorArea:editorArea>
+	</context>
+	<context merge-by="type" type="SalesForceExportCronjob" component="editor-area">
+		<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea" xmlns="http://www.hybris.com/cockpitng/component/editorArea">
+			<tab name="hmc.tab.common">
+				<section name="hmc.section.salesforceexportjob">
+					<attribute qualifier="customers"/>
+					<attribute qualifier="venues"/>
+					<attribute qualifier="products"/>
+					<attribute qualifier="notifications"/>
+					<attribute qualifier="orders"/>
+					<attribute qualifier="welcomeEmailCustomers"/>
+					<attribute qualifier="UserToVenueData"/>
+					<attribute qualifier="batchSize"/>
+					<attribute qualifier="deltaHours"/>
+				</section>
+			</tab>
+		</editorArea:editorArea>
+	</context>
+	<context merge-by="type" type="SabmCartRule" component="editor-area">
+		<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea" xmlns="http://www.hybris.com/cockpitng/component/editorArea">
+			<tab name="hmc.tab.sabmiller.custom">
+				<section name="hmc.section.sabmiller.attributes">
+					<attribute qualifier="code"/>
+					<attribute qualifier="minCases"/>
+					<attribute qualifier="minKegs"/>
+					<attribute qualifier="deliveryDates"/>
+					<attribute qualifier="errorMessage"/>
+					<attribute qualifier="status"/>
+				</section>
+			</tab>
+		</editorArea:editorArea>
+	</context>
+	<context merge-by="type" type="AdditionalDeliveryDay" component="editor-area">
+		<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea" xmlns="http://www.hybris.com/cockpitng/component/editorArea">
+			<tab name="hmc.tab.sabmiller.custom">
+				<section name="hmc.section.sabmiller.attributes">
+					<attribute qualifier="calendarDay"/>
+					<attribute qualifier="description"/>
+					<attribute editor="com.hybris.cockpitng.editor.extendedmultireferenceeditor" qualifier="b2bUnits">
+						<editor-parameter>
+							<name>listConfigContext</name>
+							<value>sabmB2BUnitlistView</value>
+						</editor-parameter>
+					</attribute>
+				</section>
+			</tab>
+		</editorArea:editorArea>
+	</context>
+	<context merge-by="type" type="ExcludedDeliveryDay" component="editor-area">
+		<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea" xmlns="http://www.hybris.com/cockpitng/component/editorArea">
+			<tab name="hmc.tab.sabmiller.custom">
+				<section name="hmc.section.sabmiller.attributes">
+					<attribute qualifier="calendarDay"/>
+					<attribute qualifier="description"/>
+					<attribute editor="com.hybris.cockpitng.editor.extendedmultireferenceeditor" qualifier="b2bUnits">
+						<editor-parameter>
+							<name>listConfigContext</name>
+							<value>sabmB2BUnitlistView</value>
+						</editor-parameter>
+					</attribute>
+				</section>
+			</tab>
+		</editorArea:editorArea>
+	</context>
+	<context merge-by="type" type="MaxOrderQty" component="editor-area">
+		<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea" xmlns="http://www.hybris.com/cockpitng/component/editorArea">
+			<tab name="hmc.tab.sabmiller.custom">
+				<section name="hmc.section.sabmiller.attributes">
+					<attribute qualifier="ruleType"/>
+					<attribute qualifier="product"/>
+					<attribute qualifier="maxOrderQty"/>
+					<attribute qualifier="defaultAvgMaxOrderQty"/>
+					<attribute qualifier="startDate"/>
+					<attribute qualifier="endDate"/>
+					<attribute qualifier="plant"/>
+					<attribute qualifier="defaultAvgMaxOrderQtyEnabled"/>
+					<attribute qualifier="b2bunit"/>
+				</section>
+			</tab>
+		</editorArea:editorArea>
+	</context>
+	<context merge-by="type" type="AbstractOrder" component="editor-area" principal="sabmadmin,admin">
+		<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea" xmlns="http://www.hybris.com/cockpitng/component/editorArea">
+			<essentials>
+				<essentialSection name="hmc.essential">
+					<attribute qualifier="user"/>
+					<attribute qualifier="code"/>
+				</essentialSection>
+			</essentials>
+			<tab merge-mode="replace" name="hmc.positions_and_prices">
+				<section name="hmc.common">
+					<attribute qualifier="currency"/>
+					<attribute qualifier="requestedDeliveryDate"/>
+					<attribute qualifier="net"/>
+					<attribute qualifier="date"/>
+				</section>
+				<section name="hmc.positions">
+					<editorArea:panel name="hmc.abstractorder.entries.panel" colspan="2" rowspan="2">
+						<attribute editor="com.hybris.cockpitng.editor.extendedmultireferenceeditor" qualifier="entries">
+							<editor-parameter>
+								<name>listConfigContext</name>
+								<value>sabmAbstractOrderEntrylistview</value>
+							</editor-parameter>
+						</attribute>
+					</editorArea:panel>
+					<attribute qualifier="simulationMessages"/>
+					<attribute qualifier="totalTaxValues"/>
+					<attribute qualifier="netAmount"/>
+					<attribute qualifier="actualDeliveryCost"/>
+					<attribute qualifier="freightLimit"/>
+					<attribute qualifier="deliveryCost"/>
+					<attribute qualifier="deposit"/>
+					<attribute qualifier="loyaltyFee"/>
+					<attribute qualifier="autoPayAdvantageDiscount"/>
+					<attribute qualifier="autoPayAdvantagePlusDiscount"/>
+					<attribute qualifier="subtotal"/>
+					<attribute qualifier="totalPrice"/>
+					<attribute qualifier="totalDiscounts"/>
+				</section>
+			</tab>
+			<tab name="hmc.payment_and_delivery">
+				<section name="hmc.deliveryShippingCarrier">
+					<attribute qualifier="deliveryShippingCarrier"/>
+				</section>
+				<section name="hmc.status">
+					<attribute qualifier="status"/>
+					<attribute qualifier="exportStatus"/>
+					<attribute qualifier="statusInfo"/>
+				</section>
+				<section name="hmc.payment">
+					<attribute qualifier="paymentAddress"/>
+					<attribute qualifier="paymentMode"/>
+					<attribute qualifier="paymentStatus"/>
+					<attribute qualifier="paymentInfo"/>
+				</section>
+				<section name="hmc.deliveryadministration">
+					<attribute qualifier="deliveryAddress"/>
+					<attribute qualifier="deliveryMode"/>
+					<attribute qualifier="deliveryStatus"/>
+				</section>
+			</tab>
+		</editorArea:editorArea>
+	</context>
+	<context merge-by="type" type="TimeZone" component="editor-area">
+		<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea" xmlns="http://www.hybris.com/cockpitng/component/editorArea">
+			<tab name="hmc.tab.sabmiller.custom">
+				<section name="hmc.section.sabmiller.attributes">
+					<attribute qualifier="code"/>
+				</section>
+			</tab>
+		</editorArea:editorArea>
+	</context>
+	<context merge-by="type" type="SABMAlcoholProduct" component="editor-area">
+		<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea" xmlns="http://www.hybris.com/cockpitng/component/editorArea">
+			<tab name="hmc.tab.sabmiller.custom">
+				<section name="hmc.section.sabmiller.attributes">
+					<attribute qualifier="ean"/>
+					<attribute qualifier="sapAvailabilityStatus"/>
+					<attribute qualifier="abv"/>
+					<attribute qualifier="categoryAttribute"/>
+					<attribute qualifier="style"/>
+					<attribute qualifier="categoryVariety"/>
+					<attribute qualifier="brand"/>
+					<attribute qualifier="subBrand"/>
+					<attribute qualifier="sellingName"/>
+					<attribute qualifier="findOutMore"/>
+					<attribute qualifier="foodMatch"/>
+				</section>
+			</tab>
+			<!-- HC-297 adding new BMECat tab -->
+			<tab name="hmc.tab.product.bmecat">
+				<section name="hmc.section.sabmiller.product.ids">
+					<attribute qualifier="manufacturertypeDescription" />
+					<attribute qualifier="supplierAlternativeAID" />
+					<attribute qualifier="erpGroupBuyer" />
+					<attribute qualifier="erpGroupSupplier" />
+					<attribute qualifier="buyerIDS" />
+					<attribute qualifier="articleStatus" />
+					<attribute qualifier="specialTreatmentClasses" />
+				</section>
+				<section name="hmc.tab.sabmiller.additionalproperties">
+					<attribute qualifier="segment" />
+					<attribute qualifier="order" />
+					<attribute qualifier="orderQuantityInterval" />
+				</section>
+				<section name="hmc.tab.sabmiller.xml">
+					<attribute qualifier="xmlcontent" />
+					<attribute qualifier="startLineNumber" />
+					<attribute qualifier="endLineNumber" />
+				</section>
+
+			</tab>
+			<tab name="hmc.administration" merge-mode="merge">
+				<section name="hmc.unbound">
+				<attribute qualifier="manufacturertypeDescription" merge-mode="remove"/>
+				<attribute qualifier="supplierAlternativeAID" merge-mode="remove"/>
+				<attribute qualifier="startLineNumber" merge-mode="remove"/>
+				<attribute qualifier="endLineNumber" merge-mode="remove"/>
+				<attribute qualifier="segment" merge-mode="remove"/>
+				<attribute qualifier="xmlcontent" merge-mode="remove"/>
+				<attribute qualifier="order" merge-mode="remove"/>
+				<attribute qualifier="orderQuantityInterval" merge-mode="remove"/>
+				</section>
+
+			</tab>
+		</editorArea:editorArea>
+	</context>
+	<context merge-by="type" type="ProductExclusion" component="editor-area">
+		<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea" xmlns="http://www.hybris.com/cockpitng/component/editorArea">
+			<tab name="hmc.tab.sabmiller.custom">
+				<section name="hmc.section.sabmiller.attributes">
+					<attribute qualifier="customer"/>
+					<attribute qualifier="salesOrg"/>
+					<attribute qualifier="product"/>
+					<attribute qualifier="validFrom"/>
+					<attribute qualifier="validTo"/>
+				</section>
+			</tab>
+		</editorArea:editorArea>
+	</context>
+	<context merge-by="type" type="SABMNotification" component="editor-area">
+		<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea" xmlns="http://www.hybris.com/cockpitng/component/editorArea">
+			<tab name="hmc.tab.sabmiller.custom">
+				<section name="hmc.section.sabmiller.attributes">
+					<attribute qualifier="user"/>
+					<attribute qualifier="b2bUnit"/>
+					<attribute qualifier="orderCutOffPrefString"/>
+					<attribute qualifier="orderCutOffPrefSMS"/>
+					<attribute qualifier="orderCutOffPrefDetailsString"/>
+					<attribute qualifier="orderDispatchPrefString"/>
+					<attribute qualifier="dealPrefString"/>
+					<attribute qualifier="dealPrefDetailsString"/>
+					<editorArea:panel name="hmc.sabmnotification.notificationpreferences.panel" rowspan="2" colspan="2">
+						<attribute editor="com.hybris.cockpitng.editor.extendedmultireferenceeditor" qualifier="notificationPreferences">
+							<editor-parameter>
+								<name>listConfigContext</name>
+								<value>listview</value>
+							</editor-parameter>
+						</attribute>
+					</editorArea:panel>
+					<attribute qualifier="isTypeTransitPref"/>
+					<attribute qualifier="isTypeNextInQueuePref"/>
+					<attribute qualifier="isTypeUpdateForETAPref"/>
+					<attribute qualifier="isTypeDeliveredPref"/>
+					<attribute qualifier="isTypeInvoiceDiscrepancyRequestPref"/>
+					<attribute qualifier="userStatus"/>
+					<attribute qualifier="contactNumber"/>
+				</section>
+			</tab>
+		</editorArea:editorArea>
+	</context>
+
+	<context merge-by="type" type="sabmDeliveryModeMapping" component="editor-area">
+		<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea" xmlns="http://www.hybris.com/cockpitng/component/editorArea">
+			<tab name="hmc.tab.sabmiller.custom">
+				<section name="hmc.section.sabmiller.attributes">
+					<attribute qualifier="mode"/>
+					<attribute qualifier="method"/>
+					<attribute qualifier="description"/>
+				</section>
+			</tab>
+		</editorArea:editorArea>
+	</context>
+	<context merge-by="type" type="SabmMessage" component="editor-area">
+		<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea" xmlns="http://www.hybris.com/cockpitng/component/editorArea">
+			<essentials>
+				<essentialSection name="hmc.essential">
+					<attribute qualifier="code"/>
+					<attribute qualifier="type"/>
+					<attribute qualifier="text"/>
+					<attribute qualifier="expiry"/>
+				</essentialSection>
+			</essentials>
+			<tab name="hmc.message.details">
+				<section name="hmc.definition">
+					<attribute qualifier="code"/>
+					<attribute qualifier="type"/>
+					<attribute qualifier="text"/>
+					<attribute qualifier="expiry"/>
+					<attribute qualifier="b2bUnit"/>
+					<editorArea:panel name="hmc.sabmmessage.restrictions.panel" rowspan="2" colspan="2">
+						<attribute editor="com.hybris.cockpitng.editor.extendedmultireferenceeditor" qualifier="restrictions">
+							<editor-parameter>
+								<name>listConfigContext</name>
+								<value>listview</value>
+							</editor-parameter>
+						</attribute>
+					</editorArea:panel>
+				</section>
+			</tab>
+		</editorArea:editorArea>
+	</context>
+
+	<context merge-by="type" type="sabmDeliveryModeMapping" component="editor-area">
+		<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea" xmlns="http://www.hybris.com/cockpitng/component/editorArea">
+			<tab name="hmc.tab.sabmiller.custom">
+				<section name="hmc.section.sabmiller.attributes">
+					<attribute qualifier="mode"/>
+					<attribute qualifier="method"/>
+					<attribute qualifier="description"/>
+				</section>
+			</tab>
+		</editorArea:editorArea>
+	</context>
+
+	<context merge-by="type" type="PlantHolidayCalendar" component="editor-area">
+		<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea"
+							   xmlns="http://www.hybris.com/cockpitng/component/editorArea">
+			<tab name="hmc.administration">
+				<section name="hmc.section.sabmiller.attributes" merge-mode="merge" position="2">
+					<editorArea:panel name="hmc.plantholidaycalendar.publicholidays.panel" colspan="2" rowspan="2">
+					<attribute editor="com.hybris.cockpitng.editor.extendedmultireferenceeditor" qualifier="publicHolidays">
+						<editor-parameter>
+							<name>listConfigContext</name>
+							<value>listview</value>
+						</editor-parameter>
+					</attribute>
+					</editorArea:panel>
+				</section>
+			</tab>
+		</editorArea:editorArea>
+	</context>
+
+	<context merge-by="type" type="PlantDeliveryDay" component="editor-area">
+		<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea"
+							   xmlns="http://www.hybris.com/cockpitng/component/editorArea">
+			<tab name="hmc.administration">
+				<section name="hmc.section.sabmiller.attributes" merge-mode="merge" position="2">
+					<editorArea:panel name="hmc.plantdeliveryday.plantcode.panel" colspan="2" rowspan="2">
+						<attribute editor="com.hybris.cockpitng.editor.extendedmultireferenceeditor" qualifier="plantCode">
+							<editor-parameter>
+								<name>listConfigContext</name>
+								<value>listview</value>
+							</editor-parameter>
+						</attribute>
+					</editorArea:panel>
+				</section>
+			</tab>
+		</editorArea:editorArea>
+	</context>
+
+	<context merge-by="type" type="InvoiceDiscrepancyRequest" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<field-list>
+				<field name="b2bUnit" selected="false"/>
+				<field name="creditAdjustmentConfirmationEmailSent" selected="false"/>
+				<field name="creditAdjustmentProcessEmailSent" selected="false"/>
+				<field name="creditAdjustmentProcessSmsSent" selected="false"/>
+				<field name="description" selected="false"/>
+				<field name="invoiceDate" selected="false"/>
+				<field name="invoiceNumber" selected="true"/>
+				<field name="processResult" selected="true"/>
+				<field name="processResultDescription" selected="false"/>
+				<field name="raisedBy" selected="true"/>
+				<field name="raisedByBDE" selected="false"/>
+				<field name="raisedByName" selected="false"/>
+				<field name="raisedDate" selected="true"/>
+				<field name="raisedFrom" selected="true"/>
+				<field name="sapInvoiceNumber" selected="false"/>
+				<field name="sapInvoiceType" selected="false"/>
+				<field name="totalAmountCreditedFromSAP" selected="false"/>
+				<field name="totalFreightDiscountCharged" selected="false"/>
+				<field name="totalFreightDiscountExpected" selected="false"/>
+				<field name="type" selected="true"/>
+				<field name="assignedCockpitItemTemplates" selected="false"/>
+				<field name="comments" selected="false"/>
+				<field name="creationtime" selected="false"/>
+				<field name="itemtype" selected="false"/>
+				<field name="modifiedtime" selected="false"/>
+				<field name="owner" selected="false"/>
+				<field editor="java.lang.Long" name="pk" selected="false"/>
+			</field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context merge-by="type" type="DeliveryInfoImportRecord" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<field-list>
+				<field name="deliveryActionCode" selected="false"/>
+				<field name="deliveryNumber" selected="true"/>
+				<field name="salesOrderNumber" selected="true"/>
+				<field name="assignedCockpitItemTemplates" selected="false"/>
+				<field name="comments" selected="false"/>
+				<field name="creationtime" selected="false"/>
+				<field name="error" selected="false"/>
+				<field name="itemtype" selected="false"/>
+				<field name="masterRecord" selected="false"/>
+				<field name="modifiedtime" selected="false"/>
+				<field name="operation" selected="false"/>
+				<field name="owner" selected="false"/>
+				<field editor="java.lang.Long" name="pk" selected="false"/>
+				<field name="status" selected="false"/>
+			</field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context merge-by="type" type="DispatchInfoImportRecord" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<field-list>
+				<field name="deliveryActionCode" selected="false"/>
+				<field name="deliveryNumber" selected="true"/>
+				<field name="salesOrderNumber" selected="true"/>
+				<field name="assignedCockpitItemTemplates" selected="false"/>
+				<field name="comments" selected="false"/>
+				<field name="creationtime" selected="false"/>
+				<field name="error" selected="false"/>
+				<field name="itemtype" selected="false"/>
+				<field name="masterRecord" selected="false"/>
+				<field name="modifiedtime" selected="false"/>
+				<field name="operation" selected="false"/>
+				<field name="owner" selected="false"/>
+				<field editor="java.lang.Long" name="pk" selected="false"/>
+				<field name="status" selected="false"/>
+			</field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context merge-by="type" type="Consignment" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<field-list>
+				<field name="carrier" selected="false"/>
+				<field name="code" selected="true"/>
+				<field name="consignmentBeingPickedDate" selected="false"/>
+				<field name="consignmentConfirmedDate" selected="false"/>
+				<field name="consignmentDeliveredDate" selected="false"/>
+				<field name="consignmentDispatchedDate" selected="false"/>
+				<field name="consignmentInTransitDate" selected="false"/>
+				<field name="deliveryMode" selected="false"/>
+				<field name="deliveryPointOfService" selected="false"/>
+				<field name="dispatchNotifEmailSent" selected="false"/>
+				<field name="dispatchNotifSmsSent" selected="false"/>
+				<field name="estimatedArrivedTime" selected="false"/>
+				<field name="inTransitArrived" selected="false"/>
+				<field name="inTransitNextInQueue" selected="false"/>
+				<field name="namedDeliveryDate" selected="false"/>
+				<field name="notDeliveredReason" selected="false"/>
+				<field name="order" selected="false"/>
+				<field name="shippingAddress" selected="false"/>
+				<field name="shippingDate" selected="false"/>
+				<field name="signature" selected="false"/>
+				<field name="status" selected="false"/>
+				<field name="trackingID" selected="false"/>
+				<field name="warehouse" selected="false"/>
+				<field name="assignedCockpitItemTemplates" selected="false"/>
+				<field name="comments" selected="false"/>
+				<field name="creationtime" selected="false"/>
+				<field name="itemtype" selected="false"/>
+				<field name="modifiedtime" selected="false"/>
+				<field name="owner" selected="false"/>
+				<field editor="java.lang.Long" name="pk" selected="false"/>
+			</field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context merge-by="type" type="PlantCutOff" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<field-list>
+				<field name="cutOffTime" selected="true"/>
+				<field name="dayOfWeek" selected="false"/>
+				<field name="leadTime" selected="false"/>
+				<field name="plantCode" selected="true"/>
+				<field name="plantCutOffCode" selected="false"/>
+				<field name="shippingCondition" selected="true"/>
+				<field name="timeZone" selected="false"/>
+				<field name="assignedCockpitItemTemplates" selected="false"/>
+				<field name="comments" selected="false"/>
+				<field name="creationtime" selected="false"/>
+				<field name="itemtype" selected="false"/>
+				<field name="modifiedtime" selected="false"/>
+				<field name="owner" selected="false"/>
+				<field editor="java.lang.Long" name="pk" selected="false"/>
+			</field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context merge-by="type" type="SABMRecommendation" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<field-list>
+				<field name="b2bUnit" selected="true"/>
+				<field name="customerActionDate" selected="false"/>
+				<field name="dealCode" selected="false"/>
+				<field name="entryActedBy" selected="false"/>
+				<field name="productCode" selected="false"/>
+				<field name="qty" selected="false"/>
+				<field name="recommendationType" selected="false"/>
+				<field name="recommendedBy" selected="true"/>
+				<field name="recommendedDate" selected="false"/>
+				<field name="status" selected="true"/>
+				<field name="unit" selected="false"/>
+				<field name="assignedCockpitItemTemplates" selected="false"/>
+				<field name="comments" selected="false"/>
+				<field name="creationtime" selected="false"/>
+				<field name="itemtype" selected="false"/>
+				<field name="modifiedtime" selected="false"/>
+				<field name="owner" selected="false"/>
+				<field editor="java.lang.Long" name="pk" selected="false"/>
+			</field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context merge-by="type" type="SmartRecommendation" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<field-list>
+				<field name="product" selected="true"/>
+				<field name="type" selected="true"/>
+			</field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context merge-by="type" type="RegistrationRequest" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<field-list>
+				<field name="accountName" selected="true"/>
+				<field name="cubAccount" selected="false"/>
+				<field name="email" selected="true"/>
+				<field name="firstName" selected="false"/>
+				<field name="haveMoreAccount" selected="false"/>
+				<field name="lastName" selected="false"/>
+				<field name="mobilePhoneNum" selected="false"/>
+				<field name="workPhoneNum" selected="true"/>
+				<field name="assignedCockpitItemTemplates" selected="false"/>
+				<field name="comments" selected="false"/>
+				<field name="creationtime" selected="false"/>
+				<field name="itemtype" selected="false"/>
+				<field name="modifiedtime" selected="false"/>
+				<field name="owner" selected="false"/>
+				<field editor="java.lang.Long" name="pk" selected="false"/>
+			</field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context merge-by="type" type="WebServiceLog" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<field-list>
+				<field name="request" selected="false"/>
+				<field name="requestDate" selected="true"/>
+				<field name="response" selected="false"/>
+				<field name="responseDate" selected="false"/>
+				<field name="responseStatus" selected="false"/>
+				<field name="sessionId" selected="false"/>
+				<field name="totalTimeTaken" selected="false"/>
+				<field name="url" selected="true"/>
+				<field name="userId" selected="true"/>
+				<field name="assignedCockpitItemTemplates" selected="false"/>
+				<field name="comments" selected="false"/>
+				<field name="creationtime" selected="false"/>
+				<field name="itemtype" selected="false"/>
+				<field name="modifiedtime" selected="false"/>
+				<field name="owner" selected="false"/>
+				<field editor="java.lang.Long" name="pk" selected="false"/>
+			</field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context merge-by="type" type="PublicHoliday" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<field-list>
+				<field name="code" selected="false"/>
+				<field name="description" selected="true"/>
+				<field name="holidayDate" selected="true"/>
+				<field name="name" selected="true"/>
+				<field name="assignedCockpitItemTemplates" selected="false"/>
+				<field name="comments" selected="false"/>
+				<field name="creationtime" selected="false"/>
+				<field name="itemtype" selected="false"/>
+				<field name="modifiedtime" selected="false"/>
+				<field name="owner" selected="false"/>
+				<field editor="java.lang.Long" name="pk" selected="false"/>
+			</field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context merge-by="type" type="Plant" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<field-list>
+				<field name="description" selected="false"/>
+				<field name="fallbackPlant" selected="false"/>
+				<field name="holidayCalendar" selected="false"/>
+				<field name="plantId" selected="true"/>
+				<field name="salesOrg" selected="true"/>
+				<field name="assignedCockpitItemTemplates" selected="false"/>
+				<field name="comments" selected="false"/>
+				<field name="creationtime" selected="false"/>
+				<field name="itemtype" selected="false"/>
+				<field name="modifiedtime" selected="false"/>
+				<field name="owner" selected="false"/>
+				<field editor="java.lang.Long" name="pk" selected="false"/>
+			</field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context merge-by="type" type="SABMUserAccessHistory" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<field-list>
+				<field name="publicIPAddress" selected="true"/>
+				<field name="rememberMeEnabled" selected="true"/>
+				<field name="uid" selected="true"/>
+				<field name="userAgent" selected="true"/>
+				<field name="assignedCockpitItemTemplates" selected="false"/>
+				<field name="comments" selected="false"/>
+				<field name="creationtime" selected="false"/>
+				<field name="itemtype" selected="false"/>
+				<field name="modifiedtime" selected="false"/>
+				<field name="owner" selected="false"/>
+				<field editor="java.lang.Long" name="pk" selected="false"/>
+			</field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context merge-by="type" type="PlantDeliveryDay" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<field-list>
+				<field name="dayOfWeek" selected="true"/>
+				<field name="name" selected="true"/>
+				<field name="plantCode" selected="false"/>
+				<field name="assignedCockpitItemTemplates" selected="false"/>
+				<field name="comments" selected="false"/>
+				<field name="creationtime" selected="false"/>
+				<field name="itemtype" selected="false"/>
+				<field name="modifiedtime" selected="false"/>
+				<field name="owner" selected="false"/>
+				<field editor="java.lang.Long" name="pk" selected="false"/>
+			</field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context merge-by="type" type="SABMNotificationPref" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<field-list>
+				<field name="emailEnabled" selected="true"/>
+				<field name="emailLastSendDate" selected="true"/>
+				<field name="emailOptedDay" selected="true"/>
+				<field name="emailOptedTime" selected="true"/>
+				<field name="emailOptedTimeUnit" selected="true"/>
+				<field name="mobileNumber" selected="true"/>
+				<field name="notificationType" selected="true"/>
+				<field name="notificationTypeEnabled" selected="true"/>
+				<field name="smsEnabled" selected="true"/>
+				<field name="smsLastSendDate" selected="true"/>
+				<field name="smsOptedDay" selected="true"/>
+				<field name="smsOptedTime" selected="true"/>
+				<field name="smsOptedTimeUnit" selected="true"/>
+				<field name="assignedCockpitItemTemplates" selected="false"/>
+				<field name="comments" selected="false"/>
+				<field name="creationtime" selected="false"/>
+				<field name="itemtype" selected="false"/>
+				<field name="modifiedtime" selected="false"/>
+				<field name="owner" selected="false"/>
+				<field editor="java.lang.Long" name="pk" selected="false"/>
+			</field-list>
+		</advanced-search:advanced-search>
+	</context>
+	
+	<context merge-by="type" type="ProductImportRecord" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<field-list>
+				<field name="hierarchy" selected="true"/>
+				<field name="hybrisCategory" selected="true"/>
+				<field name="material" selected="true"/>
+				<field name="assignedCockpitItemTemplates" selected="false"/>
+				<field name="comments" selected="false"/>
+				<field name="creationtime" selected="false"/>
+				<field name="error" selected="false"/>
+				<field name="itemtype" selected="false"/>
+				<field name="masterRecord" selected="false"/>
+				<field name="modifiedtime" selected="false"/>
+				<field name="operation" selected="false"/>
+				<field name="owner" selected="false"/>
+				<field editor="java.lang.Long" name="pk" selected="false"/>
+				<field name="status" selected="false"/>
+			</field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context merge-by="type" type="SalesOrderImportRecord" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<field-list>
+				<field name="customerId" selected="true"/>
+				<field name="orderId" selected="true"/>
+				<field name="salesOrderNumber" selected="true"/>
+				<field name="source" selected="false"/>
+				<field name="assignedCockpitItemTemplates" selected="false"/>
+				<field name="comments" selected="false"/>
+				<field name="creationtime" selected="false"/>
+				<field name="error" selected="false"/>
+				<field name="itemtype" selected="false"/>
+				<field name="masterRecord" selected="false"/>
+				<field name="modifiedtime" selected="false"/>
+				<field name="operation" selected="false"/>
+				<field name="owner" selected="false"/>
+				<field editor="java.lang.Long" name="pk" selected="false"/>
+				<field name="status" selected="false"/>
+			</field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context merge-by="type" type="SabmCoreProductRange" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<field-list>
+				<field name="name" selected="true"/>
+				<field name="assignedCockpitItemTemplates" selected="false"/>
+				<field name="comments" selected="false"/>
+				<field name="creationtime" selected="false"/>
+				<field name="itemtype" selected="false"/>
+				<field name="modifiedtime" selected="false"/>
+				<field name="owner" selected="false"/>
+				<field editor="java.lang.Long" name="pk" selected="false"/>
+			</field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context merge-by="type" type="AbstractOrderEntry" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<field-list>
+				<field name="availabilityInfo" selected="false"/>
+				<field name="calculated" selected="false"/>
+				<field name="chosenVendor" selected="false"/>
+				<field name="costCenter" selected="false"/>
+				<field name="deliveryAddress" selected="false"/>
+				<field name="deliveryMode" selected="false"/>
+				<field name="deliveryPointOfService" selected="false"/>
+				<field name="entryNumber" selected="false"/>
+				<field name="freeGoodEntryNumber" selected="false"/>
+				<field name="freeGoodsForDeal" selected="false"/>
+				<field name="freightLimit" selected="false"/>
+				<field name="giveAway" selected="false"/>
+				<field name="info" selected="false"/>
+				<field name="isChange" selected="false"/>
+				<field name="isFreeGood" selected="false"/>
+				<field name="minimumStockOnHand" selected="false"/>
+				<field name="namedDeliveryDate" selected="false"/>
+				<field name="order" selected="false"/>
+				<field name="product" selected="true"/>
+				<field name="quantity" selected="false"/>
+				<field name="quantityStatus" selected="false"/>
+				<field name="rejected" selected="false"/>
+				<field name="sapConfirmedQuantity" selected="false"/>
+				<field name="sapLineNumber" selected="false"/>
+				<field name="sequenceNumber" selected="false"/>
+				<field name="unit" selected="false"/>
+				<field name="assignedCockpitItemTemplates" selected="false"/>
+				<field name="comments" selected="false"/>
+				<field name="creationtime" selected="false"/>
+				<field name="itemtype" selected="false"/>
+				<field name="modifiedtime" selected="false"/>
+				<field name="owner" selected="false"/>
+				<field editor="java.lang.Long" name="pk" selected="false"/>
+			</field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context merge-by="type" type="Deal" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<field-list>
+				<field name="b2bUnit" selected="true"/>
+				<field name="code" selected="true"/>
+				<field name="conditionGroup" selected="false"/>
+				<field name="customerPOType" selected="false"/>
+				<field name="dealConflict" selected="false"/>
+				<field name="dealType" selected="true"/>
+				<field name="dealVisibility" selected="false"/>
+				<field name="description" selected="true"/>
+				<field name="group" selected="false"/>
+				<field name="inStore" selected="false"/>
+				<field name="maxConditionBaseValue" selected="false"/>
+				<field name="maxConditionValue" selected="false"/>
+				<field name="maxNumberOfOrders" selected="false"/>
+				<field name="organizations" selected="false"/>
+				<field name="status" selected="false"/>
+				<field name="triggerHash" selected="false"/>
+				<field name="usedConditionBaseValue" selected="false"/>
+				<field name="usedConditionValue" selected="false"/>
+				<field name="usedNumberOfOrders" selected="false"/>
+				<field name="validFrom" selected="true"/>
+				<field name="validTo" selected="false"/>
+				<field name="assignedCockpitItemTemplates" selected="false"/>
+				<field name="comments" selected="false"/>
+				<field name="creationtime" selected="false"/>
+				<field name="itemtype" selected="false"/>
+				<field name="modifiedtime" selected="false"/>
+				<field name="owner" selected="false"/>
+				<field editor="java.lang.Long" name="pk" selected="false"/>
+			</field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context merge-by="type" type="CustomerImportRecord" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<field-list>
+				<field name="customerId" selected="true"/>
+				<field name="customerType" selected="true"/>
+				<field name="status" selected="true"/>
+				<field name="assignedCockpitItemTemplates" selected="false"/>
+				<field name="comments" selected="false"/>
+				<field name="creationtime" selected="false"/>
+				<field name="error" selected="false"/>
+				<field name="itemtype" selected="false"/>
+				<field name="masterRecord" selected="false"/>
+				<field name="modifiedtime" selected="false"/>
+				<field name="operation" selected="false"/>
+				<field name="owner" selected="false"/>
+				<field editor="java.lang.Long" name="pk" selected="false"/>
+			</field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context merge-by="type" type="TrackOrderImportRecord" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<field-list>
+				<field name="DateTime" selected="true"/>
+				<field name="NextInQueueIndicator" selected="true"/>
+				<field name="NotDeliveredReason" selected="false"/>
+				<field name="SAPDeliveryNumber" selected="true"/>
+				<field name="TimeZoneCode" selected="false"/>
+				<field name="messageType" selected="true"/>
+				<field name="assignedCockpitItemTemplates" selected="false"/>
+				<field name="comments" selected="false"/>
+				<field name="creationtime" selected="false"/>
+				<field name="error" selected="false"/>
+				<field name="itemtype" selected="false"/>
+				<field name="masterRecord" selected="false"/>
+				<field name="modifiedtime" selected="false"/>
+				<field name="operation" selected="false"/>
+				<field name="owner" selected="false"/>
+				<field editor="java.lang.Long" name="pk" selected="false"/>
+				<field name="status" selected="false"/>
+			</field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context merge-by="type" type="InvoiceType" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<field-list>
+				<field name="accountingType" selected="true"/>
+				<field name="description" selected="true"/>
+				<field name="displayText" selected="false"/>
+				<field name="assignedCockpitItemTemplates" selected="false"/>
+				<field name="comments" selected="false"/>
+				<field name="creationtime" selected="false"/>
+				<field name="itemtype" selected="false"/>
+				<field name="modifiedtime" selected="false"/>
+				<field name="owner" selected="false"/>
+				<field editor="java.lang.Long" name="pk" selected="false"/>
+			</field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context merge-by="type" type="ShippingCarrier" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<field-list>
+				<field name="b2bUnit" selected="true"/>
+				<field name="carrierCode" selected="true"/>
+				<field name="carrierDescription" selected="false"/>
+				<field name="customerOwned" selected="false"/>
+				<field name="shippingCondition" selected="false"/>
+				<field name="assignedCockpitItemTemplates" selected="false"/>
+				<field name="comments" selected="false"/>
+				<field name="creationtime" selected="false"/>
+				<field name="itemtype" selected="false"/>
+				<field name="modifiedtime" selected="false"/>
+				<field name="owner" selected="false"/>
+				<field editor="java.lang.Long" name="pk" selected="false"/>
+			</field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context merge-by="type" type="AdditionalDeliveryDay" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<field-list>
+				<field name="b2bUnits" selected="false"/>
+				<field name="calendarDay" selected="true"/>
+				<field name="description" selected="true"/>
+				<field name="assignedCockpitItemTemplates" selected="false"/>
+				<field name="comments" selected="false"/>
+				<field name="creationtime" selected="false"/>
+				<field name="itemtype" selected="false"/>
+				<field name="modifiedtime" selected="false"/>
+				<field name="owner" selected="false"/>
+				<field editor="java.lang.Long" name="pk" selected="false"/>
+			</field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context merge-by="type" type="ExcludedDeliveryDay" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<field-list>
+				<field name="b2bUnits" selected="false"/>
+				<field name="calendarDay" selected="true"/>
+				<field name="description" selected="true"/>
+				<field name="assignedCockpitItemTemplates" selected="false"/>
+				<field name="comments" selected="false"/>
+				<field name="creationtime" selected="false"/>
+				<field name="itemtype" selected="false"/>
+				<field name="modifiedtime" selected="false"/>
+				<field name="owner" selected="false"/>
+				<field editor="java.lang.Long" name="pk" selected="false"/>
+			</field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context merge-by="type" type="RepDrivenDealConditionStatus" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<field-list>
+				<field name="assignedTo" selected="true"/>
+				<field name="changedBy" selected="true"/>
+				<field name="date" selected="true"/>
+				<field name="dealConditionNumber" selected="true"/>
+				<field name="status" selected="true"/>
+				<field name="assignedCockpitItemTemplates" selected="false"/>
+				<field name="comments" selected="false"/>
+				<field name="creationtime" selected="false"/>
+				<field name="itemtype" selected="false"/>
+				<field name="modifiedtime" selected="false"/>
+				<field name="owner" selected="false"/>
+				<field editor="java.lang.Long" name="pk" selected="false"/>
+			</field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context merge-by="type" type="AbstractOrder" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<field-list>
+				<field name="Unit" selected="true"/>
+				<field name="actualDeliveryCost" selected="false"/>
+				<field name="bdeOrder" selected="false"/>
+				<field name="bdeOrderEmailText" selected="false"/>
+				<field name="calculated" selected="false"/>
+				<field name="cartCode" selected="false"/>
+				<field name="code" selected="true"/>
+				<field name="currency" selected="false"/>
+				<field name="date" selected="true"/>
+				<field name="deliveryAddress" selected="false"/>
+				<field name="deliveryCost" selected="false"/>
+				<field name="deliveryInstructions" selected="false"/>
+				<field name="deliveryMode" selected="false"/>
+				<field name="deliveryShippingCarrier" selected="false"/>
+				<field name="deliveryStatus" selected="false"/>
+				<field name="discounts" selected="false"/>
+				<field name="discountsIncludeDeliveryCost" selected="false"/>
+				<field name="discountsIncludePaymentCost" selected="false"/>
+				<field name="exportStatus" selected="false"/>
+				<field name="freightLimit" selected="false"/>
+				<field name="guid" selected="false"/>
+				<field name="locale" selected="false"/>
+				<field name="net" selected="false"/>
+				<field name="oneOffDealApplied" selected="false"/>
+				<field name="orderSimulationStatus" selected="false"/>
+				<field name="paymentAddress" selected="false"/>
+				<field name="paymentCost" selected="false"/>
+				<field name="paymentInfo" selected="false"/>
+				<field name="paymentMode" selected="false"/>
+				<field name="paymentStatus" selected="false"/>
+				<field name="paymentType" selected="false"/>
+				<field name="processingTypeCode" selected="false"/>
+				<field name="promotionOrderRestrictions" selected="false"/>
+				<field name="punchOutOrder" selected="false"/>
+				<field name="purchaseOrderNumber" selected="false"/>
+				<field name="quoteExpirationDate" selected="false"/>
+				<field name="requestedDeliveryDate" selected="false"/>
+				<field name="salesOrderSimulateSyncDate" selected="false"/>
+				<field name="sapConfirmedDeliveryDate" selected="false"/>
+				<field name="sapSalesOrderNumber" selected="true"/>
+				<field name="site" selected="false"/>
+				<field name="status" selected="false"/>
+				<field name="statusInfo" selected="false"/>
+				<field name="store" selected="false"/>
+				<field name="subtotal" selected="false"/>
+				<field name="totalDiscounts" selected="false"/>
+				<field name="totalPrice" selected="false"/>
+				<field name="user" selected="true"/>
+				<field name="userDisplayName" selected="false"/>
+				<field name="workflow" selected="false"/>
+				<field name="assignedCockpitItemTemplates" selected="false"/>
+				<field name="comments" selected="false"/>
+				<field name="creationtime" selected="false"/>
+				<field name="itemtype" selected="false"/>
+				<field name="modifiedtime" selected="false"/>
+				<field name="owner" selected="false"/>
+				<field editor="java.lang.Long" name="pk" selected="false"/>
+			</field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context merge-by="type" type="TimeZone" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<field-list>
+				<field name="code" selected="true"/>
+				<field name="assignedCockpitItemTemplates" selected="false"/>
+				<field name="comments" selected="false"/>
+				<field name="creationtime" selected="false"/>
+				<field name="itemtype" selected="false"/>
+				<field name="modifiedtime" selected="false"/>
+				<field name="owner" selected="false"/>
+				<field editor="java.lang.Long" name="pk" selected="false"/>
+			</field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context merge-by="type" type="ProductExclusionImportRecord" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<field-list>
+				<field name="customerId" selected="true"/>
+				<field name="product" selected="false"/>
+				<field name="assignedCockpitItemTemplates" selected="false"/>
+				<field name="comments" selected="false"/>
+				<field name="creationtime" selected="true"/>
+				<field name="error" selected="false"/>
+				<field name="itemtype" selected="false"/>
+				<field name="masterRecord" selected="false"/>
+				<field name="modifiedtime" selected="false"/>
+				<field name="operation" selected="false"/>
+				<field name="owner" selected="false"/>
+				<field editor="java.lang.Long" name="pk" selected="false"/>
+				<field name="status" selected="true"/>
+			</field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context merge-by="type" type="ProductExclusion" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<field-list>
+				<field name="customer" selected="true"/>
+				<field name="product" selected="true"/>
+				<field name="salesOrg" selected="false"/>
+				<field name="validFrom" selected="true"/>
+				<field name="validTo" selected="true"/>
+				<field name="assignedCockpitItemTemplates" selected="false"/>
+				<field name="comments" selected="false"/>
+				<field name="creationtime" selected="false"/>
+				<field name="itemtype" selected="false"/>
+				<field name="modifiedtime" selected="false"/>
+				<field name="owner" selected="false"/>
+				<field editor="java.lang.Long" name="pk" selected="false"/>
+			</field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context merge-by="type" type="SABMNotification" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<field-list>
+				<field name="b2bUnit" selected="true"/>
+				<field name="user" selected="true"/>
+				<field name="assignedCockpitItemTemplates" selected="false"/>
+				<field name="comments" selected="false"/>
+				<field name="creationtime" selected="false"/>
+				<field name="itemtype" selected="false"/>
+				<field name="modifiedtime" selected="false"/>
+				<field name="owner" selected="false"/>
+				<field editor="java.lang.Long" name="pk" selected="false"/>
+			</field-list>
+		</advanced-search:advanced-search>
+	</context>
+
+	<context merge-by="type" type="PlantHolidayCalendar" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<field-list>
+				<field name="code" selected="true"/>
+				<field name="name" selected="true"/>
+				<field name="assignedCockpitItemTemplates" selected="false"/>
+				<field name="comments" selected="false"/>
+				<field name="creationtime" selected="false"/>
+				<field name="itemtype" selected="false"/>
+				<field name="modifiedtime" selected="false"/>
+				<field name="owner" selected="false"/>
+				<field editor="java.lang.Long" name="pk" selected="false"/>
+			</field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context merge-by="type" type="ComplexDealImportRecord" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<field-list>
+				<field name="code" selected="true"/>
+				<field name="description" selected="false"/>
+				<field name="assignedCockpitItemTemplates" selected="false"/>
+				<field name="comments" selected="false"/>
+				<field name="creationtime" selected="false"/>
+				<field name="error" selected="false"/>
+				<field name="itemtype" selected="false"/>
+				<field name="masterRecord" selected="false"/>
+				<field name="modifiedtime" selected="false"/>
+				<field name="operation" selected="false"/>
+				<field name="owner" selected="false"/>
+				<field editor="java.lang.Long" name="pk" selected="false"/>
+				<field name="status" selected="true"/>
+			</field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context merge-by="type" type="MaxOrderQty" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<field-list>
+				<field name="code" selected="true"/>
+				<field name="product" selected="true"/>
+				<field name="b2bunit" selected="true"/>
+				<field name="ruleType" selected="true"/>
+				<field name="plant" selected="true"/>
+				<field name="itemtype" selected="false"/>
+				<field editor="java.lang.Long" name="pk" selected="false"/>
+			</field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context merge-by="type" type="MasterImport" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<field-list>
+				<field name="entity" selected="true"/>
+				<field name="error" selected="false"/>
+				<field name="file" selected="false"/>
+				<field name="payload" selected="false"/>
+				<field name="payloadId" selected="true"/>
+				<field name="recordCount" selected="false"/>
+				<field name="referenceId" selected="false"/>
+				<field name="status" selected="true"/>
+				<field name="assignedCockpitItemTemplates" selected="false"/>
+				<field name="comments" selected="false"/>
+				<field name="creationtime" selected="false"/>
+				<field name="itemtype" selected="false"/>
+				<field name="modifiedtime" selected="false"/>
+				<field name="owner" selected="false"/>
+				<field editor="java.lang.Long" name="pk" selected="false"/>
+			</field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context merge-by="type" type="sabmDeliveryModeMapping" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<field-list>
+				<field name="description" selected="true"/>
+				<field name="method" selected="true"/>
+				<field name="mode" selected="true"/>
+				<field name="assignedCockpitItemTemplates" selected="false"/>
+				<field name="comments" selected="false"/>
+				<field name="creationtime" selected="false"/>
+				<field name="itemtype" selected="false"/>
+				<field name="modifiedtime" selected="false"/>
+				<field name="owner" selected="false"/>
+				<field editor="java.lang.Long" name="pk" selected="false"/>
+			</field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context merge-by="type" type="SabmMessage" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<field-list>
+				<field name="b2bUnit" selected="true"/>
+				<field name="code" selected="true"/>
+				<field name="expiry" selected="true"/>
+				<field name="restrictions" selected="true"/>
+				<field name="text" selected="true"/>
+				<field name="type" selected="true"/>
+				<field name="assignedCockpitItemTemplates" selected="false"/>
+				<field name="comments" selected="false"/>
+				<field name="creationtime" selected="false"/>
+				<field name="itemtype" selected="false"/>
+				<field name="modifiedtime" selected="false"/>
+				<field name="owner" selected="false"/>
+				<field editor="java.lang.Long" name="pk" selected="false"/>
+			</field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context merge-by="type" type="LiveChatComponent" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<field-list>
+				<field name="uid" selected="true"/>
+				<field name="name" selected="true"/>
+				<field name="catalogVersion" selected="true"/>
+				<field name="visible" selected="true" />
+			</field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context merge-by="type" type="SabmCartRule" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<field-list>
+				<field name="pk" selected="true"/>
+				<field name="code" selected="false"/>
+				<field name="minCases" selected="false"/>
+				<field name="minKegs" selected="false"/>
+				<field name="errorMessage" selected="false"/>
+				<field name="deliveryDates" selected="false"/>
+				<field name="status" selected="false"/>
+			</field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context merge-by="type" type="CUBStockInformation" component="advanced-search">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<field-list>
+				<field name="productCode" selected="false"/>
+				<field name="plant" selected="false"/>
+				<field name="stockStatus" selected="false"/>
+				<field name="stockString" selected="false"/>
+			</field-list>
+		</advanced-search:advanced-search>
+	</context>
+	<context type="AbstractOrderEntry" component="base" merge-by="type">
+		<y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+			<y:labels>
+				<y:label>product+ ' ' +quantity</y:label>
+			</y:labels>
+		</y:base>
+	</context>
+	<context type="SabmPilotCondition" component="base" merge-by="type">
+		<y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+			<y:labels>
+				<y:label>plantId</y:label>
+			</y:labels>
+		</y:base>
+	</context>
+	<context type="AbstractOrder" component="base" merge-by="type">
+		<y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+			<y:labels>
+				<y:label>code+ ' ' +user</y:label>
+			</y:labels>
+		</y:base>
+	</context>
+
+	<context type="Plant" component="base" merge-by="type">
+		<y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+			<y:labels>
+				<y:label>plantId</y:label>
+			</y:labels>
+		</y:base>
+	</context>
+
+	<context merge-by="type" type="Plant" component="simple-search">
+		<simple-search:simple-search xmlns:simple-search="http://www.hybris.com/cockpitng/config/simplesearch">
+			<simple-search:field xmlns="http://www.hybris.com/cockpitng/config/simplesearch" name="plantId"/>
+		</simple-search:simple-search>
+	</context>
+
+	<context type="EmailAddress" component="base" merge-by="type">
+		<y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+			<y:labels>
+				<y:label>emailAddress</y:label>
+			</y:labels>
+		</y:base>
+	</context>
+
+	<context type="SABMCMSUserGroupRestriction" component="simple-search">
+		<simple-search:simple-search xmlns:simple-search="http://www.hybris.com/cockpitng/config/simplesearch">
+			<simple-search:field xmlns="http://www.hybris.com/cockpitng/config/simplesearch" name="name"/>
+		</simple-search:simple-search>
+	</context>
+
+	<context type="SABMCMSUserGroupRestriction" component="base">
+		<y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+			<y:labels>
+				<y:label>name</y:label>
+			</y:labels>
+		</y:base>
+	</context>
+	
+	<context merge-by="type" type="EmailAddress" component="simple-search">
+		<simple-search:simple-search xmlns:simple-search="http://www.hybris.com/cockpitng/config/simplesearch">
+			<simple-search:field xmlns="http://www.hybris.com/cockpitng/config/simplesearch" name="emailAddress"/>
+		</simple-search:simple-search>
+	</context>
+
+	<context type="SystemEmailMessage" component="advanced-search" parent="GenericItem" merge-by="type">
+		<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
+			<field-list>
+				<field name="sent" selected="true"/>
+				<field name="toAddresses" selected="true"/>
+				<field name="ccAddresses" selected="true"/>
+				<field name="bccAddresses" selected="true"/>
+				<field name="fromAddress" selected="true"/>
+				<field name="subject" selected="true"/>
+				<field name="body" selected="true"/>
+				<field name="sentDate" selected="true"/>
+				<field name="sentMessageID" selected="true"/>
+			</field-list>
+		</advanced-search:advanced-search>
+	</context>
+
+	<context type="Order" component="base" merge-by="type">
+		<y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+			<y:labels>
+				<y:label>code+ ' - ' +user.uid</y:label>
+			</y:labels>
+		</y:base>
+	</context>
+
+	<context type="OrderEntry" component="base" merge-by="type">
+		<y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+			<y:labels>
+				<y:label>product.code+' - '+product.name+' - '+ @labelService.getObjectLabel(product.catalogVersion) +' - '+quantity</y:label>
+			</y:labels>
+		</y:base>
+	</context>
+	
+	<!-- HC-297 Custom tab for Asahi Product type -->
+	<context merge-by="type" type="ApbProduct" component="editor-area" parent="Product">
+		<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea" xmlns="http://www.hybris.com/cockpitng/component/editorArea">
+			<essentials>
+				<essentialSection name="hmc.essential" merge-mode="append">
+					<attribute qualifier="name" merge-mode="remove"/>
+					<attribute qualifier="backendName"/>
+					<attribute qualifier="active"/>
+
+				</essentialSection>
+			</essentials>
+
+			<tab name="hmc.tab.product.properties">
+				<section name="hmc.product.descriptions">
+					<attribute qualifier="description" merge-mode="remove"/>
+				</section>
+			</tab>
+
+			<tab name="asahi_hmc.product.tab.properties" position="1">
+				<section name="asahi_hmc.product.section.enrichment.texts">
+					<attribute qualifier="name"/>
+					<attribute qualifier="description" editor="com.hybris.cockpitng.editor.localized(com.hybris.cockpitng.editor.wysiwyg)"/>
+					<attribute qualifier="productDetail" editor="com.hybris.cockpitng.editor.localized(com.hybris.cockpitng.editor.wysiwyg)"/>
+					<attribute qualifier="portalUnitVolume"/>
+					<attribute qualifier="packageSize"/>
+					<attribute qualifier="premium"/>
+
+				</section>
+
+				<section name="asahi_hmc.product.section.editable.texts" >
+					<attribute qualifier="minOrderQuantity"/>
+					<attribute qualifier="maxOrderQuantity"/>
+					<attribute qualifier="rank"/>
+					<attribute qualifier="unitPerCase"/>
+					<attribute qualifier="subProductGroup"/>
+				</section>
+
+				<section name="asahi_hmc.product.section.backend.texts">
+					<attribute qualifier="productType" />
+					<attribute qualifier="brand" />
+					<attribute qualifier="flavour" />
+					<attribute qualifier="packageType" />
+					<attribute qualifier="alcoholType" />
+					<attribute qualifier="productGroup" />
+					<attribute qualifier="alcoholPercent" />
+					<attribute qualifier="backendUnitPerCase" />
+					<attribute qualifier="unitPerInner" />
+					<attribute qualifier="qtyPerLayer" />
+					<attribute qualifier="standardPalletQuantity" />
+					<attribute qualifier="backendUnitVolume" />
+					<attribute qualifier="depth" />
+					<attribute qualifier="height" />
+					<attribute qualifier="width" />
+					<attribute qualifier="companyCode" />
+
+				</section>
+			</tab>
+
+
+			<tab name="hmc.tab.product.variants" merge-mode="remove"/>
+			<tab name="hmc.tab.product.extendedattributes" merge-mode="remove"/>
+			<tab name="hmc.tab.product.bmecat" merge-mode="remove"/>
+			<tab name="hmc.tab.community" merge-mode="remove"/>
+			<tab name="hmc.administration" position="2" merge-mode="merge"/>
+
+		</editorArea:editorArea>
+	</context>
+	<context type="SABMAlcoholVariantProductEAN" component="create-wizard" merge-by="type" parent="VariantProduct">
+		<wz:flow xmlns:wz="http://www.hybris.com/cockpitng/config/wizard-config" xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns:df="http://www.hybris.com/cockpitng/component/dynamicForms" xmlns:dsb="http://www.hybris.com/cockpitng/config/dashboard" xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea" xmlns:explorer-tree="http://www.hybris.com/cockpitng/config/explorertree" xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns:simple-search="http://www.hybris.com/cockpitng/config/simplesearch" xmlns:y="http://www.hybris.com/cockpit/config/hybris" id="ProductWizard" title="create.title(ctx.TYPE_CODE)">
+			<wz:prepare id="productPrepare">
+				<wz:assign property="newProduct.container" value="ctx.parentObject" merge-mode="APPEND"/>
+			</wz:prepare>
+			<wz:step id="step1" label="create.product.essential.label" sublabel="create.product.essential.sublabel">
+				<wz:content id="step1.content">
+					<wz:property-list root="newProduct">
+						<wz:property qualifier="container" merge-mode="APPEND"/>
+					</wz:property-list>
+				</wz:content>
+				<wz:navigation id="step1.navigation" merge-mode="REPLACE">
+					<wz:cancel/>
+					<wz:next
+							visible="!#empty(newProduct.code) and newProduct.catalogVersion != null and newProduct.baseProduct != null and newProduct.container != null" />
+					<wz:done
+							visible="!#empty(newProduct.code) and newProduct.catalogVersion != null and newProduct.baseProduct != null and newProduct.container != null">
+						<wz:save property="newProduct"/>
+					</wz:done>
+				</wz:navigation>
+			</wz:step>
+		</wz:flow>
+	</context>
+	<!-- HC-1007 Fix for creating a new SABMAlcohol product in product cockpit perspective -->
+	<context type="SABMAlcoholProduct" component="create-wizard" merge-by="type" parent="Product">
+		<wz:flow xmlns:wz="http://www.hybris.com/cockpitng/config/wizard-config" xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns:df="http://www.hybris.com/cockpitng/component/dynamicForms" xmlns:dsb="http://www.hybris.com/cockpitng/config/dashboard" xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea" xmlns:explorer-tree="http://www.hybris.com/cockpitng/config/explorertree" xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns:simple-search="http://www.hybris.com/cockpitng/config/simplesearch" xmlns:y="http://www.hybris.com/cockpit/config/hybris" id="ProductWizard" title="create.title(ctx.TYPE_CODE)">
+			<wz:prepare id="productPrepare">
+				<wz:assign property="newProduct.abv" value="ctx.parentObject" merge-mode="APPEND"/>
+				<wz:assign property="newProduct.brand" value="ctx.parentObject" merge-mode="APPEND"/>
+				<wz:assign property="newProduct.categoryAttribute" value="ctx.parentObject" merge-mode="APPEND"/>
+				<wz:assign property="newProduct.categoryVariety" value="ctx.parentObject" merge-mode="APPEND"/>
+				<wz:assign property="newProduct.subBrand" value="ctx.parentObject" merge-mode="APPEND"/>
+			</wz:prepare>
+			<wz:step id="step1" label="create.product.essential.label" sublabel="create.product.essential.sublabel">
+				<wz:content id="step1.content">
+					<wz:property-list root="newProduct">
+						<wz:property qualifier="abv" merge-mode="APPEND"/>
+						<wz:property qualifier="brand" merge-mode="APPEND"/>
+						<wz:property qualifier="categoryAttribute" merge-mode="APPEND"/>
+						<wz:property qualifier="categoryVariety" merge-mode="APPEND"/>
+						<wz:property qualifier="subBrand" merge-mode="APPEND"/>
+					</wz:property-list>
+				</wz:content>
+				<wz:navigation id="step1.navigation" merge-mode="REPLACE">
+					<wz:cancel/>
+					<wz:next
+							visible="!#empty(newProduct.code) and newProduct.catalogVersion != null and newProduct.abv != null and newProduct.brand != null and newProduct.categoryAttribute != null and newProduct.categoryVariety != null and newProduct.subBrand != null" />
+					<wz:done
+							visible="!#empty(newProduct.code) and newProduct.catalogVersion != null and newProduct.abv != null and newProduct.brand != null and newProduct.categoryAttribute != null and newProduct.categoryVariety != null and newProduct.subBrand != null">
+						<wz:save property="newProduct"/>
+					</wz:done>
+				</wz:navigation>
+			</wz:step>
+		</wz:flow>
+	</context>
+	
+	<context type="MaxOrderQty" component="create-wizard">
+		<wz:flow xmlns:wz="http://www.hybris.com/cockpitng/config/wizard-config" id="MaxOrderQtyWizard" title="create.title(ctx.TYPE_CODE)">
+			<wz:prepare id="maxOrderQtyPrepare">
+				<wz:initialize property="newMaxOrderQty" type="ctx.TYPE_CODE"/>
+			</wz:prepare>
+			<wz:step id="step1" label="create.maxorderqty.essential.label">
+				<wz:content id="step1.content">
+					<wz:property-list root="newMaxOrderQty">
+						<wz:property qualifier="ruleType"/>
+						<wz:property qualifier="product"/>
+						<wz:property qualifier="defaultAvgMaxOrderQtyEnabled"/>
+						<wz:property qualifier="b2bunit" label="create.maxorderqty.essential.b2bunit"/>
+						<wz:property qualifier="plant" label="create.maxorderqty.essential.plant"/>
+						<wz:property qualifier="maxOrderQty"/>
+						<wz:property qualifier="startDate"/>
+						<wz:property qualifier="endDate"/>
+					</wz:property-list>
+				</wz:content>
+				<wz:navigation id="step1.navigation">
+					<wz:cancel/>
+					<wz:done>
+						<wz:save property="newMaxOrderQty"/>
+					</wz:done>
+				</wz:navigation>
+			</wz:step>
+		</wz:flow>
+	</context>
+	
+
+<!-- HC-1139 Address editor for common user - Asahicubadmin   -->
+	<context merge-by="type" type="Address" component="editor-area" principal="asahicubadmin">
+		<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea" xmlns="http://www.hybris.com/cockpitng/component/editorArea">
+			<essentials>
+				<essentialSection name="hmc.essential">
+					<attribute qualifier="owner"/>
+				</essentialSection>
+			</essentials>
+			<tab name="hmc.tab.common">
+				<section name="hmc.section.addresstypes">
+					<attribute qualifier="shippingAddress"/>
+					<attribute qualifier="unloadingAddress"/>
+					<attribute qualifier="billingAddress"/>
+					<attribute qualifier="contactAddress"/>
+				</section>
+				<section name="hmc.section.address.address">
+					<attribute qualifier="streetname"/>
+					<attribute qualifier="streetnumber"/>
+					<attribute qualifier="postalcode"/>
+					<attribute qualifier="town"/>
+					<attribute qualifier="country"/>
+				</section>
+				<section name="hmc.section.address.additional">
+					<attribute qualifier="gender"/>
+					<attribute qualifier="dateOfBirth"/>
+					<attribute qualifier="company"/>
+					<attribute qualifier="pobox"/>
+					<attribute qualifier="phone1"/>
+					<attribute qualifier="phone2"/>
+					<attribute qualifier="cellphone"/>
+					<attribute qualifier="fax"/>
+					<attribute qualifier="email"/>
+				</section>
+				<section name="hmc.section.address.contact">
+					<attribute qualifier="title"/>
+					<attribute qualifier="lastname"/>
+					<attribute qualifier="firstname"/>
+					<attribute qualifier="middlename"/>
+					<attribute qualifier="department"/>
+					<attribute qualifier="middlename2"/>
+					<attribute qualifier="building"/>
+					<attribute qualifier="appartment"/>
+					<attribute qualifier="region"/>
+					<attribute qualifier="district"/>
+				</section>
+			</tab>
+			<tab name="hmc.administration">
+				<section name="hmc.common">
+					<attribute qualifier="pk"/>
+					<attribute qualifier="itemtype"/>
+					<attribute qualifier="creationtime"/>
+					<attribute qualifier="modifiedtime"/>
+				</section>
+			</tab>
+			<tab name="asahi_hmc.product.tab.properties" merge-mode="merge">
+				<section name="hmc.b2bunit.section.asahi.details.name" merge-mode="merge">
+					<attribute qualifier="firstname"/>
+					<attribute qualifier="addressRecordid"/>
+					<attribute qualifier="addressType"/>
+					<attribute qualifier="companyCode"/>
+					<attribute qualifier="eclDeliveryTimeslotFrom">
+						<editor-parameter>
+							<name>dateFormat</name>
+							<value>HH:mm</value>
+						</editor-parameter>
+					</attribute>
+					<attribute qualifier="eclDeliveryTimesLotto">
+						<editor-parameter>
+							<name>dateFormat</name>
+							<value>HH:mm</value>
+						</editor-parameter>
+					</attribute>
+					<attribute qualifier="eclDlvModeId"/>
+					<attribute qualifier="eclDeliveryInstruction"/>
+				</section>
+			</tab>
+		</editorArea:editorArea>
+	</context>
+</config>

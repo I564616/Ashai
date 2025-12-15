@@ -1,0 +1,143 @@
+<ns2:SalesOrderInformation xmlns:ns2="urn:gl.sabmiller.com:com:3rdp:transdata">
+	<MessageHeader>
+		<ID schemeID="salesorder">56b93ce61e0f1db0e10080000af8ca7d</ID>
+		<CreationDateTime>2016-03-04T05:12:30Z</CreationDateTime>
+		<RecipientBusinessSystemID>HYBRIS_ES</RecipientBusinessSystemID>
+	</MessageHeader>
+	<SalesOrder>
+		<ProcessingTypeCode>YSOR</ProcessingTypeCode>
+		<SalesOrderNumber>1001646944</SalesOrderNumber>
+		<CreationDate>2016-03-04</CreationDate>
+		<SystemAdministrativeData>
+			<CreationUserAccountID>RFC_USER</CreationUserAccountID>
+		</SystemAdministrativeData>
+		<BuyerDocument>
+			<PONumber>848042@test.com</PONumber>
+		</BuyerDocument>
+		<DataOriginCategoryCode>SAP</DataOriginCategoryCode>
+		<SalesAndServiceBusinessArea>
+			<SalesOrganisation>7001</SalesOrganisation>
+		</SalesAndServiceBusinessArea>
+		<BuyerParty>
+			<SoldTo>0000842292</SoldTo>
+		</BuyerParty>
+		<GoodsRecepientParty>
+			<ShipTo>0000842292</ShipTo>
+		</GoodsRecepientParty>
+		<DateTerms>
+			<RequestedDeliveryDate>2016-03-07</RequestedDeliveryDate>
+		</DateTerms>
+		<Party>
+			<RoleCode>1A</RoleCode>
+			<RoleName LanguageCode="en">Customer hierarchy 1</RoleName>
+			<BillTo>0092000836</BillTo>
+		</Party>
+		<Party>
+			<RoleCode>1B</RoleCode>
+			<RoleName LanguageCode="en">Customer hierarchy 2</RoleName>
+			<BillTo>0093000369</BillTo>
+		</Party>
+		<Party>
+			<RoleCode>1C</RoleCode>
+			<RoleName LanguageCode="en">Customer hierarchy 3</RoleName>
+			<BillTo>0094000102</BillTo>
+		</Party>
+		<Party>
+			<RoleCode>1D</RoleCode>
+			<RoleName LanguageCode="en">Customer hierarchy 4</RoleName>
+			<BillTo>0095002081</BillTo>
+		</Party>
+		<Party>
+			<RoleCode>AG</RoleCode>
+			<RoleName LanguageCode="en">Sold-to party</RoleName>
+			<BillTo>0000842292</BillTo>
+		</Party>
+		<Party>
+			<RoleCode>BO</RoleCode>
+			<RoleName LanguageCode="en">External Carrier</RoleName>
+			<BillTo>0006000039</BillTo>
+		</Party>
+		<Party>
+			<RoleCode>OU</RoleCode>
+			<RoleName LanguageCode="en">Outlet</RoleName>
+			<BillTo>0020406341</BillTo>
+		</Party>
+		<Party>
+			<RoleCode>RE</RoleCode>
+			<RoleName LanguageCode="en">Bill-to party</RoleName>
+			<BillTo>0000836080</BillTo>
+		</Party>
+		<Party>
+			<RoleCode>RG</RoleCode>
+			<RoleName LanguageCode="en">Payer</RoleName>
+			<BillTo>0000838122</BillTo>
+		</Party>
+		<Party>
+			<RoleCode>SB</RoleCode>
+			<RoleName LanguageCode="en">Sp.Stock Resp</RoleName>
+			<BillTo>0000842292</BillTo>
+		</Party>
+		<Party>
+			<RoleCode>WE</RoleCode>
+			<RoleName LanguageCode="en">Ship-to party</RoleName>
+			<BillTo>0000842292</BillTo>
+		</Party>
+		<Party>
+			<RoleCode>ZK</RoleCode>
+			<RoleName LanguageCode="en">Key Account</RoleName>
+			<BillTo>0095002267</BillTo>
+		</Party>
+		<Item>
+			<ItemNumber>10</ItemNumber>
+			<FreeGoodsIdentifier>YG02</FreeGoodsIdentifier>
+			<Product>
+				<MaterialNumber>000000000000090374</MaterialNumber>
+			</Product>
+			<ScheduleLine>
+				<ConfirmedMaterialQuantity unitCode="CS">1.0</ConfirmedMaterialQuantity>
+			</ScheduleLine>
+			<SalesTerms>
+				<RejectionReason>Z3</RejectionReason>
+			</SalesTerms>
+			<Status>
+				<RejectionReason>B</RejectionReason>
+			</Status>
+		</Item>
+		<Item>
+			<ItemNumber>20</ItemNumber>
+			<FreeGoodsIdentifier>YG02</FreeGoodsIdentifier>
+			<Product>
+				<MaterialNumber>000000000000090375</MaterialNumber>
+			</Product>
+			<ScheduleLine>
+				<ConfirmedMaterialQuantity unitCode="KEG">1.0</ConfirmedMaterialQuantity>
+			</ScheduleLine>
+			<SalesTerms>
+				<RejectionReason>Z3</RejectionReason>
+			</SalesTerms>
+		</Item>
+		<Item>
+			<ItemNumber>30</ItemNumber>
+			<FreeGoodsIdentifier>YG02</FreeGoodsIdentifier>
+			<Product>
+				<MaterialNumber>000000000000090383</MaterialNumber>
+			</Product>
+			<ScheduleLine>
+				<ConfirmedMaterialQuantity unitCode="CS">1.0</ConfirmedMaterialQuantity>
+			</ScheduleLine>
+		</Item>
+		<Item>
+			<ItemNumber>40</ItemNumber>
+			<FreeGoodsIdentifier>YG02</FreeGoodsIdentifier>
+			<Product>
+				<MaterialNumber>000000000000090388</MaterialNumber>
+			</Product>
+			<ScheduleLine>
+				<ConfirmedMaterialQuantity unitCode="CS">1.0</ConfirmedMaterialQuantity>
+			</ScheduleLine>
+			<SalesTerms>
+				<RejectionReason>Z3</RejectionReason>
+			</SalesTerms>
+		</Item>
+	</SalesOrder>
+</ns2:SalesOrderInformation>

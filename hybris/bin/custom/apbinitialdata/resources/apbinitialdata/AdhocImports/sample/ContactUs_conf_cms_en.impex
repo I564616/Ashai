@@ -1,0 +1,28 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+##******************************This file is generated - please do not edit it. It will be regenerated after every build.********************************#
+
+$contentCatalog=apbContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$picture=media(code, $contentCV);
+$siteResource=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/sampledata/contentCatalogs/$contentCatalog
+$medias=medias(code, $contentCV);
+$mediaContainer=media(qualifier, $contentCV)[lang=$lang];
+
+
+# Language
+$lang=en
+
+# CMS Paragraph Component (Contact information)
+UPDATE CMSParagraphComponent ; $contentCV[unique=true] ; uid[unique=true]                ; content[lang=en];
+							;		  				   ; serverErrorParagraphComponent   ; "<div class=""row""><div class=""col-md-12 col-sm-12""><img border=""0"" align=""middle"" src=""/storefront/_ui/responsive/common/images/error.png"" /></div></div> <div class=""row""><div class=""col-md-12""><h2>There&rsquo;s been a small problem</h2></div></div> <div class=""row""><div class=""col-md-8 col-sm-8 col-xs-12""><p>It seems we&rsquo;re experiencing some technical difficulties. This could have caused your session to time out, which is why you&rsquo;re seeing this page.</p> <p>Try heading back to the homepage, hitting back, or refreshing your browser.</p> <p>If none of that works give our Customer Service Team a call and we&rsquo;ll help you get this sorted.</p></div></div>"
+							;							;companyDetailsParagraphComponent; "<div><p><br><span class=""user-register__headline"">Company Detail Change Submitted</span></p></div><p>&nbsp</p><p>Thanks! Your request to update your company details has been sent to the Asahi Customer Service Team. You will also receive a copy via email for future reference.<br /><br>Please allow 2 business days for these changes to appear on Asahi Direct.</p><p></p><p><br><a class=""site-anchor-link"" href=""./"">Continue Shopping</a></p>"
+							; 							; contactusConfirmationParagraphComponent;"<div class=""login-page__headline"">Contact Us</div><div class=""user-register__body""></div><br><div>We&rsquo;ve received your message and have sent a copy to your email address for your reference.</div><br><div>The Asahi Premium Beverages Customer Service team will be in touch shortly. If your enquiry&rsquo;s urgent give us a call 1800 090 378 (9am – 6pm, Monday – Friday).</div><br><br><div>In the meantime, <a class=""site-anchor-link"" href=""./"">continue using Asahi Direct.</a></div>"

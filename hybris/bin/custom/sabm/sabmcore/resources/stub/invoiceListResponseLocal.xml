@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<n0:InvoiceList_Response xmlns:n0="urn:gl.sabmiller.com:com:3rdp:transdata" xmlns:prx="urn:sap.com:proxy:EP7:/1SAI/TASD2395083A637FB0009D6:701:2013/05/24">
+    <Invoice>
+        <SoldTo>0000919494</SoldTo>
+        <DateStart>07062021</DateStart>
+        <DateEnd>21082021</DateEnd>
+        <InvoiceNumber>7504583677</InvoiceNumber>
+        <InvoiceNumber>7504583672</InvoiceNumber>
+        <InvoiceNumber>7620246834</InvoiceNumber>
+        <InvoiceNumber>7620246835</InvoiceNumber>
+    </Invoice>
+</n0:InvoiceList_Response>

@@ -1,0 +1,111 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd
+           http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+		   http://www.springframework.org/schema/integration/file http://www.springframework.org/schema/integration/file/spring-integration-file.xsd
+		   http://www.springframework.org/schema/integration/http http://www.springframework.org/schema/integration/http/spring-integration-http.xsd
+		   http://www.springframework.org/schema/integration/xml
+    	   http://www.springframework.org/schema/integration/xml/spring-integration-xml.xsd
+    	   http://www.springframework.org/schema/oxm http://www.springframework.org/schema/oxm/spring-oxm.xsd
+    	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+    	   http://www.springframework.org/schema/integration/mail http://www.springframework.org/schema/integration/mail/spring-integration-mail.xsd"
+
+       xmlns:int="http://www.springframework.org/schema/integration"
+       xmlns:int-file="http://www.springframework.org/schema/integration/file"
+       xmlns:int-http="http://www.springframework.org/schema/integration/http"
+       xmlns:int-xml="http://www.springframework.org/schema/integration/xml"
+       xmlns:int-mail="http://www.springframework.org/schema/integration/mail"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:oxm="http://www.springframework.org/schema/oxm">
+
+
+    <!-- map the incoming webservice request to a channel -->
+    <int-http:inbound-gateway id="inboundProductRequestGateway"
+                              supported-methods="POST"
+                              path="/services/product"
+                              request-channel="preProductImportChannel"
+                              request-payload-type="java.lang.String"
+                              reply-timeout="50000">
+    </int-http:inbound-gateway>
+
+    <int:channel id="productChannel"/>
+    <int:channel id="productRequestChannel"/>
+    <int:channel id="productPersistRequestChannel"/>
+    <int:channel id="productRequestValidationChannel"/>
+    <int:channel id="productRequestSplitChannel"/>
+    <int:channel id="productResponseChannel"/>
+    <int:channel id="productValidationErrorChannel"/>
+    <int:channel id="productItemsChannel"/>
+    <int:channel id="productProcessingChannel"/>
+    <int:channel id="convertToPOJOChannel"/>
+    <int:channel id="splitProductsChannel"/>
+    <int:channel id="preProductImportChannel"/>
+    <int:channel id="productImportChannel"/>
+    <int:channel id="postProductImportChannel"/>
+
+    <int:chain id="pre-product-import-chain" input-channel="preProductImportChannel" output-channel="productImportChannel">
+        
+         <!--  Security filter -->
+        <int-xml:validating-filter discard-channel="productXSDValidationErrorChannel"
+                                   throw-exception-on-rejection="true"
+                                   xml-validator="securityValidationFilter">
+        </int-xml:validating-filter>
+     
+        <!-- this is require to enrich the header to handle the content-type of type "application/xml" -->
+        <int:header-enricher>
+            <int:header name="content-type" value="application/xml"/>
+        </int:header-enricher>
+
+        <!--  Add payload Id to the header -->
+        <int-xml:xpath-header-enricher id="prdAddPayloadId" default-overwrite="true">
+            <int-xml:header name="payloadId"
+                            overwrite="true"
+                            xpath-expression="//*[local-name()='MessageHeader']/ID"
+                            evaluation-type="STRING_RESULT"/>
+        </int-xml:xpath-header-enricher>
+
+        <!--  Save the incoming payload in Hybris -->
+        <int:service-activator ref="productImportService" method="savePayload" />
+
+      
+        <!--  Validate XML against schema -->
+       
+        <int-xml:validating-filter discard-channel="productXSDValidationErrorChannel"
+                                   id="productValidationFilter"
+                                   schema-location="integration/product/schema/product.xsd"
+                                   schema-type="xml-schema"
+                                   throw-exception-on-rejection="false">
+        </int-xml:validating-filter>
+       
+      
+    </int:chain>
+
+    <int:chain id="product-validation-error-chain" input-channel="productXSDValidationErrorChannel">
+        <int:service-activator ref="productImportService" method="handleXSDValidationError"/>
+    </int:chain>
+
+    <int:chain id="import-product-chain" input-channel="productImportChannel" output-channel="postProductImportChannel">
+
+        <!-- Split the customers(customers) into items creating a new document for each item-->
+        <int-xml:xpath-splitter id="productItemDocumentSplitter" create-documents="true">
+            <int-xml:xpath-expression expression="//*[local-name()='Material']" />
+        </int-xml:xpath-splitter>
+
+
+        <!-- Convert Document to POJO -->
+        <int-xml:unmarshalling-transformer id="defaultProductUnmarshaller" unmarshaller="productUnmarshallingTransformer"/>
+
+        <!--  Import Product -->
+        <int:service-activator ref="productImportService" method="executeImport"></int:service-activator>
+
+    </int:chain>
+
+    <int:chain id="post-product-import-chain" input-channel="postProductImportChannel" >
+        <int:service-activator ref="productImportService" method="logImportStatus"></int:service-activator>
+    </int:chain>
+
+</beans>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<base>
+	<search>
+		<search-properties>
+			<property qualifier="SabmMessage.code" />
+		</search-properties>
+		<sort-properties>
+			<property qualifier="SabmMessage.code" />
+			<property qualifier="SabmMessage.text" />
+			<property qualifier="SabmMessage.expiry" />
+		</sort-properties>
+	</search>
+	<label>
+		<property qualifier="SabmMessage.code"/>
+	</label>
+</base>

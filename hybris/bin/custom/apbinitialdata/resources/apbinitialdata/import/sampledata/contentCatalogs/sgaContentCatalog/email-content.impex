@@ -1,0 +1,30 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+$contentCatalog=sgaContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Online])[default=$contentCatalog:Online]
+
+# CMS Image Components
+INSERT_UPDATE CMSImageComponent ; $contentCV[unique=true] ; uid[unique=true] ; name              
+                                ;                         ; EmailHeaderImage   ; Email Header Image
+                                ;                         ; EmailFooterImage   ; Email Footer Image
+                                ;                         ; EmailSiteLogoImage ; Email Site Logo Image
+
+
+INSERT_UPDATE CMSParagraphComponent ; $contentCV[unique=true] ; uid[unique=true]                             ; name                                            ; &componentRef                               
+                                    ;                         ; EmailCompanyDetailsContentParagraphComponent ; Email Company Details ContentParagraphComponent ; EmailCompanyDetailsContentParagraphComponent
+
+
+# Content Slots                     
+INSERT_UPDATE ContentSlot ; $contentCV[unique=true] ; uid[unique=true] ; cmsComponents(uid,$contentCV)
+                   ;                         ; EmailTopSlot     ; EmailHeaderImage             
+                   ;                         ; EmailSiteLogoSlot; EmailSiteLogoImage             
+                   ;                         ; EmailBottomSlot  ; EmailFooterImage             
+                   

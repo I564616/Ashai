@@ -1,0 +1,30 @@
+.text-image-banner-component {
+  background: $light-grey;
+  margin: $spacing-gutter auto;
+  padding: $spacing-unit-base;
+
+  .media {
+    margin: 0;
+    padding: 0;
+    .media-left {
+      padding-right: $spacing-gutter;
+      width: 81px;
+      img {
+        width: 66px;
+        height: 66px;
+      }
+    }
+    @media (max-width: $desktop-991) {
+      &:not(:last-child) {
+        padding-bottom: $spacing-gutter;
+      }
+    }
+  }
+  .media-body {
+    color: $lighter-dark-grey;
+    width: auto;
+    .media-heading {
+      font-size: $font-medium-x;
+    }
+  }
+}

@@ -1,0 +1,118 @@
+INSERT_UPDATE ScriptingJob	;code[unique=true]		;scriptURI
+							;cutOffDeliveryDateDeltaExportScriptJob	;model://cutOffDeliveryDateDeltaExportScript
+							
+INSERT_UPDATE CronJob	;code[unique=true]			;job(code)				;sessionLanguage(isocode)	;sessionUser(uid)
+						;cutOffDeliveryDateDeltaExportScriptCronJob	;cutOffDeliveryDateDeltaExportScriptJob	;en		;admin
+
+INSERT_UPDATE Script; code[unique=true];content;active[default=true, unique=true]
+;cutOffDeliveryDateDeltaExportScript;"import java.io.File;
+import java.io.FileWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
+
+import com.apb.core.model.CutOffDeliveryDateModel;
+import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
+import de.hybris.platform.servicelayer.search.FlexibleSearchService;
+import de.hybris.platform.servicelayer.search.SearchResult;
+import de.hybris.platform.util.CSVWriter;
+import com.google.common.base.Stopwatch;
+import de.hybris.platform.catalog.model.CatalogUnawareMediaModel;
+import com.google.common.base.Stopwatch;
+
+
+final Logger LOG = Logger.getLogger(""asahi"");
+
+final Stopwatch stopwatch = Stopwatch.createUnstarted();
+stopwatch.start();
+
+
+Calendar cal1 = Calendar.getInstance(); 
+cal1.set(Calendar.HOUR_OF_DAY, 0)
+cal1.set(Calendar.MINUTE, 0);
+cal1.set(Calendar.SECOND, 0);
+cal1.add(Calendar.DAY_OF_MONTH, -7);
+Date d = cal1.getTime();
+String oldDate = new SimpleDateFormat(""yyyy-MM-dd HH:mm:ss.SSS ZZZZ"").format(d);
+final Map<String, Object> params = new HashMap<>();
+params.put(""modifiedTime1"", oldDate);
+def modifiedTime1 = oldDate;
+
+final FlexibleSearchQuery query = new FlexibleSearchQuery(""select {pk} from {CutOffDeliveryDate} where {modifiedTime}>=?modifiedtime1 "",params);
+final SearchResult<CutOffDeliveryDateModel> result = flexibleSearchService
+		.search(query);
+int count = result.getCount();
+LOG.info(""Total record count ######"" +count);
+
+int batch  = count > 10000 ? 10000 : count;
+int i = 0;
+ final File file =new File(""01-cutOffDeliveryDate-""+new SimpleDateFormat(""yyyyMMddHHmmssSSS"").format(new Date())+"".csv"");
+ FileWriter outputfile = new FileWriter(file);
+ CSVWriter writer = new CSVWriter(outputfile);	
+ char c = ',';
+ writer.setFieldseparator(c);
+ HashMap<Integer,Object> line = new HashMap();
+ 
+ String header = ""backendID,\""code[unique=true,allownull=true]\"",\""cutOffDate[allownull=true,dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ]\"",\""deliveryDate[allownull=true,dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ]\"",\""creationtime[forceWrite=true,dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ]\"",\""modifiedtime[forceWrite=true,dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ]\"""";
+ final String[] columns = header.split("",(?=([^\""]*\""[^\""]*\"")*[^\""]*\$)"");
+ for (int k =0; k < columns.length ; k++) {
+	 line.put (Integer.valueOf(k), columns[k]);
+ }
+writer.write(line);
+		while (i < count)
+		{
+			query.setStart(i);
+			query.setCount(batch);
+			final SearchResult<CutOffDeliveryDateModel> result1 = flexibleSearchService
+					.search(query);
+	
+			List<CutOffDeliveryDateModel> cutOffDates = result1.getResult();		
+						for(CutOffDeliveryDateModel cutOffdate : cutOffDates)
+						{
+							try {
+								line.put(Integer.valueOf(0), cutOffdate.getBackendID());
+								line.put(Integer.valueOf(1), cutOffdate.getCode());
+								line.put(Integer.valueOf(2),  null != cutOffdate.getCutOffDate() ? new SimpleDateFormat(""yyyy-MM-dd HH:mm:ss.SSS ZZZZ"").format(cutOffdate.getCutOffDate()) : StringUtils.EMPTY);
+								line.put(Integer.valueOf(3),  null != cutOffdate.getDeliveryDate() ? new SimpleDateFormat(""yyyy-MM-dd HH:mm:ss.SSS ZZZZ"").format(cutOffdate.getDeliveryDate()) : StringUtils.EMPTY);
+								line.put(Integer.valueOf(4), null != cutOffdate.getCreationtime() ? new SimpleDateFormat(""yyyy-MM-dd HH:mm:ss.SSS ZZZZ"").format(cutOffdate.getCreationtime()): StringUtils.EMPTY);
+								line.put(Integer.valueOf(5), null != cutOffdate.getModifiedtime() ? new SimpleDateFormat(""yyyy-MM-dd HH:mm:ss.SSS ZZZZ"").format(cutOffdate.getModifiedtime()): StringUtils.EMPTY);								
+								 writer.write(line);
+							}
+							 
+							  catch(final Exception exception)
+							  {
+								LOG.error(""CutoffDeliveryDate failed in export : "" + cutOffdate.getCode() +exception.getStackTrace());
+							  }
+							}
+							i = i+batch;
+						}
+					
+	writer.close();	
+				 
+	if (file != null  && file.length() > 0) {
+		try {
+			
+				final InputStream fileInputStream = new FileInputStream(file);
+				final CatalogUnawareMediaModel mediaModel = modelService.create(CatalogUnawareMediaModel.class);
+				LOG.info(""Media File Name is : ""+file.getName());
+				mediaModel.setCode(file.getName() + ""_"" + System.currentTimeMillis());
+				mediaModel.setRealfilename(file.getName());
+				modelService.save(mediaModel);
+				mediaService.setStreamForMedia(mediaModel, fileInputStream);
+				modelService.refresh(mediaModel);
+			}
+		        
+        catch (final Exception ex) {
+			LOG.error(""Exception while preparing file for  CutOffDeliveryDates during batch set ""+ ex);
+   }
+		finally {
+			   LOG.info(""Time taken to export Order Entries : "" + stopwatch.toString());
+		   }
+ }";;
+

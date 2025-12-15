@@ -1,0 +1,150 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# ImpEx for Importing Categories into SGA Store
+
+#APC-205
+# Macros / Replacement Parameter definitions
+$productCatalog=sgaProductCatalog
+$productCatalogName=SGA Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$supercategories=source(code, $catalogVersion)[unique=true]
+$categories=target(code, $catalogVersion)[unique=true]
+
+
+# Insert Categories
+INSERT_UPDATE Category ; code[unique=true] ; allowedPrincipals(uid)[default='customergroup'] ; levelOne ; $catalogVersion
+                       ;L00000;                                                 ;                ;                
+                       ;L10001;                                                 ;                ;                
+                       ;L10002;                                                 ;                ;                
+                       ;L20001;                                                 ; true           ;                
+                       ;L20002;                                                 ; true           ;                
+                       ;L20003;                                                 ; true           ;                
+                       ;L20004;                                                 ; true           ;                
+                       ;L20005;                                                 ; true           ;                
+                       ;L20006;                                                 ; true           ;                
+                       ;L20007;                                                 ; true           ;                
+                       ;L20008;                                                 ; true           ;                
+                       ;L30001;                                                 ;                ;                
+                       ;L30002;                                                 ;                ;                
+                       ;L30003;                                                 ;                ;                
+                       ;L30004;                                                 ;                ;                
+                       ;L30005;                                                 ;                ;                
+                       ;L30006;                                                 ;                ;                
+                       ;L30007;                                                 ;                ;                
+                       ;L30008;                                                 ;                ;                
+                       ;L30009;                                                 ;                ;                
+                       ;L30010;                                                 ;                ;                
+                       ;L30011;                                                 ;                ;                
+                       ;L30012;                                                 ;                ;                
+                       ;L30013;                                                 ;                ;                
+                       ;L30014;                                                 ;                ;                
+                       ;L30015;                                                 ;                ;                
+                       ;L30016;                                                 ;                ;                
+                       ;L30017;                                                 ;                ;                
+                       ;L30018;                                                 ;                ;                
+                       ;L30019;                                                 ;                ;                
+                       ;L30020;                                                 ;                ;                
+                       ;L30021;                                                 ;                ;                
+                       ;L30022;                                                 ;                ;                
+                       ;L30023;                                                 ;                ;                
+                       ;L30024;                                                 ;                ;                
+                       ;L30025;                                                 ;                ;                
+                       ;L30026;                                                 ;                ;                
+                       ;L30027;                                                 ;                ;                
+                       ;L30028;                                                 ;                ;                
+                       ;L30029;                                                 ;                ;                
+                       ;L30030;                                                 ;                ;                
+                       ;L30031;                                                 ;                ;                
+                       ;L30032;                                                 ;                ;                
+                       ;L30033;                                                 ;                ;                
+                       ;L30034;                                                 ;                ;                
+                       ;L30035;                                                 ;                ;                                       
+                       ;L30036;                                                 ;                ;                                       
+                       ;L30037;                                                 ;                ;                
+                       ;L30038;                                                 ;                ;                                       
+                       ;L30039;												  				  ;					 ;
+					   	  ;L30040;												   			  ;					 ;
+					   	  ;L30041;												   			  ;					 ;
+					   	  ;L30042;												   			  ;					 ;
+					   	  ;L30043;												   			  ;					 ;
+
+# Insert Category Structure
+INSERT_UPDATE CategoryCategoryRelation ; $categories ; $supercategories;;
+                                       ;L10001;L00000;;
+                                       ;L10002;L00000;;
+                                       ;L20001;L00000;;
+                                       ;L20002;L00000;;
+                                       ;L20003;L00000;;
+                                       ;L20004;L00000;;
+                                       ;L20005;L00000;;
+                                       ;L20006;L00000;;
+                                       ;L20007;L00000;;
+                                       ;L20008;L00000;;
+                                       
+                                       ;L30001;L20001;;
+                                       ;L30002;L20001;;
+                                       ;L30003;L20001;;
+                                       ;L30004;L20001;;
+                                       ;L30005;L20001;;
+                                       ;L30006;L20001;;
+                                       ;L30007;L20001;;
+                                       ;L30008;L20001;;
+                                       ;L30009;L20001;;
+                                       ;L30010;L20001;;
+                                       ;L30011;L20001;;
+                                       ;L30012;L20001;;
+                                       ;L30013;L20001;;
+                                       ;L30014;L20001;;
+                                       ;L30015;L20001;;
+                                       ;L30016;L20001;;
+                                       ;L30017;L20001;;
+                                       ;L30018;L20001;;
+                                       
+                                       ;L30019;L20002;;
+                                       ;L30020;L20002;;
+                                       
+                                       ;L30021;L20004;;
+                                       ;L30022;L20004;;
+                                       ;L30023;L20004;;
+                                       ;L30024;L20004;;
+                                       ;L30025;L20004;;
+                                       ;L30026;L20004;;
+                                       
+                                       ;L30027;L20005;;
+                                       
+                                       ;L30028;L20006;;
+                                       ;L30029;L20006;;
+                                       ;L30030;L20006;;
+                                       ;L30031;L20006;;
+                                       ;L30032;L20006;;
+                                       
+                                       ;L30033;L20003;;
+                                       
+                                       ;L30034;L20007;;
+                                       
+                                       ;L30035;L20008;;
+                                       ;L30036;L20008;;
+                                       ;L30037;L20008;;
+                                       ;L30038;L20007;;
+									   			;L30039;L20008;;
+									   			;L30040;L20008;;
+									   			;L30041;L20001;;
+									   			;L30042;L20001;;
+									   			;L30043;L20001;;
+									   
+# Insert Categories
+INSERT_UPDATE Category ; code[unique=true] ;hideInBreadcrumb;$catalogVersion
+                       ;L10001;true;
+                       ;L10002;true;
+                       
+                       
+                       
+      

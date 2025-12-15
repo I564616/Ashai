@@ -1,0 +1,83 @@
+$oneHour = 3600
+$twoWeeks = 1209600
+$oneDay = 86400
+
+
+
+# Business Processes
+INSERT_UPDATE FlexibleSearchRetentionRule;code[unique=true];searchQuery;retentionTimeSeconds;actionReference;
+                                         ;businessProcessRule;"SELECT {p:pk}, {p:itemtype}
+   FROM {BusinessProcess AS p JOIN ProcessState AS s ON {p:state} = {s:pk} }
+   WHERE
+   {s:code} in ('SUCCEEDED') AND
+   {p:modifiedTime} < ?CALC_RETIREMENT_TIME"; $twoWeeks; basicRemoveCleanupAction;
+INSERT_UPDATE RetentionJob;code[unique=true];retentionRule(code);batchSize
+                          ; businessProcessCleanupJob; businessProcessRule; 1000
+INSERT_UPDATE CronJob;code[unique=true];job(code);sessionLanguage(isoCode)[default=en]
+                     ; businessProcessCleanupCronJob; businessProcessCleanupJob;
+INSERT_UPDATE Trigger; cronJob(code)[unique = true]   ; cronExpression
+                     ; businessProcessCleanupCronJob ; 0 0 15 ? * *
+
+#Cronjob Histories
+INSERT_UPDATE FlexibleSearchRetentionRule;code[unique=true];searchQuery;retentionTimeSeconds;actionReference;
+                                         ;cronjobHistoryRule;"select {h:pk}, {h:itemtype}
+   from {CronjobHistory as h}
+   where
+   {h:endTime} < ?CALC_RETIREMENT_TIME"; $oneHour; basicRemoveCleanupAction;
+INSERT_UPDATE RetentionJob;code[unique=true];retentionRule(code);batchSize
+                          ; cronjobHistoryCleanupJob; cronjobHistoryRule; 1000
+INSERT_UPDATE CronJob;code[unique=true];job(code);sessionLanguage(isoCode)[default=en]
+                     ; cronjobHistoryCleanupCronJob; cronjobHistoryCleanupJob;
+INSERT_UPDATE Trigger; cronJob(code)[unique = true]   ; cronExpression
+                     ; cronjobHistoryCleanupCronJob ; 0 0 16 ? * *
+
+#Cronjobs
+INSERT_UPDATE FlexibleSearchRetentionRule;code[unique=true];searchQuery;retentionTimeSeconds;actionReference;
+                                         ; cronjobCleanupRule;"select {c:pk}, {c:itemType}
+ from {CronJob as c join ComposedType as t on {c:itemtype} = {t:pk} left join Trigger as trg on {trg:cronjob} = {c:pk} }
+ where
+   {trg:pk} is null and
+   {c:code} like '000_____%' and
+   {t:code} in ( 'ImpExImportCronJob', 'CatalogVersionSyncCronJob', 'SolrIndexerCronJob' ) and
+   {c:endTime} < ?CALC_RETIREMENT_TIME"; $twoWeeks; basicRemoveCleanupAction;
+INSERT_UPDATE RetentionJob;code[unique=true];retentionRule(code);batchSize
+                          ; cronjobRetentionJob; cronjobCleanupRule; 1000
+INSERT_UPDATE CronJob;code[unique=true];job(code);sessionLanguage(isoCode)[default=en]
+                     ; cronjobRetentionCronJob; cronjobRetentionJob;
+INSERT_UPDATE Trigger; cronJob(code)[unique = true]   ; cronExpression
+                     ; cronjobRetentionCronJob ; 0 0 17 * * ?
+
+#Cronjob Logs
+INSERT_UPDATE CronJob;code[unique=true];job(code);sessionLanguage(isoCode)[default=en]
+                     ; cronjobLogCleanupCronjob; cleanUpLogsJobPerformable;
+INSERT_UPDATE Trigger; cronJob(code)[unique = true];cronExpression
+                     ; cronjobLogCleanupCronjob ; 0 0 18 ? * *
+
+#ImpexMedia
+INSERT_UPDATE FlexibleSearchRetentionRule;code[unique=true];searchQuery;retentionTimeSeconds;actionReference;
+                                         ;impexMediaCleanupRule;"select {i:pk}, {i:itemtype}
+   from {ImpexMedia as i}
+   where
+   {i:code} like '000_____' and
+   {i:modifiedTime} < ?CALC_RETIREMENT_TIME"; $twoWeeks; basicRemoveCleanupAction;
+INSERT_UPDATE RetentionJob;code[unique=true];retentionRule(code);batchSize
+                          ; impexMediaCleanupJob; impexMediaCleanupRule; 1000
+INSERT_UPDATE CronJob;code[unique=true];job(code);sessionLanguage(isoCode)[default=en]
+                     ; impexMediaCleanupCronJob; impexMediaCleanupJob;
+INSERT_UPDATE Trigger; cronJob(code)[unique = true]   ; cronExpression
+                     ; impexMediaCleanupCronJob ; 0 0 19 ? * *
+
+#Stored HTTP Sessions
+INSERT_UPDATE FlexibleSearchRetentionRule;code[unique=true];searchQuery;retentionTimeSeconds;actionReference;
+                                         ;storedSessionRule;"select {s:pk}, {s:itemtype}
+   from {StoredHttpSession as s}
+   where
+   {s:modifiedTime} < ?CALC_RETIREMENT_TIME"; $oneDay; basicRemoveCleanupAction;
+INSERT_UPDATE RetentionJob;code[unique=true];retentionRule(code);batchSize
+                          ; storedSessionCleanupJob; storedSessionRule; 1000
+INSERT_UPDATE CronJob;code[unique=true];job(code);sessionLanguage(isoCode)[default=en]
+                     ; storedSessionCleanupCronJob; storedSessionCleanupJob;
+INSERT_UPDATE Trigger; cronJob(code)[unique = true]   ; cronExpression
+                     ; storedSessionCleanupCronJob ; 0 0 20 ? * *
+
+

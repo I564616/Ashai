@@ -1,0 +1,18 @@
+$catalogVersion=catalogVersion(catalog(id[default=sgaContentCatalog]), version[default=Staged])[default=sgaContentCatalog:Staged][unique=true]
+
+insert_update MessageItem;messageCategory(code)[allownull=true];uid[unique=true];$catalogVersion;messageValue[lang=en][translator=com.apb.core.translators.AsahiMessageImpexTranslator];
+;Label;basket.save.cart.on.success.apb;;Success! Your current shopping cart has been saved as an Order Template. View, edit or place this order again by visiting <a href="/storefront/sga/en/AUD/my-account/saved-carts">My Order Templates</a>;
+;Label;text.mobile.applied.facet.filter.clearall.apb;;Clear All Filters;
+;Label;text.desktop.applied.facet.filter.clearall.apb;;Clear All;
+;Label;text.account.orderHistory.apb;;My Order History;
+;Label;text.line1.account.orderHistory.noOrders.apb;;You have no historical orders;
+;Label;text.line2.account.orderHistory.noOrders.apb;;Once you have submitted an order you will be able to see it here;
+;Label;text.line1.account.orderHistory.Orders.apb;;Below are all of your orders. You can view order details, check an order status and / or reorder.;
+;Label;text.line2.account.orderHistory.Orders.apb;;Please contact the 1800 090 378 for any modifications or cancellations to an existing order.;
+;Label;basket.import.products.from.template.apb;;Import products from My Order Templates;
+;Label;basket.save.cart.name.apb;;Frequent Purchase? Keep this cart as an Order Template:;
+;Label;product.detail.sku.id.apb;;SKU ID;
+;Label;basket.already.save.cart.on.error.apb;;There's already an Order Template with this name. Please pick another title.;
+;Label;basket.save.invalid.cart.on.error.apb;;Order Template name can only be alpha numeric and cannot be empty;
+;Label;order.template.list.heading.apb;;Place your order with just a few clicks. From here you can repeat an order, review saved items and adjust the quantities you need.;
+;Label;asahi.empty.cart.message.apb;;Your cart's empty. Starting an order is simple.<br/> <br/>You can: <ul> <li class="empty-mini-cart-li">Search for available products using the search function and navigation bar</li> <li class="empty-mini-cart-li">Select products from your <b><a href="/storefront/sga/en/AUD/my-account/orders" class="site-anchor-link">Order History </a></b> and add to cart or,</li> <li class="empty-mini-cart-li">Choose one of your <b><a href="/storefront/sga/en/AUD/my-account/saved-carts" class="site-anchor-link"> Order Templates </a></b>to quickly and easily fill up your cart.</li></ul>;

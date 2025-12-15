@@ -1,0 +1,426 @@
+## messageSource=classpath:/sabmcore/messages/email-requestRegistration_$lang.properties
+#macro(genHtmlLinkStartTag $url)
+<a href="$url"><font color="#666666">
+#end
+#macro(genHtmlLinkEndTag)
+</font></a>
+#end
+#macro(genHtmlLink $url $textColor $bodyContent)
+<a href="$url"><font color="$textColor">$bodyContent</font></a>
+#end
+
+<html>
+	<head>
+	</head>
+	<body bgcolor="#ffffff">
+	<table width="50%" cellpadding="0" cellspacing="0" align="center" bgcolor="#ffffff">
+		<tr>
+		 <td style="border:1px solid #42515a;display:inline-table">
+			<table cellpadding="0" cellspacing="0" border="0" style="min-width:320px;display:inline-table"" align="center" bgcolor="#ffffff">
+				<tr>
+					<td align="left" colspan="6">
+						<a href="${ctx.baseUrl}" style="padding: 0px 0px 0px 0px;display:inline-block;margin:0 auto;">
+						    ${ctx.cmsSlotContents.TopContent}
+						</a>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="5" valign="middle" style="font-weight:bold;font-family: Helvetica;color: #42515a;font-size: 18px;padding: 20px 0px 0px 10px;">
+						${ctx.messages.new-registration}						
+						<table width="6%" cellpadding="0" cellspacing="0" border="0" valign="10px" >
+							<tr>
+								<td style="width: 10px;margin-top: 5px;border-bottom: 3px solid #42515a;padding:4px"> 							
+								</td>
+							</tr>
+						</table> 
+					</td>
+				</tr> 
+				<tr><td>&nbsp;</td></tr>
+				<tr>
+					<td colspan="6" style="background-color: #EBEBEB;font-size: 15px;font-weight: bold;font-family: Helvetica;padding: 5px 0px 5px 10px;color: #42515a">
+							${ctx.messages.request-register-account-information}
+					</td>
+				</tr>				
+				<tr>
+					<td colspan="6" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+							<b>${ctx.messages.request-register-outletName}</b><br>
+							${ctx.requestRegisterData.outletName}
+					</td>					 
+				</tr>
+				<tr>
+					<td colspan="6" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+						<b>${ctx.messages.request-register-tradingName}</b><br>
+						${ctx.requestRegisterData.tradingName}	 
+					</td>					 
+				</tr>
+				<tr>
+					<td colspan="6" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+						<b>${ctx.messages.request-register-companyName}</b><br>
+						${ctx.requestRegisterData.companyName}	 
+					</td>					 
+				</tr>
+				<tr>
+					<td colspan="6" style="background-color: #EBEBEB;font-size: 15px;font-weight: bold;font-family: Helvetica;padding: 5px 0px 5px 10px;color: #42515a">
+						${ctx.messages.request-register-invoice-address}
+					</td>
+				</tr>
+				<tr>
+					<td width="20%" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+						  <b>${ctx.messages.request-register-streetNumber}</b><br>
+						  ${ctx.requestRegisterData.streetNumber}
+					</td>	
+					<td width="20%" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+						 <b>${ctx.messages.request-register-streetName}</b><br>
+						  ${ctx.requestRegisterData.streetName}
+					</td>	
+					<td colspan="4"> &nbsp;	</td>					
+				</tr>
+				<tr>
+					<td width="20%" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+						<b>${ctx.messages.request-register-streetAbreviation}</b><br>
+						${ctx.requestRegisterData.streetAbreviation}
+					</td>	
+					<td width="20%" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+						<b>${ctx.messages.request-register-unitNoShopNo}</b><br>
+						${ctx.requestRegisterData.unitNoShopNo}
+					</td>
+					<td width="20%" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+						<b>${ctx.messages.request-register-level}</b><br>
+						${ctx.requestRegisterData.level}
+					</td>					
+					<td colspan="3"> &nbsp;	</td>					
+				</tr>
+				 <tr>
+					<td width="20%" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+						<b>${ctx.messages.request-register-suburb}</b><br>
+						${ctx.requestRegisterData.suburb}
+					</td>	
+					<td width="20%" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+						<b>${ctx.messages.request-register-stateInvoice}</b><br>
+						${ctx.requestRegisterData.stateInvoice}
+					</td>
+					<td width="20%" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+						<b>${ctx.messages.request-register-postcodeInvoice}</b><br>
+						${ctx.requestRegisterData.postcodeInvoice}
+					</td>					
+					<td colspan="3"> &nbsp;	</td>					
+				</tr>
+				<tr>
+					<td width="20%" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+						<b>${ctx.messages.request-register-contactName}</b><br>
+						${ctx.requestRegisterData.contactName}
+					</td>	
+					<td width="20%" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+						<b>${ctx.messages.request-register-alternateContact}</b><br>
+						${ctx.requestRegisterData.alternateContact}
+					</td>	
+					<td colspan="4"> &nbsp;	</td>					
+				</tr>
+				<tr>
+					<td width="20%" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+						<b>${ctx.messages.request-register-phoneNoInvoice}</b><br>
+						${ctx.requestRegisterData.phoneNoInvoice}
+					</td>	
+					<td colspan="5"> &nbsp;	</td>					
+				</tr>				
+				<tr>
+					<td width="20%" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+						<b>${ctx.messages.request-register-alternativePhoneNo}</b><br>
+						${ctx.requestRegisterData.alternativePhoneNo}
+					</td>	
+					<td width="20%" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+						<b>${ctx.messages.request-register-warehouseNo}</b><br>
+						${ctx.requestRegisterData.warehouseNo}
+					</td>	
+					<td colspan="4"> &nbsp;	</td>					
+				</tr>
+				<tr>
+					<td width="20%" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+						<b>${ctx.messages.request-register-emailAddress}</b><br>
+						${ctx.requestRegisterData.emailAddress}
+					</td>						
+					<td colspan="5"> &nbsp;	</td>					
+				</tr>
+				<tr>
+					<td width="20%" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+						<b>${ctx.messages.request-register-abn}</b><br>
+						${ctx.requestRegisterData.abn}
+					</td>	
+					<td width="20%" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+						<b>${ctx.messages.request-register-liquorLicense}</b><br>
+						${ctx.requestRegisterData.liquorLicense}
+					</td>	
+					<td colspan="4"> &nbsp;	</td>					
+				</tr>
+				<tr>
+					<td width="20%" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+						<b>${ctx.messages.request-register-acn}</b><br>
+						${ctx.requestRegisterData.acn}
+					</td>						
+					<td colspan="5"> &nbsp;	</td>					
+				</tr>
+				<tr>
+					<td colspan="6" style="background-color: #EBEBEB;font-size: 15px;font-weight: bold;font-family: Helvetica;padding: 5px 0px 5px 10px;color: #42515a">
+						${ctx.messages.request-register-delivery-address}
+					</td>
+				</tr>
+					<tr>
+					<td width="50%" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+						#if(${ctx.requestRegisterData.sameasInvoiceAddress} == "true")
+							#set ( $invoice = 'Yes' )
+							#else
+							#set ($invoice = "No")
+							#end							
+							<b> ${ctx.messages.request-register-sameasInvoiceAddress}</b> $invoice -
+					</td>					
+					<td colspan="5"> &nbsp;	</td>					
+				</tr>
+			
+				<tr>
+					<td width="20%" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+						<b>${ctx.messages.request-register-shippingStreet}</b><br>
+						${ctx.requestRegisterData.shippingStreet}
+					</td>
+					<td width="20%" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+						<b>${ctx.messages.request-register-shippingSuburb}</b>	<br>
+						${ctx.requestRegisterData.shippingSuburb}
+					</td>	
+					<td colspan="4"> &nbsp;	</td>		
+				</tr>
+				<tr>
+					<td width="20%" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+						<b>${ctx.messages.request-register-stateDelivery}</b><br>
+						${ctx.requestRegisterData.stateDelivery}
+					</td>
+					<td width="20%" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+						<b>${ctx.messages.request-register-deliveryInstructions}</b><br>
+						${ctx.requestRegisterData.postcodeDelivery}
+					</td>					
+					<td colspan="4"> &nbsp;	</td>					
+				</tr>
+				<tr>
+					<td colspan="6" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+						<b>${ctx.messages.request-register-deliveryInstructions}</b><br>
+						${ctx.requestRegisterData.deliveryInstructions}
+					</td>																
+				</tr>
+				
+				<tr>
+					<td colspan="6" style="background-color: #EBEBEB;font-size: 15px;font-weight: bold;font-family: Helvetica;padding: 5px 0px 5px 10px;color: #42515a">
+						${ctx.messages.request-register-application-traiding}
+					</td>
+				</tr>
+				#if(${ctx.requestRegisterData.trust} == "true")
+					#set ( $trustFlag = 'Yes' )
+					#else
+					#set ( $trustFlag = 'No' )
+				#end
+				<tr>
+					<td colspan="6" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+					<b>${ctx.messages.request-register-application-traiding-trustee}</b>&nbsp;&nbsp;$trustFlag<br>
+					</td>																
+				</tr>
+				
+				#if($trustFlag == "Yes")
+					<tr>
+						<td width="20%" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+							<b>${ctx.messages.request-register-traiding-trust}</b><br>
+							${ctx.requestRegisterData.trustName}
+						</td>	
+						<td colspan="5" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+							<b>${ctx.messages.request-register-traiding-trust-deed}</b><br>
+							<b>${ctx.messages.request-register-traiding-trust-deed-attached}</b> ${ctx.requestRegisterData.pdfFileName}
+						</td>										
+					</tr>
+					<tr>
+						<td width="20%" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+							<b>${ctx.messages.request-register-traiding-trust-abn}</b><br>
+							${ctx.requestRegisterData.trustAbn}
+						</td>						
+						<td colspan="5"> &nbsp;	</td>					
+					</tr>					
+				#end				
+			
+			<tr>
+				<td width="20%" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+					<b>${ctx.messages.request-register-traiding-typeofentity}</b><br>
+					${ctx.requestRegisterData.typeofEntity}
+				</td>	
+				<td colspan="5" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+					<b>${ctx.messages.request-register-traiding-typeofbusiness}</b><br>
+					${ctx.requestRegisterData.typeofBusiness}					 
+				</td>								
+			</tr>
+			
+			
+			
+			<tr>
+				<td width="20%" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+					<b>${ctx.messages.request-register-traiding-lpa}</b><br>
+						#if(${ctx.requestRegisterData.sameasDeliveryAddressLPA} == "true")
+								#set ( $deliveryLPA = 'Yes' )
+							#else
+								#set ($deliveryLPA = "No")
+						#end
+						<b>${ctx.messages.request-register-same-as-delivery-address}</b> $deliveryLPA 
+						<br>
+						<br>${ctx.requestRegisterData.licensedPremisesAddress}
+				</td>	
+				<td colspan="5"> &nbsp;	</td>					
+			</tr>
+			
+			<tr>
+				<td width="20%" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+					<b>${ctx.messages.request-register-traiding-dbe}</b><br>
+					${ctx.requestRegisterData.dateBusinessEstablished}
+				</td>	
+				<td colspan="5"> &nbsp;	</td>					
+			</tr>
+			<tr>
+				<td width="20%" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+					<b>${ctx.messages.request-register-traiding-licensee}</b><br>
+					${ctx.requestRegisterData.licensee}
+					 
+				</td>	
+				<td  colspan="5" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+					<b>${ctx.messages.request-register-traiding-bannergroup}</b><br>
+					${ctx.requestRegisterData.bannerGroup}					 
+				</td>										
+			</tr>
+			<tr>
+				<td width="20%" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+					<b>${ctx.messages.request-register-traiding-daep-ll}</b><br>
+					${ctx.requestRegisterData.dateandExpiryofLiquorLicense}
+					 
+				</td>					
+				<td colspan="5"> &nbsp;	</td>					
+			</tr>
+			<tr>
+				<td width="20%" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+					<b>${ctx.messages.request-register-traiding-purchasing-officer}</b><br>
+					${ctx.requestRegisterData.purchasingOfficer}
+					 
+				</td>	
+				<td width="20%" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+					<b>${ctx.messages.request-register-traiding-accounts-contacts}</b><br>
+					${ctx.requestRegisterData.accountsContact}
+					 
+				</td>	
+				<td colspan="4"> &nbsp;	</td>					
+			</tr>
+			
+				
+			<tr>
+				<td colspan="6" style="background-color: #EBEBEB;font-size: 15px;font-weight: bold;font-family: Helvetica;padding: 5px 0px 5px 10px;color: #42515a">
+					${ctx.messages.request-register-individuals}
+				</td>
+			</tr>
+			<tr>
+				<td width="20%" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+						<b>${ctx.messages.request-register-individuals-name}</b><br>
+						${ctx.requestRegisterData.name}
+					</td>	
+					<td width="20%" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+						<b>${ctx.messages.request-register-individuals-position}</b><br>
+						${ctx.requestRegisterData.position}
+					</td>	
+					<td colspan="4"> &nbsp;	</td>					
+			</tr>
+			<tr>
+				<td width="20%" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+						<b>${ctx.messages.request-register-individuals-address}</b><br>
+						${ctx.requestRegisterData.address}
+					</td>	
+					<td width="20%" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+						<b>${ctx.messages.request-register-individuals-phone}</b><br>
+						${ctx.requestRegisterData.phoneNo}
+					</td>	
+					<td colspan="4"> &nbsp;	</td>					
+			</tr>
+			
+			<tr>
+				<td width="20%" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+					<b>${ctx.messages.request-register-individuals-date-of-birth}</b><br>
+					${ctx.requestRegisterData.dateofBirth}
+				</td>	
+				<td colspan="5"> &nbsp;	</td>					
+			</tr>
+			
+			
+					
+			#set ( $name1 = ${ctx.requestRegisterData.name1})
+			#set ( $position1 = ${ctx.requestRegisterData.position1})
+			#set ( $address1 = ${ctx.requestRegisterData.address1})
+			#set ( $phoneNo1 = ${ctx.requestRegisterData.phoneNo1})
+			#set ( $dateofBirth1 = ${ctx.requestRegisterData.dateofBirth1})
+			#if(!$name1.isEmpty() && !$position1.isEmpty() && !$address1.isEmpty() && !$phoneNo1.isEmpty() && !$dateofBirth1.isEmpty())			
+			<tr>
+				<td colspan="6" style="color: #42515a;font-size: 15px;font-weight:bold;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+					${ctx.messages.request-register-individuals-add-another}
+				</td>
+			</tr>	
+				<tr>
+					<td width="20%" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+							<b>${ctx.messages.request-register-individuals-name}</b><br>$name1
+							 
+						</td>	
+						<td width="20%" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+							<b>${ctx.messages.request-register-individuals-position}</b><br>$position1
+						</td>	
+						<td colspan="4"> &nbsp;	</td>					
+				</tr>	
+				
+				<tr>
+					<td width="20%" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+							<b>${ctx.messages.request-register-individuals-address1}</b><br>$address1
+							 
+						</td>	
+						<td width="20%" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+							<b>${ctx.messages.request-register-individuals-phone1}</b><br>$phoneNo1
+						</td>	
+						<td colspan="4"> &nbsp;	</td>					
+				</tr>
+				<tr>
+						<td width="20%" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+							<b>${ctx.messages.request-register-individuals-date-of-birth}</b><br>$dateofBirth1
+						</td>	
+						<td colspan="5"> &nbsp;	</td>					
+				</tr>
+			#end 			 
+			<tr>
+				<td colspan="6" style="background-color: #EBEBEB;font-size: 15px;font-weight: bold;font-family: Helvetica;padding: 5px 0px 5px 10px;color: #42515a">
+					${ctx.messages.request-register-references}
+				</td>
+			</tr>
+			<tr>
+				<td width="20%" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+						<b>${ctx.messages.request-register-references-bank}</b><br>
+						${ctx.requestRegisterData.bankBranch}
+					</td>	
+					<td width="20%" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+						<b>${ctx.messages.request-register-references-contact}</b><br>
+						${ctx.requestRegisterData.contact}
+					</td>	
+					<td colspan="4"> &nbsp;	</td>					
+			</tr>
+			<tr>
+				<td width="20%" style="color: #42515a;font-size: 15px;font-family: Helvetica;color: #42515a;padding: 10px 0px 0px 10px;margin: 7px 0px 10px 0px;">
+						<b>${ctx.messages.request-register-references-phone-no}</b><br>
+						${ctx.requestRegisterData.phoneNoReference}
+					</td>	
+					 
+					<td colspan="5"> &nbsp;	</td>					
+			</tr>		 
+			<tr>
+				<td colspan="6">
+					<br><a href="${ctx.baseUrl}" style="padding: 0px 0px 0px 0px;">
+						${ctx.cmsSlotContents.BottomContent}
+				</a>
+				</td>
+			</tr>
+			</table>
+		</td>
+	  </tr>
+	</table>				 
+</body>
+</html>

@@ -1,0 +1,17 @@
+<action-definition id="com.sabmiller.cockpitng.action.pickupconfirmation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:noNamespaceSchemaLocation="http://www.hybris.com/schema/cockpitng/action-definition.xsd">
+
+    <name>PickupConfirmation</name>
+    <description>Pickup Confirmation</description>
+    <author>Ken Silva</author>
+    <version>0.1</version>
+
+    <actionClassName>com.sabmiller.cockpitng.actions.PickupConfirmationAction</actionClassName>
+
+    <inputType>java.lang.Object</inputType>
+    <outputType>java.lang.Object</outputType>
+
+    <iconUri>icons/icon_confirm_pickup_enabled.png</iconUri>
+    <iconDisabledUri>icons/icon_confirm_pickup_disabled.png</iconDisabledUri>
+
+</action-definition>

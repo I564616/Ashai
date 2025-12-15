@@ -1,0 +1,2 @@
+insert AsahiDirectDebitPmtTrans,accountName,accountNumber,bsb,code[allownull=true],currency(isocode),"info(code,user(uid))","paymentMode(code,itemtype(code))",paymentProvider,plannedAmount,"region(country(isocode),isocode)",requestId,requestToken,suburb,versionID[forceWrite=true]
+,,,,00000000,,hnbbuwb44nj4nwqep6qq:test@test.com,DEBIT_CREDIT_CARD:AsahiDirectDebitPaymentMode,,,,,hnbbuwb44nj4nwqep6qq,,

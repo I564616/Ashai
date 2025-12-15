@@ -1,0 +1,2 @@
+INSERT_UPDATE Media,mediaFormat(qualifier),code[unique=true],"catalogversion(catalog(id),version)[unique=true]",mime,realfilename,@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true],folder(qualifier)[default=images]
+,SABMZoomFormat,/1200Wx1200H/00377,apbProductCatalog:Staged,image/png,00377,8797451583518.png,images

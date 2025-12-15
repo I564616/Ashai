@@ -1,0 +1,24 @@
+import com.sabmiller.core.model.SABMAlcoholProductModel
+import com.sabmiller.core.model.SABMAlcoholVariantProductEANModel
+import de.hybris.platform.catalog.model.CatalogModel
+import org.apache.commons.lang.BooleanUtils
+import java.lang.String;
+
+fss = spring.getBean("flexibleSearchService")
+ms = spring.getBean("modelService")
+ps = spring.getBean("productService")
+cs = spring.getBean("catalogVersionDeterminationStrategy")
+
+//alcoholProducts = fss.search("SELECT {alcoholProduct.pk} from {SABMAlcoholProduct AS alcoholProduct LEFT JOIN CatalogVersion AS catalog ON {alcoholProduct.catalogversion} = {catalog.PK}} WHERE {catalog.version} = 'Staged'").result
+materials = fss.search("Select {material.pk} from {SABMAlcoholVariantProductMaterial AS material LEFT JOIN CatalogVersion AS catalog ON {material.catalogversion} = {catalog.PK}} where {catalog.version} = 'Staged'").result
+
+out.println(String.format("Found [%d] SAP materials.", materials.size()))
+out.println(String.format("Material|Hierarchy|EAN|L4|L5|L6|L1 CODE|L1|L2|L3|BRAND|SUB-BRAND"))
+
+for (material in materials) {
+    hierarchyCode = material.hierarchy;
+    ean = material.baseProduct;
+    alc = ean.baseProduct;
+    
+    out.println(String.format("%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s", material.code, hierarchyCode, ean.code, ean.level4, ean.level5, ean.level6, alc.code, alc.level1, alc.level2, alc.level3, alc.brand, alc.subBrand))
+}

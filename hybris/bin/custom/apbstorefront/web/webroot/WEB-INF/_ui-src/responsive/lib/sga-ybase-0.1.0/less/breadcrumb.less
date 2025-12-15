@@ -1,0 +1,38 @@
+//
+// Breadcrumbs
+// --------------------------------------------------
+
+
+.breadcrumb-section{
+	background: @breadcrumb-bg;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin: 0px -10px; 
+    
+    @media (max-width: @screen-sm-max) {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+	.breadcrumb{
+		font-size: 14px;
+		font-weight: normal;  // Added to match visual design. @SM
+		text-transform: capitalize;
+		margin: 0;
+        padding: 15px 0px;
+		
+		> .active {
+			&::before {
+				font-weight: normal !important;
+			}
+		}
+	}
+}
+
+.breadcrumb > li {
+    display: initial;
+}
+
+.lowercase-breadcrumb {
+	text-transform: none !important;
+}

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:file="http://www.springframework.org/schema/integration/file"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/integration
+		http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/integration/file
+		http://www.springframework.org/schema/integration/file/spring-integration-file.xsd
+		http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+		
+    <context:annotation-config/>
+	
+	<!-- Macro header for sga-->
+	<bean id="sga_defaultImpexProductHeader" class="java.lang.String">
+		<constructor-arg>
+			<value># ImpEx for importing data into sgaProductCatalog
+				$catalogVersion=catalogversion(catalog(id[default=sgaProductCatalog]),version[default='Staged'])[unique=true]
+				$approved=approvalstatus(code)[default='approved']
+				$supercategories=supercategories(code,$catalogVersion)
+				$lang=$LANGUAGE$</value>
+		</constructor-arg>
+	</bean>
+
+	<!-- SGA Specific product converters mapping start -->
+	<bean id="batchSgaProductConverterMapping" 
+		  class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.mapping.impl.DefaultConverterMapping" 
+		  p:mapping="sga_base_product" 
+		  p:converter-ref="batchSgaProductConverter"/>
+		  
+	
+		  
+  	<bean id="batchSgaProductDescriptionConverterMapping" 
+		  class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.mapping.impl.DefaultConverterMapping" 
+		  p:mapping="sga_product_description" 
+		  p:converter-ref="batchSgaProductDescriptionConverter"/>	  
+	
+	<!-- SGA Specific product converters mapping end --> 
+		  
+	<!-- SGA specific product converters start -->
+	
+	<!-- TO DO: Remove the sgaField attribute after proper testing -->
+		
+	<bean id="batchSgaProductConverter" class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.impl.DefaultImpexConverter">
+		<property name="header">
+			<value>#{sga_defaultImpexProductHeader}
+				# Insert Products
+				INSERT_UPDATE ApbProduct ; code[unique=true] ;varianttype(code) ; $supercategories[collection-delimiter=|]; minQty[default=0] ; maxQty[default=50] ; depth[default=10] ; height[default=10] ; portalUnitVolume(code) ; standardPalletQuantity[default=60] ; qtyPerLayer[default=10] ; unitPerInner[default=6] ; venue ; diet ; packageType(code) ; flavour(code); brand(code) ;packageSize(code);backendName;rank;companyCode;backendUnitPerCase;backendUnitVolume;itemGroup(code);$approved; sequenceId[translator=de.hybris.platform.acceleratorservices.dataimport.batch.converter.SequenceIdTranslator] ; $catalogVersion
+			</value>
+		</property>
+		<property name="impexRow">
+			<value>;{+0};{1};{2};{3};{4};{5};{6};{7};{8};{9};{10};{11};{12};{13};{14};{15};{16};{17};{18};{19};{20};{21};{22};{23};{S}</value>
+		</property>
+		<property name="rowFilter">
+			<bean class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.impl.DefaultImpexRowFilter">
+				<property name="expression" value="!row[1]"/>
+			</bean>
+		</property>
+		<property name="type" value="ApbProduct"/>
+	</bean>
+	
+	<bean id="batchSgaProductDescriptionConverter" class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.impl.DefaultImpexConverter">
+		<property name="header">
+			<value>#{sga_defaultImpexProductHeader}
+				# Insert Products
+				UPDATE ApbProduct ; code[unique=true] ;name[lang=$lang];backendName[lang=$lang] ; description[lang=$lang];productDetail[lang=$lang] ; $catalogVersion
+			</value>
+		</property>
+		<property name="impexRow">
+			<value>;{+0};{1};{2};{3};{4}</value>
+		</property>
+	</bean>
+	
+		<!-- SGA specific product converters End -->
+	
+</beans>

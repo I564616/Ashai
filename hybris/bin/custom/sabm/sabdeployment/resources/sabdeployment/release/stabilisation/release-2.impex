@@ -1,0 +1,17 @@
+# Import config properties into impex macros
+UPDATE GenericItem[processor = de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor]; pk[unique = true]
+# Module gen config
+$triggeSched = $config-com.sabmiller.webservice.customer.helper.impl.dealassigneerecalculationstrategyimpl.initialcronexpression
+
+INSERT_UPDATE Trigger; cronJob(code)[unique = true]; cronExpression
+                     ; complexDealNormalisationJob ; $triggeSched
+
+INSERT_UPDATE ServicelayerJob;code[unique=true];springId[unique=true]
+                     ;sabmOrderCleanUpPerformable;sabmOrderCleanUpPerformable
+
+#setting expiry of 3 months (548 days)
+INSERT_UPDATE OldSABMUserAccessHistoryRemovalCronJob;code[unique=true];job(code);sessionLanguage(isocode);age;batchSize;active
+                                                    ;SabmOrderCleanUpCronJob;sabmOrderCleanUpPerformable;en;548;1000;true
+
+INSERT_UPDATE Trigger; cronJob(code)[unique = true]       ; cronExpression   ; relative; active; maxAcceptableDelay
+                     ; SabmOrderCleanUpCronJob            ; 0 0 10 ? * MON,TUE,FRI,SAT *   ; false   ; true  ; -1

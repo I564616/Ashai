@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="urn:gl.sabmiller.com:com:3rdp:transdata" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="urn:gl.sabmiller.com:com:3rdp:transdata">
+    <xsd:complexType name="InvoiceList_Response">
+        <xsd:sequence>
+            <xsd:element name="Invoice">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="SoldTo" type="xsd:string" minOccurs="0" />
+                        <xsd:element name="DateStart" type="xsd:string" minOccurs="0" />
+                        <xsd:element name="DateEnd" type="xsd:string" minOccurs="0" />
+                        <xsd:element name="InvoiceNumber" type="xsd:string" maxOccurs="unbounded" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

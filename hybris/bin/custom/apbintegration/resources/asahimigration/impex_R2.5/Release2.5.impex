@@ -1,0 +1,197 @@
+####################################### HC-1613 Maximum Weekly Order Quantities start ##############################################
+
+INSERT_UPDATE Configuration ; configKey[unique=true]                     ; configValue                           
+							; cub.max.order.qty.rule.days                ; 7
+
+#######################################	HC-1613 Maximum Weekly Order Quantities end #########################################
+
+####################################### HC-1619 Asahi Credit Team Contact update ##############################################							
+INSERT_UPDATE Configuration ; configKey[unique=true]                     ; configValue 
+							;contactus.customerservice.phoneno.sga.INCORRECT_CHARGE  ; 1300 127 244 (Monday - Friday, 9am - 6pm AEST)
+							;contactus.customerservice.phoneno.sga.MANAGE_ACC.REQ_PAYMENT_PLAN; 1300 127 244 (Monday - Friday, 9am - 6pm AEST)
+							;contactus.customerservice.sga.ASSISTANCE.PRODUCT_INFO; Asahi Contact Centre
+                            ;contactus.customerservice.sga.ASSISTANCE.OTHER; Asahi Contact Centre
+                            ;contactus.customerservice.phoneno.sga.ASSISTANCE.OTHER;1300 127 244 (Monday - Friday, 9am - 6pm AEST)
+                            ;contactus.customerservice.phoneno.sga.ASSISTANCE.PRODUCT_INFO;1300 127 244 (Monday - Friday, 9am - 6pm AEST)
+####################################### HC-1619 Asahi Credit Team Contact update ##############################################	
+
+####################################### HC-1650 change in email body start###########################################################						
+$contentCatalog=sgaContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/coredata/contentCatalogs/sgaContentCatalog/emails
+$lang=en
+
+UPDATE RendererTemplate ; code[unique=true]								; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+						; asahi_Email_NoDelivery__Body 				; $jarEmailResource/email-asahiNoDeliveryBody.vm
+						; asahi_Email_AlternateCallDay__Body      	; $jarEmailResource/email-asahiAlternateCallDayBody.vm
+						; asahi_Email_AlternateDeliveryDate__Body 	; $jarEmailResource/email-asahiAlternateDeliveryDateBody.vm
+
+$contentCatalog=sgaContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Online])[default=$contentCatalog:Online]
+$jarEmailResource=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/coredata/contentCatalogs/sgaContentCatalog/emails
+$lang=en
+
+UPDATE RendererTemplate ; code[unique=true]								; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+						; asahi_Email_NoDelivery__Body 				; $jarEmailResource/email-asahiNoDeliveryBody.vm
+						; asahi_Email_AlternateCallDay__Body      	; $jarEmailResource/email-asahiAlternateCallDayBody.vm
+						; asahi_Email_AlternateDeliveryDate__Body 	; $jarEmailResource/email-asahiAlternateDeliveryDateBody.vm
+####################################### HC-1650 change in email body end ###########################################################	
+
+
+####################################### Start - HC-1595 Send ALB user accounts from Hybris to Salesforce   ############################
+$defaultLanguage=en
+INSERT_UPDATE Configuration ; configKey[unique=true]                                       ; configValue                                         
+                            ;integration.userstosf.service.url.sga						   ; 
+                            ;integration.salesforce.users.batchsize.sga					   ; 50
+                            ;integration.salesforce.users.enable                           ; false
+                            
+INSERT_UPDATE CronJob;code[unique=true]			;job(code)					;sessionLanguage(isoCode);active[default=false]
+					 ;asahiSendUsersToSFJob 	;asahiSendUsersToSFJob		;$defaultLanguage
+					 ;asahiSendAllUsersToSFJob	;asahiSendAllUsersToSFJob	;$defaultLanguage
+					 
+INSERT_UPDATE Trigger;cronjob(code)[unique=true]	;cronExpression
+					 ;asahiSendUsersToSFJob			;0 5 3 ? * *
+					 
+$jarResourceHeader=jar:com.sabmiller.core.setup.CoreSystemSetup&/impex/headers
+
+INSERT_UPDATE HeaderLibrary;code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime;fieldSeparator;quoteCharacter;commentCharacter;encoding(code,itemType(code));linesToSkip;removeOnSuccess
+						   ;Customer_export;$jarResourceHeader/Customer_export.impex;text/x-comma-separated-values;";";"""";#;UTF-8:EncodingEnum;0;false
+                            
+####################################### End -  HC-1595 Send ALB user accounts from Hybris to Salesforce   ############################
+
+
+#######Start - HC-1597 Script to bulk update inactive users to mark them active and users to disabled user list for all associated b2bunits####
+
+INSERT_UPDATE ScriptingJob	;code[unique=true]		;scriptURI
+							;markAllInactiveCustomersActive	;model://markAllInactiveCustomersActive
+							
+INSERT_UPDATE CronJob	;code[unique=true]			;job(code)				;sessionLanguage(isocode)	;sessionUser(uid)
+						;markAllInactiveCustomersActive	;markAllInactiveCustomersActive	;en		;admin
+						
+						
+INSERT_UPDATE Script;code[unique=true];content;active[unique=true]
+
+
+;markAllInactiveCustomersActive;"import de.hybris.platform.b2b.model.B2BCustomerModel
+import de.hybris.platform.b2b.model.B2BUnitModel
+import de.hybris.platform.core.model.user.UserModel
+import de.hybris.platform.core.model.security.PrincipalGroupModel;
+import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
+import de.hybris.platform.servicelayer.search.SearchResult;
+import com.sabmiller.core.model.AsahiB2BUnitModel;
+
+
+import de.hybris.platform.core.model.user.UserGroupModel;
+import org.apache.commons.collections4.CollectionUtils
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+import org.apache.commons.lang.StringUtils;
+
+def modelService = spring.getBean(""modelService"")
+def fss=spring.getBean(""flexibleSearchService"");
+
+
+final String QUERY_GET_CUSTOMERS= ""SELECT {pk} from {B2BCustomer!}  where {active}=0"";
+	
+final FlexibleSearchQuery fsq = new FlexibleSearchQuery(QUERY_GET_CUSTOMERS);
+final SearchResult<B2BCustomerModel> result = fss.search(fsq);
+final List<B2BCustomerModel> listOfcustomer = result.getCount() > 0 ? result.getResult() : Collections.<B2BCustomerModel> emptyList();
+
+Set<UserGroupModel> b2bUnits = new HashSet<>();
+
+println(""Total Inactive Customers "": listOfcustomer.size());
+
+for(customer in listOfcustomer)
+{	try{
+	b2bUnits = customer.getGroups();
+	final Set<UserGroupModel> groups = new HashSet<>();
+
+	for(unit in b2bUnits){
+	 try{
+		if(unit instanceof AsahiB2BUnitModel) 
+		{
+			Collection<String> disabledUsers = new HashSet<String>(); 
+			disabledUsers.addAll(unit.getDisabledUser());
+			disabledUsers.add(customer.getUid());
+			((AsahiB2BUnitModel) unit).setDisabledUser(disabledUsers);
+			modelService.save(unit);
+		} else if(unit instanceof B2BUnitModel){
+			Collection<String> cubDisabledUsers = new HashSet<String>(); 
+			cubDisabledUsers.addAll(unit.getCubDisabledUsers());
+			cubDisabledUsers.add(customer.getUid());
+			((B2BUnitModel) unit).setCubDisabledUsers(cubDisabledUsers);
+			modelService.save(unit);
+		}
+		}
+		catch(Exception ex){
+			println(""User : "" + customer.getUid()+ "" ~~~~could not be added to group: "" + unit.getUid() + ""~~~~""+ ex.getMessage());
+
+		}
+		
+    }
+	customer.setActive(Boolean.TRUE);
+	modelService.save(customer);
+	} catch (Exception ex){
+		println(""Customer could not be saved "": customer.getUid() + ""~~~~"" + ex.getMessage());
+	}
+}";true
+
+
+
+#######End - HC-1597 Script to bulk update inactive users to mark them active and users to disabled user list for all associated b2bunits###
+
+
+#######Start - HC-1597 Script to bulk enable logindisabled users ####
+
+INSERT_UPDATE ScriptingJob	;code[unique=true]		;scriptURI
+							;enableAllLoginDisabledCustomers	;model://enableAllLoginDisabledCustomers
+							
+INSERT_UPDATE CronJob	;code[unique=true]			;job(code)				;sessionLanguage(isocode)	;sessionUser(uid)
+						;enableAllLoginDisabledCustomers	;enableAllLoginDisabledCustomers	;en		;admin
+						
+						
+INSERT_UPDATE Script;code[unique=true];content;active[unique=true]
+
+
+;enableAllLoginDisabledCustomers;"import de.hybris.platform.b2b.model.B2BCustomerModel
+import de.hybris.platform.b2b.model.B2BUnitModel
+import de.hybris.platform.core.model.user.UserModel
+import de.hybris.platform.core.model.security.PrincipalGroupModel;
+import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
+import de.hybris.platform.servicelayer.search.SearchResult;
+import com.sabmiller.core.model.AsahiB2BUnitModel;
+
+
+import de.hybris.platform.core.model.user.UserGroupModel;
+import org.apache.commons.collections4.CollectionUtils
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+import org.apache.commons.lang.StringUtils;
+
+def modelService = spring.getBean(""modelService"")
+def fss=spring.getBean(""flexibleSearchService"");
+
+
+final String QUERY_GET_CUSTOMERS= ""SELECT {pk} from {B2BCustomer!}  where {active}=1 and {loginDisabled}=1"";
+	
+final FlexibleSearchQuery fsq = new FlexibleSearchQuery(QUERY_GET_CUSTOMERS);
+final SearchResult<B2BCustomerModel> result = fss.search(fsq);
+final List<B2BCustomerModel> listOfcustomer = result.getCount() > 0 ? result.getResult() : Collections.<B2BCustomerModel> emptyList();
+
+Set<UserGroupModel> b2bUnits = new HashSet<>();
+
+println(""Total Login disabled Customers "": listOfcustomer.size());
+
+
+for(customer in listOfcustomer)
+{	
+	customer.setLoginDisabled(Boolean.FALSE);
+	modelService.save(customer);
+}";true
+
+
+
+#######End - HC-1597 HC-1597 Script to bulk enable logindisabled users###
+
+
+

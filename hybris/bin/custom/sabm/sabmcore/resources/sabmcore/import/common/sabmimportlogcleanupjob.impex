@@ -1,0 +1,7 @@
+INSERT_UPDATE SabmImportLogCleanUpCronJob;code[unique=true];job(code);sessionLanguage(isocode)
+;sabmImportLogCleanUpCronJob;sabmImportLogCleanUpPerformable;en
+
+
+INSERT_UPDATE Trigger;cronJob(code)[unique=true];second;minute;hour;day;month;year;relative;active;maxAcceptableDelay
+;sabmImportLogCleanUpCronJob;0;30;6;-1;-1;-1;false;true;-1
+

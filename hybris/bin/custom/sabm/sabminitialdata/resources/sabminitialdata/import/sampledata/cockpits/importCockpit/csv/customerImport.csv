@@ -1,0 +1,2 @@
+email,name,firstname,lastname,groups,defaultb2b,primaryadmin,sendwelcomeemail,welcomeemailstatus,Createdby,receiveupdates
+biswa@gmail.com,Fletch Stevens,Fletch,Stevens,"b2bcustomergroup,b2binvoicecustomer,b2bordercustomer",0000859342,FALSE,TRUE,FALSE,fletcher.stevens@cub.com.au,TRUE

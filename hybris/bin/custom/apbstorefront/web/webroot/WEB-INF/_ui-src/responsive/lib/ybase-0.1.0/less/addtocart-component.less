@@ -1,0 +1,117 @@
+.addtocart-component {
+	margin-top: 20px;
+    .input-group {
+      position: relative; // For dropdowns
+      display: inline-flex;
+      border-collapse: separate; // prevent input groups from inheriting border styles from table cells when placed within a table
+      margin-left: -15px
+    }
+
+	.stock-wrapper {
+		font-size: 13px;
+		margin: 25px 0;
+		* {
+			float: left;
+			margin: 0;
+		}
+
+		.futureStockLink {
+			margin-left: @grid-gutter-width/2;
+		}
+	}
+
+	.actions {
+		.btn {
+			margin-bottom: @grid-gutter-width/2;
+		}
+	}
+
+
+	.row {
+		.AddToCart-ShareOnSocialNetworkAction {
+			margin: 0 auto;
+			padding-top: 50px;
+			width: 100px;
+		}
+	}
+}
+
+.addtocart-component,
+#add_to_cart_storepickup_form {
+	.qty-selector{
+		.input-group-btn,.btn{
+			/* Subtracted 20 from the width to avoid changing the button sizes on rest of the pages,
+			   apart from the +, _ and add to cart buttons on the PLP & PDP. */
+			width: (floor((@padding-large-vertical * 2) + (@btn-font-size * @btn-line-height) + (@btn-border-width * 2) + 12)) - 20; 	
+			margin: 0;
+			padding: 0px 0px; // Made 0 to fix alignment issues on PDP & PLP @SM.
+			height: 40px !important;			// Height has been changed to 40px to match the wire frame / visual design.
+		}
+
+		.form-control{
+			width: (@input-height-base * 1.5625) + 10;			// Added 10 to avoid affecting other buttons than on PLP/PDP to match wire frames.
+            min-width: 50px;
+			height: 40px; // Has been changed to 40px to match the wire frame/visual design.
+			text-align: center;
+			font-size: 13px;
+			font-weight: bold;
+		}
+	}
+}
+
+@media (max-width: @screen-sm-max) {
+	.addtocart-component{
+		margin-top: @grid-gutter-width;
+
+		.qty-selector{
+			.input-group-btn,
+			.btn,
+			.form-control{
+				width: (@input-height-large + 10) * 1.2;
+			}
+		}
+	}
+}
+
+@media (max-width:@screen-xs-max) {
+	.addtocart-component{
+		.qty-selector {
+			margin-right: auto;
+		}
+
+		.stock-wrapper {
+			display: table;
+			margin-left: auto;
+			margin-right: auto;
+		}
+	}
+}
+
+
+
+// add-to-cart modal
+.add-to-cart{
+
+	.add-to-cart-item{
+		margin-bottom:(@grid-gutter-width/2);
+		.clearfix;
+		.thumb{
+			float: left;
+			margin-right: (@grid-gutter-width/2);
+		}
+		.details{
+			font-size: 18px;
+			margin-left: 65px+(@grid-gutter-width/2);
+			.name{
+				font-weight: bold;
+				color: inherit;
+			}
+		}
+
+		.price{
+			font-size: 22px;
+			text-align: right;
+			font-weight: bold;
+		}
+	}
+}

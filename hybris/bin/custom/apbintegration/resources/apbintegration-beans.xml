@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<!--
+	ATTENTION: This is just an example file. You have to edit it according to your needs.
+-->
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
+
+	<!--
+		Example Data POJO
+	
+	<bean class="com.apb.integration.data.AbstractPojo" abstract="true">
+		<property name="id" type="String"/>
+		<property name="flag" type="boolean"/>
+	</bean>
+
+	<bean class="com.apb.integration.data.MyPojo" extends="com.apb.integration.data.AbstractPojo">
+		<property name="message" type="String"/>
+	</bean>
+
+	<bean class="com.apb.integration.data.AnnotatedPojo">
+
+		<import type="javax.xml.bind.annotation.XmlRootElement"/>
+		<import type="javax.xml.bind.annotation.XmlElements"/>
+		<import type="javax.xml.bind.annotation.XmlElement"/>
+
+		<annotations>@XmlRootElement</annotations>
+		
+		<property name="someText" type="String">
+
+			<annotations scope="getter">
+			@XmlElements(value = {
+					@XmlElement(name="map",
+						type=ValueAsMap.class),
+					@XmlElement(name="string",
+						type=ValueAsString.class)
+			})
+			</annotations>
+
+		</property>
+
+	</bean>
+
+    <bean  class="de.hybris.platform.catalog.data.Equals1">
+    	<property name="a1" type="boolean" equals="true"/>
+    	<property name="a2" type="int" equals="true"/>
+    	<property name="a3" type="String" equals="true"/>
+    	<property name="a4" type="de.hybris.platform.catalog.data.AbstractValue" equals="true"/>
+    	<property name="not4Equals" type="java.lang.Double"/>
+    </bean>
+
+    <bean class="de.hybris.platform.catalog.data.Equals2" extends="de.hybris.platform.catalog.data.Equals1" superEquals="true">
+    	<property name="a5" type="java.lang.Integer" equals="true"/>
+    	<property name="a6" type="java.util.List" equals="true"/>
+    	<property name="not4Equals" type="java.lang.Double"/>
+    </bean>
+
+	-->
+	<bean class="com.apb.integration.data.ApbCreditCheckData" >
+		<property name="accountNum" type="String"/>
+		<property name="creditRemaining" type="java.lang.Double"/>
+		<property name="IsBlocked" type="boolean"/>
+	</bean>
+	<bean class="com.apb.integration.data.ApbStockonHandData" >
+		<property name="wareHouse" type="String"/>
+		<property name="ProductList" type="java.util.List&lt;com.apb.integration.data.ApbStockonHandProductData>"/>
+	</bean>
+	<bean class="com.apb.integration.data.ApbStockonHandProductData" >
+		<property name="productId" type="String"/>
+		<property name="availablePhysical" type="java.lang.Long"/>
+	</bean>
+	
+	<bean class="com.apb.integration.data.ApbProductPriceInfo">
+		<property name="code" type="String" />
+		<property name="listPrice" type="java.lang.Double" />
+		<property name="netPrice" type="java.lang.Double" />
+		<property name="wET" type="java.lang.Double" />
+		<property name="lineNumber" type="String"/>
+		<property name="bonus" type="boolean"/>
+	</bean>
+	
+	<bean class="com.apb.integration.data.ApbPriceData">
+		<property name="accountNumber" type="String" />
+		<property name="subTotal" type="java.lang.Double" />
+		<property name="freight" type="java.lang.Double" />
+		<property name="gST" type="java.lang.Double" />
+		<property name="productPriceInfo" type="java.util.List&lt;com.apb.integration.data.ApbProductPriceInfo>" />
+	</bean>
+	
+	<bean class="com.apb.integration.data.ApbOrderResponseData">
+		<property name="orderStatus" type="String" />
+		<property name="StatusCode" type="java.lang.Integer" />
+		<property name="failureReason" type="String" />
+	</bean>
+	
+	<bean class="com.apb.integration.data.AsahiProductInfo">
+		<property name="materialNumber" type="String" />
+		<property name="isExcluded" type="Boolean" />
+		<property name="isListed" type="Boolean" />
+		<property name="isPromoFlag" type="Boolean" />
+		<property name="listPrice" type="java.lang.Double" />
+		<property name="netPrice" type="java.lang.Double" />		
+		<property name="promoText" type="String" />
+		<property name="gst" type="java.lang.Double"/>
+		<property name="containerDepositLevy" type="java.lang.Double"/>
+		<property name="itemcat" type="String"/>
+		<property name="lineNum" type="String"/>
+		<property name="quantity" type="String"/>
+		<property name="totalGst" type="java.lang.Double"/>
+		<property name="totalCdl" type="java.lang.Double"/>
+		<property name="discount" type="java.lang.Double"/>
+	</bean>
+	
+	<bean class="com.apb.integration.data.AsahiCustomerAccountCheckRequestData">
+		<property name="customerNumber" type="String" />
+		<property name="creditControlArea" type="String" />
+		<property name="division" type="String" />
+		<property name="salesOrganization" type="String" />
+		<property name="distributionChannel" type="String" />
+		<property name="custOrderType" type="String"/>
+		<property name="requestedDeliveryDate" type="String"/>
+		<property name="items" type="java.util.List&lt;com.apb.integration.data.AsahiProductInfo>" />
+		<property name="errors" type="java.util.List&lt;com.apb.integration.data.Error>"/>
+	</bean>
+	
+	<bean class="com.apb.integration.data.Error">
+		<property name="code" type="String"/>
+		<property name="message" type="String"/>
+		<property name="messageType" type="String"/>
+		<property name="messageCode" type="String"/>
+		<property name="messageText" type="String"/>
+	</bean>
+	
+	<bean class="com.apb.integration.data.AsahiCustomerAccountCheckResponseData">
+		<property name="payer" type="String" />
+		<property name="customerNumber" type="String" />
+		<property name="isBlocked" type="Boolean" />
+		<property name="creditLimit" type="java.lang.Double" />
+		<property name="deltaToLimit" type="java.lang.Double" />
+		<property name="percentageUsed" type="java.lang.Double" />
+		<property name="items" type="java.util.List&lt;com.apb.integration.data.AsahiProductInfo>" />
+		<property name="errors" type="java.util.List&lt;com.apb.integration.data.Error>"/>
+		<property name="errorText" type="java.util.List&lt;com.apb.integration.data.Error>"/>
+	</bean>
+	
+	<bean class="com.apb.integration.data.AsahiLoginInclusionRequestDTO">
+		<property name="loginRequest" type="com.apb.integration.data.AsahiCustomerAccountCheckRequestData"/>
+	</bean>
+	
+	<bean class="com.apb.integration.data.AsahiLoginInclusionResponseDTO">
+		<property name="loginResponse" type="com.apb.integration.data.AsahiCustomerAccountCheckResponseData"/>
+	</bean>
+	
+	<!-- Checkout request dto's -->
+	<bean class="com.apb.integration.data.AsahiCheckoutInclusionRequestDTO">
+		<property name="checkoutRequest" type="com.apb.integration.data.AsahiCheckoutInclusionRequest"/>
+	</bean>
+	
+	<bean class="com.apb.integration.data.AsahiCheckoutInclusionRequest">
+		<property name="salesDocHeader" type="com.apb.integration.data.AsahiCustomerAccountCheckRequestData"/>
+		<property name="salesPartnerInfo" type="java.util.List&lt;com.apb.integration.data.AsahiSalesPartnerInfo>" />
+		<property name="salesDocItem" type="java.util.List&lt;com.apb.integration.data.AsahiProductInfo>" />
+	</bean>
+	
+	<bean class="com.apb.integration.data.AsahiSalesPartnerInfo">
+		<property name="addressType" type="String"/>
+		<property name="backendRecordId" type="String"/>
+	</bean>
+	
+
+	<!-- Checkout request dto's -->	
+	
+	<bean class="com.apb.integration.data.AsahiCheckoutInclusionResponseDTO">
+		<property name="checkoutResponse" type="com.apb.integration.data.AsahiCustomerAccountCheckResponseData"/>
+	</bean>
+	
+	<!--  Invoice -->
+	<bean class="com.apb.integration.data.AsahiInvoiceDownloadResponseDTO">
+		<property name="invoiceDownloadResponse" type="com.apb.integration.data.AsahiInvoiceDownloadResponse"/>
+	</bean>
+	
+	<bean class="com.apb.integration.data.AsahiInvoiceDownloadResponse">
+		<property name="fileName" type="String"/>
+		<property name="pdfResponse" type="String"/>
+		<property name="errorStatus" type="String"/>
+		<property name="errorMessage" type="String"/>
+	</bean>
+	
+	<bean class="com.apb.integration.data.AsahiInvoiceDownloadRequestDTO">
+		<property name="invoiceDownloadRequest" type="com.apb.integration.data.AsahiInvoiceDownloadRequest"/>
+	</bean>
+	<bean class="com.apb.integration.data.AsahiInvoiceDownloadRequest">
+		<property name="invoiceNumber" type="String"/>
+		<property name="customerNumber" type="String"/>
+		<property name="lineNumber" type="String"/>
+	</bean>
+	
+	<!--  Statement -->
+	<bean class="com.apb.integration.data.AsahiStatementDownloadResponseDTO">
+		<property name="statementDownloadResponse" type="com.apb.integration.data.AsahiStatementDownloadResponse"/>
+	</bean>
+	
+	<bean class="com.apb.integration.data.AsahiStatementDownloadResponse">
+		<property name="fileName" type="String"/>
+		<property name="pdfResponse" type="String"/>
+		<property name="errorStatus" type="String"/>
+		<property name="errorMessage" type="String"/>
+	</bean>
+	
+	<bean class="com.apb.integration.data.AsahiStatementDownloadRequestDTO">
+		<property name="statementDownloadRequest" type="com.apb.integration.data.AsahiStatementDownloadRequest"/>
+	</bean>
+	<bean class="com.apb.integration.data.AsahiStatementDownloadRequest">
+		<property name="statementMonth" type="String"/>
+		<property name="custAccount" type="String"/>
+		<property name="statementYear" type="String"/>
+	</bean>
+	
+	<!-- Invoice Payment Details -->
+	<bean class="com.apb.integration.data.AsahiInvoicePaymentRequestDTO">
+		<property name="paymentRequest" type="com.apb.integration.data.AsahiInvoicePaymentRequest"/>
+	</bean>
+	<bean class="com.apb.integration.data.AsahiInvoicePaymentRequest">
+		<property name="paymentReference" type="String"/>
+		<property name="custAccount" type="String"/>
+		<property name="totalAmountPaid" type="String"/>
+		<property name="paymentDate" type="String"/>
+		<property name="paymentTransactionId" type="String"/>
+		<property name="paymentOption" type="String"/>
+		<property name="invoice" type="java.util.List&lt;com.apb.integration.data.AsahiInvoiceRequest>"/>
+	</bean>
+	<bean class="com.apb.integration.data.AsahiInvoiceRequest">
+		<property name="documentNumber" type="String"/>
+		<property name="deliveryNumber" type="String"/>
+		<property name="amountPaid" type="String"/>
+		<property name="remainingAmount" type="String"/>
+		<property name="lineNumber" type="String"/>
+	</bean>
+	
+	<bean class="com.apb.integration.data.AsahiInvoicePaymentResponseDTO">
+		<property name="paymentResponse" type="com.apb.integration.data.AsahiInvoicePaymentResponse"/>
+	</bean>
+	
+	<bean class="com.apb.integration.data.AsahiInvoicePaymentResponse">
+		<property name="success" type="Boolean"/>
+	</bean>
+	
+	<!-- Real time call to get SAM document -->
+	<bean class="com.apb.integration.data.AsahiSAMDocumentRequest">
+		<property name="custAccount" type="String"/>
+		<property name="companyCode" type="String"/>
+	</bean>
+	
+	<bean class="com.apb.integration.data.AsahiSAMDocumentRequestDTO">
+		<property name="invoiceMetadataRequest" type="com.apb.integration.data.AsahiSAMDocumentRequest"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.apboccaddon.dto.sam.AsahiSAMDocumentResponseDTO">
+		<property name="invoiceMetadataResponse" type="de.hybris.platform.apboccaddon.dto.sam.AsahiSAMDocumentResponse"/>
+	</bean>
+	<bean class="de.hybris.platform.apboccaddon.dto.sam.AsahiSAMDocumentResponse">
+		<property name="invoices" type="java.util.List&lt;de.hybris.platform.apboccaddon.dto.sam.AsahiSAMDocuments>"/>
+	</bean>
+	<bean class="de.hybris.platform.apboccaddon.dto.sam.AsahiSAMDocuments">
+		<property name="custAccount" type="java.lang.String" />
+		<property name="custName" type="java.lang.String" />
+		<property name="documentNumber" type="java.lang.String"/>
+		<property name="deliveryNumber" type="java.lang.String"/>
+		<property name="invoiceAmount" type="java.lang.String"/>
+		<property name="invoiceDate" type="java.lang.String"/>
+		<property name="invoiceDueDate" type="java.lang.String"/>
+		<property name="status" type="java.lang.String" />
+		<property name="documentPostedDate" type="java.lang.String" />
+		<property name="invoiceIndicator" type="java.lang.String" />
+		<property name="clearingdocumentNumber" type="java.lang.String"/>
+		<property name="transactionDate" type="java.lang.String"/>
+		<property name="paymentType" type="java.lang.String"/>
+		<property name="documentType" type="java.lang.String"/>
+		<property name="receiptNumber" type="java.lang.String"/>
+		<property name="paymentReference" type="java.lang.String"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.apboccaddon.dto.sam.AsahiSAMaymentHistoryResponseDTO">
+		<property name="paymentHistoryResponse" type="de.hybris.platform.apboccaddon.dto.sam.AsahiSAMaymentHistoryResponse"/>
+	</bean>
+	<bean class="de.hybris.platform.apboccaddon.dto.sam.AsahiSAMaymentHistoryResponse">
+		<property name="invoices" type="java.util.List&lt;de.hybris.platform.apboccaddon.dto.sam.AsahiSAMDocuments>"/>
+	</bean>
+	<bean class="com.apb.integration.data.AsahiSAMPaymentHistoryRequest">
+		<property name="custAccount" type="String"/>
+		<property name="companyCode" type="String"/>
+	</bean>
+	
+	<bean class="com.apb.integration.data.AsahiSAMPaymentHistoryRequestDTO">
+		<property name="paymentHistoryRequest" type="com.apb.integration.data.AsahiSAMPaymentHistoryRequest"/>
+	</bean>
+	<!--  Direct Debit DTOs -->
+	<bean class="com.apb.integration.data.AsahiDirectDebitRequestDTO">
+		<property name="directDebitRequest" type="com.apb.integration.data.AsahiDirectDebitRequest"/>
+	</bean>
+	<bean class="com.apb.integration.data.AsahiDirectDebitRequest">
+		<property name="payerAccount" type="String"/>
+		<property name="token" type="String"/>
+		<property name="tokenType" type="String"/>
+		<property name="accountName" type="String"/>
+		<property name="accountNumber" type="String"/>
+		<property name="bsb" type="String"/>
+		<property name="paymentTerm" type="java.lang.String" />
+		<property name="companyCode" type="String"/>
+	</bean>
+	
+	<bean class="com.apb.integration.data.AsahiDirectDebitResponseDTO">
+		<property name="directDebitResponse" type="com.apb.integration.data.AsahiDirectDebitResponse"/>
+	</bean>
+	
+	<bean class="com.apb.integration.data.AsahiDirectDebitResponse">
+		<property name="success" type="boolean"/>
+		<property name="statusCode" type="java.lang.String"/>
+		<property name="reasonOfFailure" type="java.lang.String" />
+	</bean>
+	
+	<bean class="com.apb.integration.data.AsahiDirectDebitBankResponseDTO">
+		<property name="directDebitBankResponse" type="com.apb.integration.data.AsahiDirectDebitBankResponse"/>
+	</bean>
+	
+	<bean class="com.apb.integration.data.AsahiDirectDebitBankResponse">
+		<property name="successful" type="boolean"/>
+		<property name="test" type="boolean"/>
+		<property name="response" type="com.apb.integration.data.AsahiDirectDebitBankAccountResponse"/>
+	</bean>
+	
+	<bean class="com.apb.integration.data.AsahiDirectDebitBankAccountResponse">
+		<property name="id" type="String"/>
+		<property name="account_name" type="String"/>
+		<property name="account_number" type="String"/>
+		<property name="bsb" type="String"/>
+		<property name="created_at" type="String"/>
+		<property name="errors" type="java.util.List" />
+	</bean>
+	
+	<!-- HC-1595 : Send ALB user accounts from Hybris to Salesforce -->
+	
+	<bean class="com.apb.integration.data.AsahiUsersRequestData">
+		<property name="firstName" type="String" />
+		<property name="lastName" type="String" />
+		<property name="mobile" type="String" />
+		<property name="email" type="String" />
+		<property name="pk" type="java.lang.Long" />
+		<property name="active" type="boolean"/>
+		<property name="isPasswordSet" type="boolean"/>
+		<property name="lastLoginDate" type="String"/>
+		<property name="registrationDate" type="String"/>
+		<property name="firstOnlineOrderDate" type="String"/>
+		<property name="lastOnlineOrderDate" type="String"/>
+		<property name="lastOrderDate" type="String"/>
+		<property name="linkedAccounts" type="java.util.List&lt;com.apb.integration.data.AsahiAccountInfo&gt;" />
+	</bean>
+	
+	<bean class="com.apb.integration.data.AsahiAccountInfo">
+		<property name="accountNumber" type="String"/>
+		<property name="tradingName" type="String"/>
+		<property name="role" type="String"/>
+		<property name="disabled" type="boolean"/>
+	</bean>
+	
+	<bean class="com.apb.integration.data.AsahiUsersToSalesforceRequestDTO">
+		<property name="albUserRequest" type="java.util.List&lt;com.apb.integration.data.AsahiUsersRequestData&gt;"/>
+	</bean>
+	
+	<bean class="com.apb.integration.data.AsahiUserResponseData">
+		<property name="statusCode" type="java.lang.Integer" />
+		<property name="failureReason" type="String" />
+	</bean>
+
+</beans>

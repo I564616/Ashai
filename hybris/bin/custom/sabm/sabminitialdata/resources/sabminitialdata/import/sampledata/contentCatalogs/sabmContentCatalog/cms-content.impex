@@ -1,0 +1,404 @@
+# ImpEx for Importing CMS Content
+
+# Macros / Replacement Parameter definitions
+$contentCatalog = sabmContentCatalog
+$contentCatalogName = SABMiller Content Catalog
+$productCatalog = sabmProductCatalog
+$productCatalogName = SABMiller Product Catalog
+
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Staged])[default = $contentCatalog:Staged]
+$productCV = catalogVersion(catalog(id[default = $productCatalog]), version[default = 'Staged'])[unique = true, default = $productCatalog:Staged]
+$picture = media(code, $contentCV);
+$image = image(code, $contentCV);
+$media = media(code, $contentCV);
+$mediaMobile = mediaForMobile(code, $contentCV);
+$page = page(uid, $contentCV);
+$contentPage = contentPage(uid, $contentCV);
+$product = product(code, $productCV)
+$category = category(code, $productCV)
+$siteResource = jar:com.sabmiller.initialdata.setup.InitialDataSystemSetup&/sabminitialdata/import/sampledata/contentCatalogs/$contentCatalog
+$productResource = jar:com.sabmiller.initialdata.setup.InitialDataSystemSetup&/sabminitialdata/import/sampledata/productCatalogs/$productCatalog
+$jarResourceCms = jar:com.sabmiller.initialdata.setup.InitialDataSystemSetup&/sabminitialdata/import/sampledata/cockpits/cmscockpit
+$addonExtensionName = b2bacceleratoraddon
+# Language
+$lang = en
+
+$standardText = dummy text
+
+# CMS Site Settings
+UPDATE CMSSite; uid[unique = true]; defaultPreviewCategory(code, $productCV); defaultPreviewProduct(code, $productCV)
+; sabmStore ; 10 ;
+
+
+###### SABMiller Homepage ######
+
+INSERT_UPDATE Media; $contentCV[unique = true]; code[unique = true]; realfilename; @media[translator = de.hybris.platform.impex.jalo.media.MediaDataTranslator]; mime[default = 'image/jpeg']; altText; folder(qualifier)[default = 'images']
+; ; /images/theme/cms-content.png                      ; cms-content.png                      ; $siteResource/images/theme/cms-content.png                      ; image/png                 ; CMS Content ;
+; ; /images/theme/cms-content-mobile.png               ; cms-content-mobile.png               ; $siteResource/images/theme/cms-content-mobile.png               ; image/png                 ; CMS Content ;
+; ; /images/theme/cms-content-narrow.png               ; cms-content-narrow.png               ; $siteResource/images/theme/cms-content-narrow.png               ; image/png                 ; CMS Content ;
+; ; /images/theme/cms-content-narrow-mobile.png        ; cms-content-narrow-mobile.png        ; $siteResource/images/theme/cms-content-narrow-mobile.png        ; image/png                 ; CMS Content ;
+; ; /images/theme/customer-marketing-portal.png        ; customer-marketing-portal.png        ; $siteResource/images/theme/customer-marketing-portal.png        ; Customer Marketing Portal ;
+; ; /images/theme/customer-marketing-portal-mobile.png ; customer-marketing-portal-mobile.png ; $siteResource/images/theme/customer-marketing-portal-mobile.png ; Customer Marketing Portal ;
+
+# Accordion component items
+INSERT_UPDATE CMSTabParagraphComponent; $contentCV[unique = true]; uid[unique = true]; name; visible; &componentRef
+; ; accordionComponent1 ; accordion1 ; true ; accordionComponent1
+; ; accordionComponent2 ; accordion2 ; true ; accordionComponent2
+; ; accordionComponent3 ; accordion3 ; true ; accordionComponent3
+; ; accordionComponent4 ; accordion4 ; true ; accordionComponent4
+
+INSERT_UPDATE AccordionComponent; $contentCV[unique = true]; uid[unique = true]; name; accordions(&componentRef); &componentRef
+; ; AccordionComponent ; Accordion Component ; accordionComponent1, accordionComponent2, accordionComponent3, accordionComponent4 ; AccordionComponent
+
+# Sample Buttons for SABMBannerComponent
+INSERT_UPDATE SABMBannerButtonComponent; code[unique = true]; color; urlLink; text;
+; samplebutton1 ; sample_color1 ; sample_urlLink1 ; sample_text1
+; samplebutton2 ; sample_color2 ; sample_urlLink2 ; sample_text2
+; samplebutton3 ; sample_color3 ; sample_urlLink3 ; sample_text3
+; samplebutton4 ; sample_color4 ; sample_urlLink4 ; sample_text4
+
+INSERT_UPDATE BannerComponent; $contentCV[unique = true]; uid[unique = true]; name; &componentRef; urlLink
+; ; RotatingImageBanner1 ; Rotating Image Banner 1 ; RotatingImageBanner1 ; /Open-Catalogue/Tools/Sanders/c/1596?q=:relevance:brand:brand_980
+; ; RotatingImageBanner2 ; Rotating Image Banner 2 ; RotatingImageBanner2 ; /Brands/Bosch/c/brand_753
+; ; RotatingImageBanner3 ; Rotating Image Banner 3 ; RotatingImageBanner3 ; /Open-Catalogue/Tools/Power-Drills/c/1360
+; ; RotatingImageBanner4 ; Rotating Image Banner 4 ; RotatingImageBanner4 ; /Open-Catalogue/Tools/Sanders/c/1596?q=:relevance:brand:brand_980
+; ; RotatingImageBanner5 ; Rotating Image Banner 5 ; RotatingImageBanner5 ; /Brands/Bosch/c/brand_753
+; ; RotatingImageBanner6 ; Rotating Image Banner 6 ; RotatingImageBanner6 ; /Open-Catalogue/Tools/Power-Drills/c/1360
+
+INSERT_UPDATE SABMBannerWithButtonComponent; $contentCV[unique = true]; uid[unique = true]; name; &componentRef; urlLink; buttons(code)
+; ; HomePageRotatingImageBanner1 ; Home Page Rotating Image Banner 1 ; HomePageRotatingImageBanner1 ; /Open-Catalogue/Tools/Sanders/c/1596?q=:relevance:brand:brand_980 ; samplebutton1, samplebutton2
+; ; HomePageRotatingImageBanner2 ; Home Page Rotating Image Banner 2 ; HomePageRotatingImageBanner2 ; /Brands/Bosch/c/brand_753                                         ; samplebutton3, samplebutton4
+; ; HomePageRotatingImageBanner3 ; Home Page Rotating Image Banner 3 ; HomePageRotatingImageBanner3 ; /Open-Catalogue/Tools/Power-Drills/c/1360                         ; samplebutton1, samplebutton2
+; ; HomePageRotatingImageBanner4 ; Home Page Rotating Image Banner 4 ; HomePageRotatingImageBanner4 ; /Open-Catalogue/Tools/Sanders/c/1596?q=:relevance:brand:brand_980 ; samplebutton3, samplebutton4
+
+
+INSERT_UPDATE RotatingImagesComponent; $contentCV[unique = true]; uid[unique = true]; name; timeout; banners(&componentRef); &componentRef
+; ; SABMillerHomepageRotatingImagesComponent ; SABMiller Homepage Rotating Images Component ; 4000 ; HomePageRotatingImageBanner1, HomePageRotatingImageBanner2, HomePageRotatingImageBanner3, HomePageRotatingImageBanner4 ; SABMillerHomepageRotatingImagesComponent
+
+
+INSERT_UPDATE ProductCarouselComponent; $contentCV[unique = true]; uid[unique = true]; name; products(code, $productCV); scroll(code); popup; searchQuery; categoryCode; &componentRef; title
+; ; SABMillerHomepageProductCarouselComponent          ; SABMiller Homepage Product Carousel     ; eanVariant01, eanVariant02, eanVariant03, eanVariant04, eanVariant05               ; allVisible ; false ;                                                 ;    ; SABMillerHomepageProductCarouselComponent
+; ; PremiumbuyersgroupHomepageProductCarouselComponent ; Premium buyer Homepage Product Carousel ;                                                                                    ; allVisible ; false ; :topRated:price:$500-$999.99:price:$200-$499.99 ; 10 ; PremiumbuyersgroupHomepageProductCarouselComponent
+; ; CUBPicksProductCarouselComponent1                  ; CUB Picks Product Carousel1             ; eanVariant01, eanVariant02, eanVariant03, eanVariant04, eanVariant05, eanVariant06 ; allVisible ; false ;                                                 ;    ; CUBPicksProductCarouselComponent1 ; Pick of the week1
+; ; CUBPicksProductCarouselComponent2                  ; CUB Picks Product Carousel2             ; eanVariant02, eanVariant03, eanVariant04, eanVariant05, eanVariant06, eanVariant07 ; allVisible ; false ;                                                 ;    ; CUBPicksProductCarouselComponent2 ; Pick of the week2
+; ; CUBPicksProductCarouselComponent3                  ; CUB Picks Product Carousel3             ; eanVariant03, eanVariant04, eanVariant05, eanVariant06, eanVariant07, eanVariant01 ; allVisible ; false ;                                                 ;    ; CUBPicksProductCarouselComponent3 ; Pick of the week3
+; ; CUBPicksProductCarouselComponent4                  ; CUB Picks Product Carousel4             ; eanVariant04, eanVariant05, eanVariant06, eanVariant07, eanVariant01, eanVariant02 ; allVisible ; false ;                                                 ;    ; CUBPicksProductCarouselComponent4 ; Pick of the week4
+
+#CUB Picks Products For HomePage
+#INSERT_UPDATE CUBPicksComponent;$contentCV[unique=true];uid[unique=true];name;products(&componentRef);&componentRef
+#;;HomePageCUBPicksComponent;Home Page CUB Picks Component;CUBPicksProductCarouselComponent1,CUBPicksProductCarouselComponent2,CUBPicksProductCarouselComponent3,CUBPicksProductCarouselComponent4;HomePageCUBPicksComponent;
+
+INSERT_UPDATE BestsellerComponent; $contentCV[unique = true]; uid[unique = true]; name; products(code, $productCV); scroll(code); popup; searchQuery; categoryCode; &componentRef
+; ; BestsellerComponent ; Bestseller Product Carousel ; eanVariant01, eanVariant02, eanVariant03, eanVariant04, eanVariant05, eanVariant06, eanVariant07, eanVariant08, eanVariant02_11, eanVariant02_12, eanVariant02_13, eanVariant02_14, eanVariant02_15, eanVariant02_16, eanVariant02_17, eanVariant02_18, eanVariant02_19, eanVariant02_20, eanVariant02_21, eanVariant02_22 ; allVisible ; false ; ; ; BestsellerComponent
+
+INSERT_UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]; name; active; cmsComponents(&componentRef)
+; ; Section2ASlot-Homepage ; Section2A Slot for Homepage ; true ; SABMillerHomepageRotatingImagesComponent
+#;;Section5Slot-Homepage;Section5 Slot for Homepage;true;CustomerMarketingPortalBanner-HomePage
+
+# CMS Standard Text Banner Components
+INSERT_UPDATE StandardTextBannerComponent; $contentCV[unique = true]; uid[unique = true]; name; content; link; &componentRef
+; ; StandardTextBanner ; Standard Text Banner ; $standardText ; /contentPage ; StandardTextBanner
+
+
+#INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;
+#;;Section1Slot-BusinessPage;Section1 Slot for BusinessPage;true;
+
+#INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='orderTemplates'];contentSlot(uid,$contentCV)[unique=true]
+#;;Section1-BusinessPage;Section1;;Section1Slot-BusinessPage
+
+#INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+#;;Section1Slot-BusinessPage;Section1 Slot for BusinessPage;true;StandardTextBanner
+
+
+
+###### SABMiller Deals Page ######
+
+INSERT_UPDATE BannerComponent; $contentCV[unique = true]; uid[unique = true]; name; &componentRef; urlLink
+; ; DealsPageRotatingImageBanner1 ; DealsPage Rotating Image Banner 1 ; DealsPageRotatingImageBanner1 ; /Open-Catalogue/Tools/Sanders/c/1596?q=:relevance:brand:brand_980
+; ; DealsPageRotatingImageBanner2 ; DealsPage Rotating Image Banner 2 ; DealsPageRotatingImageBanner2 ; /Brands/Bosch/c/brand_753
+; ; DealsPageRotatingImageBanner3 ; DealsPage Rotating Image Banner 3 ; DealsPageRotatingImageBanner3 ; /Open-Catalogue/Tools/Power-Drills/c/1360
+; ; DealsPageRotatingImageBanner4 ; DealsPage Rotating Image Banner 4 ; DealsPageRotatingImageBanner4 ; /Open-Catalogue/Tools/Sanders/c/1596?q=:relevance:brand:brand_980
+; ; DealsPageRotatingImageBanner5 ; DealsPage Rotating Image Banner 5 ; DealsPageRotatingImageBanner5 ; /Brands/Bosch/c/brand_753
+; ; DealsPageRotatingImageBanner6 ; DealsPage Rotating Image Banner 6 ; DealsPageRotatingImageBanner6 ; /Open-Catalogue/Tools/Power-Drills/c/1360
+
+
+INSERT_UPDATE SABMBannerWithButtonComponent; $contentCV[unique = true]; uid[unique = true]; name; &componentRef; urlLink; buttons(code)
+; ; DealsPageRotatingImageBanner10 ; DealsPage Rotating Image Banner 10 ; DealsPageRotatingImageBanner10 ; /Open-Catalogue/Tools/Sanders/c/1596?q=:relevance:brand:brand_980 ; samplebutton1, samplebutton2
+; ; DealsPageRotatingImageBanner11 ; DealsPage Rotating Image Banner 11 ; DealsPageRotatingImageBanner11 ; /Brands/Bosch/c/brand_753                                         ; samplebutton1, samplebutton2
+; ; DealsPageRotatingImageBanner12 ; DealsPage Rotating Image Banner 12 ; DealsPageRotatingImageBanner12 ; /Open-Catalogue/Tools/Power-Drills/c/1360                         ; samplebutton1, samplebutton2
+
+INSERT_UPDATE RotatingImagesComponent; $contentCV[unique = true]; uid[unique = true]; name; timeout; banners(&componentRef)
+; ; DealspageRotatingImagesComponent ; Dealspage Rotating Images Component ; 4000 ; DealsPageRotatingImageBanner10, DealsPageRotatingImageBanner11, DealsPageRotatingImageBanner12
+
+
+INSERT_UPDATE Media; $contentCV[unique = true]; code[unique = true]; realfilename; @media[translator = de.hybris.platform.impex.jalo.media.MediaDataTranslator]; mime[default = 'image/jpeg']; altText; folder(qualifier)[default = 'images']
+; ; /images/banners/dealpage/DealBanner1.jpg ; DealBanner1.jpg ; $siteResource/images/banners/dealpage/DealBanner1.jpg ; ; Deal page banner1 ;
+; ; /images/banners/dealpage/DealBanner2.jpg ; DealBanner2.jpg ; $siteResource/images/banners/dealpage/DealBanner2.jpg ; ; Deal page banner2 ;
+
+INSERT_UPDATE SimpleBannerComponent; $contentCV[unique = true]; uid[unique = true]; name; &componentRef; urlLink
+; ; StoreFinderSideBanner ; Store Finder Side Banner ; StoreFinderSideBanner ; #
+
+INSERT_UPDATE SimpleBannerComponent; $contentCV[unique = true]; uid[unique = true]; name; &componentRef; urlLink
+; ; dealpageSimpleBannerComponent1 ; dealpage SimpleBannerComponent 1 ; dealpageSimpleBannerComponent1 ; https://www.google.com.au/
+; ; dealpageSimpleBannerComponent2 ; dealpage SimpleBannerComponent 2 ; dealpageSimpleBannerComponent2 ; https://www.sabmiller.com.au/
+
+INSERT_UPDATE BannerCarouselComponent; $contentCV[unique = true]; uid[unique = true]; name; carouselItems(uid, $contentCV)
+#;;DealBannerCarouselComponent;DealBannerCarouselComponent;dealpageSimpleBannerComponent1,dealpageSimpleBannerComponent2
+
+INSERT_UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]; active; cmsComponents(uid, $contentCV)
+#;;TopContentSlot;true;DealBannerCarouselComponent
+
+# CMS Brand Grid Components
+INSERT_UPDATE Media; $contentCV[unique = true]; code[unique = true]; realfilename; @media[translator = de.hybris.platform.impex.jalo.media.MediaDataTranslator]; mime[default = 'image/jpeg']; altText; folder(qualifier)[default = 'images']
+; ; CarltonBrandImage  ; CarltonBrandImage.png  ; $siteResource/images/theme/CarltonBrandImage.png  ; ; ;
+; ; CrownBrandImage    ; CrownBrandImage.png    ; $siteResource/images/theme/CrownBrandImage.png    ; ; ;
+; ; CascadeBrandImage  ; CascadeBrandImage.png  ; $siteResource/images/theme/CascadeBrandImage.png  ; ; ;
+; ; FatyakBrandImage   ; FatyakBrandImage.png   ; $siteResource/images/theme/FatyakBrandImage.png   ; ; ;
+; ; VictoriaBrandImage ; VictoriaBrandImage.png ; $siteResource/images/theme/VictoriaBrandImage.png ; ; ;
+
+INSERT_UPDATE SimpleBannerComponent; $contentCV[unique = true]; uid[unique = true]; name; &componentRef; urlLink; $media[lang = $lang]
+; ; CarltonBrandBanner  ; Carlton Brand Banner  ; CarltonBrandBanner  ; /c/10?q=%3Arelevance%3AsabmBrand%3ACarlton         ; CarltonBrandImage
+; ; CrownBrandBanner    ; Crown Brand Banner    ; CrownBrandBanner    ; /c/10?q=%3Arelevance%3AsabmBrand%3ACrown           ; CrownBrandImage
+; ; CascadeBrandBanner  ; Cascade Brand Banner  ; CascadeBrandBanner  ; /c/10?q=%3Arelevance%3AsabmBrand%3ACascade         ; CascadeBrandImage
+; ; FatyakBrandBanner   ; Fatyak Brand Banner   ; FatyakBrandBanner   ; /c/10?q=%3Arelevance%3AsabmBrand%3ACrown           ; FatyakBrandImage
+; ; VictoriaBrandBanner ; Victoria Brand Banner ; VictoriaBrandBanner ; /c/10?q=%3Arelevance%3AsabmBrand%3AVictoria+Bitter ; VictoriaBrandImage
+
+
+INSERT_UPDATE BrandGridComponent; $contentCV[unique = true]; uid[unique = true]; name; &componentRef; brandLink(uid, $contentCV); brands(uid, $contentCV)
+; ; BeerGridComponent ; Beer Grid Component ; BeerGridComponent ; BeerCategoryLink ; CarltonBrandBanner, CrownBrandBanner, CascadeBrandBanner, FatyakBrandBanner, VictoriaBrandBanner
+
+###### Standard Content Page ######
+INSERT_UPDATE ContentPage; $contentCV[unique = true]; uid[unique = true]; name; masterTemplate(uid, $contentCV); label; defaultPage[default = 'true']; approvalStatus(code)[default = 'approved']; homepage[default = 'false']
+; ; StandardContentPage ; Standard Content Page ; ContentPage1Template ; /contentPage
+
+INSERT_UPDATE ContentSlotForPage; $contentCV[unique = true]; uid[unique = true]; position[unique = true]; page(uid, $contentCV)[unique = true][default = 'StandardContentPage']; contentSlot(uid, $contentCV)[unique = true]
+; ; Section3-StandardContentPage ; Section3 ; ; Section3Slot-StandardContentPage
+
+INSERT_UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]; name; active; cmsComponents(&componentRef)
+; ; Section3Slot-StandardContentPage ; Section3 Slot for StandardContentPage ; true ; CustomerMarketingPortalBanner-HomePage, BeerGridComponent, StandardTextBanner, AccordionComponent
+
+
+
+###### SABMiller StandardImageAndTextBannerComponent ######
+
+###### OrderTemplate Page ######
+# CMS Standard Text Banner Components
+INSERT_UPDATE StandardTextBannerComponent; $contentCV[unique = true]; uid[unique = true]; name; content; link; &componentRef
+; ; StandardTextBanner-OrderTemplates-Top         ; Standard Text Banner ; $standardText                                 ; /contentPage ; StandardTextBanner-OrderTemplate-Top
+; ; StandardTextBanner-OrderTemplates-Bottom      ; Standard Text Banner ; $standardText                                 ; /contentPage ; StandardTextBanner-OrderTemplates-Bottom
+; ; StandardTextBanner-OrderTemplateDetail-Top    ; Standard Text Banner ; $standardText                                 ; /contentPage ; StandardTextBanner-OrderTemplateDetail-Top
+; ; StandardTextBanner-OrderTemplateDetail-Bottom ; Standard Text Banner ; $standardText                                 ; /contentPage ; StandardTextBanner-OrderTemplateDetail-Bottom
+#For PLP search results page 
+; ; StandardTextBanner-PLP-SearchResults          ; Standard Text Banner ; Sample Text for PLP search results page       ; /contentPage ; StandardTextBanner-PLP-SearchResults
+#For PLP no search results page 
+; ; StandardTextBanner-PLP-SearchEmptyResults     ; Standard Text Banner ; Sample Text for PLP search Empty results page ; /contentPage ; StandardTextBanner-PLP-SearchEmptyResults
+
+# CMS Standard Image and Text Banner Components For Order Templates page
+INSERT_UPDATE StandardImageAndTextBannerComponent; $contentCV[unique = true]; uid[unique = true]; name; textComponent(uid, $contentCV); &componentRef
+; ; StandardImageAndTextBanner-OrderTemplates-Top         ; Standard Image and Text Banner for OrderTemplates Top            ; StandardTextBanner-OrderTemplates-Top         ; StandardImageAndTextBanner-OrderTemplates-Top
+; ; StandardImageAndTextBanner-OrderTemplates-Bottom      ; Standard Image and Text Banner for OrderTemplates Bottom         ; StandardTextBanner-OrderTemplates-Bottom      ; StandardImageAndTextBanner-OrderTemplates-Bottom
+; ; StandardImageAndTextBanner-OrderTemplateDetail-Top    ; Standard Image and Text Banner for OrderTemplateDetail Top       ; StandardTextBanner-OrderTemplateDetail-Top    ; StandardImageAndTextBanner-OrderTemplateDetail-Top
+; ; StandardImageAndTextBanner-OrderTemplateDetail-Bottom ; Standard Image and Text Banner for OrderTemplateDetail Bottom    ; StandardTextBanner-OrderTemplateDetail-Bottom ; StandardImageAndTextBanner-OrderTemplateDetail-Bottom
+#For PLP search results page 
+; ; StandardImageAndTextBanner-PLP-SearchResults          ; Standard Image and Text Banner for PLP search results page       ; StandardTextBanner-PLP-SearchResults          ; StandardImageAndTextBanner-PLP-SearchResults
+#For PLP no search results page 
+; ; StandardImageAndTextBanner-PLP-SearchEmptyResults     ; Standard Image and Text Banner for PLP search empty results page ; StandardTextBanner-PLP-SearchEmptyResults     ; StandardImageAndTextBanner-PLP-SearchEmptyResults
+
+#CUB Picks Products For OrderTemplate page
+INSERT_UPDATE CUBPicksComponent; $contentCV[unique = true]; uid[unique = true]; name; products(&componentRef); &componentRef
+; ; OrderTemplateDetailPageCUBPicksComponent ; Order Template Detail Page CUB Picks Component ; CUBPicksProductCarouselComponent1, CUBPicksProductCarouselComponent2, CUBPicksProductCarouselComponent3, CUBPicksProductCarouselComponent4 ; HomePageCUBPicksComponent ;
+
+INSERT_UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]; name; active; cmsComponents(&componentRef)
+; ; TopContentSlot-OrderTemplates           ; TopContent Slot    ; true ; StandardImageAndTextBanner-OrderTemplates-Top
+; ; BottomContentSlot-OrderTemplates        ; BottomContent Slot ; true ; StandardImageAndTextBanner-OrderTemplates-Bottom
+; ; TopContentSlot-OrderTemplateDetail      ; TopContent Slot    ; true ; StandardImageAndTextBanner-OrderTemplateDetail-Top
+; ; BottomContentSlot-OrderTemplateDetail   ; BottomContent Slot ; true ; OrderTemplateDetailPageCUBPicksComponent, StandardImageAndTextBanner-OrderTemplateDetail-Bottom
+#For PLP search results page 
+; ; BottomHeaderSlot-PLP-SearchResults      ; BottomHeader Slot  ; true ; StandardImageAndTextBanner-PLP-SearchResults
+#For PLP no search results page 
+; ; BottomHeaderSlot-PLP-SearchEmptyResults ; BottomHeader Slot  ; true ; StandardImageAndTextBanner-PLP-SearchEmptyResults
+
+###### OrderTemplate Page ######
+# CMS Standard Text Banner Components
+INSERT_UPDATE StandardTextBannerComponent; $contentCV[unique = true]; uid[unique = true]; name; content; link; &componentRef
+; ; StandardTextBanner-ContactUsMsgSent-Top    ; Standard Text Banner ; Sample Text For Top    ; /contentPage ; StandardTextBanner-ContactUsMsgSent-Top
+; ; StandardTextBanner-ContactUsMsgSent-Bottom ; Standard Text Banner ; Sample Text For Bottom ; /contentPage ; StandardTextBanner-ContactUsMsgSent-Bottom
+
+# CMS Standard Image and Text Banner Components For Order Templates page
+INSERT_UPDATE StandardImageAndTextBannerComponent; $contentCV[unique = true]; uid[unique = true]; name; textComponent(uid, $contentCV); &componentRef
+; ; StandardImageAndTextBanner-ContactUsMsgSent-Top    ; Standard Image and Text Banner for ContactUsMsgSent Top    ; StandardTextBanner-ContactUsMsgSent-Top    ; StandardImageAndTextBanner-ContactUsMsgSent-Top
+; ; StandardImageAndTextBanner-ContactUsMsgSent-Bottom ; Standard Image and Text Banner for ContactUsMsgSent Bottom ; StandardTextBanner-ContactUsMsgSent-Bottom ; StandardImageAndTextBanner-ContactUsMsgSent-Bottom
+
+INSERT_UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]; name; active; cmsComponents(&componentRef)
+; ; Section1-ContactUsMsgSent ; Section1 Slot ; true ; StandardImageAndTextBanner-ContactUsMsgSent-Top
+; ; Section3-ContactUsMsgSent ; Section3 Slot ; true ; StandardImageAndTextBanner-ContactUsMsgSent-Bottom
+
+
+###### SABMiller Media ######
+INSERT_UPDATE Media; $contentCV[unique = true]; code[unique = true]; realfilename; @media[translator = de.hybris.platform.impex.jalo.media.MediaDataTranslator]; mime[default = 'image/jpeg']; altText; folder(qualifier)[default = 'images']
+; ; StandardImageAndTextBannerImage       ; Standard-ImageAndText-Banner.png        ; $siteResource/images/theme/Standard-ImageAndText-Banner.png        ; ; banner with text        ;
+; ; StandardImageAndTextBannerImageMobile ; Standard-ImageAndText-Banner-Mobile.png ; $siteResource/images/theme/Standard-ImageAndText-Banner-Mobile.png ; ; banner with text mobile ;
+
+
+
+# SABMiller OrderTemplates Page
+INSERT_UPDATE StandardImageAndTextBannerComponent; $contentCV[unique = true]; uid[unique = true]; $media[lang = $lang]; $mediaMobile
+; ; StandardImageAndTextBanner-OrderTemplates-Top         ; StandardImageAndTextBannerImage ; StandardImageAndTextBannerImageMobile
+; ; StandardImageAndTextBanner-OrderTemplates-Bottom      ; StandardImageAndTextBannerImage ; StandardImageAndTextBannerImageMobile
+; ; StandardImageAndTextBanner-OrderTemplateDetail-Top    ; StandardImageAndTextBannerImage ; StandardImageAndTextBannerImageMobile
+; ; StandardImageAndTextBanner-OrderTemplateDetail-Bottom ; StandardImageAndTextBannerImage ; StandardImageAndTextBannerImageMobile
+; ; StandardImageAndTextBanner-ContactUsMsgSent-Top       ; StandardImageAndTextBannerImage ; StandardImageAndTextBannerImageMobile
+; ; StandardImageAndTextBanner-ContactUsMsgSent-Bottom    ; StandardImageAndTextBannerImage ; StandardImageAndTextBannerImageMobile
+; ; StandardImageAndTextBanner-PLP-SearchResults          ; StandardImageAndTextBannerImage ; StandardImageAndTextBannerImageMobile
+; ; StandardImageAndTextBanner-PLP-SearchEmptyResults     ; StandardImageAndTextBannerImage ; StandardImageAndTextBannerImageMobile
+
+
+
+###### SABMiller Media ######
+INSERT_UPDATE Media; $contentCV[unique = true]; code[unique = true]; realfilename; @media[translator = de.hybris.platform.impex.jalo.media.MediaDataTranslator]; mime[default = 'image/jpeg']; altText; folder(qualifier)[default = 'images']
+; ; StandardImageAndTextBannerImage       ; Standard-ImageAndText-Banner.png        ; $siteResource/images/theme/Standard-ImageAndText-Banner.png        ; ; banner with text        ;
+; ; StandardImageAndTextBannerImageMobile ; Standard-ImageAndText-Banner-Mobile.png ; $siteResource/images/theme/Standard-ImageAndText-Banner-Mobile.png ; ; banner with text mobile ;
+
+# CMS Standard Text Banner Components
+INSERT_UPDATE StandardTextBannerComponent; $contentCV[unique = true]; uid[unique = true]; name; content; link; &componentRef
+; ; StandardTextBannerTopContactUs  ; Standard Text Banner ; StandardTextBannerTop  ; /contentPage ; StandardTextBannerTopContactUs
+; ; StandardTextBannerBottContactUs ; Standard Text Banner ; StandardTextBannerBott ; /contentPage ; StandardTextBannerBottContactUs
+
+# CMS Standard Image and Text Banner Components For Order Templates page
+INSERT_UPDATE StandardImageAndTextBannerComponent; $contentCV[unique = true]; uid[unique = true]; name; textComponent(uid, $contentCV); &componentRef
+; ; StandardImageAndTextBanner-top-AuthenticatedContactUs  ; Standard Image and Text Banner ; StandardTextBannerTopContactUs  ; StandardImageAndTextBanner-top-AuthenticatedContactUs
+; ; StandardImageAndTextBanner-bott-AuthenticatedContactUs ; Standard Image and Text Banner ; StandardTextBannerBottContactUs ; StandardImageAndTextBanner-bott-AuthenticatedContactUs
+
+UPDATE StandardImageAndTextBannerComponent; $contentCV[unique = true]; uid[unique = true]; $media[lang = $lang]; $mediaMobile
+; ; StandardImageAndTextBanner-top-AuthenticatedContactUs  ; StandardImageAndTextBannerImage ; StandardImageAndTextBannerImageMobile
+; ; StandardImageAndTextBanner-bott-AuthenticatedContactUs ; StandardImageAndTextBannerImage ; StandardImageAndTextBannerImageMobile
+
+
+###### SABMiller Order history Page ######
+INSERT_UPDATE Media; $contentCV[unique = true]; code[unique = true]; realfilename; @media[translator = de.hybris.platform.impex.jalo.media.MediaDataTranslator]; mime[default = 'image/jpeg']; altText; folder(qualifier)[default = 'images']
+; ; StandardImageAndTextBannerImage       ; Standard-ImageAndText-Banner.png        ; $siteResource/images/theme/Standard-ImageAndText-Banner.png        ; ; banner with text        ;
+; ; StandardImageAndTextBannerImageMobile ; Standard-ImageAndText-Banner-Mobile.png ; $siteResource/images/theme/Standard-ImageAndText-Banner-Mobile.png ; ; banner with text mobile ;
+
+# CMS Standard Text Banner Components
+INSERT_UPDATE StandardTextBannerComponent; $contentCV[unique = true]; uid[unique = true]; name; content; link; &componentRef
+; ; Top_StandardTextBanner_OrderHistory           ; Standard Text Banner ; $standardText ; /contentPage ; Top_StandardTextBanner_OrderHistory
+; ; Bottom_StandardTextBanner_OrderHistory        ; Standard Text Banner ; $standardText ; /contentPage ; Bottom_StandardTextBanner_OrderHistory
+; ; Bottom_StandardTextBanner_OrderHistoryDetails ; Standard Text Banner ; $standardText ; /contentPage ; Bottom_StandardTextBanner_OrderHistoryDetails
+
+UPDATE StandardImageAndTextBannerComponent; $contentCV[unique = true]; uid[unique = true]; textComponent(&componentRef); $media[lang = $lang]; $mediaMobile; &componentRef
+; ; Top_StandardImageAndTextBanner_OrderHistory           ; Top_StandardTextBanner_OrderHistory           ; StandardImageAndTextBannerImage ; StandardImageAndTextBannerImageMobile ; Top_StandardImageAndTextBanner_OrderHistory
+; ; Bottom_StandardImageAndTextBanner_OrderHistory        ; Bottom_StandardTextBanner_OrderHistory        ; StandardImageAndTextBannerImage ; StandardImageAndTextBannerImageMobile ; Bottom_StandardImageAndTextBanner_OrderHistory
+; ; Bottom_StandardImageAndTextBanner_OrderHistoryDetails ; Bottom_StandardTextBanner_OrderHistoryDetails ; StandardImageAndTextBannerImage ; StandardImageAndTextBannerImageMobile ; Bottom_StandardImageAndTextBanner_OrderHistoryDetails
+
+INSERT_UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]; name; active; cmsComponents(&componentRef)
+; ; Top_ContentSlot_OrderHistory           ; TopContent Slot    ; true ; Top_StandardImageAndTextBanner_OrderHistory
+; ; Bottom_ContentSlot_OrderHistory        ; BottomContent Slot ; true ; Bottom_StandardImageAndTextBanner_OrderHistory
+; ; Bottom_ContentSlot_OrderHistoryDetails ; BottomContent Slot ; true ; Bottom_StandardImageAndTextBanner_OrderHistoryDetails
+
+
+# Standard Image Component for User Profile Page
+INSERT_UPDATE StandardImageComponent; $contentCV[unique = true]; uid[unique = true]; urlLink; &componentRef
+; ; StandardImage-UserPage-TopBanner    ; /Cider/c/10 ; StandardImage-UserPage-TopBanner
+; ; StandardImage-UserPage-BottomBanner ; /Cider/c/11 ; StandardImage-UserPage-BottomBanner
+
+# Standard Image Component for Update Password Page
+INSERT_UPDATE StandardImageComponent; $contentCV[unique = true]; uid[unique = true]; urlLink; &componentRef
+; ; StandardImage-updatePassword-TopBanner    ; /Cider/c/10 ; StandardImage-updatePassword-TopBanner
+; ; StandardImage-updatePassword-BottomBanner ; /Cider/c/11 ; StandardImage-updatePassword-BottomBanner
+
+###### SABMiller Business Unit and Detail Page for StandardImageBannerComponent ######
+
+INSERT_UPDATE Media; $contentCV[unique = true]; code[unique = true]; realfilename; @media[translator = de.hybris.platform.impex.jalo.media.MediaDataTranslator]; mime[default = 'image/jpeg']; altText; folder(qualifier)[default = 'images']
+; ; StandardImageMedia       ; Standard-Image-Banner.png        ; $siteResource/images/theme/Standard-Image-Banner.png        ; ; banner with image        ;
+; ; StandardImageMediaMobile ; Standard-Image-Banner-Mobile.png ; $siteResource/images/theme/Standard-Image-Banner-Mobile.png ; ; banner with image mobile ;
+
+INSERT_UPDATE StandardImageComponent; $contentCV[unique = true]; uid[unique = true]; name; $media[lang = $lang]; $mediaMobile; &componentRef; urlLink
+; ; StandardImageBanner-BusinessUnitPage-Top      ; Standard Image Banner ; StandardImageMedia ; StandardImageMediaMobile ; StandardImageBanner-BusinessUnitPage-Top      ; /
+; ; StandardImageBanner_BusinessUnitPage-Bottom   ; Standard Image Banner ; StandardImageMedia ; StandardImageMediaMobile ; StandardImageBanner-BusinessUnitPage-Bottom   ; /
+; ; StandardImageBanner-BusinessUnitDetail-Top    ; Standard Image Banner ; StandardImageMedia ; StandardImageMediaMobile ; StandardImageBanner-BusinessUnitDetail-Top    ; /
+; ; StandardImageBanner_BusinessUnitDetail-Bottom ; Standard Image Banner ; StandardImageMedia ; StandardImageMediaMobile ; StandardImageBanner-BusinessUnitDetail-Bottom ; /
+
+INSERT_UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]; name; active; cmsComponents(&componentRef)
+; ; BottomHeaderSlot-BusinessUnitPage    ; Bottom Header  ; true ; StandardImageBanner-BusinessUnitPage-Top
+; ; BottomContentSlot-BusinessUnitPage   ; Bottom Content ; true ; StandardImageBanner-BusinessUnitPage-Bottom
+; ; BottomHeaderSlot-BusinessUnitDetail  ; Bottom Header  ; true ; StandardImageBanner-BusinessUnitDetail-Top
+; ; BottomContentSlot-BusinessUnitDetail ; Bottom Content ; true ; StandardImageBanner-BusinessUnitDetail-Bottom
+
+###### SABMiller Create/Edit User Page for StandardImageBannerComponent ######
+
+INSERT_UPDATE StandardImageComponent; $contentCV[unique = true]; uid[unique = true]; name; $media[lang = $lang]; $mediaMobile; &componentRef; urlLink
+; ; StandardImageBanner-CreateUserPage-Top ; Standard Image Banner for Create User Page ; StandardImageMedia ; StandardImageMediaMobile ; StandardImageBanner-CreateUserPage-Top ; /
+; ; StandardImageBanner-EditUserPage-Top   ; Standard Image Banner Edit User Page       ; StandardImageMedia ; StandardImageMediaMobile ; StandardImageBanner-EditUserPage-Top   ; /
+
+INSERT_UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]; name; active; cmsComponents(&componentRef)
+; ; Section1-CreateUserPage ; Section1 ; true ; StandardImageBanner-CreateUserPage-Top
+; ; Section1-EditUserPage   ; Section1 ; true ; StandardImageBanner-EditUserPage-Top
+
+# CMS Standard Text Banner Components set the Url
+INSERT_UPDATE StandardTextBannerComponent; $contentCV[unique = true]; uid[unique = true]; link
+; ; StandardTextBanner-ServiceRequest-Top    ; /serviceRequestEmailSent
+; ; StandardTextBanner-ServiceRequest-Bottom ; /serviceRequestEmailSent
+
+#### Standard Text Banner Component ####
+INSERT_UPDATE StandardTextBannerComponent; $contentCV[unique = true]; uid[unique = true]; link; &componentRef
+; ; StandardText-HomePage-TopBanner ; /Brands/c/10 ; StandardText-HomePage-TopBanner
+
+INSERT_UPDATE StandardImageComponent; $contentCV[unique = true]; uid[unique = true]; urlLink; &componentRef
+; ; CustomerMarketingPortalBanner-HomePage ; /deals      ; CustomerMarketingPortalBanner-HomePage
+; ; StandardImage-HomePage-BottomBanner    ; /Cider/c/11 ; StandardImage-HomePage-BottomBanner
+
+# CMS Standard Text Banner Components set the Url
+INSERT_UPDATE StandardTextBannerComponent; $contentCV[unique = true]; uid[unique = true]; link
+; ; StandardTextBanner-ServiceRequestPage-Top    ; /serviceRequestEmailSent
+; ; StandardTextBanner-ServiceRequestPage-Bottom ; /serviceRequestEmailSent
+
+###### SABMiller Payment ConfirmationPage ######
+INSERT_UPDATE StandardTextBannerComponent; $contentCV[unique = true]; uid[unique = true]; name; content; link; &componentRef
+; ; StandardTextBanner-PaymentConfirmation-Top    ; Standard Text Banner ; $standardText ; /contentPage ; StandardTextBanner-PaymentConfirmation-Top
+; ; StandardTextBanner-PaymentConfirmation-Bottom ; Standard Text Banner ; $standardText ; /contentPage ; StandardTextBanner-PaymentConfirmation-Bottom
+
+UPDATE StandardImageAndTextBannerComponent; $contentCV[unique = true]; uid[unique = true]; textComponent(&componentRef); $media[lang = $lang]; $mediaMobile; &componentRef
+; ; StandardImageAndTextBanner-PaymentConfirmation-Top    ; StandardTextBanner-PaymentConfirmation-Top    ; StandardImageAndTextBannerImage ; StandardImageAndTextBannerImageMobile ; StandardImageAndTextBanner-PaymentConfirmation-Top
+; ; StandardImageAndTextBanner-PaymentConfirmation-Bottom ; StandardTextBanner-PaymentConfirmation-Bottom ; StandardImageAndTextBannerImage ; StandardImageAndTextBannerImageMobile ; StandardImageAndTextBanner-PaymentConfirmation-Bottom
+
+
+###### SABMiller Standard Content NoDeals Page ######
+# StandardTextBannerComponent
+INSERT_UPDATE StandardTextBannerComponent; $contentCV[unique = true]; uid[unique = true]; name; content; &componentRef
+; ; StandardTextBanner-noDealsAvailable-Top ; Standard Text Banner ; Browse our full range of Beers, Ciders, Spirits and RTD's ; StandardTextBanner-noDealsAvailable-Top
+
+# StandardImageComponent
+INSERT_UPDATE StandardImageComponent; $contentCV[unique = true]; uid[unique = true]; name; $media[lang = $lang]; $mediaMobile; &componentRef
+; ; StandardImageBanner-noDealsAvailable-Top ; Standard Image Banner ; StandardImageMedia ; StandardImageMediaMobile ; StandardImageBanner-noDealsAvailable-Top
+
+# BrandGridComponent
+INSERT_UPDATE BrandGridComponent; $contentCV[unique = true]; uid[unique = true]; name; &componentRef; brands(uid, $contentCV)
+; ; BeerGridComponent-noDealsAvailable ; Beer Grid Component ; BeerGridComponent-noDealsAvailable ; CarltonBrandBanner, CrownBrandBanner, CascadeBrandBanner
+
+# ContentSlot
+INSERT_UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]; name; active; cmsComponents(&componentRef)
+; ; Section3-noDealsAvailable ; Beer Grid Component ; true ; BeerGridComponent-noDealsAvailable
+
+###### SABMiller Error Not found page for StandardImageBannerComponent ######
+
+INSERT_UPDATE Media; $contentCV[unique = true]; code[unique = true]; realfilename; @media[translator = de.hybris.platform.impex.jalo.media.MediaDataTranslator]; mime[default = 'image/jpeg']; altText; folder(qualifier)[default = 'images']
+; ; StandardImageMedia-notFound       ; Standard-Image-Banner-ErrorNotfound.png        ; $siteResource/images/theme/Standard-Image-Banner-ErrorNotfound.png        ; ; banner with image        ;
+; ; StandardImageMediaMobile-notFound ; Standard-Image-Banner-ErrorNotfound-Mobile.png ; $siteResource/images/theme/Standard-Image-Banner-ErrorNotfound-Mobile.png ; ; banner with image mobile ;
+
+INSERT_UPDATE StandardImageComponent; $contentCV[unique = true]; uid[unique = true]; name; $media[lang = $lang]; $mediaMobile; &componentRef
+; ; StandardImageBanner-notFound ; Standard Image Banner ; StandardImageMedia-notFound ; StandardImageMediaMobile-notFound ; StandardImageBanner-notFound
+
+INSERT_UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]; name; active; cmsComponents(&componentRef)
+; ; BottomContentSlot-notFound ; Bottom Content ; true ; StandardImageBanner-notFound
+
+# FOR W3C Validation of keywords and description meta tag
+INSERT_UPDATE ContentPage; $contentCV[unique = true]; uid[unique = true]; keywords[lang = $lang]; description[lang = $lang]
+; ; homepage ; homepage ; homepage
+
+
+#live chat component
+INSERT_UPDATE ComponentTypeGroups2ComponentType;source(code)[unique=true];target(code)[unique=true]
+;wide;LiveChatComponent
+
+INSERT_UPDATE LiveChatComponent;$contentCV[unique=true];uid[unique=true];name
+;;livechatcomponent;Live chat component

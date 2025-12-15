@@ -1,0 +1,286 @@
+---
+title: Product Detail
+bodyClass: page-productDetails
+layout: templates/layouts/layout-full.hbs
+---
+
+
+
+<section class="slider test-slider">
+    <div class="row">
+        <div class="col-sm-12">
+            <img src="img/desktopbanner.png" class="img-responsive desktop">
+            <img src="img/mobbanner.png" class="img-responsive mobile">
+            <div class="buttons">
+                <a href="" class="btn btn-primary">Find out more</a>
+                <a href="" class="btn btn-secondary">View all our deals</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Orders information-->
+<section class="orders-information">
+    <div class="row">
+        <div class="col-sm-6">
+
+            <h2>Recent Orders</h2>
+
+            <table class="table sortable">
+
+                <tr>
+                    <td>
+                        <a href="#">
+                            02/05/2015 - #123535
+                        </a>
+                    </td>
+                    <td>
+                       <span class="status status-created"></span>Created
+                    </td>
+                    <td>
+                         <a href="#" class="btn btn-primary btn-small">REORDER</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <a href="#">
+                            02/05/2015 - #123535
+                        </a>
+                    </td>
+                    <td>
+                       <span class="status status-processing"></span>Created
+                    </td>
+                    <td>
+                         <a href="#" class="btn btn-primary btn-small">REORDER</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <a href="#">
+                            02/05/2015 - #123535
+                        </a>
+                    </td>
+                    <td>
+                       <span class="status status-partially-dispatched"></span>Created
+                    </td>
+                    <td>
+                         <a href="#" class="btn btn-primary btn-small">REORDER</a>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>
+                        <a href="#">
+                            02/05/2015 - #123535
+                        </a>
+                    </td>
+                    <td>
+                       <span class="status status-dispatched"></span>Created
+                    </td>
+                    <td>
+                         <a href="#" class="btn btn-primary btn-small">REORDER</a>
+                    </td>
+                </tr>
+
+
+                 <tr>
+                    <td>
+                        <a href="#">
+                            02/05/2015 - #123535
+                        </a>
+                    </td>
+                    <td>
+                       <span class="status status-cancelled"></span>Cancelled
+                    </td>
+                    <td>
+                         <a href="#" class="btn btn-primary btn-small">REORDER</a>
+                    </td>
+                </tr>
+
+            </table>
+
+            <p>
+                <a href="#">View all orders</a>
+            </p>
+        </div>
+        <div class="col-sm-6">
+
+            <h2>Your Templates</h2>
+
+            <table class="table sortable">
+
+                <tr>
+                    <td>
+                        <a href="#">
+                            Favourite Summer Beers
+                        </a>
+                    </td>
+        
+                    <td>
+                         <a href="#" class="btn btn-primary btn-small">ADD TO CART</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <a href="#">
+                            Fruity Collection of Beers
+                        </a>
+                    </td>
+        
+                    <td>
+                         <a href="#" class="btn btn-primary btn-small">ADD TO CART</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <a href="#">
+                            Favourite Winter Beers
+                        </a>
+                    </td>
+        
+                    <td>
+                         <a href="#" class="btn btn-primary btn-small">ADD TO CART</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <a href="#">
+                            Weekly Order
+                        </a>
+                    </td>
+        
+                    <td>
+                         <a href="#" class="btn btn-primary btn-small">ADD TO CART</a>
+                    </td>
+                </tr>
+
+
+                 <tr>
+                    <td>
+                        <a href="#">
+                            Create a new template
+                        </a>
+                    </td>
+        
+                    <td>
+                         <a href="#" class="btn btn-primary btn-small">ADD TO CART</a>
+                    </td>
+                </tr>
+
+            </table>
+
+            <p>
+                <a href="#">View all templates</a>
+            </p>
+        </div>
+    
+    </div>
+
+    <hr/>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-6">
+            <h3>Next Delivery Date</h3>
+            <p>Tue 22 Oct</p>
+            <a href="#">Choose a different delivery date</a>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                    <h3>Your Account</h3>
+                    <p>$2,355.94</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <a href="#">View all invoices</a>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                     <a href="#" class="btn btn-primary btn-small">PAY NOW</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+</div>
+
+<div class="container">
+
+<section class="your-deals">
+     <div class="row">
+        <div class="col-xs-12">
+            <h2>Your Deals</h2>
+        </div>
+    </div>
+    <div class="row">
+         {{> product-block-grid}}
+         {{> product-block-grid}}
+         {{> product-block-grid}}
+         {{> product-block-grid}}
+    </div>
+</section>
+
+
+<!-- CUB Picks Start-->
+<section class="cub-picks">
+    <div class="row">
+        <div class="col-xs-12">
+            <h2>CUB Picks</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6">
+             {{> product-cub-picks}}
+        </div>
+        <div class="col-xs-12 col-sm-6">
+             {{> product-cub-picks}}
+        </div>
+        <div class="col-xs-12 col-sm-6">
+             {{> product-cub-picks}}
+        </div>
+        <div class="col-xs-12 col-sm-6">
+             {{> product-cub-picks}}
+        </div>
+    </div>
+</section>
+<!-- CUB Picks Ends-->
+
+<hr/>
+
+ 
+<!-- Best sellers -->
+<section class="best-sellers">
+    <div class="row">
+        <div class="col-xs-12">
+            <h2>Best Sellers</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6 col-md-3">
+            <img src="img/placeholders/cascade-draught.png" alt="Cascade Draught">
+            <h3>Cascade Draught</h3>
+            <p class="h3 h3-subheader">24 x 375ml Bottle Carton</p>
+        </div>
+        <div class="col-xs-6 col-md-3">
+            <img src="img/placeholders/cascade-draught.png" alt="Cascade Draught">
+            <h3>Cascade Draught</h3>
+            <p class="h3 h3-subheader">24 x 375ml Bottle Carton</p>
+        </div>
+        <div class="col-xs-6 col-md-3">
+            <img src="img/placeholders/cascade-draught.png" alt="Cascade Draught">
+            <h3>Cascade Draught</h3>
+            <p class="h3 h3-subheader">24 x 375ml Bottle Carton</p>
+        </div>
+        <div class="col-xs-6 col-md-3">
+            <img src="img/placeholders/cascade-draught.png" alt="Cascade Draught">
+            <h3>Cascade Draught</h3>
+            <p class="h3 h3-subheader">24 x 375ml Bottle Carton</p>
+        </div>
+    </div>
+</section>
+   

@@ -1,0 +1,11 @@
+# Language
+$lang=en
+
+# B2BUnit 
+UPDATE B2BUnit;uid[unique=true];locname[lang=$lang]
+ ;Test Sample B2B;Test Sample B2B
+ ;0000842292;Test Sample B2B Melbourne
+ ;Test Sample B2B Sydney;Test Sample B2B Sydney
+ ;Test Sample B2B Brisbane;Test Sample B2B Brisbane
+ ;Test Sample B2B Perth;Test Sample B2B Perth
+ 

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns0:PricingBOGOFDealsRequest syncIndicator="X" xmlns:ns0="urn:gl.sabmiller.com:com:ecc:mastdata">
+   <ConditionType>YTPM</ConditionType>
+   <SalesOrganisation>7001</SalesOrganisation>
+   <Customer>794386</Customer>
+   <Date>2015-12-16</Date>
+</ns0:PricingBOGOFDealsRequest>

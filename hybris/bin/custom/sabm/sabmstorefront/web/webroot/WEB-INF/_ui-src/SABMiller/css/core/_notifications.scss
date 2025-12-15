@@ -1,0 +1,315 @@
+// ==========================================================================
+//   homepage notification Classes
+// ==========================================================================
+
+.home-notification-box{
+  display: none;
+}
+
+.home-notification-box {
+  background-color: $tertiary-blue;
+  color: $white;
+  width: 100%;
+  padding: 15px 40px 15px 15px;
+  position: relative;
+  margin-bottom: 10px;
+  .remove-message{
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    svg {
+      width: 16px;
+      height: 16px;
+      color: $white;
+    }
+  }
+}
+
+// ==========================================================================
+//   Email notification page
+// ==========================================================================
+
+
+.page-notifications {
+	margin-bottom: 25%;
+
+  .w-100{
+    padding:10px 0;
+    width:100%;
+    clear:both;
+    display:table;
+  }
+
+  .panel-mobile-number{
+    border-color:transparent;
+    background:rgba(3, 169, 244, 0.06);
+    margin:2% 0;
+
+    [class*='col-']{
+      line-height:2em;
+
+      .enter-mobile-text{
+        color:$primary-blue;
+        font-weight:bold;
+      }
+
+      #mobileNumberShowError{
+        color:#ff0000;
+      }
+
+      .form-control, input[type='text']{
+        border-radius:0;
+        box-shadow:none;
+      }
+    }
+  }
+
+  @media (max-width:$tablet){
+    .w-100{
+      padding:15px 0;
+    }
+
+    .sms-email-cbox-component{
+      text-align:left;
+
+      .checkbox-inline{
+        padding-left:0;
+      }
+    }
+  }
+
+
+  .learn-more {
+    color: $primary-blue;
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 20px;
+    display: inline-block;
+    line-height: 30px;
+    &:after {
+      margin-top: 13px;
+    }
+  }
+
+  .panel-mobile-number{
+    border-color:transparent;
+    background:rgba(3, 169, 244, 0.06);
+    margin:2% 0;
+
+    [class*='col-']{
+      line-height:2em;
+
+      .enter-mobile-text{
+        color:$primary-blue;
+        font-weight:bold;
+      }
+
+      #mobileNumberShowError{
+        color:#ff0000;
+      }
+
+      .form-control, input[type='text']{
+        border-radius:0;
+        box-shadow:none;
+      }
+    }
+  }
+  h1 {
+    display: inline-block;
+    margin-bottom: 20px;
+  }
+  h2 {
+    font-size: 18px;
+    font-weight: normal;
+    span {
+      color: $tertiary-blue;
+      font-weight: bold;
+    }
+  }
+
+  h3 {
+    color: $primary-blue;
+    margin-bottom: 15px;
+    position:relative;
+
+    .icon-price-info{
+      background-image:url('../img/svg/price-info.svg');
+      height:15px;
+      width:15px;
+      vertical-align:middle;
+    }
+  }
+
+  h4 {
+    color: $primary-blue;
+    font-weight: normal;
+    font-size: 14px;
+    strong {
+      font-weight: bold;
+    }
+  }
+
+  section {
+    padding: 20px 0;
+    .notification_body {
+      padding: 20px 0 0 40px;
+      @media (min-width: $tablet){
+        padding-left: 92px;
+      }
+    }
+  }
+
+  .btn-invert {
+    padding: 0;
+    font-size: $font-x-small;
+    @media (min-width: $mobile-max) {
+      padding: 0 10px;
+    }
+  }
+
+  .notification_required-notice {
+    margin-bottom: 20px;
+    i {
+      color: $tertiary-blue;
+    }
+  }
+
+  .form-group {
+    margin-bottom: 0;
+    & > label {
+      font-size: 12px;
+      color: $dark-grey;
+      font-weight: normal;
+      display: block;
+      .required {
+        position: static;
+        top: 0;
+        right: 0;
+        color: $tertiary-blue;
+      }
+    }
+  }
+
+  .select {
+    max-width: 148px;
+    display: inline-block;
+    & + span {
+      line-height: 40px;
+      display: inline-block;
+      margin-left: 10px;
+    }
+  }
+
+  .list-checkbox {
+    margin-bottom: 26px;
+    @media (min-width: $tablet-max) {
+      margin-bottom: 0;
+    }
+    li {
+      margin-bottom: 10px;
+      &:last-child {
+        margin-bottom: 0;
+      }
+      label {
+        color: $primary-blue;
+        font-weight: normal;
+      }
+    }
+  }
+
+  .checkbox {
+    &.notification_option {
+      margin-bottom: 0;
+      @media (min-width: $tablet){
+        padding-left: 52px;
+      }
+    }
+    label {
+      font-size: 14px;
+      color: $dark-grey;
+      line-height: 20px;
+      padding-left:30px;
+      margin-right:0;
+
+      span {
+        font-weight: bold;
+        color: $primary-blue;
+        display: inline-block;
+        margin-right: 5px;
+        margin-bottom: 0;
+        &.glyphicon-info-sign {
+          color: $dark-grey;
+        }
+      }
+    }
+  }
+
+  .notification_cta {
+    margin-top: 20px;
+    text-align: right;
+    .btn-primary {
+      width: 30%;
+      display: inline-block;
+      line-height: 40px;
+      height: 40px;
+      font-size: $font-x-small;
+      &.btn-invert {
+        width: 68%;
+        display: inline-block;
+        float: left;
+      }
+      @media (min-width: $tablet){
+        max-width: 116px;
+        &.btn-invert {
+          max-width: inherit;
+        }
+      }
+    }
+  }
+
+  .modal-unsaved-changes {
+    .modal-dialog {
+      top: 20%;
+      .modal-content {
+        border-radius: 0;
+        margin: 15px;
+        padding: 20px;
+        text-align: center;
+        .modal-body {
+          padding-bottom: 0;
+          h2 {
+            font-size: $font-medium;
+            font-weight: bold;
+            line-height: $line-height-base;
+          }
+          p {
+            margin: 0;
+          }
+          .submit-notification {
+            font-size: $font-x-small;
+            font-weight: normal;
+            color: $white;
+            height: 40px;
+            line-height: $line-height-x-large;
+          }
+        }
+        .modal-footer {
+          border: none;
+          padding: 0;
+          text-align: center;
+          .back {
+            font-size: $font-small;
+            color: $dark-grey;
+            font-weight: normal;
+            line-height: $line-height-base;
+            background-color: transparent;
+            .glyphicon {
+              padding-right: 4px;
+              top: 2px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

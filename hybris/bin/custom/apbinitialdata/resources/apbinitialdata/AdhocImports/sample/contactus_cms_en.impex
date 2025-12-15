@@ -1,0 +1,27 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+##******************************This file is generated - please do not edit it. It will be regenerated after every build.********************************#
+
+$contentCatalog=apbContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$picture=media(code, $contentCV);
+$siteResource=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/sampledata/contentCatalogs/$contentCatalog
+$medias=medias(code, $contentCV);
+$mediaContainer=media(qualifier, $contentCV)[lang=$lang];
+
+
+# Language
+$lang=en
+
+# CMS Paragraph Component (Contact information)
+UPDATE CMSParagraphComponent ; $contentCV[unique=true] ; uid[unique=true]                ; content[lang=en];  
+							; 							; APBCustomerServicesComponent; "<div class=""customer-service-content-heading"">APB Customer Services</div><div class=""customer-service-details""><span class=""customer-service-content-subheading"">Phone:</span><span class=""customer-service-content"">1800 090 378</span><br><span class=""customer-service-content-subheading"">Email:</span><span class=""customer-service-content"">CustomerSupport@asahidirect.com.au</span></div>"
+                            ; 							; APBTechServicesComponent; "<div class=""customer-service-content-heading"">Equipment & Technical Services</div><div class=""customer-service-details""><span class=""customer-service-content-subheading"">Phone:</span><span class=""customer-service-content"">1300 364 246</span><br></div>"

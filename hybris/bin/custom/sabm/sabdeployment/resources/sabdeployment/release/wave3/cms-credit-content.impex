@@ -1,0 +1,63 @@
+#
+# Import the CMS content for the site
+#
+$contentCatalog = sabmContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Staged])[default = $contentCatalog:Staged]
+$productCV = catalogVersion(catalog(id[default = $productCatalog]), version[default = 'Staged'])[unique = true, default = $productCatalog:Staged]
+$pageId = sabmSupportPage
+
+# CMS Navigation Nodes
+INSERT_UPDATE CMSNavigationNode; uid[unique = true]; $contentCV[unique = true]; name; parent(uid, $contentCV); title
+; SupportNavNode          ; ; Support Page         ; SABMillerNavNode ; Support
+; SupportContactUsNavNode ; ; Contact Us Page      ; SupportNavNode   ; Contact Us
+; SupportFAQNavNode       ; ; FAQs Page            ; SupportNavNode   ; FAQs
+; SupportVideoNavNode     ; ; Video Tutorials Page ; SupportNavNode   ; Video Tutorials
+; SupportLearnMoreNavNode ; ; Learn More Page      ; SupportNavNode   ; Learn more
+; SABMFooterNavNode       ; ; SABM Pages           ; SABMillerNavNode ; SABM Pages
+
+UPDATE CMSNavigationNode; uid[unique = true]; $contentCV[unique = true]; links(uid, $contentCV);
+; SupportContactUsNavNode ; ; DeliveryIssueOrEnquiryLink, KegPickupOrQualityLink,ProductOrPricingEnquiryLink, GeneralEnquiryLink,ContactDetailsLink
+; SupportFAQNavNode       ; ; SupportFAQLink
+; SupportVideoNavNode     ; ; SupportVideosLink
+; SupportLearnMoreNavNode ; ; SupportBreweryEducationLink,SupportBeerEducationLink,SupportGuidesLink
+; SABMFooterNavNode       ; ; ServiceRequestLink,FAQsLink,VideosLink,TermsAndConditionsLink,PrivacySecurityLink,Over18Link ; SABMFooterNavNode
+
+
+INSERT_UPDATE CMSLinkComponent; $contentCV[unique = true]; uid[unique = true]; name; linkName; url; contentPage(uid, $contentCV); target(code)[default = 'sameWindow'];
+###SupportContactUsNavNode Links#####
+; ; InvoiceDiscrepancyLink      ; Invoice Discrepancy Link            ; Invoice Discrepancy                ; /businessEnquiry?enquiryType=INVOICE
+; ; DeliveryIssueOrEnquiryLink  ; Delivery Enquiry Link               ; Delivery Enquiry                   ; /businessEnquiry?enquiryType=DELIVERY
+; ; KegPickupOrQualityLink      ; Keg Pickups or Quality Enquiry Link ; Keg Pickups or Quality Enquiry     ; /businessEnquiry?enquiryType=KEG
+; ; ProductOrPricingEnquiryLink ; Product or Pricing Enquiry Link     ; Product or Pricing Enquiry         ; /businessEnquiry?enquiryType=PRODUCT
+; ; GeneralEnquiryLink          ; General Enquiry Link                ; General Enquiry                    ; /businessEnquiry?enquiryType=GENERAL
+; ; ContactDetailsLink          ; Contact Details Link                ; Contact Details                    ; /serviceRequest#contact-details
+; ; SupportComponentLink        ; Support Component Link              ; Support                            ; /serviceRequest
+###SupportFAQNavNode Links#####
+; ; SupportFAQLink              ; Support FAQ Link                    ; View all FAQs                      ; /serviceRequest#faqs
+###SupportVideoNavNode Links#####
+; ; SupportVideosLink           ; Support Videos Link                 ; View all videos                    ; /serviceRequest#video-tutorials
+###SupportLearnMoreNavNode Links#####
+; ; SupportBreweryEducationLink ; Support Brewery Education Link      ; Brewery Fresh Education            ; /breweryfresheducation
+; ; SupportBeerEducationLink    ; Support Beer Education Link         ; Beer Education                     ; /education
+; ; SupportGuidesLink           ; Support Guides Link                 ; How to Guides                      ; /howtoguides
+; ; TermsAndConditionsLink      ; Terms and Conditions Link           ; Terms and conditions               ; /terms
+; ; PrivacySecurityLink         ; Privacy and Security Link           ; Privacy and security               ; /privacyandsecurity
+; ; ServiceRequestLink          ; Service Request Link                ; Support                            ; /serviceRequest
+; ; FAQsLink                    ; FAQs Lin                            ; FAQ                                ; /serviceRequest#faqs
+; ; VideosLink                  ; Support Videos Link                 ; Video Tutorials                    ; /serviceRequest#video-tutorials
+; ; Over18Link                  ; Over 18 Link                        ; For people over the age of 18 only ; https://drinkwise.org.au/ ; ; newWindow
+
+
+#### Navigation Bar Component ####
+INSERT_UPDATE NavigationBarWithImageComponent; $contentCV[unique = true]; uid[unique = true]; name; wrapAfter; link(uid, $contentCV); styleClass; navigationNode(&nodeRef); dropDownLayout(code)[default = AUTO];
+; ; SupportComponent ; Support Component ; 10 ; SupportComponentLink ; support-item-nav ; ;
+
+UPDATE NavigationBarWithImageComponent; $contentCV[unique = true]; uid[unique = true]; navigationNode(uid, $contentCV)
+; ; SupportComponent ; SupportNavNode
+
+UPDATE NavigationBarCollectionComponent; $contentCV[unique = true]; uid[unique = true]; name; components(uid, $contentCV); searchBox(uid, $contentCV);
+; ; NavBarComponent ; Navigation Bar Collection Component ; BeerBarComponent, CiderBarComponent, SpiritsBarComponent, BrandsBarComponent,DealBarComponent,SupportComponent ; SearchBox
+
+
+UPDATE LinkParagraphComponent; $contentCV[unique = true]; uid[unique = true]; url;
+; ; FAQs ; /serviceRequest#faqs

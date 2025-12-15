@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <import resource="classpath:/apbintegration/integration/hot-folder-spring.xml"/>  
+	<bean id="asahiRestTemplate" class="org.springframework.web.client.RestTemplate">
+		<property name="messageConverters">
+			<list>
+				<ref bean="asahiMappingJacksonHttpMessageConverter" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="asahiConfigurationDao" class="com.apb.integration.dao.config.impl.AsahiConfigurationDaoImpl">
+		<property name="modelService" ref="modelService"/>
+		<property name="flexibleSearchService" ref="flexibleSearchService" />
+	</bean>
+	
+	<!--Asahi Configuration Service -->
+	<bean id="asahiIconfigurationService" class="com.apb.integration.service.config.impl.AsahiConfigurationServiceImpl" parent="defaultConfigurationService"/>
+	
+   
+	<bean id="asahiMappingJacksonHttpMessageConverter"
+		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>application/json;charset=UTF-8</value>
+				<value>text/plain;charset=UTF-8</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="asahiRestClient" class="com.apb.integration.rest.client.AsahiRestClientImpl" >
+	<property name="plainCredentials">
+			<value>${sap.host.apb.userid}:${sap.host.apb.password}</value>
+		</property>
+	</bean>
+		
+	<bean id="asahiPriceIntegrationService"
+		class="com.apb.integration.price.service.impl.AsahiPriceIntegrationServiceImpl" />
+		
+	<bean id="asahiStockIntegrationService"
+		class="com.apb.integration.stock.service.impl.AsahiStockIntegrationServiceImpl" />
+	
+	<bean id="asahiCreditCheckIntegrationService"
+		class="com.apb.integration.credit.check.service.impl.AsahiCreditCheckIntegrationServiceImpl" />	
+		
+			<bean id="asahiOrderRequestConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass"
+			value="com.apb.integration.order.dto.AsahiOrderRequest" />
+		<property name="populators">
+			<list>
+				<ref bean="asahiOrderRequestPopulator" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="asahiOrderRequestPopulator"
+		class="com.apb.integration.rest.order.populator.AsahiOrderRequestPopulator">
+	</bean>
+
+	<bean id="asahiOrderIntegrationService"
+		class="com.apb.integration.order.service.impl.AsahiOrderIntegrationServiceImpl" />	
+		
+	<bean id="apbProductOfflinePriceService" class="com.apb.integration.price.service.impl.ApbProductOfflinePriceServiceImpl" />
+	
+	<bean id="apbProductOfflinePriceDao" class="com.apb.integration.price.dao.impl.ApbProductOfflinePriceDaoImpl" >
+		<property name="modelService" ref="modelService" />
+		<property name="flexibleSearchService" ref="flexibleSearchService" />
+	</bean>
+	
+	<bean id="orderPayloadSequenceIdGenerator"
+              class="de.hybris.platform.servicelayer.keygenerator.impl.PersistentKeyGenerator"
+              init-method="init">
+         <property name="key" value="rule_uid" />
+         <property name="digits" value="5" />
+         <property name="start" value="00001" />
+         <property name="numeric" value="true" />
+    </bean>
+
+	<bean id="asahiRestClientUtil"
+		class="com.asahi.integration.rest.client.AsahiRestClientUtil">
+		<property name="plainCredentials">
+			<value>${sap.host.alb.userid}:${sap.host.alb.password}</value>
+		</property>
+	</bean>
+    <bean id="asahiIntegrationUtil" class="com.apb.integration.util.AsahiIntegrationUtil"/>
+    
+    <bean id="asahiUserIntegrationService"
+		class="com.apb.integration.user.service.impl.AsahiUserIntegrationServiceImpl" />
+		
+	<bean id="asahiUsersToSFRequestConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass"
+			value="com.apb.integration.data.AsahiUsersRequestData" />
+		<property name="populators">
+			<list>
+				<ref bean="asahiUsersToSFRequestPopulator" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="asahiUsersToSFRequestPopulator"
+		class="com.apb.integration.rest.users.populator.AsahiUsersToSFRequestPopulator">
+		<property name="customerNameStrategy" ref="customerNameStrategy"/>
+	</bean>
+	
+	<bean id="asahiUsersIntegrationDao"
+		class="com.apb.integration.users.dao.impl.AsahiUsersIntegrationDaoImpl">
+		<property name="flexibleSearchService" ref="flexibleSearchService" />
+	</bean>
+	
+</beans>

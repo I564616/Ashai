@@ -1,0 +1,2 @@
+#name,companyCode,backendRecordID,accountNum,abnNumber,phone,cellularPhone,purposeCode,salesRepCode,salesRepName,salesRepEmailID,teleFax,warehouse,custOrderType,salesOrg,distributionChannel,division,creditControlArea,tier,paymentTerm,catalogHierarchy
+Sample Customer,apb,444444,1000001,2000002,9717098383,2322324,2322324,12345,Mariya,test@mail.com,12332320,,,,,,,1,C00C,CL1|CL3

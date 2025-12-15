@@ -1,0 +1,1684 @@
+####################This mostly contains data that should would be created OOTB if system was initialized or data for ALB enhancements/changes after consolidated codebase and   needs to be imported on Environment post data migration######
+
+$typeCode = type(code)[default = 'Product'];
+$target = target[allownull = true, default = 'de.hybris.platform.core.model.product.ProductModel'];
+$active = active[allownull = true, default = true];
+$lang=en;
+
+## The below four instances are not present in CUB only Database, while the rest 17 out of 21 needed for Asahi already exist
+INSERT_UPDATE ApplicableCmsActionsTypeForCmsComponent ; target(code)[unique=true]  ; source(code)[unique=true]   ;  
+                                                      ; ProductGridComponent       ; ListQuantityAddToCartAction ;  
+                                                      ; SearchResultsGridComponent ; ListQuantityAddToCartAction ;
+													  ;JspIncludeComponent;ReorderAction;
+													  ;JspIncludeComponent;ApproveOrderAction;
+													  
+INSERT_UPDATE CoverageConstraintGroup; id[unique = true]                   ; dedicatedTypes(code); interfaceName                                                                      ; coverageDomainID                    ;
+                                     ; pcmCoreAttributesCoverageGroup      ; Product             ; de.hybris.platform.validation.groupinterfaces.PcmCoreAttributesCoverageGroup       ; pcmCoreAttributesCoverageGroup      ;
+                                     ; pcmMarketingAttributesCoverageGroup ; Product             ; de.hybris.platform.validation.groupinterfaces.MarketingCoreAttributesCoverageGroup ; pcmMarketingAttributesCoverageGroup ;
+									 
+									 
+ INSERT_UPDATE NotNullConstraint; id[unique = true]                         ; constraintGroups(id)[mode = append] ; severity(code, itemtype(code)); $active; $target; $typeCode; qualifier         ; descriptor(enclosingType(code), qualifier); languages(isocode)[allownull = true]            ;
+                               ; ProductNameNotNullConstraint              ; pcmCoreAttributesCoverageGroup      ; ERROR:Severity                ;        ;        ;          ; name              ; Product:name                              ;                                                 ;
+                               ; ProductUnitNotNullConstraint              ; pcmCoreAttributesCoverageGroup      ; WARN:Severity                 ;        ;        ;          ; unit              ; Product:unit                              ;                                                 ;
+                               ; ProductSupercategoriesNotNullConstraint   ; pcmCoreAttributesCoverageGroup      ; INFO:Severity                 ;        ;        ;          ; supercategories   ; Product:supercategories                   ;                                                 ;
+                               ; ProductEurope1PricesNotNullConstraint     ; pcmCoreAttributesCoverageGroup      ; WARN:Severity                 ;        ;        ;          ; europe1Prices     ; Product:europe1Prices                     ;                                                 ;
+                               ; ProductPriceQuantityNotNullConstraint     ; pcmCoreAttributesCoverageGroup      ; WARN:Severity                 ;        ;        ;          ; priceQuantity     ; Product:priceQuantity                     ;                                                 ;
+                               ; ProductManufacturerNameNotNullConstraint  ; pcmCoreAttributesCoverageGroup      ; WARN:Severity                 ;        ;        ;          ; manufacturerName  ; Product:manufacturerName                  ;                                                 ;
+                               ; ProductDeliveryTimeNotNullConstraint      ; pcmCoreAttributesCoverageGroup      ; WARN:Severity                 ;        ;        ;          ; deliveryTime      ; Product:deliveryTime                      ;                                                 ;
+                               ; ProductThumbnailNotNullConstraint         ; pcmMarketingAttributesCoverageGroup ; WARN:Severity                 ;        ;        ;          ; thumbnail         ; Product:thumbnail                         ;                                                 ;
+                               ; ProductPictureNotNullConstraint           ; pcmMarketingAttributesCoverageGroup ; ERROR:Severity                ;        ;        ;          ; picture           ; Product:picture                           ;                                                 ;
+                               ; ProductGalleryImagesNotNullConstraint     ; pcmMarketingAttributesCoverageGroup ; WARN:Severity                 ;        ;        ;          ; galleryImages     ; Product:galleryImages                     ;                                                 ;
+                               ; ProductProductReferencesNotNullConstraint ; pcmMarketingAttributesCoverageGroup ; INFO:Severity                 ;        ;        ;          ; productReferences ; Product:productReferences                 ;                                                 ;
+                               ; ProductDescriptionNotNullConstraint       ; pcmMarketingAttributesCoverageGroup ; ERROR:Severity                ;        ;        ;          ; description       ; Product:description                       ;                                                 ;
+                               ; ProductNameNotNullForAllLocalesConstraint ; pcmMarketingAttributesCoverageGroup ; WARN:Severity                 ;        ;        ;          ; name              ; Product:name                              ; en,de,es,es_CO,fr,it,ja,ko,pt,ru,zh,zh_TW,hi,id
+
+INSERT_UPDATE SizeConstraint; id[unique = true]                    ; constraintGroups(id)[mode = append] ; severity(code, itemtype(code)); $active; $target; $typeCode; qualifier         ; descriptor(enclosingType(code), qualifier); min; max        ;
+                            ; ProductEanSizeConstraint             ; pcmCoreAttributesCoverageGroup      ; ERROR:Severity                ;        ;        ;          ; ean               ; Product:ean                               ; 8  ; 13         ;
+                            ; ProductEurope1PricesSizeConstraint   ; pcmCoreAttributesCoverageGroup      ; WARN:Severity                 ;        ;        ;          ; europe1Prices     ; Product:europe1Prices                     ; 1  ; 2147483647 ;
+                            ; ProductSupercategoriesSizeConstraint ; pcmCoreAttributesCoverageGroup      ; INFO:Severity                 ;        ;        ;          ; supercategories   ; Product:supercategories                   ; 1  ; 2147483647 ;
+                            ; ProductGalleryImagesSizeConstraint   ; pcmMarketingAttributesCoverageGroup ; WARN:Severity                 ;        ;        ;          ; galleryImages     ; Product:galleryImages                     ; 1  ; 2147483647 ;
+                            ; ProductReferencesSizeConstraint      ; pcmMarketingAttributesCoverageGroup ; INFO:Severity                 ;        ;        ;          ; productReferences ; Product:productReferences                 ; 1  ; 2147483647 ;
+
+INSERT_UPDATE NotEmptyConstraint; id[unique = true]                    ; constraintGroups(id)[mode = append]; severity(code, itemtype(code)); $active; $target; $typeCode; qualifier   ; descriptor(enclosingType(code), qualifier);
+                                ; ProductCodeNotEmptyConstraint        ; pcmCoreAttributesCoverageGroup     ; ERROR:Severity                ;        ;        ;          ; code        ; Product:code                              ;
+                                ; ProductDescriptionNotEmptyConstraint ; pcmCoreAttributesCoverageGroup     ; WARN:Severity                 ;        ;        ;          ; description ; Product:description                       ;
+                                ; ProductEanNotEmptyConstraint         ; pcmCoreAttributesCoverageGroup     ; WARN:Severity                 ;        ;        ;          ; ean         ; Product:ean                               ;
+
+INSERT_UPDATE HybrisEnumValueCodeConstraint ; id[unique = true]                            ; constraintGroups(id)           ; severity(code, itemtype(code)) ; $active ; $target ; $typeCode ; value    ; qualifier      ;
+                                            ; ProductApprovedHybrisEnumValueCodeConstraint ; pcmCoreAttributesCoverageGroup ; ERROR:Severity                 ;         ;         ;           ; approved ; approvalStatus ;
+
+
+
+INSERT_UPDATE AtpFormula;code[unique=true];availability;allocation;cancellation;increase;reserved;shrinkage;wastage;returned
+;sgaFormula;true;true;true;true;true;true;true;true
+;apbFormula;true;true;true;true;true;true;true;true
+
+UPDATE BaseStore;uid[unique=true];defaultAtpFormula(code)
+										;sga;sgaFormula
+										;apb;apbFormula
+
+										
+INSERT_UPDATE DroolsKIEModule;name[unique=true];mvnGroupId;mvnArtifactId;mvnVersion;ruleType(code);active;version;
+;promotions-module;hybris-rules;promotions;1.0.0;PROMOTION;true;-1;
+;promotions-preview-module;hybris-rules;promotions-preview;1.0.0;PROMOTION;true;-1;
+
+INSERT_UPDATE DroolsKIEModule;name[unique=true];allowedTargets(name)
+;promotions-preview-module;promotions-module
+
+INSERT_UPDATE DroolsKIEBase;name[unique=true];kieModule(name)[unique=true];equalityBehavior(code);eventProcessingMode(code)
+;promotions-base;promotions-module;EQUALITY;STREAM
+;promotions-preview-base;promotions-preview-module;EQUALITY;STREAM
+
+INSERT_UPDATE DroolsKIESession;name[unique=true];kieBase(name)[unique=true];sessionType(code)
+;promotions-session;promotions-base;STATEFUL
+;promotions-preview-session;promotions-preview-base;STATEFUL
+
+INSERT_UPDATE DroolsRuleEngineContext;name[unique=true];kieSession(name);ruleFiringLimit
+;promotions-context;promotions-session;200;
+;promotions-preview-context;promotions-preview-session;200;
+
+UPDATE DroolsKIEBase;name[unique=true];defaultKIESession(name)
+;promotions-base;promotions-session
+;promotions-preview-base;promotions-preview-session
+
+UPDATE DroolsKIEModule;name[unique=true];defaultKIEBase(name)
+"#% afterEach: de.hybris.platform.core.Registry.getApplicationContext().getBean(""ruleEngineSystemSetup"").initializeModule(impex.getLastImportedItem());"
+;promotions-module;promotions-base
+;promotions-preview-module;promotions-preview-base
+
+INSERT_UPDATE RuleEngineJob;code[unique=true];springId;
+;rules -> Compilation and Publishing for [promotions-preview-module];ruleEngineCompilePublishJobPerformable;
+;rules -> Undeploy for [promotions-preview-module];ruleEngineUndeployJobPerformable;
+;rules -> Modules Sync from [promotions-preview-module] to [promotions-module];ruleEngineModuleSyncJobPerformable;
+;rules -> Module Init for [promotions-preview-module];ruleEngineModuleInitJobPerformable;
+
+
+
+## Record present in Asahi Production #######
+INSERT_UPDATE OAuthClientDetails ; clientId[unique=true] ; resourceIds ; scope    ; authorizedGrantTypes                                         ; authorities                     ; clientSecret ; registeredRedirectUri ; refreshTokenValiditySeconds ; accessTokenValiditySeconds
+                                 ; cbma-v1               ; hybris      ; extended ; authorization_code,refresh_token,password,client_credentials ; ROLE_CLIENT,ROLE_TRUSTED_CLIENT ; cbmasecret   ;                       ; 2592000                     ; 43200
+
+								 
+INSERT_UPDATE SizeConstraint; id[unique = true]                    ; constraintGroups(id)[mode = append] ; severity(code, itemtype(code)); $active; $target; $typeCode; qualifier         ; descriptor(enclosingType(code), qualifier); min; max        ;message[lang=$lang] 
+                            ; ProductEanSizeConstraint             ; pcmCoreAttributesCoverageGroup      ; ERROR:Severity                ;        ;        ;          ; ean               ; Product:ean                               ; 8  ; 13         ;
+                            ; ProductEurope1PricesSizeConstraint   ; pcmCoreAttributesCoverageGroup      ; WARN:Severity                 ;        ;        ;          ; europe1Prices     ; Product:europe1Prices                     ; 1  ; 2147483647 ;The attribute "Prices" must contain at least 1 element.     ;
+                            ; ProductSupercategoriesSizeConstraint ; pcmCoreAttributesCoverageGroup      ; INFO:Severity                 ;        ;        ;          ; supercategories   ; Product:supercategories                   ; 1  ; 2147483647 ;The attribute "Supercategories" must contain at least 1 element.   ;
+                            ; ProductGalleryImagesSizeConstraint   ; pcmMarketingAttributesCoverageGroup ; WARN:Severity                 ;        ;        ;          ; galleryImages     ; Product:galleryImages                     ; 1  ; 2147483647 ;The attribute "Gallery Images" must contain at least 1 element.     ;
+                            ; ProductReferencesSizeConstraint      ; pcmMarketingAttributesCoverageGroup ; INFO:Severity                 ;        ;        ;          ; productReferences ; Product:productReferences                 ; 1  ; 2147483647 ;The attribute "Product References" must contain at least 1 element. ;
+
+
+########Update Regions in CUB with new field###############
+
+INSERT_UPDATE Region; country(isocode); isocode[unique = true]; businessCode; isocodeShort; name[lang = en]; 
+; AU ; NSW ; cub; NSW ; "New South Wales"
+; AU ; QLD ; cub; QLD ; "Queensland"
+; AU ; SA  ; cub; SA  ; "South Australia"
+; AU ; TAS ; cub; TAS ; "Tasmania"
+; AU ; VIC ; cub; VIC ; "Victoria"
+; AU ; WA  ; cub; WA  ; "Western Australia"
+; AU ; ACT ; cub; ACT ; "Australian Capital Territory"    
+
+
+######## HC-306 Setting GalleryImages in Sync attribute Config ################
+
+Insert_Update SyncAttributeDescriptorConfig;syncJob(code)[unique=true][path-delimiter=!];attributeDescriptor(enclosingType(code),qualifier)[allownull=true][unique=true];copyByValue;owner
+;product_sync_catalog;Product:galleryImages;true;Product      
+;sync SGAProducts:Staged->Online;Product:galleryImages;true;Product    
+			
+###### Content Catalog Sync Job for ALB ###########
+
+INSERT_UPDATE CatalogVersionSyncJob;active;code[unique=true];copyCacheSize;createNewItems[allownull=true];emailAddress;errorMode(code,itemtype(code));exclusiveMode[allownull=true,forceWrite=true];logLevelDatabase(code,itemtype(code));logLevelFile(code,itemtype(code));logToDatabase;logToFile;maxSchedulerThreads;maxThreads;nodeGroup;nodeID[forceWrite=true];priority;removeMissingItems[allownull=true];removeOnExit;requestAbort;requestAbortStep;retry[allownull=true];sendEmail;sessionContextValues;sessionCurrency(isocode);sessionLanguage(isocode);sessionUser(uid);singleExecutable;sourceVersion(catalog(id),version)[forceWrite=true,unique=true,allownull=true];syncOrder;syncPrincipalsOnly[allownull=true];targetVersion(catalog(id),version)[forceWrite=true,unique=true,allownull=true];roottypes(code)
+;false;sync sgaContentCatalog:Staged->Online;5,000;true;;IGNORE:ErrorMode;false;WARNING:JobLogLevel;INFO:JobLogLevel;false;true;3;3;;;4;true;false;false;false;false;false;;;;;false;sgaContentCatalog:Staged;;false;sgaContentCatalog:Online;Category,Product,Media,Keyword,TaxRow,PriceRow,DiscountRow,MediaContainer,AbstractAsSearchProfile,AbstractAsSearchConfiguration,AbstractAsBoostItemConfiguration,AbstractAsBoostRuleConfiguration,AbstractAsFacetConfiguration,AsSearchProfileActivationSet,CMSItem,CMSRelation
+
+###################################################
+				
+INSERT_UPDATE SearchRestriction;active[allownull=true];generate;code[unique=true,allownull=true];principal(uid)[unique=true];query[allownull=true];restrictedType(code)[unique=true,allownull=true]
+
+;true;false;Frontend_ProductOfflineDate;customergroup;( {onlineDate} IS NULL OR {onlineDate} <= ?session.user.currentDate) AND ( {offlineDate} IS NULL OR {offlineDate} >= ?session.user.currentDate);Product
+;true;false;Frontend_ProductApprovalStatus;customergroup;{approvalStatus} IN ({{Select {pk} from {ArticleApprovalStatus} where {code}='approved'}});ApbProduct                 
+;true;true;branch_restriction;b2bgroup;{item:pk} IN (?session.branch) and  ( {item:active} = 1 OR EXISTS ( {{ select {ug:PK} from {UserGroup as ug} where {ug:PK} IN (?session.user.groups) and {ug:uid} = 'b2badmingroup' }} ));B2BUnit
+;true;true;employee_restriction;b2bgroup;EXISTS ({{ SELECT {pk} FROM {PrincipalGroupRelation} WHERE {source}={item:pk} AND {target} IN ( ?session.branch ) }} ) AND ( {item:active} = 1 OR EXISTS ( {{ select {ug:PK} from {UserGroup as ug} where {ug:PK} IN (?session.user.groups) and {ug:uid} = 'b2badmingroup' }} ));B2BCustomer
+;true;true;apbb2border_restriction;b2bgroup;({item:Unit} IN (?session.branch) OR ({item:Unit} is NULL AND {item:User}=?session.user));Order
+;true;true;region_restriction;customergroup;{country} IN ({{select {pk}  from {Country} where {isocode}='AU' }});Region
+
+################################### HC-874 Portal Admin groups and search restrictions for Asahi and CUB ####################
+
+################## Creating user groups for Portal Admin################
+
+INSERT_UPDATE UserGroup ; uid[unique=true]; groups(uid) ; locname[lang=en];  
+;sabmAdmingroup	; productmanagergroup,cmsmanagergroup ; CUB Admin Group
+
+$START_USERRIGHTS
+Type                    ; UID              ; MemberOfGroups       ; Password; Target                            ; read; change; create; remove; change_perm
+UserGroup               ; sabmAdmingroup  ;                      ;  ;                                   ;   ;   ;   ;   ;
+                        ;                  ;                      ;  ; B2BCustomer.asahiRole                   ; - ; - ; - ;
+                        ;                  ;                      ;  ; B2BCustomer.roleOther                 ; - ; - ; - ;
+                        ;                  ;                      ;  ; B2BCustomer.contactNumber                 ; - ; - ; - ;
+                        ;                  ;                      ;  ; B2BCustomer.disableEmailNotification         ; - ; - ; - ;
+                        ;                  ;                      ;  ; B2BCustomer.site            ; - ; - ; - ;
+                        ;                  ;                      ;  ; B2BCustomer.loggedInBefore            ; - ; - ; - ;
+                        ;                  ;                      ;  ; B2BCustomer.disableDebitInvRefPopup           ; - ; - ; - ;
+                        ;                  ;                      ;  ; B2BCustomer.showCCInfoPopup            ; - ; - ; - ;
+                        ;                  ;                      ;  ; B2BCustomer.asahiCreationTime ; - ; - ; - ;
+$END_USERRIGHTS
+
+
+$defaultPassword=12341234						
+INSERT_UPDATE Employee ; UID[unique=true]    ; password[default=$defaultPassword] ; description; name; groups(uid)[mode=append]; sessionLanguage(isocode) ; sessionCurrency(isocode) ; backOfficeLoginDisabled[default=false]
+; sabmadmin; ; CUB Admin ; Admin; sabmAdmingroup  ; en  ; AUD  ;          
+                       
+
+INSERT_UPDATE UserGroup ; uid[unique=true] ; groups(uid) ; locname[lang=en];  
+;asahicubAdmingroup; productmanagergroup,cmsmanagergroup ; Asahi Cub Admin Group
+						
+
+$defaultPassword=12341234						
+INSERT_UPDATE Employee ; UID[unique=true]    ; password[default=$defaultPassword] ; description ;name                           ; groups(uid)[mode=append]; sessionLanguage(isocode) ; sessionCurrency(isocode) ; backOfficeLoginDisabled[default=false]
+                       
+; asahicubadmin ; ; Asahi Cub Admin; Asahi Cub Admin  ; asahicubAdmingroup; en  ; AUD;          
+
+
+################# Creating personalization restrictions for Portal Admin #######################
+
+###CUB Portal Admin Restrictions
+INSERT_UPDATE SearchRestriction;code[unique=true];name[lang=en];query;principal(UID);restrictedType(code);active;generate
+                               ;cubOrderRestriction;cubOrderRestriction;{site} IN ( {{ Select {c.pk} from {CMSSite as c} Where {c.uid}='sabmStore' }} );sabmAdmingroup;Order;true;false
+                               ;cubCustomerRestriction;cubCustomerRestriction;{pk} IN ( {{ Select {c.pk} from {B2BCustomer! as c JOIN PrincipalGroupRelation  as p ON {p.source} = {c.pk} JOIN B2BUnit as b ON {p.target} = {b.pk}} where {b.companyUid} LIKE '%sabmStore%'}} );sabmAdmingroup;B2BCustomer;true;false
+                               ;cubB2BUnitsRestriction;cubB2BUnitRestriction;{companyUid} LIKE '%sabmStore%';sabmAdmingroup;B2BUnit;true;false
+                               ;cubOrderEntityRestriction;cubOrderEntityRestriction;{pk} IN ( {{ Select {oe.pk} from {OrderEntry as oe JOIN Order as o ON {oe.order}={o.pk}} Where {o.site} IN  ( {{ Select {c.pk} from {CMSSite as c} Where {c.uid}='sabmStore' }} )}} );sabmAdmingroup;OrderEntry;true;false
+
+###Asahi Portal Admin Restrictions			 
+INSERT_UPDATE SearchRestriction;code[unique=true];name[lang=en];query;principal(UID);restrictedType(code);active;generate
+                               ;asahiOrderRestriction;asahiOrderRestriction;{site} IN ( {{ Select {c.pk} from {CMSSite as c} Where {c.uid}='sga' OR {c.uid}='apb' }} );asahiAdmingroup;Order;true;false
+                               ;asahiCustomerRestriction;asahiCustomerRestriction;{pk} IN ( {{ Select {c.pk} from {B2BCustomer! as c JOIN PrincipalGroupRelation  as p ON {p.source} = {c.pk} JOIN AsahiB2BUnit as b ON {p.target} = {b.pk}} where {b.companyUid} LIKE '%apb%' OR {b.companyUid} LIKE '%sga%' }} );asahiAdmingroup;B2BCustomer;true;false
+                               ;asahiOrderEntityRestriction;asahiOrderEntityRestriction;{pk} IN ( {{ Select {oe.pk} from {OrderEntry as oe JOIN Order as o ON {oe.order}={o.pk}} Where {o.site} IN  ( {{ Select {c.pk} from {CMSSite as c} Where {c.uid}='sga' OR {c.uid}='apb' }} )}} );asahiAdmingroup;OrderEntry;true;false
+                               ;asahiB2BUnitsRestriction;asahiB2BUnitRestriction;{companyUid} LIKE '%apb%' OR {companyUid} LIKE '%sga%';sabmAdmingroup;AsahiB2BUnit;true;false
+
+###HC-1009 Fix for OrderEntries not visible issue
+insert_update Principal2WriteableCatalogVersionRelation;source(uid)[unique=true,allownull=true];target(catalog(id),version)[unique=true,allownull=true]
+; asahiadmin ; apbProductCatalog:Staged
+; asahiadmin ; apbProductCatalog:Online
+; asahiadmin ; sgaProductCatalog:Staged
+; asahiadmin ; sgaProductCatalog:Online
+; asahiadmin ; apbContentCatalog:Staged
+; asahiadmin ; apbContentCatalog:Online
+; asahiadmin ; sgaContentCatalog:Staged
+; asahiadmin ; sgaContentCatalog:Online		
+
+
+######################## Start - HC-1011 Order Process segregation for Fulfilment - Setup AsahiOrderConfirmationEmail ########################################
+#### Staged Version
+
+$contentCatalog=sgaContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$wideContent=CMSImageComponent,BannerComponent
+$lang=en
+
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$jarResourceCms=$config-jarResourceCmsValue
+
+
+# AsahiOrderConfirmationEmailTemplate page Template
+INSERT_UPDATE EmailPageTemplate ; $contentCV[unique=true] ; uid[unique=true]                                 ; name                                              ; active ; frontendTemplateName                ; subject(code)                                      ; htmlTemplate(code)                              ; restrictedPageTypes(code)
+                                ;                         ; AsahiOrderConfirmationEmailTemplate              ; Asahi Order Confirmation Email Template                 ; true   ; orderConfirmationEmail              ; sga_Email_Order_Confirmation_Subject               ; sga_Email_Order_Confirmation_Body               ; EmailPage
+
+UPDATE EmailPageTemplate ; $contentCV[unique=true] ; uid[unique=true]                            ; velocityTemplate[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                         ;                         ; AsahiOrderConfirmationEmailTemplate         ; $jarResourceCms/structure-view/asahi/structure_orderConfirmationEmailTemplate.vm
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='AsahiOrderConfirmationEmailTemplate'] ; validComponentTypes(code)
+                              ; SiteLogo          ;                                                                                      ;                          ; logo
+                              ; TopContent        ;                                                                                      ; $wideContent             ;
+                              ; BottomContent     ;                                                                                      ; $wideContent             ;
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]                     ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='AsahiOrderConfirmationEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogo-AsahiOrderConfirmationEmail      ; SiteLogo              ;                                                                                          ; EmailSiteLogoSlot                        ; true
+                                     ;                         ; TopContent-AsahiOrderConfirmationEmail    ; TopContent            ;                                                                                          ; EmailTopSlot                             ; true
+                                     ;                         ; BottomContent-AsahiOrderConfirmationEmail ; BottomContent         ;                                                                                          ; EmailBottomSlot                          ; true
+
+# Update Context class APBOrderNotificationEmailContext
+
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$emailPackageName=$config-emailAsahiContextPackageName
+
+
+INSERT_UPDATE RendererTemplate ; code[unique=true]                                  ; contextClass   									 ; rendererType(code)[default='velocity']
+                               ; sga_Email_Order_Confirmation_Body                  ; $emailPackageName.APBOrderNotificationEmailContext
+                               ; sga_Email_Order_Confirmation_Subject               ; $emailPackageName.APBOrderNotificationEmailContext
+                               ; sga_Email_Order_ApprovalRejection_Body             ; $emailPackageName.APBOrderNotificationEmailContext
+                               ; sga_Email_Order_ApprovalRejection_Subject          ; $emailPackageName.APBOrderNotificationEmailContext
+                               ; sga_Email_Order_PendingApproval_Subject            ; $emailPackageName.APBOrderNotificationEmailContext
+                               ; sga_Email_Order_PendingApproval_Body               ; $emailPackageName.APBOrderNotificationEmailContext
+                               ; sga_Email_Replenishment_Order_Confirmation_Subject ; $emailPackageName.APBOrderNotificationEmailContext
+                               ; sga_Email_Replenishment_Order_Confirmation_Body    ; $emailPackageName.APBOrderNotificationEmailContext
+
+
+# Email Pages
+INSERT_UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]                    ; name                                     ; masterTemplate(uid,$contentCV)              ; defaultPage ; approvalStatus(code)[default='approved']
+                        ;                         ; SgaOrderConfirmationEmail              ; Sga Order Confirmation Email                 ; AsahiOrderConfirmationEmailTemplate         ; true        ;
+
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]               ; fromEmail[lang=$lang]                ; fromName[lang=$lang]
+                 ;                         ; SgaOrderConfirmationEmail      	 ; "ACCSchweppesConnect@asahi.com.au"  ; "Customer Services Team"
+
+
+## Online version
+$contentCatalog=sgaContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Online])[default=$contentCatalog:Online]
+$wideContent=CMSImageComponent,BannerComponent
+$lang=en
+
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$jarResourceCms=$config-jarResourceCmsValue                                                     
+
+
+# AsahiOrderConfirmationEmailTemplate page Template                                                                                      
+INSERT_UPDATE EmailPageTemplate ; $contentCV[unique=true] ; uid[unique=true]                                 ; name                                              ; active ; frontendTemplateName                ; subject(code)                                      ; htmlTemplate(code)                              ; restrictedPageTypes(code)
+                                ;                         ; AsahiOrderConfirmationEmailTemplate              ; Asahi Order Confirmation Email Template                 ; true   ; orderConfirmationEmail              ; sga_Email_Order_Confirmation_Subject               ; sga_Email_Order_Confirmation_Body               ; EmailPage
+
+UPDATE EmailPageTemplate ; $contentCV[unique=true] ; uid[unique=true]                            ; velocityTemplate[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                         ;                         ; AsahiOrderConfirmationEmailTemplate         ; $jarResourceCms/structure-view/asahi/structure_orderConfirmationEmailTemplate.vm                           
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='AsahiOrderConfirmationEmailTemplate'] ; validComponentTypes(code)
+                              ; SiteLogo          ;                                                                                      ;                          ; logo
+                              ; TopContent        ;                                                                                      ; $wideContent             ;     
+                              ; BottomContent     ;                                                                                      ; $wideContent             ;     
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]                     ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='AsahiOrderConfirmationEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogo-AsahiOrderConfirmationEmail      ; SiteLogo              ;                                                                                          ; EmailSiteLogoSlot                        ; true          
+                                     ;                         ; TopContent-AsahiOrderConfirmationEmail    ; TopContent            ;                                                                                          ; EmailTopSlot                             ; true          
+                                     ;                         ; BottomContent-AsahiOrderConfirmationEmail ; BottomContent         ;                                                                                          ; EmailBottomSlot                          ; true
+
+# Email Pages
+INSERT_UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]                    ; name                                     ; masterTemplate(uid,$contentCV)              ; defaultPage ; approvalStatus(code)[default='approved']
+                        ;                         ; SgaOrderConfirmationEmail              ; Sga Order Confirmation Email                 ; AsahiOrderConfirmationEmailTemplate         ; true        ;
+
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]               ; fromEmail[lang=$lang]                ; fromName[lang=$lang]
+                 ;                         ; SgaOrderConfirmationEmail      	 ; "ACCSchweppesConnect@asahi.com.au"  ; "Customer Services Team"
+
+
+######################## End - HC-1011 Order Process segregation for Fulfilment - Setup AsahiOrderConfirmationEmail ########################################
+
+######################## HC-745 MY ENQUIRIES PAGE ######################## 
+
+######### for staged version ################
+$contentCatalog=sgaContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+
+# Language
+$lang=en
+
+###### Account Enquiry Listing Start ######
+
+INSERT_UPDATE ContentPage ; $contentCV[unique=true] ; uid[unique=true] ; name ; masterTemplate(uid,$contentCV) ; label ; defaultPage[default='true'] ; approvalStatus(code)[default='approved'] ; homepage[default='false'] ; ; backgroundImage(code, $contentCV)[default='backgroundImage']
+                          ; ; enquiries ; Enquiry Listing Page ; AccountPageTemplate ; enquiries
+
+
+UPDATE ContentPage ; $contentCV[unique=true] ; uid[unique=true] ; title[lang=$lang]
+                   ; ; enquiries ; "My Enquiries"
+
+######### creating component
+INSERT_UPDATE JspIncludeComponent ; $contentCV[unique=true] ; uid[unique=true]             ; name                      ; page                                                                                      ; actions(uid,$contentCV) ; &componentRef
+                                  ;                         ; AccountEnquiryListingComponent ; Account History Component ; /WEB-INF/views/addons/apbb2baccaddon/responsive/pages/account/accountEnquiryListingPage.jsp ; ViewOrderAction         ; AccountEnquiryListingComponent
+
+
+########### creating contentSlot
+INSERT_UPDATE ContentSlot ; $contentCV[unique=true] ; uid[unique=true]   ; name                                           ; active ; cmsComponents(&componentRef) ;  ;  ;
+                          ;                         ; SideContent-enquiries ; Side Content Slot for My Account Enquiry Listing ; true   ;                              ;  ;  ;
+                          ;                         ; BodyContent-enquiries ; Body Content Slot for My Account Enquiry Listing ; true   ; AccountEnquiryListingComponent ;  ;  ;
+
+
+
+
+
+INSERT_UPDATE CMSLinkComponent ; $contentCV[unique=true] ; uid[unique=true]    ; name                ; url                                              ; &linkRef            ; target(code)[default='sameWindow']	;	accessType(code)
+                               ;                         ; EnquiryListingLink  ; EnquiryListingLink  ; /my-account/enquiries	                        ; EnquiryListingLink  ;                                     ;               ;
+
+
+
+UPDATE CMSLinkComponent ; $contentCV[unique=true] ; uid[unique=true]    ; linkName[lang=$lang]
+                        ;                         ; EnquiryListingLink  ; "MY ENQUIRIES"
+
+
+##---- level 4. children of My Account Nav ----##
+INSERT_UPDATE CMSNavigationNode ; uid[unique=true]       ; $contentCV[unique=true] ; name             ; parent(uid, $contentCV) ; links(&linkRef) ; &nodeRef
+                                ; EnquiryListingNavNode  ;                            ; Enquiry Listing    ; MyAccountNavNode      ;                  ; EnquiryListingNavNode
+
+
+INSERT_UPDATE CMSNavigationEntry ; uid[unique=true]            ; $contentCV[unique=true] ; name                        ; navigationNode(&nodeRef) ; item(&linkRef)      ;
+                                 ; EnquiryListingNavNodeEntry  ;                         ; EnquiryListingNavNodeEntry  ; EnquiryListingNavNode    ; EnquiryListingLink  ;
+
+
+
+
+INSERT_UPDATE ContentSlotForPage ; $contentCV[unique=true] ; uid[unique=true]   ; position[unique=true] ; page(uid,$contentCV)[unique=true][default='enquiries'] ; contentSlot(uid,$contentCV)[unique=true] ;  ;  ;
+                                 ;                         ; SideContent-enquiries ; SideContent           ;                                                     ; SideContent-enquiries                 ;  ;  ;
+                                 ;                         ; BodyContent-enquiries ; BodyContent           ;                                                     ; BodyContent-enquiries                 ;  ;  ;
+
+
+
+####### for Online version ############
+
+$contentCatalog=sgaContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Online])[default=$contentCatalog:Online]
+
+# Language
+$lang=en
+
+INSERT_UPDATE ContentPage ; $contentCV[unique=true] ; uid[unique=true] ; name ; masterTemplate(uid,$contentCV) ; label ; defaultPage[default='true'] ; approvalStatus(code)[default='approved'] ; homepage[default='false'] ; ; backgroundImage(code, $contentCV)[default='backgroundImage']
+                          ; ; enquiries ; Enquiry Listing Page ; AccountPageTemplate ; enquiries
+
+
+UPDATE ContentPage ; $contentCV[unique=true] ; uid[unique=true] ; title[lang=$lang]
+                   ; ; enquiries ; "My Enquiries"
+
+######### creating component
+INSERT_UPDATE JspIncludeComponent ; $contentCV[unique=true] ; uid[unique=true]             ; name                      ; page                                                                                      ; actions(uid,$contentCV) ; &componentRef
+                                  ;                         ; AccountEnquiryListingComponent ; Account History Component ; /WEB-INF/views/addons/apbb2baccaddon/responsive/pages/account/accountEnquiryListingPage.jsp ; ViewOrderAction         ; AccountEnquiryListingComponentOnline
+
+
+########### creating contentSlot
+INSERT_UPDATE ContentSlot ; $contentCV[unique=true] ; uid[unique=true]   ; name                                           ; active ; cmsComponents(&componentRef) ;  ;  ;
+                          ;                         ; SideContent-enquiries ; Side Content Slot for My Account Enquiry Listing ; true   ;                              ;  ;  ;
+                          ;                         ; BodyContent-enquiries ; Body Content Slot for My Account Enquiry Listing ; true   ; AccountEnquiryListingComponentOnline ;  ;  ;
+
+
+
+
+
+INSERT_UPDATE CMSLinkComponent ; $contentCV[unique=true] ; uid[unique=true]    ; name                ; url                                              ; &linkRef            ; target(code)[default='sameWindow']	;	accessType(code)
+                               ;                         ; EnquiryListingLink  ; EnquiryListingLink  ; /my-account/enquiries	                        ; EnquiryListingLinkOnline  ;                                     ;               ;
+
+
+
+UPDATE CMSLinkComponent ; $contentCV[unique=true] ; uid[unique=true]    ; linkName[lang=$lang]
+                        ;                         ; EnquiryListingLink  ; "MY ENQUIRIES"
+
+
+##---- level 4. children of My Account Nav ----##
+INSERT_UPDATE CMSNavigationNode ; uid[unique=true]       ; $contentCV[unique=true] ; name             ; parent(uid, $contentCV) ; links(&linkRef) ; &nodeRef
+                                ; EnquiryListingNavNode  ;                            ; Enquiry Listing    ; MyAccountNavNode      ;                  ; EnquiryListingNavNodeOnline
+
+
+INSERT_UPDATE CMSNavigationEntry ; uid[unique=true]            ; $contentCV[unique=true] ; name                        ; navigationNode(&nodeRef) ; item(&linkRef)      ;
+                                 ; EnquiryListingNavNodeEntry  ;                         ; EnquiryListingNavNodeEntry  ; EnquiryListingNavNodeOnline    ; EnquiryListingLinkOnline  ;
+
+
+
+
+INSERT_UPDATE ContentSlotForPage ; $contentCV[unique=true] ; uid[unique=true]   ; position[unique=true] ; page(uid,$contentCV)[unique=true][default='enquiries'] ; contentSlot(uid,$contentCV)[unique=true] ;  ;  ;
+                                 ;                         ; SideContent-enquiries ; SideContent           ;                                                     ; SideContent-enquiries                 ;  ;  ;
+                                 ;                         ; BodyContent-enquiries ; BodyContent           ;                                                     ; BodyContent-enquiries                 ;  ;  ;
+
+
+###### Account Enquiry Listing End ######
+
+
+######################## END HC-745 MY ENQUIRIES PAGE ######################## 
+
+
+######################### SGA Contact Us and Asahi Delivery emails start #############################
+######### Staged Version
+$contentCatalog=sgaContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/coredata/contentCatalogs/sgaContentCatalog/emails
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$emailResource=$config-emailResourceValue
+
+# Language
+$lang=en
+
+## From Emails to be confirmed by business
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]               ; fromEmail[lang=$lang]                ; fromName[lang=$lang]
+                 ;                         ; AsahiNoDeliveryEmail      ; "ACCConnect@oc.globalasahi.com"   ; "Customer Services Team"
+                 ;                         ; AsahiAlternateCallDayEmail      ; "ACCConnect@oc.globalasahi.com"   ; "Customer Services Team"
+                 ;                         ; AsahiAlternateDeliveryDateEmail      ; "ACCConnect@oc.globalasahi.com"   ; "Customer Services Team"
+
+#### Online Version
+$contentCatalog=sgaContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Online])[default=$contentCatalog:Online]
+$jarEmailResource=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/coredata/contentCatalogs/sgaContentCatalog/emails
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$emailResource=$config-emailResourceValue
+
+# Language
+$lang=en
+
+## From Emails to be confirmed by business
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]               ; fromEmail[lang=$lang]                ; fromName[lang=$lang]
+                 ;                         ; AsahiNoDeliveryEmail      ; "ACCConnect@oc.globalasahi.com"   ; "Customer Services Team"
+                 ;                         ; AsahiAlternateCallDayEmail      ; "ACCConnect@oc.globalasahi.com"   ; "Customer Services Team"
+                 ;                         ; AsahiAlternateDeliveryDateEmail      ; "ACCConnect@oc.globalasahi.com"   ; "Customer Services Team"
+
+########################### SGA Contact Us and Asahi Delivery emails End #############################
+
+######################## End - HC-474 Email Notification when delivery day is a holiday and configurations ########################################
+
+
+## Enabling SGA functionalities for stock and order
+INSERT_UPDATE Configuration;configKey[unique=true];configValue
+;sga.order.export.available;true
+;sga.order.history.duration;30
+;sga.product.status.available;true
+;order.history.export.list.size.sga;100000
+
+$contentCatalog = sabmContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Staged])[default = $contentCatalog:Staged]
+
+INSERT_UPDATE ContentPage; $contentCV[unique = true]; uid[unique = true]; label
+;;orders;orders
+;;billing;billing
+;;confirmRep-DrivenDeals;confirmRep-DrivenDeals
+;;createUser;createUser
+;;customerSearch;customerSearch
+;;editUser;editUser
+;;Privacy;Privacy
+
+$contentCatalog = sabmContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+INSERT_UPDATE ContentPage; $contentCV[unique = true]; uid[unique = true]; label
+;;orders;orders
+;;billing;billing
+;;confirmRep-DrivenDeals;confirmRep-DrivenDeals
+;;createUser;createUser
+;;customerSearch;customerSearch
+;;editUser;editUser
+;;Privacy;Privacy
+
+################# HC-742 HC-745 HC-739 Impex configurations for ALB Enhancements ##########################
+
+######## New Configurations added
+INSERT_UPDATE Configuration ; configKey[unique=true] ; configValue
+
+                            ;contactus.to.email.sga.WEBSITE_SUPPORT.LOGIN_ISSUE; ACCConnect@asahi.com.au
+                            ;contactus.to.email.sga.WEBSITE_SUPPORT.ORDERING_ISSUE; ACCConnect@asahi.com.au
+                            ;contactus.to.email.sga.WEBSITE_SUPPORT.PAYMENT_ISSUE; ACCConnect@asahi.com.au
+                            ;contactus.to.email.sga.WEBSITE_SUPPORT.SUGGESTIONS; ACCConnect@asahi.com.au
+                            ;contactus.to.email.sga.WEBSITE_SUPPORT.OTHER; ACCConnect@asahi.com.au
+
+                            ;contactus.to.email.sga.AMEND_AN_ORDER.CHANGE_ORDER; CICAdmin@asahi.com.au
+                            ;contactus.to.email.sga.AMEND_AN_ORDER.CANCEL_ORDER; CICAdmin@asahi.com.au
+                            ;contactus.to.email.sga.AMEND_AN_ORDER.OTHER; CICAdmin@asahi.com.au
+
+                            ;contactus.to.email.sga.REPORT_DEL_ISSUE.DAMAGED_PRODUCTS; CICAdmin@asahi.com.au
+                            ;contactus.to.email.sga.REPORT_DEL_ISSUE.INCORRECT_PRODUCTS; CICAdmin@asahi.com.au
+                            ;contactus.to.email.sga.REPORT_DEL_ISSUE.WRONG_QTY; CICAdmin@asahi.com.au
+                            ;contactus.to.email.sga.REPORT_DEL_ISSUE.WHEN_ORDER_DEL; CICAdmin@asahi.com.au
+                            ;contactus.to.email.sga.REPORT_DEL_ISSUE.OTHER; CICAdmin@asahi.com.au
+                            ;contactus.to.email.sga.REPORT_DEL_ISSUE.PROD_WITH_QUAL_ISSUE; ConsumerRel.sga.tions@asahi.com.au
+
+                            ;contactus.to.email.sga.INCORRECT_CHARGE; adminfinance@asahi.com.au
+
+                            ;contactus.to.email.sga.MANAGE_ACC.ACC_ENQUIRY; ACCConnect@asahi.com.au
+                            ;contactus.to.email.sga.MANAGE_ACC.UPDATE_ACC; ACCConnect@asahi.com.au
+                            ;contactus.to.email.sga.MANAGE_ACC.DEACT_EXISTING_ACC; ACCConnect@asahi.com.au
+                            ;contactus.to.email.sga.MANAGE_ACC.OTHER; ACCConnect@asahi.com.au
+                            ;contactus.to.email.sga.MANAGE_ACC.REQ_PAYMENT_PLAN; adminfinance@asahi.com.au
+
+                            ;contactus.to.email.sga.ASSISTANCE.PRODUCT_INFO; ConsumerRel.sga.tions@asahi.com.au
+                            ;contactus.to.email.sga.ASSISTANCE.OTHER; ConsumerRel.sga.tions@asahi.com.au
+                            ;contactus.to.email.sga.ASSISTANCE.STOCK_AVAIL; CICAdmin@asahi.com.au
+
+                            ;contactus.to.email.sga.REG_SUPPORT.LIFESTYLE_CUSTOMER; ACCConnect@asahi.com.au
+                            ;contactus.to.email.sga.REG_SUPPORT.CREATE_ONLINE_ACC; ACCConnect@asahi.com.au
+                            ;contactus.to.email.sga.REG_SUPPORT.OTHER; ACCConnect@asahi.com.au
+
+                            ;contactus.to.email.sga.OTHER; ACCConnect@asahi.com.au
+                            ;contactus.to.email.sga.REQUEST_CALLBACK;ACCConnect@asahi.com.au
+
+                            ;sga.contactus.update.available;true
+                            ;sga.enquiries.page.available;true
+                            ;sga.recommendation.popup.enabled; true
+                            ;sga.recommendation.popup.product.list.size; 3
+                            ;sga.request.callback.available;true
+                            ;enquiry.history.list.size.sga;10
+
+############## Enum names added ###################
+INSERT_UPDATE AsahiEnquiryType; code[unique = true]; name[lang = en];
+                              ;WEBSITE_SUPPORT; Website Support
+                              ;AMEND_AN_ORDER; Amends an order
+                              ;REPORT_DEL_ISSUE; Report delivery issue
+                              ;INCORRECT_CHARGE; Incorrect charge
+                              ;MANAGE_ACC; Manage account
+                              ;ASSISTANCE; Assistance
+                              ;REG_SUPPORT; Registration support
+                              ;OTHER; Other
+                              ;REQUEST_CALLBACK; Request Call back
+
+
+INSERT_UPDATE AsahiEnquirySubType; code[unique = true]; name[lang = en];
+                                 ;LOGIN_ISSUE; Login issue
+                                 ;ORDERING_ISSUE; Ordering issue
+                                 ;PAYMENT_ISSUE; Payment issue
+                                 ;SUGGESTIONS; Suggestions
+                                 ;OTHER; Other
+                                 ;CHANGE_ORDER; Change order
+                                 ;CANCEL_ORDER; Cancel order
+                                 ;DAMAGED_PRODUCTS; Damaged products
+                                 ;INCORRECT_PRODUCTS; Incorrect products
+                                 ;WRONG_QTY; Wrong quantity
+                                 ;PROD_WITH_QUAL_ISSUE; Product with quality issue
+                                 ;WHEN_ORDER_DEL; When will be order delivered
+                                 ;ACC_ENQUIRY; Account enquiry
+                                 ;UPDATE_ACC; Update account
+                                 ;DEACT_EXISTING_ACC; Deactivate an existing account
+                                 ;REQ_PAYMENT_PLAN; Request a payment plan
+                                 ;PRODUCT_INFO; Product information
+                                 ;STOCK_AVAIL; Stock availability
+                                 ;LIFESTYLE_CUSTOMER; Become Asahi Lifestyle Beverages customer
+                                 ;CREATE_ONLINE_ACC; Create an online account
+
+######## Enquiry and Contact center mapping ############
+Insert_Update EnquiryTypeContactMapping;enquiryType(code)[unique=true];enquirySubType(code)[unique = true];contact
+
+                                       ;WEBSITE_SUPPORT;LOGIN_ISSUE;Asahi Contact Centre
+                                       ;WEBSITE_SUPPORT;ORDERING_ISSUE;Asahi Contact Centre
+                                       ;WEBSITE_SUPPORT;PAYMENT_ISSUE;Asahi Contact Centre
+                                       ;WEBSITE_SUPPORT;SUGGESTIONS;Asahi Contact Centre
+                                       ;WEBSITE_SUPPORT;OTHER;Asahi Contact Centre
+                                       ;AMEND_AN_ORDER;CHANGE_ORDER;Asahi Contact Centre
+                                       ;AMEND_AN_ORDER;CANCEL_ORDER;Asahi Contact Centre
+                                       ;AMEND_AN_ORDER;OTHER;Asahi Contact Centre
+                                       ;REPORT_DEL_ISSUE;DAMAGED_PRODUCTS;Asahi Contact Centre
+                                       ;REPORT_DEL_ISSUE;INCORRECT_PRODUCTS;Asahi Contact Centre
+                                       ;REPORT_DEL_ISSUE;WRONG_QTY;Asahi Contact Centre
+                                       ;REPORT_DEL_ISSUE;WHEN_ORDER_DEL;Asahi Contact Centre
+                                       ;REPORT_DEL_ISSUE;OTHER;Asahi Contact Centre
+                                       ;REPORT_DEL_ISSUE;PROD_WITH_QUAL_ISSUE;Consumer Relations
+                                       ;INCORRECT_CHARGE;OTHER;Asahi Credit Team
+                                       ;MANAGE_ACC;ACC_ENQUIRY;Asahi Contact Centre
+                                       ;MANAGE_ACC;UPDATE_ACC;Asahi Contact Centre
+                                       ;MANAGE_ACC;DEACT_EXISTING_ACC;Asahi Contact Centre
+                                       ;MANAGE_ACC;OTHER;Asahi Contact Centre
+                                       ;MANAGE_ACC;REQ_PAYMENT_PLAN;Asahi Credit Team
+                                       ;ASSISTANCE;PRODUCT_INFO;Consumer Relations
+                                       ;ASSISTANCE;OTHER;Consumer Relations
+                                       ;ASSISTANCE;STOCK_AVAIL;Asahi Contact Centre
+                                       ;REG_SUPPORT;LIFESTYLE_CUSTOMER;Asahi Contact Centre
+                                       ;REG_SUPPORT;CREATE_ONLINE_ACC;Asahi Contact Centre
+                                       ;REG_SUPPORT;OTHER;Asahi Contact Centre
+                                       ;OTHER;OTHER;Asahi Contact Centre
+                                       ;REQUEST_CALLBACK;OTHER;Asahi Contact Centre
+
+
+
+########## customer service ####################
+INSERT_UPDATE Configuration ; configKey[unique=true] ; configValue
+
+                            ;contactus.customerservice.sga.WEBSITE_SUPPORT.LOGIN_ISSUE; Asahi Contact Centre
+                            ;contactus.customerservice.sga.WEBSITE_SUPPORT.ORDERING_ISSUE; Asahi Contact Centre
+                            ;contactus.customerservice.sga.WEBSITE_SUPPORT.PAYMENT_ISSUE; Asahi Contact Centreu
+                            ;contactus.customerservice.sga.WEBSITE_SUPPORT.SUGGESTIONS; Asahi Contact Centre
+                            ;contactus.customerservice.sga.WEBSITE_SUPPORT.OTHER; Asahi Contact Centre
+
+                            ;contactus.customerservice.sga.AMEND_AN_ORDER.CHANGE_ORDER; Asahi Contact Centre
+                            ;contactus.customerservice.sga.AMEND_AN_ORDER.CANCEL_ORDER; Asahi Contact Centre
+                            ;contactus.customerservice.sga.AMEND_AN_ORDER.OTHER; Asahi Contact Centre
+
+                            ;contactus.customerservice.sga.REPORT_DEL_ISSUE.DAMAGED_PRODUCTS; Asahi Contact Centre
+                            ;contactus.customerservice.sga.REPORT_DEL_ISSUE.INCORRECT_PRODUCTS; Asahi Contact Centre
+                            ;contactus.customerservice.sga.REPORT_DEL_ISSUE.WRONG_QTY; Asahi Contact Centre
+                            ;contactus.customerservice.sga.REPORT_DEL_ISSUE.WHEN_ORDER_DEL; Asahi Contact Centre
+                            ;contactus.customerservice.sga.REPORT_DEL_ISSUE.OTHER; Asahi Contact Centre
+                            ;contactus.customerservice.sga.REPORT_DEL_ISSUE.PROD_WITH_QUAL_ISSUE; Consumer Relations
+
+                            ;contactus.customerservice.sga.INCORRECT_CHARGE; Asahi Credit Team
+
+                            ;contactus.customerservice.sga.MANAGE_ACC.ACC_ENQUIRY; Asahi Contact Centre
+                            ;contactus.customerservice.sga.MANAGE_ACC.UPDATE_ACC; Asahi Contact Centre
+                            ;contactus.customerservice.sga.MANAGE_ACC.DEACT_EXISTING_ACC; Asahi Contact Centre
+                            ;contactus.customerservice.sga.MANAGE_ACC.OTHER; Asahi Contact Centre
+                            ;contactus.customerservice.sga.MANAGE_ACC.REQ_PAYMENT_PLAN; Asahi Credit Team
+
+                            ;contactus.customerservice.sga.ASSISTANCE.PRODUCT_INFO; Consumer Relations
+                            ;contactus.customerservice.sga.ASSISTANCE.OTHER; Consumer Relations
+                            ;contactus.customerservice.sga.ASSISTANCE.STOCK_AVAIL; Asahi Contact Centre
+
+                            ;contactus.customerservice.sga.REG_SUPPORT.LIFESTYLE_CUSTOMER; Asahi Contact Centre
+                            ;contactus.customerservice.sga.REG_SUPPORT.CREATE_ONLINE_ACC; Asahi Contact Centre
+                            ;contactus.customerservice.sga.REG_SUPPORT.OTHER; Asahi Contact Centre
+
+                            ;contactus.customerservice.sga.OTHER; Asahi Contact Centre
+                            ;contactus.customerservice.sga.REQUEST_CALLBACK;Asahi Contact Centre
+                            ;contactus.customerservice.sga;
+
+
+########## customer service Phone no ####################
+INSERT_UPDATE Configuration ; configKey[unique=true] ; configValue
+
+                            ;contactus.customerservice.phoneno.sga.WEBSITE_SUPPORT.LOGIN_ISSUE; 1300 127 244 (Monday - Friday, 9am - 6pm AEST)
+                            ;contactus.customerservice.phoneno.sga.WEBSITE_SUPPORT.ORDERING_ISSUE; 1300 127 244 (Monday - Friday, 9am - 6pm AEST)
+                            ;contactus.customerservice.phoneno.sga.WEBSITE_SUPPORT.PAYMENT_ISSUE; 1300 127 244 (Monday - Friday, 9am - 6pm AEST)
+                            ;contactus.customerservice.phoneno.sga.WEBSITE_SUPPORT.SUGGESTIONS; 1300 127 244 (Monday - Friday, 9am - 6pm AEST)
+                            ;contactus.customerservice.phoneno.sga.WEBSITE_SUPPORT.OTHER; 1300 127 244 (Monday - Friday, 9am - 6pm AEST)
+
+                            ;contactus.customerservice.phoneno.sga.AMEND_AN_ORDER.CHANGE_ORDER; 1300 127 244 (Monday - Friday, 9am - 6pm AEST)
+                            ;contactus.customerservice.phoneno.sga.AMEND_AN_ORDER.CANCEL_ORDER; 1300 127 244 (Monday - Friday, 9am - 6pm AEST)
+                            ;contactus.customerservice.phoneno.sga.AMEND_AN_ORDER.OTHER; 1300 127 244 (Monday - Friday, 9am - 6pm AEST)
+
+                            ;contactus.customerservice.phoneno.sga.REPORT_DEL_ISSUE.DAMAGED_PRODUCTS; 1300 127 244 (Monday - Friday, 9am - 6pm AEST)
+                            ;contactus.customerservice.phoneno.sga.REPORT_DEL_ISSUE.INCORRECT_PRODUCTS; 1300 127 244 (Monday - Friday, 9am - 6pm AEST)
+                            ;contactus.customerservice.phoneno.sga.REPORT_DEL_ISSUE.WRONG_QTY; 1300 127 244 (Monday - Friday, 9am - 6pm AEST)
+                            ;contactus.customerservice.phoneno.sga.REPORT_DEL_ISSUE.WHEN_ORDER_DEL; 1300 127 244 (Monday - Friday, 9am - 6pm AEST)
+                            ;contactus.customerservice.phoneno.sga.REPORT_DEL_ISSUE.OTHER; 1300 127 244 (Monday - Friday, 9am - 6pm AEST)
+                            ;contactus.customerservice.phoneno.sga.REPORT_DEL_ISSUE.PROD_WITH_QUAL_ISSUE; 1800 244 054 (Monday - Friday, 9am - 6pm AEST)
+
+                            ;contactus.customerservice.phoneno.sga.INCORRECT_CHARGE; 1300 127 244 (Monday - Friday, 9am - 6pm AEST)
+
+                            ;contactus.customerservice.phoneno.sga.MANAGE_ACC.ACC_ENQUIRY; 1300 127 244 (Monday - Friday, 9am - 6pm AEST)
+                            ;contactus.customerservice.phoneno.sga.MANAGE_ACC.UPDATE_ACC; 1300 127 244 (Monday - Friday, 9am - 6pm AEST)
+                            ;contactus.customerservice.phoneno.sga.MANAGE_ACC.DEACT_EXISTING_ACC; 1300 127 244 (Monday - Friday, 9am - 6pm AEST)
+                            ;contactus.customerservice.phoneno.sga.MANAGE_ACC.OTHER; 1300 127 244 (Monday - Friday, 9am - 6pm AEST)
+                            ;contactus.customerservice.phoneno.sga.MANAGE_ACC.REQ_PAYMENT_PLAN; 1300 127 244 (Monday - Friday, 9am - 6pm AEST)
+
+                            ;contactus.customerservice.phoneno.sga.ASSISTANCE.PRODUCT_INFO; 1800 244 054 (Monday - Friday, 9am - 6pm AEST)
+                            ;contactus.customerservice.phoneno.sga.ASSISTANCE.OTHER; 1800 244 054 (Monday - Friday, 9am - 6pm AEST)
+                            ;contactus.customerservice.phoneno.sga.ASSISTANCE.STOCK_AVAIL; 1300 127 244 (Monday - Friday, 9am - 6pm AEST)
+
+                            ;contactus.customerservice.phoneno.sga.REG_SUPPORT.LIFESTYLE_CUSTOMER; 1300 127 244 (Monday - Friday, 9am - 6pm AEST)
+                            ;contactus.customerservice.phoneno.sga.REG_SUPPORT.CREATE_ONLINE_ACC; 1300 127 244 (Monday - Friday, 9am - 6pm AEST)
+                            ;contactus.customerservice.phoneno.sga.REG_SUPPORT.OTHER; 1300 127 244 (Monday - Friday, 9am - 6pm AEST)
+
+                            ;contactus.customerservice.phoneno.sga.OTHER; 1300 127 244 (Monday - Friday, 9am - 6pm AEST)
+                            ;contactus.customerservice.phoneno.sga.REQUEST_CALLBACK;1300 127 244 (Monday - Friday, 9am - 6pm AEST)
+                            ;contactus.customerservice.phoneno.sga;
+
+
+################# End HC-742 HC-745 HC-739 Impex configurations for ALB Enhancements ##########################
+
+## To be done for all other pages - varun
+$contentCatalog = sabmContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Staged])[default = $contentCatalog:Staged]
+$productCV = catalogVersion(catalog(id[default = $productCatalog]), version[default = 'Staged'])[unique = true, default = $productCatalog:Staged]
+
+
+INSERT_UPDATE ContentSlotName; name[unique = true]; template(uid, $contentCV)[unique = true][default = 'LoginPageTemplate']; validComponentTypes(code); compTypeGroup(code)
+; BreadcrumbBar         ; ; BreadcrumbComponent; 
+
+
+$contentCatalog = sabmContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+$productCV = catalogVersion(catalog(id[default = $productCatalog]), version[default = 'Online'])[unique = true, default = $productCatalog:Online]
+
+
+INSERT_UPDATE ContentSlotName; name[unique = true]; template(uid, $contentCV)[unique = true][default = 'LoginPageTemplate']; validComponentTypes(code); compTypeGroup(code)
+; BreadcrumbBar         ; ; BreadcrumbComponent; 
+
+
+INSERT_UPDATE CMSSite;uid[unique=true];urlpatterns;previewURL
+;apb;(?i)^https?://(.+)?online.cubpb.com.au(.+)?;/storefront/?site=apb
+;sga;(?i)^https?://(.+)?albconnect.com.au(.+)?;/storefront/?site=sga
+;sabmStore;(?i)^https?://(.+)?online.cub.com.au(.+)?, (?i)^https?://(.+)?online.cub.com.au/staffPortal(.+)?;/?site=sabmStore
+		
+################################## Integration Related Configs - Start ############################################
+			
+# SGA outbound calls, certificates configuration - TO be updated for Prod																				
+INSERT_UPDATE Configuration ; configKey[unique=true]                                       ; configValue	
+							; integration.certificate.clientStore.password.sga	           ; Asah!123
+							; integration.certificate.trustStore.password.sga	           ; Asah!123
+							; integration.certificate.clientStore.filename.sga	           ; SERV_HYB_USE-New.p12
+							; integration.certificate.trustStore.filename.sga	           ; keystore_Asahi.jks
+							; integration.certificate.filePath.sga				           ; /opt/hybris/config/security
+							
+							
+												
+# APB outbound calls, certificates configuration - TO be updated for Prod																				
+INSERT_UPDATE Configuration ; configKey[unique=true]                                       ; configValue
+							; integration.certificate.clientStore.password.apb			   ; Asah!123
+							; integration.certificate.trustStore.password.apb			   ; Asah!123
+							; integration.certificate.clientStore.fileName.apb			   ; SERV_HYB_USE-New.p12
+							; integration.certificate.trustStore.fileName.apb			   ; keystore_Asahi.jks
+							; integration.certificate.filePath.apb						   ; /opt/hybris/config/security
+
+
+# Disable CUB Stub							
+INSERT_UPDATE Configuration ; configKey[unique=true]                              ; configValue 								 
+						    ;cub.billing.stub.available.check                     ; false
+							;cub.invoicelist.stub.available.check                 ; false
+							;cub.invoicevaliate.stub.available.check              ; false
+							;cub.invoiceitem.stub.available.check                 ; false
+							;cub.invoicepdf.stub.available.check                  ; false
+							
+################################## Integration Related Configs - End ############################################
+
+##### Stock level status localized names for sga ##########
+INSERT_UPDATE StockLevelStatus ; code[unique=true] ; name[lang=en]
+                               ; lowStock    ; Low Stock
+                               ;outOfStock   ; Out of Stock
+
+#############Stock level status localized names for sga  END ###########
+
+######################### From / To email configurations for Asahi to be updated for Prod from business ###############################
+INSERT_UPDATE Configuration ; configKey[unique=true]                                       ; configValue
+                            ;email.notify.from.emailid.nodel								;ACCConnect@oc.globalasahi.com
+                            ;email.notify.from.emailid.altcall								;ACCConnect@oc.globalasahi.com
+                            ;email.notify.from.emailid.altdel								;ACCConnect@oc.globalasahi.com
+                            ;contactus.from.emailid.sga										;ACCConnect@oc.globalasahi.com
+                            ;contactus.from.emailid.apb										;no-reply-online@oc.globalasahi.com
+                            ;email.payment.confirmation.from.emailid						;ACCConnect@oc.globalasahi.com
+                            ;order.confirmation.from.emailid.sga							;ACCConnect@oc.globalasahi.com
+                            ;company.details.email.fromid.apb								;no-reply-online@oc.globalasahi.com
+                            ;super.registration.from.emailid.sga							;ACCConnect@oc.globalasahi.com
+                            ;forgot.password.from.emailid.apb								;no-reply-online@oc.globalasahi.com
+                            ;forgot.password.from.emailid.sga								;ACCConnect@oc.globalasahi.com
+                            ;self.registration.from.emailid.sga								;ACCConnect@oc.globalasahi.com
+                            ;self.registration.from.emailid.apb								;no-reply-online@oc.globalasahi.com
+                            ;super.registration.from.emailid.apb							;no-reply-online@oc.globalasahi.com
+                            ;request.registration.from.emailid.apb							;no-reply-online@oc.globalasahi.com
+                            ;kegreturn.from.emailid.apb										;no-reply-online@oc.globalasahi.com
+
+############# Asahi From emails in Email Content pages to be updated by business #################
+
+### Staged Version SGA
+$contentCatalog=sgaContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/coredata/contentCatalogs/sgaContentCatalog/emails
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$emailResource=$config-emailResourceValue
+
+# Language
+$lang=en
+
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]                    ; fromEmail[lang=$lang]                ; fromName[lang=$lang]
+                 ;                         ; ExpiredPayerAccessEmail      		 ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; SuperUserRequestPayerAccessEmail    ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+
+
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]                    ; fromEmail[lang=$lang]           ; fromName[lang=$lang]
+                 ;                         ; CustomerRegistrationEmail           ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; CustomerSuperRegistrationEmail      ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; RequestRegistrationEmail            ; "ACCConnect@oc.globalasahi.com" ; "Request Registration"
+                 ;                         ; ApbCompanyDetailsEmail              ; "ACCConnect@oc.globalasahi.com" ; "Company Details Change Request"
+                 ;                         ; ApbContactUsEmail                   ; "ACCConnect@oc.globalasahi.com" ; "Contact Us"
+                 ;                         ; ApbKegReturnEmail                   ; "ACCConnect@oc.globalasahi.com" ; "Keg Return"
+                 ;                         ; DeliverySentEmail                   ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; ForgottenPasswordEmail              ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; OrderApprovalRejectionEmail         ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; OrderCancelledEmail                 ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; OrderCollectionReminderEmail        ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; OrderConfirmationEmail              ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; OrderMoveToCsEmail                  ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; OrderPartiallyCanceledEmail         ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; OrderPartiallyRefundedEmail         ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; OrderPendingApprovalEmail           ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; OrderRefundEmail                    ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; QuoteBuyerCancellationEmail         ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; QuoteBuyerSubmissionEmail           ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; QuoteExpiredEmail                   ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; QuoteToExpireSoonEmail              ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; ReadyForPickupEmail                 ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; ReplenishmentOrderConfirmationEmail ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; ReplenishmentOrderPlacedEmail       ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; AssistedForgottenPasswordEmail      ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; RequestPayerAccessEmail      		 ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; ApprovePayerAccessEmail      		 ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; RejectPayerAccessEmail      		 ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+
+
+### Online Version SGA
+$contentCatalog=sgaContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Online])[default=$contentCatalog:Online]
+$jarEmailResource=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/coredata/contentCatalogs/sgaContentCatalog/emails
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$emailResource=$config-emailResourceValue
+
+# Language
+$lang=en
+
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]                    ; fromEmail[lang=$lang]                ; fromName[lang=$lang]
+                 ;                         ; ExpiredPayerAccessEmail      		 ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; SuperUserRequestPayerAccessEmail    ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+
+
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]                    ; fromEmail[lang=$lang]           ; fromName[lang=$lang]
+                 ;                         ; CustomerRegistrationEmail           ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; CustomerSuperRegistrationEmail      ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; RequestRegistrationEmail            ; "ACCConnect@oc.globalasahi.com" ; "Request Registration"
+                 ;                         ; ApbCompanyDetailsEmail              ; "ACCConnect@oc.globalasahi.com" ; "Company Details Change Request"
+                 ;                         ; ApbContactUsEmail                   ; "ACCConnect@oc.globalasahi.com" ; "Contact Us"
+                 ;                         ; ApbKegReturnEmail                   ; "ACCConnect@oc.globalasahi.com" ; "Keg Return"
+                 ;                         ; DeliverySentEmail                   ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; ForgottenPasswordEmail              ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; OrderApprovalRejectionEmail         ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; OrderCancelledEmail                 ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; OrderCollectionReminderEmail        ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; OrderConfirmationEmail              ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; OrderMoveToCsEmail                  ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; OrderPartiallyCanceledEmail         ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; OrderPartiallyRefundedEmail         ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; OrderPendingApprovalEmail           ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; OrderRefundEmail                    ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; QuoteBuyerCancellationEmail         ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; QuoteBuyerSubmissionEmail           ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; QuoteExpiredEmail                   ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; QuoteToExpireSoonEmail              ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; ReadyForPickupEmail                 ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; ReplenishmentOrderConfirmationEmail ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; ReplenishmentOrderPlacedEmail       ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; AssistedForgottenPasswordEmail      ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; RequestPayerAccessEmail      		 ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; ApprovePayerAccessEmail      		 ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; RejectPayerAccessEmail      		 ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"
+
+
+
+### Staged Version APB
+$contentCatalog=apbContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/coredata/contentCatalogs/apbContentCatalog/emails
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$emailResource=$config-emailResourceValue
+
+# Language
+$lang=en
+
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]               ; fromEmail[lang=$lang]                ; fromName[lang=$lang]
+                 ;                         ; CustomerRegistrationEmail      ; "no-reply-online@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; CustomerSuperRegistrationEmail ; "no-reply-online@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; RequestRegistrationEmail       ; "no-reply-online@oc.globalasahi.com" ; "Request Registration"
+                 ;                         ; ApbCompanyDetailsEmail         ; "no-reply-online@oc.globalasahi.com" ; "Company Details Change Request"
+                 ;                         ; ApbContactUsEmail              ; "no-reply-online@oc.globalasahi.com" ; "Contact Us"
+                 ;                         ; ApbKegReturnEmail              ; "no-reply-online@oc.globalasahi.com" ; "Keg Return"
+
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]                    ; fromEmail[lang=$lang]                ; fromName[lang=$lang]
+                 ;                         ; DeliverySentEmail                   ; "no-reply-online@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; ForgottenPasswordEmail              ; "no-reply-online@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; OrderApprovalRejectionEmail         ; "no-reply-online@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; OrderCancelledEmail                 ; "no-reply-online@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; OrderCollectionReminderEmail        ; "no-reply-online@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; OrderConfirmationEmail              ; "no-reply-online@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; OrderMoveToCsEmail                  ; "no-reply-online@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; OrderPartiallyCanceledEmail         ; "no-reply-online@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; OrderPartiallyRefundedEmail         ; "no-reply-online@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; OrderPendingApprovalEmail           ; "no-reply-online@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; OrderRefundEmail                    ; "no-reply-online@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; QuoteBuyerCancellationEmail         ; "no-reply-online@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; QuoteBuyerSubmissionEmail           ; "no-reply-online@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; QuoteExpiredEmail                   ; "no-reply-online@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; QuoteToExpireSoonEmail              ; "no-reply-online@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; ReadyForPickupEmail                 ; "no-reply-online@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; ReplenishmentOrderConfirmationEmail ; "no-reply-online@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; ReplenishmentOrderPlacedEmail       ; "no-reply-online@oc.globalasahi.com" ; "Customer Services Team"
+
+### Online Version APB
+$contentCatalog=apbContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Online])[default=$contentCatalog:Online]
+$jarEmailResource=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/coredata/contentCatalogs/apbContentCatalog/emails
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$emailResource=$config-emailResourceValue
+
+# Language
+$lang=en
+
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]               ; fromEmail[lang=$lang]                ; fromName[lang=$lang]
+                 ;                         ; CustomerRegistrationEmail      ; "no-reply-online@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; CustomerSuperRegistrationEmail ; "no-reply-online@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; RequestRegistrationEmail       ; "no-reply-online@oc.globalasahi.com" ; "Request Registration"
+                 ;                         ; ApbCompanyDetailsEmail         ; "no-reply-online@oc.globalasahi.com" ; "Company Details Change Request"
+                 ;                         ; ApbContactUsEmail              ; "no-reply-online@oc.globalasahi.com" ; "Contact Us"
+                 ;                         ; ApbKegReturnEmail              ; "no-reply-online@oc.globalasahi.com" ; "Keg Return"
+
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]                    ; fromEmail[lang=$lang]                ; fromName[lang=$lang]
+                 ;                         ; DeliverySentEmail                   ; "no-reply-online@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; ForgottenPasswordEmail              ; "no-reply-online@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; OrderApprovalRejectionEmail         ; "no-reply-online@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; OrderCancelledEmail                 ; "no-reply-online@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; OrderCollectionReminderEmail        ; "no-reply-online@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; OrderConfirmationEmail              ; "no-reply-online@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; OrderMoveToCsEmail                  ; "no-reply-online@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; OrderPartiallyCanceledEmail         ; "no-reply-online@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; OrderPartiallyRefundedEmail         ; "no-reply-online@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; OrderPendingApprovalEmail           ; "no-reply-online@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; OrderRefundEmail                    ; "no-reply-online@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; QuoteBuyerCancellationEmail         ; "no-reply-online@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; QuoteBuyerSubmissionEmail           ; "no-reply-online@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; QuoteExpiredEmail                   ; "no-reply-online@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; QuoteToExpireSoonEmail              ; "no-reply-online@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; ReadyForPickupEmail                 ; "no-reply-online@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; ReplenishmentOrderConfirmationEmail ; "no-reply-online@oc.globalasahi.com" ; "Customer Services Team"
+                 ;                         ; ReplenishmentOrderPlacedEmail       ; "no-reply-online@oc.globalasahi.com" ; "Customer Services Team"
+
+
+######################### From / To email configurations for Asahi to be updated for Prod from Business End ###############################
+
+################### ASAHI Registration Emails #########################################
+
+INSERT_UPDATE Configuration ; configKey[unique=true]                              ; configValue
+
+                            ; self.registration.from.emailid.apb                  ; no-reply-online@oc.globalasahi.com
+
+#########################################################################################################################
+
+###############################################Start - Credit Card Enable for SGA#######################################################
+INSERT_UPDATE Configuration ; configKey[unique=true]                              ; configValue
+###############################################End - Credit Card Enable for SGA#######################################################
+							
+#Changed oldCartRemovalCronJob to apbCartRemovalJob as same job exists in CUB with different frequency and cartremoval age
+INSERT_UPDATE OldCartRemovalCronJob;code[unique=true];job(code);cartRemovalAge;anonymousCartRemovalAge;sessionLanguage(isoCode)[default=en];sites(uid)[mode=append];sessionUser(uid)[default=admin]
+;apbCartRemovalCronJob;oldCartRemovalJob;86400;86400;;apb
+
+INSERT_UPDATE Trigger;cronJob(code)[unique=true];cronExpression;second;minute;hour;day;month;year;relative;active;maxAcceptableDelay
+;apbCartRemovalCronJob;0 0 0/6 1/1 * ? *;-1;-1;1;-1;-1;-1;false;true;-1
+
+#########################################Start - Update the solrQueryMethod to POST ###################################################
+UPDATE SolrServerConfig ; name[unique=true] ; solrQueryMethod(code) 
+                        ; Default           ; POST   
+#########################################End - Update the solrQueryMethod to POST ###################################################
+
+INSERT_UPDATE Title;code[unique=true];businessCode
+;mr;cub
+;mrs;cub
+;miss;cub
+;ms;cub
+;dr;cub
+;rev;cub
+;1;asahi
+;2;asahi
+;3;asahi
+;4;asahi
+;5;asahi
+;6;asahi
+;7;asahi
+
+######################### Email configurations for Asahi Reports generated through scripting jobs to be updated by business ####################
+INSERT_UPDATE Configuration ; configKey[unique=true]                              ; configValue
+                            ; sips.dd.report.email.subject						  ; Direct Debit Report
+
+######################### Email configurations for Asahi Reports generated through scripting jobs to be updated by business END ####################
+
+###Modify Script Job for CUB , Validate with the latest script in Production during pre-cutover/cutover, Asahi Scripts will be imported through Data Migration (with required modifications)###
+
+UPDATE Script;code[unique=true];content;active[unique=true]
+;sabmFetchCustomerCUPJob;"import com.sabmiller.facades.customer.impl.DefaultSABMCustomerFacade
+import de.hybris.platform.b2b.model.B2BCustomerModel
+import de.hybris.platform.b2b.model.B2BUnitModel
+import de.hybris.platform.core.model.order.OrderModel
+import de.hybris.platform.core.model.user.UserModel
+import de.hybris.platform.basecommerce.model.site.BaseSiteModel
+import de.hybris.platform.cronjob.enums.CronJobResult
+import de.hybris.platform.cronjob.enums.CronJobStatus
+import de.hybris.platform.servicelayer.cronjob.PerformResult
+import de.hybris.platform.commerceservices.enums.SalesApplication
+import de.hybris.platform.servicelayer.search.FlexibleSearchQuery
+import de.hybris.platform.servicelayer.search.SearchResult
+import com.sabmiller.core.enums.SapServiceCallStatus
+
+
+import com.google.common.collect.Lists
+import org.joda.time.DateTime
+import org.apache.commons.collections4.CollectionUtils
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+import de.hybris.platform.util.Config
+
+def customerFacade=spring.getBean(""customerFacade"")
+def sessionService = spring.getBean(""sessionService"")
+def fss=spring.getBean(""flexibleSearchService"");
+def b2bCommerceUnitService=spring.getBean(""b2bCommerceUnitService"")
+def b2bUnitService=spring.getBean(""b2bUnitService"")
+def deliveryDateCutOffService=spring.getBean(""sabmDeliveryDateCutOffService"")
+def baseStoreService=spring.getBean(""baseStoreService"")
+def dealsService=spring.getBean(""dealsService"")
+def ms = spring.getBean(""modelService"")
+
+
+final Logger LOG = LoggerFactory.getLogger(DefaultSABMCustomerFacade.class)
+final String sessionAttrUserId = Config.getString(""session.attr.user.invoking.sap.service"", ""CURRENT_USER_SAP_INVOCATION"")
+
+def queryBaseSite=""select distinct({bs.pk}) from {BaseSite as bs} where {uid} = 'sabmStore'""
+
+BaseSiteModel baseSiteModel=fss.search(queryBaseSite).getResult().get(0)
+sessionService.setAttribute(""currentSite"", baseSiteModel)
+
+final String QUERY_ORDER_BY_PLACEORDER_LASTSIXMONDAYS = ""SELECT {o.pk} FROM {""+ OrderModel._TYPECODE + "" AS o JOIN ""+ UserModel._TYPECODE +"" AS u on {o:user} = {u:pk}} WHERE {o:date} >= ?fromDate AND {o:date} <= ?toDate AND {o:salesApplication} = ?salesApplication AND {o:site} = ?baseSiteModel""
+
+
+final Map<String, Object> params = new HashMap<String, Object>()
+
+final DateTime toDay = new DateTime()
+final Set<OrderModel> orders = new HashSet<OrderModel>()
+
+final DateTime last45Date = toDay.minusDays(45)
+DateTime fromDate = last45Date.minusHours(last45Date.getHourOfDay())
+fromDate = fromDate.minusMinutes(last45Date.getMinuteOfHour())
+fromDate = fromDate.minusSeconds(last45Date.getSecondOfMinute())
+
+log.info(""fromDate=""+fromDate)
+
+DateTime toDate = new DateTime()
+
+log.info(""toDate=""+toDate)
+
+params.put(""fromDate"", fromDate.toDate())
+params.put(""toDate"", toDate.toDate())
+params.put(""salesApplication"", SalesApplication.WEB)
+params.put(""baseSiteModel"", baseSiteModel);
+	
+final FlexibleSearchQuery fsq = new FlexibleSearchQuery(QUERY_ORDER_BY_PLACEORDER_LASTSIXMONDAYS, params);
+final SearchResult<OrderModel> result = fss.search(fsq);
+final List<OrderModel> listOforder = result.getCount() > 0 ? result.getResult() : Collections.<OrderModel> emptyList();
+
+orders.addAll(listOforder)
+
+
+final Set<B2BUnitModel> b2bUnits = new HashSet<>();
+
+Map<String,B2BCustomerModel> customerUsermap = new HashMap<String,B2BCustomerModel>();
+
+for(order in orders)
+{	
+	final B2BUnitModel b2bUnitModel = order.getUnit();
+	if (null == b2bUnitModel || b2bUnits.contains(b2bUnitModel))
+	{
+		continue
+	}
+	b2bUnits.add(b2bUnitModel);
+	customerUsermap.put(b2bUnitModel.getUid(), order.getUser())
+	final B2BUnitModel orderDefaultb2bUnitModel = ((B2BCustomerModel)order.getUser()).getDefaultB2BUnit()
+	
+	if(orderDefaultb2bUnitModel != null && ! orderDefaultb2bUnitModel.getUid().equals(b2bUnitModel.getUid())){
+		
+		b2bUnits.add(orderDefaultb2bUnitModel);
+		customerUsermap.put(orderDefaultb2bUnitModel.getUid(), order.getUser())
+	}
+	
+}
+List<B2BUnitModel> finalB2bunitList = new ArrayList<B2BUnitModel>();
+finalB2bunitList.addAll(b2bUnits)
+LOG.info(""Total Customers = >""+ finalB2bunitList.size());
+for(b2bunit in finalB2bunitList)
+{
+	if(SapServiceCallStatus.IN_PROGRESS.equals(b2bunit.getCupCallStatus()))
+	{
+		try{
+			b2bunit.setCupCallStatus(SapServiceCallStatus.ERROR)
+			ms.save(b2bunit)
+			ms.refresh(b2bunit)
+		}catch(final Exception e)
+		{
+			LOG.error(""Exception occured while saving CUP call status to ERROR "", e);
+		}
+	}
+}
+
+if (CollectionUtils.isNotEmpty(finalB2bunitList))
+{
+	final List<List<B2BUnitModel>> b2bunitListBatch = Lists.partition(finalB2bunitList, 200);
+	for (List<B2BUnitModel> eachB2bunitBatch : b2bunitListBatch)
+	{
+		final Calendar calender1 = Calendar.getInstance();
+		LOG.info(""Start Each Batch process : ""+ calender1.getTime())
+		List<B2BUnitModel> b2bunitBach = new ArrayList<B2BUnitModel>()
+		b2bunitBach.addAll(eachB2bunitBatch)
+		for(b2bUnitModel in eachB2bunitBatch)
+		{
+			B2BCustomerModel b2bCustomer = customerUsermap.get(b2bUnitModel.getUid())
+			final String userId = b2bCustomer.getUid()
+			sessionService.setAttribute(sessionAttrUserId, userId)
+			sessionService.setAttribute(""user"",b2bCustomer)
+			
+			final Set<Date> enabledCalendarDates = deliveryDateCutOffService.calculateCalendarDeliveryDates(b2bUnitModel,true);	
+			Date currentDeliveryDate
+
+			if (CollectionUtils.isNotEmpty(enabledCalendarDates))
+			{
+				final List<Date> sortedList = new ArrayList<>(enabledCalendarDates)
+				Collections.sort(sortedList)
+
+				currentDeliveryDate = sortedList.get(0)
+			}
+			else
+			{
+				final Calendar cal = Calendar.getInstance()
+				cal.setTime(new Date());
+				cal.add(Calendar.DAY_OF_YEAR, 1)
+
+				currentDeliveryDate = cal.getTime()
+			}
+			
+			sessionService.setAttribute(""session_delivery_date"",currentDeliveryDate)
+
+			
+			b2bUnitService.refreshCUP(b2bUnitModel)
+		}
+		
+		boolean flag = true
+		boolean inprogressFlag = false
+		while(flag)
+		{			
+			final Calendar calender4 = Calendar.getInstance()
+			LOG.info(""Before Thead.sleep==>""+ calender4.getTime())
+			try
+			{
+				Thread.sleep(3*60*1000)
+			} catch (Exception e1) {				
+				LOG.error(""Error in Thread.sleep()"")
+			}
+			final Calendar calender5 = Calendar.getInstance()
+			LOG.info(""After Thead.sleep==>""+ calender5.getTime())
+			inprogressFlag = false;
+			for(eachB2bunit in b2bunitBach)
+			{				
+				if(SapServiceCallStatus.IN_PROGRESS.equals(eachB2bunit.getCupCallStatus()))
+				{					
+					inprogressFlag = true
+					break
+				}				
+			}
+			LOG.info(""inprogress Flag===>>>>""+inprogressFlag);
+			if(! inprogressFlag)
+			{
+				flag = false;
+				b2bunitBach.clear();
+			}
+		}
+		final Calendar calender6 = Calendar.getInstance();
+		log.info(""End Each Batch process : ""+ calender6.getTime());
+	}
+}";true
+
+###################End of CUB Script ################
+
+####################################################### Updating Renderer templates for emails ############################################################
+
+
+#### SGA staged version
+
+$contentCatalog=sgaContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/coredata/contentCatalogs/sgaContentCatalog/emails
+$lang=en
+
+UPDATE RendererTemplate ; code[unique=true]                                  ; description[lang=$lang]                           ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                        ; sga_Email_Order_Confirmation_Body                  ; "Order Confirmation Email Body"                   ; $jarEmailResource/email-orderConfirmationBody.vm
+                        ; sga_Email_Order_Confirmation_Subject               ; "Order Confirmation Email Subject"                ; $jarEmailResource/email-orderConfirmationSubject.vm
+
+## HC-406 Email Notification when payment is received - asahiPaymentConfirmationBody vm and configurations
+
+                        ; asahi_Email_PaymentConfirmation__Body        ; "Asahi Payment Confirmation Email Body"           ; $jarEmailResource/email-asahiPaymentConfirmationBody.vm
+                        ; asahi_Email_PaymentConfirmation__Subject     ; "Asahi Payment Confirmation Email Subject"        ; $jarEmailResource/email-asahiPaymentConfirmationSubject.vm
+                        ; sga_Email_Contact_Us_Body  				   ; "Asahi ContactUs Email Body"                      ; $jarEmailResource/email-contactUsBody.vm
+                        ; sga_Email_Contact_Us_Subject                 ; "Asahi ContactUs Email Subject"                   ; $jarEmailResource/email-contactUsSubject.vm
+
+## SGA Contact Us and Asahi Delivery emails
+
+                        ; asahi_Email_NoDelivery__Body        ; "Asahi No Delivery Email Body"           ; $jarEmailResource/email-asahiNoDeliveryBody.vm
+                        ; asahi_Email_NoDelivery__Subject     ; "Asahi No Delivery Email Subject"        ; $jarEmailResource/email-asahiNoDeliverySubject.vm
+                        ; asahi_Email_AlternateCallDay__Body        ; "Asahi Alternate Call Day Email Body"           ; $jarEmailResource/email-asahiAlternateCallDayBody.vm
+                        ; asahi_Email_AlternateCallDay__Subject     ; "Asahi Alternate Call Day Email Subject"        ; $jarEmailResource/email-asahiAlternateCallDaySubject.vm
+                        ; asahi_Email_AlternateDeliveryDate__Body        ; "Asahi Alternate Delivery Date Email Body"           ; $jarEmailResource/email-asahiAlternateDeliveryDateBody.vm
+                        ; asahi_Email_AlternateDeliveryDate__Subject     ; "Asahi Alternate Delivery Date Email Subject"        ; $jarEmailResource/email-asahiAlternateDeliveryDateSubject.vm
+                        ; sga_Email_Contact_Us_Body                      ; "Asahi ContactUs Email Body"       ; $jarEmailResource/email-contactUsBody.vm
+                        ; sga_Email_Contact_Us_Subject                   ; "Asahi ContactUs Email Subject"    ; $jarEmailResource/email-contactUsSubject.vm
+
+##HC-404 ALB - Email for forgotten password - email-portalForgottenPasswordBody vm and configurations
+
+                        ; sga_Email_Forgotten_Password_Body        ; "Forgotten Password Email Body"           ; $jarEmailResource/email-portalForgottenPasswordBody.vm
+                        ; sga_Email_Forgotten_Password_Subject     ; "Forgotten Password Email Subject"        ; $jarEmailResource/email-portalForgottenPasswordSubject.vm
+
+## HC-400 ALB - Welcome email - email-customerSuperRegistrationBody vm and configurations
+
+                        ; sga_Email_Customer_Super_Registration_Body       ; "Customer Super Registration Email Body"           ; $jarEmailResource/email-customerSuperRegistrationBody.vm
+                        ; sga_Email_Customer_Super_Registration_Subject     ; "Customer Super Registration Email Subject"        ; $jarEmailResource/email-customerSuperRegistrationSubject.vm
+
+## Start HC-330 ALB - Super User Payer Access Email
+
+                        ; sga_Email_Request_Payer_Access_Body                  ; "Payer Access Email Body"                   ; $jarEmailResource/email-requestPayerAccessBody.vm
+                        ; sga_Email_Request_Payer_Access_Subject               ; "Payer Access Email Subject"                ; $jarEmailResource/email-requestPayerAccessSubject.vm
+                        ; sga_Email_Approve_Payer_Access_Body                  ; "Payer Access Email Body"                   ; $jarEmailResource/email-approvePayerAccessBody.vm
+                        ; sga_Email_Approve_Payer_Access_Subject               ; "Payer Access Email Subject"                ; $jarEmailResource/email-approvePayerAccessSubject.vm
+                        ; sga_Email_Reject_Payer_Access_Body                  ; "Payer Access Email Body"                    ; $jarEmailResource/email-rejectPayerAccessBody.vm
+                        ; sga_Email_Reject_Payer_Access_Subject               ; "Payer Access Email Subject"                 ; $jarEmailResource/email-rejectPayerAccessSubject.vm
+                        ; sga_Email_Expired_Payer_Access_Body                  ; "Payer Access Email Body"                    ; $jarEmailResource/email-expiredPayerAccessBody.vm
+                        ; sga_Email_Expired_Payer_Access_Subject               ; "Payer Access Email Subject"                 ; $jarEmailResource/email-expiredPayerAccessSubject.vm
+                        ; sga_Email_SuperUserRequest_Payer_Access_Body                  ; "Payer Access Email Body"                    ; $jarEmailResource/email-superUserRequestPayerAccessBody.vm                                                         ; sga_Email_SuperUserRequest_Payer_Access_Subject               ; "Payer Access Email Subject"                 ; $jarEmailResource/email-superUserRequestPayerAccessSubject.vm
+
+## ASAHI Registration Emails
+
+                        ; sga_Email_Customer_Registration_Body               ; "Customer Registration Email Body"                ; $jarEmailResource/email-customerRegistrationBody.vm
+                        ; sga_Email_Customer_Registration_Subject            ; "Customer Registration Email Subject"             ; $jarEmailResource/email-customerRegistrationSubject.vm
+
+
+#### SGA Online Version
+
+$contentCatalog=sgaContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Online])[default=$contentCatalog:Online]
+$jarEmailResource=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/coredata/contentCatalogs/sgaContentCatalog/emails
+$lang=en
+
+UPDATE RendererTemplate ; code[unique=true]                                  ; description[lang=$lang]                           ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                        ; sga_Email_Order_Confirmation_Body                  ; "Order Confirmation Email Body"                   ; $jarEmailResource/email-orderConfirmationBody.vm
+                        ; sga_Email_Order_Confirmation_Subject               ; "Order Confirmation Email Subject"                ; $jarEmailResource/email-orderConfirmationSubject.vm
+
+## HC-406 Email Notification when payment is received - asahiPaymentConfirmationBody vm and configurations
+
+                        ; asahi_Email_PaymentConfirmation__Body        ; "Asahi Payment Confirmation Email Body"           ; $jarEmailResource/email-asahiPaymentConfirmationBody.vm
+                        ; asahi_Email_PaymentConfirmation__Subject     ; "Asahi Payment Confirmation Email Subject"        ; $jarEmailResource/email-asahiPaymentConfirmationSubject.vm
+                        ; sga_Email_Contact_Us_Body  				   ; "Asahi ContactUs Email Body"                      ; $jarEmailResource/email-contactUsBody.vm
+                        ; sga_Email_Contact_Us_Subject                 ; "Asahi ContactUs Email Subject"                   ; $jarEmailResource/email-contactUsSubject.vm
+
+## SGA Contact Us and Asahi Delivery emails
+                        ; asahi_Email_NoDelivery__Body        ; "Asahi No Delivery Email Body"           ; $jarEmailResource/email-asahiNoDeliveryBody.vm
+                        ; asahi_Email_NoDelivery__Subject     ; "Asahi No Delivery Email Subject"        ; $jarEmailResource/email-asahiNoDeliverySubject.vm
+                        ; asahi_Email_AlternateCallDay__Body        ; "Asahi Alternate Call Day Email Body"           ; $jarEmailResource/email-asahiAlternateCallDayBody.vm
+                        ; asahi_Email_AlternateCallDay__Subject     ; "Asahi Alternate Call Day Email Subject"        ; $jarEmailResource/email-asahiAlternateCallDaySubject.vm
+                        ; asahi_Email_AlternateDeliveryDate__Body        ; "Asahi Alternate Delivery Date Email Body"           ; $jarEmailResource/email-asahiAlternateDeliveryDateBody.vm
+                        ; asahi_Email_AlternateDeliveryDate__Subject     ; "Asahi Alternate Delivery Date Email Subject"        ; $jarEmailResource/email-asahiAlternateDeliveryDateSubject.vm
+                        ; sga_Email_Contact_Us_Body                      ; "Asahi ContactUs Email Body"       ; $jarEmailResource/email-contactUsBody.vm
+                        ; sga_Email_Contact_Us_Subject                   ; "Asahi ContactUs Email Subject"    ; $jarEmailResource/email-contactUsSubject.vm
+
+##HC-404 ALB - Email for forgotten password - email-portalForgottenPasswordBody vm and configurations
+
+                        ; sga_Email_Forgotten_Password_Body        ; "Forgotten Password Email Body"           ; $jarEmailResource/email-portalForgottenPasswordBody.vm
+                        ; sga_Email_Forgotten_Password_Subject     ; "Forgotten Password Email Subject"        ; $jarEmailResource/email-portalForgottenPasswordSubject.vm
+
+## HC-400 ALB - Welcome email - email-customerSuperRegistrationBody vm and configurations
+
+                        ; sga_Email_Customer_Super_Registration_Body       ; "Customer Super Registration Email Body"           ; $jarEmailResource/email-customerSuperRegistrationBody.vm
+                        ; sga_Email_Customer_Super_Registration_Subject     ; "Customer Super Registration Email Subject"        ; $jarEmailResource/email-customerSuperRegistrationSubject.vm
+
+## Start HC-330 ALB - Super User Payer Access Email
+
+                        ; sga_Email_Request_Payer_Access_Body                  ; "Payer Access Email Body"                   ; $jarEmailResource/email-requestPayerAccessBody.vm
+                        ; sga_Email_Request_Payer_Access_Subject               ; "Payer Access Email Subject"                ; $jarEmailResource/email-requestPayerAccessSubject.vm
+                        ; sga_Email_Approve_Payer_Access_Body                  ; "Payer Access Email Body"                   ; $jarEmailResource/email-approvePayerAccessBody.vm
+                        ; sga_Email_Approve_Payer_Access_Subject               ; "Payer Access Email Subject"                ; $jarEmailResource/email-approvePayerAccessSubject.vm
+                        ; sga_Email_Reject_Payer_Access_Body                  ; "Payer Access Email Body"                    ; $jarEmailResource/email-rejectPayerAccessBody.vm
+                        ; sga_Email_Reject_Payer_Access_Subject               ; "Payer Access Email Subject"                 ; $jarEmailResource/email-rejectPayerAccessSubject.vm
+                        ; sga_Email_Expired_Payer_Access_Body                  ; "Payer Access Email Body"                    ; $jarEmailResource/email-expiredPayerAccessBody.vm
+                        ; sga_Email_Expired_Payer_Access_Subject               ; "Payer Access Email Subject"                 ; $jarEmailResource/email-expiredPayerAccessSubject.vm
+                        ; sga_Email_SuperUserRequest_Payer_Access_Body                  ; "Payer Access Email Body"                    ; $jarEmailResource/email-superUserRequestPayerAccessBody.vm                                                         ; sga_Email_SuperUserRequest_Payer_Access_Subject               ; "Payer Access Email Subject"                 ; $jarEmailResource/email-superUserRequestPayerAccessSubject.vm
+
+## ASAHI Registration Emails
+
+                        ; sga_Email_Customer_Registration_Body               ; "Customer Registration Email Body"                ; $jarEmailResource/email-customerRegistrationBody.vm
+                        ; sga_Email_Customer_Registration_Subject            ; "Customer Registration Email Subject"             ; $jarEmailResource/email-customerRegistrationSubject.vm
+
+#### APB staged version
+
+$contentCatalog=apbContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/coredata/contentCatalogs/apbContentCatalog/emails
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$emailResource=$config-emailResourceValue
+
+# Language
+$lang=en
+
+UPDATE RendererTemplate ; code[unique=true]                                 ; description[lang=$lang]                            ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+## Apb Contat us and company details email
+                        ; apb_Email_Apb_Contact_Us_Body                ; "APB Contact Us Email Body"             ;$jarEmailResource/email-contactUsBody.vm
+                        ; apb_Email_Apb_Contact_Us_Subject              ; "APB Contact Us Email Subject"         ;$jarEmailResource/email-contactUsSubject.vm
+                        ; apb_Email_Apb_Company_Details_Body             ; "APB Company Details Email Body"   ; $jarEmailResource/email-companyDetailsBody.vm
+                        ; apb_Email_Apb_Company_Details_Subject          ; "APB Company Details Email Subject"; $jarEmailResource/email-companyDetailsSubject.vm
+
+## HC-404 APB - Email for forgotten password - email-portalForgottenPasswordBody vm and configurations
+
+                        ; apb_Email_Forgotten_Password_Body        ; "Forgotten Password Email Body"           ; $jarEmailResource/email-forgottenPasswordBody.vm
+                        ; apb_Email_Forgotten_Password_Subject     ; "Forgotten Password Email Subject"        ; $jarEmailResource/email-forgottenPasswordSubject.vm
+
+## HC-400 APB - Welcome email - email-customerSuperRegistrationBody vm and configurations
+
+                        ; apb_Email_Customer_Super_Registration_Body       ; "Customer Super Registration Email Body"           ; $jarEmailResource/email-customerSuperRegistrationBody.vm                                                           ; apb_Email_Customer_Super_Registration_Subject     ; "Customer Super Registration Email Subject"        ; $jarEmailResource/email-customerSuperRegistrationSubject.vm
+
+## ASAHI Registration Emails
+
+                        ; apb_Email_Customer_Registration_Body              ; "Customer Registration Email Body"                 ; $jarEmailResource/email-customerRegistrationBody.vm
+                        ; apb_Email_Customer_Registration_Subject           ; "Customer Registration Email Subject"              ; $jarEmailResource/email-customerRegistrationSubject.vm
+
+
+#### APB Online version
+
+$contentCatalog=apbContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Online])[default=$contentCatalog:Online]
+$jarEmailResource=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/coredata/contentCatalogs/apbContentCatalog/emails
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$emailResource=$config-emailResourceValue
+
+# Language
+$lang=en
+
+UPDATE RendererTemplate ; code[unique=true]                                 ; description[lang=$lang]                            ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                        ; apb_Email_Apb_Contact_Us_Body                ; "APB Contact Us Email Body"             ;$jarEmailResource/email-contactUsBody.vm
+                        ; apb_Email_Apb_Contact_Us_Subject              ; "APB Contact Us Email Subject"         ;$jarEmailResource/email-contactUsSubject.vm
+                        ; apb_Email_Apb_Company_Details_Body             ; "APB Company Details Email Body"   ; $jarEmailResource/email-companyDetailsBody.vm
+                        ; apb_Email_Apb_Company_Details_Subject          ; "APB Company Details Email Subject"; $jarEmailResource/email-companyDetailsSubject.vm
+
+## HC-404 APB - Email for forgotten password - email-portalForgottenPasswordBody vm and configurations
+
+                        ; apb_Email_Forgotten_Password_Body        ; "Forgotten Password Email Body"           ; $jarEmailResource/email-forgottenPasswordBody.vm
+                        ; apb_Email_Forgotten_Password_Subject     ; "Forgotten Password Email Subject"        ; $jarEmailResource/email-forgottenPasswordSubject.vm
+
+## HC-400 APB - Welcome email - email-customerSuperRegistrationBody vm and configurations
+
+                        ; apb_Email_Customer_Super_Registration_Body       ; "Customer Super Registration Email Body"           ; $jarEmailResource/email-customerSuperRegistrationBody.vm                                                           ; apb_Email_Customer_Super_Registration_Subject     ; "Customer Super Registration Email Subject"        ; $jarEmailResource/email-customerSuperRegistrationSubject.vm
+
+## ASAHI Registration Emails
+
+                        ; apb_Email_Customer_Registration_Body              ; "Customer Registration Email Body"                 ; $jarEmailResource/email-customerRegistrationBody.vm
+                        ; apb_Email_Customer_Registration_Subject           ; "Customer Registration Email Subject"              ; $jarEmailResource/email-customerRegistrationSubject.vm
+
+
+############################ Updating Renderer templates for emails End#########################################################
+
+###################################################Customer Support Access Rights#############################
+
+
+$START_USERRIGHTS;;;;;;;;;
+Type;UID;MemberOfGroups;Password;Target;read;change;create;remove;change_perm
+UserGroup;customersupportadministratorgroup;;;;;;;;
+
+# Access Rights for Customer Support Administrator;;;;;;;;;
+# Customer Support Administrator can view and change all relevant objects except for Quotes, Employees, Principals
+
+;;;;BackofficeSavedQuery;+;+;+;+
+;;;;AuditReportData;+;+;+;+
+;;;;AuditReportData.folder;-;-;-;-
+;;;;AuditReportConfig;+;-;-;-
+;;;;Media;+;+;;;;
+;;;;GlobalDiscountRow;+;+;+;+
+;;;;Consignment;+;+;+;+
+;;;;ConsignmentEntry;+;+;+;+
+;;;;ConsignmentStatus;+;+;+;+
+;;;;PackagingInfo;+;+;+;+
+
+;;;;Principal;+;-;-;-
+;;;;User;+;-;-;-
+;;;;Customer;+;+;+;-
+;;;;CustomerType;+;+;+;+
+;;;;Employee;+;-;-;-
+
+;;;;AbstractOrder;+;+;+;+
+;;;;AbstractOrderProcessingStep;+;+;+;+
+;;;;OrderEntry;+;+;+;+
+;;;;OrderStatus;+;+;+;+
+;;;;AbstractOrderEntry;+;+;+;+;+
+;;;;AbstractOrderEntry.Product;+;-;-;-
+;;;;OrderModificationRecord;+;+;+;+
+;;;;OrderEntryModificationRecordEntry;+;+;+;+
+;;;;OrderCancelRecordEntry;+;+;+;+
+;;;;OrderEntryCancelRecordEntry;+;+;+;+
+;;;;OrderHistoryEntry;+;+;+;+
+
+;;;;BaseStore;+;+;-;-
+;;;;BaseSite;+;+;-;-
+
+;;;;PaymentTransaction;+;+;-;-
+;;;;PaymentTransactionEntry;+;+;-;-
+
+;;;;CsTicket;+;+;+;+
+;;;;CsTicket.events;+;+;+;+
+;;;;CsTicketEvent;+;+;+;+
+;;;;CsTicketCategory;+;+;-;-
+;;;;CsTicketPriority;+;+;-;-
+;;;;CsTicketState;+;+;-;-
+;;;;CsInterventionType;+;+;-;-
+
+;;;;Title;+;+;+;+
+;;;;Country;+;+;-;-
+;;;;Region;+;+;-;-
+;;;;Address;+;+;+;+
+;;;;ZoneDeliveryModeValue;+;+;-;-
+;;;;DeliveryMode;+;+;+;+
+;;;;Product;+;+;-;-
+;;;;PaymentInfo;+;+;-;-
+
+;;;;FraudReport;+;+;-;-
+;;;;FraudStatus;+;+;-;-
+;;;;FraudSymptomScoring;+;+;-;-
+
+;;;;ReturnOrder;+;+;+;+
+;;;;ReturnOrderEntry;+;+;+;+
+;;;;ReturnEntry;+;+;+;+
+;;;;ReturnRequest;+;+;-;-
+;;;;ReturnStatus;+;+;-;-
+
+;;;;CustomerReview;+;+;-;+
+
+;;;;Quote;-;-;-;-
+
+$END_USERRIGHTS;;;;;
+
+#
+# Import Access Rights for Customer Support Backoffice
+#
+
+$START_USERRIGHTS;;;;;;;;;
+Type;UID;MemberOfGroups;Password;Target;read;change;create;remove;change_perm
+UserGroup;customersupportmanagergroup;;;;;;;;
+
+# Access Rights for Customer Support Manager;;;;;;;;;
+# Customer Support Manager can view and change all relevant objects except for Quotes, Employees, Principals
+
+;;;;BackofficeSavedQuery;+;+;+;+
+;;;;AuditReportData;+;+;+;+
+;;;;AuditReportData.folder;-;-;-;-
+;;;;AuditReportConfig;+;-;-;-
+;;;;Media;+;+;;;;
+;;;;Consignment;+;+;+;+
+;;;;ConsignmentEntry;+;+;+;+
+;;;;ConsignmentStatus;+;+;+;+
+;;;;PackagingInfo;+;+;+;+
+
+;;;;Principal;+;-;-;-
+;;;;User;+;-;-;-
+;;;;Customer;+;+;+;-
+;;;;CustomerType;+;+;+;+
+
+;;;;AbstractOrder;+;+;+;+
+;;;;AbstractOrderProcessingStep;+;+;+;+
+;;;;OrderEntry;+;+;+;+
+;;;;OrderStatus;+;+;+;+
+;;;;AbstractOrderEntry;+;+;+;+;+
+;;;;AbstractOrderEntry.Product;+;-;-;-
+;;;;OrderModificationRecord;+;+;+;+
+;;;;OrderEntryModificationRecordEntry;+;+;+;+
+;;;;OrderCancelRecordEntry;+;+;+;+
+;;;;OrderEntryCancelRecordEntry;+;+;+;+
+;;;;OrderHistoryEntry;+;+;+;+
+
+;;;;BaseStore;+;+;-;-
+;;;;BaseSite;+;+;-;-
+
+;;;;PaymentTransaction;+;+;-;-
+;;;;PaymentTransactionEntry;+;+;-;-
+
+;;;;CsTicket;+;+;+;+
+;;;;CsTicketEvent;+;+;+;+
+;;;;CsTicket.events;+;+;+;+
+;;;;CsTicketCategory;+;+;-;-
+;;;;CsTicketPriority;+;+;-;-
+;;;;CsTicketState;+;+;-;-
+;;;;CsInterventionType;+;+;-;-
+
+;;;;Title;+;+;-;-
+;;;;Country;+;+;-;-
+;;;;Region;+;+;-;-
+;;;;Address;+;+;+;+
+;;;;ZoneDeliveryModeValue;+;+;-;-
+;;;;DeliveryMode;+;+;+;+
+;;;;Product;+;+;-;-
+;;;;PaymentInfo;+;+;-;-
+
+;;;;FraudReport;+;+;-;-
+;;;;FraudStatus;+;+;-;-
+;;;;FraudSymptomScoring;+;+;-;-
+
+;;;;ReturnOrder;+;+;+;+
+;;;;ReturnOrderEntry;+;+;+;+
+;;;;ReturnEntry;+;+;+;+
+;;;;ReturnRequest;+;+;-;-
+;;;;ReturnStatus;+;+;-;-
+
+;;;;CustomerReview;+;+;-;-
+
+;;;;Quote;-;-;-;-
+
+$END_USERRIGHTS;;;;;
+
+#
+# Import Access Rights for Customer Support Backoffice
+#
+
+$START_USERRIGHTS;;;;;;;;;
+Type;UID;MemberOfGroups;Password;Target;read;change;create;remove;change_perm
+UserGroup;customersupportagentgroup;;;;;;;;
+
+# Access Rights for Customer Support Agent;;;;;;;;;
+# Customer Support Agent can view and change all relevant objects except for Quotes, Employees, Principals
+
+;;;;BackofficeSavedQuery;+;+;+;+
+;;;;AuditReportData;+;+;+;+
+;;;;AuditReportData.folder;-;-;-;-
+;;;;AuditReportConfig;+;-;-;-
+;;;;Media;+;+;;;;
+;;;;Consignment;+;-;-;-
+;;;;ConsignmentEntry;+;-;-;-
+;;;;ConsignmentStatus;+;-;-;-
+;;;;PackagingInfo;+;+;+;+
+
+;;;;SearchRestriction;+;+;-;-;
+
+;;;;Principal;+;-;-;-
+;;;;User;+;-;-;-
+;;;;Customer;+;+;+;-
+;;;;CustomerType;+;+;+;+
+
+;;;;AbstractOrder;+;-;-;-
+;;;;AbstractOrderProcessingStep;+;+;+;+
+;;;;OrderEntry;+;-;-;-
+;;;;OrderStatus;+;-;-;-
+;;;;AbstractOrderEntry;+;+;-;-;-
+;;;;AbstractOrderEntry.Product;+;-;-;-
+;;;;OrderModificationRecord;+;+;+;+
+;;;;OrderEntryModificationRecordEntry;+;+;+;+
+;;;;OrderCancelRecordEntry;+;+;+;+
+;;;;OrderEntryCancelRecordEntry;+;+;+;+
+;;;;OrderHistoryEntry;+;-;-;-
+
+;;;;BaseStore;+;+;-;-
+;;;;BaseSite;+;+;-;-
+
+;;;;PaymentTransaction;+;-;-;-
+;;;;PaymentTransactionEntry;+;-;-;-
+
+;;;;CsTicket;+;+;+;+
+;;;;CsTicketEvent;+;+;+;+
+;;;;CsTicket.events;+;+;+;+
+;;;;CsTicketCategory;+;+;-;-
+;;;;CsTicketPriority;+;+;-;-
+;;;;CsTicketState;+;+;-;-
+;;;;CsInterventionType;+;+;-;-
+
+;;;;Title;+;+;-;-
+;;;;Country;+;+;-;-
+;;;;Region;+;+;-;-
+;;;;Address;+;+;+;+
+;;;;ZoneDeliveryModeValue;+;+;-;-
+;;;;DeliveryMode;+;+;+;+
+;;;;Product;+;+;-;-
+;;;;PaymentInfo;+;+;-;-
+
+;;;;FraudReport;+;+;-;-
+;;;;FraudStatus;+;+;-;-
+;;;;FraudSymptomScoring;+;+;-;-
+
+;;;;ReturnOrder;+;+;+;+
+;;;;ReturnOrderEntry;+;+;+;+
+;;;;ReturnEntry;+;+;+;+
+;;;;ReturnRequest;+;+;-;-
+;;;;ReturnStatus;+;+;-;-
+;;;;CustomerReview;+;+;-;-
+
+;;;;Quote;-;-;-;-
+
+;;;;WorkflowAction;+;+;-;-
+
+$END_USERRIGHTS;;;;; 
+
+
+###################################################Customer Support Access Rights#############################
+#############################Trigger change for CUB jobs based on TimeZone change#############################
+UPDATE Trigger;Cronjob(code)[unique=true];cronExpression;
+;cleanUpFraudOrderCronJob;0 0 10 ? * 1;
+;sabmStore-CartRemovalJob;0 35 2 ? * *;
+;imageImportCronJob;0 30 2 ? * *;
+;oldSABMUserAccessHistoryRemovalCronJob;0 40 2 ? * SUN *;
+;exportCustomerCronJob;0 0 2 * * ?;
+;exportCustomerCronJob;0 0 2 * * ?;
+;full-sabmStoreIndex-cronJob;0 5 2 ? * *;
+;oldPaymentSubscriptionResultRemovalCronJob;0 0 5 ? * *;
+;productExpressUpdateCleanerCronJob;0 0 5 ? * *;
+;oldCartRemovalCronJob;0 30 5 ? * *;
+;ProductExclusionImportCleanupJob;0 30 2 ? * *;
+;oldSABMPriceRowRemovalCronJob;0 0 2 ? * *;
+;oldLastUpdateTimeEntityRemovalCronJob;0 30 5 * * ?;
+;oldWebServiceLogRemovalCronJob;0 30 3 * * ?;
+;sabmImportLogCleanUpCronJob;0 30 2 ? * *;
+;dailyMonitoringCronJob;0 0 2 ? * *;
+;SabmRecommendationCleanUpCronJob;0 5 4 ? * *;
+;dealNotificationCronjob;0 0 8 * * ?;
+;CUBStockCleanUpCronJob;0 0 10 ? * MON,TUE,WED,THU,FRI *;
+;sabmRecommendationExportJob;0 0 13 ? * 2;
+;OldSABMDealsRemovalCronJob;0 0 22 * * ?;
+;salesForceExportReportCronjob_Transactions;0 0 4 ? * *;
+;salesForceExportReportCronjob_Users_Customers_Notifications;0 0 4 ? * *;
+;SalesForceReportExportCronJob_Products;0 0 4 ? * *;
+;sabmTrackOrderReportExportJob;0 0 1 ? * MON *;
+;auditReportDataRetentionCronJob;0 0 11 1/1 * ? *;
+;sabmFetchCustomerCUPJob;0 00 3 ? * 2;
+;RetrieveRecommendationsCronjob;0 0 0 ? * * *;
+;ProductHierarchyExportCronjob;0 0 2 ? * FRI *;
+;RetrieveRecommendationGroupCronjob;0 30 0 ? * * *;
+;businessProcessCleanupCronJob;0 0 2 ? * *;
+;cronjobHistoryCleanupCronJob;0 0 3 ? * *;
+;cronjobRetentionCronJob;0 0 4 ? * *;
+;cronjobLogCleanupCronjob;0 0 5 ? * *;
+;impexMediaCleanupCronJob;0 0 6 ? * *;
+;storedSessionCleanupCronJob;0 0 7 ? * *;
+;SabmOrderCleanUpCronJob;0 0 20 ? * MON,TUE,FRI,SAT *;
+;BulkRecommendationExpireScriptCronJob;0 0 3 ? * *;
+;customerNotificationCronJob;0 0 3 ? * *;
+;DoNotDisable_CCV2EDPHeartBeat;0 1 10 * * ? *;
+;ExportBDEOrdersCronJob;0 0 7 ? * 2;
+;errorEventRemovalCronJob;0 0 10 * * ?;
+;importRecordCleanupCronJob;0 30 10 ? * *;
+;systemEmailMessageCleanupCronJob;0 0 10 * * ?;
+;solr-cloud-backup;0 50 13 * * ?;
+
+####update the trigger for update-sabmStoreIndex-cronJob ###########
+UPDATE Trigger;pk[unique=true];cronExpression;
+;8796420768246;0 0 2,6,15,18,22 ? * MON;
+
+UPDATE Trigger;pk[unique=true];hour;
+;8797076128246;05;
+
+####update the trigger for update-sabmStoreIndex-cronJob End ###########
+#############################Trigger change for CUB jobs based on TimeZone change End#############################
+
+######################usergroup change for enabling smartedit start#####################################
+UPDATE UserGroup;uid[unique=true];groups(uid)[mode=append];
+				;cmsmanagergroup;cmseditorgroup,cmsreviewergroup,cmspublishergroup,basecmsmanagergroup,cmstranslatorgroup;
+######################usergroup change for enabling smartedit end#####################################
+
+########################### iFrame CSS URL update apb- Start########################
+INSERT_UPDATE Configuration ; configKey[unique=true]                            ; configValue
+						    ; credit.card.iframe.external.css.url.apb           ; https://online.cubpb.com.au/storefront/_ui/responsive/theme-lambda/css/iframe.css
+
+########################### iFrame CSS URL update apb- End##########################
+

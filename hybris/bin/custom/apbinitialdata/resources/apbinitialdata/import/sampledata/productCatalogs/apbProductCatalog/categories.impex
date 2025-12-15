@@ -1,0 +1,193 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# ImpEx for Importing Categories into Powertools Store
+
+#APC-205
+# Macros / Replacement Parameter definitions
+$productCatalog=apbProductCatalog
+$productCatalogName=APB Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$supercategories=source(code, $catalogVersion)[unique=true]
+$categories=target(code, $catalogVersion)[unique=true]
+
+
+# Insert Categories
+INSERT_UPDATE Category ; code[unique=true] ; allowedPrincipals(uid)[default='customergroup'] ; hideBrandFacet ; hideInBreadcrumb ;$catalogVersion
+                       ; 1                 ;                                                 ;true            ; true             ;  
+                       ; L101              ;                                                 ;true            ; true             ;  
+                       ; L102              ;                                                 ;true            ; true             ;  
+                       ; L2002             ;                                                 ;                ;                  ;                  
+                       ; L2003             ;                                                 ;                ;                  ;                  
+                       ; L2004             ;                                                 ;                ;                  ;                  
+                       ; L2005             ;                                                 ;                ;                  ;                
+                       ; L3004             ;                                                 ;                ;                  ;                
+                       ; L3005             ;                                                 ;                ;                  ;                
+                       ; L3006             ;                                                 ;                ;                  ;                
+                       ; L3007             ;                                                 ;                ;                  ;                
+                       ; L3008             ;                                                 ;                ;                  ;                
+                       ; L3009             ;                                                 ;                ;                  ;                
+                       ; L30010            ;                                                 ;                ;                  ;                
+                       ; L30011            ;                                                 ;                ;                  ;                
+                       ; L30012            ;                                                 ;                ;                  ;                
+                       ; L30013            ;                                                 ;                ;                  ;                
+                       ; L30014            ;                                                 ;                ;                  ;                
+                       ; L30015            ;                                                 ;                ;                  ;                
+                       ; L30016            ;                                                 ;                ;                  ;                
+                       ; L30017            ;                                                 ;                ;                  ;                
+                       ; L30018            ;                                                 ;                ;                  ;                
+                       ; L4008             ;                                                 ; true           ;                  ;                
+                       ; L4009             ;                                                 ; true           ;                  ;                
+                       ; L40010            ;                                                 ; true           ;                  ;                
+                       ; L40011            ;                                                 ; true           ;                  ;                
+                       ; L40012            ;                                                 ; true           ;                  ;                
+                       ; L40013            ;                                                 ; true           ;                  ;                
+                       ; L40014            ;                                                 ; true           ;                  ;                
+                       ; L40015            ;                                                 ; true           ;                  ;                
+                       ; L40016            ;                                                 ; true           ;                  ;                
+                       ; L40017            ;                                                 ; true           ;                  ;                
+                       ; L40018            ;                                                 ; true           ;                  ;                
+                       ; L40019            ;                                                 ; true           ;                  ;                
+                       ; L40020            ;                                                 ; true           ;                  ;                
+                       ; L40021            ;                                                 ; true           ;                  ;                
+                       ; L40022            ;                                                 ; true           ;                  ;                
+                       ; L40023            ;                                                 ; true           ;                  ;                
+                       ; L40024            ;                                                 ; true           ;                  ;                
+                       ; L40025            ;                                                 ; true           ;                  ;                
+                       ; L40026            ;                                                 ; true           ;                  ;                
+                       ; L40027            ;                                                 ; true           ;                  ;                
+                       ; L40028            ;                                                 ; true           ;                  ;                
+                       ; L40029            ;                                                 ; true           ;                  ;                
+                       ; L40030            ;                                                 ; true           ;                  ;                
+                       ; L40031            ;                                                 ; true           ;                  ;                
+                       ; L40032            ;                                                 ; true           ;                  ;                
+                       ; L40033            ;                                                 ; true           ;                  ;                
+                       ; L40034            ;                                                 ; true           ;                  ;                
+                       ; L40035            ;                                                 ; true           ;                  ;                
+                       ; L40036            ;                                                 ; true           ;                  ;                
+                       ; L40037            ;                                                 ; true           ;                  ;                
+                       ; L40038            ;                                                 ; true           ;                  ;                
+                       ; L40039            ;                                                 ; true           ;                  ;                
+                       ; L40040            ;                                                 ; true           ;                  ;                
+                       ; L40041            ;                                                 ; true           ;                  ;                
+                       ; L40042            ;                                                 ; true           ;                  ;                
+                       ; L40043            ;                                                 ; true           ;                  ;                
+                       ; L40044            ;                                                 ; true           ;                  ;                
+                       ; L40045            ;                                                 ; true           ;                  ;                
+                       ; L40046            ;                                                 ; true           ;                  ;                
+                       ; L40047            ;                                                 ; true           ;                  ;                
+                       ; L40048            ;                                                 ; true           ;                  ;                
+                       ; L40049            ;                                                 ; true           ;                  ;                
+                       ; L40050            ;                                                 ; true           ;                  ;                
+                       ; L40051            ;                                                 ; true           ;                  ;                
+                       ; L40052            ;                                                 ; true           ;                  ;                
+                       ; L40053            ;                                                 ; true           ;                  ;                
+                       ; L40054            ;                                                 ; true           ;                  ;                
+                       ; L40055            ;                                                 ; true           ;                  ;                
+                       ; L40056            ;                                                 ; true           ;                  ;                
+                       ; L40057            ;                                                 ; true           ;                  ;                
+                       ; L40058            ;                                                 ; true           ;                  ;                
+                       ; L40059            ;                                                 ; true           ;                  ;                
+                       ; L40060            ;                                                 ; true           ;                  ;                
+                       ; L40061            ;                                                 ; true           ;                  ;                
+                       ; L40062            ;                                                 ; true           ;                  ;                
+                       ; L40063            ;                                                 ; true           ;                  ;                
+                       ; L40100            ;                                                 ; true           ;                  ;                
+                       ; L40200            ;                                                 ; true           ;                  ;                
+                       ; L40300            ;                                                 ; true           ;                  ;                
+                       ; L40067            ;                                                 ; true           ;                  ;                
+
+ 
+
+
+# Insert Category Structure
+INSERT_UPDATE CategoryCategoryRelation ; $categories ; $supercategories
+                                       ; L101        ; 1 
+                                       ; L102        ; 1           
+                                       ; L2002       ; L101            
+                                       ; L2003       ; L101            
+                                       ; L2004       ; L101            
+                                       ; L2005       ; L102            
+                                       ; L3004       ; L2002           
+                                       ; L3005       ; L2002           
+                                       ; L3006       ; L2002           
+                                       ; L3007       ; L2003           
+                                       ; L3008       ; L2003           
+                                       ; L3009       ; L2004           
+                                       ; L30010      ; L2004           
+                                       ; L30011      ; L2005           
+                                       ; L30012      ; L2005           
+                                       ; L30013      ; L2005           
+                                       ; L30014      ; L2005           
+                                       ; L30015      ; L2005           
+                                       ; L30016      ; L2005           
+                                       ; L30017      ; L2005           
+                                       ; L30018      ; L2005           
+                                       ; L4008       ; L3004           
+                                       ; L4009       ; L3004           
+                                       ; L40010      ; L3004           
+                                       ; L40011      ; L3004           
+                                       ; L40012      ; L3004           
+                                       ; L40013      ; L3004 
+                                       ; L40100		;L3004
+                                       ; L40014      ; L3005           
+                                       ; L40015      ; L3005           
+                                       ; L40016      ; L3006           
+                                       ; L40017      ; L3006           
+                                       ; L40018      ; L3007           
+                                       ; L40019      ; L3007           
+                                       ; L40020      ; L3007           
+                                       ; L40021      ; L3007           
+                                       ; L40022      ; L3007           
+                                       ; L40023      ; L3008           
+                                       ; L40024      ; L3008           
+                                       ; L40025      ; L3008           
+                                       ; L40200	    ; L3008
+                                       ; L40026      ; L3008           
+                                       ; L40027      ; L3009           
+                                       ; L40028      ; L3009           
+                                       ; L40029      ; L3009           
+                                       ; L40030      ; L30010          
+                                       ; L40031      ; L30010          
+                                       ; L40032      ; L30010          
+                                       ; L40033      ; L30011          
+                                       ; L40034      ; L30011          
+                                       ; L40035      ; L30011          
+                                       ; L40036      ; L30011          
+                                       ; L40300      ; L30011          
+                                       ; L40037      ; L30012          
+                                       ; L40038      ; L30012          
+                                       ; L40039      ; L30012          
+                                       ; L40040      ; L30012          
+                                       ; L40041      ; L30012          
+                                       ; L40042      ; L30012          
+                                       ; L40043      ; L30012          
+                                       ; L40044      ; L30012          
+                                       ; L40045      ; L30012          
+                                       ; L40046      ; L30013          
+                                       ; L40047      ; L30013          
+                                       ; L40048      ; L30013          
+                                       ; L40049      ; L30013          
+                                       ; L40050      ; L30013          
+                                       ; L40051      ; L30013          
+                                       ; L40052      ; L30013          
+                                       ; L40053      ; L30014          
+                                       ; L40054      ; L30014          
+                                       ; L40067      ; L30014
+                                       ; L40055      ; L30014          
+                                       ; L40056      ; L30014          
+                                       ; L40057      ; L30015          
+                                       ; L40058      ; L30016          
+                                       ; L40059      ; L30017          
+                                       ; L40060      ; L30018          
+                                       ; L40061      ; L30018          
+                                       ; L40062      ; L30018          
+                                       ; L40063      ; L30018          
+                                       

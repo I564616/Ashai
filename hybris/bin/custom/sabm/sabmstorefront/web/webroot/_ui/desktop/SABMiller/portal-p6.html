@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if IE 9]>         <html class="no-js lt-ie10" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="no-js" lang="en" ng-app="CUB"> <!--<![endif]-->
+<head>
+    <meta charset="UTF-8">
+    <title>
+        
+            Product Detail | Reactive FED Scaffold
+        
+
+    </title>
+    <link rel="icon" type="image/png" href="img/favicon.ico">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Place favicon.ico and apple-touch-icon(s) in the root directory -->
+
+    
+        <link rel="stylesheet" href="https://sabmiller.local:9002/staffPortal/_ui/desktop/SABMiller/css/style.min.css"/>
+    
+
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+
+    <script type="text/javascript">
+       var ACC = { config: {} };
+           ACC.config.contextPath = "";
+           ACC.config.encodedContextPath = "/sabmStore/en";
+           ACC.config.commonResourcePath = "/_ui/desktop/common";
+           ACC.config.themeResourcePath = "/_ui/desktop/theme-sabm";
+           ACC.config.siteResourcePath = "/_ui/desktop/site-sabmStore";
+           ACC.config.rootPath = "/_ui/desktop";
+           ACC.config.CSRFToken = "dd700e34-89e1-4ae1-ab16-946cdf3aa9ee";
+           ACC.pwdStrengthVeryWeak = 'Very weak';
+           ACC.pwdStrengthWeak = 'Weak';
+           ACC.pwdStrengthMedium = 'Medium';
+           ACC.pwdStrengthStrong = 'Strong';
+           ACC.pwdStrengthVeryStrong = 'Very strong';
+           ACC.pwdStrengthUnsafePwd = 'password.strength.unsafepwd';
+           ACC.pwdStrengthTooShortPwd = 'Too short';
+           ACC.pwdStrengthMinCharText = 'Minimum length is %d characters';
+           ACC.accessibilityLoading = 'Loading... Please wait...';
+           ACC.accessibilityStoresLoaded = 'Stores loaded';
+
+           ACC.autocompleteUrl = '/sabmStore/en/search/autocompleteSecure';
+           ACC.config.googleApiKey="";
+           ACC.config.googleApiVersion="3.7";
+
+       </script>
+
+
+
+
+
+
+</head>
+<body class="">
+
+
+  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="display: none;"><symbol viewBox="0 0 10 5.969" id="icon-arrow-down"><title>arrow-down</title> <path d="M9.800,1.162 L5.454,5.756 C5.197,6.027 4.780,6.027 4.523,5.756 L0.178,1.162 C-0.080,0.891 -0.080,0.450 0.178,0.178 C0.435,-0.094 0.852,-0.094 1.109,0.178 L4.989,4.279 L8.869,0.178 C9.126,-0.094 9.543,-0.094 9.800,0.178 C10.057,0.450 10.057,0.891 9.800,1.162 Z" class="cls-1"/> </symbol><symbol viewBox="0 0 6 10" id="icon-arrow-left"><title>arrow-left</title> <path d="M5.776,1.124 L1.674,5.004 L5.776,8.884 C6.047,9.141 6.047,9.558 5.776,9.815 C5.504,10.072 5.063,10.072 4.791,9.815 L0.198,5.470 C-0.074,5.213 -0.074,4.796 0.198,4.539 L4.791,0.193 C5.063,-0.064 5.504,-0.064 5.776,0.193 C6.047,0.450 6.047,0.867 5.776,1.124 Z" class="cls-1"/> </symbol><symbol viewBox="0 0 5.968 10" id="icon-arrow-right"><title>arrow-right</title> <path d="M5.771,5.461 L1.177,9.807 C0.906,10.064 0.465,10.064 0.193,9.807 C-0.079,9.550 -0.079,9.133 0.193,8.876 L4.294,4.996 L0.193,1.116 C-0.079,0.859 -0.079,0.442 0.193,0.185 C0.465,-0.072 0.906,-0.072 1.177,0.185 L5.771,4.530 C6.042,4.787 6.042,5.204 5.771,5.461 Z" class="cls-1"/> </symbol><symbol viewBox="0 0 10 6" id="icon-arrow-up"><title>arrow-up</title> <path d="M9.807,5.775 C9.550,6.047 9.133,6.047 8.876,5.775 L4.996,1.674 L1.116,5.775 C0.859,6.047 0.442,6.047 0.185,5.775 C-0.072,5.503 -0.072,5.063 0.185,4.791 L4.530,0.198 C4.787,-0.074 5.204,-0.074 5.462,0.198 L9.807,4.791 C10.064,5.063 10.064,5.503 9.807,5.775 Z" class="cls-1"/> </symbol><symbol viewBox="-364.9 240.5 89.5 89.5" id="icon-calendar"><title>calendar</title> <g> <path d="M-277.4,248.1H-362c-2,0-3,1-3,3v76.6c0,1.3,1.1,2.4,2.2,2.4h85.4c1.1,0,1.9-1,1.9-2.3v-77.7
+     C-275.4,248.8-276.3,248.1-277.4,248.1z M-357.5,322.6v-63.4h74.6v63.4H-357.5z"/> <path d="M-348,264.4c-1.1,0-2-0.9-2-2v-19.9c0-1.1,0.9-2,2-2h4c1.1,0,2,0.9,2,2v19.9c0,1.1-0.9,2-2,2L-348,264.4L-348,264.4z"/> <path d="M-296.3,264.4c-1.1,0-2-0.9-2-2v-19.9c0-1.1,0.9-2,2-2h4c1.1,0,2,0.9,2,2v19.9c0,1.1-0.9,2-2,2L-296.3,264.4L-296.3,264.4z
+     "/> </g> <g> <rect x="-349.7" y="274.9" width="14.5" height="15.3"/> <rect x="-349.7" y="298.7" width="14.5" height="15.3"/> <rect x="-327.4" y="274.9" width="14.5" height="15.3"/> <rect x="-327.4" y="298.7" width="14.5" height="15.3"/> <rect x="-305.2" y="274.9" width="14.5" height="15.3"/> <rect x="-305.2" y="298.7" width="14.5" height="15.3"/> </g> </symbol><symbol viewBox="-624 583.3 98 98" id="icon-cart"><title>cart</title> <circle cx="-541" cy="672.3" r="9"/> <circle cx="-593" cy="672.3" r="9"/> <path d="M-586.9,643.2l60.9-13.9v-32h-70.4l-3.9-10.7c-0.7-2-2.6-3.3-4.7-3.3h-14c-2.8,0-5,2.2-5,5s2.2,5,5,5h10.5l15.3,41.5
+   c-6.5,3-8.9,8.8-8.3,13.8c0.8,6.8,6.5,11.7,13.6,11.7h51c2.8,0,5-2.2,5-5s-2.2-5-5-5h-51c-2.3,0-3.5-1.4-3.6-2.8
+   C-591.9,645.5-590.1,643.9-586.9,643.2z"/> </symbol><symbol viewBox="-298 390 14 14" id="icon-close-white"><title>close-white</title> <path d="M-284.3,391.6l-5.4,5.4l5.3,5.4c0.4,0.4,0.4,1,0,1.3c-0.4,0.4-0.9,0.4-1.3,0l-5.4-5.5l-5.4,5.5c-0.4,0.4-0.9,0.4-1.3,0
+   c-0.4-0.4-0.4-1,0-1.3l5.4-5.4l-5.3-5.4c-0.4-0.4-0.4-1,0-1.3c0.4-0.4,0.9-0.4,1.3,0l5.4,5.5l5.4-5.5c0.4-0.4,0.9-0.4,1.3,0
+   C-283.9,390.6-283.9,391.2-284.3,391.6z"/> </symbol><symbol viewBox="-297 388 15.9 17" id="icon-connected"><title>connected</title> <style type="text/css"> .st0{fill:none;} </style> <g> <g> <rect x="-297" y="400.6" width="5.4" height="4.4"/> <rect x="-286.5" y="400.6" width="5.4" height="4.4"/> </g> <rect x="-291.7" y="388" width="5.4" height="4.4"/> <polyline points="-294.1,399.5 -294.1,396.3 -284,396.3 -284,399.5 	"/> <line class="st0" x1="-289" y1="396.5" x2="-289" y2="393.5"/> </g> </symbol><symbol viewBox="-301 392.9 8 8" id="icon-cross"><title>cross</title> <path d="M-293.2,393.8l-3.1,3.1l3,3.1c0.2,0.2,0.2,0.5,0,0.8c-0.2,0.2-0.5,0.2-0.7,0l-3.1-3.2l-3.1,3.2c-0.2,0.2-0.5,0.2-0.7,0
+   c-0.2-0.2-0.2-0.5,0-0.8l3.1-3.1l-3-3.1c-0.2-0.2-0.2-0.5,0-0.8s0.5-0.2,0.7,0l3.1,3.1l3.1-3.1c0.2-0.2,0.5-0.2,0.7,0
+   C-293,393.3-293,393.6-293.2,393.8z"/> </symbol><symbol viewBox="-367.7 263.8 75.3 46" id="icon-delivery"><title>delivery</title> <g> <g> <path d="M-292.9,283.4l-8.3-4.6l-5.2-14.3c-0.1-0.4-0.5-0.7-0.9-0.7h-57.8c-0.6,0-1,0.4-1,1v32.6h-0.6c-0.6,0-1,0.4-1,1s0.4,1,1,1
+       h1.6h3.1c1.2-3.8,4.8-6.6,9-6.6c4.2,0,7.8,2.8,9,6.6h29.7c1.2-3.8,4.8-6.6,9-6.6c4.2,0,7.8,2.8,9,6.6h2.8c0.6,0,1-0.4,1-1v-14.1
+       C-292.3,283.9-292.5,283.6-292.9,283.4z M-305.9,279.6c-0.2,0.3-0.5,0.4-0.8,0.4h-13.8c-0.6,0-1-0.4-1-1v-10.9c0-0.6,0.4-1,1-1
+       h9.8c0.4,0,0.8,0.3,0.9,0.7l3.9,10.9C-305.7,279-305.7,279.3-305.9,279.6z"/> <path d="M-352.9,294.8c-4.1,0-7.5,3.3-7.5,7.5s3.3,7.5,7.5,7.5c4.1,0,7.5-3.3,7.5-7.5S-348.8,294.8-352.9,294.8z"/> <path d="M-305.2,294.8c-4.1,0-7.5,3.3-7.5,7.5s3.3,7.5,7.5,7.5c4.1,0,7.5-3.3,7.5-7.5S-301.1,294.8-305.2,294.8z"/> </g> </g> </symbol><symbol viewBox="-294 388 10.9 17" id="icon-dollar"><title>dollar</title> <g> <path d="M-289.3,403c-1.7-0.2-3.4-0.9-4.7-1.9l1.5-2.3c1.1,0.8,2.1,1.4,3.2,1.6v-3.2c-2.9-0.8-4.3-1.8-4.3-4.2v0
+     c0-2.2,1.7-3.6,4.2-3.9V388h2.1v1.2c1.4,0.2,2.6,0.7,3.7,1.4l-1.3,2.3c-0.8-0.5-1.6-1-2.5-1.2v3c3,0.8,4.3,2,4.3,4.2v0
+     c0,2.2-1.7,3.7-4.2,3.9v2h-2.1L-289.3,403C-289.3,403-289.3,403-289.3,403z M-289.2,394.3v-2.7c-1,0.1-1.4,0.6-1.4,1.2v0
+     C-290.6,393.5-290.3,393.9-289.2,394.3z M-287.3,397.8v2.8c0.9-0.1,1.4-0.6,1.4-1.3v0C-285.9,398.6-286.3,398.2-287.3,397.8z"/> </g> </symbol><symbol viewBox="0 0 659.1 183.8" id="icon-full-logo"><title>full-logo</title> <path d="M241.8,118.9c3.6-1.9,6.1-5.2,6.1-9.3c0-9.7-8.8-11.7-16.7-11.6h-21.7v46.2h22.2c10,0,18-3.4,18-14.4
+   C249.7,124.6,246.7,120.3,241.8,118.9 M221.7,107.3h9.3c2.5,0,4.8,1.1,4.8,4.5c0,3.2-2.8,4.4-4.8,4.4h-9.3V107.3z M231.3,134.6h-9.6
+   V124h9.6c3.5,0,6.3,1.3,6.3,5.3C237.7,133.3,235.1,134.6,231.3,134.6 M489.2,93c13.9,0,20-6.6,20-20V45.9h-11.9v27.8
+   c0,5.9-2.2,9-8.1,9c-5.9,0-8.1-3.1-8.1-9V45.9H469V73C469,86.4,475.2,93,489.2,93 M370,93.1c10.4,0,17.7-7.6,17.7-17.7
+   c0-10.1-7.3-17.9-17.7-17.9c-10.5,0-17.7,7.7-17.7,17.9C352.3,85.5,359.5,93.1,370,93.1 M370,66.1c5.1,0,6.7,5.1,6.7,9.3
+   c0,4.2-1.6,9.3-6.7,9.3c-5.1,0-6.6-5.1-6.6-9.3C363.4,71.2,364.9,66.1,370,66.1 M578.5,48.4h-11v32.2c0,9.2,2.4,11.8,11.8,11.8
+   c2.1,0,4-0.2,6.1-0.3V84c-1.1,0-1.9,0.2-2.9,0.2c-2.4,0-3.9-0.6-3.9-3.2V65.6h6.8v-7.2h-6.8V48.4z M442.8,92.8
+   c3.8,0,6.8-1.1,9.7-3.6l2.4,2.9h9.8l-7.2-8.2c2.1-2.2,3.5-5.2,3.7-8.3h-6.8c-0.1,1.2-0.6,2.3-1.2,3.3l-3.5-4.2
+   c3.4-1.6,5.9-4.4,5.9-8.3c0-5.4-4.6-8.8-9.6-8.8c-5,0-9.7,3.4-9.7,8.6c0,2.6,1.3,4.7,2.9,6.5c-4,1.9-7.6,5-7.6,9.8
+   C431.5,88.7,436.8,92.8,442.8,92.8 M445.9,63.2c1.7,0,2.9,1.1,2.9,2.7c0,2.1-1.4,3.1-3.1,4.2c-1-1.4-2.3-2.5-2.3-4.4
+   C443.4,64.3,444.6,63.2,445.9,63.2 M443.2,77.9l5,6c-1.2,1.1-2.9,2.4-4.5,2.4c-2.2,0-4.4-1.4-4.4-3.9
+   C439.3,80.4,441.5,78.6,443.2,77.9 M551.9,48.2v6.4h10.9v-6.4H551.9z M329.1,92.2V46h-11v46.2H329.1z M345.5,92.4c2,0,4-0.3,6.1-0.3
+   v-8.1c-1.1,0-2,0.1-2.9,0.1c-2.4,0-3.9-0.6-3.9-3.2V65.6h6.8v-7h-6.8V48.4h-11v32.2C333.7,89.7,336.1,92.4,345.5,92.4 M302.1,75.5
+   c0-4.2,2.9-8,8.3-8c1.4,0,2.7,0.3,4.1,0.7v-10c-0.8-0.2-1.7-0.3-2.5-0.3c-4.7,0-8.5,2.4-10.1,6.6h-0.1v-5.9h-10.6v33.6h11V75.5z
+    M460.2,109.7c-10,0-18,7.4-18,17.6c0,11.2,7.4,17.9,18.3,17.9c7.5,0,14.7-3.4,16.7-11.1H467c-1.1,2.4-3.6,3.7-6.3,3.7
+   c-4.7,0-7.2-3-7.5-7.7h24.6C478.3,118.7,472.3,109.7,460.2,109.7 M453.6,124c0.7-4.2,3.2-6.9,7.1-6.9c3.7,0,6.3,3.1,6.5,6.9H453.6z
+    M604.2,57.5c-9.9,0-18.1,7.4-18.1,17.7c0,11.2,7.5,17.8,18.4,17.8c7.5,0,14.7-3.3,16.6-11h-10.3c-1,2.4-3.5,3.6-6.2,3.6
+   c-4.7,0-7.3-3-7.5-7.7h24.6C622.2,66.5,616.2,57.5,604.2,57.5 M597,71.8c0.7-4.1,3.2-6.8,7.2-6.8c3.7,0,6.3,3,6.5,6.8H597z
+    M353.6,110.6l-5.5,21.7H348l-5-21.7h-10.4l-4.8,21.8h-0.1l-5.7-21.8H311l10.5,33.6h11.1l5.3-22.3h0.1l5.3,22.3h11.1l10.5-33.6
+   H353.6z M503.8,124.2c-5-1.1-12.4-1.7-12.4-5c0-2.2,3-2.5,4.8-2.5c1.4,0,2.6,0.4,3.5,0.9c0.9,0.6,1.4,1.5,1.4,2.9h10.2
+   c-0.4-8.6-8.2-10.8-15.5-10.8c-6.6,0-15.3,2.2-15.3,10.3c0,9,8.7,9.2,15.6,11c2,0.5,5.3,1.1,5.3,3.6c0,2.6-3,3.5-5.1,3.5
+   c-1.6,0-3.1-0.4-4.2-1.2c-1.1-0.9-1.7-2-1.7-3.7h-10.5c0.3,9.5,8.5,12.1,16.4,12.1c7.5,0,16-3,16-11.9
+   C512.3,130.4,510.6,125.5,503.8,124.2 M407.3,66.7c6,0,5.5,4.6,5.5,9.2v16.3h11V70.6c0-4.9-0.9-13.1-12.1-13.1
+   c-4,0-8.5,2.3-10.6,5.6H401v-4.5h-10.8v33.6h11.1V73.8C401.4,70.2,403.2,66.7,407.3,66.7 M381.5,109.7c-9.9,0-18.1,7.4-18.1,17.6
+   c0,11.2,7.5,17.9,18.4,17.9c7.5,0,14.6-3.4,16.6-11.1h-10.2c-1.1,2.4-3.7,3.7-6.3,3.7c-4.6,0-7.3-3-7.5-7.7h24.6
+   C399.6,118.7,393.6,109.7,381.5,109.7 M375,124c0.6-4.2,3.2-6.9,7.2-6.9c3.7,0,6.3,3.1,6.5,6.9H375z M412.5,116.5h-0.1v-5.9h-10.7
+   v33.6h11v-16.7c0-4.1,2.9-7.9,8.3-7.9c1.5,0,2.7,0.2,4.1,0.6v-10c-0.7-0.2-1.7-0.3-2.5-0.3C417.8,110,414.1,112.3,412.5,116.5
+    M428.7,110.6v33.6h11v-33.6H428.7z M428.7,100.3v6.4h11v-6.4H428.7z M648,45.9v16.2H648c-2.2-3.1-5.4-4.6-9.5-4.6
+   c-9.5,0-14.2,8.3-14.2,17.1c0,9.4,4.5,18.4,15,18.4c3.9,0,7.2-1.6,9.3-4.8h0.1v3.9h10.5V45.9H648z M641.9,84.6c-5,0-6.7-5.1-6.7-9.6
+   c0-4.3,1.7-9,6.7-9c4.8,0,6.5,4.5,6.5,9.3C648.5,79.5,647.3,84.6,641.9,84.6 M551.9,58.5v33.6h10.9V58.5H551.9z M231,55.3
+   c5,0,8.5,2.5,9.1,7.2h12.1C252,51.3,241.1,45,231.2,45c-13.9,0-23.1,10.6-23.1,24c0,13.4,9.1,24.1,23.1,24.1
+   c11.7,0,20.5-7,21.1-18.9h-12.1c-0.4,5.3-3.6,8.5-9.1,8.5c-7.8,0-10.8-6.8-10.8-13.8C220.2,62.2,223.2,55.3,231,55.3 M287.8,92.2
+   c-1.2-2.7-1.2-5.8-1.2-8.6V68.8c0-9.5-7.7-11.3-15.7-11.3c-3.8,0-7.6,0.7-10.6,2.4c-3,1.7-5,4.5-5.2,9h10.3c0.6-2.9,2.5-4.2,5.5-4.2
+   c2.3,0,5.4,0.9,5.4,3.5c0,2.1-1,2.7-2.9,3.1c-7.7,1.6-19.5,0.7-19.5,11.7c0,6.8,5,10.1,11.4,10.1c3.9,0,8.2-1.1,11-4.2
+   c0.2,1.1,0.2,2.2,0.6,3.3H287.8z M269.2,86.2c-2.5,0-4.6-1.1-4.6-3.7c0-2.7,2-3.7,4.5-4.4c2.4-0.6,5.4-0.7,6.8-1.7
+   C276.2,83.3,274.5,86.2,269.2,86.2 M263.3,116.5L263.3,116.5l-0.1-5.9h-10.8v33.6h11.1v-16.7c0-4.1,2.8-7.9,8.1-7.9
+   c1.6,0,2.9,0.2,4.3,0.6v-10c-0.9-0.2-1.8-0.3-2.5-0.3C268.7,110,265,112.3,263.3,116.5 M535.1,57.5c-3.9,0-8.5,2.2-10.6,5.6h-0.1
+   v-4.7h-10.6v33.6h11V73.8c0-3.6,1.9-7.2,6-7.2c6,0,5.5,4.7,5.5,9.3v16.2h11.1V70.6C547.3,65.7,546.3,57.5,535.1,57.5 M294.9,109.7
+   c-9.9,0-18.2,7.4-18.2,17.6c0,11.2,7.5,17.9,18.4,17.9c7.5,0,14.7-3.4,16.6-11.1h-10.3c-1,2.4-3.6,3.7-6.2,3.7c-4.7,0-7.3-3-7.5-7.7
+   h24.6C312.8,118.7,307,109.7,294.9,109.7 M287.8,124c0.7-4.2,3.2-6.9,7.2-6.9c3.6,0,6.3,3.1,6.5,6.9H287.8z M98.3,39.8v2.4
+   c4.1,0.7,4.9,0.9,5.1,3.7v65c-0.1,2.9-0.9,3.1-5.1,3.8v2.4h27v15.5c0,14.8-6.2,21.3-20,21.3c-15.1,0-21.5-7.9-21.5-26.5v-12.7
+   c6.8-4.3,11.5-10.6,14.1-18.6l-5.4-2.5c-3.3,10.4-15.2,18-24.3,18c-14.6,0-22.7-10.8-22.7-32.4c0-21.7,7.4-33.2,20.2-33.2
+   c10.3,0,18.2,5.5,23.8,20.9h3.8v-27h-3.1c-0.3,1.3-1.8,2.3-3.1,2.3c-1.3,0-2.3-0.1-4.5-1.1c-6.8-3-14.1-4.6-21.7-4.6
+   c-21.5,0-37.8,17.6-37.8,41.7c0,25.1,16.8,42.3,38.8,42.3c1.5,0,3-0.1,4.4-0.2v11.9c0.2,8.2,1.4,14.2,5.7,19.6
+   c5.4,7,15.5,11.1,29.1,11.1c12.2,0,21.5-4.2,26.4-11.3c4.4-6.3,4.6-13.3,4.6-21.6V86.3h-6.8V110c-4-0.4-4.5-1.9-4.5-5.9V81.8h7.8
+   c11.1,0,17.3,4.5,17.3,14.5c0,7.8-3.5,12-11.1,13.3v7.4c22.8-0.2,32.1-7.9,32.1-19.7c0-11.7-5.7-18-18.8-20.5
+   c10.9-2.5,15.5-8,15.5-18.2c0-12.4-11.6-18.8-34.4-18.8H98.3z M143.6,60.3c0,10.9-4,14.5-15.8,14.5h-7.1V52.5c0-4.9,0.6-6,7-6
+   C139.9,46.5,143.6,49.7,143.6,60.3 M68.2,108.8c4.9,0,10.9-2.7,15.6-6.9v-9.7c0.1-2.8,0.9-3,5.1-3.7v-2.4H61.2v2.4
+   c4.1,0.7,4.9,0.9,5.1,3.7v16.5C66.9,108.8,67.5,108.8,68.2,108.8 M96.5,0l-1.9,0C38.9,0,0,21.7,0,89l0,5.7c0,67.4,38.9,89.1,94.6,89
+   h1.9c55.7,0.1,94.6-21.7,94.6-89V89C191.2,21.7,152.3,0,96.5,0 M175.8,94.8c0,58.5-36,82.7-79.3,82.7h-1.9
+   c-43.3,0-79.3-24.1-79.3-82.7V89c0-58.6,36-82.7,79.3-82.7h1.9c43.3,0,79.3,24.1,79.3,82.7V94.8z"/> </symbol><symbol viewBox="-608 782 2 12" id="icon-info"><title>info</title><desc>Created with Sketch.</desc>   <g id="info-STYLEGUIDE" sketch:type="MSPage"> <g id="info-Forms" transform="translate(-451.000000, -277.000000)" sketch:type="MSArtboardGroup"> <g id="info-info" transform="translate(451.000000, 277.000000)" sketch:type="MSLayerGroup"> <rect id="info-Rectangle-61" x="-608" y="786" sketch:type="MSShapeGroup" width="2" height="8"> </rect> <rect id="info-Rectangle-62" x="-608" y="782" sketch:type="MSShapeGroup" width="2" height="2"> </rect> </g> </g> </g> </symbol><symbol viewBox="-301 396 9 1" id="icon-minus"><title>minus</title> <path d="M-301,397v-1h9v1H-301z"/> </symbol><symbol viewBox="0 0 16.3 17.3" id="icon-network"><title>network</title> <g> <g> <rect y="12.8" class="st0" width="5.5" height="4.5"/> <rect x="10.7" y="12.8" class="st0" width="5.5" height="4.5"/> </g> <rect x="5.4" y="0" class="st0" width="5.5" height="4.5"/> <polyline class="st1" points="3,11.7 3,8.4 13.2,8.4 13.2,11.7 	"/> <line class="st2" x1="8.1" y1="8.7" x2="8.1" y2="5.6"/> </g> </symbol><symbol viewBox="-298 388 16 19" id="icon-order-history"><title>order-history-icon</title><desc>Created with Sketch.</desc> <style type="text/css"> .st0{fill:none;stroke:#002E5F;stroke-width:2;} .st1{fill:none;stroke:#002E5F;stroke-width:2;stroke-linecap:square;} </style>   <g id="order-history-Your-business" sketch:type="MSPage"> <g id="order-history-Your-business-_x2013_-Desktop" transform="translate(-814.000000, -645.000000)" sketch:type="MSArtboardGroup"> <g id="order-history-Group-Copy-2" transform="translate(813.000000, 640.000000)" sketch:type="MSLayerGroup"> <g id="order-history-order-history-icon" transform="translate(9.000000, 14.500000) scale(-1, -1) translate(-9.000000, -14.500000) translate(2.000000, 6.000000)" sketch:type="MSShapeGroup"> <rect id="order-history-Rectangle-5" x="298" y="-388" class="st0" width="12" height="15"/> <path id="order-history-Line-Copy-4" class="st1" d="M312-384v13h-10"/> </g> </g> </g> </g> </symbol><symbol viewBox="-301 392 9 9" id="icon-plus"><title>plus</title> <path d="M-292,397h-4v4h-1v-4h-4v-1h4v-4h1v4h4V397z"/> </symbol><symbol viewBox="-666.7 624.3 15.4 16" id="icon-profile"><title>profile</title> <circle cx="-659" cy="628.6" r="4.3"/> <path d="M-651.3,640.3v-1.1c0-2.6-2.2-4.8-4.8-4.8h-5.8c-2.6,0-4.8,2.2-4.8,4.8v1.1H-651.3z"/> </symbol><symbol viewBox="-129.1 262.2 185 268.8" id="icon-ranking-down"><title>ranking-down</title> <g> <path d="M52.3,429.7c-4.9-4.9-12.8-4.9-17.7,0l-58.7,58.7V274.7c0-6.9-5.6-12.5-12.5-12.5c-6.9,0-12.5,5.6-12.5,12.5v213.7
+     l-58.7-58.7c-4.9-4.9-12.8-4.9-17.7,0c-4.9,4.9-4.9,12.8,0,17.7l80,80c2.4,2.4,5.6,3.7,8.8,3.7s6.4-1.2,8.8-3.7l80-80
+     C57.1,442.5,57.1,434.5,52.3,429.7z"/> </g> </symbol><symbol viewBox="-129.1 262.2 185 268.8" id="icon-ranking-up"><title>ranking-up</title> <g> <path d="M52.3,345.8l-80-80c-4.9-4.9-12.8-4.9-17.7,0l-80,80c-4.9,4.9-4.9,12.8,0,17.7c2.4,2.4,5.6,3.7,8.8,3.7
+     c3.2,0,6.4-1.2,8.8-3.7l58.7-58.7v213.7c0,6.9,5.6,12.5,12.5,12.5c6.9,0,12.5-5.6,12.5-12.5V304.8l58.7,58.7
+     c4.9,4.9,12.8,4.9,17.7,0C57.1,358.6,57.1,350.7,52.3,345.8z"/> </g> </symbol><symbol viewBox="-334 249.1 46.1 48.9" id="icon-search"><title>search</title> <path d="M-300.6,254.6c-7.7-7.7-20.1-7.7-27.7,0c-7.7,7.7-7.7,20.1,0,27.7c6.8,6.8,17.3,7.5,25,2.3l9.3,9.2c1.4,1.4,3.6,1.4,5,0
+   c1.4-1.4,1.4-3.6,0-5l-9.3-9.2C-293,271.9-293.8,261.4-300.6,254.6z M-305.4,277.5c-5,5-13.1,5-18.1,0c-5-5-5-13.1,0-18.1
+   c5-5,13.1-5,18.1,0C-300.4,264.4-300.4,272.5-305.4,277.5z"/> </symbol><symbol viewBox="-287.2 380.6 34.2 32.9" id="icon-small-logo"><title>small-logo</title> <path d="M-269.6,387.7v0.4c0.7,0.1,0.9,0.2,0.9,0.7v11.6c0,0.5-0.2,0.6-0.9,0.7v0.4h4.8v2.8c0,2.6-1.1,3.8-3.6,3.8
+   c-2.7,0-3.8-1.4-3.8-4.7v-2.3c1.2-0.8,2.1-1.9,2.5-3.3l-1-0.4c-0.6,1.9-2.7,3.2-4.3,3.2c-2.6,0-4-2-4-5.8c0-3.9,1.3-5.9,3.6-5.9
+   c1.8,0,3.3,1,4.3,3.7h0.7v-4.8h-0.6c-0.1,0.2-0.3,0.4-0.6,0.4c-0.2,0-0.4,0-0.8-0.2c-1.2-0.5-2.5-0.8-3.9-0.8
+   c-3.8,0-6.8,3.1-6.8,7.5c0,4.5,3,7.6,6.9,7.6c0.3,0,0.5,0,0.8,0v2.1c0,1.5,0.3,2.5,1,3.5c1,1.3,2.8,2,5.2,2c2.2,0,3.8-0.8,4.7-2
+   c0.8-1.1,0.8-2.4,0.8-3.9V396h-1.2v4.2c-0.7-0.1-0.8-0.3-0.8-1.1v-4h1.4c2,0,3.1,0.8,3.1,2.6c0,1.4-0.6,2.1-2,2.4v1.3
+   c4.1,0,5.7-1.4,5.7-3.5c0-2.1-1-3.2-3.4-3.7c2-0.4,2.8-1.4,2.8-3.3c0-2.2-2.1-3.4-6.2-3.4C-264.1,387.7-269.6,387.7-269.6,387.7z
+    M-261.5,391.3c0,2-0.7,2.6-2.8,2.6h-1.3v-4c0-0.9,0.1-1.1,1.3-1.1C-262.2,388.9-261.5,389.4-261.5,391.3 M-275,400
+   c0.9,0,2-0.5,2.8-1.2v-1.7c0-0.5,0.2-0.5,0.9-0.7V396h-4.9v0.4c0.7,0.1,0.9,0.2,0.9,0.7v3C-275.2,400-275.1,400-275,400
+    M-269.9,380.6h-0.3c-10,0-16.9,3.9-16.9,15.9v1c0,12.1,7,15.9,16.9,15.9h0.3c10,0,16.9-3.9,16.9-15.9v-1
+   C-253,384.4-260,380.6-269.9,380.6 M-255.7,397.5c0,10.5-6.4,14.8-14.2,14.8h-0.3c-7.7,0-14.2-4.3-14.2-14.8v-1
+   c0-10.5,6.4-14.8,14.2-14.8h0.3c7.7,0,14.2,4.3,14.2,14.8V397.5z"/> </symbol><symbol viewBox="-299 387 17 20" id="icon-templates"><title>templates-icon</title><desc>Created with Sketch.</desc> <style type="text/css"> .st0{fill:none;stroke:#002E5F;stroke-width:2;} .st1{fill:none;stroke:#002E5F;stroke-width:2;stroke-linecap:square;} </style>   <g id="templates-Your-business" sketch:type="MSPage"> <g id="templates-Your-business-_x2013_-Desktop" transform="translate(-170.000000, -645.000000)" sketch:type="MSArtboardGroup"> <g id="templates-Group" transform="translate(170.000000, 640.000000)" sketch:type="MSLayerGroup"> <g id="templates-templates-icon" transform="translate(0.000000, 5.000000)" sketch:type="MSShapeGroup"> <rect id="templates-Rectangle-5" x="-298" y="388" class="st0" width="15" height="18"/> <path id="templates-Line-Copy-2" class="st1" d="M-293,401h5"/> <path id="templates-Line-Copy-3" class="st1" d="M-293,397h5"/> <path id="templates-Line-Copy-4" class="st1" d="M-293,393h5"/> </g> </g> </g> </g> </symbol><symbol viewBox="0 0 8.875 6.344" id="icon-tick"><title>tick</title> <path d="M8.887,0.699 L3.230,6.356 L-0.013,3.113 L0.694,2.406 L3.230,4.942 L8.180,-0.008 L8.887,0.699 Z" class="cls-1"/> </symbol></svg>
+
+
+    <!--[if lt IE 8]>
+    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <header class="global-header hidden-xs">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12 col-md-3">
+				<a href="/" class="navbar-brand">
+					<i class="icon-full-logo-white" data-grunticon-embed>Carlton &amp; United</i>
+				</a>
+			</div>
+			<div class="col-sm-12 col-md-9">
+				<div class="global-header-list">
+					<ul class="clearfix">
+						<li>
+							<a href="#">Contact Us</a>
+						</li>
+						<li>
+							<ul class="user-list">
+								<li class="user-list-item">
+									<span class="global-header-icon glyphicon glyphicon-user"></span>
+								</li>
+								<li class="user-list-item">
+									<div class="select-list">
+										<div data-value="" class="select-btn">Case</div>
+										<ul class="select-items">
+											<li data-value="Linda">Linda - Corkscrew Cellars Sylvania Waters</li>
+											<li data-value="Sam">Sam - Corkscrew Cellars Sylvania Waters</li>
+											<li data-value="Cindy">Cindy - Corkscrew Cellars Sylvania Waters</li>
+										</ul>
+									</div>
+									<li>
+									</ul>
+								</li>
+								<li>
+									<a href="#"><span class="glyphicon glyphicon-calendar"></span>Delivery Date: 21-10-2015</a>
+								</li>
+								<li>
+									<a href="#"><span class="glyphicon glyphicon-shopping-cart"></span>24</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+<!--<nav class="global-navigation navbar megamenu navbar-default" role="navigation">-->
+	<!--<div class="navbar-header hidden-sm hidden-md hidden-lg">-->
+		<!--<div class="row">-->
+			<!--<div class="col-xs-4">-->
+				<!--<a href="#" data-toggle="collapse" data-target="#navbar-collapse-1" class="navbar-toggle collapsed" aria-expanded="false">Menu</a>-->
+      <!--</button>-->
+
+			<!--</div>-->
+			<!--<div class="col-xs-4">-->
+				<!--<a href="/" class="navbar-brand-mobile">-->
+					<!--<i class="icon-small-logo"-->
+					<!--data-grunticon-embed>Carlton &amp; United</i>-->
+				<!--</a>-->
+			<!--</div>-->
+			<!--<div class="col-xs-4">-->
+				<!--<a href="#" class="navbar-close">Close</a>-->
+				<!--<a href="#" class="cart-mobile"><span class="glyphicon glyphicon-shopping-cart"></span>24</a>-->
+			<!--</div>-->
+		<!--</div>-->
+	<!--</div>-->
+	<!--<div id="navbar-collapse-1" class="navbar-collapse collapse">-->
+		<!--<div class="nav-content-container">-->
+		<!--<div class="mobile-head hidden-sm hidden-md hidden-lg">-->
+			<!---->
+			<!--<ul class="mobile-head-list">-->
+				<!---->
+				<!--<li class="mobile-drop">-->
+					<!--<div class="select-list">-->
+						<!--<div data-value="" class="select-btn"><span>Linda - Corkscrew Cellars Sylvania Waters</span></div>-->
+						<!--<ul class="select-items">-->
+							<!--<li data-value="Linda">Linda - Corkscrew Cellars Sylvania Waters</li>-->
+							<!--<li data-value="Sam">Sam - Corkscrew Cellars Sylvania Waters</li>-->
+							<!--<li data-value="Cindy">Cindy - Corkscrew Cellars Sylvania Waters</li>-->
+						<!--</ul>-->
+					<!--</div>-->
+				<!--</li>-->
+				<!--<li>-->
+					<!--<a href="#"><span class="icon-offset glyphicon glyphicon-calendar"></span>Delivery Date: 21-10-2015</a>-->
+				<!--</li>-->
+				<!--<li>-->
+					<!--<a href="#">Contact Us</a>-->
+				<!--</li>-->
+				<!---->
+			<!--</ul>-->
+			<!---->
+		<!--</div>-->
+		<!--<div class="main-nav">-->
+			<!--<div class="container">-->
+				<!--<ul class="nav navbar-nav">-->
+					<!--<li class="dropdown megamenu-fw">-->
+						<!---->
+						<!--<a href="#deals" class="dropdown-link">Deals</a>-->
+						<!--<a data-target="#" class="dropdown-toggle" data-toggle="dropdown">Toggle</a>-->
+						<!---->
+						<!--<ul class="dropdown-menu">-->
+							<!--<li>-->
+								<!--<div class="megamenu-content container">-->
+									<!--<div class="row">-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Popular</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Brand</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Style</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Subcategory</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Package type</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--&lt;!&ndash; Example of empty col for pages that have less categories &ndash;&gt;-->
+										<!--</div>-->
+									<!--</div>-->
+								<!--</div>-->
+							<!--</li>-->
+						<!--</ul>-->
+					<!--</li>-->
+					<!--<li class="dropdown megamenu-fw">-->
+						<!--<a href="#beer" class="dropdown-link active">Beer</a>-->
+						<!--<a data-target="#" class="dropdown-toggle" data-toggle="dropdown">Toggle</a>-->
+						<!--<ul class="dropdown-menu">-->
+							<!--<li>-->
+								<!--<div class="megamenu-content container">-->
+									<!--<div class="row">-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Popular</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Brand</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Style</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Subcategory</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Package type</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li>-->
+												<!--<img src="http://placehold.it/350x250" class="img-responsive"></li>-->
+											<!--</ul>-->
+										<!--</div>-->
+									<!--</div>-->
+								<!--</div>-->
+							<!--</li>-->
+						<!--</ul>-->
+					<!--</li>-->
+					<!--<li class="dropdown megamenu-fw">-->
+						<!--<a href="#cider" class="dropdown-link">Cider</a>-->
+						<!--<a data-target="#" class="dropdown-toggle" data-toggle="dropdown">Toggle</a>-->
+						<!--<ul class="dropdown-menu">-->
+							<!--<li>-->
+								<!--<div class="megamenu-content container">-->
+									<!--<div class="row">-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Popular</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Brand</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Style</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Subcategory</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Package type</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li>-->
+												<!--<img src="http://placehold.it/350x250" class="img-responsive"></li>-->
+											<!--</ul>-->
+										<!--</div>-->
+									<!--</div>-->
+								<!--</div>-->
+							<!--</li>-->
+						<!--</ul>-->
+					<!--</li>-->
+					<!--<li class="dropdown megamenu-fw">-->
+						<!--<a href="#sprites-rtds" class="dropdown-link">Sprites &amp; RTD's</a>-->
+						<!--<a data-target="#" class="dropdown-toggle" data-toggle="dropdown">Toggle</a>-->
+						<!--<ul class="dropdown-menu">-->
+							<!--<li>-->
+								<!--<div class="megamenu-content container">-->
+									<!--<div class="row">-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Popular</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Brand</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Style</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Subcategory</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Package type</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li>-->
+												<!--<img src="http://placehold.it/350x250" class="img-responsive"></li>-->
+											<!--</ul>-->
+										<!--</div>-->
+									<!--</div>-->
+								<!--</div>-->
+							<!--</li>-->
+						<!--</ul>-->
+					<!--</li>-->
+					<!--<li class="dropdown megamenu-fw">-->
+						<!--<a href="#brands" class="dropdown-link">Brands</a>-->
+						<!--<a data-target="#" class="dropdown-toggle" data-toggle="dropdown">Toggle</a>-->
+						<!--<ul class="dropdown-menu">-->
+							<!--<li>-->
+								<!--<div class="megamenu-content container">-->
+									<!--<div class="row">-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Popular</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Brand</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Style</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Subcategory</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Package type</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li>-->
+												<!--<img src="http://placehold.it/350x250" class="img-responsive"></li>-->
+											<!--</ul>-->
+										<!--</div>-->
+									<!--</div>-->
+								<!--</div>-->
+							<!--</li>-->
+						<!--</ul>-->
+					<!--</li>-->
+					<!--<li class="hidden-sm hidden-md hidden-lg log-status">-->
+						<!--<a href="#">Sign Out</a>-->
+					<!--</li>-->
+					<!--<li class="hidden-xs hidden-sm pull-right">-->
+						<!--<form class="navbar-form" role="search">-->
+							<!--<div class="input-group add-on">-->
+								<!--<input type="text" class="form-control" name="srch-term" id="srch-term">-->
+								<!--<div class="input-group-btn">-->
+									<!--<button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>-->
+								<!--</div>-->
+							<!--</div>-->
+						<!--</form>-->
+					<!--</li>-->
+				<!--</ul>-->
+			<!--</div>-->
+		<!--</div>-->
+
+	<!--</div>-->
+	<!--</div>-->
+<!--</nav>-->
+
+    <div class="container container-main">
+    
+
+
+<ul class="breadcrumb">
+    <li>
+        <a href="#">Customer Search</a>
+    </li>
+    <li class="active">
+        <a href="#">Search results</a>
+    </li>
+</ul>
+
+<ul class="list-badge">
+    <li>
+        <a href="" class="badge badge-xsm badge-past">1</a>
+    </li>
+    <li>
+        <a href="" class="badge badge-xsm badge-current">2</a>
+    </li>
+    <li>
+        <a href="" class="badge badge-xsm badge-future">3</a>
+    </li>
+    <li>
+        <a href="" class="badge badge-xsm badge-future">4</a>
+    </li>
+</ul>
+
+
+<div class="row">
+
+    <div class="col-lg-8">
+
+        <h1 class="h1">Confirm your changes</h1>
+
+        <p class="h2 offset-bottom-medium">You have made the following changes to 1233221 - Thirsty Camel - 25 High
+            street,
+            Thornbury, 3102</p>
+
+        <section class=" offset-bottom-large">
+
+
+            <h3>Deals activated</h3>
+
+            <ul class="list-bordered">
+                <li>
+                    Buy a minimum of 13 cases Carlton Draught 4x6x375mL to receive $10 off and a bonus case of BR Pure
+                    Blonde CAN 375ML 4x6 Z
+                </li>
+                <li>
+                    Buy a minimum of 5 cases of Carlton Draught 4x6x375mL and a minimum of 8 cases of Fat Yak 4x6x375mL
+                    and
+                    get a bonus case of BR Pure Blonde CAN 375ML 4x6 Z
+                </li>
+
+            </ul>
+
+
+        </section>
+
+        <section class="offset-bottom-large">
+
+
+            <h3>Deals deactivated</h3>
+
+            <ul class="list-bordered">
+                <li>
+                    Buy a minimum of 13 cases Carlton Draught 4x6x375mL to receive $10 off and a bonus case of BR Pure
+                    Blonde CAN 375ML 4x6 Z
+                </li>
+                <li>
+                    Buy a minimum of 5 cases of Carlton Draught 4x6x375mL and a minimum of 8 cases of Fat Yak 4x6x375mL
+                    and
+                    get a bonus case of BR Pure Blonde CAN 375ML 4x6 Z
+                </li>
+
+            </ul>
+
+
+        </section>
+
+
+        <section class="offset-bottom-large">
+
+
+            <form>
+
+                <div class="form-group offset-bottom-large">
+                    <label for="comments" class="offset-bottom-small">Please enter any comments regarding instore
+                        behaviour</label>
+                    <textarea name="comments" class="form-control" id="comments" cols="30" rows="10"></textarea>
+                </div>
+
+                <p class="offset-bottom-small">
+                    Thank you for confirming your changes. Please confirm the customers email address in order to send a
+                    confirmation. You can add additional email addresses by using the field below.
+                </p>
+
+
+                <ul class="list-checkbox list-checkbox-bordered">
+                    <li>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"> Remember me
+                            </label>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"> Remember me
+                            </label>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"> Remember me
+                            </label>
+                        </div>
+                    </li>
+                </ul>
+
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Email</label>
+                    <div class="row">
+                        <div class="col-sm-6 offset-bottom-xxsmall">
+                            <input type="email" class="form-control" id="exampleInputEmail1">
+                        </div>
+                        <div class="col-sm-3">
+                            <button type="submit" class="btn btn-primary btn-large btn-simple btn-pull-top">Add</button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="checkbox offset-bottom-xlarge">
+                    <label>
+                        <input type="checkbox"> Send confirmation email to me
+                    </label>
+                </div>
+
+
+                <button type="submit" class="btn btn-primary btn-large btn-simple">Confirm and send</button>
+
+
+            </form>
+
+
+        </section>
+
+    </div>
+
+</div>
+
+
+
+
+
+    </div>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/libs/jquery.min.js"><\/script>')</script>
+        
+            <script src="js/scripts.min.js"></script>
+        
+</body>
+</html>

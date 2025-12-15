@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="urn:gl.sabmiller.com:com:3rdp:mastdata" xmlns="urn:gl.sabmiller.com:com:3rdp:mastdata" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:element name="ProductExclusionRequest">
+	<xsd:complexType>
+		<xsd:sequence>
+			<xsd:element name="ConditionType" type="xsd:string" minOccurs="0" />
+			<xsd:element name="SalesOrganisation" type="xsd:string" minOccurs="0" />
+			<xsd:element name="Customer" type="xsd:string" minOccurs="0" />
+			<xsd:element name="Date" type="xsd:date" minOccurs="0" />
+		</xsd:sequence>
+		<xsd:attribute name="syncIndicator" type="xsd:string" use="required" />
+	</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

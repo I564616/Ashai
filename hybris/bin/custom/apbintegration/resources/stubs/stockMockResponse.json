@@ -1,0 +1,30 @@
+{
+ "stockOnHandResponse":[
+ {
+	"warehouse": "pw_warehouse_s",
+		"products": [
+			{
+				"productId": "12330017",
+				"availablePhysical": "1"
+			},
+			{
+				"productId": "11205001",
+				"availablePhysical": "2"
+			},
+			{
+				"productId": "11205000",
+				"availablePhysical": "3"
+			},
+			{
+				"productId": "13330029",
+				"availablePhysical": "4"
+			},
+			{
+				"productId": "12243003",
+				"availablePhysical": "5"
+			}
+		]
+
+	}
+	]
+}

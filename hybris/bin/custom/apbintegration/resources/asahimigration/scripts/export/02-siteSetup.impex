@@ -1,0 +1,76 @@
+INSERT_UPDATE ScriptingJob	;code[unique=true]		;scriptURI
+							;siteSetup2ExportScriptScriptJob	;model://siteSetup2ExportScriptScript
+							
+INSERT_UPDATE CronJob	;code[unique=true]			;job(code)				;sessionLanguage(isocode)	;sessionUser(uid)
+						;siteSetup2ExportScriptScriptCronJob	;siteSetup2ExportScriptScriptJob	;en	;admin	
+
+
+INSERT_UPDATE Script; code[unique=true];content;active[default=true, unique=true]
+;siteSetup2ExportScriptScript;"import java.io.File;
+import java.lang.Exception;
+import java.io.InputStream;
+import de.hybris.platform.util.CSVConstants;
+
+import java.io.IOException;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.sql.Timestamp;
+import org.apache.log4j.*;
+import org.apache.commons.io.IOUtils;
+import de.hybris.platform.servicelayer.impex.ExportConfig;
+import de.hybris.platform.servicelayer.impex.ExportConfig.ValidationMode;
+import de.hybris.platform.servicelayer.impex.ExportResult;
+import de.hybris.platform.servicelayer.impex.ExportService;
+import de.hybris.platform.servicelayer.impex.ImpExResource;
+import de.hybris.platform.impex.model.ImpExMediaModel;
+import de.hybris.platform.impex.jalo.exp.ImpExExportMedia;
+import de.hybris.platform.servicelayer.impex.impl.StreamBasedImpExResource;
+import de.hybris.platform.impex.model.exp.ImpExExportMediaModel;
+import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
+import de.hybris.platform.servicelayer.search.SearchResult;
+import de.hybris.platform.impex.model.cronjob.ImpExExportCronJobModel;
+
+final Logger LOG = Logger.getLogger(""asahi"");
+
+def exportService = spring.getBean(""exportService"");
+
+header = ""insert_update UserGroup;backOfficeLoginDisabled;description;locName[lang=en];name;maxBruteForceLoginAttempts;readableLanguages(isocode);uid[unique=true,allownull=true];groups(uid) ;userDiscountGroup(code,itemtype(code));userPriceGroup(code,itemtype(code));userTaxGroup(code,itemtype(code));writeableLanguages(isocode);\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {UserGroup!} \""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+""insert_update CsAgentGroup;backOfficeLoginDisabled;defaultAssignee(uid);description;emailDistributionList;locName[lang=en];maxBruteForceLoginAttempts;name;readableLanguages(isocode);uid[unique=true,allownull=true];userDiscountGroup(code,itemtype(code));userPriceGroup(code,itemtype(code));userTaxGroup(code,itemtype(code));writeableLanguages(isocode);\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {CsAgentGroup}\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+""insert_update BackofficeRole;authorities;backOfficeLoginDisabled;description;locName[lang=en];maxBruteForceLoginAttempts;readableLanguages(isocode);uid[unique=true,allownull=true];userDiscountGroup(code,itemtype(code));userPriceGroup(code,itemtype(code));userTaxGroup(code,itemtype(code));writeableLanguages(isocode);\n""+
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {BackofficeRole}\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+""INSERT_UPDATE Configuration ; configKey[unique=true] ; configValue;\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {Configuration}\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+""INSERT_UPDATE CustomerList;additionalColumnsKeys;backOfficeLoginDisabled;description;implementationType;locName[lang=en];maxBruteForceLoginAttempts;name;priority;searchBoxEnabled;uid[unique=true,allownull=true];userDiscountGroup(code,itemtype(code));userPriceGroup(code,itemtype(code));userTaxGroup(code,itemtype(code));\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {CustomerList}\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+""INSERT_UPDATE ContactUsQueryType ; code[unique=true] ; contactUsQueryType[lang=en] ; otherContactUsQueryType[lang=en] ; site(uid) ; toEmailAddress;\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {ContactUsQueryType}\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+""insert EnablePortalUser;code;password;user(uid);\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {EnablePortalUser}\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n"";
+
+InputStream resourceAsStream = null;
+try {
+	resourceAsStream = new ByteArrayInputStream(header.getBytes());
+	final ImpExResource resource = new StreamBasedImpExResource(resourceAsStream, CSVConstants.DEFAULT_ENCODING);
+	final ExportConfig config = new ExportConfig();
+	config.setScript(resource);
+	config.setValidationMode(ValidationMode.WITHOUT);
+	config.setSingleFile(true);
+	config.setExportedDataCode(""02-siteSetup-""+new SimpleDateFormat(""yyyyMMddHHmmssSSS"").format(new Date()));
+	final ExportResult result = exportService.exportData(config);
+	resourceAsStream.close();
+	if (result.isError()){
+		LOG.info(""Exception occurred during export"");
+	}
+}
+catch (final Exception exception) {
+		LOG.log(Level.ERROR, exception.getMessage());
+		throw new Exception(""Exception occurred during export"" + exception.getMessage());
+	} 
+finally
+	{
+		resourceAsStream.close();
+	}	";;
+	
+

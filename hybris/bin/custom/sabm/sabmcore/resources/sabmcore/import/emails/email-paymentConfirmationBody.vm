@@ -1,0 +1,227 @@
+## messageSource=classpath:/sabmcore/messages/email-paymentConfirmation_$lang.properties
+#macro( genHtmlBoldFont $text )
+<font color="#414a4f" size="2" face="Arial, Helvetica, sans-serif"><b>$text</b></font>
+#end
+#macro(genHtmlLinkStartTag $url)
+	<a href="$url" style="color:#002f5f">
+#end
+#macro(genHtmlLinkEndTag)
+	</a>
+#end
+#macro(genHtmlLink $url $textColor $bodyContent)
+<a href="$url"><font color="$textColor">$bodyContent</font></a>
+#end
+<html>
+	<head>
+		<style>
+			td {
+				font-family: 'Helvetica Neue, Helvetica, Arial, sans-serif';
+			}
+		</style>
+	</head>
+	<body style="font-family: sans-serif; color: #666666; font-weight: normal; font-size: 14px;" bgcolor="#ffffff">
+		<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#ffffff">
+			<tr>
+				<td align="center" valign="top" bgcolor="#ffffff">
+					<table width="610" border="0" align="center" cellpadding="0" cellspacing="0" bordercolor="#fff">
+						<tr>
+							<td align="center" valign="top" bgcolor="#FFFFFF">
+								<table width="570" cellpadding="0" cellspacing="0" border="0" align="center">
+									<tr>
+										<td valign="middle" bgcolor="#002f5f" height="92" style="padding-left: 10px;">${ctx.cmsSlotContents.SiteLogo}</td>
+									</tr>
+									<tr>
+										<td valign="middle">&nbsp;</td>
+									</tr>
+									<tr><td>&nbsp;</td></tr>
+									<tr>
+										<td align="left" valign="top">
+											<p style="font-size: 14px; color: #002f5f; font-weight: bold; font-family: Helvetica Neue, Helvetica, Arial, sans-serif">Dear ${ctx.customerData.name}</p>
+
+											<p style="font-family: Helvetica Neue, Helvetica, Arial, sans-serif; color: #666666; font-weight: normal; font-size: 14px;">Thank you for your payment. </br>
+											Your receipt number is ${ctx.invoicePaymentData.receiptNumber} </br>
+											Please retain this information for your records. </p>
+
+
+
+											<p style="font-family: Helvetica Neue, Helvetica, Arial, sans-serif; color: #002f5f; font-weight: bold; font-size: 14px;">
+											Receipt Number: ${ctx.invoicePaymentData.receiptNumber}</p>
+
+											<p style="font-family: Helvetica Neue, Helvetica, Arial, sans-serif; color: #666666; font-weight: normal; font-size: 14px;">
+											Paid By: ${ctx.customerData.name}</br>
+											Payment Type:
+											#set ($paymentType = ${ctx.invoicePaymentData.paymentInfo.cardType})  
+											#if($paymentType == 'amex')
+												#set ($paymentType = "American Express")
+											#elseif($paymentType == 'diners')
+												#set ($paymentType = "Diner's Club")
+											#elseif($paymentType == 'maestro')
+												#set ($paymentType = "Maestro")
+											#elseif($paymentType == 'master')
+												#set ($paymentType = "MasterCard")
+											#elseif($paymentType == 'mastercard_eurocard')
+												#set ($paymentType = "MasterCard/EuroCard")
+											#elseif($paymentType == 'switch')
+												#set ($paymentType = "Switch")
+											#elseif($paymentType == 'visa')
+												#set ($paymentType = "Visa")
+											#elseif(${ctx.invoicePaymentData.debitInfo.bsb})
+												#set ($paymentType = "Electronic Funds Transfer")
+											#else
+												#set ($paymentType = ${ctx.invoicePaymentData.paymentInfo.cardType})
+											#end
+											$paymentType</br>
+											Total Amount Paid: $${ctx.totalWithMsf}</p>
+
+										</td>
+									</tr>
+									<tr><td>&nbsp;</td></tr>
+									<tr><td>
+										<span style="font-size: 14px; color: #002f5f; font-weight: bold; font-family: Helvetica Neue, Helvetica, Arial, sans-serif">Invoices Paid</span>
+									</td></tr>
+
+									<tr><td>&nbsp;</td></tr>
+									<tr>
+										<td>
+											<table style="width:100%; border-collapse:collapse" cellpadding="0">
+												<thead>
+													<tr bgcolor="#f5f5f5">
+														<th style="text-align:left; padding:10px;">
+															<span style="font-family: Helvetica Neue, Helvetica, Arial, sans-serif; color: #666666; font-weight: normal; font-size: 14px;">Doc No.</span>
+														</th>
+														<th style="text-align:left; padding:10px;">
+															<span style="font-family: Helvetica Neue, Helvetica, Arial, sans-serif; color: #666666; font-weight: normal; font-size: 14px;">P.O No.</span>
+														</th>
+														<th style="text-align:left; padding:10px;">
+															<span style="font-family: Helvetica Neue, Helvetica, Arial, sans-serif; color: #666666; font-weight: normal; font-size: 14px;">Type</span>
+														</th>
+														<th style="text-align:right; padding:10px;">
+															<span style="font-family: Helvetica Neue, Helvetica, Arial, sans-serif; color: #666666; font-weight: normal; font-size: 14px;">Amount</span>
+														</th>
+													</tr>
+												</thead>
+
+												<tbody>
+													#foreach($entry in ${ctx.invoicesData})
+														<tr>
+															<td style="padding-top:10px; padding-right:10px; padding-bottom:10px; border-bottom:1px solid #cccccc">
+																<span style="color: #666666; font-size: 14px; font-family: Helvetica Neue, Helvetica, Arial, sans-serif">
+																	${entry.invoiceNumber}
+																</span>
+															</td>
+															<td style="padding:10px; border-bottom:1px solid #cccccc">
+																<span style="color: #666666; font-size: 14px; font-family: Helvetica Neue, Helvetica, Arial, sans-serif">
+																#if (!${entry.purchaseOrderNumber})
+																	&nbsp;
+																#else
+																	${entry.purchaseOrderNumber}
+																#end
+																</span>
+															</td>
+															<td style="padding:10px; border-bottom:1px solid #cccccc">
+																<span style="color: #666666; font-size: 14px; font-family: Helvetica Neue, Helvetica, Arial, sans-serif">
+																${entry.type}
+															 	</span>
+															</td>
+															<td style="text-align:right; padding:10px; border-bottom:1px solid #cccccc">
+																<span style="color: #666666; font-size: 14px; font-family: Helvetica Neue, Helvetica, Arial, sans-serif">
+																$${entry.openAmount}
+															 	</span>
+															 </td>
+														</tr>
+													#end
+													<tr>
+                                                    	<td style="padding-top:10px; padding-right:10px; padding-bottom:10px; border-bottom:1px solid #cccccc">
+                                                    		<span style="color: #666666; font-size: 14px; font-family: Helvetica Neue, Helvetica, Arial, sans-serif">
+                                                    			Merchant Service Fee
+                                                    		</span>
+                                                    	</td>
+                                                    	<td style="padding:10px; border-bottom:1px solid #cccccc">
+                                                    		<span style="color: #666666; font-size: 14px; font-family: Helvetica Neue, Helvetica, Arial, sans-serif">
+
+                                                    		</span>
+                                                    	</td>
+                                                    	<td style="padding:10px; border-bottom:1px solid #cccccc">
+                                                    		<span style="color: #666666; font-size: 14px; font-family: Helvetica Neue, Helvetica, Arial, sans-serif">
+
+                                                    	 	</span>
+                                                    	</td>
+                                                    	<td style="text-align:right; padding:10px; border-bottom:1px solid #cccccc">
+                                                    		<span style="color: #666666; font-size: 14px; font-family: Helvetica Neue, Helvetica, Arial, sans-serif">
+                                                    		$${ctx.formatedMsf}
+                                                    	 	</span>
+                                                    	 </td>
+                                                    </tr>
+												</tbody>
+											</table>
+										</td>
+									</tr>
+									<tr><td>&nbsp;</td></tr>
+									<tr><td>&nbsp;</td></tr>
+									<tr><td>&nbsp;</td></tr>
+									<tr>
+										<td>
+											<table width="100%">
+												<tr>
+													<td width="40%" valign="top"></td>
+													<td width="60%" valign="top">
+														<table width="100%" style="border-spacing: 0;" cellpadding="12">
+
+															<tr bgcolor="#f5f5f5">
+                                                            	<td style="padding-top:20px; padding-bottom:20px;">
+                                                            		<span style="font-size: 14px; color: #002f5f; font-weight: bold; font-family: Helvetica Neue, Helvetica, Arial, sans-serif">Total Amount Paid</span>
+                                                            	</td>
+                                                            	<td style="padding-top:20px; padding-bottom:20px; text-align:right;">
+                                                            		<span style="font-size: 14px; color: #002f5f; font-weight: bold; font-family: Helvetica Neue, Helvetica, Arial, sans-serif">$${ctx.totalWithMsf}</span>
+                                                            	</td>
+                                                            </tr>
+															
+														</table>
+													</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+
+
+
+
+									<tr><td>&nbsp;</td></tr>
+									<tr><td>&nbsp;</td></tr>
+									<tr><td style="border-bottom:1px solid #ccc;">&nbsp;</td></tr>
+									<tr><td>&nbsp;</td></tr>
+									<tr><td>&nbsp;</td></tr>
+
+									<tr>
+										<td align="left" valign="top" style="font-family: Helvetica Neue, Helvetica, Arial, sans-serif; color: #666666; font-weight: normal; font-size: 14px;">										
+											
+											<p>Your invoices can all be viewed within your online account by visiting the <a href="${ctx.secureBaseUrl}${ctx.messages.getMessage('billingInvoicesPageUrl')}" style="color: #666666;">Billings and Invoices</a> page</p>
+											<p>Merchant Service Fees apply to Credit Card payments. </br>
+											If we can help you with any inquiry, please use our <a href="${ctx.secureBaseUrl}${ctx.messages.getMessage('contactUsLinkUrl')}" style="color: #666666;">Contact Us</a> page</p>
+											
+											<p>Many Thanks, </br>
+											CUB Online Team</p>
+											
+											<p style="font-size: 12px;">Please note: This payment will be visible in your online account by the end of the following business day if you paid by MasterCard, Visa or EFT, or within 2 business days if you paid by Amex.</p>
+										</td>
+									</tr>
+									<tr><td>&nbsp;</td></tr>
+									<tr><td>&nbsp;</td></tr>
+									<tr><td>&nbsp;</td></tr>
+									<tr><td>&nbsp;</td></tr>
+									<tr><td>&nbsp;</td></tr>
+									<tr><td>&nbsp;</td></tr>
+									<tr>
+										<td align="left" valign="middle" bgcolor="#f5f5f5" height="92" style="font-family: Helvetica Neue, Helvetica, Arial, sans-serif; color: #666666; font-weight: bold; font-size: 12px; padding-left: 15px;">
+											&copy; Carlton &amp; United Breweries
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>

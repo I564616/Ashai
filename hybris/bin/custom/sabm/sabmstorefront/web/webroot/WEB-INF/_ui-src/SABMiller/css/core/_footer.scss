@@ -1,0 +1,43 @@
+// ==========================================================================
+//   Global footer class
+// ==========================================================================
+.footer-wrap {
+  position: relative;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.page-login .footer-wrap {
+    position: relative;
+    width: 100%;
+    margin-top: 58px;
+}
+
+.footer {
+  clear: both;
+  background-color: $light-grey;
+  .main-footer {
+    display: block;
+    padding-top: $spacing-small;
+
+    .links {
+      line-height: $line-height-large;
+      a {
+        font-size: $font-x-small;
+        text-decoration: none;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  .copyright {
+    font-size: $font-x-small;
+    font-weight: bold;
+    clear: both;
+    margin-top: $spacing-medium;
+    margin-bottom: $spacing-x-large;
+  }
+}

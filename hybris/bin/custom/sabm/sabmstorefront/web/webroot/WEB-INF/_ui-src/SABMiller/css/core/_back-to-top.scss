@@ -1,0 +1,41 @@
+// ==========================================================================
+//   Back to Top Class
+// ==========================================================================
+
+#back-to-top.affix{
+  position:fixed;
+  right:$spacing-x-small;
+}
+
+#back-to-top.well-sm{
+  padding-top:0;
+  border-radius:0;
+  z-index:100;
+}
+#back-to-top{
+  position:fixed;
+  bottom:$spacing-x-small;
+  right:$spacing-small;
+  @media(max-width:$mobile-max){
+  	right:$spacing-x-small;
+  }
+  text-align:center;
+  text-transform:uppercase;
+  border:1px solid $light-medium-grey;
+  padding-bottom:3px;
+  a{
+    font-size:$font-x-small;
+    text-decoration:none;
+    color:$dark-grey;
+    .icon-arrow-up {
+      display:block;
+      margin-top:4px;
+      left: 12px;
+      top: 2px;
+      width: 15px;
+    }
+    span{
+      padding:8px;
+    }
+  }
+}

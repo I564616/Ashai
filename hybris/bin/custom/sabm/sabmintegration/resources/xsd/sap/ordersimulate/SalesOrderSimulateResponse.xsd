@@ -1,0 +1,96 @@
+﻿<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="SalesOrderSimulateResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="SalesOrderResHeder">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="SoldTo" minOccurs="0"/>
+              <xs:element type="xs:string" name="ShipTo" minOccurs="0"/>
+              <xs:element type="xs:string" name="PONumber" minOccurs="0"/>
+              <xs:element type="xs:string" name="RequestedDeliveryDate" minOccurs="0"/>
+              <xs:element type="xs:string" name="Currency" minOccurs="0"/>
+              <xs:element type="xs:string" name="ShippingCondition" minOccurs="0"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Error" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="ErrorCode" minOccurs="0" />
+              <xs:element type="xs:string" name="ErrorText" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="SalesOrderResItem" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="PONumber" minOccurs="0"/>
+              <xs:element type="xs:string" name="RequestedDeliveryDate" minOccurs="0"/>
+              <xs:element type="xs:string" name="Currency" minOccurs="0"/>
+              <xs:element type="xs:string" name="LineNumber" minOccurs="0"/>
+              <xs:element type="xs:string" name="MaterialNumber" minOccurs="0"/>
+              <xs:element type="xs:string" name="MaterialEntered" minOccurs="0"/>
+              <xs:element type="xs:string" name="MaterialQuantity" minOccurs="0"/>
+              <xs:element type="xs:string" name="UnitOfMeasure" minOccurs="0"/>
+              <xs:element type="xs:string" name="FreeGoodsFlag" minOccurs="0"/>
+              <xs:element type="xs:string" name="SalesItemRelFreeGoods" minOccurs="0"/>
+              <xs:element type="xs:string" name="MaterialSubstitution" minOccurs="0"/>
+              <xs:element name="SalesOrderItemCondition" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="ItemNumber" minOccurs="0"/>
+                    <xs:element type="xs:string" name="ConditionStep" minOccurs="0"/>
+                    <xs:element type="xs:string" name="ConditionType" minOccurs="0"/>
+                    <xs:element type="xs:string" name="CalculationType" minOccurs="0"/>
+                    <xs:element type="xs:string" name="ConditionAmount" minOccurs="0"/>
+                    <xs:element type="xs:string" name="ConditionPricingUnit" minOccurs="0"/>
+                    <xs:element type="xs:string" name="ConditionUOM" minOccurs="0"/>
+                    <xs:element type="xs:string" name="TotalCondValue" minOccurs="0"/>
+                    <xs:element name="SalesOrderItemScales" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="ItemNumber" minOccurs="0"/>
+                          <xs:element type="xs:string" name="ConditionType" minOccurs="0"/>
+                          <xs:element type="xs:string" name="CalculationType" minOccurs="0"/>
+                          <xs:element type="xs:string" name="ScaleQuantity" minOccurs="0"/>
+                          <xs:element type="xs:string" name="Amount" minOccurs="0"/>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="SalesOrderItemScheduling" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="ItemNumber" minOccurs="0"/>
+                    <xs:element type="xs:string" name="RequestedDeliveryDate" minOccurs="0"/>
+                    <xs:element type="xs:string" name="RequestedQty" minOccurs="0"/>
+                    <xs:element type="xs:string" name="ConfirmedQty" minOccurs="0"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="SalesOrderFreeGoods" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="ItemNumber" minOccurs="0"/>
+                    <xs:element type="xs:string" name="MinimumQty" minOccurs="0"/>
+                    <xs:element type="xs:string" name="FreeGoodsQty" minOccurs="0"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+			 <xs:element name="DealCondition" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="DealConditionNumber" minOccurs="0"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

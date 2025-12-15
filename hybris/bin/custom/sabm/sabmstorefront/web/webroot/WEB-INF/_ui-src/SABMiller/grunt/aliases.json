@@ -1,0 +1,65 @@
+{
+  "default": [
+  	"build"
+  ],
+  "scripts": [
+    "jshint",
+    "copy:jqueryLib",
+    "copy:respondLib",
+    "copy:json",
+    "copy:angularLib",
+    "copy:angularAnimationLib",
+    "rig"
+  ],
+  "styles": [
+    "search:noExtend",
+    "sass",
+    "autoprefixer",
+    "cssmin"
+  ],
+  "fonts": [
+  	"copy:fonts",
+  	"copy:bsFonts"
+  ],
+  "sprites": [
+    "sprite",
+    "search:evenSizedRetinaSprites"
+  ],
+  "icons": [
+    "svgmin",
+    "svgstore",
+    "copy:svg"
+  ],
+  "images": [
+  	"sprites",
+    "icons",
+    "copy:images"
+  ],
+  "html": [
+  	"assemble",
+    "copy:html",
+  	"clean:tempHtml"
+  ],
+  "build": [
+    "devbuild",
+    "imagemin:dynamic",
+    "cssmin",
+    "concat",
+    "uglify",
+    "icons"
+  ],
+  "devbuild": [
+  	"clean:all",
+    "scripts",
+    "images",
+    "styles",
+    "fonts",
+    "html"
+  ],
+  "serve": [
+	  "devbuild",
+    "browserSync",
+    "watch"
+  ]
+  
+}

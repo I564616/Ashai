@@ -1,0 +1,18 @@
+$defaultLanguage=en
+
+# Old Price Row Cleanup CronJobs
+INSERT_UPDATE OldSABMPriceRowRemovalCronJob;code[unique=true];job(code);age;batchSize;sessionLanguage(isocode)
+;oldSABMPriceRowRemovalCronJob;oldSABMPriceRowRemovalJob;180;1000;$defaultLanguage
+
+# Old Deals Cleanup CronJobs
+INSERT_UPDATE OldSABMDealsRemovalCronJob;code[unique=true];job(code);batchSize;sessionLanguage(isocode)
+;OldSABMDealsRemovalCronJob;OldSABMDealsRemovalJob;1000;$defaultLanguage
+
+# Old Last Update Time Entity Cleanup CronJobs
+INSERT_UPDATE OldLastUpdateTimeEntityRemovalCronJob;code[unique=true];job(code);age;batchSize;sessionLanguage(isocode)
+;oldLastUpdateTimeEntityRemovalCronJob;oldLastUpdateTimeEntityRemovalJob;180;1000;$defaultLanguage
+
+INSERT_UPDATE Trigger;cronJob(code)[unique=true];cronExpression;relative;active;maxAcceptableDelay
+;oldSABMPriceRowRemovalCronJob;0 0 3 L * ?;false;true;-1
+;oldLastUpdateTimeEntityRemovalCronJob;0 30 3 L * ?;false;true;-1
+;OldSABMDealsRemovalCronJob;0 30 3 L * ?;false;true;-1

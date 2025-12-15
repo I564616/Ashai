@@ -1,0 +1,25 @@
+{
+	"AccountNum": "12345",
+	"Freight": "32",
+	"freightGST" : "20",
+	"Products": {
+		"Product": [
+			{
+				"ProductId": "VodCru",
+				"ListPrice": "2000",
+				"NetPrice": "1500",
+				"TotalOnInvoiceDiscount": "200",
+				"WET": "50",
+				"GST": "100"
+			},
+			{
+				"ProductId": "WoodStock",
+				"ListPrice": "5000",
+				"NetPrice": "4500",
+				"TotalOnInvoiceDiscount": "500",
+				"WET": "100",
+				"GST": "200"
+			}
+		]
+	}
+}

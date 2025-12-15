@@ -1,0 +1,54 @@
+$lang = en
+
+$contentCatalog = sabmContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Staged])[default = $contentCatalog:Staged]
+$productCV = catalogVersion(catalog(id[default = $productCatalog]), version[default = 'Staged'])[unique = true, default = $productCatalog:Staged]
+
+$pageId = Brands Page
+
+
+$pageIdTemplate = ContentPage2Template
+
+
+# Import modulegen config properties into impex macros
+UPDATE GenericItem[processor = de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor]; pk[unique = true]
+$jarResourceCms = $config-jarResourceCmsValue
+
+# Simple Content Pages (ContentPage2Template)
+INSERT_UPDATE ContentPage; $contentCV[unique = true]; uid[unique = true]; name       ; masterTemplate(uid, $contentCV); label; defaultPage[default = 'true']; approvalStatus(code)[default = 'approved']; homepage[default = 'false']
+                         ;                          ; $pageId           ; Our Brands ; $pageIdTemplate                ; /brands
+
+
+# CMS Standard Text Banner Components
+INSERT_UPDATE StandardTextBannerComponent; $contentCV[unique = true]; uid[unique = true]; name                                          ; content                              ; link;
+                                         ;                          ; comp_00000HQY     ; StandardTextBannerComponent - Cider           ; "<h2>Cider</h2> <hr />"              ;     ;
+                                         ;                          ; comp_00000HQX     ; StandardTextBannerComponent - Beer            ; "<h2>Beer</h2> <hr />"               ;     ;
+                                         ;                          ; comp_00000HR0     ; StandardTextBannerComponent - Spirits & RTD's ; "<h2>Spirits &amp; RTD's</h2><hr />" ;     ;
+
+
+INSERT_UPDATE SimpleBannerComponent; $contentCV[unique = true]; uid[unique = true]  ; name                  ; &componentRef       ; urlLink                                            ;
+                                   ;                          ; CarltonBrandBanner  ; Carlton Brand Banner  ; CarltonBrandBanner  ; /c/10?q=%3Arelevance%3AsabmBrand%3ACarlton         ;
+                                   ;                          ; CrownBrandBanner    ; Crown Brand Banner    ; CrownBrandBanner    ; /c/10?q=%3Arelevance%3AsabmBrand%3ACrown           ;
+                                   ;                          ; CascadeBrandBanner  ; Cascade Brand Banner  ; CascadeBrandBanner  ; /c/10?q=%3Arelevance%3AsabmBrand%3ACascade         ;
+                                   ;                          ; FatyakBrandBanner   ; Fatyak Brand Banner   ; FatyakBrandBanner   ; /c/10?q=%3Arelevance%3AsabmBrand%3ACrown           ;
+                                   ;                          ; VictoriaBrandBanner ; Victoria Brand Banner ; VictoriaBrandBanner ; /c/10?q=%3Arelevance%3AsabmBrand%3AVictoria+Bitter ;
+
+INSERT_UPDATE BrandGridComponent; $contentCV[unique = true]; uid[unique = true]   ; name                   ; brandLink(uid, $contentCV); brands(uid, $contentCV)
+                                ;                          ; BeerGridComponent    ; Beer Grid Component    ; BeerCategoryLink          ; CarltonBrandBanner
+                                ;                          ; CiderGridComponent   ; Cider Grid Component   ; CiderCategoryLink         ; CrownBrandBanner, CascadeBrandBanner
+                                ;                          ; SpiritsGridComponent ; Spirits Grid Component ; SpiritsCategoryLink       ; FatyakBrandBanner, VictoriaBrandBanner
+
+
+INSERT_UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]; name                            ; active; cmsComponents(uid, $contentCV)
+                         ;                          ; Section1-Brands   ; Content Slot for All the brands ; true  ; comp_00000HQX,BeerGridComponent,comp_00000HQY,CiderGridComponent,comp_00000HR0,SpiritsGridComponent
+
+
+INSERT_UPDATE ContentSlotForPage; $contentCV[unique = true]; uid[unique = true]; position ; page(uid, $contentCV)[unique = true]; contentSlot(uid, $contentCV)[unique = true]
+                                ;                          ; Section1-Brands   ; Section1 ; $pageId                             ; Section1-Brands
+
+
+#### CMS Link Components ####
+INSERT_UPDATE CMSLinkComponent; $contentCV[unique = true]; uid[unique = true]  ; name                  ; url        ; &linkRef            ; &componentRef; target(code)[default = 'sameWindow']
+# Beer
+                              ;                          ; CiderCategoryLink   ; Cider Category Link   ; /Beer/c/10 ; CiderCategoryLink   ; CiderCategoryLink
+                              ;                          ; SpiritsCategoryLink ; Spirits Category Link ; /Beer/c/10 ; SpiritsCategoryLink ; SpiritsCategoryLink

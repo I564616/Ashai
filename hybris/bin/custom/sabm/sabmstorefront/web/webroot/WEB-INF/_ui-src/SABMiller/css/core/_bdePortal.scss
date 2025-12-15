@@ -1,0 +1,306 @@
+// ==========================================================================
+//   Custom BDE styles
+// ==========================================================================
+
+//Bordered lists used on portal pages
+
+.deals-header{
+	.status .status-active{
+		color: #01B04F;
+	}
+	.status .status-invited{
+		color: #F88701;
+	}
+	.status .status-inactive{
+		color: #F0242D;
+	}
+}
+.search-results {
+   border-bottom: 1px solid $medium-grey;
+  // Styles to force show hidden rows
+  &.footable.breakpoint > tbody > tr {
+    &.footable-detail-show {
+      border: 0 none !important;
+      td {
+        border: 1px solid transparent;
+      }
+    }
+    & > td.footable-first-column {
+      padding-left: 8px;
+      & > span.footable-toggle {
+        display: none;
+      }
+    }
+    &.footable-row-detail {
+      display: table-row !important;
+      td {
+        border-top: 0 none;
+      }
+    }
+    .footable-row-detail-cell {
+        border-bottom: 1px solid $medium-grey;
+        .footable-row-detail-row {
+          margin-bottom: 8px;
+          .footable-row-detail-name {
+            display: none;
+          }
+          @media (max-width: 525px){
+            &:first-child {
+              .footable-row-detail-value {
+                padding-bottom: 15px;
+              }
+            }
+          }
+
+        }
+        span {
+          padding-right: 5px;
+          padding-left: 5px;
+          &:first-child {
+            padding-left: 0;
+          }
+        }
+        form {
+          display: inline-block;
+        }
+    }
+  }
+
+  .search-result-item {
+     border-top: 1px solid $medium-grey;
+     line-height: $line-height-medium;
+     padding: $spacing-small 0;
+     margin-left: 0 ;
+     margin-right: 0;
+	 .bottom-link{
+   	    @media (max-width: $desktop) {
+   			padding-top: $spacing-gutter;
+   		}
+   		a{
+   			color: $primary-blue;
+   		}
+	 }
+
+   .actions {
+     text-align: right;
+     min-width: 210px;
+     color: $primary-blue;
+     span {
+       display: inline-block;
+       padding-right: 10px;
+       padding-left: 10px;
+       color: $primary-blue;
+       a {
+         color: $primary-blue;
+       }
+       &:last-child {
+         padding-right: 0;
+       }
+       &:first-child {
+         padding-left: 0;
+       }
+     }
+   }
+
+    a{
+    	text-decoration: none;
+    	&.item-title{
+	    	padding-left: 65px;
+	    	display: inline-block;
+	    	position: relative;
+	    }
+
+    }
+  }
+}
+
+.page-portalLogin,
+.page-portalLogoutRedirect,
+.page-portalSSOError {
+  overflow: hidden;
+  .container-main {
+    margin-top: 0;
+  }
+  .h2,
+  .h3 {
+    margin-top: 40px;
+  }
+  .item {
+    .page-hero {
+      width: 100%;
+      margin-bottom: 40px;
+    }
+  }
+
+  .right {
+    width: 100%;
+    .icon-blue-cross,
+    .icon-loader {
+      color: $primary-blue;
+      width: 52px;
+      height: 52px;
+    }
+    .icon-loader {
+      position: relative;
+      left: -10px;
+      width: 65px;
+      height: 65px;
+    }
+  }
+  .left {
+    margin-left: -15px;
+    margin-right: -15px;
+  }
+
+
+  @media(min-width: $tablet){
+
+    .container-main {
+      display: flex;
+      flex-direction: row;
+      height: 100vh;
+      .item {
+        align-self: center;
+        .page-hero {
+          position: absolute;
+          width: auto;
+          right: 52%;
+          top: -200px;
+          z-index: 1;
+          max-height: 100%;
+        }
+      }
+      .left,
+      .right {
+        width: 50%;
+      }
+      .right {
+        padding-left: 70px;
+        margin-top: -200px;
+      }
+    }
+
+  }
+}
+
+.status-note {
+	font-size: 12px;
+}
+
+// Popups
+
+.confirm-changes {
+  width: 95%;
+  margin: 0 auto;
+  padding: $spacing-large $spacing-small;
+  background-color: $white;
+  padding: $spacing-medium;
+  @media (min-width: $tablet){
+      width: 600px;
+      padding: $spacing-large $spacing-medium;
+      .btn {
+        display: block;
+      }
+  }
+}
+
+.bd-portal {
+  .status{
+    text-align: center;
+    .footable-toggle {
+      display: none;
+    }
+    .order {
+        border-radius: 50%;
+    }
+    span {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      background-repeat: no-repeat;
+      background-size: 30px;
+      background-position: 50%;
+      .page-specificDeals & {
+        position: relative;
+        @media (max-width: $tablet) {
+          margin-left: 0;
+        }
+      }
+      @media (max-width: $tablet) {
+        // margin-left: -$spacing-x-small;
+      }
+
+      &.status-active {
+        background-image: url($lock-green);
+      }
+
+      &.status-invited {
+        background-image: url($email-sent);
+      }
+
+      &.status-inactive {
+        background-image: url($email-not-sent);
+      }
+      &.status-order_placed {
+        background-image: url($blue-truck);
+      }
+      &.order-NO_WEB_ORDERS {
+        background-color: $medium-grey;
+      }
+      &.order-NO_ORDERS {
+        background-color: $white;
+        border: 1px solid $medium-grey;
+      }
+      &.order-GREEN {
+        background-color: $active;
+      }
+      &.order-YELLOW {
+        background-color: $invited;
+      }
+      &.order-RED {
+        background-color: $inactive;
+      }
+    }
+    &.page-specificDeals {
+      .status {
+        position: relative;
+        @media (max-width: $tablet) {
+          margin-left: 0;
+        }
+      }
+    }
+  }
+  .definitions {
+    .h3 {
+      margin-bottom: 0;
+    }
+    .status {
+      text-align: left;
+      margin-bottom: 30px;
+      li {
+        display: block;
+        padding-left: 40px;
+        position: relative;
+        margin-bottom: 5px;
+        &:first-child {
+          padding-left: 0;
+          margin-bottom: 10px;
+        }
+        span {
+          display: inline-block;
+          &.status-icon {
+            position: absolute;
+            left: 0;
+            top: 0;
+          }
+          &.description {
+            width: auto;
+            height: auto;
+            vertical-align: top;
+            line-height: 30px;
+          }
+        }
+      }
+    }
+  }
+}

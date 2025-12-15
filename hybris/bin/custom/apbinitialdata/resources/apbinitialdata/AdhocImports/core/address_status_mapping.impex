@@ -1,0 +1,16 @@
+									
+INSERT_UPDATE AddressStatusMapping 	; statusCode ; dynamicsStatusCode[unique=true] ; 									
+         ; NONE				; 0
+         ; INVOICE			; 1
+         ; DELIVERY			; 2
+         ; ALT_DELIVERY		; 3
+         ; SWIFT			; 4
+         ; PAYMENT			; 5
+         ; SERVICE			; 6
+         ; PAYER			; 10
+         ; SOLD_TO			; 11
+         ; SHIP_TO			; 12
+         ; BILL_TO			; 13
+         ; REBATE			; 14
+         ; HIERARCHY		;15;
+					

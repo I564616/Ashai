@@ -1,0 +1,2 @@
+insert CreditCardPaymentInfo,ccOwner[allownull=true],code[allownull=true],displayName,duplicate,issueNumber,number[allownull=true],saved,subscriptionId,subscriptionValidated,token[allownull=true],"type(code,itemtype(code))[allownull=true]","user(uid)[allownull=true,forceWrite=true]",validFromMonth,validFromYear,validToMonth[allownull=true],validToYear[allownull=true]
+,Test User,testsga@test.com_aa841170-cffd-4659-b438-786e7758b8b3,,false,,************1365,true,MockedSubscriptionID,false,h3i8vkdf,visa:CreditCardType,testsga@test.com,,,09,2018

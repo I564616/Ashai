@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2015 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans  http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean" >
+        <property name="targetClass" value="java.lang.System" />
+        <property name="targetMethod" value="setProperty"/>
+        <property name="arguments">
+            <list>
+                <value type="java.lang.String">cache.default.maxMemoryElements</value>
+                <value type="java.lang.Integer">${cache.default.maxMemoryElements}</value>
+            </list>
+        </property>
+    </bean>
+    <bean name="baseEhCacheConfiguration" abstract="true" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+        <property name="cacheManager" ref="sabmEhcache"/>
+        <property name="maxElementsInMemory" value="${cache.dealCache.maxMemoryElements}"/>
+        <property name="eternal" value="true"/>
+        <property name="overflowToDisk" value="true"/>
+        <property name="diskPersistent" value="false"/>
+        <property name="maxElementsOnDisk" value="4000"/>
+        <property name="memoryStoreEvictionPolicy" value="LRU"/>
+    </bean>
+
+    <bean id="dealCache" parent="baseEhCacheConfiguration">
+        <property name="maxElementsInMemory" value="${cache.dealCache.maxMemoryElements}"/>
+        <property name="name" value="dealCache"/>
+    </bean>
+
+    <bean id="dealProductSearch" parent="baseEhCacheConfiguration">
+        <property name="maxElementsInMemory" value="${cache.dealProductSearch.maxMemoryElements}"/>
+        
+        <property name="name" value="dealProductSearch"/>
+    </bean>
+
+    <bean id="productDeals" parent="baseEhCacheConfiguration">
+        <property name="maxElementsInMemory" value="${cache.productDeals.maxMemoryElements}"/>
+        <property name="name" value="productDeals"/>
+    </bean>
+
+    <bean id="calendarDates" parent="baseEhCacheConfiguration">
+        <property name="maxElementsInMemory" value="${cache.calendarDates.maxMemoryElements}"/>
+        <property name="name" value="calendarDates"/>
+    </bean>
+
+    <bean id="deliveryDateConfig" parent="baseEhCacheConfiguration">
+        <property name="maxElementsInMemory" value="${cache.deliveryDateConfig.maxMemoryElements}"/>
+        <property name="name" value="deliveryDateConfig"/>
+    </bean>
+
+    <bean id="recommendationCache" parent="baseEhCacheConfiguration">
+        <property name="maxElementsInMemory" value="${cache.recommendationCache.maxMemoryElements}"/>
+        <property name="name" value="recommendationCache"/>
+    </bean>
+
+    <bean id="stockCache" parent="baseEhCacheConfiguration">
+        <property name="maxElementsInMemory" value="${cache.stockCache.maxMemoryElements}"/>
+        <property name="eternal" value="false"/>
+        <property name="timeToIdleSeconds" value="300"/>
+        <property name="timeToLiveSeconds" value="360"/>
+        <property name="diskExpiryThreadIntervalSeconds" value="360"/>
+        <property name="memoryStoreEvictionPolicy" value="FIFO"/>
+        <property name="name" value="stockCache"/>
+    </bean>
+
+    <bean id="invoiceNumberList" parent="baseEhCacheConfiguration">
+        <property name="maxElementsInMemory" value="${cache.invoiceNumberList.maxMemoryElements}"/>
+        <property name="eternal" value="true"/>
+        <property name="timeToIdleSeconds" value="300"/>
+        <property name="timeToLiveSeconds" value="360"/>
+        <property name="diskExpiryThreadIntervalSeconds" value="360"/>
+        <property name="name" value="invoiceNumberList"/>
+    </bean>
+
+</beans>

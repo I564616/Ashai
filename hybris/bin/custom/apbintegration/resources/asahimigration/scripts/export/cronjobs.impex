@@ -1,0 +1,83 @@
+
+
+#####################Replace the  failedDirectDebits(pk) with failedDirectDebits(code) while importing
+
+INSERT_UPDATE ScriptingJob	;code[unique=true]		;scriptURI
+							;cronjobTriggerScriptJob	;model://cronjobTriggerScript
+							
+INSERT_UPDATE CronJob	;code[unique=true]			;job(code)				;sessionLanguage(isocode)	;sessionUser(uid)
+						;cronjobTriggerScriptCronJob	;cronjobTriggerScriptJob	;en		;admin
+
+
+
+INSERT_UPDATE Script; code[unique=true];content;active[default=true, unique=true]
+;cronjobTriggerScript;"import org.apache.log4j.*;
+import org.apache.commons.io.IOUtils;
+import java.io.File;
+import java.lang.Exception;
+import java.io.InputStream;
+import de.hybris.platform.util.CSVConstants;
+import java.io.IOException;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.sql.Timestamp;
+
+import de.hybris.platform.servicelayer.impex.ExportConfig;
+import de.hybris.platform.servicelayer.impex.ExportConfig.ValidationMode;
+import de.hybris.platform.servicelayer.impex.ExportResult;
+import de.hybris.platform.servicelayer.impex.ExportService;
+import de.hybris.platform.servicelayer.impex.ImpExResource;
+import de.hybris.platform.servicelayer.impex.impl.StreamBasedImpExResource;
+
+final Logger LOG = Logger.getLogger(""asahi"");
+def exportService = spring.getBean(""exportService"");
+
+header =  ""INSERT_UPDATE Trigger;cronJob(code)[unique=true];cronExpression;second;minute;hour;day;month;year;relative;active;maxAcceptableDelay;\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {t.pk} FROM {Trigger as t JOIN Cronjob as c ON {t.cronJob}={c.pk}} where {c.code} NOT IN ('oldCartRemovalCronJob','backofficeSolrIndexerDeleteCronJob', 'backofficeSolrIndexerDeleteCronJob') \""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1  );\""\n""+
+""INSERT_UPDATE ScriptingJob	;code[unique=true]		;scriptURI;\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {ScriptingJob} where {code} not like '%Script%' and {code} NOT LIKE 'tempgetAttribute' \""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1  );\""\n""+
+""INSERT_UPDATE Script; code[unique=true];content;active[unique=true];\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {Script} where {code} NOT IN ('tempgetAttribute') AND {code} not like '%Script%' AND  {active}=1 \""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1  );\""\n""+
+""INSERT_UPDATE SIPFailedObjectProcessorCronjob;code[unique=true];job(code);failedDirectDebits(pk);failedInvoicePayments(pk);sessionLanguage(isoCode);\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {SIPFailedObjectProcessorCronjob}\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+""INSERT_UPDATE AsahiSendFailedOrderCronJob;code[unique=true];job(code);cmsSite(uid);sessionLanguage(isoCode);sessionUser(uid)[default=admin];\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {AsahiSendFailedOrderCronJob}\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+""INSERT_UPDATE CartRemovalCronJob ;code[unique=true]; job(code); sites(uid) ; sessionLanguage(isoCode)[default=en];sessionUser(uid)[default=admin];\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {CartRemovalCronJob}\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+""INSERT_UPDATE CatalogVersionSyncCronJob; code[unique=true];job(code);singleExecutable;sessionLanguage(isocode);\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {CatalogVersionSyncCronJob} where {code} NOT LIKE '000%' and {code} NOT LIKE 'Sync Default:Staged -> Default:Online' \""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+""INSERT_UPDATE CompositeEntry;code[unique=true];triggerableJob(code);compositecronjob(code);compositecronjobpos;executableCronJob(code)[unique=true];\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {CompositeEntry}\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+""INSERT_UPDATE CompositeCronJob;code[unique=true];job(code);compositeentries(code);sessionLanguage(isocode);\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {CompositeCronJob}\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+""INSERT_UPDATE UncollectedOrdersCronJob;code[unique=true]; job(code)[default=uncollectedOrdersJob] ;sites(uid); sessionLanguage(isoCode)[default=en];sessionUser(uid)[default=admin];\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {UncollectedOrdersCronJob}\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+""INSERT_UPDATE SolrIndexerCronJob;code[unique=true];job(code);facetSearchConfig(name);indexerOperation(code);\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {SolrIndexerCronJob!} where {code} NOT LIKE '000%' \""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+""INSERT_UPDATE CatalogVersionSyncJob;active;code[unique=true];copyCacheSize;createNewItems[allownull=true];emailAddress;errorMode(code,itemtype(code));exclusiveMode[allownull=true,forceWrite=true];logLevelDatabase(code,itemtype(code));logLevelFile(code,itemtype(code));logToDatabase;logToFile;maxSchedulerThreads;maxThreads;nodeGroup;nodeID[forceWrite=true];priority;removeMissingItems[allownull=true];removeOnExit;requestAbort;requestAbortStep;retry[allownull=true];sendEmail;sessionContextValues;sessionCurrency(isocode);sessionLanguage(isocode);sessionUser(uid);singleExecutable;sourceVersion(catalog(id),version)[forceWrite=true,unique=true,allownull=true];syncOrder;syncPrincipalsOnly[allownull=true];targetVersion(catalog(id),version)[forceWrite=true,unique=true,allownull=true];roottypes(code);\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {CatalogVersionSyncJob} where {code} NOT LIKE '000%' \""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1  );\""\n""+
+""INSERT_UPDATE ServicelayerJob;code[unique=true];sessionLanguage(isoCode);active;springId;\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {ServicelayerJob!} where {code} NOT LIKE 'solrIndexerJob_full%' and {code} NOT LIKE '%Script%' and {code} NOT LIKE 'solrIndexerJob_update%' and {code} NOT IN ('tempgetAttribute','backofficeSolrIndexerDeleteJob','backofficeSolrIndexerUpdateJob')  \""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+""INSERT_UPDATE CronJob	;code[unique=true]			;job(code)				;sessionLanguage(isocode)	;sessionUser(uid);\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {CronJob!} where {code} NOT LIKE '000%' and {code} NOT LIKE '%Script%' and {code} NOT LIKE '%ExportCronJob%' and {code} NOT IN ('tempgetAttribue','deltaSolrCronJob','backofficeSolrIndexerDeleteCronJob','backofficeSolrIndexerUpdateCronJob','oldCartRemovalCronJob')\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1  );\""\n"";
+try {
+	resourceAsStream = new ByteArrayInputStream(header.getBytes());
+	final ImpExResource resource = new StreamBasedImpExResource(resourceAsStream, CSVConstants.DEFAULT_ENCODING);
+	final ExportConfig config = new ExportConfig();
+	config.setScript(resource);
+	config.setSingleFile(true);
+	config.setValidationMode(ValidationMode.WITHOUT);
+	config.setExportedDataCode(""cronjobs-""+new SimpleDateFormat(""yyyyMMddHHmmssSSS"").format(new Date()));
+	final ExportResult result = exportService.exportData(config);
+	
+	if (result.isError()){
+		LOG.info(""Exception occurred during export of Cronjobs"");
+	}
+}
+catch (final Exception exception) {
+		LOG.log(Level.ERROR, exception.getMessage());
+	}
+finally
+	{
+			resourceAsStream.close();
+	}";;

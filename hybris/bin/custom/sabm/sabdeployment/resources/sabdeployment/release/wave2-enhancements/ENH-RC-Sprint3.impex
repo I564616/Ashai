@@ -1,0 +1,10 @@
+$lang=en
+$jarEmailResource=jar:com.sabmiller.core.constants.SabmCoreConstants&/sabminitialdata/import/coredata/contentCatalogs/sabmContentCatalog/emails
+
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+$emailResource=$config-emailResourceValue
+
+
+# CMS components and Email velocity templates
+UPDATE RendererTemplate;code[unique=true];description[lang=$lang];templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+;sabmiller_Email_Payment_Confirmation_Body;"Payment Confirmation Email Body Template";$emailResource/email-paymentConfirmationBody.vm

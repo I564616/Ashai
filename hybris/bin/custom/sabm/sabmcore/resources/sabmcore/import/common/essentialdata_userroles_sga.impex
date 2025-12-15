@@ -1,0 +1,34 @@
+################################################################################################################################################################################################################################
+#																	SGA User roles and their permission                              																						   # 
+################################################################################################################################################################################################################################
+
+$defaultPassword=12341234
+             
+INSERT_UPDATE UserGroup ; uid[unique=true]                 ; groups(uid)                         ; locname[lang=en]                    ;  
+                        ; sgaAdminGroup                  ; productmanagergroup,cmsmanagergroup,admingroup ; SGA Administrator Group                   
+                        ; sgaCallCenterManagerGroup ; customersupportmanagergroup,asagentgroup         ;  SGA Call Center Manager Group 
+                        ; sgaCustomerLiasonRepGroup ; asagentgroup,customersupportmanagergroup         ; SGA Customer Liason Rep Group
+                        ; sgaSuperAdmin ; b2badmingroup         ; SGA Super Admin Group
+                        ; sgaUser ; b2bcustomergroup      ; SGA User Group
+
+						
+						
+
+INSERT_UPDATE Employee ; UID[unique=true]    ; password[default=$defaultPassword] ; description                    ; name                           ; groups(uid)[mode=append]         ; sessionLanguage(isocode) ; sessionCurrency(isocode) ; backOfficeLoginDisabled[default=false]
+                       ; sgaadmin          	;                                    ; SGA Admin                   	 ; SGA Admin                          ; sgaAdminGroup                  	; en                       ; AUD           ;          
+                       ; sgaccmanager	      ;                                    ; SGA Call Center Manager 	 ; SGA Call Center Manager 	 ; sgaCallCenterManagerGroup 	; en                       ; AUD           ;           					   
+                       ; sgaclrep	      ;                                    ; SGA Call Center Rep 	 ; SGA Call Center Rep 	 ; sgaCustomerLiasonRepGroup 	; en                       ; AUD           ;          
+                       
+                       
+                       
+$START_USERRIGHTS       
+Type                    ; UID              ; MemberOfGroups       ; Password; Target                            ; read; change; create; remove; change_perm
+UserGroup               ; sgaCallCenterManagerGroup; customersupportmanagergroup;  ;                                   ;   ;   ;   ;   ;   
+                        ;                  ;                      ;  ; AsahiSAMAccess                       ; + ; + ;+ ; + 
+
+UserGroup               ; sgaCustomerLiasonRepGroup; customersupportmanagergroup;  ;                                   ;   ;   ;   ;   ;   
+
+                        ;                  ;                      ;  ; AsahiSAMAccess                       ; + ; + ;+ ; + 
+$END_USERRIGHTS         ;                  ;                      ;  ;                                   ;   
+
+                        					   					 

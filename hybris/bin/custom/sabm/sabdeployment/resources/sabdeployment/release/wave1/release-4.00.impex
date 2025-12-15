@@ -1,0 +1,11 @@
+$defaultLanguage=en
+$solrIndexedType = sabmStoreProductType
+UPDATE SolrIndexedProperty; solrIndexedType(identifier)[unique = true]; name[unique = true]; ftsWildcardQuery[default = false]
+; $solrIndexedType ; ean				; true
+; $solrIndexedType ; name				; true
+; $solrIndexedType ; brand				; true
+; $solrIndexedType ; category			; true
+; $solrIndexedType ; keywords			; true
+; $solrIndexedType ; sellingName		; true
+; $solrIndexedType ; packConfiguration  ; true
+

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TrackMyDeliveryNotification>
+    <TrackedDelivery>
+
+        <MessageType>ETA</MessageType>
+
+        <SAPDeliveryNumber>3001750251</SAPDeliveryNumber>
+
+        <NextInQueueIndicator>0</NextInQueueIndicator>
+
+        <CustomerName />
+
+        <DateTime timeZoneCode="UTC+8">2016-03-06T23:00:00Z</DateTime>
+
+    </TrackedDelivery>
+
+    <TrackedDelivery>
+
+        <MessageType>ETA</MessageType>
+
+        <SAPDeliveryNumber>3210321032</SAPDeliveryNumber>
+
+        <NextInQueueIndicator>1</NextInQueueIndicator>
+        <CustomerName />
+
+        <DateTime timeZoneCode="UTC+8">2016-03-06T23:00:00Z</DateTime>
+
+    </TrackedDelivery>
+
+    <TrackedDelivery>
+
+        <MessageType>Arrived</MessageType>
+
+        <SAPDeliveryNumber>5210321032</SAPDeliveryNumber>
+
+        <NextInQueueIndicator>1</NextInQueueIndicator>
+        <CustomerName />
+
+        <DateTime timeZoneCode="UTC+8">2016-03-06T23:00:00Z</DateTime>
+
+    </TrackedDelivery>
+
+    <TrackedDelivery>
+
+        <MessageType>Delivered</MessageType>
+
+        <SAPDeliveryNumber>6210321032</SAPDeliveryNumber>
+
+        <NextInQueueIndicator>1</NextInQueueIndicator>
+
+        <CustomerName />
+
+        <DateTime daylightSavingTimeIndicator="false" timeZoneCode="UTC+8">2016-03-06T23:00:00Z</DateTime>
+
+    </TrackedDelivery>
+
+    <TrackedDelivery>
+
+        <MessageType>Delivered</MessageType>
+
+        <SAPDeliveryNumber>7210321032</SAPDeliveryNumber>
+
+        <NextInQueueIndicator>0</NextInQueueIndicator>
+        <CustomerName />
+
+        <DateTime timeZoneCode="UTC+8">2016-03-06T23:00:00Z</DateTime>
+
+    </TrackedDelivery>
+
+</TrackMyDeliveryNotification>

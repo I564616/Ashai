@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2013 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+-->
+<project name="sabmintegration_buildcallbacks">
+	<macrodef name="sabmintegration_before_ear">
+		<sequential>
+
+		</sequential>
+	</macrodef>
+	<macrodef name="sabmintegration_before_build">
+		<sequential>
+			<mkdir dir="${ext.sabmintegration.path}/gensrc"/>
+			<property name="sabintegration.gen.src" value="${ext.sabmintegration.path}/gensrc" />
+			<property name="sabmintegration.sap.xsd" value="${ext.sabmintegration.path}/resources/xsd/sap" />
+			
+			<xjc schema="${sabmintegration.sap.xsd}/ordersimulate/SalesOrderSimulateRequest.xsd" package="com.sabmiller.integration.sap.ordersimulate.request" destdir="${sabintegration.gen.src}"/>
+			<xjc schema="${sabmintegration.sap.xsd}/ordersimulate/SalesOrderSimulateResponse.xsd" package="com.sabmiller.integration.sap.ordersimulate.response" destdir="${sabintegration.gen.src}"/>
+			
+			<xjc schema="${sabmintegration.sap.xsd}/deals/BOGOFDealsRequest.xsd" package="com.sabmiller.integration.sap.deals.bogof.request" destdir="${sabintegration.gen.src}"/>
+			<xjc schema="${sabmintegration.sap.xsd}/deals/BOGOFDealsResponse.xsd" package="com.sabmiller.integration.sap.deals.bogof.response" destdir="${sabintegration.gen.src}"/>
+			
+			<xjc schema="${sabmintegration.sap.xsd}/deals/PricingDiscountDealsRequest.xsd" package="com.sabmiller.integration.sap.deals.pricediscount.request" destdir="${sabintegration.gen.src}"/>
+			<xjc schema="${sabmintegration.sap.xsd}/deals/PricingDiscountDealsResponse.xsd" package="com.sabmiller.integration.sap.deals.pricediscount.response" destdir="${sabintegration.gen.src}"/>
+			
+			<xjc schema="${sabmintegration.sap.xsd}/cup/CupRequest.xsd" package="com.sabmiller.integration.sap.cup.request" destdir="${sabintegration.gen.src}"/>
+			<xjc schema="${sabmintegration.sap.xsd}/cup/CupResponse.xsd" package="com.sabmiller.integration.sap.cup.response" destdir="${sabintegration.gen.src}"/>
+			
+			<xjc schema="${sabmintegration.sap.xsd}/ordercreate/SalesOrderCreateRequest.xsd" package="com.sabmiller.integration.sap.ordercreate.request" destdir="${sabintegration.gen.src}"/>
+			<xjc schema="${sabmintegration.sap.xsd}/ordercreate/SalesOrderCreateResponse.xsd" package="com.sabmiller.integration.sap.ordercreate.response" destdir="${sabintegration.gen.src}"/>
+			
+			<xjc schema="${sabmintegration.sap.xsd}/invoices/CustomerBillingDataRequest.xsd" package="com.sabmiller.integration.sap.invoices.customer.request" destdir="${sabintegration.gen.src}"/>
+			<xjc schema="${sabmintegration.sap.xsd}/invoices/CustomerBillingDataResponse.xsd" package="com.sabmiller.integration.sap.invoices.customer.response" destdir="${sabintegration.gen.src}"/>
+
+            <xjc schema="${sabmintegration.sap.xsd}/invoices/InvoiceValidation_Request.xsd" package="com.sabmiller.integration.sap.invoices.discrepancy.request" destdir="${sabintegration.gen.src}"/>
+            <xjc schema="${sabmintegration.sap.xsd}/invoices/InvoiceValidation_Response.xsd" package="com.sabmiller.integration.sap.invoices.discrepancy.response" destdir="${sabintegration.gen.src}"/>
+
+            <xjc schema="${sabmintegration.sap.xsd}/invoices/InvoiceItemData_Request.xsd" package="com.sabmiller.integration.sap.invoices.discrepancy.request" destdir="${sabintegration.gen.src}"/>
+            <xjc schema="${sabmintegration.sap.xsd}/invoices/InvoiceItemData_Response.xsd" package="com.sabmiller.integration.sap.invoices.discrepancy.response" destdir="${sabintegration.gen.src}"/>
+
+            <xjc schema="${sabmintegration.sap.xsd}/invoices/InvoiceList_Request.xsd" package="com.sabmiller.integration.sap.invoices.discrepancy.request" destdir="${sabintegration.gen.src}"/>
+            <xjc schema="${sabmintegration.sap.xsd}/invoices/InvoiceList_Response.xsd" package="com.sabmiller.integration.sap.invoices.discrepancy.response" destdir="${sabintegration.gen.src}"/>
+
+			
+			<xjc schema="${sabmintegration.sap.xsd}/invoices/InvoiceDataRequest.xsd" package="com.sabmiller.integration.sap.invoices.pdf.request" destdir="${sabintegration.gen.src}"/>
+			<xjc schema="${sabmintegration.sap.xsd}/invoices/InvoiceDataResponse.xsd" package="com.sabmiller.integration.sap.invoices.pdf.response" destdir="${sabintegration.gen.src}"/>
+			
+			<xjc schema="${sabmintegration.sap.xsd}/productexclusion/ProductExclusionRequest.xsd" package="com.sabmiller.integration.sap.productexclusion.request" destdir="${sabintegration.gen.src}"/>
+				
+		</sequential>
+	</macrodef>
+</project>

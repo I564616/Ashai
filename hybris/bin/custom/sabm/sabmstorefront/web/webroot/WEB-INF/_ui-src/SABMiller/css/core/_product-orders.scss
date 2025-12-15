@@ -1,0 +1,67 @@
+// ==========================================================================
+//   Product Cards Classes
+// ==========================================================================
+.product-orders{
+	@media(min-width: $tablet){
+		padding: 0 0 60px;
+		.product-orders-and-template{
+			position:relative;
+			display: -webkit-flex;
+			display: -ms-flexbox;
+			display: flex;
+			& > div {
+				flex: 1;
+			}
+		}
+	}
+	.product-orders-title{
+		margin-bottom: $spacing-small;
+		@media (min-width: $desktop){
+			margin-bottom: 35px;
+		}
+	}
+
+	hr{
+		border-color: $medium-lite-grey;
+		margin-top:$spacing-x-small * 2.5;
+		@media (min-width: $desktop){
+			margin-top:$spacing-x-small;
+		}
+	}
+
+}
+
+.product-orders-item{
+	padding-bottom: $spacing-x-small;
+	@media(min-width: $desktop){
+		position: initial;
+		padding-bottom: 0;
+		&:after{
+			content: '';
+		    border-bottom: 1px solid $medium-lite-grey;
+		    display: block;
+		    clear: both;
+		    padding-top: 2px;
+		    padding-bottom: 1px;
+		}
+	}
+}
+
+.product-orders-cta{
+	margin-bottom: $spacing-medium;
+	padding-right:$spacing-small;
+	@media(max-width: $mobile-max){
+		padding-right: $spacing-x-small+5;
+	}
+
+	// a.link-cta:after{
+	// 	margin-top:17px;
+	// }
+
+	@media(min-width: $tablet){
+		position: absolute;
+	    bottom: 0;
+	    margin-bottom: -$spacing-large;
+	    padding-right:0;
+	}
+}

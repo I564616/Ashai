@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns2:InvoiceList_Request xmlns:ns2="urn:gl.sabmiller.com:com:3rdp:transdata">
+    <CustomerSoldTo>129838112321ewe1</CustomerSoldTo>
+    <DateStart>01072017</DateStart>
+    <DateEnd>31072018</DateEnd>
+</ns2:InvoiceList_Request>

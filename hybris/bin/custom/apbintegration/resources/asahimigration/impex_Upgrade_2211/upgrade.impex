@@ -1,0 +1,322 @@
+##################### HC-1728 - OCC conversion - Start ################################################
+
+UPDATE CMSSite;uid[unique=true];requiresAuthentication[default=false]
+			  ;apb			   ;
+			  ;sga             ;
+##################### HC-1728 - OCC conversion -  END ################################################
+
+
+#################################################################HC-1724#####################################################
+
+$jarEmailResource=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/coredata/contentCatalogs/apbContentCatalog/emails
+$lang=en
+
+UPDATE RendererTemplate ; code[unique=true]                                 ; description[lang=$lang]                            ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+
+
+; apb_Email_Apb_Company_Details_Subject             ; "Company Details Email Subject"          ; $jarEmailResource/email-companyDetailsSubject.vm   
+; apb_Email_Customer_Registration_Body ; "Customer Registration Email Body"        ;  $jarEmailResource/email-customerRegistrationBody.vm                                                             
+; apb_Email_Apb_Keg_Return_Body                     ; "Keg Return Email Body"                            ; $jarEmailResource/email-kegReturnBody.vm   
+                                                                      
+; apb_Email_Apb_Company_Details_Body                ; "Company Details Registration Email Body"          ; $jarEmailResource/email-companyDetailsBody.vm       
+
+; apb_Email_Apb_Contact_Us_Body                     ; "Contact Us Email Body"                            ; $jarEmailResource/email-contactUsBody.vm   
+
+
+
+$jarEmailResource=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/coredata/contentCatalogs/sgaContentCatalog/emails
+$lang=en
+ 
+; sga_Email_SuperUserRequest_Payer_Access_Body   ; "Payer Access Email Body"   ; $jarEmailResource/email-superUserRequestPayerAccessBody.vm  
+; sga_Customer_Welcome_Email_Body                ;    "Asahi Customer Welcome Email Body"           ; $jarEmailResource/email-asahiCustomerWelcomeEmailBody.vm  
+; asahi_Email_AlternateDeliveryDate__Body        ; "Asahi Alternate Delivery Date Email Body"   ; $jarEmailResource/email-asahiAlternateDeliveryDateBody.vm  
+; asahi_Email_NoDelivery__Body                   ;            "Asahi No Delivery Email Body"           ; $jarEmailResource/email-asahiNoDeliveryBody.vm	
+; asahi_Email_PaymentConfirmation__Body        ; "Asahi Payment Confirmation Email Body"           ; $jarEmailResource/email-asahiPaymentConfirmationBody.vm  
+; sga_Email_Apb_Company_Details_Body                ; "Company Details Registration Email Body"          ; $jarEmailResource/email-companyDetailsBody.vm 
+; sga_Email_Customer_Registration_Body               ; "Customer Registration Email Body"                ; $jarEmailResource/email-customerRegistrationBody.vm
+; sga_Password_Reset_Email_Body         	 ; "Asahi Password Reset Email Body"    ; $jarEmailResource/email-asahiPasswordResetBody.vm 						
+; sga_Email_Apb_Keg_Return_Body                     ; "Keg Return Email Body"                            ; $jarEmailResource/email-kegReturnBody.vm  
+; sga_Email_Contact_Us_Body                     	; "Contact Us Email Body"                            ; $jarEmailResource/email-contactUsBody.vm 
+; asahi_Email_AlternateCallDay__Body        ; "Asahi Alternate Call Day Email Body"           ; $jarEmailResource/email-asahiAlternateCallDayBody.vm 	
+; sga_Email_Order_Confirmation_Body        ; "Asahi Order Confirmation Email Body"  ;$jarEmailResource/email-orderConfirmationBody.vm    						
+						
+#################################################################HC-1724#####################################################	
+
+
+#####################################################HC-3011##########################################################					
+
+INSERT_UPDATE Script;code[unique=true];content;active[default=true]
+;removeb2bcustomersite;"import de.hybris.platform.servicelayer.search.SearchResult;
+import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
+import java.util.Collections;
+import de.hybris.platform.core.model.user.CustomerModel;
+import java.lang.Exception;
+import org.apache.commons.lang3.StringUtils;
+
+flexibleSearchService = spring.getBean(""flexibleSearchService"");
+modelService = spring.getBean(""modelService"");
+
+
+final FlexibleSearchQuery query = new FlexibleSearchQuery(""select {pk} from {B2BCustomer} where {site} is NOT NULL"");
+final SearchResult<CustomerModel> result = flexibleSearchService
+                                                          .search(query);
+println(""Total count: ""+result.getCount()) ;       
+                                               
+println(""---------- Impacted customer data starts -------------"");
+											   
+for(CustomerModel customer : result.getResult())
+{
+  try
+  {
+	 println(customer.getUid() + "" - "" + customer.getSite().getUid());
+	  customer.setSite(null);
+      modelService.save(customer);
+	  
+  
+  }
+  catch(Exception ex)
+  {
+        println(""Model Saving exception"" + ex.getMessage());
+  }
+}
+println(""---------- Impacted customer data ends -------------"");
+";true
+
+INSERT_UPDATE ScriptingJob;code[unique=true];scriptURI
+;removeb2bcustomersitejob;model://removeb2bcustomersite
+
+INSERT_UPDATE Cronjob;code[unique=true];job(code);active[default=true];sessionLanguage(isocode);sessionCurrency(isocode)
+;removeb2bcustomersitejob;removeb2bcustomersitejob;true;en;AUD
+
+
+REMOVE ScriptingJob;code[unique=true]
+;updatecustomersite
+
+REMOVE Cronjob;code[unique=true]
+;updatecustomersite
+
+
+
+
+#####################################################HC-3011##########################################################
+
+
+#####################################################HC-3099##########################################################
+
+UPDATE Script;code[unique=true];content;active[unique=true]
+;sabmFetchCustomerCUPJob;"import com.sabmiller.facades.customer.impl.DefaultSABMCustomerFacade
+
+import de.hybris.platform.b2b.model.B2BCustomerModel;
+import de.hybris.platform.b2b.model.B2BUnitModel;
+import de.hybris.platform.basecommerce.model.site.BaseSiteModel;
+import de.hybris.platform.core.model.order.OrderModel;
+import de.hybris.platform.cronjob.enums.CronJobResult
+import de.hybris.platform.cronjob.enums.CronJobStatus
+import de.hybris.platform.servicelayer.cronjob.PerformResult
+import de.hybris.platform.commerceservices.enums.SalesApplication
+import de.hybris.platform.core.model.user.EmployeeModel;
+import de.hybris.platform.core.model.user.UserModel;
+import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
+import de.hybris.platform.servicelayer.search.SearchResult;
+import de.hybris.platform.util.Config;
+import de.hybris.platform.search.restriction.impl.DefaultSearchRestrictionService;
+import de.hybris.platform.search.restriction.session.SessionSearchRestriction;
+import com.sabmiller.core.enums.SapServiceCallStatus
+import com.sabmiller.core.model.AsahiB2BUnitModel
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.google.common.collect.Lists
+import org.apache.commons.collections4.CollectionUtils
+
+
+
+
+
+def customerFacade=spring.getBean(""customerFacade"")
+def sessionService = spring.getBean(""sessionService"")
+def fss=spring.getBean(""flexibleSearchService"");
+def b2bCommerceUnitService=spring.getBean(""b2bCommerceUnitService"")
+def b2bUnitService=spring.getBean(""b2bUnitService"")
+def deliveryDateCutOffService=spring.getBean(""sabmDeliveryDateCutOffService"")
+def baseStoreService=spring.getBean(""baseStoreService"")
+def dealsService=spring.getBean(""dealsService"")
+def ms = spring.getBean(""modelService"")
+def us= spring.getBean(""userService"")
+def sabmSearchRestrictionService = spring.getBean(""sabmSearchRestrictionService"");
+
+
+final Logger LOG = LoggerFactory.getLogger(DefaultSABMCustomerFacade.class)
+final String sessionAttrUserId = Config.getString(""session.attr.user.invoking.sap.service"", ""CURRENT_USER_SAP_INVOCATION"")
+
+def queryBaseSite=""select distinct({bs.pk}) from {BaseSite as bs} where {uid} = 'sabmStore'""
+
+BaseSiteModel baseSiteModel=fss.search(queryBaseSite).getResult().get(0)
+sessionService.setAttribute(""currentSite"", baseSiteModel)
+
+final String QUERY_ORDER_BY_PLACEORDER_LASTSIXMONDAYS = ""SELECT {o.pk} FROM {""+ OrderModel._TYPECODE + "" AS o JOIN ""+ UserModel._TYPECODE +"" AS u on {o:user} = {u:pk}} WHERE {o:date} >= ?fromDate AND {o:date} <= ?toDate AND {o:salesApplication} = ?salesApplication AND {o:site} = ?baseSiteModel""
+
+
+final Map<String, Object> params = new HashMap<String, Object>()
+
+final DateTime toDay = new DateTime()
+final Set<OrderModel> orders = new HashSet<OrderModel>()
+
+final DateTime last45Date = toDay.minusDays(45)
+DateTime fromDate = last45Date.minusHours(last45Date.getHourOfDay())
+fromDate = fromDate.minusMinutes(last45Date.getMinuteOfHour())
+fromDate = fromDate.minusSeconds(last45Date.getSecondOfMinute())
+
+log.info(""fromDate=""+fromDate)
+
+DateTime toDate = new DateTime()
+
+log.info(""toDate=""+toDate)
+
+params.put(""fromDate"", fromDate.toDate())
+params.put(""toDate"", toDate.toDate())
+params.put(""salesApplication"", SalesApplication.WEB)
+params.put(""baseSiteModel"", baseSiteModel);
+	
+final FlexibleSearchQuery fsq = new FlexibleSearchQuery(QUERY_ORDER_BY_PLACEORDER_LASTSIXMONDAYS, params);
+final SearchResult<OrderModel> result = fss.search(fsq);
+final List<OrderModel> listOforder = result.getCount() > 0 ? result.getResult() : Collections.<OrderModel> emptyList();
+
+orders.addAll(listOforder)
+
+
+final Set<B2BUnitModel> b2bUnits = new HashSet<>();
+
+Map<String,B2BCustomerModel> customerUsermap = new HashMap<String,B2BCustomerModel>();
+
+for(order in orders)
+{	
+	final B2BUnitModel b2bUnitModel = order.getUnit();
+	if (null == b2bUnitModel || b2bUnits.contains(b2bUnitModel))
+	{
+		continue
+	}
+	b2bUnits.add(b2bUnitModel);
+	customerUsermap.put(b2bUnitModel.getUid(), order.getUser())
+	final B2BUnitModel orderDefaultb2bUnitModel = ((B2BCustomerModel)order.getUser()).getDefaultB2BUnit()
+	
+	if(orderDefaultb2bUnitModel != null && !(orderDefaultb2bUnitModel instanceof AsahiB2BUnitModel) && ! orderDefaultb2bUnitModel.getUid().equals(b2bUnitModel.getUid())){
+		
+		b2bUnits.add(orderDefaultb2bUnitModel);
+		customerUsermap.put(orderDefaultb2bUnitModel.getUid(), order.getUser())
+	}
+	
+}
+List<B2BUnitModel> finalB2bunitList = new ArrayList<B2BUnitModel>();
+finalB2bunitList.addAll(b2bUnits)
+println(""Total Customers = >""+ finalB2bunitList.size());
+
+final Set<String> disableSearchRestrictions = new HashSet<>();
+disableSearchRestrictions.add(""employee_restriction"");
+
+sabmSearchRestrictionService.simulateSearchRestrictionDisabledInSession(disableSearchRestrictions);
+
+
+for(b2bunit in finalB2bunitList)
+{
+	if(SapServiceCallStatus.IN_PROGRESS.equals(b2bunit.getCupCallStatus()))
+	{
+		try{
+			b2bunit.setCupCallStatus(SapServiceCallStatus.ERROR)
+			ms.save(b2bunit)
+			ms.refresh(b2bunit)
+		}catch(final Exception e)
+		{
+			LOG.error(""Exception occured while saving CUP call status to ERROR "", e);
+		}
+	}
+}
+
+if (CollectionUtils.isNotEmpty(finalB2bunitList))
+{
+	final List<List<B2BUnitModel>> b2bunitListBatch = Lists.partition(finalB2bunitList, 200);
+	for (List<B2BUnitModel> eachB2bunitBatch : b2bunitListBatch)
+	{
+		final Calendar calender1 = Calendar.getInstance();
+		LOG.info(""Start Each Batch process : ""+ calender1.getTime())
+		List<B2BUnitModel> b2bunitBach = new ArrayList<B2BUnitModel>()
+		b2bunitBach.addAll(eachB2bunitBatch)
+		for(b2bUnitModel in eachB2bunitBatch)
+		{
+			B2BCustomerModel b2bCustomer = customerUsermap.get(b2bUnitModel.getUid())
+			final String userId = b2bCustomer.getUid()
+			sessionService.setAttribute(sessionAttrUserId, userId)
+			sessionService.setAttribute(""user"",b2bCustomer)
+			
+			final Set<Date> enabledCalendarDates = deliveryDateCutOffService.calculateCalendarDeliveryDates(b2bUnitModel,true);	
+			Date currentDeliveryDate
+
+			if (CollectionUtils.isNotEmpty(enabledCalendarDates))
+			{
+				final List<Date> sortedList = new ArrayList<>(enabledCalendarDates)
+				Collections.sort(sortedList)
+
+				currentDeliveryDate = sortedList.get(0)
+			}
+			else
+			{
+				final Calendar cal = Calendar.getInstance()
+				cal.setTime(new Date());
+				cal.add(Calendar.DAY_OF_YEAR, 1)
+
+				currentDeliveryDate = cal.getTime()
+			}
+			
+			sessionService.setAttribute(""session_delivery_date"",currentDeliveryDate)
+
+			
+			b2bUnitService.refreshCUP(b2bUnitModel);
+			
+		}
+		
+		boolean flag = true
+		boolean inprogressFlag = false
+		while(flag)
+		{			
+			final Calendar calender4 = Calendar.getInstance()
+			LOG.info(""Before Thead.sleep==>""+ calender4.getTime())
+			try
+			{
+				Thread.sleep(3*60*1000)
+			} catch (Exception e1) {				
+				LOG.error(""Error in Thread.sleep()"")
+			}
+			final Calendar calender5 = Calendar.getInstance()
+			LOG.info(""After Thead.sleep==>""+ calender5.getTime())
+			inprogressFlag = false;
+			for(eachB2bunit in b2bunitBach)
+			{				
+				if(SapServiceCallStatus.IN_PROGRESS.equals(eachB2bunit.getCupCallStatus()))
+				{					
+					inprogressFlag = true
+					break
+				}				
+			}
+			LOG.info(""inprogress Flag===>>>>""+inprogressFlag);
+			if(! inprogressFlag)
+			{
+				flag = false;
+				b2bunitBach.clear();
+			}
+		}
+		final Calendar calender6 = Calendar.getInstance();
+		log.info(""End Each Batch process : ""+ calender6.getTime());
+	}
+}";true
+#####################################################HC-3099##########################################################

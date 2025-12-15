@@ -1,0 +1,2 @@
+insert_update ProductReference,active[allownull=true],preselected[allownull=true],quantity,"referenceType(code,itemtype(code))[unique=true]","source(catalogVersion(catalog(id),version),code)[forceWrite=true,unique=true,allownull=true]",sourcePOS,"target(catalogVersion(catalog(id),version),code)[unique=true,allownull=true]"
+,true,false,,SIMILAR:ProductReferenceTypeEnum,apbProductCatalog:Staged:14354058,0,apbProductCatalog:Staged:14367061

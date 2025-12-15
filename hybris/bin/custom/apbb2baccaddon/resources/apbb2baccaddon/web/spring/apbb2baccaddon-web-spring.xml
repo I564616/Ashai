@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">
+           
+    <context:annotation-config/> 
+
+
+	<!-- Expose /acceleratoraddon/web/webroot/WEB-INF/messages/base.js.properties  resource bundle as javascript variables -->
+	<!-- Added context component scan for scanning -->
+	<context:component-scan  base-package="com.apb" scope-resolver="de.hybris.platform.spring.IgnoreTenantScopeMetadataResolver" />
+	<bean id="defaultApbb2baccaddonJavaScriptMessageResourceAccessor" parent="abstractJavaScriptMessageResourceAccessor">
+		<property name="addOnName" value="apbb2baccaddon"/>
+	</bean>
+
+	<bean id="defaultApbb2baccaddonBeforeViewJsPropsHandlerAdaptee" parent="abstractBeforeViewJsPropsHandlerAdaptee" class="de.hybris.platform.addonsupport.interceptors.ExportJsPropertiesBeforeViewHandler">
+		<property name="messageSource" ref="defaultApbb2baccaddonJavaScriptMessageResourceAccessor"/>
+	</bean>
+
+	<bean id="getApbb2baccaddonBeforeViewHandler" parent="beforeViewHandlerAdapter">
+		<property name="adaptee">
+			<ref bean="defaultApbb2baccaddonBeforeViewJsPropsHandlerAdaptee"/>
+		</property>
+	</bean>
+	<bean id="Apbb2baccaddonBeforeViewHandlerListMergeDirective" depends-on="beforeViewHandlersList" parent="listMergeDirective">
+		<property name="add" ref="getApbb2baccaddonBeforeViewHandler"/>
+	</bean>
+
+
+	<bean id="apbAbstractComponentRenderer"
+		class="com.apb.apbb2baccaddon.component.renderer.ApbB2bAccAbstractComponentRenderer"
+		parent="addOnJspIncludeCMSComponentRenderer" />
+
+	<bean id="apbProductAddToCartComponentRendererMapping" parent="addonCmsComponentRendererMapping">
+		<property name="typeCode" value="ProductAddToCartComponent" />
+		<property name="renderer" ref="apbAbstractComponentRenderer" />
+	</bean>
+	
+	<bean id="apbReorderActionRendererMapping" parent="addonCmsComponentRendererMapping" >
+      <property name="typeCode" value="ReorderAction" />
+      <property name="renderer" ref="apbAbstractComponentRenderer" />
+	</bean>
+	
+	<!-- Overriding the checkoutloginpagecontroller start-->
+	<bean name="checkoutLoginController" class="com.apb.controllers.pages.CheckoutLoginController"/>
+	<!-- Overriding the checkoutloginpagecontroller end-->
+	
+</beans>

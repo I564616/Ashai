@@ -1,0 +1,5 @@
+$solrIndexedType = sabmStoreProductType
+
+#free text query
+INSERT_UPDATE SolrIndexedProperty; solrIndexedType(identifier)[unique = true]; name[unique = true]; type(code); sortableType(code); currency[default = false]; localized[default = false]; multiValue[default = false]; useForSpellchecking[default = false]; useForAutocomplete[default = false]; fieldValueProvider; valueProviderParameter; ftsQuery[default = false]; ftsQueryBoost;ftsWildcardQuery[default = false]
+; $solrIndexedType ; skuCode                 ; text  ;              ; ;      ;      ;      ; true ; productSkuCodeProvider                   ;    ; true  ;  100;true

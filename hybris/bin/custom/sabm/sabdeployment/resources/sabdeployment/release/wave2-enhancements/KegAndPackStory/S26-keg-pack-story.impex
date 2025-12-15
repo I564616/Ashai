@@ -1,0 +1,13 @@
+INSERT_UPDATE sabmDeliveryModeMapping;mode[unique=true];method(code);description
+;1;CUB_DELIVERY;Arranged
+;2;CUSTOMER_DELIVERY;Will Call
+;3;CUSTOMER_DELIVERY;Rail Will Call - Qlink
+;5;CUB_DELIVERY;Regional Arranged/Sydney Metro Pack Arranged
+;6;CUB_DELIVERY;Regional Arranged
+;8;;Transfer - Road
+;11;CUB_DELIVERY;Arranged Delivery NT/Arranged Delivery via Cardiff Cross-dock
+;12;;??
+;13;CUSTOMER_DELIVERY;Rail Will Call - Toll Intermodal
+;16;CUSTOMER_DELIVERY;Ship - Will Call
+;18;;??
+;24;;Duotank Delivery

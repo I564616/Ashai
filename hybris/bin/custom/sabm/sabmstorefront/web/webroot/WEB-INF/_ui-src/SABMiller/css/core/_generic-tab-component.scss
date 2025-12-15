@@ -1,0 +1,161 @@
+// ==========================================================================
+//  Generic Tab Component
+// ==========================================================================
+.tabComponent{
+	margin: $spacing-unit-base*3 0;
+
+	@media(max-width:$tablet){
+		border: 1px solid $medium-grey;
+		box-shadow: 0 0 8px -5px #666;
+	}
+
+	> ul#pills-tab{
+
+		li.nav-item{
+			border: 1px solid $medium-grey;
+			background: $light-lighter-grey;
+			
+			a.nav-link{
+				border-radius: 0;
+				background: none;
+    		    color: $lighter-dark-grey;
+				padding: $spacing-unit-base 0;
+				font-weight: 500;
+				font-size: $font-medium-x;
+				
+				@media(max-width: $tablet){
+					padding: $spacing-unit-base;			
+				}
+			}
+
+			& + li {
+				@media (min-width: $mobile-max) {
+        		  border-left: none;
+        		}
+			}
+
+			&:hover{
+				background: $light-grey;
+			}
+
+			&.active{
+				background: $white;
+				border-bottom: 5px solid #37c478 !important;
+
+				a.nav-link{
+					color: $primary-blue;
+				}
+			}
+			
+			@media(max-width:$tablet){
+				border: none;
+				border-bottom: 1px solid $medium-grey;
+				border-right: 1px solid $medium-grey;
+				
+				&:last-child{
+					border-right: none;
+				}
+			}	
+			
+		}
+
+		@media(max-width: $tablet){
+			li.nav-item{
+				display: inline-block;
+			}
+
+			&.tab-count-2 li.nav-item{
+				width: 50%;
+			}
+
+			&.tab-count-3 li.nav-item{
+				width: 33.33%;
+			}
+
+			&.tab-count-4 li.nav-item{
+				width: 25%;
+			}
+		}
+		
+		/*
+		@media(max-width: $mobile-480){
+			li.nav-item{
+				width: 100% !important;
+				border-right: 1px solid $lighter-dark-grey !important;
+				border-bottom: none;
+
+				&:last-child{
+					border-bottom: 1px solid $lighter-dark-grey;
+				}
+			}
+		} */
+
+	}
+}
+
+#pills-tabContent{
+	padding: 0 $spacing-unit-base*2;
+
+	@media(max-width:$tablet){
+		padding: 0;
+	}	
+
+	.row.row-eq-height{
+		display: flex;
+		margin: 0;
+
+		&:last-child .tab-details{
+			border-bottom: none;
+		}
+
+		@media(max-width:$tablet){
+			border-bottom: 1px solid $medium-grey;
+			
+			&:last-child{
+				border-bottom: none;
+			}
+		}	
+	}
+
+	.img-icon{
+		display: inline-block;
+		margin: auto;
+		text-align: center;
+	}
+
+	.tab-details{
+		border-bottom: 1px solid #f0f0f0;
+		padding: $spacing-unit-base*1 0;
+		
+		@media(max-width:$tablet){
+			border-bottom: none;
+			padding-right: $spacing-unit-base;
+		}	
+		
+		
+
+		.item-name{
+			color: $primary-blue;
+			font-weight: 500;
+			font-size: $font-medium;
+			
+			@media(max-width: $tablet){
+				color: $dark-grey;
+			}
+		}
+
+		.sub-text{
+			color: $lighter-dark-grey;
+			font-weight: 300;
+			margin: 0;
+
+			@media(max-width: $tablet){
+				font-weight: 400;
+				font-style: italic;
+				line-height: 1.5em;
+			}
+		}
+	}
+	
+	
+}

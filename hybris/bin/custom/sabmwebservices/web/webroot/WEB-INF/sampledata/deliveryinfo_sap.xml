@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<n0:DeliveryInformation xmlns:n0="http://sap.com/xi/SAPGlobal20/Global"
+	xmlns:prx="urn:sap.com:proxy:GC7:/1SAI/TAS35533BFF46A9C3B928F4:701:2013/05/24"
+	xmlns:n1="urn:gl.sabmiller.com:com:secdist:ecc:transdata">
+	<MessageHeader>
+		<ID>567A4F7F773020C0E10080000AF8CA28</ID>
+		<CreationDateTime>2016-01-04T22:47:32.272Z</CreationDateTime>
+		<SenderBusinessSystemID>ECC_GL_DEV_REL</SenderBusinessSystemID>
+		<RecipientParty>
+			<InternalID>HYBRIS</InternalID>
+		</RecipientParty>
+	</MessageHeader>
+	<Delivery actionCode="01">
+		<ID>3000296384</ID>
+		<VendorID>GGUTURA</VendorID>
+		<TypeCode>73</TypeCode>
+		<CreationDateTime timeZoneCode="UTC+1">2016-01-04T22:45:58Z</CreationDateTime>
+		<BlockedIndicator>false</BlockedIndicator>
+		<ReturnsIndicator>false</ReturnsIndicator>
+		<ProductRecipientParty>
+			<InternalID>0000844820</InternalID>
+		</ProductRecipientParty>
+		<ShipFromLocation>
+			<InternalID>7A16</InternalID>
+		</ShipFromLocation>
+		<ShipToLocation>
+			<UnloadingLocation>
+				<InternalID>PUB</InternalID>
+			</UnloadingLocation>
+		</ShipToLocation>
+		<PlannedExecution>
+			<IssuePeriod>
+				<StartDateTime timeZoneCode="UTC+11"
+					daylightSavingTimeIndicator="true">2016-01-04T13:00:00Z</StartDateTime>
+			</IssuePeriod>
+			<CarrierHandoverPeriod>
+				<StartDateTime timeZoneCode="UTC+11"
+					daylightSavingTimeIndicator="true">2016-01-04T13:00:00Z</StartDateTime>
+			</CarrierHandoverPeriod>
+			<ArrivalPeriod>
+				<StartDateTime timeZoneCode="UTC+11"
+					daylightSavingTimeIndicator="true">2016-01-04T21:30:00Z</StartDateTime>
+			</ArrivalPeriod>
+		</PlannedExecution>
+		<ActualExecution>
+			<PickingStatusCode>1</PickingStatusCode>
+			<IssueStatusCode>1</IssueStatusCode>
+		</ActualExecution>
+		<GrossWeightMeasure unitCode="KGM">75.0</GrossWeightMeasure>
+		<NetWeightMeasure unitCode="KGM">75.0</NetWeightMeasure>
+		<GrossVolumeMeasure unitCode="MTQ">0.105</GrossVolumeMeasure>
+		<Item>
+			<ID>10</ID>
+			<TypeCode>14</TypeCode>
+			<VendorID>000000</VendorID>
+			<CreationDateTime timeZoneCode="UTC+1">2016-01-04T22:45:58Z</CreationDateTime>
+			<LastChangeDateTime timeZoneCode="UTC+1">2016-01-04T22:47:32Z</LastChangeDateTime>
+			<GoodsMovementTypeCode>601</GoodsMovementTypeCode>
+			<CompletedIndicator>false</CompletedIndicator>
+			<BlockedIndicator>false</BlockedIndicator>
+			<SalesOrderReference>
+				<ID>1000294661</ID>
+				<TypeCode>114</TypeCode>
+				<ItemID>10</ItemID>
+				<ItemTypeCode>28</ItemTypeCode>
+			</SalesOrderReference>
+			<Product>
+				<InternalID>000000000000089982</InternalID>
+				<TypeCode>1</TypeCode>
+				<Note>Victoria Bitter 12x375C</Note>
+			</Product>
+			<GrossWeightMeasure unitCode="KGM">0.0</GrossWeightMeasure>
+			<NetWeightMeasure unitCode="KGM">0.0</NetWeightMeasure>
+			<GrossVolumeMeasure unitCode="MTQ">0.0</GrossVolumeMeasure>
+			<Quantity unitCode="CT">0.0</Quantity>
+			<ActualExecution>
+				<PickingPeriod>
+					<StartDateTime timeZoneCode="UTC+11"
+						daylightSavingTimeIndicator="true">2016-01-04T13:00:00Z</StartDateTime>
+				</PickingPeriod>
+				<LoadingPeriod>
+					<StartDateTime timeZoneCode="UTC+11"
+						daylightSavingTimeIndicator="true">2016-01-04T13:00:00Z</StartDateTime>
+				</LoadingPeriod>
+				<IssuePeriod>
+					<StartDateTime timeZoneCode="UTC+11"
+						daylightSavingTimeIndicator="true">2016-01-04T13:00:00Z</StartDateTime>
+				</IssuePeriod>
+				<PickingStatusCode>1</PickingStatusCode>
+				<IssueStatusCode>1</IssueStatusCode>
+			</ActualExecution>
+		</Item>
+		<Item>
+			<ID>900001</ID>
+			<TypeCode>14</TypeCode>
+			<VendorID>000000</VendorID>
+			<CreationDateTime timeZoneCode="UTC+1">2016-01-04T22:46:40Z</CreationDateTime>
+			<LastChangeDateTime timeZoneCode="UTC+1">2016-01-04T22:47:32Z</LastChangeDateTime>
+			<HierarchyRelationship>
+				<TypeCode>008</TypeCode>
+				<ParentItemID>000010</ParentItemID>
+			</HierarchyRelationship>
+			<GoodsMovementTypeCode>601</GoodsMovementTypeCode>
+			<CompletedIndicator>false</CompletedIndicator>
+			<BlockedIndicator>false</BlockedIndicator>
+			<SalesOrderReference>
+				<ID>1000294661</ID>
+				<TypeCode>114</TypeCode>
+				<ItemID>10</ItemID>
+				<ItemTypeCode>28</ItemTypeCode>
+			</SalesOrderReference>
+			<Product>
+				<InternalID>000000000000089982</InternalID>
+				<TypeCode>1</TypeCode>
+				<Note>Victoria Bitter 12x375C</Note>
+			</Product>
+			<Batch>
+				<InternalID>0000005003</InternalID>
+			</Batch>
+			<GrossWeightMeasure unitCode="KGM">50.0</GrossWeightMeasure>
+			<NetWeightMeasure unitCode="KGM">50.0</NetWeightMeasure>
+			<GrossVolumeMeasure unitCode="MTQ">0.07</GrossVolumeMeasure>
+			<Quantity unitCode="CT">10.0</Quantity>
+			<ActualExecution>
+				<PickingPeriod>
+					<StartDateTime timeZoneCode="UTC+11"
+						daylightSavingTimeIndicator="true">2016-01-04T13:00:00Z</StartDateTime>
+				</PickingPeriod>
+				<LoadingPeriod>
+					<StartDateTime timeZoneCode="UTC+11"
+						daylightSavingTimeIndicator="true">2016-01-04T13:00:00Z</StartDateTime>
+				</LoadingPeriod>
+				<IssuePeriod>
+					<StartDateTime timeZoneCode="UTC+11"
+						daylightSavingTimeIndicator="true">2016-01-04T13:00:00Z</StartDateTime>
+				</IssuePeriod>
+				<PickingStatusCode>1</PickingStatusCode>
+				<IssueStatusCode>1</IssueStatusCode>
+			</ActualExecution>
+		</Item>
+		<Item>
+			<ID>900002</ID>
+			<TypeCode>14</TypeCode>
+			<VendorID>000000</VendorID>
+			<CreationDateTime timeZoneCode="UTC+1">2016-01-04T22:46:50Z</CreationDateTime>
+			<LastChangeDateTime timeZoneCode="UTC+1">2016-01-04T22:47:32Z</LastChangeDateTime>
+			<HierarchyRelationship>
+				<TypeCode>008</TypeCode>
+				<ParentItemID>000010</ParentItemID>
+			</HierarchyRelationship>
+			<GoodsMovementTypeCode>601</GoodsMovementTypeCode>
+			<CompletedIndicator>false</CompletedIndicator>
+			<BlockedIndicator>false</BlockedIndicator>
+			<SalesOrderReference>
+				<ID>1000294661</ID>
+				<TypeCode>114</TypeCode>
+				<ItemID>10</ItemID>
+				<ItemTypeCode>28</ItemTypeCode>
+			</SalesOrderReference>
+			<Product>
+				<InternalID>000000000000089982</InternalID>
+				<TypeCode>1</TypeCode>
+				<Note>Victoria Bitter 12x375C</Note>
+			</Product>
+			<Batch>
+				<InternalID>0000005002</InternalID>
+			</Batch>
+			<GrossWeightMeasure unitCode="KGM">25.0</GrossWeightMeasure>
+			<NetWeightMeasure unitCode="KGM">25.0</NetWeightMeasure>
+			<GrossVolumeMeasure unitCode="MTQ">0.035</GrossVolumeMeasure>
+			<Quantity unitCode="CT">5.0</Quantity>
+			<ActualExecution>
+				<PickingPeriod>
+					<StartDateTime timeZoneCode="UTC+11"
+						daylightSavingTimeIndicator="true">2016-01-04T13:00:00Z</StartDateTime>
+				</PickingPeriod>
+				<LoadingPeriod>
+					<StartDateTime timeZoneCode="UTC+11"
+						daylightSavingTimeIndicator="true">2016-01-04T13:00:00Z</StartDateTime>
+				</LoadingPeriod>
+				<IssuePeriod>
+					<StartDateTime timeZoneCode="UTC+11"
+						daylightSavingTimeIndicator="true">2016-01-04T13:00:00Z</StartDateTime>
+				</IssuePeriod>
+				<PickingStatusCode>1</PickingStatusCode>
+				<IssueStatusCode>1</IssueStatusCode>
+			</ActualExecution>
+		</Item>
+	</Delivery>
+</n0:DeliveryInformation>

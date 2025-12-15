@@ -1,0 +1,341 @@
+---
+title: Deals
+bodyClass: bd-deals
+layout: templates/layouts/layout-portal.hbs
+---
+
+{{> dealsJSON}}
+
+{{> breadcrumbs}}
+
+{{> navigation}}
+
+<div class="row" ng-controller="dealsCtrl">
+    <div class="col-md-9">
+        <h1 class="h1">Deals for 12332211 - Thirsty Camel - 25 Hight Street, Thornbury, 3102</h1>
+        <p>Please select the deals you would like to activate. Remember to confirm your changes when finished.</p>
+
+        <hr class="hr-1">
+
+        <div class="row">
+            <div class="col-xs-12 col-md-4 col-md-offset-8">
+                <button class="btn btn-primary btn-large">Confirm your changes</button>
+            </div>
+        </div>
+
+        <div class="deal-items">
+        <div class="deal">
+            <div class="row deal-item-head">
+                <div class="col-xs-12">
+                    <h2>Buy a minimum of <b>10 cases BR Pure Blonde CAN 375ML 4x6 Z</b> to receive <b>$10 off</b></h2>
+                </div>
+                <div class="col-xs-12">
+                    <div class="row last-chance">
+                        <div class="col-xs-12 col-sm-9 deal-daterange">
+                            <div class="na-label small-text">Now Available</div>
+                            <span>Valid from 12/12/2015 to 31/12/2016</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-2">
+                        </div>
+                        <div class="col-xs-3 item-toggle text-right visible-sm-block visible-md-block visible-lg-block">
+                            <span class="inline">Hide details</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row deal-item-body">
+                <div class="col-xs-12">
+                        <!-- Base Product -->
+                        <div class="col-xs-12 base-item">
+                            <div class="row item">
+                                <div class="col-xs-2 visible-sm-block visible-md-block visible-lg-block">
+                                    <a href="#"><img src="https://placehold.it/200?text" alt="Placeholder Image"></a>
+                                </div>
+                                <div class="col-sm-5">
+                                        <h4 class="clamp-2">BR Pure Blonde</h4>
+                                        <div class="h4 h4-subheader clamp-1">4 x 6 x 345mL Cans</div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="item-qty clearfix">
+                                        <ul class="select-quantity select-quantity-fixed">
+                                            <li class="down disabled">
+                                                <svg class="icon-minus">
+                                                    <use xlink:href="#icon-minus"></use>    
+                                                </svg>
+                                            </li>
+                                            <li><input class="qty-input" type="tel" maxlength="3" pattern="\d*"></li>
+                                            <li class="up">
+                                                <svg class="icon-plus">
+                                                    <use xlink:href="#icon-plus"></use>    
+                                                </svg>
+                                            </li>
+                                        </ul>
+                                        <div class="item-uom">Cases</div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+
+            <div class="row deal-cta">
+                <div class="col-sm-5 col-sm-offset-7 text-right">
+                    <div ng-show="!deal.active">Click to activate deal</div>
+                    <input type="checkbox" ng-model="deal.active" class="js-switch" ui-switch="{color: '#01B04F', secondaryColor: '#B6B6B6'}" />
+                </div>
+            </div>
+        </div>
+
+
+        <div class="deal">
+            <div class="row deal-item-head">
+                <div class="col-xs-12">
+                    <h2>Buy a minimum of <b>10 cases BR Pure Blonde CAN 375ML 4x6 Z</b> to receive <b>$10 off</b></h2>
+                </div>
+                <div class="col-xs-12">
+                    <div class="row last-chance">
+                        <div class="col-xs-12 col-sm-9 deal-daterange">
+                            <span>Valid from 12/12/2015 to 31/12/2016</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-2">
+                        </div>
+                        <div class="col-xs-3 item-toggle text-right visible-sm-block visible-md-block visible-lg-block">
+                            <span class="inline">Hide details</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row deal-item-body">
+                <div class="col-xs-12">
+                        <!-- Base Product -->
+                        <div class="col-xs-12 base-item">
+                            <div class="row item">
+                                <div class="col-xs-2 visible-sm-block visible-md-block visible-lg-block">
+                                    <a href="#"><img src="https://placehold.it/200?text" alt="Placeholder Image"></a>
+                                </div>
+                                <div class="col-sm-5">
+                                        <h4 class="clamp-2">BR Pure Blonde</h4>
+                                        <div class="h4 h4-subheader clamp-1">4 x 6 x 345mL Cans</div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="item-qty clearfix">
+                                        <ul class="select-quantity select-quantity-fixed">
+                                            <li class="down disabled">
+                                                <svg class="icon-minus">
+                                                    <use xlink:href="#icon-minus"></use>    
+                                                </svg>
+                                            </li>
+                                            <li><input class="qty-input" type="tel" maxlength="3" pattern="\d*"></li>
+                                            <li class="up">
+                                                <svg class="icon-plus">
+                                                    <use xlink:href="#icon-plus"></use>    
+                                                </svg>
+                                            </li>
+                                        </ul>
+                                        <div class="item-uom">Cases</div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Free Product -->
+                        <div class="col-xs-12 free">
+                            <div class="row item">
+                                <div class="col-xs-2 visible-sm-block visible-md-block visible-lg-block">
+                                    <a href="#"><img src="https://placehold.it/200?text" alt="Placeholder Image"></a>
+                                </div>
+                                <div class="col-xs-8 col-sm-5">
+                                        <h4>BR Pure Blonde</h4>
+                                        <div class="h4 h4-subheader">4 x 6 x 345mL Cans</div>
+                                </div>
+                                <div class="col-xs-4 col-sm-4">
+                                    <div class="item-qty clearfix">
+                                        <div class="num-free"><span>1 </span><span class="item-uom">Case</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 free">
+                            <div class="row item">
+                                <div class="col-xs-2 visible-sm-block visible-md-block visible-lg-block">
+                                    <a href="#"><img src="https://placehold.it/200?text" alt="Placeholder Image"></a>
+                                </div>
+                                <div class="col-xs-8 col-sm-5">
+                                        <h4>BR Pure Blonde</h4>
+                                        <div class="h4 h4-subheader">4 x 6 x 345mL Cans</div>
+                                </div>
+                                <div class="col-xs-4 col-sm-4">
+                                    <div class="item-qty clearfix">
+                                        <div class="num-free"><span>1 </span><span class="item-uom">Case</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 free">
+                            <div class="row item">
+                                <div class="col-xs-2 visible-sm-block visible-md-block visible-lg-block">
+                                    <a href="#"><img src="https://placehold.it/200?text" alt="Placeholder Image"></a>
+                                </div>
+                                <div class="col-xs-8 col-sm-5">
+                                        <h4>BR Pure Blonde</h4>
+                                        <div class="h4 h4-subheader">4 x 6 x 345mL Cans</div>
+                                </div>
+                                <div class="col-xs-4 col-sm-4">
+                                    <div class="item-qty clearfix">
+                                        <div class="num-free"><span>1 </span><span class="item-uom">Case</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                </div>
+
+            </div>
+
+            <div class="row deal-cta">
+                <div class="col-sm-5 col-sm-offset-7 text-right">
+                    <div ng-show="!deal.active">Click to activate deal</div>
+                    <input type="checkbox" ng-model="deal.active" class="js-switch" ui-switch="{color: '#01B04F', secondaryColor: '#B6B6B6'}" />
+                </div>
+            </div>
+        </div>
+
+
+        <div class="deal">
+            <div class="row deal-item-head">
+                <div class="col-xs-12">
+                    <h2>Buy a minimum of <b>10 cases BR Pure Blonde CAN 375ML 4x6 Z</b> to receive <b>$10 off</b></h2>
+                </div>
+                <div class="col-xs-12">
+                    <div class="row last-chance">
+                        <div class="col-xs-12 col-sm-9 deal-daterange">
+                            <div class="na-label small-text">Now Available</div>
+                            <span>Valid from 12/12/2015 to 31/12/2016</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-2">
+                        </div>
+                        <div class="col-xs-3 item-toggle text-right visible-sm-block visible-md-block visible-lg-block">
+                            <span class="inline">Hide details</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row deal-item-body">
+                <div class="col-xs-12">
+                        <!-- Base Product -->
+                        <div class="col-xs-12 base-item">
+                            <div class="row item">
+                                <div class="col-xs-2 visible-sm-block visible-md-block visible-lg-block">
+                                    <a href="#"><img src="https://placehold.it/200?text" alt="Placeholder Image"></a>
+                                </div>
+                                <div class="col-sm-5">
+                                        <h4 class="clamp-2">BR Pure Blonde</h4>
+                                        <div class="h4 h4-subheader clamp-1">4 x 6 x 345mL Cans</div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="item-qty clearfix">
+                                        <ul class="select-quantity select-quantity-fixed">
+                                            <li class="down disabled">
+                                                <svg class="icon-minus">
+                                                    <use xlink:href="#icon-minus"></use>    
+                                                </svg>
+                                            </li>
+                                            <li><input class="qty-input" type="tel" maxlength="3" pattern="\d*"></li>
+                                            <li class="up">
+                                                <svg class="icon-plus">
+                                                    <use xlink:href="#icon-plus"></use>    
+                                                </svg>
+                                            </li>
+                                        </ul>
+                                        <div class="item-uom">Cases</div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 base-item">
+                            <div class="row item">
+                                <div class="col-xs-2 visible-sm-block visible-md-block visible-lg-block">
+                                    <a href="#"><img src="https://placehold.it/200?text" alt="Placeholder Image"></a>
+                                </div>
+                                <div class="col-sm-5">
+                                        <h4 class="clamp-2">BR Pure Blonde</h4>
+                                        <div class="h4 h4-subheader clamp-1">4 x 6 x 345mL Cans</div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="item-qty clearfix">
+                                        <ul class="select-quantity select-quantity-fixed">
+                                            <li class="down disabled">
+                                                <svg class="icon-minus">
+                                                    <use xlink:href="#icon-minus"></use>    
+                                                </svg>
+                                            </li>
+                                            <li><input class="qty-input" type="tel" maxlength="3" pattern="\d*"></li>
+                                            <li class="up">
+                                                <svg class="icon-plus">
+                                                    <use xlink:href="#icon-plus"></use>    
+                                                </svg>
+                                            </li>
+                                        </ul>
+                                        <div class="item-uom">Cases</div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Free Product -->
+                        <div class="col-xs-12 free">
+                            <div class="row item">
+                                <div class="col-xs-2 visible-sm-block visible-md-block visible-lg-block">
+                                    <a href="#"><img src="https://placehold.it/200?text" alt="Placeholder Image"></a>
+                                </div>
+                                <div class="col-xs-8 col-sm-5">
+                                        <h4>BR Pure Blonde</h4>
+                                        <div class="h4 h4-subheader">4 x 6 x 345mL Cans</div>
+                                </div>
+                                <div class="col-xs-4 col-sm-4">
+                                    <div class="item-qty clearfix">
+                                        <div class="num-free"><span>1 </span><span class="item-uom">Case</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 free">
+                            <div class="row item">
+                                <div class="col-xs-2 visible-sm-block visible-md-block visible-lg-block">
+                                    <a href="#"><img src="https://placehold.it/200?text" alt="Placeholder Image"></a>
+                                </div>
+                                <div class="col-xs-8 col-sm-5">
+                                        <h4>BR Pure Blonde</h4>
+                                        <div class="h4 h4-subheader">4 x 6 x 345mL Cans</div>
+                                </div>
+                                <div class="col-xs-4 col-sm-4">
+                                    <div class="item-qty clearfix">
+                                        <div class="num-free"><span>1 </span><span class="item-uom">Case</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                </div>
+
+            </div>
+
+            <div class="row deal-cta">
+                <div class="col-sm-5 col-sm-offset-7 text-right">
+                    <div ng-show="!deal.active">Click to activate deal</div>
+                    <input type="checkbox" ng-model="deal.active" class="js-switch" ui-switch="{color: '#01B04F', secondaryColor: '#B6B6B6'}" />
+                </div>
+            </div>
+        </div>
+        </div>
+
+
+
+    </div>
+</div>
+

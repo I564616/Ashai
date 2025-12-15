@@ -1,0 +1,62 @@
+﻿<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="SalesOrderCreateRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="SalesOrderReqHeader">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="SalesOrderType" minOccurs="1"/>
+              <xs:element type="xs:string" name="SalesOrganisation" minOccurs="1"/>
+              <xs:element type="xs:string" name="DistributionChannel" minOccurs="1"/>
+              <xs:element type="xs:string" name="Division" minOccurs="1"/>
+              <xs:element type="xs:string" name="PONumber" minOccurs="1"/>
+              <xs:element type="xs:string" name="POOrderType" minOccurs="1"/>
+              <xs:element type="xs:string" name="RequestedDeliveryDate" minOccurs="0"/>
+              <xs:element type="xs:string" name="Currency" minOccurs="0"/>
+              <xs:element type="xs:string" name="CCPaymentFlag" minOccurs="0"/>
+		      <xs:element type="xs:string" name="ShippingCondition" minOccurs="0"/>
+	        </xs:sequence>
+	       </xs:complexType>
+	    </xs:element>
+ 	 	<xs:element name="DealCondition" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+                <xs:element type="xs:string" name="DealConditionNumber" minOccurs="0"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="SalesOrderReqPartner">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="SoldTo" minOccurs="1"/>
+              <xs:element type="xs:string" name="ShipTo" minOccurs="1"/>
+              <xs:element type="xs:string" name="Carrier" minOccurs="1"/>
+              <xs:element type="xs:string" name="UnloadingPoint" minOccurs="1"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="FreeText" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="TextID" minOccurs="0"/>
+              <xs:element type="xs:string" name="TextLine" minOccurs="0"/>
+              <xs:element type="xs:string" name="Language" minOccurs="0"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="SalesOrderReqItem" minOccurs="0" maxOccurs="unbounded" >
+          <xs:complexType>
+            <xs:sequence>
+	      <xs:element type="xs:string" name="LineItemNumber" minOccurs="1"/>
+              <xs:element type="xs:string" name="MaterialNumber" minOccurs="1"/>
+              <xs:element type="xs:string" name="Quantity" minOccurs="1"/>
+              <xs:element type="xs:string" name="UnitOfMeasure" minOccurs="1"/>
+              <xs:element type="xs:string" name="MPACode" minOccurs="0"/>
+	      <xs:element type="xs:string" name="GrossPrice" minOccurs="0"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

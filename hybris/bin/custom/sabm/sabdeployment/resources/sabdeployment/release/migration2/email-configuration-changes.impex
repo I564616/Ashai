@@ -1,0 +1,61 @@
+$contentCatalog=sabmContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$lang=en
+
+##Updating fromEmail domain (from cub.com.au to globalasahi.com )
+
+UPDATE EmailPage;$contentCV[unique=true];uid[unique=true];fromEmail[lang=$lang]
+
+;;BusinessEnquiryEmail;no-reply-online@oc.globalasahi.com
+;;ConfirmEnabledDealEmail;no-reply-online@oc.globalasahi.com
+;;CustomerRegistrationEmail;no-reply-online@oc.globalasahi.com
+;;DealNotificationEmail;no-reply-online@oc.globalasahi.com
+;;ForgottenPasswordEmail;no-reply-online@oc.globalasahi.com
+;;OrderConfirmationEmail;no-reply-online@oc.globalasahi.com 
+;;OrderCutoffNotificationEmail;no-reply-online@oc.globalasahi.com
+;;OrderDeliveredNotificationEmail;no-reply-online@oc.globalasahi.com
+;;OrderDispatchNotificationEmail;no-reply-online@oc.globalasahi.com
+;;OrderNextInQueueDeliveryNotificationEmail;no-reply-online@oc.globalasahi.com
+;;OrderUnableToDeliverNotificationEmail;no-reply-online@oc.globalasahi.com
+;;PaymentConfirmationEmail;no-reply-online@oc.globalasahi.com
+;;ProfileUpdatedNoticeEmail;no-reply-online@oc.globalasahi.com
+;;TrackOrderETAChangesNotificationEmail;no-reply-online@oc.globalasahi.com
+;;TrackOrderETANotificationEmail;no-reply-online@oc.globalasahi.com
+;;TrackOrderTimePassesETANotificationEmail;no-reply-online@oc.globalasahi.com
+;;CustomerWelcomeEmail;Online@oc.globalasahi.com
+
+
+$contentCatalog=sabmContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Online])[default=$contentCatalog:Online]
+$lang=en
+
+##Updating fromEmail domain (from cub.com.au to globalasahi.com )
+
+UPDATE EmailPage;$contentCV[unique=true];uid[unique=true];fromEmail[lang=$lang]
+
+;;BusinessEnquiryEmail;no-reply-online@oc.globalasahi.com
+;;ConfirmEnabledDealEmail;no-reply-online@oc.globalasahi.com
+;;CustomerRegistrationEmail;no-reply-online@oc.globalasahi.com
+;;DealNotificationEmail;no-reply-online@oc.globalasahi.com
+;;ForgottenPasswordEmail;no-reply-online@oc.globalasahi.com
+;;OrderConfirmationEmail;no-reply-online@oc.globalasahi.com 
+;;OrderCutoffNotificationEmail;no-reply-online@oc.globalasahi.com
+;;OrderDeliveredNotificationEmail;no-reply-online@oc.globalasahi.com
+;;OrderDispatchNotificationEmail;no-reply-online@oc.globalasahi.com
+;;OrderNextInQueueDeliveryNotificationEmail;no-reply-online@oc.globalasahi.com
+;;OrderUnableToDeliverNotificationEmail;no-reply-online@oc.globalasahi.com
+;;PaymentConfirmationEmail;no-reply-online@oc.globalasahi.com
+;;ProfileUpdatedNoticeEmail;no-reply-online@oc.globalasahi.com
+;;TrackOrderETAChangesNotificationEmail;no-reply-online@oc.globalasahi.com
+;;TrackOrderETANotificationEmail;no-reply-online@oc.globalasahi.com
+;;TrackOrderTimePassesETANotificationEmail;no-reply-online@oc.globalasahi.com
+;;CustomerWelcomeEmail;Online@oc.globalasahi.com
+
+
+UPDATE SABMBDEEmailExportCronJob;code[unique=true];emailFrom
+;ExportBDEOrdersCronJob;report@oc.globalasahi.com
+
+UPDATE SABMEmailExportCronJob;code[unique=true];emailFrom
+;sabmTrackOrderReportExportJob;report@oc.globalasahi.com
+;sabmRecommendationExportJob;report@oc.globalasahi.com  
+;exportCustomerCronJob;OnlineCustomerReport2@oc.globalasahi.com

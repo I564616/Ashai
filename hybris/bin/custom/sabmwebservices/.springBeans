@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beansProjectDescription>
+	<version>1</version>
+	<pluginVersion><![CDATA[3.8.4.201703310634-RELEASE]]></pluginVersion>
+	<configSuffixes>
+		<configSuffix><![CDATA[xml]]></configSuffix>
+	</configSuffixes>
+	<enableImports><![CDATA[true]]></enableImports>
+	<configs>
+		<config>resources/sabmwebservices-spring.xml</config>
+		<config>web/webroot/WEB-INF/sabmwebservices-web-spring.xml</config>
+		<config>resources/integration/deliverycreation/spring/all.xml</config>
+		<config>resources/integration/deliverycreation/spring/integration.xml</config>
+		<config>resources/integration/deliverycreation/spring/spring.xml</config>
+		<config>resources/integration/deliverycreation/spring/xsd-validate.xml</config>
+		<config>resources/integration/deliverydispatch/spring/all.xml</config>
+		<config>resources/integration/deliverydispatch/spring/integration.xml</config>
+		<config>resources/integration/deliverydispatch/spring/spring.xml</config>
+		<config>resources/integration/deliverydispatch/spring/xsd-validate.xml</config>
+		<config>resources/integration/customer/spring/integration-validate-customer.xml</config>
+		<config>resources/integration/product/spring/integration-validate-product.xml</config>
+		<config>resources/integration/salesorder/spring/all.xml</config>
+		<config>resources/integration/salesorder/spring/integration.xml</config>
+		<config>resources/integration/salesorder/spring/spring.xml</config>
+		<config>resources/integration/salesorder/spring/xsd-validate.xml</config>
+		<config>resources/integration/complexdeals/spring/all.xml</config>
+		<config>resources/integration/complexdeals/spring/integration-validate-complex-deals.xml</config>
+		<config>resources/integration/complexdeals/spring/integration.xml</config>
+		<config>resources/integration/complexdeals/spring/spring.xml</config>
+		<config>resources/integration/trackorders/spring/all.xml</config>
+		<config>resources/integration/trackorders/spring/integration.xml</config>
+		<config>resources/integration/trackorders/spring/spring.xml</config>
+		<config>resources/integration/trackorders/spring/xsd-validate.xml</config>
+	</configs>
+	<autoconfigs>
+	</autoconfigs>
+	<configSets>
+	</configSets>
+</beansProjectDescription>

@@ -1,0 +1,85 @@
+@font-face {
+	font-family: "Pluto";
+	src: url("./fonts/PlutoCondRegular.otf");
+}
+
+@font-face {
+	font-family: "Pluto";
+	src: url("./fonts/PlutoCondBold.otf");
+	font-weight: bold;
+}
+
+@font-face {
+	font-family: "Pluto";
+	src: url("./fonts/PlutoCondBold.otf");
+	font-weight: 700;
+}
+
+body{
+    font-family: "Pluto", "Open Sans", Helvetica, sans-serif;
+    color:#42515a;
+}
+ul{
+    margin-left:0;
+}
+ul li{
+    list-style:none;
+}
+form{
+ margin-bottom:0;
+}
+.alert {
+    border:none;
+    padding-left:0;
+    margin-left:0;
+    margin-bottom:0;
+      padding-top:0;
+    padding-bottom:0;
+    /*display:none !important;*/
+    text-shadow:none;
+}
+
+.alert-error {
+    color: #b94a48;
+    background: none;
+
+}
+.alert-error h4{
+    display:none;
+    margin-bottom:0;
+}
+.push4{
+    padding-left:0 !important;
+}
+input[type="text"],input[type="tel"] {
+    border:1px solid #42515a;
+    border-radius:0 !important;
+}
+.control-label{
+    font-weight:bold;
+    font-family: "Pluto", "Open Sans", Helvetica, sans-serif;
+}
+body.v2 #payment_request_expiry_date{
+    width:230px;
+}
+@media only screen and (max-width: 767px) {
+    body.v2 #payment_request_expiry_date{
+        width:220px;
+    }
+}
+input[type="text"]:focus,input[type="tel"]:focus,input:focus:invalid:focus{
+    box-shadow: 0 0 7px #f99d32 !important;
+    border-color:#42515a;
+}
+.control-group{
+    margin-bottom:3px; 
+}
+.control-group:last-child{
+    margin-bottom:0; 
+}
+fieldset{
+    padding-left:0;
+    padding-bottom:0;
+    padding-right:0;
+}
+ 

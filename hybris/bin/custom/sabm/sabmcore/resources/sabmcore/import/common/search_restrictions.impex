@@ -1,0 +1,83 @@
+INSERT_UPDATE SearchRestriction;code[unique=true];principal(UID);restrictedType(code)[unique=true];active;generate;query
+;Frontend_ProductExclusionRestriction;b2bgroup;SABMAlcoholVariantProductEAN;true;true;"NOT EXISTS ({{SELECT 1 from {SABMAlcoholVariantProductMaterial as m join ProductExclusion as pe on {pe.product}={m.code} } WHERE {pe.customer}=(?session.session.attr.b2bUnit) AND {m.baseProduct}={item.pk} AND {pe.validFrom}<(?session.session_delivery_date) AND {pe.validTo}>(?session.session_delivery_date)}})"
+
+;Frontend_ProductPrimaryImage;customergroup;SABMAlcoholVariantProductEAN;true;true;"{item.picture} is not null"
+;Frontend_ProductPrimaryImage;customergroup;SABMAlcoholVariantProductMaterial;true;true;"1=1"
+
+;Frontend_ProductViewableRestriction;b2bgroup;SABMAlcoholVariantProductEAN;true;true;"{lifecycleStatus} in ({{select {l:pk} from {LifecycleStatusType AS l} WHERE {l:code} in ('PREVIEW','LIVE','OBSOLETE')}}) and {sapAvailabilityStatus} in ({{select {s:pk} from {SAPAvailabilityStatus AS s} WHERE {s:code} in ('X6','X7')}})"
+;Frontend_ProductViewableRestriction;b2bgroup;SABMAlcoholVariantProductMaterial;true;true;"1=1"
+
+;BDE_Frontend_ProductViewableRestriction;bdegroup;SABMAlcoholVariantProductEAN;true;true;"{lifecycleStatus} in ({{select {l:pk} from {LifecycleStatusType AS l} WHERE {l:code} in ('PREVIEW','LIVE','OBSOLETE')}}) and {sapAvailabilityStatus} in ({{select {s:pk} from {SAPAvailabilityStatus AS s} WHERE {s:code} in ('X6','X7')}})"
+;BDE_Frontend_ProductViewableRestriction;bdegroup;SABMAlcoholVariantProductMaterial;true;true;"1=1"
+
+;Frontend_DealsProductExclusionRestriction;b2bgroup;Deal;true;true;"NOT EXISTS (
+	{{
+		SELECT 1 FROM {DealConditionGroup as dcg LEFT JOIN FreeGoodsDealBenefit as fg on {fg.dealConditionGroup}={dcg.pk}} WHERE EXISTS 
+		(
+			{{
+				SELECT 1 FROM {ProductExclusion as pe} WHERE {pe.product}={fg.productCode} AND {pe.customer}=(?session.session.attr.b2bUnit) AND {pe.validFrom}<(?session.session_delivery_date) AND {pe.validTo}>(?session.session_delivery_date)
+			}}
+		) AND {item.conditionGroup}={dcg.pk}
+	}}
+) AND NOT EXISTS (
+	{{
+		SELECT 1 FROM {DealConditionGroup as dcg LEFT JOIN ProductDealCondition as pdc on {pdc.dealConditionGroup}={dcg.pk}} WHERE EXISTS 
+		(
+			{{
+				SELECT 1 FROM {ProductExclusion as pe} WHERE {pe.product}={pdc.productCode} AND {pe.customer}=(?session.session.attr.b2bUnit) AND {pe.validFrom}<(?session.session_delivery_date) AND {pe.validTo}>(?session.session_delivery_date)
+			}}
+		) AND {item.conditionGroup}={dcg.pk}
+	}}
+)"
+
+;Frontend_DealsProductExists;b2bgroup;Deal;true;true;"NOT EXISTS (
+	{{
+		SELECT 1 FROM {DealConditionGroup as dcg JOIN FreeGoodsDealBenefit as fg on {fg.dealConditionGroup}={dcg.pk}} WHERE NOT EXISTS 
+		(
+			{{
+				SELECT 1 FROM {SABMAlcoholVariantProductMaterial as p JOIN SABMAlcoholVariantProductEan! as ean on {p.baseProduct}={ean.pk}} WHERE {p.code}={fg.productCode}
+			}}
+		) AND {item.conditionGroup}={dcg.pk}
+	}}
+) AND NOT EXISTS (
+	{{
+		SELECT 1 FROM {DealConditionGroup as dcg JOIN ProductDealCondition as pdc on {pdc.dealConditionGroup}={dcg.pk}} WHERE {pdc:exclude} <> 1 AND NOT EXISTS 
+		(
+			{{
+				SELECT 1 FROM {SABMAlcoholVariantProductMaterial as p JOIN SABMAlcoholVariantProductEan! as ean on {p.baseProduct}={ean.pk}} WHERE {p.code}={pdc.productCode}
+			}}
+		) AND {item.conditionGroup}={dcg.pk}
+	}}
+)"
+
+;Frontend_PriceRows_SAPCallInProgress;b2bgroup;PriceRow;true;true;"EXISTS (
+	{{
+		SELECT 1  FROM {B2BUnit as b2bUnit} WHERE {b2bUnit.pk}=(?session.user.defaultb2bunit) 
+		AND {b2bUnit.cupCallStatus} NOT IN ({{ SELECT {s.pk} FROM {SapServiceCallStatus AS s} WHERE {s.code}= ('IN_PROGRESS')}})
+	}}
+)"
+
+;Frontend_Orders_DeletedUserOrder;b2bgroup;AbstractOrder;false;true;"NOT EXISTS (
+	{{
+		SELECT 1 FROM {B2BCustomer as bc JOIN PrincipalGroupRelation as pgr on {bc:pk} = {pgr:source} JOIN PrincipalGroup as pg on {pgr:target} = {pg:pk}
+		} WHERE {pg:uid} in ('deletedcustomergroup') AND {bc:pk}={item:user:pk}
+	}}
+)"
+
+;b2border_restriction;b2bgroup;Order;true;true;"({item:Unit} IN (?session.session.attr.b2bUnit) OR ({item:Unit} is NULL AND {item:User}=?session.user))"
+
+######################### START  SABMC-1110  #########################
+UPDATE SearchRestriction;code[unique=true];restrictedType(code)[unique=true];query
+;Backend_visibility;VariantProduct;{catalogVersion} IN ( ?session.catalogversions )
+######################### START  SABMC-1110  #########################
+
+###### START SABMC-1406 The BDE deal page ######
+INSERT_UPDATE SearchRestriction;code[unique=true];principal(UID);restrictedType(code)[unique=true];active;generate;query
+;BDE_ProductPrimaryImage;bdegroup;SABMAlcoholVariantProductEAN;true;true;"{item.picture} is not null"
+;BDE_ProductPrimaryImage;bdegroup;SABMAlcoholVariantProductMaterial;true;true;"1=1"
+###### END SABMC-1406 The BDE deal page ######
+
+UPDATE SearchRestriction;code[unique=true];active
+;branch_restriction;true
+;employee_restriction;true
+

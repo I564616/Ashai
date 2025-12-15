@@ -1,0 +1,148 @@
+.multi-checkboxes {
+    .checkbox {
+        margin-bottom: 15px;
+        label {
+            align-items: center;
+        }
+    }
+
+    .product-image {
+        width: 80px;
+        margin: 0 55px 0 35px;
+
+        @media (max-width: @screen-xs-max){
+                flex: 0 0 40px;
+                margin: 0 10px;
+        }
+        img {
+            width: 100%;
+        }
+    }
+
+    .label-text {
+        width: 100%;
+        align-self: flex-end;
+        text-transform: none;
+    }
+    button {
+        width: 100%;
+    }
+}
+
+// customize checkbox
+.form-group {
+    .customer-emails {
+        max-height: 120px;
+        overflow-y: auto;
+    }
+    input[type=checkbox] {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+    }
+    input[type=text] {
+        padding-left: 10px;
+    }
+    .checkmark {
+        height: 18px;
+        width: 18px;
+        flex: 0 0 18px;
+        border: 1px solid black;
+        position:relative;
+    }
+
+    /* Create the checkmark/indicator (hidden when not checked) */
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+    /* Style the checkmark/indicator */
+    .checkmark:after {
+        left: 6px;
+        top: 0;
+        width: 5px;
+        height: 12px;
+        border: solid black;
+        border-width: 0 2px 2px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+
+    /* Show the checkmark when checked */
+    input:checked ~ .checkmark:after {
+      display: block;
+    }
+
+    input:focus ~ .checkmark {
+      box-shadow: 0 0 7px #f99d32 !important;
+    }
+}
+
+.modal-body {
+    padding: 10px 30px;
+    label {
+        text-transform: none;
+        cursor: pointer;
+    }
+    input, button {
+        width: 100%;
+    }
+    textarea {
+        width: 96%;
+    }
+    input[type=text], .btn-primary{
+        height: 40px !important;
+    }
+    textarea {
+        min-height: 0;
+    }
+    p {
+        margin: 0 0 5px;
+    }
+    .checkmark:after {
+        top: 2PX;
+    }
+    .label-text {
+        font-weight: 400;
+        padding-left: 20px;
+    }
+}
+
+.recommendation-popup-close{
+  top: 20px;
+  right: 20px;
+  position: absolute;
+  img {
+    width: 25px;
+  }
+}
+
+.recommendation-popup-close{
+  top: 20px;
+  right: 20px;
+  position: absolute;
+  img {
+    width: 25px;
+  }
+}
+
+.recommendation-popup-container .modal-content {
+  cursor: auto;
+}
+
+.modal-dialog.recommendation-popup-container{
+  @media (min-width: @screen-sm) {
+    width: 675px;
+  }
+  @media (max-width: @screen-xs-max) {
+    width: 70%;
+  }
+  @media (max-width: @screen-xs) {
+    width: 80%;
+  }
+}

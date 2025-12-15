@@ -1,0 +1,41 @@
+// ==========================================================================
+//   Status class
+// ==========================================================================
+.status{
+	width:$status-size;
+	height:$status-size;
+	border-radius:$status-radius;
+	display:inline-block;
+	// margin-left: $status-margin;
+    margin-right: $status-margin;
+    line-height: $spacing-x-large;
+}
+
+.status-created{
+	background: $status-created;	
+}
+.status-processing{
+	background: $status-processing;	
+}
+.status-partially-dispatched{
+	background: $status-partially-dispatched;	
+}
+.status-dispatched{
+	background: $status-dispatched;	
+}
+.status-cancelled{
+	background: $status-cancelled;	
+}
+.status-returned{
+	background: $status-returned;	
+}
+.status-partiallydelivered{
+	background: $status-partiallyDelivered;
+}
+.status-notdelivered{
+	background: $status-notDelivered;
+}
+.status-intransit{
+	background: $status-inTransit;
+}
+

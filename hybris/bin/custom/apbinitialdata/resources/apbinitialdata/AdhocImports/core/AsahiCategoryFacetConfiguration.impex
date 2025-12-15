@@ -1,0 +1,32 @@
+
+$productCatalog=apbProductCatalog
+$productCatalogName=APB Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+
+$lang=en
+
+
+INSERT_UPDATE AsSearchProfileActivationSet;indexType[unique=true];$catalogVersion
+;apbProductType
+
+INSERT_UPDATE AsCategoryAwareSearchProfile;code[unique=true];name[lang=en];indexType[unique=true];$catalogVersion;activationSet(indexType,$catalogVersion);activationSetPOS
+;defaultApbSearchProfile;Default Search Profile for Asahi;apbProductType;;apbProductType;0
+
+INSERT_UPDATE AsCategoryAwareSearchConfiguration;searchProfile(code,$catalogVersion)[unique=true];uid[unique=true];category(code,$catalogVersion);facets;excludedFacets;$catalogVersion
+;defaultApbSearchProfile;globalCategoryAwareConfiguration;;;ADD_AFTER;
+;defaultApbSearchProfile;beerNCiderCategoryAwareConfiguration;L2002;alcoholSubType;ADD_AFTER;
+
+
+
+Remove Category ; $catalogVersion ; code[unique=true]
+;;L4001
+;;L4002
+;;L4003
+;;L4004
+;;L4005
+;;L4006
+;;L4007
+;;L3001
+;;L3002
+;;L3003
+;;L2001

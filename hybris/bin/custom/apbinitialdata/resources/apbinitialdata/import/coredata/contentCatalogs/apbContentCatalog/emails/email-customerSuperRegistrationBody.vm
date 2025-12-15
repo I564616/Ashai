@@ -1,0 +1,71 @@
+## messageSource=classpath:/sabmcore/messages/email-customerSuperRegistration_$lang.properties
+#macro(genHtmlLinkStartTag $url)
+<a href="$url"><font color="#666666">
+#end
+#macro(genHtmlLinkEndTag)
+</font></a>
+#end
+#macro(genHtmlLink $url $textColor $bodyContent)
+<a href="$url"><font color="$textColor">$bodyContent</font></a>
+#end
+
+<html>
+	<head>
+	</head>
+	<body bgcolor="#ffffff">
+	<table width="50%" cellpadding="0" cellspacing="0" align="center" bgcolor="#ffffff">
+		<tr>
+		 <td style="border:1px solid #EBEBEB;display:inline-table">
+			<table cellpadding="0" cellspacing="0" border="0" style="min-width:320px;display:inline-table"" align="center" bgcolor="#ffffff">
+				<tr>
+					<td align="left" colspan="6">
+						<a href="${ctx.baseUrl}" style=";padding: 0px 0px 0px 0px;display:inline-block;margin:0 auto;">
+						    ${ctx.cmsSlotContents.TopContent}
+						</a>
+					</td>
+				</tr>
+
+				<tr>
+					<td colspan="5" valign="middle" style="font-weight:bold;font-family: Helvetica;color: #42515a;font-size: 18px;padding: 20px 30px 0px 30px;">
+						${ctx.messages.superThankYouForRegistering}							
+						<table width="6%" cellpadding="0" cellspacing="0" border="0" valign="10px" >
+							<tr>
+								<td style="width: 10px;margin-top: 5px;border-bottom: 3px solid #42515a;padding:4px"> 							
+								</td>
+							</tr>
+						</table> 
+					</td>
+				</tr> 
+				<tr>
+					<td colspan="5" valign="middle" style="font-family: Helvetica;color: #42515a;font-size: 15px;padding: 10px 30px 0px 30px;">
+						${ctx.messages.superEmailHello}&nbsp;${ctx.unitName}, 	
+					</td>
+				</tr> 
+				
+				</tr>	
+				<tr>
+					<td colspan="5" align="left" valign="middle" style="font-family: Helvetica;color: #42515a;font-size: 15px;padding: 10px 30px 0px 30px;">
+					   ${ctx.messages.superRegisteredEmailInfo}${ctx.displayName}${ctx.messages.superRegisteredEmailInfo1}
+					   ${ctx.messages.superRegisteredEmailInfo2} 
+					</td>
+				</tr>
+				<tr>
+					<td colspan="5" align="left" valign="middle" style="font-family: Helvetica;color: #42515a;font-size: 15px;padding: 0px 30px 10px 30px;">
+					 	${ctx.messages.superComplimentaryClosing}<br>
+					 	${ctx.messages.superSignature}			
+					</td>
+				</tr>				
+				<tr>
+					<td colspan="6">
+						<br><a href="${ctx.baseUrl}" style="padding: 0px 0px 0px 0px;">
+							${ctx.cmsSlotContents.BottomContent}
+					</a>
+					</td>
+				</tr>
+			</table>
+		</td>
+	  </tr>
+	</table>				 
+	
+</body>
+</html>

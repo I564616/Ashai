@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<process xmlns="http://www.hybris.de/xsd/processdefinition" start="generateOrderCutoffNotificationEmail" name="orderCutoffNotificationEmailProcess"
+		processClass="com.sabm.core.model.OrderCutoffNotificationEmailProcessModel" onError="error">
+
+	<action id="generateOrderCutoffNotificationEmail" bean="generateOrderCutoffNotificationEmail">
+		<transition name="OK" to="sendEmail"/>
+		<transition name="NOK" to="error"/>
+	</action>
+
+	<action id="sendEmail" bean="sendEmail">
+		<transition name="OK" to="orderCutoffNotificationEmailSentAction"/>
+		<transition name="NOK" to="failed"/>
+	</action>
+
+	<action id="orderCutoffNotificationEmailSentAction" bean="orderCutoffNotificationEmailSentAction">
+		<transition name="OK" to="success"/>
+		<transition name="NOK" to="error"/>
+	</action>
+
+	<end id="error" state="ERROR">Something went wrong.</end>
+	<end id="failed" state="FAILED">Could not send order cutoff notification email.</end>
+	<end id="success" state="SUCCEEDED">Sent order cutoff notification email.</end>
+
+</process>

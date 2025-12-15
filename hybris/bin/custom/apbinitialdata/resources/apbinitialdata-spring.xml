@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:annotation-config/>
+
+	<!-- System Setup -->
+	
+	<!-- Redifining this name bean since we are not considering variant products for APB -->
+	
+	<alias name="defaultCategorySource" alias="abstractCategorySource" />
+	<bean id="defaultCategorySource" 
+		class="de.hybris.platform.commerceservices.search.solrfacetsearch.provider.impl.DefaultCategorySource">
+		<property name="modelService" ref="modelService" />
+		<property name="categoriesQualifier" value="supercategories" />
+		<property name="includeClassificationClasses" value="false" />
+		<property name="categoryService" ref="categoryService" />
+	</bean>
+
+	<bean id="yAsahiAcceleratorInitialDataSystemSetup"
+	      class="com.apb.initialdata.setup.InitialDataSystemSetup"
+	      parent="abstractCoreSystemSetup">
+		<property name="coreDataImportService" ref="coreDataImportService"/>
+		<property name="sampleDataImportService" ref="sampleDataImportService"/>
+	</bean>
+	
+	 <bean id="apbBrandCategoryCodeValueProvider" parent="abstractCategoryCodeValueProvider">
+        <property name="categorySource" ref="apbBrandCategorySource"/>
+    </bean>
+    <bean id="apbVariantCategoryCodeValueProvider" parent="abstractCategoryCodeValueProvider">
+        <property name="categorySource" ref="abstractCategorySource"/>
+    </bean>
+
+
+    <bean id="apbCategoryNameValueProvider" parent="abstractCategoryNameValueProvider">
+        <property name="categorySource" ref="apbCategorySource"/>
+    </bean>
+    
+    <bean id="apbBrandCategoryNameValueProvider" parent="abstractCategoryNameValueProvider">
+        <property name="categorySource" ref="apbBrandCategorySource"/>
+    </bean>
+    
+        <bean id="apbCategorySource" parent="abstractCategorySource">
+        <property name="rootCategory" value="1"/> <!-- '1' is the root icecat category -->
+    </bean>
+    <bean id="apbVariantCategorySource" parent="variantCategorySource"/>
+
+    <bean id="apbBrandCategorySource" parent="defaultCategorySource">
+        <property name="rootCategory" value="brands"/> <!-- 'brands' is the root of the brands hierarchy -->
+    </bean>
+
+</beans>

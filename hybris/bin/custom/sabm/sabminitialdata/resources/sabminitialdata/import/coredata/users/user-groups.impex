@@ -1,0 +1,13 @@
+#SAP Hybris Integration (inbound) Admin User
+
+$passwordEncoding = md5
+$defaultPassword = A12341234a
+$setPassword = @password[translator = de.hybris.platform.impex.jalo.translators.ConvertPlaintextToEncodedUserPasswordTranslator][default = '$passwordEncoding:$defaultPassword']
+
+
+INSERT_UPDATE Employee; uid[unique = true]; $setPassword; groups(uid)
+; integrationAdmin ; ; admingroup
+
+# Create the Unit for the deleted customer. All the deleted customer will contains in this unit
+INSERT_UPDATE B2BUnit; description; uid[unique = true]; name; locName[lang = en];
+; The customer who have been deleted will move to this B2BUnit ; deletedcustomergroup ; Deleted Customer Unit ; Deleted Customer Unit ;

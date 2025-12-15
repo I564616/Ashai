@@ -1,0 +1,170 @@
+$lang = en
+$contentCatalog = sabmContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]), CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$siteResource = jar:com.sabmiller.initialdata.setup.InitialDataSystemSetup&/sabminitialdata/import/sampledata/contentCatalogs/$contentCatalog
+$picture = media(code, $contentCV);
+$pictureMobile = mediaForMobile(code, $contentCV);
+$ImportCockpitResource = jar:com.sabmiller.initialdata.setup.InitialDataSystemSetup&/sabminitialdata/import/sampledata/cockpits/importCockpit
+
+
+######################### START  B2BCUB3-881  #########################
+#INSERT_UPDATE ImportCockpitJob; code[unique = true]
+ #                             ; sfmcSubscriptionImportCockpitJob
+
+#INSERT_UPDATE ImportCockpitMapping; code[unique = true]           ; folder(qualifier); @media[translator = de.hybris.platform.impex.jalo.media.MediaDataTranslator]; mime[default = 'text/xml']
+ #                                 ; sfmcSubscriptionImportMapping ; cronjob          ; $ImportCockpitResource/xml/sfmcSubscriptionMapping.xml                      ;
+
+#INSERT_UPDATE ImportCockpitInputMedia; code[unique = true]                ; realfilename         ; @media[translator = de.hybris.platform.impex.jalo.media.MediaDataTranslator]; mime[default = 'text/csv']
+ #                                    ; sfmcSubscriptionImportCockpitMedia ; sfmcSubscription.csv ; $ImportCockpitResource/csv/sfmcSubscription.csv                             ;
+
+#INSERT_UPDATE ImportCockpitCronJob; code[unique = true]                  ; job(code)                        ; inputMedia(code)                   ; mapping(code)                 ; mappingValid; sessionLanguage(isocode)
+ #                                 ; sfmcSubscriptionImportCockpitCronJob ; sfmcSubscriptionImportCockpitJob ; sfmcSubscriptionImportCockpitMedia ; sfmcSubscriptionImportMapping ; true        ; $lang
+######################### END B2BCUB3-881 #########################
+
+
+
+###################### START POPULAR RANKING IMPORT COCKPIT JOB ################################
+
+$productCatalog=sabmProductCatalog
+$defaultCurrency=EUR
+$defaultLanguage=en
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$ImportCockpitResource = jar:com.sabmiller.initialdata.setup.InitialDataSystemSetup&/sabminitialdata/import/sampledata/cockpits/importCockpit
+
+#INSERT_UPDATE ImportCockpitJob;code[unique=true]
+#;cubpopularityrankingJob ;
+
+#INSERT_UPDATE ImportCockpitMapping;code[unique=true];$catalogVersion;mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];
+#;cubpopularitymapingmapping ; ;text/xml/ ;PopularityRanking.xml ;$ImportCockpitResource/xml/PopularityRanking.xml ;
+
+#INSERT_UPDATE ImportCockpitInputMedia;code[unique=true];$catalogVersion;mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];
+#;cubpopularitymapinginputmedia ; ;text/csv ;PopularityRanking.csv ;$ImportCockpitResource/csv/PopularityRanking.csv ;
+
+
+###TODO:UPGRADE Commented below entry for now as MafImportCockpitJob is not avaialble in any spring file
+# Sample Product import CronJob
+#INSERT_UPDATE ImportCockpitCronJob;code[unique=true];job(code);sessionLanguage(isocode);sessionCurrency(isocode);sessionUser(uid);mapping(code[unique=true],$catalogVersion);mappingValid;inputMedia(code[unique=true],$catalogVersion)
+#;cubpopularityrankingcronjob ;cubpopularityrankingJob ;$defaultLanguage ;$defaultCurrency ;admin;cubpopularitymapingmapping ;true ;cubpopularitymapinginputmedia;
+
+###################### END POPULAR RANKING IMPORT COCKPIT JOB ################################
+
+###################### Start Product Max Order Quantity IMPORT COCKPIT JOB ################################
+
+ 
+
+$productCatalog=sabmProductCatalog
+$defaultCurrency=AUD
+$defaultLanguage=en
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$ImportCockpitResource = jar:com.sabmiller.initialdata.setup.InitialDataSystemSetup&/sabminitialdata/import/sampledata/cockpits/importCockpit
+
+ 
+
+#INSERT_UPDATE ImportCockpitJob;code[unique=true]
+#;CubMaxOrderQuantityJob ;
+
+ 
+
+#INSERT_UPDATE ImportCockpitMapping;code[unique=true];$catalogVersion;mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];
+#;ProductMaxOrderQuantityMapping ; ;text/xml/ ;ProductMaxOrderQuantityMapping.xml ;$ImportCockpitResource/xml/ProductMaxOrderQuantityMapping.xml ;
+
+ 
+
+#INSERT_UPDATE ImportCockpitInputMedia;code[unique=true];$catalogVersion;mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];
+#;CubMaxorderquantityinputmedia ; ;text/csv ;ProductMaxOrderQuantity.csv ;$ImportCockpitResource/csv/ProductMaxOrderQuantity.csv ;
+
+ 
+
+
+###TODO:UPGRADE Commented below entry for now as MafImportCockpitJob is not avaialble in any spring file
+# Sample Product import CronJob
+#INSERT_UPDATE ImportCockpitCronJob;code[unique=true];job(code);sessionLanguage(isocode);sessionCurrency(isocode);sessionUser(uid);mapping(code[unique=true],$catalogVersion);mappingValid;inputMedia(code[unique=true],$catalogVersion)
+#;CubMaxOrderQuantityCronjob ;CubMaxOrderQuantityJob ;$defaultLanguage ;$defaultCurrency ;admin;ProductMaxOrderQuantityMapping ;true ;CubMaxorderquantityinputmedia;
+
+ 
+
+###################### END Product Max Order Quantity IMPORT COCKPIT JOB ################################
+
+
+
+###################### Start Bulk updates for product reference IMPORT COCKPIT JOB ################################
+ 
+
+$productCatalog=sabmProductCatalog
+$defaultCurrency=AUD
+$defaultLanguage=en
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$ImportCockpitResource = jar:com.sabmiller.initialdata.setup.InitialDataSystemSetup&/sabminitialdata/import/sampledata/cockpits/importCockpit 
+
+#INSERT_UPDATE ImportCockpitJob;code[unique=true]
+#;CubBulkProductInfoJob; 
+
+#INSERT_UPDATE ImportCockpitMapping;code[unique=true];$catalogVersion;mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];
+#;BulkProductRefMapping ; ;text/xml/ ;BulkProductRefMapping.xml ;$ImportCockpitResource/xml/BulkProductRefMapping.xml ; 
+
+#INSERT_UPDATE ImportCockpitInputMedia;code[unique=true];$catalogVersion;mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];
+#;CubBulkProductRefmedia ; ;text/csv ;BulkProductRef.csv ;$ImportCockpitResource/csv/BulkProductRef.csv ;
+
+###TODO:UPGRADE Commented below entry for now as MafImportCockpitJob is not avaialble in any spring file
+# Sample Product import CronJob
+#INSERT_UPDATE ImportCockpitCronJob;code[unique=true];job(code);sessionLanguage(isocode);sessionCurrency(isocode);sessionUser(uid);mapping(code[unique=true],$catalogVersion);mappingValid;inputMedia(code[unique=true],$catalogVersion)
+#;CubBulkProductInfoCronjob ;CubBulkProductInfoJob ;$defaultLanguage ;$defaultCurrency ;admin;BulkProductRefMapping ;true ;CubBulkProductRefmedia;
+
+ 
+
+###################### END Bulk updates for product reference IMPORT COCKPIT JOB ################################
+
+###################### Start Bulk updates for Base product About IMPORT COCKPIT JOB ################################
+ 
+
+$productCatalog=sabmProductCatalog
+$defaultCurrency=AUD
+$defaultLanguage=en
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$ImportCockpitResource = jar:com.sabmiller.initialdata.setup.InitialDataSystemSetup&/sabminitialdata/import/sampledata/cockpits/importCockpit 
+
+#INSERT_UPDATE ImportCockpitJob;code[unique=true]
+#;CubBulkBaseProductAboutJob;
+
+#INSERT_UPDATE ImportCockpitMapping;code[unique=true];$catalogVersion;mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];
+#;BaseProduct-AboutMapping ; ;text/xml/ ;BaseProduct-AboutMapping.xml ;$ImportCockpitResource/xml/BaseProduct-AboutMapping.xml ; 
+
+#INSERT_UPDATE ImportCockpitInputMedia;code[unique=true];$catalogVersion;mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];
+#;BaseProduct-AboutMedia ; ;text/csv ;BaseProduct-About.csv ;$ImportCockpitResource/csv/BaseProduct-About.csv ;
+
+###TODO:UPGRADE Commented below entry for now as MafImportCockpitJob is not avaialble in any spring file
+# Sample Product import CronJob
+#INSERT_UPDATE ImportCockpitCronJob;code[unique=true];job(code);sessionLanguage(isocode);sessionCurrency(isocode);sessionUser(uid);mapping(code[unique=true],$catalogVersion);mappingValid;inputMedia(code[unique=true],$catalogVersion)
+#;CubBulkBaseProductAboutCronjob ;CubBulkBaseProductAboutJob ;$defaultLanguage ;$defaultCurrency ;admin;BaseProduct-AboutMapping ;true ;BaseProduct-AboutMedia;
+
+ 
+
+###################### END Bulk updates for Base product About IMPORT COCKPIT JOB ################################
+
+
+###################### Start Bulk updates for B2BCustomers IMPORT COCKPIT JOB ################################
+ 
+
+$productCatalog=sabmProductCatalog
+$defaultCurrency=AUD
+$defaultLanguage=en
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$ImportCockpitResource = jar:com.sabmiller.initialdata.setup.InitialDataSystemSetup&/sabminitialdata/import/sampledata/cockpits/importCockpit 
+
+#INSERT_UPDATE ImportCockpitJob;code[unique=true]
+#;CCV2customerImportJob;
+
+#INSERT_UPDATE ImportCockpitMapping;code[unique=true];$catalogVersion;mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];
+#;customerImportMapping ; ;text/xml/ ;customerImportMapping.xml ;$ImportCockpitResource/xml/customerImportMapping.xml ; 
+
+#INSERT_UPDATE ImportCockpitInputMedia;code[unique=true];$catalogVersion;mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];
+#;customerImportMedia ; ;text/csv ;customerImport.csv ;$ImportCockpitResource/csv/customerImport.csv ;
+
+###TODO:UPGRADE Commented below entry for now as MafImportCockpitJob is not avaialble in any spring file
+# Sample Product import CronJob
+#INSERT_UPDATE ImportCockpitCronJob;code[unique=true];job(code);sessionLanguage(isocode);sessionCurrency(isocode);sessionUser(uid);mapping(code[unique=true],$catalogVersion);mappingValid;inputMedia(code[unique=true],$catalogVersion)
+#;CCV2customerImportCronjob ;CCV2customerImportJob ;$defaultLanguage ;$defaultCurrency ;admin;customerImportMapping ;true ;customerImportMedia;
+
+ 
+
+###################### END Bulk updates for B2BCustomers IMPORT COCKPIT JOB ################################

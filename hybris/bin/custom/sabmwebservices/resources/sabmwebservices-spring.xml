@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2013 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd
+           http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+		   http://www.springframework.org/schema/integration/file http://www.springframework.org/schema/integration/file/spring-integration-file.xsd
+		   http://www.springframework.org/schema/integration/http http://www.springframework.org/schema/integration/http/spring-integration-http.xsd
+		   http://www.springframework.org/schema/integration/xml
+    	   http://www.springframework.org/schema/integration/xml/spring-integration-xml.xsd
+    	   http://www.springframework.org/schema/oxm http://www.springframework.org/schema/oxm/spring-oxm.xsd
+    	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+    	   http://www.springframework.org/schema/integration/mail http://www.springframework.org/schema/integration/mail/spring-integration-mail.xsd"
+    	
+    xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-file="http://www.springframework.org/schema/integration/file"
+	xmlns:int-http="http://www.springframework.org/schema/integration/http"
+	xmlns:int-xml="http://www.springframework.org/schema/integration/xml"
+	xmlns:int-mail="http://www.springframework.org/schema/integration/mail"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:oxm="http://www.springframework.org/schema/oxm"
+	xmlns:cns="urn:gl.sabmiller.com:3rdp:masterdata">
+	
+	<!--integration points-->
+	<import resource="integration/customer/spring/all.xml"/>
+	<import resource="integration/product/spring/all.xml"/>
+	<import resource="integration/productexclusion/spring/all.xml"/>
+	<import resource="integration/deliverycreation/spring/all.xml"/>
+	<import resource="integration/deliverydispatch/spring/all.xml"/>
+	<import resource="integration/salesorder/spring/all.xml"/>
+	<import resource="integration/complexdeals/spring/all.xml"/>
+	<import resource="integration/trackorders/spring/all.xml"/>
+    <import resource="integration/creditadjustment/spring/all.xml"/>
+
+	<bean id="abstractImportCleanupJob" class="com.sabmiller.webservice.cronjob.AbstractImportCleanupJob" parent="abstractJobPerformable" abstract="true"/>
+	<bean id="abstractImportRetryJob" class="com.sabmiller.webservice.cronjob.AbstractImportRetryJobPerformable" parent="abstractJobPerformable" abstract="true">
+		<property name="masterRecordService" ref="masterRecordService"/>
+	</bean>
+	
+	<bean id="customerImportCleanupJob" class="com.sabmiller.webservice.cronjob.CustomerImportCleanupJobPerformable" parent="abstractImportCleanupJob"/>
+	<bean id="productImportCleanupJob" class="com.sabmiller.webservice.cronjob.ProductImportCleanupJobPerformable" parent="abstractImportCleanupJob"/>
+	<bean id="productExclusionImportCleanupJob" class="com.sabmiller.webservice.cronjob.ProductExclusionImportCleanupJobPerformable" parent="abstractImportCleanupJob"/>
+	
+	<bean id="customerImportRetryJob" class="com.sabmiller.webservice.cronjob.CustomerImportRetryJobPerformable" parent="abstractImportRetryJob"/>
+	<bean id="productImportRetryJob" class="com.sabmiller.webservice.cronjob.CustomerImportRetryJobPerformable" parent="abstractImportRetryJob"/>
+	<bean id="productExclusionImportRetryJob" class="com.sabmiller.webservice.cronjob.CustomerImportRetryJobPerformable" parent="abstractImportRetryJob"/>
+
+	<!--  Mapping from SAP UOM to Hybris UOM -->	
+	<bean id="sapHybrisUnitOfMeasureMapper" class="com.sabmiller.webservice.product.util.SapHybrisUnitOfMeasureMapper">
+		<property name="map" ref="uomMap"/>
+	</bean>
+	<bean id="dataImportCronJob" class="com.sabmiller.webservice.cronjob.DataImportCronJob" parent="abstractJobPerformable"/>
+	
+    <util:map id="uomMap" key-type="java.lang.String" value-type="java.lang.String">
+		<entry key="CS" value="CAS"/>
+		<entry key="KAN" value="CAN"/>
+		<entry key="KAR" value="CAR"/>
+		<entry key="EA" value="EA"/>
+		<entry key="ST" value="PC"/>
+		<entry key="KGM" value="KG"/>
+		<entry key="BIB" value="BIB"/>
+	</util:map>
+	
+	<bean id="securityValidationFilter" class="com.sabmiller.webservice.SecurityValidationFilter">
+		<property name="sessionService" ref="sessionService" />
+	</bean>
+
+	<alias name="dealAssigneeRecalculationStrategyImpl" alias="dealAssigneeRecalculationStrategy" />
+	<bean id="dealAssigneeRecalculationStrategyImpl" class="com.sabmiller.webservice.customer.helper.impl.DealAssigneeRecalculationStrategyImpl" >
+		<property name="cronJobService" ref="cronJobService"/>
+		<property name="modelService" ref="modelService" />
+		<property name="configurationService" ref="configurationService"/>
+		<property name="cronJobCode" value="${com.sabmiller.webservice.customer.helper.impl.dealassigneerecalculationstrategyimpl.cronjobcode}" />
+	</bean>
+</beans>

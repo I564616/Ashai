@@ -1,0 +1,405 @@
+// Application Form page
+.page-RewardsSignupPage, .page-RewardsPreferencesPage {
+  h1 {
+    margin-bottom: $spacing-unit-base*.25;
+  }
+  h2 {
+    color: $faded-blue-new;
+    &.highlight {
+      color: $dark-grey;
+      font-size: $font-medium-x;
+      font-weight: 500;
+    }
+  }
+  p {
+    font-size: $font-medium;
+    &.highlight {
+      color: $medium-dark-grey;
+      font-size: $font-medium-x;
+    }
+    &.users-selected {
+      margin: $spacing-unit-base*.5 0 $spacing-unit-base*.25;
+      color: $medium-dark-grey;
+    }
+    &.required {
+      font-size: $font-small;
+      font-style: italic;
+    }
+  }
+  h1 + p {
+    margin-bottom: $spacing-unit-base*2;
+  }
+  strong {
+    font-weight: 500;
+  }
+  hr {
+    border-top-color: $medium-grey;
+    margin: $spacing-unit-base 0;
+  }
+  .box {
+    background: $light-grey;
+    font-size: $font-medium;
+    margin: 0 0 $spacing-unit-base*2;
+    padding: $spacing-unit-base*1.5 $spacing-unit-base*.75;
+    position: relative;
+    .step-disabled {
+      background: rgba(255, 255, 255, .7);
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 5;
+    }
+  }
+  .icon-help {
+    background: $white;
+    border-radius: 50%;
+    color: $cancel-grey;
+    height: $font-large;
+    position: relative;
+    top: 0;
+    width: $font-large;
+  }
+  #rewardsApplicationForm {
+    .btn {
+      font-weight: 500;
+      height: $btn-x-small*2;
+      line-height: $btn-x-small*2;
+      min-width: 260px;
+      padding: 0 $spacing-unit-base;
+      & + .btn {
+        margin-top: $spacing-unit-base*.75;
+        @media (min-width: $tablet) {
+          margin-left: $spacing-unit-base*.75;
+          margin-top: 0;
+        }
+      }
+      &.btn-cancel {
+        background: $white;
+        border: 1px solid $cancel-grey;
+        color: $cancel-grey;
+        &:focus, &:hover {
+          background: $cancel-grey;
+          color: $white;
+        }
+      }
+    }
+  }
+  .form-group {
+    .form-control {
+      background: $white;
+      color: $primary-blue-new;
+      font-weight: 500;
+      height: $spacing-unit-base*2.5;
+      padding-left: $spacing-unit-base;
+      &::placeholder {
+        color: $black-5;
+        font-weight: normal;
+      }
+    }
+    label {
+      font-weight: 500;
+    }
+  }
+  label {
+    color: $dark-grey;
+  }
+  .checkbox, .radio {
+    line-height: $spacing-unit-base;
+    @media (min-width: $tablet) {
+      min-height: $spacing-unit-base*1.75;
+    }
+    label {
+      &:before {
+        @media (min-width: $tablet) {
+          width: $spacing-unit-base*1.75;
+          height: $spacing-unit-base*1.75;
+        }
+      }
+      @media (min-width: $tablet) {
+        padding-left: 45px;
+        margin-right: 15px;
+        padding-top: 7px;
+      }
+    }
+    &.disabled {
+      label {
+        color: $cancel-grey;
+      }
+    }
+  }
+  .radio {
+    label {
+      &:before {
+        background: $white;
+        border: 1px solid $medium-grey;
+      }
+    }
+    input[type=radio]:checked + label {
+      &:before {
+        background: $primary-blue-new;
+      }
+      &:after {
+        background: $white;
+        width: 12px;
+        height: 12px;
+        top: 5px;
+        left: 6px;
+        @media (min-width: $tablet) {
+          width: 17px;
+          height: 17px;
+          top: 8px;
+          left: 9px;
+        }
+      }
+    }
+    &.disabled {
+      input:checked + label:before {
+        background-color: $cancel-grey;
+      }
+    }
+  }
+  .checkbox {
+    label {
+      &:before {
+        border-radius: 4px;
+      }
+    }
+    input[type=checkbox]:checked + label {
+      &:before {
+        background: $primary-blue-new url($tick-white) 50% 50%/80% no-repeat;
+        @media (min-width: $tablet) {
+          background-size: 60%;
+        }
+      }
+    }
+    &.disabled {
+      input:checked + label:before {
+        background-color: $cancel-grey;
+      }
+    }
+  }
+  .search {
+    .search-icon {
+      background: inherit;
+      border-left: 0;
+      border-radius: 0;
+      color: $primary-blue-new;
+      padding: 8px $spacing-unit-base*1.5 0 0;
+    }
+    &.venues {
+      .form-control {
+        background: $white url($arrow-down-search-input) 97% 50% no-repeat;
+        border-right: 0;
+      }
+      .search-icon {
+        background: $white;
+      }
+    }
+    &.users {
+      border: 1px solid $medium-grey;
+      border-width: 1px 1px 0;
+      border-radius: 5px 5px 0 0;
+      padding: 0;
+      .form-control {
+        background: inherit;
+        border: 0;
+      }
+      .search-icon {
+        border: 0;
+      }
+    }
+  }
+  .users-list {
+    border: 1px solid $medium-grey;
+    border-radius: 0 0 5px 5px;
+    max-height: 370px;
+    overflow: auto;
+    position: relative;
+    .list-group-item {
+      border: 0;
+      border-top: 1px solid $medium-grey;
+      border-radius: 0;
+      margin-bottom: 0;
+      &.disabled, &.disabled:hover, &.disabled:focus {
+        cursor: default;
+      }
+    }
+    > .list-group-item {
+      border: 0;
+    }
+  }
+  // Modals
+  .tac-popup, .exit-app-popup {
+    background-color: $white;
+    border-radius: 0;
+    margin: 0 auto;
+    padding: $spacing-medium;
+    position: relative;
+    width:90%;
+    .popup-close {
+      position: absolute;
+      top: $spacing-small;
+      right: $spacing-small;
+      background-size: 100%;
+      width: 20px;
+      height: 20px;
+      display: block;
+      opacity: 1;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    .h1 {
+      color: $primary-blue-new;
+      margin-bottom: $spacing-unit-base*1.5;
+    }
+    .btn {
+      font-weight: 500;
+      height: $btn-x-small*2;
+      line-height: $btn-x-small*2;
+      margin-top: $spacing-unit-base;
+      min-width: 260px;
+      padding: 0 $spacing-unit-base;
+      & + .btn {
+        margin-top: $spacing-unit-base*.75;
+        @media (min-width: $tablet) {
+          margin-left: $spacing-unit-base*.75;
+        }
+      }
+    }
+    @media(max-width: $mobile-max) {
+      .scroller {
+        overflow-y: visible;
+        overflow-x: visible;
+        max-height: initial;
+      }
+    }
+  }
+  .tac-popup {
+    max-width: 900px;
+    .btn-primary {
+      display: table;
+      margin: $spacing-unit-base*.5 auto 0;
+    }
+  }
+  .exit-app-popup {
+    max-width: 600px;
+    .btn-cancel {
+      background: none;
+      color: $dark-grey;
+      min-width: auto;
+      padding-left: 0;
+      text-decoration: underline;
+      &:focus, &:hover {
+        background: none;
+        color: $primary-blue-new;
+        text-decoration: none;
+      }
+    }
+  }
+  // Venues search
+  .tokenfield {
+    .token-input {
+      &::placeholder {
+        color: $black-5;
+        font-weight: normal;
+      }
+    }
+    .token {
+      background-color: $white;
+      border-radius: 0;
+      border: 1px solid $medium-grey;
+      height: $spacing-unit-base*2.5;
+      left: -1px;
+      margin: 0;
+      position: absolute;
+      top: -1px;
+      @media (min-width: $tablet) {
+        width: 660px;
+      }
+      @media (min-width: $desktop-992) {
+        width: 880px;
+      }
+      .token-label {
+        padding-left: $spacing-unit-base;
+        width: 100%;
+        line-height: $spacing-unit-base*2.5;
+      }
+      .close {
+        color: $primary-blue-new;
+        display: inline-block;
+        float: right;
+        font-family: $font-family-base;
+        font-size: $font-small*2;
+        font-weight: 300;
+        height: 100%;
+        line-height: 100%;
+        line-height: 46px;
+        margin-left: 5px;
+        margin-right: 20px;
+        opacity: 1;
+        padding-right: 0;
+        vertical-align: top;
+      }
+    }
+  }
+  .ui-autocomplete {
+    background: $light-grey;
+    border-color: $medium-grey;
+    left: 0;
+    max-height: 250px;
+    overflow: auto;
+    padding: 0;
+    z-index: 100;
+    @media (min-width: $tablet) {
+      width: 660px !important;
+    }
+    @media (min-width: $desktop-992) {
+      width: 880px !important;
+    }
+    .ui-menu-item {
+      font-weight: 500;
+      line-height: $spacing-unit-base*2.5;
+      padding: 0 0 0 $spacing-unit-base;
+      &:not(:first-child) {
+        border-top: 1px solid $medium-grey;
+      }
+    }
+  }
+}
+// Edit Preferences page
+.page-RewardsPreferencesPage {
+  .h3 {
+    color: $primary-blue-new;
+  }
+  .box {
+    @media (min-width: $tablet) {
+      background: none;
+      margin-bottom: 0;
+      padding: $spacing-unit-base*1.5 0;
+    }
+  }
+  .col-xs-12 {
+    padding: 0;
+  }
+  .tokenfield {
+    .token {
+      @media (min-width: $tablet) {
+        width: 720px;
+      }
+      @media (min-width: $desktop-992) {
+        width: 940px;
+      }
+    }
+  }
+  .ui-autocomplete {
+    @media (min-width: $tablet) {
+      width: 720px !important;
+    }
+    @media (min-width: $desktop-992) {
+      width: 940px !important;
+    }
+  }
+}

@@ -1,0 +1,198 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# ImpEx for Importing Products stock levels into Apb Store
+
+# Macros / Replacement Parameter definitions
+$productCatalog=apbProductCatalog
+$productCatalogName=Apb Product Catalog
+$storeUid=apb
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$vendor=default
+
+INSERT_UPDATE StockLevel ; productCode[unique=true] ; warehouse(code)[unique=true,default=default] ; available ; inStockStatus(code) ; maxPreOrder[default=1] ; maxStockLevelHistoryCount[default=-1] ; overSelling[default=0] ; preOrder[default=0] ; reserved[default=0]
+#                         ; asahi_soukai             ; pw_warehouse_s                               ; 414       ; notSpecified        
+
+INSERT_UPDATE AsahiB2BUnit;uid[unique=true];name;locName[lang=en];companyCode;backendRecordId;salesRepCode;accountNum;abnNumber;distributionChannel;custOrderType;salesOrg;emailAddress;liquorLicensenumber;warehouse(code);
+;56565656;Test APB; Test APB;apb;0123;03201039;012341;11111111111;01;ZORH;3011;abc@test.com;000111;SVC;
+;56565657;Test APB; Test APB;apb;0123;03201039;012342;11111111112;01;ZORH;3011;abc@test.com;000111;SVC;
+;56565658;Test APB; Test APB;apb;0123;03201039;012343;11111111113;01;ZORH;3011;abc@test.com;000111;SVC;
+;56565659;Test APB; Test APB;apb;0123;03201039;012344;11111111114;01;ZORH;3011;abc@test.com;000111;SVC;
+;56565652;Test APB; Test APB;apb;0123;03201039;012345;11111111115;01;ZORH;3011;abc@test.com;000111;SVC;
+;56565653;Test APB; Test APB;apb;0123;03201039;012346;11111111116;01;ZORH;3011;abc@test.com;000111;SVC;
+;56565654;Test APB; Test APB;apb;0123;03201039;012347;11111111117;01;ZORH;3011;abc@test.com;000111;SVC;
+;56565655;Test APB; Test APB;apb;0123;03201039;012348;11111111118;01;ZORH;3011;abc@test.com;000111;SVC;
+;56565612;Test APB; Test APB;apb;0123;03201039;012349;11111111119;01;ZORH;3011;abc@test.com;000111;SVC;
+;56565613;Test APB; Test APB;apb;0123;03201039;0123410;11111111110;01;ZORH;3011;abc@test.com;000111;SVC;
+;56565614;Test APB; Test APB;apb;0123;03201039;0123411;111111111111;01;ZORH;3011;abc@test.com;000111;SVC;
+
+
+UPDATE AsahiB2BUnit;&B2BUnitID;uid[unique=true];addresses(&add)
+;b2bunit1;56565656;add1
+;b2bunit2;56565657;add2
+;b2bunit3;56565658;add3
+;b2bunit4;56565659;add4
+;b2bunit5;56565652;add5
+;b2bunit6;56565653;add6
+;b2bunit7;56565654;add7
+;b2bunit8;56565655;add8
+;b2bunit9;56565612;add9
+;b2bunit10;56565613;add10
+;b2bunit11;56565614;add11
+
+INSERT Address;&add;owner(&B2BUnitID)[unique=true];addressRecordid;"addressType(code,itemtype(code))";appartment;billingAddress[allownull=true];building;cellphone;changeRequestAddress;company;companyCode;contactAddress[allownull=true];country(isocode);cutOffDeliveryDates(code);dateOfBirth[dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ];defaultAddress;deliveryCalendar;department;district;duplicate;eclDeliveryInstruction;eclDeliveryTimesLotto[dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ];eclDeliveryTimeslotFrom[dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ];eclDlvModeId;email;fax;firstname;"gender(code,itemtype(code))";lastname;middlename;middlename2;original(pk)[forceWrite=true];phone1;phone2;pobox;postalcode;region(country(isocode),isocode);removeRequestAddress;shippingAddress[allownull=true];streetname;streetnumber;title(code);town;unloadingAddress[allownull=true];visibleInAddressBook;
+ 
+ 
+;add1;b2bunit1;5637226016;DELIVERY:AddressType;;FALSE;;;0;;APB;FALSE;AU;;;TRUE;Tuesday to Friday only;;;FALSE;;1970-01-01 18:00:00.000 +1000;1970-01-01 07:59:00.000 +1000;;;;LINE & LABEL RESTAURANT 1;;;;;;;;;5606;AU:AU-SA;0;TRUE;31 WHILLAS RD;;;PORT LINCOLN;FALSE;TRUE;
+;add2;b2bunit2;5637226016;DELIVERY:AddressType;;FALSE;;;0;;APB;FALSE;AU;;;TRUE;Tuesday to Friday only;;;FALSE;;1970-01-01 18:00:00.000 +1000;1970-01-01 07:59:00.000 +1000;;;;LINE & LABEL RESTAURANT 2;;;;;;;;;5606;AU:AU-SA;0;TRUE;31 WHILLAS RD;;;PORT LINCOLN;FALSE;TRUE;
+;add3;b2bunit3;5637226016;DELIVERY:AddressType;;FALSE;;;0;;APB;FALSE;AU;;;TRUE;Tuesday to Friday only;;;FALSE;;1970-01-01 18:00:00.000 +1000;1970-01-01 07:59:00.000 +1000;;;;LINE & LABEL RESTAURANT 3;;;;;;;;;5606;AU:AU-SA;0;TRUE;31 WHILLAS RD;;;PORT LINCOLN;FALSE;TRUE;
+;add4;b2bunit4;5637226016;DELIVERY:AddressType;;FALSE;;;0;;APB;FALSE;AU;;;TRUE;Tuesday to Friday only;;;FALSE;;1970-01-01 18:00:00.000 +1000;1970-01-01 07:59:00.000 +1000;;;;LINE & LABEL RESTAURANT 4;;;;;;;;;5606;AU:AU-SA;0;TRUE;31 WHILLAS RD;;;PORT LINCOLN;FALSE;TRUE;
+;add5;b2bunit5;5637226016;DELIVERY:AddressType;;FALSE;;;0;;APB;FALSE;AU;;;TRUE;Tuesday to Friday only;;;FALSE;;1970-01-01 18:00:00.000 +1000;1970-01-01 07:59:00.000 +1000;;;;LINE & LABEL RESTAURANT 5;;;;;;;;;5606;AU:AU-SA;0;TRUE;31 WHILLAS RD;;;PORT LINCOLN;FALSE;TRUE;
+;add6;b2bunit6;5637226016;DELIVERY:AddressType;;FALSE;;;0;;APB;FALSE;AU;;;TRUE;Tuesday to Friday only;;;FALSE;;1970-01-01 18:00:00.000 +1000;1970-01-01 07:59:00.000 +1000;;;;LINE & LABEL RESTAURANT 6;;;;;;;;;5606;AU:AU-SA;0;TRUE;31 WHILLAS RD;;;PORT LINCOLN;FALSE;TRUE;
+;add7;b2bunit7;5637226016;DELIVERY:AddressType;;FALSE;;;0;;APB;FALSE;AU;;;TRUE;Tuesday to Friday only;;;FALSE;;1970-01-01 18:00:00.000 +1000;1970-01-01 07:59:00.000 +1000;;;;LINE & LABEL RESTAURANT 7;;;;;;;;;5606;AU:AU-SA;0;TRUE;31 WHILLAS RD;;;PORT LINCOLN;FALSE;TRUE;
+;add8;b2bunit8;5637226016;DELIVERY:AddressType;;FALSE;;;0;;APB;FALSE;AU;;;TRUE;Tuesday to Friday only;;;FALSE;;1970-01-01 18:00:00.000 +1000;1970-01-01 07:59:00.000 +1000;;;;LINE & LABEL RESTAURANT 8;;;;;;;;;5606;AU:AU-SA;0;TRUE;31 WHILLAS RD;;;PORT LINCOLN;FALSE;TRUE;
+;add9;b2bunit9;5637226016;DELIVERY:AddressType;;FALSE;;;0;;APB;FALSE;AU;;;TRUE;Tuesday to Friday only;;;FALSE;;1970-01-01 18:00:00.000 +1000;1970-01-01 07:59:00.000 +1000;;;;LINE & LABEL RESTAURANT 9;;;;;;;;;5606;AU:AU-SA;0;TRUE;31 WHILLAS RD;;;PORT LINCOLN;FALSE;TRUE;
+;add10;b2bunit10;5637226016;DELIVERY:AddressType;;FALSE;;;0;;APB;FALSE;AU;;;TRUE;Tuesday to Friday only;;;FALSE;;1970-01-01 18:00:00.000 +1000;1970-01-01 07:59:00.000 +1000;;;;LINE & LABEL RESTAURANT 10;;;;;;;;;5606;AU:AU-SA;0;TRUE;31 WHILLAS RD;;;PORT LINCOLN;FALSE;TRUE;
+;add11;b2bunit11;5637226016;DELIVERY:AddressType;;FALSE;;;0;;APB;FALSE;AU;;;TRUE;Tuesday to Friday only;;;FALSE;;1970-01-01 18:00:00.000 +1000;1970-01-01 07:59:00.000 +1000;;;;LINE & LABEL RESTAURANT 11;;;;;;;;;5606;AU:AU-SA;0;TRUE;31 WHILLAS RD;;;PORT LINCOLN;FALSE;TRUE;
+
+
+INSERT_UPDATE B2BCustomer;uid[unique=true];active[allownull=true];groups(uid)[collection-delimiter=,];defaultB2BUnit(uid);asahiRole(code,itemtype(code));authorizedToUnlockPages[allownull=true];contactNumber;customerID;description;disableDebitInvRefPopup;showCCInfoPopup;disableEmailNotification[allownull=true];email[allownull=true];encodedPassword;hmcLoginDisabled;lastLogin[dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ];loggedInBefore[allownull=true];loginDisabled[allownull=true];name;originalUid;password;passwordAnswer;passwordEncoding;passwordQuestion;previewCatalogVersions(catalog(id),version);roleOther;sessionCurrency(isocode);sessionLanguage(isocode);site(uid);title(code);token;type(code,itemtype(code));adminUnits(uid);
+
+;test1234@gmail.com;TRUE;56565656,56565657,56565658,56565659,56565652,56565653,56565654,56565655,56565612,56565613,56565614,b2bcustomergroup;56565656;OWNER:AsahiRole;FALSE;;06a1e89a-6d71-46f6-ab0b-4548de089f4a;;;TRUE;;koolmain@gmail.com;1000:2f7c73841eef874545218a7fb68c7dca:2222d482775f1144553ba5c9358d005fe5dad756b31a14451be2dbbea3c988bd519bbc860c3c64d8eb37a9fa63cd0202043e4f2cd4a1db3b6ce15aa84143388f;;;;FALSE;Test test;test1234@gmail.com;1234;;pbkdf2;;;;AUD;en;;7;;REGISTERED:CustomerType; 56565656,56565657,56565658,56565659,56565652,56565653,56565654,56565655,56565612,56565613,56565614
+ 
+
+INSERT_UPDATE PointOfService ; name[unique=true] ; type(code) ; address(&addrID) ; basestore(uid)
+                             ; POS_Sample4       ; WAREHOUSE  ; addr_sample5     ; apb           ;  
+							                      
+INSERT_UPDATE Address ; owner(PointOfService.name)[unique=true] ; &addrID     ; addressRecordid ; addressType(code,itemtype(code)) ; defaultAddress[default=Yes] ; streetname[unique=true] ; streetnumber ; town      ; region(isocode) ; country(isocode)
+                      ; POS_Sample4                                 ; addr_sample5 ; 4321            ; DELIVERY:AddressType             ; true                        ; Coventry Street         ; 99           ; Melbourne ; AU-VIC          ; AU              
+
+INSERT_UPDATE Warehouse ; code[unique=true] ; cutOffTime      ; pointsOfService(name) ; vendor(code)
+                        ; SVC    ; "11:24 PM AEST" ; POS_Sample4  ; default  
+                              
+INSERT_UPDATE BaseStore;uid[unique=true];defaultDeliveryOrigin(name)
+;$storeUid;POS_Sample4
+
+#Warehouse Address List  
+INSERT_UPDATE Address ; owner(PointOfService.name)[unique=true] ; &addId     ; addressRecordid ; addressType(code,itemtype(code)) ; defaultAddress[default=Yes] ; streetname[unique=true] ; streetnumber ; town      ; region(isocode) ; country(isocode)
+                      ; apbPOS1                                 ; AddapbPOS1 ; 4321            ; DELIVERY:AddressType             ; true                        ; Coventry Street         ; 99           ; Melbourne ; AU-VIC          ; AU              
+
+INSERT_UPDATE PointOfService ; name[unique=true] ; type(code) ; address(&addId) ; basestore(uid)
+                             ; apbPOS1           ; WAREHOUSE  ; AddapbPOS1      ; apb           
+
+# Public Holiday for APB 2018, provided by Business on 18-Jan-2018. Refer ACP-1902. 						                  
+INSERT_UPDATE Holiday ; code[unique=true] ; region(isoCode) ; date[dateformat=dd-MM-yyyy] ; description   
+			;1			;AU-ACT			;01-01-2018			;New Year's Day
+			;2			;AU-ACT			;26-01-2018			;Australia Day
+			;3			;AU-ACT			;03-12-2018			;Canberra Day
+			;4			;AU-ACT			;30-03-2018			;Good Friday
+			;5			;AU-ACT			;31-03-2018			;Easter Saturday
+			;6			;AU-ACT			;04-01-2018			;Easter Sunday
+			;7			;AU-ACT			;04-02-2018			;Easter Monday
+			;8			;AU-ACT			;25-04-2018			;Anzac Day
+			;9			;AU-ACT			;28-05-2018			;Reconciliation Day
+			;10			;AU-ACT			;06-11-2018			;Queen's Birthday
+			;11			;AU-ACT			;10-01-2018			;Labour Day
+			;12			;AU-ACT			;25-12-2018			;Christmas Day
+			;13			;AU-ACT			;26-12-2018			;Boxing Day
+			;14			;AU-NSW			;01-01-2018			;New Year's Day
+			;15			;AU-NSW			;26-01-2018			;Australia Day
+			;16			;AU-NSW			;30-03-2018			;Good Friday
+			;17			;AU-NSW			;31-03-2018			;Easter Saturday
+			;18			;AU-NSW			;04-01-2018			;Easter Sunday
+			;19			;AU-NSW			;04-02-2018			;Easter Monday
+			;20			;AU-NSW			;25-04-2018			;Anzac Day
+			;21			;AU-NSW			;06-11-2018			;Queen's Birthday
+			;22			;AU-NSW			;08-06-2018			;Bank Holiday
+			;23			;AU-NSW			;10-01-2018			;Labour Day
+			;24			;AU-NSW			;25-12-2018			;Christmas Day
+			;25			;AU-NSW			;26-12-2018			;Boxing Day
+			;26			;AU-NT			;01-01-2018			;New Year's Day
+			;27			;AU-NT			;26-01-2018			;Australia Day
+			;28			;AU-NT			;30-03-2018			;Good Friday
+			;29			;AU-NT			;31-03-2018			;Easter Saturday
+			;30			;AU-NT			;04-02-2018			;Easter Monday
+			;31			;AU-NT			;25-04-2018			;Anzac Day
+			;32			;AU-NT			;05-07-2018			;May Day
+			;33			;AU-NT			;06-11-2018			;Queen's Birthday
+			;34			;AU-NT			;29-06-2018			;Boroloola Day
+			;35			;AU-NT			;27-07-2018			;Darwin Show Day
+			;36			;AU-NT			;08-06-2018			;Picnic Day
+			;37			;AU-NT			;25-12-2018			;Christmas Day
+			;38			;AU-NT			;26-12-2018			;Boxing Day
+			;39			;AU-QLD			;01-01-2018			;New Year's Day
+			;40			;AU-QLD			;26-01-2018			;Australia Day
+			;41			;AU-QLD			;30-03-2018			;Good Friday
+			;42			;AU-QLD			;31-03-2018			;Easter Saturday
+			;43			;AU-QLD			;04-01-2018			;Easter Sunday
+			;44			;AU-QLD			;04-02-2018			;Easter Monday
+			;45			;AU-QLD			;25-04-2018			;Anzac Day
+			;46			;AU-QLD			;05-07-2018			;Labour Day
+			;47			;AU-QLD			;10-01-2018			;Queen's Birthday
+			;48			;AU-QLD			;25-12-2018			;Christmas Day
+			;49			;AU-QLD			;26-12-2018			;Boxing Day
+			;50			;AU-SA			;01-01-2018			;New Year's Day
+			;51			;AU-SA			;26-01-2018			;Australia Day
+			;52			;AU-SA			;03-12-2018			;March public holiday
+			;53			;AU-SA			;30-03-2018			;Good Friday
+			;54			;AU-SA			;31-03-2018			;Easter Saturday
+			;55			;AU-SA			;04-02-2018			;Easter Monday
+			;56			;AU-SA			;25-04-2018			;Anzac Day
+			;57			;AU-SA			;06-11-2018			;Queen's Birthday
+			;58			;AU-SA			;10-01-2018			;Labour Day
+			;59			;AU-SA			;25-12-2018			;Christmas Day
+			;60			;AU-SA			;26-12-2018			;Proclamation Day
+			;61			;AU-TAS			;01-01-2018			;New Year's Day
+			;62			;AU-TAS			;26-01-2018			;Australia Day
+			;63			;AU-TAS			;03-12-2018			;Eight hours day
+			;64			;AU-TAS			;30-03-2018			;Good Friday
+			;65			;AU-TAS			;31-03-2018			;Easter Saturday
+			;66			;AU-TAS			;04-02-2018			;Easter Monday
+			;67			;AU-TAS			;04-03-2018			;Easter Tuesday
+			;68			;AU-TAS			;25-04-2018			;Anzac Day
+			;69			;AU-TAS			;06-11-2018			;Queen's Birthday
+			;70			;AU-TAS			;25-12-2018			;Christmas Day
+			;71			;AU-TAS			;26-12-2018			;Boxing Day
+			;72			;AU-VIC			;01-01-2018			;New Year's Day
+			;73			;AU-VIC			;26-01-2018			;Australia Day
+			;74			;AU-VIC			;03-12-2018			;Labour Day
+			;75			;AU-VIC			;30-03-2018			;Good Friday
+			;76			;AU-VIC			;31-03-2018			;Easter Saturday
+			;77			;AU-VIC			;04-01-2018			;Easter Sunday
+			;78			;AU-VIC			;04-02-2018			;Easter Monday
+			;79			;AU-VIC			;25-04-2018			;Anzac Day
+			;80			;AU-VIC			;06-11-2018			;Queen's Birthday
+			;81			;AU-VIC			;28-09-2018			;Grand Final
+			;82			;AU-VIC			;11-06-2018			;Melbourne Cup
+			;83			;AU-VIC			;25-12-2018			;Christmas Day
+			;84			;AU-VIC			;26-12-2018			;Boxing Day
+			;85			;AU-WA			;01-01-2018			;New Year's Day
+			;86			;AU-WA			;26-01-2018			;Australia Day
+			;87			;AU-WA			;03-05-2017			;Labour Day
+			;88			;AU-WA			;30-03-2018			;Good Friday
+			;89			;AU-WA			;04-02-2018			;Easter Monday
+			;90			;AU-WA			;25-04-2018			;Anzac Day
+			;91			;AU-WA			;06-04-2018			;Western Australia Day
+			;92			;AU-WA			;24-09-2018			;Queen's Birthday
+			;93			;AU-WA			;25-12-2018			;Christmas Day
+			;94			;AU-WA			;26-12-2018			;Boxing Day
+
+			
+#Address can not be imported without b2bunit and b2b units are being imported using hotfolder hence not available. Hence commenting out these address valuelines.
+#INSERT_UPDATE Address ; &addId    ; owner(B2BUnit.uid)[unique=true] ; streetname[unique=true] ; postalcode[unique=true] ; duplicate[unique=true] ; town      ; country(isocode) ; billingAddress ; contactAddress ; shippingAddress ; unloadingAddress ; firstname ; lastname ; gender(code) ; middlename ; phone1       ; title(code) ; company ; fax ; department ; visibleInAddressBook ; eclDeliveryInstruction         ; defaultAddress ; addressRecordid[unique=true]
+#                      ; address 1 ; 100000               ; express Street 1        ; 10019                   ; false                  ; Melbourne ; AU               ; false          ; true           ; true            ; true             ; Mike      ; Test     ; MALE         ;            ; +001 1234567 ;             ;         ;     ;            ; true                 ; This is Delivery instruction 1 ; false          ; 10001                       
+#                      ; address 2 ; 100000               ; express Street 2        ; 10020                   ; false                  ; Cydney    ; AU               ; false          ; true           ; true            ; true             ; Sophie    ; Test     ; FEMALE       ;            ; +001 1234567 ;             ;         ;     ;            ; true                 ; This is Delivery instruction 2 ; true           ; 10002                       
+#                      ; address 3 ; 100000               ; express Street 3        ; 10021                   ; false                  ; Perth     ; AU               ; true           ; true           ; true            ; true             ; Gail      ; Test     ; FEMALE       ;            ; +001 1234567 ;             ;         ;     ;            ; true                 ; This is Delivery instruction 3 ; false          ; 10003                       
+#                      ; address 4 ; 100000               ; express Street 4        ; 10022                   ; false                  ; Vectoria  ; AU               ; false          ; true           ; true            ; true             ; Akshay    ; Test     ; MALE         ;            ; +001 1234567 ;             ;         ;     ;            ; true                 ; This is Delivery instruction 4 ; false          ; 10004                       
+
+
+
+
+

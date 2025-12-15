@@ -1,0 +1,133 @@
+## messageSource=classpath:/sabmcore/messages/email-orderConfirmationTemplate_$lang.properties
+#macro(genHtmlLinkStartTag $url)
+<a href="$url"><font color="#666666">
+#end
+#macro(genHtmlLinkEndTag)
+</font></a>
+#end
+#macro(genHtmlLink $url $textColor $bodyContent)
+<a href="$url"><font color="$textColor">$bodyContent</font></a>
+#end
+<html>
+	<head>
+		<style>
+			*, html, body{
+				font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+				box-sizing: border-box;
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+			}
+		</style>
+	</head>
+	<body style="font-family: sans-serif; color: #666666; font-weight: normal; font-size: 14px; width: 50%; margin: 0 auto">
+		<header style="max-height: 92px; line-height: 92px; background: #002f5f; margin-bottom: 3%; padding-left:20px">
+			<h1 style="color: #fff; font-weight:bold; margin: 0">Carlton & United</h1>
+		</header>
+
+		<table border="0" cellspacing="0" cellpadding="0">
+			<tr><td><h4 style="color: #002f5f; margin: 0">Dear [Full Name],</h4></td></tr>
+			<tr><td>&nbsp;</td></tr>
+			<tr><td>Thank you for your order.</td></tr>
+			<tr><td>Your order number is <strong>1008517368</strong>.</td></tr>
+			<tr><td>This email contains a complete summary of your order.</td></tr>
+			<tr><td>Please retain this confirmation for your records.</td></tr>
+			<tr><td>&nbsp;</td></tr>
+			<tr><td>&nbsp;</td></tr>
+			<tr><td><h4 style="color: #002f5f; margin: 0">Order Number 1008517368</h4></td></tr>
+			<tr><td>&nbsp;</td></tr>
+			<tr><td><strong>Status:</strong> Created</td></tr>
+			<tr><td><strong>Placed by:</strong> Matt Simpson</td></tr>
+			<tr><td><strong>Customer number:</strong> 0001233483</td></tr>
+			<tr><td><strong>Ordered channel:</strong> WEB</td></tr>
+			<tr><td>&nbsp;</td></tr>
+			<tr><td>&nbsp;</td></tr>
+			<tr><td>&nbsp;</td></tr>
+			<tr><td><h4 style="color: #002f5f; margin: 0">Track This Order</h4></td></tr>
+			<tr><td>&nbsp;</td></tr>
+			<tr><td>Want to get updates on the progress of your delivery? Click here to use our new tracking service and better plan your day around when the order will be delivered.</td></tr>
+			<tr><td>&nbsp;</td></tr>
+			<tr><td><button style="background: #002f5f; cursor: pointer; color: #fff; font-size: 12pt; white-space: no-wrap; text-transform: uppercase; padding: 0 45px; height: 50px; line-height: 50px;">Track Your Delivery</button></td></tr>
+			<tr><td>&nbsp;</td></tr>
+			<tr><td>&nbsp;</td></tr>
+			<tr><td>&nbsp;</td></tr>
+			<tr><td><h4 style="color: #002f5f; margin: 0">Change Notification Details</h4></td></tr>
+			<tr><td>&nbsp;</td></tr>
+			<tr><td>Want to get delivery updates directly to your phone? <a href="#" style="text-decoration: none; border-bottom: 1px solid #666666; padding-bottom:1px;  color: inherit">Click here</a> to customise your notifications so that you can hear from us exactly when suits you best.</td></tr>
+			<tr><td>&nbsp;</td></tr>
+			<tr><td>&nbsp;</td></tr>
+			<tr><td>&nbsp;</td></tr>
+			<tr><td>
+				<div style="width:33.33%; float: left; padding-left: 20px">
+					<h2 style="color: #002f5f; margin: 0; margin-bottom: 20px">Delivery Date</h2>
+					<h4 style="color: #002f5f; margin: 0">Thursday</h4>
+					<h4 style="color: #002f5f; margin: 0">14/12/2017</h4>
+				</div>
+				<div style="width:33.33%; float: left; border-left: 1px solid #666; height: 250px; border-right: 1px solid #666; padding-left: 20px">
+					<h2 style="color: #002f5f; margin: 0; margin-bottom: 20px">Delivery Method</h2>
+					<p style="text-transform: uppercase; margin: 0">
+						The Peter Factor <br /> 
+						77-87 Southbank Bvd <br />
+						Southbank <br />
+						<span style="text-transform: initial"> Victoria 3006</span>
+					</p>
+
+					<br /><br />
+	
+					<h4 style="color: #002f5f; margin: 0">Customer Arranged</h4>
+					<p style="text-transform: uppercase; font-family: serif; margin: 0">J.M.JONGERDEN TRANSPORT</p>				
+			
+				</div>
+				<div style="width:33.33%; float: left; padding-left: 20px">
+					<h2 style="color: #002f5f; margin: 0; margin-bottom: 20px">Payment Method</h2>
+					<h4 style="color: #002f5f; margin: 0">Account Payment</h4>
+					<br />
+					<p style="margin: 0; color: #666; font-weight: bold">P.O Number</p>
+					<a href="#">matt.p.simpson@accenture.com</a>
+				</div>
+			</td></tr>
+			<tr><td>&nbsp;</td></tr>
+			<tr><td>&nbsp;</td></tr>
+			<tr><td><h4 style="color: #002f5f; margin: 0">Confirmed Order</h4></td></tr>
+			<tr><td>&nbsp;</td></tr>
+			<tr><td>
+				<table border="0" cellpadding="10" cellspacing="0" style="width: 100%">
+					<thead style="background: #f5f5f5;">
+					<tr>
+						<th align="left">Image</th>
+						<th align="left">Product</th>
+						<th align="right">Unit Price</th>
+						<th align="right">Quantity</th>
+						<th align="left">UOM</th>
+						<th align="right">Subtotal</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><img src="https://placeholdit.co//i/130x100?&bg=f5f5f5&fc=66666&text=130 x 100"></td>
+							<td>
+								<strong style="display: block">Victoria Bitter</strong>
+								375ml 4x6 Pack Bottles 
+							</td>
+							<td align="right">
+								<strong style="display: block">$38.99</strong>
+								Save<br />
+								$9.20
+							</td>
+							<td align="right">3</td>
+							<td>Pallets</td>
+							<td align="right">
+								<strong style="display: block">$8,187.90</strong>
+								Saving<br />
+								$1932.00
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</td></tr>
+		</table>
+
+		<footer style="background: #f5f5f5; max-height: 92px; line-height: 92px; font-weight: bold; margin-top:3%; padding-left:20px">
+			<p>&copy; Carlton &amp; United Breweries</p>
+		</footer>		
+	</body>
+</html>

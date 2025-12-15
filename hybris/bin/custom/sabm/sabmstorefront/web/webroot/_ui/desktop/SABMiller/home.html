@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if IE 9]>         <html class="no-js lt-ie10" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <meta charset="UTF-8">
+    <title>
+        
+            Product Detail | Reactive FED Scaffold
+        
+
+    </title>
+    <link rel="icon" type="image/png" href="img/favicon.ico">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Place favicon.ico and apple-touch-icon(s) in the root directory -->
+
+    <script>
+
+         /*! grunt-grunticon Stylesheet Loader - v2.1.6 | https://github.com/filamentgroup/grunticon | (c) 2015 Scott Jehl, Filament Group, Inc. | MIT license. */
+
+        !function(){function e(e,n,t){"use strict";var o=window.document.createElement("link"),r=n||window.document.getElementsByTagName("script")[0],a=window.document.styleSheets;return o.rel="stylesheet",o.href=e,o.media="only x",r.parentNode.insertBefore(o,r),o.onloadcssdefined=function(e){for(var n,t=0;t<a.length;t++)a[t].href&&a[t].href===o.href&&(n=!0);n?e():setTimeout(function(){o.onloadcssdefined(e)})},o.onloadcssdefined(function(){o.media=t||"all"}),o}function n(e,n){e.onload=function(){e.onload=null,n&&n.call(e)},"isApplicationInstalled"in navigator&&"onloadcssdefined"in e&&e.onloadcssdefined(n)}!function(t){var o=function(r,a){"use strict";if(r&&3===r.length){var i=t.navigator,c=t.document,s=t.Image,d=!(!c.createElementNS||!c.createElementNS("http://www.w3.org/2000/svg","svg").createSVGRect||!c.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Image","1.1")||t.opera&&-1===i.userAgent.indexOf("Chrome")||-1!==i.userAgent.indexOf("Series40")),l=new s;l.onerror=function(){o.method="png",o.href=r[2],e(r[2])},l.onload=function(){var t=1===l.width&&1===l.height,i=r[t&&d?0:t?1:2];t&&d?o.method="svg":t?o.method="datapng":o.method="png",o.href=i,n(e(i),a)},l.src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==",c.documentElement.className+=" grunticon"}};o.loadCSS=e,o.onloadCSS=n,t.grunticon=o}(this),function(e,n){"use strict";var t=n.document,o="grunticon:",r=function(e){if(t.attachEvent?"complete"===t.readyState:"loading"!==t.readyState)e();else{var n=!1;t.addEventListener("readystatechange",function(){n||(n=!0,e())},!1)}},a=function(e){return n.document.querySelector('link[href$="'+e+'"]')},i=function(e){var n,t,r,a,i,c,s={};if(n=e.sheet,!n)return s;t=n.cssRules?n.cssRules:n.rules;for(var d=0;d<t.length;d++)r=t[d].cssText,a=o+t[d].selectorText,i=r.split(");")[0].match(/US\-ASCII\,([^"']+)/),i&&i[1]&&(c=decodeURIComponent(i[1]),s[a]=c);return s},c=function(e){var n,r,a,i;a="data-grunticon-embed";for(var c in e){i=c.slice(o.length);try{n=t.querySelectorAll(i)}catch(s){continue}r=[];for(var d=0;d<n.length;d++)null!==n[d].getAttribute(a)&&r.push(n[d]);if(r.length)for(d=0;d<r.length;d++)r[d].innerHTML=e[c],r[d].style.backgroundImage="none",r[d].removeAttribute(a)}return r},s=function(n){"svg"===e.method&&r(function(){c(i(a(e.href))),"function"==typeof n&&n()})};e.embedIcons=c,e.getCSS=a,e.getIcons=i,e.ready=r,e.svgLoadedCallback=s,e.embedSVG=s}(grunticon,this)}();
+
+            grunticon(["img/icons/icons.data.svg.css", "img/icons/icons.data.png.css", "img/icons/icons.fallback.css"], grunticon.svgLoadedCallback);
+     </script>
+
+    
+        <link rel="stylesheet" href="css/style.min.css"/>
+    
+    <link rel="stylesheet" href="img/icons/icons.data.svg.css"/>
+
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+</head>
+<body class="page-productDetails">
+    <!--[if lt IE 8]>
+    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+   
+        <header class="global-header hidden-xs">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12 col-md-3">
+				<a href="/" class="navbar-brand">
+					<i class="icon-full-logo-white" data-grunticon-embed>Carlton &amp; United</i>
+				</a>
+			</div>
+			<div class="col-sm-12 col-md-9">
+				<div class="global-header-list">
+					<ul class="clearfix">
+						<li>
+							<a href="#">Contact Us</a>
+						</li>
+						<li>
+							<ul class="user-list">
+								<li class="user-list-item">
+									<span class="global-header-icon glyphicon glyphicon-user"></span>
+								</li>
+								<li class="user-list-item">
+									<div class="select-list">
+										<div data-value="" class="select-btn">Case</div>
+										<ul class="select-items">
+											<li data-value="Linda">Linda - Corkscrew Cellars Sylvania Waters</li>
+											<li data-value="Sam">Sam - Corkscrew Cellars Sylvania Waters</li>
+											<li data-value="Cindy">Cindy - Corkscrew Cellars Sylvania Waters</li>
+										</ul>
+									</div>
+									<li>
+									</ul>
+								</li>
+								<li>
+									<a href="#"><span class="glyphicon glyphicon-calendar"></span>Delivery Date: 21-10-2015</a>
+								</li>
+								<li>
+									<a href="#"><span class="glyphicon glyphicon-shopping-cart"></span>24</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+<!--<nav class="global-navigation navbar megamenu navbar-default" role="navigation">-->
+	<!--<div class="navbar-header hidden-sm hidden-md hidden-lg">-->
+		<!--<div class="row">-->
+			<!--<div class="col-xs-4">-->
+				<!--<a href="#" data-toggle="collapse" data-target="#navbar-collapse-1" class="navbar-toggle collapsed" aria-expanded="false">Menu</a>-->
+      <!--</button>-->
+
+			<!--</div>-->
+			<!--<div class="col-xs-4">-->
+				<!--<a href="/" class="navbar-brand-mobile">-->
+					<!--<i class="icon-small-logo"-->
+					<!--data-grunticon-embed>Carlton &amp; United</i>-->
+				<!--</a>-->
+			<!--</div>-->
+			<!--<div class="col-xs-4">-->
+				<!--<a href="#" class="navbar-close">Close</a>-->
+				<!--<a href="#" class="cart-mobile"><span class="glyphicon glyphicon-shopping-cart"></span>24</a>-->
+			<!--</div>-->
+		<!--</div>-->
+	<!--</div>-->
+	<!--<div id="navbar-collapse-1" class="navbar-collapse collapse">-->
+		<!--<div class="nav-content-container">-->
+		<!--<div class="mobile-head hidden-sm hidden-md hidden-lg">-->
+			<!---->
+			<!--<ul class="mobile-head-list">-->
+				<!---->
+				<!--<li class="mobile-drop">-->
+					<!--<div class="select-list">-->
+						<!--<div data-value="" class="select-btn"><span>Linda - Corkscrew Cellars Sylvania Waters</span></div>-->
+						<!--<ul class="select-items">-->
+							<!--<li data-value="Linda">Linda - Corkscrew Cellars Sylvania Waters</li>-->
+							<!--<li data-value="Sam">Sam - Corkscrew Cellars Sylvania Waters</li>-->
+							<!--<li data-value="Cindy">Cindy - Corkscrew Cellars Sylvania Waters</li>-->
+						<!--</ul>-->
+					<!--</div>-->
+				<!--</li>-->
+				<!--<li>-->
+					<!--<a href="#"><span class="icon-offset glyphicon glyphicon-calendar"></span>Delivery Date: 21-10-2015</a>-->
+				<!--</li>-->
+				<!--<li>-->
+					<!--<a href="#">Contact Us</a>-->
+				<!--</li>-->
+				<!---->
+			<!--</ul>-->
+			<!---->
+		<!--</div>-->
+		<!--<div class="main-nav">-->
+			<!--<div class="container">-->
+				<!--<ul class="nav navbar-nav">-->
+					<!--<li class="dropdown megamenu-fw">-->
+						<!---->
+						<!--<a href="#deals" class="dropdown-link">Deals</a>-->
+						<!--<a data-target="#" class="dropdown-toggle" data-toggle="dropdown">Toggle</a>-->
+						<!---->
+						<!--<ul class="dropdown-menu">-->
+							<!--<li>-->
+								<!--<div class="megamenu-content container">-->
+									<!--<div class="row">-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Popular</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Brand</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Style</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Subcategory</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Package type</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--&lt;!&ndash; Example of empty col for pages that have less categories &ndash;&gt;-->
+										<!--</div>-->
+									<!--</div>-->
+								<!--</div>-->
+							<!--</li>-->
+						<!--</ul>-->
+					<!--</li>-->
+					<!--<li class="dropdown megamenu-fw">-->
+						<!--<a href="#beer" class="dropdown-link active">Beer</a>-->
+						<!--<a data-target="#" class="dropdown-toggle" data-toggle="dropdown">Toggle</a>-->
+						<!--<ul class="dropdown-menu">-->
+							<!--<li>-->
+								<!--<div class="megamenu-content container">-->
+									<!--<div class="row">-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Popular</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Brand</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Style</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Subcategory</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Package type</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li>-->
+												<!--<img src="http://placehold.it/350x250" class="img-responsive"></li>-->
+											<!--</ul>-->
+										<!--</div>-->
+									<!--</div>-->
+								<!--</div>-->
+							<!--</li>-->
+						<!--</ul>-->
+					<!--</li>-->
+					<!--<li class="dropdown megamenu-fw">-->
+						<!--<a href="#cider" class="dropdown-link">Cider</a>-->
+						<!--<a data-target="#" class="dropdown-toggle" data-toggle="dropdown">Toggle</a>-->
+						<!--<ul class="dropdown-menu">-->
+							<!--<li>-->
+								<!--<div class="megamenu-content container">-->
+									<!--<div class="row">-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Popular</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Brand</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Style</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Subcategory</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Package type</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li>-->
+												<!--<img src="http://placehold.it/350x250" class="img-responsive"></li>-->
+											<!--</ul>-->
+										<!--</div>-->
+									<!--</div>-->
+								<!--</div>-->
+							<!--</li>-->
+						<!--</ul>-->
+					<!--</li>-->
+					<!--<li class="dropdown megamenu-fw">-->
+						<!--<a href="#sprites-rtds" class="dropdown-link">Sprites &amp; RTD's</a>-->
+						<!--<a data-target="#" class="dropdown-toggle" data-toggle="dropdown">Toggle</a>-->
+						<!--<ul class="dropdown-menu">-->
+							<!--<li>-->
+								<!--<div class="megamenu-content container">-->
+									<!--<div class="row">-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Popular</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Brand</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Style</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Subcategory</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Package type</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li>-->
+												<!--<img src="http://placehold.it/350x250" class="img-responsive"></li>-->
+											<!--</ul>-->
+										<!--</div>-->
+									<!--</div>-->
+								<!--</div>-->
+							<!--</li>-->
+						<!--</ul>-->
+					<!--</li>-->
+					<!--<li class="dropdown megamenu-fw">-->
+						<!--<a href="#brands" class="dropdown-link">Brands</a>-->
+						<!--<a data-target="#" class="dropdown-toggle" data-toggle="dropdown">Toggle</a>-->
+						<!--<ul class="dropdown-menu">-->
+							<!--<li>-->
+								<!--<div class="megamenu-content container">-->
+									<!--<div class="row">-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Popular</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Brand</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Style</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Subcategory</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li class="collapser">-->
+													<!--<div class="collapser-header">Package type</div>-->
+													<!--<div class="collapser-content">-->
+														<!--<ul class="dropdown-menu-sublist">-->
+															<!--<li><a href="#">Shop all Brands</a></li>-->
+															<!--<li><a href="#">Abbotsford</a></li>-->
+															<!--<li><a href="#">Carlton</a></li>-->
+															<!--<li><a href="#">Cascade</a></li>-->
+															<!--<li><a href="#">Crown</a></li>-->
+															<!--<li><a href="#">Fosters</a></li>-->
+														<!--</ul>-->
+													<!--</div>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<div class="col-sm-2">-->
+											<!--<ul class="dropdown-menu-list">-->
+												<!--<li>-->
+												<!--<img src="http://placehold.it/350x250" class="img-responsive"></li>-->
+											<!--</ul>-->
+										<!--</div>-->
+									<!--</div>-->
+								<!--</div>-->
+							<!--</li>-->
+						<!--</ul>-->
+					<!--</li>-->
+					<!--<li class="hidden-sm hidden-md hidden-lg log-status">-->
+						<!--<a href="#">Sign Out</a>-->
+					<!--</li>-->
+					<!--<li class="hidden-xs hidden-sm pull-right">-->
+						<!--<form class="navbar-form" role="search">-->
+							<!--<div class="input-group add-on">-->
+								<!--<input type="text" class="form-control" name="srch-term" id="srch-term">-->
+								<!--<div class="input-group-btn">-->
+									<!--<button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>-->
+								<!--</div>-->
+							<!--</div>-->
+						<!--</form>-->
+					<!--</li>-->
+				<!--</ul>-->
+			<!--</div>-->
+		<!--</div>-->
+
+	<!--</div>-->
+	<!--</div>-->
+<!--</nav>-->
+
+     <div class="container">
+        
+
+
+
+<section class="slider test-slider">
+    <div class="row">
+        <div class="col-sm-12">
+            <img src="img/desktopbanner.png" class="img-responsive desktop">
+            <img src="img/mobbanner.png" class="img-responsive mobile">
+            <div class="buttons">
+                <a href="" class="btn btn-primary">Find out more</a>
+                <a href="" class="btn btn-secondary">View all our deals</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Orders information-->
+<section class="orders-information">
+    <div class="row">
+        <div class="col-sm-6">
+
+            <h2>Recent Orders</h2>
+
+            <table class="table sortable">
+
+                <tr>
+                    <td>
+                        <a href="#">
+                            02/05/2015 - #123535
+                        </a>
+                    </td>
+                    <td>
+                       <span class="status status-created"></span>Created
+                    </td>
+                    <td>
+                         <a href="#" class="btn btn-primary btn-small">REORDER</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <a href="#">
+                            02/05/2015 - #123535
+                        </a>
+                    </td>
+                    <td>
+                       <span class="status status-processing"></span>Created
+                    </td>
+                    <td>
+                         <a href="#" class="btn btn-primary btn-small">REORDER</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <a href="#">
+                            02/05/2015 - #123535
+                        </a>
+                    </td>
+                    <td>
+                       <span class="status status-partially-dispatched"></span>Created
+                    </td>
+                    <td>
+                         <a href="#" class="btn btn-primary btn-small">REORDER</a>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>
+                        <a href="#">
+                            02/05/2015 - #123535
+                        </a>
+                    </td>
+                    <td>
+                       <span class="status status-dispatched"></span>Created
+                    </td>
+                    <td>
+                         <a href="#" class="btn btn-primary btn-small">REORDER</a>
+                    </td>
+                </tr>
+
+
+                 <tr>
+                    <td>
+                        <a href="#">
+                            02/05/2015 - #123535
+                        </a>
+                    </td>
+                    <td>
+                       <span class="status status-cancelled"></span>Cancelled
+                    </td>
+                    <td>
+                         <a href="#" class="btn btn-primary btn-small">REORDER</a>
+                    </td>
+                </tr>
+
+            </table>
+
+            <p>
+                <a href="#">View all orders</a>
+            </p>
+        </div>
+        <div class="col-sm-6">
+
+            <h2>Your Templates</h2>
+
+            <table class="table sortable">
+
+                <tr>
+                    <td>
+                        <a href="#">
+                            Favourite Summer Beers
+                        </a>
+                    </td>
+        
+                    <td>
+                         <a href="#" class="btn btn-primary btn-small">ADD TO CART</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <a href="#">
+                            Fruity Collection of Beers
+                        </a>
+                    </td>
+        
+                    <td>
+                         <a href="#" class="btn btn-primary btn-small">ADD TO CART</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <a href="#">
+                            Favourite Winter Beers
+                        </a>
+                    </td>
+        
+                    <td>
+                         <a href="#" class="btn btn-primary btn-small">ADD TO CART</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <a href="#">
+                            Weekly Order
+                        </a>
+                    </td>
+        
+                    <td>
+                         <a href="#" class="btn btn-primary btn-small">ADD TO CART</a>
+                    </td>
+                </tr>
+
+
+                 <tr>
+                    <td>
+                        <a href="#">
+                            Create a new template
+                        </a>
+                    </td>
+        
+                    <td>
+                         <a href="#" class="btn btn-primary btn-small">ADD TO CART</a>
+                    </td>
+                </tr>
+
+            </table>
+
+            <p>
+                <a href="#">View all templates</a>
+            </p>
+        </div>
+    
+    </div>
+
+    <hr/>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-6">
+            <h3>Next Delivery Date</h3>
+            <p>Tue 22 Oct</p>
+            <a href="#">Choose a different delivery date</a>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                    <h3>Your Account</h3>
+                    <p>$2,355.94</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <a href="#">View all invoices</a>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                     <a href="#" class="btn btn-primary btn-small">PAY NOW</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+</div>
+
+<div class="container">
+
+<section class="your-deals">
+     <div class="row">
+        <div class="col-xs-12">
+            <h2>Your Deals</h2>
+        </div>
+    </div>
+    <div class="row">
+         <div class="col-sm-6">
+    <div class="row">
+        <div class="col-xs-9">
+             <p class="h2">Buy Carlton Draught with Fat yak, get 1 Carlton Draught for free</p>
+             <a href="#">View details</a>
+        </div>
+         <div class="col-xs-3">
+            <div class="badge badge-red badge-md pull-left">Deals</div>
+        </div>
+    </div>
+    <div class="row">
+            <div class="col-xs-5">
+                <ul class="select-quantity select-quantity-sm">
+                    <li class="down"><a href="#"><i class="icon-minus" data-grunticon-embed></i></a></li>
+                    <li><input class="qty-input" min="0" type="text" value="1"></li>
+                    <li class="up"><a href="#"><i class="icon-plus" data-grunticon-embed></i></a></li>
+                </ul>
+            </div>
+            <div class="col-xs-3">
+
+                <p>19 cases</p>
+
+            </div>
+            <div class="col-xs-4">
+                <a href="#" class="btn btn-primary btn-small">ADD TO CART</a>
+            </div>
+    </div> 
+</div>
+         <div class="col-sm-6">
+    <div class="row">
+        <div class="col-xs-9">
+             <p class="h2">Buy Carlton Draught with Fat yak, get 1 Carlton Draught for free</p>
+             <a href="#">View details</a>
+        </div>
+         <div class="col-xs-3">
+            <div class="badge badge-red badge-md pull-left">Deals</div>
+        </div>
+    </div>
+    <div class="row">
+            <div class="col-xs-5">
+                <ul class="select-quantity select-quantity-sm">
+                    <li class="down"><a href="#"><i class="icon-minus" data-grunticon-embed></i></a></li>
+                    <li><input class="qty-input" min="0" type="text" value="1"></li>
+                    <li class="up"><a href="#"><i class="icon-plus" data-grunticon-embed></i></a></li>
+                </ul>
+            </div>
+            <div class="col-xs-3">
+
+                <p>19 cases</p>
+
+            </div>
+            <div class="col-xs-4">
+                <a href="#" class="btn btn-primary btn-small">ADD TO CART</a>
+            </div>
+    </div> 
+</div>
+         <div class="col-sm-6">
+    <div class="row">
+        <div class="col-xs-9">
+             <p class="h2">Buy Carlton Draught with Fat yak, get 1 Carlton Draught for free</p>
+             <a href="#">View details</a>
+        </div>
+         <div class="col-xs-3">
+            <div class="badge badge-red badge-md pull-left">Deals</div>
+        </div>
+    </div>
+    <div class="row">
+            <div class="col-xs-5">
+                <ul class="select-quantity select-quantity-sm">
+                    <li class="down"><a href="#"><i class="icon-minus" data-grunticon-embed></i></a></li>
+                    <li><input class="qty-input" min="0" type="text" value="1"></li>
+                    <li class="up"><a href="#"><i class="icon-plus" data-grunticon-embed></i></a></li>
+                </ul>
+            </div>
+            <div class="col-xs-3">
+
+                <p>19 cases</p>
+
+            </div>
+            <div class="col-xs-4">
+                <a href="#" class="btn btn-primary btn-small">ADD TO CART</a>
+            </div>
+    </div> 
+</div>
+         <div class="col-sm-6">
+    <div class="row">
+        <div class="col-xs-9">
+             <p class="h2">Buy Carlton Draught with Fat yak, get 1 Carlton Draught for free</p>
+             <a href="#">View details</a>
+        </div>
+         <div class="col-xs-3">
+            <div class="badge badge-red badge-md pull-left">Deals</div>
+        </div>
+    </div>
+    <div class="row">
+            <div class="col-xs-5">
+                <ul class="select-quantity select-quantity-sm">
+                    <li class="down"><a href="#"><i class="icon-minus" data-grunticon-embed></i></a></li>
+                    <li><input class="qty-input" min="0" type="text" value="1"></li>
+                    <li class="up"><a href="#"><i class="icon-plus" data-grunticon-embed></i></a></li>
+                </ul>
+            </div>
+            <div class="col-xs-3">
+
+                <p>19 cases</p>
+
+            </div>
+            <div class="col-xs-4">
+                <a href="#" class="btn btn-primary btn-small">ADD TO CART</a>
+            </div>
+    </div> 
+</div>
+    </div>
+</section>
+
+
+<!-- CUB Picks Start-->
+<section class="cub-picks">
+    <div class="row">
+        <div class="col-xs-12">
+            <h2>CUB Picks</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6">
+             <!--<div class="row">
+    <div class="col-xs-6">
+        <img src="img/placeholders/cascade-draught.png" alt="Cascade Draught">
+    </div>
+    <div class="col-xs-6">
+        
+        <h3>Pick of the week</h3>
+        <p>Lorem Ipsum dolor sit amet</p>
+        <a href="#">View details</a>
+           
+        <div class="row">
+            <div class="col-xs-6">
+                <ul class="select-quantity select-quantity-sm">
+                    <li class="down"><a href="#"><i class="icon-minus" data-grunticon-embed></i></a></li>
+                    <li><input class="qty-input" min="0" type="text" value="1"></li>
+                    <li class="up"><a href="#"><i class="icon-plus" data-grunticon-embed></i></a></li>
+                </ul>
+            </div>
+            <div class="col-xs-6">
+                <div class="select-list">
+                     <div data-value="" class="select-btn">Case</div>
+                     <ul class="select-items">
+                         <li>Case</li>
+                         <li>Layer</li>
+                         <li>Palet</li>
+                     </ul>
+                </div>
+            </div>
+        </div>
+        <a href="#" class="btn btn-primary btn-small">ADD TO CART</a>
+    </div>
+</div>-->
+
+
+<div class="row product-pick">
+
+    <h3 class="product-pick-title"><a href="/sabmStore/en/Beer/Sheaf-Stout/p/eanVariant02">Pick of the week1</a></h3>
+
+   
+        <a href="/sabmStore/en/Beer/Sheaf-Stout/p/eanVariant02"><div class="list-item-img">
+                    <img src="img/placeholders/cascade-draught.png" alt="BR Sheaf Stout NGB 750ML 1x12" title="BR Sheaf Stout NGB 750ML 1x12">
+                    </div>
+            </a>
+    
+    <div class="col-xs-12 addtocart-qty">
+        
+        <div class="product-pick-description">
+            
+            <h3 class="clamp-2" style="overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 2;">BR Sheaf Stout NGB 750ML 1x12</h3>
+            <div class="h3 h3-subheader clamp-1" style="overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 1;">BR Sheaf Stout NGB 750ML 1x12</div>
+        </div>
+
+          <div class="list-item-price">
+                <span>
+                    Your Case price</span>
+                <div class="h1">
+                    $49.00</div>
+        </div>
+           
+        <div class="row product-pick-selectors">
+            <div class="col-xs-6 trim-right-5">
+                <ul class="select-quantity">
+                    <li class="down disabled"><i class="icon-minus" style="background-image: none;"><svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" width="9" height="1" viewBox="0 0 9 1"><path d="M0 .987v-1h9v1H0z" class="cls-1"></path></svg></i></li>
+                    <li><input name="qtyInput" maxlength="3" size="1" class="qty-input" type="text" value="1"></li>
+                    <li class="up"><i class="icon-plus" style="background-image: none;"><svg id="plus" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" width="9" height="9" viewBox="0 0 9 9"><path d="M9 4.987H5v3.998H4V4.987H0v-1h4V-.01h1v3.998h4v1z"></path></svg></i></li>
+                </ul>
+            </div>
+            <div class="col-xs-6 trim-left-5">
+                    <div class="select-list">
+                        <div data-value="" class="select-btn">Case</div>
+                        <ul class="select-items" style="display: none;">
+                            <li data-value="CAR">Case</li>
+                            <li data-value="LAY">Layer</li>
+                            <li data-value="PAL">Pallet</li>
+                            </ul>
+                    </div>
+             </div>
+        </div>
+      
+        <form id="addToCartFormeanVariant02" class="add_to_cart_form" action="/sabmStore/en/cart/add" method="post"><input type="hidden" name="productCodePost" value="eanVariant02">
+            <input type="hidden" maxlength="3" size="1" id="qty" name="qty" class="qty" value="1">
+            <input type="hidden" name="unit" class="addToCartUnit" value="CAR">
+            <button type="submit" class="btn btn-primary btn-small ">Add to cart</button>
+        <div>
+<input type="hidden" name="CSRFToken" value="0f86dcf2-04ac-482c-8d23-1cc1b30543b9">
+</div></form></div>
+</div>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+             <!--<div class="row">
+    <div class="col-xs-6">
+        <img src="img/placeholders/cascade-draught.png" alt="Cascade Draught">
+    </div>
+    <div class="col-xs-6">
+        
+        <h3>Pick of the week</h3>
+        <p>Lorem Ipsum dolor sit amet</p>
+        <a href="#">View details</a>
+           
+        <div class="row">
+            <div class="col-xs-6">
+                <ul class="select-quantity select-quantity-sm">
+                    <li class="down"><a href="#"><i class="icon-minus" data-grunticon-embed></i></a></li>
+                    <li><input class="qty-input" min="0" type="text" value="1"></li>
+                    <li class="up"><a href="#"><i class="icon-plus" data-grunticon-embed></i></a></li>
+                </ul>
+            </div>
+            <div class="col-xs-6">
+                <div class="select-list">
+                     <div data-value="" class="select-btn">Case</div>
+                     <ul class="select-items">
+                         <li>Case</li>
+                         <li>Layer</li>
+                         <li>Palet</li>
+                     </ul>
+                </div>
+            </div>
+        </div>
+        <a href="#" class="btn btn-primary btn-small">ADD TO CART</a>
+    </div>
+</div>-->
+
+
+<div class="row product-pick">
+
+    <h3 class="product-pick-title"><a href="/sabmStore/en/Beer/Sheaf-Stout/p/eanVariant02">Pick of the week1</a></h3>
+
+   
+        <a href="/sabmStore/en/Beer/Sheaf-Stout/p/eanVariant02"><div class="list-item-img">
+                    <img src="img/placeholders/cascade-draught.png" alt="BR Sheaf Stout NGB 750ML 1x12" title="BR Sheaf Stout NGB 750ML 1x12">
+                    </div>
+            </a>
+    
+    <div class="col-xs-12 addtocart-qty">
+        
+        <div class="product-pick-description">
+            
+            <h3 class="clamp-2" style="overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 2;">BR Sheaf Stout NGB 750ML 1x12</h3>
+            <div class="h3 h3-subheader clamp-1" style="overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 1;">BR Sheaf Stout NGB 750ML 1x12</div>
+        </div>
+
+          <div class="list-item-price">
+                <span>
+                    Your Case price</span>
+                <div class="h1">
+                    $49.00</div>
+        </div>
+           
+        <div class="row product-pick-selectors">
+            <div class="col-xs-6 trim-right-5">
+                <ul class="select-quantity">
+                    <li class="down disabled"><i class="icon-minus" style="background-image: none;"><svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" width="9" height="1" viewBox="0 0 9 1"><path d="M0 .987v-1h9v1H0z" class="cls-1"></path></svg></i></li>
+                    <li><input name="qtyInput" maxlength="3" size="1" class="qty-input" type="text" value="1"></li>
+                    <li class="up"><i class="icon-plus" style="background-image: none;"><svg id="plus" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" width="9" height="9" viewBox="0 0 9 9"><path d="M9 4.987H5v3.998H4V4.987H0v-1h4V-.01h1v3.998h4v1z"></path></svg></i></li>
+                </ul>
+            </div>
+            <div class="col-xs-6 trim-left-5">
+                    <div class="select-list">
+                        <div data-value="" class="select-btn">Case</div>
+                        <ul class="select-items" style="display: none;">
+                            <li data-value="CAR">Case</li>
+                            <li data-value="LAY">Layer</li>
+                            <li data-value="PAL">Pallet</li>
+                            </ul>
+                    </div>
+             </div>
+        </div>
+      
+        <form id="addToCartFormeanVariant02" class="add_to_cart_form" action="/sabmStore/en/cart/add" method="post"><input type="hidden" name="productCodePost" value="eanVariant02">
+            <input type="hidden" maxlength="3" size="1" id="qty" name="qty" class="qty" value="1">
+            <input type="hidden" name="unit" class="addToCartUnit" value="CAR">
+            <button type="submit" class="btn btn-primary btn-small ">Add to cart</button>
+        <div>
+<input type="hidden" name="CSRFToken" value="0f86dcf2-04ac-482c-8d23-1cc1b30543b9">
+</div></form></div>
+</div>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+             <!--<div class="row">
+    <div class="col-xs-6">
+        <img src="img/placeholders/cascade-draught.png" alt="Cascade Draught">
+    </div>
+    <div class="col-xs-6">
+        
+        <h3>Pick of the week</h3>
+        <p>Lorem Ipsum dolor sit amet</p>
+        <a href="#">View details</a>
+           
+        <div class="row">
+            <div class="col-xs-6">
+                <ul class="select-quantity select-quantity-sm">
+                    <li class="down"><a href="#"><i class="icon-minus" data-grunticon-embed></i></a></li>
+                    <li><input class="qty-input" min="0" type="text" value="1"></li>
+                    <li class="up"><a href="#"><i class="icon-plus" data-grunticon-embed></i></a></li>
+                </ul>
+            </div>
+            <div class="col-xs-6">
+                <div class="select-list">
+                     <div data-value="" class="select-btn">Case</div>
+                     <ul class="select-items">
+                         <li>Case</li>
+                         <li>Layer</li>
+                         <li>Palet</li>
+                     </ul>
+                </div>
+            </div>
+        </div>
+        <a href="#" class="btn btn-primary btn-small">ADD TO CART</a>
+    </div>
+</div>-->
+
+
+<div class="row product-pick">
+
+    <h3 class="product-pick-title"><a href="/sabmStore/en/Beer/Sheaf-Stout/p/eanVariant02">Pick of the week1</a></h3>
+
+   
+        <a href="/sabmStore/en/Beer/Sheaf-Stout/p/eanVariant02"><div class="list-item-img">
+                    <img src="img/placeholders/cascade-draught.png" alt="BR Sheaf Stout NGB 750ML 1x12" title="BR Sheaf Stout NGB 750ML 1x12">
+                    </div>
+            </a>
+    
+    <div class="col-xs-12 addtocart-qty">
+        
+        <div class="product-pick-description">
+            
+            <h3 class="clamp-2" style="overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 2;">BR Sheaf Stout NGB 750ML 1x12</h3>
+            <div class="h3 h3-subheader clamp-1" style="overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 1;">BR Sheaf Stout NGB 750ML 1x12</div>
+        </div>
+
+          <div class="list-item-price">
+                <span>
+                    Your Case price</span>
+                <div class="h1">
+                    $49.00</div>
+        </div>
+           
+        <div class="row product-pick-selectors">
+            <div class="col-xs-6 trim-right-5">
+                <ul class="select-quantity">
+                    <li class="down disabled"><i class="icon-minus" style="background-image: none;"><svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" width="9" height="1" viewBox="0 0 9 1"><path d="M0 .987v-1h9v1H0z" class="cls-1"></path></svg></i></li>
+                    <li><input name="qtyInput" maxlength="3" size="1" class="qty-input" type="text" value="1"></li>
+                    <li class="up"><i class="icon-plus" style="background-image: none;"><svg id="plus" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" width="9" height="9" viewBox="0 0 9 9"><path d="M9 4.987H5v3.998H4V4.987H0v-1h4V-.01h1v3.998h4v1z"></path></svg></i></li>
+                </ul>
+            </div>
+            <div class="col-xs-6 trim-left-5">
+                    <div class="select-list">
+                        <div data-value="" class="select-btn">Case</div>
+                        <ul class="select-items" style="display: none;">
+                            <li data-value="CAR">Case</li>
+                            <li data-value="LAY">Layer</li>
+                            <li data-value="PAL">Pallet</li>
+                            </ul>
+                    </div>
+             </div>
+        </div>
+      
+        <form id="addToCartFormeanVariant02" class="add_to_cart_form" action="/sabmStore/en/cart/add" method="post"><input type="hidden" name="productCodePost" value="eanVariant02">
+            <input type="hidden" maxlength="3" size="1" id="qty" name="qty" class="qty" value="1">
+            <input type="hidden" name="unit" class="addToCartUnit" value="CAR">
+            <button type="submit" class="btn btn-primary btn-small ">Add to cart</button>
+        <div>
+<input type="hidden" name="CSRFToken" value="0f86dcf2-04ac-482c-8d23-1cc1b30543b9">
+</div></form></div>
+</div>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+             <!--<div class="row">
+    <div class="col-xs-6">
+        <img src="img/placeholders/cascade-draught.png" alt="Cascade Draught">
+    </div>
+    <div class="col-xs-6">
+        
+        <h3>Pick of the week</h3>
+        <p>Lorem Ipsum dolor sit amet</p>
+        <a href="#">View details</a>
+           
+        <div class="row">
+            <div class="col-xs-6">
+                <ul class="select-quantity select-quantity-sm">
+                    <li class="down"><a href="#"><i class="icon-minus" data-grunticon-embed></i></a></li>
+                    <li><input class="qty-input" min="0" type="text" value="1"></li>
+                    <li class="up"><a href="#"><i class="icon-plus" data-grunticon-embed></i></a></li>
+                </ul>
+            </div>
+            <div class="col-xs-6">
+                <div class="select-list">
+                     <div data-value="" class="select-btn">Case</div>
+                     <ul class="select-items">
+                         <li>Case</li>
+                         <li>Layer</li>
+                         <li>Palet</li>
+                     </ul>
+                </div>
+            </div>
+        </div>
+        <a href="#" class="btn btn-primary btn-small">ADD TO CART</a>
+    </div>
+</div>-->
+
+
+<div class="row product-pick">
+
+    <h3 class="product-pick-title"><a href="/sabmStore/en/Beer/Sheaf-Stout/p/eanVariant02">Pick of the week1</a></h3>
+
+   
+        <a href="/sabmStore/en/Beer/Sheaf-Stout/p/eanVariant02"><div class="list-item-img">
+                    <img src="img/placeholders/cascade-draught.png" alt="BR Sheaf Stout NGB 750ML 1x12" title="BR Sheaf Stout NGB 750ML 1x12">
+                    </div>
+            </a>
+    
+    <div class="col-xs-12 addtocart-qty">
+        
+        <div class="product-pick-description">
+            
+            <h3 class="clamp-2" style="overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 2;">BR Sheaf Stout NGB 750ML 1x12</h3>
+            <div class="h3 h3-subheader clamp-1" style="overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 1;">BR Sheaf Stout NGB 750ML 1x12</div>
+        </div>
+
+          <div class="list-item-price">
+                <span>
+                    Your Case price</span>
+                <div class="h1">
+                    $49.00</div>
+        </div>
+           
+        <div class="row product-pick-selectors">
+            <div class="col-xs-6 trim-right-5">
+                <ul class="select-quantity">
+                    <li class="down disabled"><i class="icon-minus" style="background-image: none;"><svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" width="9" height="1" viewBox="0 0 9 1"><path d="M0 .987v-1h9v1H0z" class="cls-1"></path></svg></i></li>
+                    <li><input name="qtyInput" maxlength="3" size="1" class="qty-input" type="text" value="1"></li>
+                    <li class="up"><i class="icon-plus" style="background-image: none;"><svg id="plus" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" width="9" height="9" viewBox="0 0 9 9"><path d="M9 4.987H5v3.998H4V4.987H0v-1h4V-.01h1v3.998h4v1z"></path></svg></i></li>
+                </ul>
+            </div>
+            <div class="col-xs-6 trim-left-5">
+                    <div class="select-list">
+                        <div data-value="" class="select-btn">Case</div>
+                        <ul class="select-items" style="display: none;">
+                            <li data-value="CAR">Case</li>
+                            <li data-value="LAY">Layer</li>
+                            <li data-value="PAL">Pallet</li>
+                            </ul>
+                    </div>
+             </div>
+        </div>
+      
+        <form id="addToCartFormeanVariant02" class="add_to_cart_form" action="/sabmStore/en/cart/add" method="post"><input type="hidden" name="productCodePost" value="eanVariant02">
+            <input type="hidden" maxlength="3" size="1" id="qty" name="qty" class="qty" value="1">
+            <input type="hidden" name="unit" class="addToCartUnit" value="CAR">
+            <button type="submit" class="btn btn-primary btn-small ">Add to cart</button>
+        <div>
+<input type="hidden" name="CSRFToken" value="0f86dcf2-04ac-482c-8d23-1cc1b30543b9">
+</div></form></div>
+</div>
+        </div>
+    </div>
+</section>
+<!-- CUB Picks Ends-->
+
+<hr/>
+
+ 
+<!-- Best sellers -->
+<section class="best-sellers">
+    <div class="row">
+        <div class="col-xs-12">
+            <h2>Best Sellers</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6 col-md-3">
+            <img src="img/placeholders/cascade-draught.png" alt="Cascade Draught">
+            <h3>Cascade Draught</h3>
+            <p class="h3 h3-subheader">24 x 375ml Bottle Carton</p>
+        </div>
+        <div class="col-xs-6 col-md-3">
+            <img src="img/placeholders/cascade-draught.png" alt="Cascade Draught">
+            <h3>Cascade Draught</h3>
+            <p class="h3 h3-subheader">24 x 375ml Bottle Carton</p>
+        </div>
+        <div class="col-xs-6 col-md-3">
+            <img src="img/placeholders/cascade-draught.png" alt="Cascade Draught">
+            <h3>Cascade Draught</h3>
+            <p class="h3 h3-subheader">24 x 375ml Bottle Carton</p>
+        </div>
+        <div class="col-xs-6 col-md-3">
+            <img src="img/placeholders/cascade-draught.png" alt="Cascade Draught">
+            <h3>Cascade Draught</h3>
+            <p class="h3 h3-subheader">24 x 375ml Bottle Carton</p>
+        </div>
+    </div>
+</section>
+   
+     </div>
+      
+   
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/libs/jquery.min.js"><\/script>')</script>
+    
+        <script src="js/scripts.min.js"></script>
+    
+</body>
+</html>

@@ -1,0 +1,156 @@
+
+#############Exclude items which select count(*),{clrDocNumber} from {AsahiSAMPayment} where {paymentDocIdentifier} is null group by {clrDocNumber} having count(*) >1#########
+INSERT_UPDATE ScriptingJob	;code[unique=true]		;scriptURI
+							;asahiSAMInvoiceExportScriptJob	;model://asahiSAMInvoiceExportScript
+							
+INSERT_UPDATE CronJob	;code[unique=true]			;job(code)				;sessionLanguage(isocode)	;sessionUser(uid)
+						;asahiSAMInvoiceExportScriptCronJob	;asahiSAMInvoiceExportScriptJob	;en		;admin
+
+
+INSERT_UPDATE Script; code[unique=true];content;active[default=true, unique=true]
+;asahiSAMInvoiceExportScript;"import java.io.File;
+import java.io.FileWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
+
+import com.apb.core.model.AsahiSAMInvoiceModel;
+import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
+import de.hybris.platform.servicelayer.search.FlexibleSearchService;
+import de.hybris.platform.servicelayer.search.SearchResult;
+import de.hybris.platform.util.CSVWriter;
+import com.google.common.base.Stopwatch;
+import de.hybris.platform.catalog.model.CatalogUnawareMediaModel;
+import com.google.common.base.Stopwatch;
+
+
+final Logger LOG = Logger.getLogger(""asahi"");
+
+def exportService = spring.getBean(""exportService"");
+SimpleDateFormat format = new SimpleDateFormat(""yyyy-MM-dd HH:mm:ss.SSS ZZZZ"");
+Calendar cal1 = Calendar.getInstance(); 
+cal1.set(2021, 7, 20)
+cal1.set(Calendar.HOUR_OF_DAY, 0)
+cal1.set(Calendar.MINUTE, 0);
+cal1.set(Calendar.SECOND, 0);
+cal1.add(Calendar.MONTH, -18);
+Date d = cal1.getTime();
+String oldDate = format.format(d);
+
+def creationTime = oldDate;
+final Map<String, Object> params = new HashMap<>();
+params.put(""creationTime1"", oldDate);
+
+Calendar cal2 = new GregorianCalendar();
+cal2.set(2021, 7, 20)
+cal2.set(Calendar.HOUR_OF_DAY, 0)
+cal2.set(Calendar.MINUTE, 0);
+cal2.set(Calendar.SECOND, 0);
+Date d1 = cal2.getTime();
+String currentDate = new SimpleDateFormat(""yyyy-MM-dd HH:mm:ss.SSS ZZZZ"").format(d1);
+params.put(""creationTime2"", currentDate);
+def creationTime2 = currentDate;
+final Stopwatch stopwatch = Stopwatch.createUnstarted();
+stopwatch.start();
+
+final FlexibleSearchQuery query = new FlexibleSearchQuery(""select {a.pk} from {AsahiSAMInvoice as a JOIN AsahiSAMPayment as p on {p.pk}={a.samPayment}} where {p.paymentDocIdentifier} is null AND {a.creationtime}>= ?creationtime1 and {a.creationtime}<= ?creationtime2"", params);
+final SearchResult<AsahiSAMInvoiceModel> result = flexibleSearchService
+		.search(query);
+int count = result.getCount();
+println(""Total record count ######"" +count);
+int batch  = count > 10000 ? 10000 : count;
+int i = 0;
+ final File file =new File(""25-asahiSAMInvoice-""+new SimpleDateFormat(""yyyyMMddHHmmssSSS"").format(new Date())+"".csv"");
+ FileWriter outputfile = new FileWriter(file);
+ CSVWriter writer = new CSVWriter(outputfile);	
+ char c = ',';
+ writer.setFieldseparator(c);
+ HashMap<Integer,Object> line = new HashMap();
+ 
+ String header = ""\""asahiPaymentTransaction(code)\"",custAccount(uid),debitInvoiceRef,deliveryNumber,documentNumber[unique=true],documentPostedDate[dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ],\""documentType(code,itemtype(code))\"",invoiceDate[dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ],invoiceDueDate[dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ],lineNumber[unique=true],paidAmount,paymentMade,remainingAmount,\""samPayment(clrDocNumber,paymentDocIdentifier)\"",samRemainingAmount,samStatements(statementNumber),soldToName,\""status(code,itemtype(code))\"",\""creationtime[forceWrite=true,dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ]\"",\""modifiedtime[forceWrite=true,dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ]\"""";
+ final String[] columns = header.split("",(?=([^\""]*\""[^\""]*\"")*[^\""]*\$)"");
+ for (int k =0; k < columns.length ; k++) {
+	 line.put (Integer.valueOf(k), columns[k]);
+ }
+writer.write(line);
+		while (i < count)
+		{
+			query.setStart(i);
+			query.setCount(batch);
+			final SearchResult<AsahiSAMInvoiceModel> result1 = flexibleSearchService
+					.search(query);
+	
+			List<AsahiSAMInvoiceModel> invoices = result1.getResult();		
+	
+			if (invoices.size() > 0)
+				{								
+					LOG.info(""Last exported AsahiSAMInvoice in batch is : ""+invoices.get(invoices.size()-1).getDocumentNumber());
+
+					  	int j =1;
+						for(AsahiSAMInvoiceModel invoice : invoices)
+						{
+							try {
+								line.put(Integer.valueOf(0), null != invoice.getAsahiPaymentTransaction() ? invoice.getAsahiPaymentTransaction().getCode() : StringUtils.EMPTY);
+								line.put(Integer.valueOf(1), null != invoice.getCustAccount() ? invoice.getCustAccount().getUid() : StringUtils.EMPTY);
+								line.put(Integer.valueOf(2), invoice.getDebitInvoiceRef());
+								line.put(Integer.valueOf(3), invoice.getDeliveryNumber());
+								line.put(Integer.valueOf(4), invoice.getDocumentNumber());
+								line.put(Integer.valueOf(5), null != invoice.getDocumentPostedDate() ? new SimpleDateFormat(""yyyy-MM-dd HH:mm:ss.SSS ZZZZ"").format(invoice.getDocumentPostedDate()) : StringUtils.EMPTY);
+								line.put(Integer.valueOf(6), null != invoice.getDocumentType() 
+										? invoice.getDocumentType().getCode() + "":"" + invoice.getDocumentType().getType() : StringUtils.EMPTY);
+								line.put(Integer.valueOf(7), null != invoice.getInvoiceDate() ? new SimpleDateFormat(""yyyy-MM-dd HH:mm:ss.SSS ZZZZ"").format(invoice.getInvoiceDate()) : StringUtils.EMPTY);
+								line.put(Integer.valueOf(8), null != invoice.getInvoiceDueDate() ? new SimpleDateFormat(""yyyy-MM-dd HH:mm:ss.SSS ZZZZ"").format(invoice.getInvoiceDueDate()) : StringUtils.EMPTY);
+								line.put(Integer.valueOf(9), invoice.getLineNumber());
+								line.put(Integer.valueOf(10), invoice.getPaidAmount());
+								line.put(Integer.valueOf(11), null != invoice.isPaymentMade() ? Boolean.toString(invoice.isPaymentMade()) : ""false"");
+								line.put(Integer.valueOf(12), invoice.getRemainingAmount());
+								line.put(Integer.valueOf(13), null != invoice.getSamPayment()
+										? invoice.getSamPayment().getClrDocNumber() : StringUtils.EMPTY);
+								line.put(Integer.valueOf(14), invoice.getSamRemainingAmount());
+								line.put(Integer.valueOf(15), null != invoice.getSamStatements()? invoice.getSamStatements().getStatementNumber() : StringUtils.EMPTY);
+								line.put(Integer.valueOf(16), invoice.getSoldToName());
+								line.put(Integer.valueOf(17), null != invoice.getStatus() 
+										? invoice.getStatus().getCode() + "":"" + invoice.getStatus().getType() : StringUtils.EMPTY);
+								line.put(Integer.valueOf(18), null != invoice.getCreationtime() ? new SimpleDateFormat(""yyyy-MM-dd HH:mm:ss.SSS ZZZZ"").format(invoice.getCreationtime()): StringUtils.EMPTY);
+								line.put(Integer.valueOf(19), null != invoice.getModifiedtime() ? new SimpleDateFormat(""yyyy-MM-dd HH:mm:ss.SSS ZZZZ"").format(invoice.getModifiedtime()): StringUtils.EMPTY);
+								
+								 writer.write(line);
+							}
+							 
+							  catch(final Exception exception)
+							  {
+								LOG.error(""AsahiSAMInvoice failed in export : "" + invoice.getDocumentNumber() +exception.getStackTrace());
+							  }
+							}
+							i = i+batch;
+						}
+					}
+	writer.close();	
+				 
+	if (file != null  && file.length() > 0) {
+		try {
+			
+				final InputStream fileInputStream = new FileInputStream(file);
+				final CatalogUnawareMediaModel mediaModel = modelService.create(CatalogUnawareMediaModel.class);
+				LOG.info(""Media File Name is : ""+file.getName());
+				mediaModel.setCode(file.getName() + ""_"" + System.currentTimeMillis());
+				mediaModel.setRealfilename(file.getName());
+				modelService.save(mediaModel);
+				mediaService.setStreamForMedia(mediaModel, fileInputStream);
+				modelService.refresh(mediaModel);
+			}
+		        
+        catch (final Exception ex) {
+			LOG.error(""Exception while preparing file for  AsahiSAMInvoice ""+ex);
+   }
+		finally {
+			   writer.close();
+			   LOG.info(""Time taken to export AsahiSAMInvoice : "" + stopwatch.toString());
+		   }
+ }";;

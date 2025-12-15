@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
+
+	<bean class="com.apb.storefront.data.ApbRegisterData" extends="de.hybris.platform.commercefacades.user.data.RegisterData">
+		<property name="phone" type="String"/>
+		<property name="abnAccountId" type="String"/>
+		<property name="abnNumber" type="String"/>
+		<property name="liquorLicense" type="String"/>
+		<property name="role" type="String"/>
+		<property name="email" type="String"/>
+		<property name="confirmEmail" type="String"/>
+		<property name="termsCondition" type="boolean"/>
+		<property name="customer" type="boolean"/>
+		<property name="roleOther" type="String"/>
+		<property name="roleOtherTemp" type="String"/>
+		<property name="samAccess" type="String"/>
+		<property name="albCompanyInfoData" type="java.util.List&lt;com.apb.storefront.data.AlbCompanyInfoData>"/>
+	</bean>
+	
+	<bean class="com.apb.storefront.data.ErrorDTO">
+		<property name="error" type="String"/>
+		<property name="errorCode" type="String"/>
+	</bean>
+	
+	<bean class="com.apb.storefront.data.LoginValidateInclusionData">
+		<property name="success" type="Boolean"/>
+		<property name="isCreditBlock" type="Boolean"/>
+		<property name="creditLimit" type="java.lang.Double" />
+		<property name="deltaToLimit" type="java.lang.Double" />
+		<property name="percentageUsed" type="java.lang.Double" />
+		<property name="errors" type="java.util.List&lt;com.apb.storefront.data.ErrorDTO>"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.core.servicelayer.data.PaginationData">
+		<property name="startDate" type="java.util.Date"/>
+		<property name="endDate" type="java.util.Date"/>
+	</bean>
+	
+	<bean class="com.apb.storefront.data.AlbCompanyInfoData">
+		<property name="abnAccountId" type="String"/>
+		<property name="abnNumber" type="String"/>
+		<property name="samAccess" type="String"/>
+	</bean>
+
+</beans>

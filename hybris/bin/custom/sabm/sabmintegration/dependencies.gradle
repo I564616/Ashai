@@ -1,0 +1,5 @@
+ext {
+	libraries = []
+}
+libraries << "org.apache.httpcomponents:httpclient:4.4.1"
+libraries << "org.apache.httpcomponents:httpcore:4.4.1"

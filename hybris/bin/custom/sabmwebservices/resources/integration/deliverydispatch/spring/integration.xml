@@ -1,0 +1,118 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd
+           http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+		   http://www.springframework.org/schema/integration/file http://www.springframework.org/schema/integration/file/spring-integration-file.xsd
+		   http://www.springframework.org/schema/integration/http http://www.springframework.org/schema/integration/http/spring-integration-http.xsd
+		   http://www.springframework.org/schema/integration/xml
+    	   http://www.springframework.org/schema/integration/xml/spring-integration-xml.xsd
+    	   http://www.springframework.org/schema/oxm http://www.springframework.org/schema/oxm/spring-oxm.xsd
+    	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
+    xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-file="http://www.springframework.org/schema/integration/file"
+	xmlns:int-http="http://www.springframework.org/schema/integration/http"
+	xmlns:int-xml="http://www.springframework.org/schema/integration/xml"
+	xmlns:int-mail="http://www.springframework.org/schema/integration/mail"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:oxm="http://www.springframework.org/schema/oxm">
+
+	<!-- map the incoming webservice request to a channel -->
+	<int-http:inbound-gateway id="inboundDispatchInfoRequestGateway"
+							  supported-methods="POST"
+							  path="/services/dispatchinfo"
+							  request-channel="preDispatchInfoImportChannel"
+							  request-payload-type="java.lang.String"
+							  reply-timeout="50000">
+
+		<!-- <int-http:request-mapping consumes="application/xml"/> -->
+	</int-http:inbound-gateway>
+
+	<!--  DispatchInfo Channels -->
+	<int:channel id="DispatchInfoChannel"/>
+	<int:channel id="DispatchInfoRequestChannel"/>
+	<int:channel id="DispatchInfoPersistRequestChannel"/>
+	<int:channel id="DispatchInfoRequestValidationChannel"/>
+	<int:channel id="DispatchInfoRequestSplitChannel"/>
+	<int:channel id="DispatchInfoResponseChannel"/>
+	<int:channel id="DispatchInfoValidationErrorChannel"/>
+	<int:channel id="DispatchInfoItemsChannel"/>
+	<int:channel id="DispatchInfoProcessingChannel"/>
+	<int:channel id="convertToPOJOChannel"/>
+	<int:channel id="splitDispatchInfosChannel"/>
+	<int:channel id="preDispatchInfoImportChannel"/>
+	<int:channel id="DispatchInfoImportChannel"/>
+	<int:channel id="postDispatchInfoImportChannel"/>
+	
+	<!-- map of namespace prefix to URI -->
+	<util:map id="DispatchInfoNamespaceMap">
+		<entry key="DispatchInfoNs" value="urn:gl.sabmiller.com:com:3rdp:transdata" />
+	</util:map>
+	
+	<int-xml:xpath-expression id="dispatchinfons" expression="/DispatchInfoNs:DespatchedDeliveryNotification/MessageHeader/ID" namespace-map="DispatchInfoNamespaceMap"/>
+	
+	<int:chain id="pre-dispatch-info-import-chain" input-channel="preDispatchInfoImportChannel" output-channel="DispatchInfoImportChannel">
+		
+		 <!--  Security filter -->
+        <int-xml:validating-filter discard-channel="DispatchInfoXSDValidationErrorChannel"
+                                   throw-exception-on-rejection="true"
+                                   xml-validator="securityValidationFilter">
+        </int-xml:validating-filter>
+    		
+		<!-- this is require to enrich the header to handle the content-type of type "application/xml" -->
+		<int:header-enricher>	
+		    <int:header name="content-type" value="application/xml"></int:header>
+		</int:header-enricher>	
+
+		<!--  Add payload Id to the header -->
+		<int-xml:xpath-header-enricher id="DispatchInfoAddPayloadId" default-overwrite="true">                               
+			<int-xml:header name="payloadId"                               
+					        overwrite="true"                      
+					        xpath-expression-ref="dispatchinfons" 
+					        evaluation-type="STRING_RESULT"/>
+		</int-xml:xpath-header-enricher>
+
+		<!--  Save the incoming payload in Hybris -->
+		<int:service-activator ref="dispatchInfoImportService" method="savePayload" />
+			
+		   
+			
+		<!--  Validate XML against schema -->
+		<int-xml:validating-filter discard-channel="DispatchInfoXSDValidationErrorChannel"                    
+		                          id="DispatchInfoValidationFilter"                                 
+		                          schema-location="integration/deliverydispatch/schema/delivery-dispatch.xsd"
+		                          schema-type="xml-schema"              
+		                          throw-exception-on-rejection="false">                     
+		</int-xml:validating-filter>
+		
+			
+	</int:chain>
+	
+	<int:chain id="DispatchInfo-validation-error-chain" input-channel="DispatchInfoXSDValidationErrorChannel">
+		<int:service-activator ref="dispatchInfoImportService" method="handleXSDValidationError"></int:service-activator>
+	</int:chain>
+	
+	<int:chain id="import-DispatchInfo-chain" input-channel="DispatchInfoImportChannel" output-channel="postDispatchInfoImportChannel">
+		
+		<!-- Split the DispatchInfos(DispatchInfos) into items creating a new document for each item-->
+		<int-xml:xpath-splitter id="DispatchInfoItemDocumentSplitter" create-documents="true">
+		    <int-xml:xpath-expression expression="/DispatchInfoNs:DespatchedDeliveryNotification/Delivery" namespace-map="DispatchInfoNamespaceMap"/>
+		</int-xml:xpath-splitter>
+	
+		
+		<!-- Convert Document to POJO -->	
+		<int-xml:unmarshalling-transformer id="defaultDispatchInfoUnmarshaller" unmarshaller="dispatchInfoUnmarshallingTransformer"/>
+		
+		<!--  Import DispatchInfo -->
+		<int:service-activator ref="dispatchInfoImportService" method="executeImport"></int:service-activator>
+		
+	</int:chain>
+	
+	<int:chain id="post-DispatchInfo-import-chain" input-channel="postDispatchInfoImportChannel" >
+		<int:service-activator ref="dispatchInfoImportService" method="logImportStatus"></int:service-activator>
+	</int:chain>
+	
+</beans>

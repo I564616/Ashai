@@ -1,0 +1,83 @@
+---
+title: Product Detail
+bodyClass: page-productDetails
+---
+
+<ol class="breadcrumb">
+  <li><a href="#">Home</a></li>
+  <li><a href="#">Beer</a></li>
+  <li><a href="#">Carlton</a></li>
+  <li class="active">Carlton Draught 4 x 6 x 375ml Bottles</li>
+</ol>
+
+<section class="row no-border">
+    {{> product-image}}
+
+    <div class="col-sm-6 col-md-offset-2 product-summary">
+        <div class="desk-product-title visible-md-block visible-lg-block">
+            <h1>Carlton Draught</h1>
+            <div class="h1 h1-subheader">4 x 6 x 375ml Bottles</div>
+        </div>
+
+        <div class="row product-list-price">
+            <div class="col-sm-6 summary-label">Wholesale case price</div>
+            <div class="col-sm-6 summary-value h1">$48.31</div>
+        </div>
+        <div class="row product-price">
+            <div class="col-sm-6 summary-label">Your case price</div>
+            <div class="col-sm-6 summary-value h1">$44.31*</div>
+        </div>
+
+        <div class="row quantity">
+
+            <div class="col-sm-6"><div class="summary-label">Quantity</div></div>
+            <div class="col-sm-6 summary-value">
+                <div class="row">
+                    <div class="col-xs-6 trim-right-5">
+                     <ul class="select-quantity">
+                         <li class="down"><a href="#"><i class="icon-minus" data-grunticon-embed></i></a></li>
+                         <li><input class="qty-input" min="0" type="text" value="1"></li>
+                         <li class="up"><a href="#"><i class="icon-plus" data-grunticon-embed></i></a></li>
+                     </ul>
+                     <span>10 Cases</span>
+                 </div>
+                 <div class="col-xs-6 trim-left-5">
+                     <div class="select-list">
+                         <div data-value="" class="select-btn">Case</div>
+                         <ul class="select-items">
+                             <li>Case</li>
+                             <li>Layer</li>
+                             <li>Palet</li>
+                         </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+ <div class="row summary-btns">
+     <div class="col-md-6"><span class="btn btn-secondary btn-large">SAVE TO TEMPLATE</span></div>
+     <div class="col-md-6"><span class="btn btn-primary btn-large">ADD TO CART</span></div>
+ </div>
+ 
+</div>
+</section>
+
+{{> deals}}
+
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+{{> product-other-packages}}
+
+
+{{> product-about-desktop}}
+
+
+{{!-- {{> product-about-mobile}} --}}
+
+{{!-- {{> product-accordion}} --}}
+
+
+{{> product-related}}
+</div>

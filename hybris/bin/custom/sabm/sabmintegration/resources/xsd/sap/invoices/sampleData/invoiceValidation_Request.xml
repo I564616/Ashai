@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns2:InvoiceValidation_Request xmlns:ns2="urn:gl.sabmiller.com:com:3rdp:transdata">
+    <CustomerSoldTo>1298381</CustomerSoldTo>
+    <InvoiceNumber>75022728612</InvoiceNumber>
+</ns2:InvoiceValidation_Request>

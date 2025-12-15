@@ -1,0 +1,40 @@
+$contentCatalog = sabmContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Staged])[default = $contentCatalog:Staged]
+$productCV = catalogVersion(catalog(id[default = $productCatalog]), version[default = 'Staged'])[unique = true, default = $productCatalog:Staged]
+$siteResource = jar:com.sabmiller.initialdata.setup.InitialDataSystemSetup&/sabminitialdata/import/sampledata/contentCatalogs/$contentCatalog
+$lang = en
+
+#Hero Banner List Component for Carousel
+INSERT_UPDATE SABMHeroBannerComponent; $contentCV[unique = true]; uid[unique = true]; name; desktopHeroImage(code, $contentCV); mobileHeroImage(code, $contentCV); urlLink; &componentRef
+; ; SABMHeroBannerComponentHomepageLanding5 ; Homepage Hero Banner 5 ; hero-banner-autopay-advantage-homepage01.jpg ; hero-banner-autopay-advantage-homepage-mobile01.jpg ; /autopay/landing ; SABMHeroBannerComponentHomepageLanding5 ;
+; ; SABMHeroBannerComponentHomepageLanding1 ; Homepage Hero Banner 1 ; 01Banner-LiveChat-Desktop.jpg                ; 01Banner-LiveChat-Mobile.jpg                        ;                  ; SABMHeroBannerComponentHomepageLanding1 ;
+; ; SABMHeroBannerComponentHomepageLanding2 ; Homepage Hero Banner 2 ; 02Banner-CarltonDry-Desktop.jpg              ; 02Banner-CarltonDry-Mobile.jpg                      ;                  ; SABMHeroBannerComponentHomepageLanding2 ;
+; ; SABMHeroBannerComponentHomepageLanding3 ; Homepage Hero Banner 3 ; 03Banner-PureBlonde-Desktop.jpg              ; 03Banner-PureBlonde-Mobile.jpg                      ;                  ; SABMHeroBannerComponentHomepageLanding3 ;
+; ; SABMHeroBannerComponentHomepageLanding4 ; Homepage Hero Banner 4 ; 04Banner-MercuryCider-Desktop.jpg            ; 04Banner-MercuryCider-Mobile.jpg                    ;                  ; SABMHeroBannerComponentHomepageLanding4 ;
+
+#Hero Banner List Component for Carousel
+INSERT_UPDATE HeroBannerRotatingImagesComponent; $contentCV[unique = true]; uid[unique = true]; name; heroBanners(uid, $contentCV); timeout; &componentRef
+; ; HeroBannerRotatingImagesComponentHomepage ; Hero Banner Rotating Images Component ; SABMHeroBannerComponentHomepageLanding5,SABMHeroBannerComponentHomepageLanding1,SABMHeroBannerComponentHomepageLanding2,SABMHeroBannerComponentHomepageLanding3,SABMHeroBannerComponentHomepageLanding4 ; 4000 ; HeroBannerRotatingImagesComponentHomepage ;
+#HERO BANNER ROTATING IMAGE END
+
+INSERT_UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]; name; active; cmsComponents(&componentRef)
+; ; Section2BSlot-Homepage ; Section2B Slot for Homepage ; true ; HeroBannerRotatingImagesComponentHomepage
+
+INSERT_UPDATE ContentSlotForPage; $contentCV[unique = true]; uid[unique = true]; position[unique = true]; page(uid, $contentCV)[unique = true][default = 'homepage']; contentSlot(uid, $contentCV)[unique = true]
+; ; Section2B-Homepage ; Section2B ; ; Section2BSlot-Homepage
+
+#set old banner visibility into false
+UPDATE RotatingImagesComponent; $contentCV[unique = true]; uid[unique = true]; visible
+; ; SABMillerHomepageRotatingImagesComponent ; false
+
+
+#Move Smart Order component under Hero Banner component carousel - START
+$slots=source(uid, $contentCV)[unique = true]
+$cmsComponents=target(uid, $contentCV)[unique = true]
+
+INSERT_UPDATE ElementsForSlot;$slots;$cmsComponents;
+;Section2BSlot-Homepage;HomePageSmartOrderComponent;
+
+REMOVE ElementsForSlot;$slots;$cmsComponents;
+;Section2ASlot-Homepage;HomePageSmartOrderComponent;
+#Move Smart Order component under Hero Banner component carousel - END

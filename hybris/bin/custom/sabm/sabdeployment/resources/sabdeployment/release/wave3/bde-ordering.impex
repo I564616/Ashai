@@ -1,0 +1,23 @@
+
+$lang=en
+$contentCatalog=sabmContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$wideContent=CMSImageComponent,BannerComponent,CMSParagraphComponent
+$siteResource=jar:com.sabmiller.initialdata.setup.InitialDataSystemSetup&/sabminitialdata/import/coredata/contentCatalogs/$contentCatalog
+
+# Import modulegen config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+$jarResourceCms=$config-jarResourceCmsValue
+$emailPackageName=$config-emailContextPackageName
+$emailResource=$config-emailResourceValue
+
+
+
+
+
+INSERT_UPDATE RendererTemplate;code[unique=true];description[lang=$lang];templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+
+;sabmStore_Email_Order_Confirmation_Body;"Order Confirmation Email Body";$emailResource/email-orderConfirmationBody.vm
+;sabmStore_Email_Order_Confirmation_Subject;"Order Confirmation Email Subject";$emailResource/email-orderConfirmationSubject.vm
+
+

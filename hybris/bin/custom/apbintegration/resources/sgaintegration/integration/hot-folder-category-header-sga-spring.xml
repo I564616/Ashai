@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:file="http://www.springframework.org/schema/integration/file"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/integration
+		http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/integration/file
+		http://www.springframework.org/schema/integration/file/spring-integration-file.xsd
+		http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+		
+    <context:annotation-config/>
+
+<!-- Macro header for sga-->
+	<bean id="sga_defaultImpexProductHeader" class="java.lang.String">
+		<constructor-arg>
+			<value># ImpEx for importing data into sgaProductCatalog
+				$catalogVersion=catalogversion(catalog(id[default=sgaProductCatalog]),version[default='Staged'])[unique=true]
+				$approved=approvalstatus(code)[default='approved']
+				$supercategories=supercategories(code,$catalogVersion)
+				$lang=$LANGUAGE$</value>
+		</constructor-arg>
+	</bean>
+	
+	<!-- SGA Specific category converters mapping start -->
+	
+		  
+	<bean id="batchSgaCategoryConverterMapping" 
+		  class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.mapping.impl.DefaultConverterMapping" 
+		  p:mapping="sga_category" 
+		  p:converter-ref="batchSgaCategoryConverter"/>	  
+		  
+	<!-- SGA Specific category converters mapping end --> 
+		  
+	<!-- SGA specific category converts start -->
+	
+	<bean id="batchSgaCategoryConverter" class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.impl.DefaultImpexConverter">
+		<property name="header">
+			<value>#{sga_defaultImpexProductHeader}
+				# Insert Category
+				INSERT_UPDATE Category;code[unique=true];$supercategories[collection-delimiter=|];name[lang=$lang];description[lang=$lang];allowedPrincipals(uid)[default='customergroup'];$catalogVersion
+			</value>
+		</property>
+		<property name="impexRow">
+			<value>;{+0};{1};{2};{3}</value>  
+		</property>
+	 </bean>
+	
+		<!-- SGA specific category converts End -->
+	
+</beans>

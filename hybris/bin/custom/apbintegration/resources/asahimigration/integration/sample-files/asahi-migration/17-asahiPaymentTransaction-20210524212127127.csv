@@ -1,0 +1,2 @@
+insert AsahiPaymentTransaction,captureStatus,code[allownull=true],currency(isocode),extraParameters,info(code),invoicePartialPaymentReason,invoicePaymentReference,order(code),paymentProvider,plannedAmount,requestId,requestPayload,requestToken,versionID[forceWrite=true]
+,false,ACP002000,AUD,,,,,HO00007069,,"14,829",203.3.137.10,,h3i86ycd,

@@ -1,0 +1,117 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd
+           http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+           http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+		   http://www.springframework.org/schema/integration/file http://www.springframework.org/schema/integration/file/spring-integration-file.xsd
+		   http://www.springframework.org/schema/integration/http http://www.springframework.org/schema/integration/http/spring-integration-http.xsd
+		   http://www.springframework.org/schema/integration/xml
+    	   http://www.springframework.org/schema/integration/xml/spring-integration-xml.xsd
+    	   http://www.springframework.org/schema/oxm http://www.springframework.org/schema/oxm/spring-oxm.xsd
+    	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
+    xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-file="http://www.springframework.org/schema/integration/file"
+	xmlns:int-http="http://www.springframework.org/schema/integration/http"
+	xmlns:int-xml="http://www.springframework.org/schema/integration/xml"
+	xmlns:int-mail="http://www.springframework.org/schema/integration/mail"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:oxm="http://www.springframework.org/schema/oxm"
+	xmlns:task="http://www.springframework.org/schema/task">
+
+	<!-- map the incoming webservice request to a channel -->
+	<int-http:inbound-gateway id="inboundTrackOrdersRequestGateway"
+							  supported-methods="POST"
+							  path="/services/trackorders"
+							  request-channel="preTrackOrdersChannel"
+							  request-payload-type="java.lang.String"
+							  reply-timeout="50000" >
+
+		<!-- <int-http:request-mapping consumes="application/xml"/> -->
+	</int-http:inbound-gateway>
+
+	<!--  track order Channels -->
+	<int:channel id="preTrackOrdersChannel" >
+		<int:interceptors>
+		<int:wire-tap channel="requestLoggingChannel"/>
+		</int:interceptors>
+	</int:channel>
+	<int:channel id="trackOrdersChannel"/>
+	<int:channel id="postTrackOrdersChannel"/>
+
+<int:channel id="requestLoggingChannel">
+		<int:dispatcher task-executor="executor"/>
+	</int:channel>
+
+<task:executor id="executor" pool-size="20"  />
+	
+<int:chain id="log-trackOrders-payload-chain" input-channel="requestLoggingChannel" >
+		<int:service-activator ref="trackOrderAsyncLogger" method="saveTrackOrderPayload" />
+	</int:chain>
+	
+	<int:chain id="pre-track-orders-chain" input-channel="preTrackOrdersChannel" output-channel="trackOrdersChannel">
+		
+		    <!--  Security filter -->
+        <int-xml:validating-filter discard-channel="trackOrdersXSDValidationErrorChannel"
+                                   throw-exception-on-rejection="true"
+                                   xml-validator="securityValidationFilter">
+        </int-xml:validating-filter>
+    	
+		<!-- this is require to enrich the header to handle the content-type of type "application/xml" -->
+		<int:header-enricher>	
+		    <int:header name="content-type" value="application/xml"></int:header>
+		</int:header-enricher>	
+
+		<!--  Add payload Id to the header -->
+		<!-- track Order no need to add payload id in header-->
+		<!--
+		<int-xml:xpath-header-enricher id="trackOrdersAddPayloadId" default-overwrite="true">
+			<int-xml:header name="payloadId"                               
+					        overwrite="true"                      
+					        xpath-expression-ref="sons" 
+					        evaluation-type="STRING_RESULT"/>
+		</int-xml:xpath-header-enricher>
+		-->
+
+		<!-- no need to save request payload in Hybris -->
+
+		<!--  Validate XML against schema -->
+		<int-xml:validating-filter discard-channel="trackOrdersXSDValidationErrorChannel"
+		                          id="trackOrdersValidationFilter"
+		                          schema-location="integration/trackorders/schema/trackorders.xsd"
+		                          schema-type="xml-schema"              
+		                          throw-exception-on-rejection="false">                     
+		</int-xml:validating-filter>
+		
+			
+	</int:chain>
+
+	<int:chain id="trackOrders-validation-error-chain" input-channel="trackOrdersXSDValidationErrorChannel">
+		<int:service-activator ref="trackOrdersService" method="handleXSDValidationError"></int:service-activator>
+	</int:chain>
+	
+
+	<int:chain id="update-trackOrders-chain" input-channel="trackOrdersChannel" output-channel="postTrackOrdersChannel">
+		
+		<!-- Split the TrackMyDeliveryNotification(TrackedDelivery) into items creating a new document for each item-->
+
+		<int-xml:xpath-splitter id="trackOrdersItemDocumentSplitter" create-documents="true">
+		    <int-xml:xpath-expression expression="/TrackMyDeliveryNotification"/>
+		</int-xml:xpath-splitter>
+
+		<!-- Convert Document to POJO -->	
+		<int-xml:unmarshalling-transformer id="defaultrackOrdersUnmarshaller" unmarshaller="trackOrdersMarshaller"/>
+		
+		<!--  update Order Status -->
+		<int:service-activator ref="trackOrdersService" method="handleRequest"></int:service-activator>
+		
+	</int:chain>
+	
+	<int:chain id="post-trackOrders-chain" input-channel="postTrackOrdersChannel" >
+		<int:service-activator ref="trackOrdersService" method="logTrackOrdersRequestStatus"></int:service-activator>
+	</int:chain>
+	
+</beans>

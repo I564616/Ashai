@@ -1,0 +1,5 @@
+############Sample Impex to execute for all customers which had an empty password earlier and hence loginDisabled marked as true################
+
+
+INSERT_UPDATE B2BCustomer;uid[unique=true];customerID;email;title(code)[default='ACC'];name;defaultB2BUnit(uid);description;groups(uid);sessionCurrency(isocode)[default='AUD'];password;passwordEncoding[default='pbkdf2'];loginDisabled[default=false]
+;216912@asahidirect.com.au;216912;216912@asahidirect.com.au;7;RIVERINA HOTEL;5637261726;Default user account;5637261726,b2bcustomergroup;;216912@cubpb;

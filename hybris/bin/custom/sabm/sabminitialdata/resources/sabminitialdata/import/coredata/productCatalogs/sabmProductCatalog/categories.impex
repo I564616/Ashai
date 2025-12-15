@@ -1,0 +1,21 @@
+# ImpEx for Importing Categories
+
+# Macros / Replacement Parameter definitions
+$productCatalog=sabmProductCatalog
+$productCatalogName=SABMiller Product Catalog
+
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$supercategories=source(code, $catalogVersion)[unique=true]
+$categories=target(code, $catalogVersion)[unique=true]
+
+$lang=en
+
+INSERT_UPDATE Category;$catalogVersion;code[unique=true];name[lang=$lang];description[lang=$lang]
+;;10;Beer;Beer
+;;11;Cider;Cider
+;;12;Spirits & RTD's;Spirits & RTD's
+
+INSERT_UPDATE Keyword;keyword[unique=true];categories(code,$catalogVersion)[lang=$lang];$catalogVersion;language(isocode)[default=$lang]
+;Beer;10
+;Cider;11
+;Spirits & RTD's;12

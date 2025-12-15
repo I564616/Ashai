@@ -1,0 +1,358 @@
+#
+# Import the CMS content for the site
+#
+$contentCatalog=sabmContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$productCV=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+
+$picture=media(code, $contentCV);
+$image=image(code, $contentCV);
+$media=media(code, $contentCV);
+$page=page(uid, $contentCV);
+$contentPage=contentPage(uid, $contentCV);
+$product=product(code, $productCV)
+$category=category(code, $productCV)
+$siteResource=jar:com.sabmiller.initialdata.setup.InitialDataSystemSetup&/sabminitialdata/import/sampledata/contentCatalogs/$contentCatalog
+$productResource=jar:com.sabmiller.initialdata.setup.InitialDataSystemSetup&/sabminitialdata/import/sampledata/productCatalogs/$productCatalog
+$jarResourceCms=jar:com.sabmiller.initialdata.setup.InitialDataSystemSetup&/sabminitialdata/import/sampledata/cockpits/cmscockpit
+$addonExtensionName=b2bacceleratoraddon
+$yourBusinessContent=Stay on top of your account and manage your personal information, business users, payments and order templates online. View your order history and get access to our online support too.
+$billingAndPaymentContent=Conveniently view, pay, and manage your invoices online.
+$multiStepCheckoutSummaryPageTextContent = Your order is valid for 5 minutes, if you exceed this time you will go back to the Cart Page to refresh your order.
+$wideContent=CMSImageComponent,BannerComponent,CMSParagraphComponent
+
+# Import modulegen config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+$jarResourceCms=$config-jarResourceCmsValue
+
+$defaultLanguage=en
+$lang=en
+#######130
+$jarEmailResource=jar:com.sabmiller.initialdata.setup.InitialDataSystemSetup&/sabminitialdata/import/coredata/contentCatalogs/sabmContentCatalog/emails
+$emailPackageName=$config-emailContextPackageName
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+$emailResource=$config-emailResourceValue
+
+#######145
+$solrCustomerIndexedType = sabmStoreB2bCustomerType
+$searchConfigName = sabmStorePageSize
+$facetSearchConfigName = sabmStoreIndex
+$facetSearchConfigDescription = SAB Miller Solr Index
+$searchIndexNamePrefix = sabmStore
+$solrIndexedType = sabmStoreProductType
+$indexCurrencies = USD
+$serverConfigName = sabmStoreSolrServerConfig
+$productCatalog = sabmProductCatalog
+$catalogVersions = catalogVersions(catalog(id), version);
+
+# Old RepDrivenDealConditionStatus Cleanup CronJobs
+INSERT_UPDATE OldRepDrivenDealConditionStatusRemovalCronJob;code[unique=true];job(code);age;batchSize;sessionLanguage(isocode)
+;oldRepDrivenDealConditionStatusRemovalCronJob;oldRepDrivenDealConditionStatusRemovalJob;180;1000;$defaultLanguage
+
+
+######  SABMiller Portal Pages ######
+
+#### Breadcrumb Component ####
+INSERT_UPDATE BreadcrumbComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef
+;;breadcrumbComponent;Breadcrumb CMS Component;breadcrumbComponent
+
+
+# Create PageTemplates
+# These define the layout for pages
+# "FrontendTemplateName" is used to define the JSP that should be used to render the page for pages with multiple possible layouts.
+# "RestrictedPageTypes" is used to restrict templates to page types
+INSERT_UPDATE PageTemplate;$contentCV[unique=true];uid[unique=true];name;frontendTemplateName;restrictedPageTypes(code);active[default=true]
+#ContentPage3Template : header, navigation, section1, section2, section3 and footer.
+;;Portal-ContentPage3Template;Portal Content Page Template;layout/contentLayout3Page;ContentPage
+;;Portal-LoginPageTemplate;Login Page Template;account/accountLoginPage;ContentPage
+;;ConfirmationSentTemplate;Deal Confirmation Sent Template Page;confirmation/confirmationSentPage;ContentPage
+
+# Add Velocity templates that are in the CMS Cockpit. These give a better layout for editing pages
+# The FileLoaderValueTranslator loads a File into a String property. The templates could also be inserted in-line in this file.
+UPDATE PageTemplate;$contentCV[unique=true];uid[unique=true];velocityTemplate[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+;;Portal-ContentPage3Template		;$jarResourceCms/structure-view/portal/structure_contentPage3Template.vm
+;;Portal-LoginPageTemplate			;$jarResourceCms/structure-view/portal/structure_loginPageTemplate.vm
+;;ConfirmationSentTemplate 		;$jarResourceCms/structure-view/portal/structure_confirmationSentTemplate.vm
+
+
+# Simple Content Page 3 Templates
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='Portal-ContentPage3Template'];validComponentTypes(code);compTypeGroup(code)
+;SiteLogo;;;logo
+;Section1;;;wide
+;Section2;;;wide
+;Section3;;;wide
+;Footer;;;footer
+;TopHeaderSlot;;;wide
+;BottomHeaderSlot;;;wide
+;PlaceholderContentSlot;;;
+
+# Login Page Templates
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='Portal-LoginPageTemplate'];validComponentTypes(code);compTypeGroup(code)
+;SiteLogo;;;logo
+#;NavigationBar;;;navigation
+;Footer;;;footer
+;TopHeaderSlot;;;wide
+;BottomHeaderSlot;;;wide
+#;RightContentSlot;;;wide
+;PlaceholderContentSlot;;;
+
+# Deal Confirmation Sent Template Page Template
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='ConfirmationSentTemplate'];validComponentTypes(code);compTypeGroup(code)
+;SiteLogo;;;logo
+;Footer;;;footer
+;TopHeaderSlot;;;wide
+;BottomHeaderSlot;;;wide
+
+# Bind Content Slots to Page Templates
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='Portal-ContentPage3Template'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;Portal-SiteLogo-ContentPage3;SiteLogo;;Portal-SiteLogoSlot;true
+;;Portal-BreadcrumbSlot-ContentPage3;BreadcrumbBar;;Portal-BreadcrumbSlot;true
+;;Portal-Footer-ContentPage3;Footer;;Portal-FooterSlot;true
+;;Portal-TopHeaderSlot-ContentPage3;TopHeaderSlot;;Portal-TopHeaderSlot;true
+;;Portal-BottomHeaderSlot-ContentPage3;BottomHeaderSlot;;Portal-BottomHeaderSlot;true
+;;Portal-PlaceholderContentSlot-ContentPage3;PlaceholderContentSlot;;Portal-PlaceholderContentSlot;true
+;;Portal-Section1-ContentPage3;Section1;;Portal-Section1Slot;true
+;;Portal-Section2-ContentPage3;Section2;;Portal-Section2Slot;true
+;;Portal-Section3-ContentPage3;Section3;;Portal-Section3Slot;true
+
+
+# Bind Content Slots to Page Templates
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='Portal-LoginPageTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;Portal-SiteLogo-LoginPage;SiteLogo;;Portal-SiteLogoSlot;true
+#;;Portal-BreadcrumbSlot-LoginPage;BreadcrumbBar;;Portal-BreadcrumbSlot;true
+;;Portal-Footer-LoginPage;Footer;;Portal-FooterSlot;true
+;;Portal-TopHeaderSlot-LoginPage;TopHeaderSlot;;Portal-TopHeaderSlot;true
+;;Portal-BottomHeaderSlot-LoginPage;BottomHeaderSlot;;Portal-BottomHeaderSlot;true
+#;;Portal-RightContentSlot-LoginPage;RightContentSlot;;RightContentSlot;true
+;;Portal-PlaceholderContentSlot-LoginPage;PlaceholderContentSlot;;Portal-PlaceholderContentSlot;true
+
+# Content slot for Confirmation Sent Page Template
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='ConfirmationSentTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-ConfirmationSentPage;SiteLogo;;SiteLogoSlot;true
+;;Portal-Footer-ConfirmationSentPage;Footer;;Portal-FooterSlot;true
+;;TopHeaderSlot-ConfirmationSentPage;TopHeaderSlot;;TopHeaderSlot;true
+;;BottomHeaderSlot-ConfirmationSentPage;BottomHeaderSlot;;BottomHeaderSlot;true
+
+
+# Create Content Slots
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active
+;;Portal-TopHeaderSlot;Top Header;true
+;;Portal-BottomHeaderSlot;Bottom Header;true
+;;Portal-PlaceholderContentSlot;Placeholder Content;true
+;;Portal-Section1Slot;Section1;true
+;;Portal-Section2Slot;Section2;true
+;;Portal-Section3Slot;Section3;true
+;;Portal-FooterSlot;Footer;true
+;;Portal-BreadcrumbSlot;Breadcrumb;true
+
+# Simple Content Pages (Portal-ContentPage3Template)
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false']
+;;customerSearch;Customer Search;Portal-ContentPage3Template;
+# LoginTemplate
+;;portalLogin;Portal Login Page;Portal-LoginPageTemplate;login
+# Customer Search Results page
+;;customerSearchResults;Customer Search Results Page;Portal-ContentPage3Template;/customerSearchResults
+# ConfirmationSentTemplate
+;;confirmationSent;Confirmation Sent Page;ConfirmationSentTemplate;/confirmationSent
+;;confirmRep-DrivenDeals;Confirm Rep-Driven Deals Page;Portal-ContentPage3Template;
+;;specificDeals;The Specific Deals Page;Portal-ContentPage3Template;/specificDealsPage
+
+
+# ContentSlotForPage
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='customerSearch'];contentSlot(uid,$contentCV)[unique=true];;;
+;;Section2-customerSearch;Section2;;Section2-customerSearch;;;
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='customerSearchResults'];contentSlot(uid,$contentCV)[unique=true];;;
+;;Section2-customerSearchResults;Section2;;Section2-customerSearchResults;;;
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='confirmRep-DrivenDeals'];contentSlot(uid,$contentCV)[unique=true];;;
+;;Section2-confirmRep-DrivenDeals;Section2;;Section2-confirmRep-DrivenDeals;;;
+
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='specificDeals'];contentSlot(uid,$contentCV)[unique=true];;;
+;;Section2-specificDealsPage;Section2;;Section2-specificDealsPage;;;
+
+#### Jsp Include Component ####
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;CustomerSearchComponent;Customer Search Page Component;../customer/customerSearchPage.jsp;;CustomerSearchComponent
+;;CustomerSearchResultsComponent;Customer Search Results Page Component;../customer/customerSearchResultsPage.jsp;;CustomerSearchResultsComponent
+;;ConfirmRep-DrivenDealsComponent;Confirm Rep-Driven Deals Page Component;../customer/confirmRepDrivenDealsPage.jsp;;ConfirmRep-DrivenDealsComponent
+;;SpecificDealsPageComponent;The Specific Deals Page Component;../deal/specificDealsPage.jsp;;SpecificDealsPageComponent
+
+#### Content Slots ####
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(&componentRef)
+#;;Portal-SiteLogoSlot;SiteLogoComponent
+;;Portal-BreadcrumbSlot;breadcrumbComponent
+;;Portal-FooterSlot;Portal-FooterComponent
+
+# ContentSlot
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;Section2-customerSearch;Staff Portal Customer Search;true;CustomerSearchComponent;;;
+;;Section2-specificDealsPage;Staff Portal Specific Deals;true;SpecificDealsPageComponent;;;
+;;Section2-customerSearchResults;Staff Portal Customer Search Results;true;CustomerSearchResultsComponent;;;
+;;Section2-confirmRep-DrivenDeals;Confirm Rep-Driven Deals;true;ConfirmRep-DrivenDealsComponent;;;
+
+INSERT_UPDATE FooterComponent;$contentCV[unique=true];uid[unique=true];wrapAfter;&componentRef
+;;Portal-FooterComponent;2;Portal-FooterComponent
+
+
+### Confirm enabled deals email template ###
+# Email page Template
+INSERT_UPDATE EmailPageTemplate;$contentCV[unique=true];uid[unique=true];name;active;frontendTemplateName;subject(code);htmlTemplate(code);restrictedPageTypes(code)
+;;ConfirmEnabledDealEmailTemplate;Confirm Enabled Deals EmailTemplate;true;confirmEnabledDealEmail;sabmiller_Email_Confirm_Deals_Subject;sabmiller_Email_Confirm_Deals_Body;EmailPage
+
+# Templates for CMS Cockpit Page Edit
+UPDATE EmailPageTemplate;$contentCV[unique=true];uid[unique=true];velocityTemplate[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+;;ConfirmEnabledDealEmailTemplate;$jarResourceCms/structure-view/structure_readyForConfirmEnabledDealTemplate.vm
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='ConfirmEnabledDealEmailTemplate'];validComponentTypes(code);compTypeGroup(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+;Footer;;;footer
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='ConfirmEnabledDealEmailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-ConfirmEnabledDealEmail;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-ConfirmEnabledDealEmail;TopContent;;EmailTopSlot;true
+;;BottomContent-ConfirmEnabledDealEmail;BottomContent;;EmailBottomSlot;true
+;;Footer-ConfirmEnabledDealEmail;Footer;;EmailFooterSlot;true
+
+# Email Pages
+INSERT_UPDATE EmailPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);defaultPage;approvalStatus(code)[default='approved']
+;;ConfirmEnabledDealEmail;Confirm Enabled Deal Email;ConfirmEnabledDealEmailTemplate;true;
+
+
+# Email Pages SABMC-815
+UPDATE EmailPage;$contentCV[unique=true];uid[unique=true];fromEmail[lang=$lang];fromName[lang=$lang]
+;;ConfirmEnabledDealEmail;"no-reply-online@cub.com.au";"CUB Online No Reply"
+
+
+# CMS components velocity templates
+INSERT_UPDATE RendererTemplate;code[unique=true];contextClass;rendererType(code)[default='velocity']
+;sabmStore-FooterComponent-template;java.util.Map
+
+# Email velocity templates
+INSERT_UPDATE RendererTemplate;code[unique=true];contextClass;rendererType(code)[default='velocity']
+;sabmiller_Email_Confirm_Deals_Body;$emailPackageName.ConfirmEnabledDealEmailContext
+;sabmiller_Email_Confirm_Deals_Subject;$emailPackageName.ConfirmEnabledDealEmailContext
+
+UPDATE EmailPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV)
+;;ConfirmEnabledDealEmail;EmailPageModel_preview
+
+#### Content Slots ####
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;cmsComponents(&componentRef)
+;;EmailFooterSlot;Footer;Email-FooterComponent
+
+### Email Footer Component ###
+INSERT_UPDATE FooterComponent;$contentCV[unique=true];uid[unique=true];wrapAfter;&componentRef
+;;Email-FooterComponent;2;Email-FooterComponent
+
+ 
+ # CMS Footer Component
+UPDATE FooterComponent;$contentCV[unique=true];uid[unique=true];notice[lang=$defaultLanguage]
+;;Email-FooterComponent;"© Carlton & United Breweries"
+
+
+# CMS components and Email velocity templates
+UPDATE RendererTemplate;code[unique=true];description[lang=$lang];templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+;sabmStore-FooterComponent-template;"CMSBannerComponent Template";$emailResource/email-cmsFooterComponentTemplate.vm
+;sabmiller_Email_Confirm_Deals_Body;"CMSBannerComponent Template";$emailResource/email-confirmEnabledDealBody.vm
+;sabmiller_Email_Confirm_Deals_Subject;"CMSBannerComponent Template";$emailResource/email-confirmEnabledDealSubject.vm
+
+####################SABMC-145
+
+# Define the available sorts
+INSERT_UPDATE SolrSort; &sortRefID; indexedType(identifier)[unique = true]; code[unique = true]; useBoost
+; sortRef5 ; $solrCustomerIndexedType ; customername-asc ; true
+
+# Define the sort fields
+INSERT_UPDATE SolrSortField; sort(indexedType(identifier), code)[unique = true]; fieldName[unique = true]; ascending[unique = true]
+; $solrCustomerIndexedType:customername-asc ; customername ; true
+
+# Declare the indexed type B2BUnit
+INSERT_UPDATE SolrIndexedType; identifier[unique = true]; type(code); variant; sorts(&sortRefID)
+;$solrCustomerIndexedType;B2BUnit;false;sortRef5
+
+INSERT_UPDATE SolrFacetSearchConfig; name[unique = true]; description; indexNamePrefix; languages(isocode); currencies(isocode); solrServerConfig(name); solrSearchConfig(description); solrIndexConfig(name); solrIndexedTypes(identifier); enabledLanguageFallbackMechanism; $catalogVersions
+; $facetSearchConfigName ; $facetSearchConfigDescription ; $searchIndexNamePrefix ; $defaultLanguage ; $indexCurrencies ; $serverConfigName ; $searchConfigName ; $indexConfigName ; $solrIndexedType,$solrCustomerIndexedType; true ; $productCatalog:Online, $productCatalog:Staged
+
+
+# Create the queries that will be used to extract data for Solr
+# Add a restriction to not display ZADP unit in search result page.  {k:accountGroup}<>'ZADP'  {q:accountGroup}<>'ZADP'
+INSERT_UPDATE SolrIndexerQuery; solrIndexedType(identifier)[unique = true]; identifier[unique = true]; type(code); injectCurrentDate[default = true]; injectCurrentTime[default = true]; injectLastIndexTime[default = true]; query; user(uid)
+; $solrCustomerIndexedType ; $searchIndexNamePrefix-customerFullQuery   ; full   ; ; ; false ; "SELECT DISTINCT{q:PK} as pk FROM {B2BUnit as q}  WHERE {q:accountGroup}='ZALB' AND {q:UID} is not NULL " ; anonymous
+; $solrCustomerIndexedType ; $searchIndexNamePrefix-customerUpdateQuery ; update ; ; ;       ; "
+		SELECT DISTINCT {k:PK} AS lpk
+		FROM {B2BUnit AS k }
+		WHERE {k:accountGroup}='ZALB' AND {k:modifiedtime} >= ?lastIndexTime
+"                                                                                                                          ; anonymous
+
+# Create the solr indexer configuration
+INSERT_UPDATE SolrIndexConfig; name[unique = true]; batchSize; numberOfThreads; indexMode(code);
+; $indexConfigName ; 100 ; 1 ; TWO_PHASE ;
+
+# Customer fields
+INSERT_UPDATE SolrIndexedProperty; solrIndexedType(identifier)[unique = true]; name[unique = true]; type(code); sortableType(code); currency[default = false]; localized[default = false]; multiValue[default = false]; useForSpellchecking[default = false]; useForAutocomplete[default = false]; fieldValueProvider; valueProviderParameters(key, value)[map-delimiter = |];  valueProviderParameter; 
+; $solrCustomerIndexedType       ; customername               ; sortabletext    ;  ; ;      ;      ;      ; ; customerNameProvider                ;                        ;    ; 
+; $solrCustomerIndexedType       ; customerID                 ; string          ;  ; ;      ;      ;      ; ; customerIDProvider                  ;                        ;    ; 
+; $solrCustomerIndexedType       ; addressStreetName          ; sortabletext    ;  ; ;      ;      ;      ; ; customerAddressProvider             ; attribute->line1       ;    ;    
+; $solrCustomerIndexedType       ; addressSuburb              ; sortabletext    ;  ; ;      ;      ;      ; ; customerAddressProvider             ; attribute->town        ;    ;
+; $solrCustomerIndexedType       ; addressPostCode            ; string          ;  ; ;      ;      ;      ; ; customerAddressProvider             ; attribute->postalcode  ;    ; 
+; $solrCustomerIndexedType       ; addressIsocodeShort        ; string          ;  ; ;      ;      ;      ; ; customerAddressRegionProvider       ;                        ;    ; 
+; $solrCustomerIndexedType       ; accountPayerNumber         ; string          ;  ; ;      ;      ;      ; ; customerAccountPayerNumberProvider  ;                        ;    ; 
+; $solrCustomerIndexedType       ; accountOrPayerNumber       ; string          ;  ; ;      ;      ;      ; ; b2bUnitAccountOrPayerNumberProvider ;                        ;    ; 
+
+
+################# SABMC-400
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;FindoutMoreComponent;FindoutMore Display Component;findoutMoreDisplay.jsp;;FindoutMoreComponent
+;;CheckoutComponent;Checkout Display Component;checkoutDisplay.jsp;;CheckoutComponent
+
+# CMS CartSuggestion Components
+INSERT_UPDATE CartSuggestionComponent;$contentCV[unique=true];uid[unique=true];name;productReferenceTypes(code);maximumNumberProducts;filterPurchased;&componentRef
+;;CartSuggestions;Cart Suggestions;ACCESSORIES,SIMILAR;20;true;CartSuggestions
+
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;BottomContentSlot-cartPage;Bottom Content Slot for Cart Page;true;FindoutMoreComponent,CheckoutComponent,CartSuggestions
+
+
+# Create the Unit for the deleted customer. All the deleted customer will contains in this unit
+INSERT_UPDATE B2BUnit;description;uid[unique=true];name;locName[lang=en];
+;The customer who have been deleted will move to this B2BUnit;deletedcustomergroup;Deleted Customer Unit;Deleted Customer Unit;
+
+# Disable the constraint for Customer name
+UPDATE AttributeConstraint;id[unique=true];active;
+;CustomerName;false;
+
+INSERT_UPDATE SearchRestriction;code[unique=true];principal(UID);restrictedType(code)[unique=true];active;generate;query
+;Frontend_Orders_DeletedUserOrder;b2bgroup;AbstractOrder;false;true;"NOT EXISTS (
+	{{
+		SELECT 1 FROM {B2BCustomer as bc JOIN PrincipalGroupRelation as pgr on {bc:pk} = {pgr:source} JOIN PrincipalGroup as pg on {pgr:target} = {pg:pk}
+		} WHERE {pg:uid} in ('deletedcustomergroup') AND {bc:pk}={item:user:pk}
+	}}
+)"
+
+;Frontend_DealsProductExists;b2bgroup;Deal;true;true;"NOT EXISTS (
+	{{
+		SELECT 1 FROM {DealConditionGroup as dcg JOIN FreeGoodsDealBenefit as fg on {fg.dealConditionGroup}={dcg.pk}} WHERE NOT EXISTS 
+		(
+			{{
+				SELECT 1 FROM {SABMAlcoholVariantProductMaterial as p JOIN SABMAlcoholVariantProductEan! as ean on {p.baseProduct}={ean.pk}} WHERE {p.code}={fg.productCode}
+			}}
+		) AND {item.conditionGroup}={dcg.pk}
+	}}
+) AND NOT EXISTS (
+	{{
+		SELECT 1 FROM {DealConditionGroup as dcg JOIN ProductDealCondition as pdc on {pdc.dealConditionGroup}={dcg.pk}} WHERE {pdc:exclude} <> 1 AND NOT EXISTS 
+		(
+			{{
+				SELECT 1 FROM {SABMAlcoholVariantProductMaterial as p JOIN SABMAlcoholVariantProductEan! as ean on {p.baseProduct}={ean.pk}} WHERE {p.code}={pdc.productCode}
+			}}
+		) AND {item.conditionGroup}={dcg.pk}
+	}}
+)"
+
+UPDATE SearchRestriction;code[unique=true];active
+;branch_restriction;false
+;employee_restriction;false

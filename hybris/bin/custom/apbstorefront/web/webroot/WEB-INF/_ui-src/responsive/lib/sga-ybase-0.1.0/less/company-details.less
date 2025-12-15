@@ -1,0 +1,137 @@
+.dynamic-input-field {
+  display: block;
+  width: 100%;
+  height: 40px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #3c3c3c;
+  background-color: #ffffff;
+  background-image: none;
+  border: 1px solid #42515a;
+  border-radius: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  margin-bottom: 15px;
+}
+
+#deliveryTimeFrameFromMM, #deliveryTimeFrameFromHH, #deliveryTimeFrameToMM, #deliveryTimeFrameToHH {
+    height: 45px;
+    width: 100%;
+    padding: 0px 20px;
+}
+
+#seperater_tag {
+    margin: 0px 10px;
+}
+
+.company-label {
+    color: #42515a;
+    font-weight: 700;
+    text-transform: capitalize;
+    font-size: 14px;
+    margin-top: 10px;
+	margin-bottom: 5px;
+}
+
+.company-label-secondary {
+        font-weight: normal;
+        text-transform: initial;
+		margin-top: 0px;
+}
+
+
+.company-text {
+    display: inline-block;
+    margin: 10px 0px;
+    color: @text-color-secondary;
+    font-size: 13px;
+}
+
+.company-to-from {
+    padding-left: 0px;
+    padding-top: 10px;
+}
+
+.company-input-date {
+    width: 48px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    display: inline-block;
+    padding: 10px;
+}
+
+.company-instructions {
+    width: 100%;
+}
+
+.company-remove-spacing {
+    margin-bottom: -15px;
+}
+
+.company-remove-link {
+    float: right;
+    text-decoration: underline;
+    font-weight: bold;
+    text-transform: capitalize;
+    cursor: pointer;
+}
+
+.company-submit-btn {
+    @media (max-width:@screen-xs-max) {
+        margin-top: 10px;
+    }
+}
+
+.company-email {
+    .form-group {
+        label.control-label {
+            .company-label-secondary()
+        }
+    }
+}
+.company-uncapitalize{
+	text-transform: initial;
+}
+.company-error-message
+{
+font-weight: normal;
+    color: #ae423c;
+}
+.company-error, .deliveryDateError{
+			display: none;
+}		
+		
+.company-error_show{
+    display: block;
+	color: #ae423c;
+}
+
+//************************************************************
+//************************************************************
+//                         SGA STYLES
+//************************************************************
+//************************************************************
+
+.label-section {
+    margin: 5px -10px 0px -10px;
+	font-size: 14px;
+	
+	.label-heading {
+		font-weight: 700;
+		margin-bottom: 10px;
+		
+		.label-subheading {
+			font-weight: normal;
+			font-style: italic;
+		}
+	}
+}
+
+.optional-value {
+	font-weight: normal;
+	font-style: italic;
+}

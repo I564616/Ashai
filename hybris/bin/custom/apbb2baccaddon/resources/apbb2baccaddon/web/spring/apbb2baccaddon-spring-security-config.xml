@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/util
+			  http://www.springframework.org/schema/util/spring-util.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd
+           http://www.springframework.org/schema/security
+		   http://www.springframework.org/schema/security/spring-security.xsd">
+           
+    <context:annotation-config/> 
+	
+	
+	<!-- <bean depends-on="loginSuccessForceDefaultTarget" parent="listMergeDirective">
+		<property name="add" value="/cart" />
+	</bean> -->
+	<util:list id="loginSuccessForceDefaultTarget" value-type="java.lang.String">
+		<value>/checkout</value>
+		<value>/cart</value>
+	</util:list>
+	
+  	<security:authentication-manager alias="authenticationManager">
+		<security:authentication-provider ref="apbB2bAcceleratorAuthenticationProvider"/>
+	</security:authentication-manager>
+	
+	<security:authentication-manager id="b2bAcceleratorAuthenticationManager">
+		<security:authentication-provider ref="apbB2bAcceleratorAuthenticationProvider"/>
+	</security:authentication-manager>
+	
+	<bean id="apbB2bAcceleratorAuthenticationProvider" parent="b2bAcceleratorAuthenticationProvider"
+		  class="com.apb.controller.security.ApbB2BAcceleratorAuthenticationProvider">
+		<property name="preAuthenticationChecks" ref="b2bRejectUserPreAuthenticationChecks"/>
+		<property name="b2bUserGroupProvider" ref="b2bUserGroupProvider"/>
+		<property name="bruteForceAttackCounter" ref="bruteForceAttackCounter"/>
+		<property name="modelService" ref="modelService"/>
+		<property name="userDetailsService" ref="originalUidUserDetailsService"/>
+		<property name="userService" ref="userService"/>
+		<property name="targetBeanName" value="apbB2bAcceleratorAuthenticationProvider" />
+		<property name="apbB2BUnitService" ref="apbB2BUnitService"/>
+		<aop:scoped-proxy/>
+	</bean> 
+	 
+	
+</beans>

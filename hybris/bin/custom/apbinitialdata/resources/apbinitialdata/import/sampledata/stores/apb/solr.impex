@@ -1,0 +1,53 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#
+# Import the Solr configuration for the Apb store
+#
+$productCatalog=apbProductCatalog
+$catalogVersions=catalogVersions(catalog(id),version);
+$facetSearchConfigName=apbIndex
+$facetSearchConfigDescription=Apb Solr Index
+$searchIndexNamePrefix=apb
+$solrIndexedType=apbProductType
+$indexBaseSite=apb
+$indexLanguages=en
+$indexCurrencies=USD
+$productCatalogVersion=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$productCatalog]),CatalogVersion.version[default=Online])[default=$productCatalog:Online]
+$lang=en
+
+
+#
+# Setup the indexed types, their properties, and the update queries
+#
+
+
+INSERT_UPDATE SolrURIRedirect;url[unique=true];&redirectRefID
+;"/Alcohol/BEER-%26-CIDER/c/L2002?q=%3Arelevance%3Apack%3AKeg";$productCatalog-draught
+
+
+INSERT_UPDATE SolrCategoryRedirect;redirectItem(code,$productCatalogVersion)[unique=true];&redirectRefID
+;L2002;$productCatalog-beercider
+;L2003;$productCatalog-rtd
+;L2004;$productCatalog-spirits
+;L2005;$productCatalog-nonalcohol
+
+
+INSERT_UPDATE SolrFacetSearchKeywordRedirect;facetSearchConfig(name)[unique=true,default=$facetSearchConfigName];language(isocode)[unique=true,default=$lang];keyword[unique=true];matchType(code)[unique=true];redirect(&redirectRefID);ignoreCase[default=true]
+;;;"Draught";EXACT;$productCatalog-draught;
+;;;"Beer & cider";EXACT;$productCatalog-beercider;
+;;;"Beer and cider";EXACT;$productCatalog-beercider;
+;;;"RTD";EXACT;$productCatalog-rtd;
+;;;"Spirit";EXACT;$productCatalog-spirits;
+;;;"Spirits";EXACT;$productCatalog-spirits;
+;;;"Non Alcohol";EXACT;$productCatalog-nonalcohol;
+
+
+                                      

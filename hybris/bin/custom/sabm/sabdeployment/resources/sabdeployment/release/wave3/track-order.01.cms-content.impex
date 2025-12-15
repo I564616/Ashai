@@ -1,0 +1,109 @@
+$contentCatalog = sabmContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Staged])[default = $contentCatalog:Staged]
+$productCV = catalogVersion(catalog(id[default = $productCatalog]), version[default = 'Staged'])[unique = true, default = $productCatalog:Staged]
+
+# Import modulegen config properties into impex macros
+UPDATE GenericItem[processor = de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor]; pk[unique = true]
+$jarResourceCms = $config-jarResourceCmsValue
+
+
+### CUB Track Order TEMPLATE AND PAGES  ###
+
+# STEP 1 - Create a new page template
+# Create PageTemplates
+# These define the layout for pages
+# "FrontendTemplateName" is used to define the JSP that should be used to render the page for pages with multiple possible layouts.
+# "RestrictedPageTypes" is used to restrict templates to page types
+INSERT_UPDATE PageTemplate; $contentCV[unique = true]; uid[unique = true]; name; frontendTemplateName; restrictedPageTypes(code); active[default = true]
+; ; TrackOrderPageTemplate ; Track delivery Order Template Page ; order/trackOrderPageTemplate ; ContentPage
+
+
+# STEP 2 - Create new pages
+# Functional Content Pages
+INSERT_UPDATE ContentPage; $contentCV[unique = true]; uid[unique = true]; name; masterTemplate(uid, $contentCV); label; defaultPage[default = 'true']; approvalStatus(code)[default = 'approved']; homepage[default = 'false']; previewImage(code, $contentCV)[default = 'ContentPageModel__function_preview']
+; ; trackOrderPage ; Track Order Page ; TrackOrderPageTemplate ; trackorder
+
+
+# STEP 3 - Create content slot names required for the template
+# Track Order Page Template
+INSERT_UPDATE ContentSlotName; name[unique = true]; template(uid, $contentCV)[unique = true][default = 'TrackOrderPageTemplate']; validComponentTypes(code); compTypeGroup(code)
+; SiteLogo               ; ; ; logo
+; HeaderLinks            ; ; ; headerlinks
+; SearchBox              ; ; ; searchbox
+; MiniCart               ; ; ; minicart
+; NavigationBar          ; ; ; navigation
+; TopContentSlot         ; ; ; wide
+; BottomContentSlot      ; ; ; wide
+; Footer                 ; ; ; footer
+; TopHeaderSlot          ; ; ; wide
+; BottomHeaderSlot       ; ; ; wide
+; PlaceholderContentSlot ; ; ; ;
+
+
+
+# STEP 4 - Create the components required for the pages
+### Jsp Include Component ###
+INSERT_UPDATE JspIncludeComponent; $contentCV[unique = true]; uid[unique = true]; name; page; actions(uid, $contentCV); &componentRef
+; ; TrackOrderComponent ; Track Order JSP component ; trackOrderPage.jsp ; ; TrackOrderComponent
+
+
+
+# STEP 5 - Create content slots for the pages
+###### SABMiller Track order Page ######
+# ContentSlot For TrackOrderPage
+INSERT_UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]; name; active; cmsComponents(&componentRef)
+; ; TopContentSlot-TrackOrderPage    ; TopContentSlot for Track Order Page    ; true ;
+; ; BottomContentSlot-TrackOrderPage ; BottomContentSlot for Track Order Page ; true ; TrackOrderComponent
+
+INSERT_UPDATE ContentSlotForPage; $contentCV[unique = true]; uid[unique = true]; position[unique = true]; page(uid, $contentCV)[unique = true][default = 'trackOrderPage']; contentSlot(uid, $contentCV)[unique = true]
+; ; TopContentSlot-TrackOrderPage    ; TopContentSlot    ; ; TopContentSlot-TrackOrderPage
+; ; BottomContentSlot-TrackOrderPage ; BottomContentSlot ; ; BottomContentSlot-TrackOrderPage
+
+
+# STEP 6 - Link the content slots for the TrackOrder Page Template
+# Content slot for Track Order Page Template
+# Content slot for Track Order Page Template
+INSERT_UPDATE ContentSlotForTemplate; $contentCV[unique = true]; uid[unique = true]; position[unique = true]; pageTemplate(uid, $contentCV)[unique = true][default = 'TrackOrderPageTemplate']; contentSlot(uid, $contentCV)[unique = true]; allowOverwrite
+; ; SiteLogo-TrackOrderPageTemplate               ; SiteLogo               ; ; SiteLogoSlot           ; true
+; ; HomepageLink-TrackOrderPageTemplate           ; HomepageNavLink        ; ; HomepageNavLinkSlot    ; true
+; ; DeliveryDatepickerSlot-TrackOrderPageTemplate ; DeliveryDatepickerBar  ; ; DeliveryDatepickerSlot ; true
+; ; MiniCart-TrackOrderPageTemplate               ; MiniCart               ; ; MiniCartSlot           ; true
+; ; NavigationBar-TrackOrderPageTemplate          ; NavigationBar          ; ; NavigationBarSlot      ; true
+; ; BreadcrumbSlot-TrackOrderPageTemplate         ; BreadcrumbBar          ; ; BreadcrumbSlot         ; true
+; ; Footer-TrackOrderPageTemplate                 ; Footer                 ; ; FooterSlot             ; true
+; ; HeaderLinks-TrackOrderPageTemplate            ; HeaderLinks            ; ; HeaderLinksSlot        ; true
+; ; SearchBox-TrackOrderPageTemplate              ; SearchBox              ; ; SearchBoxSlot          ; true
+; ; TopHeaderSlot-TrackOrderPageTemplate          ; TopHeaderSlot          ; ; TopHeaderSlot          ; true
+; ; BottomHeaderSlot-TrackOrderPageTemplate       ; BottomHeaderSlot       ; ; BottomHeaderSlot       ; true
+; ; TopContentSlot-TrackOrderPageTemplate         ; TopContentSlot         ; ; TopContentSlot         ; true
+; ; BottomContentSlot-TrackOrderPageTemplate      ; BottomContentSlot      ; ; BottomContentSlot      ; true
+; ; PlaceholderContentSlot-TrackOrderPageTemplate ; PlaceholderContentSlot ; ; PlaceholderContentSlot ; true
+
+
+
+# STEP 7 - Create CUB Track order link
+INSERT_UPDATE CMSLinkComponent; $contentCV[unique = true]; uid[unique = true]; name; url; linkName[lang = en]; category(code, $productCV); target(code)[default = 'sameWindow'];;
+; ; TrackOrderLink ; Track Order Link ; /trackorders ; "Track Order" ; ; ; ;
+
+# STEP 8 - Displaying the new template in CMS Cockpit
+
+# Add Velocity templates that are in the CMS Cockpit. These give a better layout for editing pages
+# The FileLoaderValueTranslator loads a File into a String property. The templates could also be inserted in-line in this file.
+UPDATE PageTemplate; $contentCV[unique = true]; uid[unique = true]; velocityTemplate[translator = de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+; ; TrackOrderPageTemplate ; $jarResourceCms/structure-view/structure_trackOrderPageTemplate.vm
+
+
+## import default logRetrieverRequest
+UPDATE SabmConfiguration; pk[unique = true]; logRetrieverRequest[default=false]
+; 8796093081984 ;
+
+
+
+## import pilot b2b unit into SabmConfiguration for track delivery order function
+UPDATE SabmConfiguration; pk[unique = true]; pilotFunctions(key(code),value(uid))[map-delimiter = ?][key2value-delimiter = ->]
+#; 8796093081984 ; TrackDeliveryOrder->0000623505,0000623505 ;
+
+
+
+
+

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="urn:gl.sabmiller.com:com:ecc:mastdata"  xmlns:n0="urn:gl.sabmiller.com:com:ecc:mastdata"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:element name="CreditAdjustment">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="Invoice" maxOccurs="unbounded">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element type="xsd:string" minOccurs="1" name="InvoiceNumber" />
+                            <xsd:element type="xsd:string" minOccurs="1" name="PurchaseOrderNumber" />
+                            <xsd:element type="xsd:string" minOccurs="1" name="Amount" />
+                            <xsd:element type="xsd:string" minOccurs="1" name="Status" />
+                            <xsd:element type="xsd:string" minOccurs="0" name="Type" />
+                            <xsd:element type="xsd:string" minOccurs="0" name="SoldTo" />
+                            <xsd:element type="xsd:string" minOccurs="0" name="PaymentDate" />
+                            <xsd:element type="xsd:string" minOccurs="0" name="DueDate" />
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

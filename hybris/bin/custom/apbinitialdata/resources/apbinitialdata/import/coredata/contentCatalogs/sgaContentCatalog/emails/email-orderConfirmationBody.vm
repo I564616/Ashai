@@ -1,0 +1,218 @@
+## messageSource=classpath:/sabmcore/messages/email-orderConfirmation_$lang.properties
+#macro(genHtmlLinkStartTag $url)
+<a href="$url"><font color="#666666">
+#end
+#macro(genHtmlLinkEndTag)
+</font></a>
+#end
+#macro(genHtmlLink $url $textColor $bodyContent)
+<a href="$url"><font color="$textColor">$bodyContent</font></a>
+#end
+#macro(displayNegationForDiscount $priceData)
+	#if (${priceData.value} > 0)
+    -
+	#end
+	${priceData.formattedValue}
+#end
+
+<html lang="en">
+    <head>
+    </head>
+    <body style="margin: -3px -3px 0 -3px;">
+		#set ($accountUrl = "${ctx.baseUrl}/my-account/orders")
+        <div class="tg-wrap" style="
+            font-family: 'Open Sans';, Helvetica, Arial, sans-serif;
+            color: #455560;
+            font-size: 16px;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;">
+            <table class="tg" style="
+                undefined;table-layout: fixed;
+                width: 100%;
+                display: block;
+                width: auto !important;">
+                <tr>
+					<td class="tg-yw43" colspan="2">
+				        <a href="${ctx.baseUrl}" style="padding: 0px 0px 0px 0px; display: inline-block; margin: 0 auto;">
+						    ${ctx.cmsSlotContents.TopContent}
+						</a>
+					</td>
+				</tr>
+                <tr>
+                    <table style="margin: 30px 20px 0px 20px;">
+                        <tr>
+                            <td class="tg-yw43" colspan="2">
+                                <a href="${ctx.baseUrl}" style="padding: 0px 0px 0px 0px; display: inline-block; margin: 0 auto;">
+									${ctx.cmsSlotContents.SiteLogo}
+								</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="
+                                color: #455560;
+                                font-family:'Open Sans', Helvetica, Arial, sans-serif;
+                                font-size: 25px;
+                                line-height: 35px;
+                                padding: 25px 0px 5px 0px;
+                                margin: 0;">
+                                <b>${ctx.messages.getMessage('sgaorderconfirmation')}</b>
+                            </td>
+                        </tr>
+                    </table>
+                    <table style="margin: 0px 20px 0px 20px;">    
+                        <tr>
+                            <td style="
+                                width: 50px;
+                                border: none;
+                                border-top: solid #455560 2.25px;
+                                padding: 0px 3.0px 0 3.0px;">
+                            </td>
+                            <td style="border-top:none">
+                            </td>
+                        </tr>
+                    </table>
+                    <table style="margin: 30px 20px 20px 20px;">    
+                        <tr>
+                            <td class="body-text" colspan="2" style="color: #455560; font-family:'Open Sans', Helvetica, Arial, sans-serif;">
+                            	#if(!${ctx.displayName})
+                            		Hi,<br><br>
+                            	#else
+                            		 ${ctx.messages.getMessage('sgasalutation', ${ctx.title},${ctx.displayName})},<br><br>
+                            	#end
+                                #if($ctx.order.bdeOrder == true && $ctx.bdeOrderEmailGroup == 'customers')
+                                	${ctx.messages.getMessage('sgaBDEContent', ${ctx.order.b2bCustomerData.name})}<br><br>
+                                #end
+                                ${ctx.messages.getMessage('sgathankYouForOrder')}<br><br>
+                                ${ctx.messages.getMessage('sgathankYouForOrder2', "#genHtmlLinkStartTag($accountUrl)", "#genHtmlLinkEndTag()")}<br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <a href="${ctx.secureBaseUrl}/my-account/order/${ctx.order.code}" style="text-align:center;text-decoration:none;font-family: Helvetica;text-transform: uppercase;">
+                                    <table cellpadding="0" cellspacing="0" border="0" style="cursor:pointer;" width="50%">
+                                        <tbody>
+                                        <tr>
+                                            <td align="center" style="font-weight: 700;height:50px;color: #42515a;background-color: #f99d32">
+                                                <a href="${ctx.secureBaseUrl}/my-account/order/${ctx.order.code}" style="font-weight: 700; text-align:center;text-decoration:none;font-family: Helvetica;text-transform: uppercase;font-size: 14px;line-height: 1.375;color:#42515a;">
+                                                    ${ctx.messages.sgaViewOrderStatus}
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tg-9hbo" style="width: 250px; padding: 20px 0px 20px 0px; color: #455560; font-family:'Open Sans', Helvetica, Arial, sans-serif;">
+                                <b>${ctx.messages.getMessage('sgaorderrefnumber')}<br>
+                                ${ctx.messages.getMessage('sgacustomer')}<br>
+                                ${ctx.messages.getMessage('sgacustomerno')}<br>
+                                #set ($orderDateMsg = "${ctx.messages.getMessage('sgaorderplaced')}")
+											#if(${ctx.orderPlaced} == "NIL")
+												#set ($orderDateMsg = " ")
+											#end
+										  $orderDateMsg<br>
+										  
+										  #set ($deliveryMsg = "${ctx.messages.getMessage('sgadeliverydate')}")
+											#if(${ctx.deliveryDate} == "NIL")
+												#set ($deliveryMsg = " ")
+											#end
+										  $deliveryMsg<br>
+								#set ($orderAdditionalData = "${ctx.messages.getMessage('sgaAdditionalInformation')}")
+											#if($ctx.order.bdeOrder != true)
+												#set ($orderAdditionalData = " ")
+											#end
+										  $orderAdditionalData<br>
+								</b>
+                            </td>
+                            <td class="tg-yw4l" style="padding: 20px 0px 20px 0px; color: #455560; font-family:'Open Sans', Helvetica, Arial, sans-serif;">
+                                ${ctx.order.code}<br>
+                                #if(${ctx.soldToCustomer} != "NIL")${ctx.soldToCustomer}#end<br>
+                                #if(${ctx.customerno} != "NIL")${ctx.customerno}#end<br>
+                                #if(${ctx.orderPlaced} != "NIL")${ctx.orderPlaced}#end<br>
+                                #if(${ctx.deliveryDate} != "NIL")${ctx.deliveryDate}#end<br>
+                                #if(${ctx.order.bdeOrder} == true)${ctx.order.bdeOrderEmailText}#end
+                            </td>
+                        </tr>
+                    </table>
+                  #if ($ctx.order.deliveryOrderGroups.size() > 0)
+                    <table style="width:100%;">
+                        <tr>
+                            <td class="tg-9hbo" colspan="2" style="
+                                padding: 10px 0px 10px 20px;
+                                background-color: #EBEBEB;
+                                font-family:'Open Sans', Helvetica, Arial, sans-serif;
+                                color: #455560;
+                                font-size: 12px;">
+                            ${ctx.messages.sgayourDeliveryItems}</td>
+                        </tr>
+                    </table>
+                    <table style="margin: 10px 20px 0px 20px;">
+                        <tr>
+                            <td class="tg-yw42" colspan="4">
+                                <table class="tb" style="
+                                    table-layout: fixed;
+                                    font-family:'Open Sans', Helvetica, Arial, sans-serif;
+                                    color: #455560;
+                                    width: 100%;
+                                    padding: 0px 0px;
+                                    font-size: 13px;
+                                    overflow: hidden;">
+                                    <tr>
+                                        <td style="padding: 0px 0px 10px 0px; text-align: left; vertical-align: top;"><b>${ctx.messages.sgaitem}</b></td>
+                                        <td style="padding: 0px 0px 10px 0px; text-align: left; vertical-align: top; width: 15%; "><b>${ctx.messages.sgaquantity}</b></td>
+                                        <td style="padding: 0px 0px 10px 0px; text-align: left; vertical-align: top; width: 15%; "><b>${ctx.messages.sgapriceperunit}</b></td>
+                                        <td style="padding: 0px 0px 10px 0px; text-align: left; vertical-align: top; width: 15%; "><b>${ctx.messages.sgatotal}</b></td>
+                                    </tr>
+										#foreach( $orderGroup in ${ctx.order.deliveryOrderGroups} )
+											#foreach( $entry in ${orderGroup.entries} )
+											<tr>
+												<td style="vertical-align: top; padding: 0px 0px 10px 0px;">#if ( $entry.product.brand.name ) $entry.product.brand.name&nbsp; #end #if ( $entry.product.name  ) $entry.product.name #end<br> #if ( $entry.product.unitVolume.name ) $entry.product.unitVolume.name <br> #end #if ( $entry.product.packageSize.name ) $entry.product.packageSize.name #end </td>
+												<td style="vertical-align: top; padding: 0px 0px 10px 0px;">$entry.quantity</td>
+												<td style="vertical-align: top; padding: 0px 0px 10px 0px;">$entry.discountPrice.formattedValue</td>
+												<td style="vertical-align: top; padding: 0px 0px 10px 0px;">#if($entry.totalPrice.value > 0) $entry.totalPrice.formattedValue #elseif ( $entry.isFreeGood ) ${ctx.messages.free} #elseif ( $entry.isBonusStock ) ${ctx.messages.bonus} #end</td>
+											</tr>
+											#end
+										#end
+                                    <tr>
+                                        <td colspan="3" style="text-align: right; font-weight: bold; padding:15px 15px 0px 0px">${ctx.messages.subtotal}</td>
+                                        <td style="padding: 15px 0px 0px 0px; vertical-align: bottom; max-width: 100%">${ctx.order.subTotal.formattedValue}</td>
+                                    </tr>
+                                    <tr class="tb">
+                                        <td colspan="3" style="text-align: right; font-weight: bold; padding:15px 15px 0px 0px">${ctx.messages.sgatax}</td>
+                                        <td style="padding: 15px 0px 0px 0px; vertical-align: bottom;">${ctx.order.totalTax.formattedValue}</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" style="text-align: right; font-weight: bold; padding:15px 15px 0px 0px">${ctx.messages.total}</td>
+                                        <td style="padding: 15px 0px 0px 0px; vertical-align: bottom;">${ctx.order.totalPriceWithTax.formattedValue}</td>
+                                    </tr>
+                                    <tr class="tb">
+                                        <td colspan="3" style="text-align: right; font-weight: bold; padding: 15px 15px 0px 0px">${ctx.messages.sgaIncl}&nbsp;${ctx.messages.sgaConnectDis}</td>
+                                        <td style="padding: 15px 0px 0px 0px; vertical-align: bottom;"></td>
+                                    </tr>
+                                    <tr>
+                    					<td colspan="5" style="font-family: Helvetica;color: #42515a;font-size: 15px;padding: 0px 0px 0px 10px;">
+                        					${ctx.messages.sgaContactUs1} <a href="${ctx.baseUrl}/contactus" style="color: #42515a; font-weight: 700;">contact us </a> ${ctx.messages.sgaContactUs2}
+                    					</td>
+                					</tr>
+                                    <tr>
+                                        <td class="tg-yw4l" colspan="3" style="padding: 20px 0px 20px 0px;"><br>${ctx.messages.sgacomplimentaryClosing}<br><br>${ctx.messages.sgasignature}<br></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                     #end
+                </tr>
+                <tr>
+                    <td class="footer-image" colspan="2">
+                        <a href="${ctx.baseUrl}" style="padding: 0px 0px 0px 0px; display: inline-block; margin: 0 auto;">
+                            ${ctx.cmsSlotContents.BottomContent}
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>

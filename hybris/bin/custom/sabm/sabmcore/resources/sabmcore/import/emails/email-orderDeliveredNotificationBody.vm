@@ -1,0 +1,169 @@
+## messageSource=classpath:/sabmcore/messages/email-orderDeliveredNotification_$lang.properties
+#macro(genHtmlLinkStartTag $url)
+<a href="$url"><font color="#666666">
+#end
+#macro(genHtmlLinkEndTag)
+</font></a>
+#end
+#macro(genHtmlLink $url $textColor $bodyContent)
+<a href="$url"><font color="$textColor">$bodyContent</font></a>
+#end
+
+
+
+<html>
+<body>
+	<table  width="600" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#ffffff">
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td valign="middle" bgcolor="#002f5f" height="92" style="padding-left: 10px;">
+				${ctx.cmsSlotContents.SiteLogo}
+			</td>
+		</tr>	
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>
+				<p><font color="#002f5f" size="5" face="Arial, Helvetica, sans-serif"><b>${ctx.messages.emailMessageTitle}</b></font></p>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>
+				<p><font size="3" color="#666" face="Arial, Helvetica, sans-serif"> ${ctx.messages.getMessage('salutation', ${ctx.customerData.firstName})}</font></p>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>
+				<p><font size="3" color="#666" face="Arial, Helvetica, sans-serif">${ctx.messages.getMessage('emailMessageParagraph1', ${ctx.orderData.sapSalesOrderNumber}, ${ctx.timeStamp}, ${ctx.deliveryAddress}, ${ctx.signature})}</font></p>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>
+				<h3><font size="4" color="#002f5f" face="Arial, Helvetica, sans-serif"><b>${ctx.messages.orderDetailsHeading}</b></font></h3>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>
+				<p>
+				<font size="3" color="#666" face="Arial, Helvetica, sans-serif">
+				<b>${ctx.messages.orderNumber}</b> ${ctx.orderData.sapSalesOrderNumber}<br/>
+				<b>${ctx.messages.status}</b>
+		            #if(${ctx.orderData.statusDisplay} == 'Created')
+		               	Confirmed
+		            #elseif(${ctx.orderData.statusDisplay} == 'Processing')
+		              	Being Picked
+		            #else
+		            	${ctx.orderData.statusDisplay}
+		            #end
+				<br/>
+				<b>${ctx.messages.placedBy}</b> ${ctx.orderData.userDisplayName} <br/>
+				<b>${ctx.messages.customerNumber}</b> ${ctx.orderData.b2bUnit.uid} <br/>
+				<b>${ctx.messages.payerNumber}</b> ${ctx.orderData.b2bUnit.payerId} <br/>
+				<b>${ctx.messages.sales_application}</b> ${ctx.orderData.salesApplication}
+				</font>
+				</p>			
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>
+				<a href="${ctx.secureBaseUrl}/your-business/order/${ctx.orderData.code}" style="text-decoration: underline"><font size="3" color="#002f5f" face="Arial, Helvetica, sans-serif">${ctx.messages.goToCubOnline}</font></a>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>
+				<p><font size="3" color="#666" face="Arial, Helvetica, sans-serif">${ctx.messages.trackYourDeliveryFeedBackText}</font></p>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>
+				<a href="${ctx.messages.surveymonkeyurl}" target="_blank" style="text-decoration: none; padding: 10px 20px; background: #002f5f; display: inline-block; text-transform: uppercase">
+					<font color="#fff" size="3" bgcolor="#002f5f" face="Arial, Helvetica, sans-serif">${ctx.messages.trackYourDeliveryFeedBackButton}</font>
+				</a>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<hr style="border: 1px solid rgba(102, 102, 102, 0.08);  margin: 3% 0" />
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>
+				<h3><font size="4" color="#002f5f" face="Arial, Helvetica, sans-serif"><b>${ctx.messages.NotificationsHeading}</b></font></h3>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>
+				<p><font size="3" color="#666" face="Arial, Helvetica, sans-serif">
+				${ctx.messages.NotificationsText} 
+				<a href="${ctx.secureBaseUrl}/your-notifications" style="color: #002f5f; text-decoration: underline">${ctx.messages.NotificationsLinkText1}</a> 
+				${ctx.messages.NotificationsText2}
+				</font></p>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>
+				<p><font color="#666666" size="3" face="Arial, Helvetica, sans-serif">
+					${ctx.messages.needHelp} <a href="${ctx.secureBaseUrl}/serviceRequest" style="color: #002f5f; text-decoration: underline">${ctx.messages.getInTouchText}</a>			
+				</font></p>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>
+			<footer style="background: #f5f5f5; height: 52px; line-height: 52px; font-weight: bold; margin-top:65px; padding-left:20px">
+				<p>&copy; Carlton &amp; United Breweries</p>
+			</footer>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>
+
+

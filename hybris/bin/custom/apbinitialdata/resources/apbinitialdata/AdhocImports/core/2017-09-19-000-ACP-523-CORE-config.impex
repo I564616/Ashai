@@ -1,0 +1,241 @@
+#Asahi Configurations  [translator=com.apb.core.translators.AsahiConfigurationImpexTranslator]
+INSERT_UPDATE Configuration ; configKey[unique=true]                              ; configValue                             
+                            ; header.b2bunit.dropdown.show.apb                    ; false                                                                                                           
+                            ; checkout.deferred.delivery.dates.days.apb           ; 30                                                                                                              
+                            ; warehouse.weekend.days.apb                          ; 6,7                                                                                                             
+                            ; warehouse.cutoff.time.format.apb                    ; HH:mm:ss.SSS Z                                                                                                  
+                            ; delivery.timeframe.standard.fromDay.apb             ; 1                                                                                                               
+                            ; delivery.timeframe.standard.toDay.apb               ; 2                                                                                                               
+                            ; delivery.timeframe.deferredDelivery.minInterval.apb ; 48                                                                                                              
+                            ; checkout.deliveryinstruction.textarea.maxlength     ; 100                                                                                                             
+                            ; product.name.validation.length.apb                  ; 100                                                                                                             
+                            ; product.description.validation.length.apb           ; 2000                                                                                                            
+                            ; use.product.backend.name.apb                        ; false                                                                                                           
+                            ; use.product.backend.unit.volume.apb                 ; false                                                                                                           
+                            ; use.product.backend.unit.per.case.apb               ; false                                                                                                           
+                            ; product.detail.validation.length.apb                ; 2000                                                                                                            
+                            ; product.rank.max.limit.apb                          ; 1000                                                                                                            
+                            ; integration.credit.check.service.stub.response.apb  ; { "creditCheckResponse":[ { "accountNum": "89007278873", "creditRemaining": "20000", "isBlocked": "false" }]}                                 
+                            ; integration.credit.check.service.url.apb                   ; creditCheckUrl                                                                                                  
+                            ; integration.credit.check.service.stub.check.apb                  ; true                                                                                                            
+                            ; integration.credit.check.service.offline.apb               ; false                                                                                                            
+                            ; site.date.format.validation.apb                     ; dd-MM-yyyyhh:mm:ss
+                            ; site.time.format.validation.apb                     ; hh:mm:ss                                                                                                        
+# Common properties         
+                            ; site.email.max.limit.apb                            ; 255                                                                                                             
+                            ; site.phone.max.limit.apb                            ; 15                                                                                                              
+						    ## FILE SIZE - 5MB 
+                            ; import.pdf.file.max.size.bytes.apb                  ; 5240000                                                                                                                                                                                                                                                                                                                                                                                                        
+                            ; site.country.apb                                    ; AU                                                                                                                                                                                                                                                                                                                                                                                                             
+
+# Company Page              
+                            ; company.input.max.limit.apb                         ; 75                                                                                                              
+                            ; company.abn.max.limit.apb                           ; 15                                                                                                              
+                            ; company.ll.max.limit.apb                            ; 15                                                                                                              
+                            ; company.del.instruction.max.limit.apb               ; 100                                                                                                             
+                            ; company.calendar.max.limit.apb                      ; 60                                                                                                              
+# Register Page              
+                            ; register.request.input.max.limit.apb                ; 75                                                                                                              
+                            ; register.request.date.max.limit.apb                 ; 10                                                                                                              
+                            ; register.request.abn.max.limit.apb                  ; 15                                                                                                              
+                            ; register.request.acn.max.limit.apb                  ; 15                                                                                                              
+                            ; register.request.ll.max.limit.apb                   ; 15                                                                                                              
+                            ; customer.postal.code.apb                            ; 4                                                                                                               
+                            ; registration.customer.care.number.apb               ;                                                                                                                                                                                                                                                                                                                                                                                                        
+                            ; register.request.address.max.limit.apb              ; 50 
+                            ; register.account.no.max.limit.apb						 ; 15                                                                                                                                                                                                                                                                                                                                                                                                           
+  ## Example: Company_@_Company, - OptionList - code_@_Display Name in list box. Comma(,) : represent new list
+                            ; register.request.typeof.entity.list.apb             ; Company_@_Company,Partnership_@_Partnership,SoleTrader_@_Sole Trader,Trust_@_Trust,Other_@_Other                                                                                                                                                                                                                                                                                                               
+                            ; register.request.typeof.business.list.apb           ; Bar_@_Bar,Club_@_Club,EntertainmentLeisure_@_Entertainment/Leisure,FunctionReceptionCentre_@_Function/Reception Centre,HotelTavern_@_Hotel/Tavern,HotelAccommodation_@_Hotel & Accommodation,Nightclub_@_Nightclub,RestaurantCafé_@_Restaurant & café,AttachedBottleshop_@_Attached Bottleshop,DriveThruBottleshop_@_Drive Thru Bottleshop,SpecialistBottleshop_@_Specialist Bottleshop
+
+# Contact Us Page              
+                            ; contactus.company.name.max.limit.apb                ; 75                                                                                                              
+                            ; contactus.acc.no.max.limit.apb                      ; 15                                                                                                              
+                            ; contactus.name.max.limit.apb                        ; 50                                                                                                              
+                            ; contactus.other.subject.max.limit.apb               ; 25                                                                                                              
+                            ; contactus.further.detail.max.limit.apb              ; 2000                                                                                                            
+
+# Order Configuratoin       
+ 							; send.order.job.retry.count.apb                       ; 5                                                                                                               
+                            ; send.order.job.send.status.apb                       ; PAYMENT_APPROVED,PAYMENT_CAPTURED                                                                                               
+                            ; send.order.job.success.status.apb                    ; SENT_TO_BACKEND
+	                        ; send.order.job.failed.status.apb					   ; SENT_TO_BACKEND_FAILED                                                                                                     
+                            ; integration.price.service.stub.check.apb                         ; true                                                                                                           
+                            ; integration.price.service.offline.apb                      ; false                                                                                                            
+                            ; integration.stock.onHand.service.url.apb                         ; https://localhost:9002/rest/v2/apb/stock/getStock                                                                                                        
+                            ; integration.stock.onHand.service.stub.check.apb                         ; true                                                                                                            
+                            ; integration.stock.onHand.service.offline.apb                      ; false                                                                                                            
+                            ; integration.service.connection.timeout.apb          ; 4000
+                            ; integration.service.read.timeout.apb                ; 4000
+                            ; integration.service.connection.request.timeout.apb  ; 4000
+                            ; integration.service.connection.max.connection.count.apb       ; 200
+                            ; integration.service.connection.max.connection.per.route.count.apb       ; 50                                                                                                          
+                            ; delivery.surcharge.MOQ.apb                          ; 5                                                                                                               
+                            ; delivery.surcharge.apb                              ; 15                                                                                                              
+                            ; site.date.format.validation.apb                     ; dd-MM-yyyy
+                            ; order.delivery.date.format.apb					  ; yyyy-MM-dd                                                                                                     
+                            ; fetch.pdp.price.from.service                        ; true                                                                                                            ;  
+                            ; fetch.plp.price.from.service                        ; true                                                                                                            
+                            ; delivery.surcharge.waived.off.package.type.apb      ; 28,29,33,35,36                                                                                                  
+                            ; product.code.non.alcoholic.product.apb           ; 10                                                                                                              
+                            ; plp.show.base.price.apb                             ; false                                                                                                           
+                            ; saved.order.template.list.size.apb                  ; 10                                                                                                               
+                            ; service.order.write.in.log                          ; true                                                                                                            
+                            ; service.order.error.test.case                       ; false                                                                                                           
+                            ; integration.order.service.url.apb                   ; https://localhost:9002/rest/v2/apb/generic/integrationService                                                   
+                            ; integration.price.service.url.apb                   ; https://localhost:9002/rest/v2/apb/price/getPrice
+                            ; order.number.for.not.process.order				  ; In Progress         
+                            ; payment.rest.check.status.apb								 ; PAYMENT_AUTHORIZED   
+                            ; payment.rest.update.status.apb							 ; PAYMENT_CAPTURED
+                            ; payment.rest.update.failed.status.apb					 ; PAYMENT_NOT_CAPTURED
+                            ; payment.rest.payment.update.status.order.apb			 ; PAYMENT_CAPTURED       
+                            ; enable.hooks.after.place.order							 ; true          
+                            ; payment.credit.card.reference.prefix.apb                    ; PAYREF                               
+# KEG RETURN PAGE
+   								# Address format set in list box i.e ( Address # )
+									;kegreturn.pick.address.format.apb							;	Address #            
+									;kegreturn.comments.max.limit.apb     						;	200
+# Bonus Stock Configs
+									;bonus.stock.product.max.quantity.apb						;	5         
+									;bonus.stock.global.max.quantity.apb     					;	10									
+##########################################################################################################################################################
+######################################################  REGEX CONFIGURATION  ########################################################################
+##########################################################################################################################################################     
+                            ; site.date.format.length.validation.apb              ; [0-9]{2,2}-[0-9]{2,2}+-[0-9]{4,4}+                                                                              
+                            ; storefront.passwordPattern.apb                      ; ^(?=.*\d)(?=.*[a-zA-Z])(?!.*\s).{5,20}$                                                                         
+                            ; customer.mobile.validation.pattern.apb              ; ^(?:\+?(61))? ?(?:\((?=.*\)))?(0?[2-57-8])\)? ?(\d\d(?:[- ](?=\d{3})|(?!\d\d[- ]?\d[- ]))\d\d[- ]?\d[- ]?\d{3})$
+                            ; customer.email.validation.apb                       ; \b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}\b                                                             
+                            ; customer.phone.validation.apb                       ; ^[0-9]*$                                                                                                        
+                            ; site.date.format.length.validation.apb              ; [0-9]{2,2}-[0-9]{2,2}+-[0-9]{4,4}+   
+                            ; customer.character.numeric.pattern.apb					 ; ^[a-zA-Z0-9_]+$                                                                           
+##########################################################################################################################################################
+###################################################### START EMAIL CONFIGURATION  ########################################################################
+##########################################################################################################################################################     
+### Register Page Email     
+                            ; self.registration.from.emailid.apb                  ; CustomerSupport@asahidirect.com.au                                                                              
+                            ; self.registration.from.emailid.name.apb             ; Asahi Direct Team                                                                                               
+                            ; self.registration.to.email.subject.apb              ; Welcome to Asahi Customer Portal                                                                                
+                            ; super.registration.from.emailid.apb                 ; CustomerSupport@asahidirect.com.au                                                                              ;  
+                            ; super.registration.email.name.apb                   ; Asahi Direct Team                                                                                               
+                            ; super.registration.to.email.subject.apb             ; New user registration on your account                                                                           
+### Request Registration Page						                      
+                            ; request.registration.to.email.apb                   ; auar@asahipb.com                                                                                                
+                            ; request.registration.from.emailid.apb               ; CustomerSupport@asahidirect.com.au                                                                              ;  
+                            ; request.registration.from.email.name.apb            ; Asahi Direct Team                                                                                               
+                            ; request.registration.email.subject.apb              ; New account registration request. Ref Number: {0}                                                               
+                            ; request.registration.keygen.code.prefix.apb         ; RR                                                                                                              
+### Company Deatials Page						                      
+                            ; company.details.to.email.apb                        ; Enquiries@asahidirect.com.au                                                                                    
+                            ; company.details.email.fromid.apb                    ; CustomerSupport@asahidirect.com.au                                                                              ;  
+                            ; company.details.email.fromname.apb                  ; Asahi Direct Team                                                                                               
+                            ; company.details.email.subject.apb                   ; Company details change request. Ref Number: {0}                                                                 
+                            ; company.details.email.send.copy.apb                 ; true                                                                                                            
+                            ; company.details.keygen.code.prefix.apb              ; CD 
+### Contact Us Page                           
+                            ; contactus.to.email.apb                              ; Enquiries@asahidirect.com.au                                                                                    
+                            ; contactus.from.emailid.apb                          ; CustomerSupport@asahidirect.com.au                                                                              
+                            ; contactus.from.email.name.apb                       ; Asahi Direct Team                                                                                               
+                            ; contactus.email.subject.apb                         ; Customer service request. Ref Number: {0}                                                                       
+                            ; contactus.keygen.code.prefix.apb                    ; CUS                                                                                                             
+### KEG RETURN PAGE    
+                            ; kegreturn.to.email.apb                              ; Enquiries@asahidirect.com.au                                                                                    
+                            ; kegreturn.from.emailid.apb                          ; CustomerSupport@asahidirect.com.au                                                                              
+                            ; kegreturn.from.email.name.apb                       ; Asahi Direct Team                                                                                               
+                            ; kegreturn.email.subject.apb                         ; Keg return request. Ref Number: {0}                                                                       
+                            ; kegreturn.keygen.code.prefix.apb                    ; KEG             
+                            
+### Forgot Password Page						                      
+                            ; forgot.password.from.emailid.apb               ; CustomerSupport@asahidirect.com.au                                                                                                                                                                                                                                                                                                                                                                             ;  
+                            ; forgot.password.from.email.name.apb            ; Asahi Direct Team                                                                                                                                                                                                                                                                                                                                                                                              
+                            ; forgot.password.email.subject.apb              ; Reset your password
+                                                                                                                                                       
+### Client Certification Configuration 
+							; integration.certificate.clientStore.password.apb		; 1649
+							; integration.certificate.trustStore.password.apb		; changeit
+							; integration.certificate.clientStore.fileName.apb		; hybrisuser.p12
+							; integration.certificate.trustStore.fileName.apb		; keystore_Asahi.jks
+							; integration.certificate.filePath.apb					; /usr/java/latest/jre/lib/security                                                                                                                                                                                                           
+                                                                                                                            
+##########################################################################################################################################################
+############################################################ END EMAIL CONFIGURATION  ####################################################################
+##########################################################################################################################################################                                                                                                                                         
+                                                                                                                                         
+## Saved Cards Page
+							; max.saved.cards.allowed.apb						 ; 3
+
+## Mapping of card types sent from fatzebra to Hybris card types	
+	
+							; payment.integration.visa.card.list.apb			 ; Visa,VISA
+							; payment.integration.master.card.list.apb 			 ; MasterCard
+							; payment.integration.amex.card.list.apb			 ; AMEX
+
+							; credit.card.iframe.external.css.url.apb			 ; https://mj7811.000webhostapp.com/testcss.css
+							
+## Surcharge for Credit Card
+							; credit.surcharge.for.amex.card.apb			 ; 0
+							; credit.surcharge.for.visa.card.apb		 	 ; 0
+							; credit.surcharge.for.master.card.apb			 ; 0			
+					    
+## Order detail payment card expiry date pattern
+							; order.detail.card.expiry.date.pattern ; MM/yyyy
+							
+## Number of cart entries to be displayed in cart summary on checkout page before View All button pressed.
+							; checkout.cart.summary.view.all.quantity		; 3
+							
+## Customer IP for Iframe Payment Util
+							; apb.payment.iframe.host.ip					; 127.0.0.1
+							
+## order date format for order from dynamics
+							;order.date.format.apb;							;yyyy-MM-dd HH:mm:ss	
+							
+## default values for order send to dynamics
+							;order.to.AX.default.sales.unit.apb					; each
+							;order.to.AX.default.currency.code.apb				; AUD
+							;order.to.AX.default.origin.id.apb					; HP
+							;order.to.AX.default.customer.reference.apb			;
+							;order.to.AX.default.delivery.instruction.apb		;
+							;order.to.AX.default.external.discount.apb			; 0
+							;order.to.AX.default.external.discount.desc.apb		; 0
+							;order.to.AX.default.payment.surcharge.apb			; 0
+							;order.to.AX.default.payment.reference.apb			; 0
+							;order.to.AX.default.payment.amount.apb				; 0
+							;order.to.AX.default.payment.other.ref.apb 			; 0						
+							
+							
+							
+## Order integration 
+							;product.code.for.delivery.surcharge.apb			; 900153
+							;product.code.for.freight.apb						; 900129
+							
+## Import Category via dynamics
+							;dynamics.allow.category.creation.without.superCategory.apb ; true
+							;root.superCategory.code.apb								; 1 
+							;payment.apply.credit.surcharge.apb						; false
+							;self.registration.to.email.apb								;suresh.kumar.kannayan@sap.com
+							;integration.service.timeOut.apb								;5000
+							;asahi.payment.target.direct.token.payment.sandbox.url		;https://sandbox-gateway.cloudpayments.com.au/v1.0/
+					
+## Import product 
+
+							;new.product.default.status 								;inactive		
+							
+							;customer.abn.validation.pattern.apb						; ^\\d{11,11}$	
+							
+							;apb.cutoff.message.timezone.AWST							; AUS Western Daylight Time			
+							;apb.cutoff.message.timezone.ACST							; AUS Central Standard Time		
+							;apb.cutoff.message.timezone.AEST							; AUS Eastern Standard Time
+							;apb.cutoff.message.timezone.ACDT							; AUS Central Daylight Time			
+							;apb.cutoff.message.timezone.AEDT							; AUS Eastern Daylight Time	
+
+							;display.text.plp.service.no.price							; $___				
+							;apb.cutoff.time.zone.id.AWST						        ;Australia/Perth
+							;apb.cutoff.time.zone.id.ACST								;Australia/Darwin
+							;apb.cutoff.time.zone.id.AEST								;Australia/Brisbane
+							;apb.cutoff.time.zone.id.ACDT 								;Australia/Adelaide
+							;apb.cutoff.time.zone.id.AEDT								;Australia/Hobart
+							;apb.cutoff.time.format										;hh:mm a ZZZ
+							
+							;show.price.error.for.add.to.cart							; true
+							;cron.job.option.apb							            ; false
+							;admin.restricted.links.apb								;manage profiles
+							

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wizard-config showPrefilledValues="true" selectMode="true" createMode="true" displaySubtypes="true">
+    <displayed-properties>
+        <group qualifier="General" visible="true" initially-opened="true">
+            <label key="cockpit.config.label.General"/>
+            <property qualifier="CMSItem.name"/>
+        </group>
+        <group qualifier="Properties" visible="true" initially-opened="true">
+            <label key="config.wizardConfig.properties"/>
+            <property qualifier="ApbHtmlCMSComponent.animation"/>
+            <property qualifier="ApbHtmlCMSComponent.animationDelay" editorCode="pixelNumberEditor"/>
+            <property qualifier="ApbHtmlCMSComponent.animationDuration" editorCode="pixelNumberEditor"/>
+            <property qualifier="ApbHtmlCMSComponent.desktop_width"/>
+            <property qualifier="ApbHtmlCMSComponent.desktop_height"/>
+            <property qualifier="ApbHtmlCMSComponent.mobile_width"/>
+            <property qualifier="ApbHtmlCMSComponent.mobile_height"/>
+            <property qualifier="ApbHtmlCMSComponent.useCustomized" />
+            <property qualifier="ApbHtmlCMSComponent.content" editorCode="wysiwyg"/>
+        </group>
+        <group qualifier="Relations" visible="true">
+            <label key="cmscockpit.Wizard.relations"/>
+            <property qualifier="ApbHtmlCMSComponent.banners">
+                <parameter name="predefinedValuesStrategy" value="cmsItemPredefinedValuesStrategy"/>
+                <parameter name="allowCreate" value="true"/>
+            </property>
+        </group>
+    </displayed-properties>
+</wizard-config>

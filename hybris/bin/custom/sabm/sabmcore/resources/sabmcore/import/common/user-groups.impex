@@ -1,0 +1,161 @@
+# Import Customers
+#
+$regulargroup = regulargroup
+$customergroup = customergroup
+$b2bassistantgroup = b2bassistantgroup
+$b2bordercustomer = b2bordercustomer
+$b2binvoicecustomer = b2binvoicecustomer
+$b2bb2bbusinesscustomer = b2bbusinesscustomer
+$b2bassistantgroup = b2bassistantgroup
+
+$passwordEncoding = md5
+$defaultPassword = 12341234
+$setPassword = @password[translator = de.hybris.platform.impex.jalo.translators.ConvertPlaintextToEncodedUserPasswordTranslator][default = '$passwordEncoding:$defaultPassword']
+
+# Create Customer Group
+INSERT_UPDATE Usergroup; uid[unique = true]; groups(uid)[mode = append]
+; $regulargroup ; customergroup
+
+INSERT_UPDATE Usergroup; uid[unique = true]; groups(uid); locname[lang = en];
+; $b2bordercustomer       ; b2bgroup ; B2B Order Customer           ;
+; $b2binvoicecustomer     ; b2bgroup ; B2B Invoice Customer         ;
+; $b2bb2bbusinesscustomer ; b2bgroup ; B2B Business Customer        ;
+; $b2bassistantgroup      ; b2bgroup ; B2B Personal Assistant Group ;
+
+# Customers
+INSERT_UPDATE Customer; originalUid[unique = true]; uid[unique = true]; title(code); name; description; sessionLanguage(isocode); sessionCurrency(isocode); groups(uid); $setPassword; &userId; defaultPaymentAddress(&addId); defaultShipmentAddress(&addId)
+
+# Customer addresses
+INSERT_UPDATE Address; &addId; owner(&userId)[unique = true]; streetname[unique = true]; postalcode[unique = true]; duplicate[unique = true]; town; country(isocode); billingAddress; contactAddress; shippingAddress; unloadingAddress; firstname; lastname; email; gender(code); middlename; phone1; title(code); url; company; fax; department
+
+
+############## Data for Asahi sites ########################
+
+# Import Two Sample B2B Organizations
+ # Real Data
+ # asahiSalesRepresentativeGroup -  For ASM User access
+#INSERT_UPDATE AsahiEmployee ; uid[unique=true] ; referenceId ; name                ; groups(uid)[default='asahiSalesRepresentativeGroup'] ; password[default=$defaultPassword] ;  
+
+INSERT_UPDATE AccountGroups ; code[unique=true] ; name            
+                            ; 7                 ; Major Wholesaler
+                            ; 9                 ; Other           
+                            ; 11                ; Retail/DD       
+                            ; 12                ; Woolworths      
+
+INSERT_UPDATE AccountType ; code[unique=true] ; name               
+                          ; 1                 ; Wholesaler         
+                          ; 2                 ; National Group     
+                          ; 3                 ; Direct Distribution
+                          ; 7                 ; Other              
+
+INSERT_UPDATE LicenceClass ; code[unique=true] ; name         
+                           ; 1                 ; LIQUOR STORES
+                           ; 2                 ; HOTELS       
+                           ; 3                 ; CLUBS        
+                           ; 4                 ; RESTAURANTS  
+                           ; 6                 ; WHOLESALER   
+                           ; 8                 ; LIMITED      
+                           
+INSERT_UPDATE LicenseTypes ; code[unique=true] ; name        
+                           ; 7                 ; COMMUNITY   
+                           ; 39                ; RESTAURANTS 
+                           ; 47                ; UNCLASSIFIED
+
+
+INSERT_UPDATE Channel ; code[unique=true] ; name                  
+                      ; 1                 ; OFF PREMISE           
+                      ; 2                 ; PUBS                  
+                      ; 3                 ; ON PREMISE            
+                      ; 6                 ; DISTRIBUTION AND SALES
+                      ; 12                ; INTEGRATED            
+
+INSERT_UPDATE SubChannel ; code[unique=true] ; name                     
+                         ; 2                 ; ON PREMISE               
+                         ; 3                 ; INTEGRATED               
+                         ; 4                 ; STAND ALONE              
+                         ; 5                 ; WHOLESALER               
+                         ; 7                 ; CLUB                     
+                         ; 21                ; FUNCTION/RECEPTION CENTRE
+                         ; 22                ; DINING                   
+                         ; 25                ; DIRECT SALES             
+                         ; 30                ; BOTTLESHOP ATTACHED      
+                         ; 31                ; DRIVE THRU               
+                         ; 32                ; HOTEL                    
+                         ; 33                ; SPECIALIST               
+
+INSERT_UPDATE BannerGroups ; code[unique=true] ; familyId ; name                          
+                           ; 118               ; 222      ; IGA                           
+                           ; 122               ; 226      ; INDEPENDENT LIQUOR A          
+                           ; 134               ; 241      ; LIQUOR DEBTORS                
+                           ; 135               ; 242      ; LIQUOR FOR LESS               
+                           ; 136               ; 222      ; LIQUOR FORCE                  
+                           ; 144               ; 101      ; LIQUOR SAVER                  
+                           ; 149               ; 251      ; LIQUOR STAX MARKETING         
+                           ; 181               ; 418      ; BOTTLE MART                   
+                           ; 248               ; 222      ; DUNCANS GRP                   
+                           ; 348               ; 222      ; CLUB PARTNERS                 
+                           ; 351               ; 140      ; CLUBS                         
+                           ; 356               ; 104      ; NO BANNER GRP                 
+                           ; 366               ; 151      ; CONDELLOS LIQUOR              
+                           ; 373               ; 380      ; ALH                           
+                           ; 460               ; 300      ; PREMIUM RETAIL CHANN          
+                           ; 527               ; 105      ; NILWA                         
+                           ; 596               ; 101      ; THIRSTY CAMEL VIC             
+                           ; 605               ; 222      ; BOTTLE-O                      
+                           ; 616               ; 222      ; BOTTLE-O NEIGHBOURHOOD        
+                           ; 623               ; 418      ; BOTTLEMART EXPRESS            
+                           ; 628               ; 101      ; INNKEEPERS ON PREMISE         
+                           ; 727               ; 222      ; CELLARBRATIONS ON PREMISE     
+                           ; 729               ; 418      ; BARGAINS STANDARD             
+                           ; 730               ; 418      ; BOTTLE MART STANDARD          
+                           ; 744               ; 418      ; BOTTLEMART ON PREMISE STANDARD
+                           ; 749               ; 422      ; COOK BEAUMONT                 
+                           ; 758               ; 422      ; COLONIAL LEISURE GROUP        
+                           ; 763               ; 422      ; MONTON GROUP                  
+                           ; 794               ; 056      ; DIXON GROUP                   
+                           ; 807               ; 222      ; CELLARBRATIONS VIC            
+                           ; 809               ; 059      ; NHM                           
+
+# Address Assign in B2BUnit
+INSERT_UPDATE AsahiB2BUnit ; uid[unique=true] ; Addresses(&addId) ; &B2BUnitID ;locName[lang=en]
+                           ; 100025           ; address100025     ; 100025    ; test
+#B2BUnit Address List                           
+INSERT_UPDATE Address ; &addId        ; owner(&B2BUnitID)[unique=true] ; addressRecordid ; addressType(code,itemtype(code)) ; defaultAddress[default=Yes] ; streetname[unique=true] ; streetnumber ; town      ; region(isocode) ; country(isocode)
+                      ; address100025 ; 100025                         ; 1234            ; DELIVERY:AddressType             ; true                        ; Cecil Street            ; 111          ; Melbourne ; AU-VIC          ; AU              
+
+
+#Warehouse Address List  
+INSERT_UPDATE Address ; owner(PointOfService.name)[unique=true] ; &addId     ; addressRecordid ; addressType(code,itemtype(code)) ; defaultAddress[default=Yes] ; streetname[unique=true] ; streetnumber ; town      ; region(isocode) ; country(isocode)
+                      ; apbPOSVIC                                ;  AddapbPOS_VIC ; 4321            ; DELIVERY:AddressType             ; true                        ; NA         ; NA           ; NA ; AU-VIC          ; AU              
+                      ; apbPOSTAS                                ;  AddapbPOS_TAS ; 4322            ; DELIVERY:AddressType             ; true                        ; NA         ; NA           ; NA ; AU-TAS          ; AU              
+                      ; apbPOSNSW                                ;  AddapbPOS_NSQ ; 4323            ; DELIVERY:AddressType             ; true                        ; NA         ; NA           ; NA ; AU-NSW          ; AU              
+                      ; apbPOSQLD                                ;  AddapbPOS_QLD ; 4324            ; DELIVERY:AddressType             ; true                        ; NA         ; NA           ; NA ; AU-QLD          ; AU              
+                      ; apbPOSNT                                 ;  AddapbPOS_NT  ; 4325            ; DELIVERY:AddressType             ; true                        ; NA         ; NA           ; NA ; AU-NT          ; AU              
+                      ; apbPOSWA                                 ;  AddapbPOS_WA  ; 4326            ; DELIVERY:AddressType             ; true                        ; NA         ; NA           ; NA ; AU-WA          ; AU              
+                      ; apbPOSSA                                 ;  AddapbPOS_SA  ; 4327            ; DELIVERY:AddressType             ; true                        ; NA         ; NA           ; NA ; AU-SA          ; AU              
+                                                                                                                                                                                                        
+					  
+INSERT_UPDATE PointOfService ; name[unique=true] ; type(code) ; address(&addId) ; basestore(uid)
+                             ; apbPOSVIC           ; WAREHOUSE  ; AddapbPOS_VIC      ; apb           
+                             ; apbPOSTAS         ; WAREHOUSE  ;   AddapbPOS_TAS      ; apb           
+                             ; apbPOSNSW         ; WAREHOUSE  ;   AddapbPOS_NSQ      ; apb           
+                             ; apbPOSQLD         ; WAREHOUSE  ;   AddapbPOS_QLD      ; apb           
+                             ; apbPOSNT           ; WAREHOUSE  ;  AddapbPOS_NT      ; apb           
+                             ; apbPOSWA           ; WAREHOUSE  ;  AddapbPOS_WA      ; apb           
+                             ; apbPOSSA           ; WAREHOUSE  ;  AddapbPOS_SA      ; apb           
+
+#Address assign to warehouse 
+#INSERT_UPDATE Warehouse ; code[unique=true] ; name ; cutOffTime      ; pointsOfService(name); disableDeferredDelivery [default=false]; vendor(code)[default=default]
+#;	SVC	;"Somerton, VIC"; "12:30 PM AEST"	;	apbPOSVIC	; true
+#;	STA	;"Tasmania, TAS"; "12:30 PM AEST"	;	apbPOSTAS	; false
+#;	SNS	;"Prospect, NSW"; "12:30 PM AEST"	;	apbPOSNSW	; true
+#;	SQB	;"Stradbroke St, QLD"; "12:30 PM AEST"	;	apbPOSQLD	; false
+#;	SQC	;"Cairns, QLD"; "12:30 PM AEST"	;	apbPOSQLD	; false
+#;	SQT	;"Townsville, QLD"; "12:30 PM AEST"	;	apbPOSQLD	; false
+#;	SNT	;"Darwin, NT"; "12:30 PM ACST"	;	apbPOSNT	; false
+#;	SWA	;"Welshpool, WA"; "12:30 PM AWST"	;	apbPOSWA	; false
+#;	SSA	;"Wingfield, SA"; "12:30 PM ACST"	;	apbPOSSA	; false
+
+
+INSERT_UPDATE CustomerList;uid[unique=true];implementationType;priority;members(uid)[mode=append];locname[lang=en]
+;myRecentCustomerSessions;"ASM_RECENT_SESSIONS";1;asagentgroup;"My Recent Customer Sessions"

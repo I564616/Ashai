@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<!--
+	ATTENTION: This is just an example file. You have to edit it according to your needs.
+-->
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
+
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.product.ProductWsDTO">
+		<property name="genders" type="java.util.List&lt;de.hybris.platform.apboccaddon.dto.product.GenderWsDTO>"/>
+		<property name="brand" type="de.hybris.platform.apboccaddon.dto.product.BrandWsDTO" />
+		<property name="flavour" type="de.hybris.platform.apboccaddon.dto.product.FlavourWsDTO" />
+		<property name="packageType" type="de.hybris.platform.apboccaddon.dto.product.PackageTypeWsDTO" />
+		<property name="packageSize" type="de.hybris.platform.apboccaddon.dto.product.PackageSizeWsDTO" />
+		<property name="productGroup" type="de.hybris.platform.apboccaddon.dto.product.ProductGroupWsDTO" />		
+		<property name="alcoholType" type="de.hybris.platform.apboccaddon.dto.product.AlcoholTypeWsDTO" />
+		<property name="minQty" type="java.lang.Integer" />
+		<property name="maxQty" type="java.lang.Integer" />
+		<property name="alcoholPercent" type="java.lang.Double" />
+		<property name="backendUnitPerCase" type="java.lang.Integer" />
+		<property name="unitPerInner" type="java.lang.Integer" />
+		<property name="qtyPerLayer" type="java.lang.Integer" />
+		<property name="standardPalletQuantity" type="java.lang.Integer" />
+		<property name="unitVolume" type="de.hybris.platform.apboccaddon.dto.product.UnitVolumeWsDTO" />
+		<property name="depth" type="java.lang.Double" />
+		<property name="height" type="java.lang.Double" />
+		<property name="width" type="java.lang.Double" />
+		<property name="b2bUnit" type="java.lang.String"/>
+		<property name="companyCode" type="java.lang.String"/>
+		<property name="backendName" type="java.lang.String"/>
+		<property name="backendUnitVolume" type="java.lang.Double"/>
+		<property name="active" type="Boolean"/>
+		<property name="itemGroup" type="com.apb.facades.product.data.ItemGroupData" />
+	</bean>
+
+	<bean class="de.hybris.platform.apboccaddon.dto.product.UnitVolumeWsDTO">
+		<property name="code" type="java.lang.String"/>
+		<property name="name" type="java.lang.String"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.apboccaddon.dto.product.UnitVolumeListWsDTO">
+		<property name="unitVolume"
+		          type="java.util.List&lt;de.hybris.platform.apboccaddon.dto.product.UnitVolumeWsDTO>"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.apboccaddon.dto.product.GenderWsDTO">
+		<property name="code" type="java.lang.String"/>
+		<property name="name" type="java.lang.String"/>
+	</bean>
+
+	<bean class="de.hybris.platform.apboccaddon.dto.product.ProductGroupWsDTO">
+		<property name="code" type="java.lang.String"/>
+		<property name="name" type="java.lang.String"/>
+	</bean>
+	<bean class="de.hybris.platform.apboccaddon.dto.product.ProductGroupListWsDTO">
+		<property name="productGroup"
+		          type="java.util.List&lt;de.hybris.platform.apboccaddon.dto.product.ProductGroupWsDTO>"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.apboccaddon.dto.product.AlcoholTypeWsDTO">
+		<property name="code" type="java.lang.String"/>
+		<property name="name" type="java.lang.String"/>
+	</bean>
+	<bean class="de.hybris.platform.apboccaddon.dto.product.AlcoholTypeListWsDTO">
+		<property name="alcoholTypes"
+		          type="java.util.List&lt;de.hybris.platform.apboccaddon.dto.product.AlcoholTypeWsDTO>"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.apboccaddon.dto.product.PackageTypeWsDTO">
+		<property name="code" type="java.lang.String"/>
+		<property name="name" type="java.lang.String"/>
+	</bean>
+	<bean class="de.hybris.platform.apboccaddon.dto.product.PackageTypeListWsDTO">
+		<property name="packageType"
+		          type="java.util.List&lt;de.hybris.platform.apboccaddon.dto.product.PackageTypeWsDTO>"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.apboccaddon.dto.product.PackageSizeWsDTO">
+		<property name="code" type="java.lang.String"/>
+		<property name="name" type="java.lang.String"/>
+		<property name="backendName" type="java.lang.String"/>
+	</bean>
+	<bean class="de.hybris.platform.apboccaddon.dto.product.PackageSizeListWsDTO">
+		<property name="packageSize"
+		          type="java.util.List&lt;de.hybris.platform.apboccaddon.dto.product.PackageSizeWsDTO>"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.apboccaddon.dto.product.FlavourWsDTO">
+		<property name="code" type="java.lang.String"/>
+		<property name="name" type="java.lang.String"/>
+	</bean>
+
+	<bean class="de.hybris.platform.apboccaddon.dto.product.FlavourListWsDTO">
+		<property name="flavour"
+		          type="java.util.List&lt;de.hybris.platform.apboccaddon.dto.product.FlavourWsDTO>"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.apboccaddon.dto.product.BrandWsDTO">
+		<property name="code" type="java.lang.String"/>
+		<property name="name" type="java.lang.String"/>
+		<property name="backendBrandName" type="java.lang.String"/>
+	</bean>
+	<bean class="de.hybris.platform.apboccaddon.dto.product.BrandListWsDTO">
+		<property name="brand"
+		          type="java.util.List&lt;de.hybris.platform.apboccaddon.dto.product.BrandWsDTO>"/>
+	</bean>
+	<bean class="de.hybris.platform.apboccaddon.dto.product.ItemGroupWsDTO">
+		<property name="code" type="java.lang.String" />
+		<property name="name" type="java.lang.String" />
+	</bean>
+	<bean class="de.hybris.platform.apboccaddon.dto.product.ItemGroupListWsDTO">
+		<property name="itemGroup"
+		          type="java.util.List&lt;de.hybris.platform.apboccaddon.dto.product.ItemGroupWsDTO>"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.apboccaddon.dto.product.SubProductGroupWsDTO">
+		<property name="code" type="java.lang.String" />
+		<property name="name" type="java.lang.String" />
+	</bean>
+	<bean class="de.hybris.platform.apboccaddon.dto.product.SubProductGroupListWsDTO">
+		<property name="subProductGroup"
+		          type="java.util.List&lt;de.hybris.platform.apboccaddon.dto.product.SubProductGroupWsDTO>"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.apboccaddon.dto.b2bunit.ApbB2BUnitListWsDTO">
+		<property name="customer"
+		          type="java.util.List&lt;de.hybris.platform.apboccaddon.dto.b2bunit.AbpB2BUnitWsDTO>"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.apboccaddon.dto.b2bunit.AbpB2BUnitWsDTO">
+		<property name="uid" type="java.lang.String"/>
+		<property name="name" type="java.lang.String"/>
+		<property name="backendRecordID" type="java.lang.String"/>
+		<property name="accountNum" type="java.lang.String"/>
+		<property name="abnNumber" type="java.lang.String" />
+		<property name="liquorLicensenumber" type="java.lang.String" />
+		<property name="phone" type="java.lang.String" />
+		<property name="cellularPhone" type="java.lang.String" />
+		<property name="purposeCode" type="java.lang.String" />
+		<property name="salesRepCode" type="java.lang.String" />
+		<property name="salesRepName" type="java.lang.String" />
+		<property name="salesRepEmailID" type="java.lang.String" />
+		<property name="teleFax" type="java.lang.String" />		
+		<property name="invoiceAccount" type="java.lang.String" />
+		<property name="custGroup" type="java.lang.String" />
+		<property name="eclAccountGroupId" type="de.hybris.platform.apboccaddon.dto.customer.AccountGroupsWsDTO" />
+		<property name="eclAccountTypeId" type="de.hybris.platform.apboccaddon.dto.customer.AccountTypeWsDTO" />
+		<property name="eclBannerGroupid" type="de.hybris.platform.apboccaddon.dto.customer.BannerGroupsWsDTO" />
+		<property name="eclSubchannelCode" type="de.hybris.platform.apboccaddon.dto.customer.SubChannelWsDTO" />
+		<property name="eclFreightAreaId" type="java.lang.String" />
+		<property name="eclChannelCode" type="de.hybris.platform.apboccaddon.dto.customer.ChannelWsDTO" />
+		<property name="eclLicenseTypeCode" type="de.hybris.platform.apboccaddon.dto.customer.LicenseTypesWsDTO" />
+		<property name="eclLicenseClassCode" type="de.hybris.platform.apboccaddon.dto.customer.LicenceClassWsDTO" />
+		<property name="warehouse" type="de.hybris.platform.apboccaddon.dto.customer.WarehouseWsDTO" />
+		<property name="companyCode" type="java.lang.String"/>
+		<property name="address" type="de.hybris.platform.commercewebservicescommons.dto.user.AddressWsDTO"/>
+		<property name="tradingName" type="String" />
+		<property name="email" type="String" />
+		<property name="active" type="Boolean"/>
+		<!-- Below attribute are created for SGA -->
+		<property name="custOrderType" type="String" />
+		<property name="salesOrg" type="String" />
+		<property name="distributionChannel" type="String" />
+		<property name="division" type="String" />
+		<property name="creditControlArea" type="String" />
+		<property name="deliveryDate" type="java.util.List&lt;com.apb.facades.delivery.data.CutOffDeliveryData>" />
+		<property name="tier" type="String" />
+		<property name="paymentTerm" type="java.lang.String" />
+		<property name="cutOffTime" type="java.lang.String" />
+		<property name="catalogHierarchyId" type="java.util.List&lt;String>" />
+		<property name="addressId" type="String" />
+		<property name="notifyType" type="String" />
+		<property name="cutoffDate" type="String" />
+		<property name="newDeliveryDate" type="String" />
+		<property name="holidayDate" type="String" />
+		<property name="holidayText" type="String" />	
+		<property name="cooDate" type="java.lang.String" />
+		<property name="customerType" type="String" />	
+		<property name="payerAccount" type="String" />
+		<property name="salesRepPhone" type="String" />
+		<property name="shipTo" type="java.util.List&lt;String>" />
+	</bean>
+	
+	<bean class="de.hybris.platform.apboccaddon.dto.customer.AccountGroupsWsDTO">
+		<property name="code" type="java.lang.String" />
+		<property name="name" type="java.lang.String" />
+	</bean>
+	<bean class="de.hybris.platform.apboccaddon.dto.customer.AccountGroupsListWsDTO">
+		<property name="accountGroup"
+		          type="java.util.List&lt;de.hybris.platform.apboccaddon.dto.customer.AccountGroupsWsDTO>"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.apboccaddon.dto.customer.AccountTypeWsDTO">
+		<property name="code" type="java.lang.String" />
+		<property name="name" type="java.lang.String" />
+	</bean>
+	<bean class="de.hybris.platform.apboccaddon.dto.customer.AccountTypeListWsDTO">
+		<property name="accountType"
+		          type="java.util.List&lt;de.hybris.platform.apboccaddon.dto.customer.AccountTypeWsDTO>"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.apboccaddon.dto.customer.BannerGroupsWsDTO">
+		<property name="code" type="java.lang.String" />
+		<property name="familyId" type="java.lang.String" />
+		<property name="name" type="java.lang.String" />
+	</bean>
+	<bean class="de.hybris.platform.apboccaddon.dto.customer.BannerGroupsListWsDTO">
+		<property name="bannerGroup"
+		          type="java.util.List&lt;de.hybris.platform.apboccaddon.dto.customer.BannerGroupsWsDTO>"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.apboccaddon.dto.customer.SubChannelWsDTO">
+		<property name="code" type="java.lang.String" />
+		<property name="description" type="java.lang.String" />
+		<property name="name" type="java.lang.String" />
+	</bean>
+	<bean class="de.hybris.platform.apboccaddon.dto.customer.SubChannelListWsDTO">
+		<property name="subChannel"
+		          type="java.util.List&lt;de.hybris.platform.apboccaddon.dto.customer.SubChannelWsDTO>"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.apboccaddon.dto.customer.ChannelWsDTO">
+		<property name="code" type="java.lang.String" />
+		<property name="name" type="java.lang.String" />
+		<property name="description" type="java.lang.String" />
+	</bean>
+	<bean class="de.hybris.platform.apboccaddon.dto.customer.ChannelListWsDTO">
+		<property name="channel"
+		          type="java.util.List&lt;de.hybris.platform.apboccaddon.dto.customer.ChannelWsDTO>"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.apboccaddon.dto.customer.LicenseTypesWsDTO">
+		<property name="code" type="java.lang.String" />
+		<property name="name" type="java.lang.String" />
+	</bean>
+	<bean class="de.hybris.platform.apboccaddon.dto.customer.LicenseTypesListWsDTO">
+		<property name="licenseType"
+		          type="java.util.List&lt;de.hybris.platform.apboccaddon.dto.customer.LicenseTypesWsDTO>"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.apboccaddon.dto.customer.LicenceClassWsDTO">
+		<property name="code" type="java.lang.String" />
+		<property name="name" type="java.lang.String" />
+	</bean>
+	<bean class="de.hybris.platform.apboccaddon.dto.customer.LicenceClassListWsDTO">
+		<property name="licenseClass"
+		          type="java.util.List&lt;de.hybris.platform.apboccaddon.dto.customer.LicenceClassWsDTO>"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.apboccaddon.dto.customer.WarehouseWsDTO">
+		<property name="code" type="java.lang.String" />
+	</bean>
+	
+	<bean class="de.hybris.platform.apboccaddon.dto.b2bunit.ApbAddressListWsDTO">
+		<property name="address"
+		          type="java.util.List&lt;de.hybris.platform.commercewebservicescommons.dto.user.AddressWsDTO>"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.user.AddressWsDTO">
+		<property name="deliveryInstruction" type="java.lang.String" />
+		<property name="dlvModeId" type="java.lang.String" />
+		<property name="deliveryTimeSlotTo" type="java.lang.String" />
+		<property name="deliveryTimeSlotFrom" type="java.lang.String" />
+		<property name="address" type="java.lang.String" />
+		<property name="streetname" type="java.lang.String" />
+		<property name="streetnumber" type="java.lang.String" />
+		<property name="recordId" type="java.lang.String" />
+		<property name="companyCode" type="java.lang.String"/>
+		<property name="addressType" type="java.lang.String"/>
+		<property name="customerRecId" type="java.lang.String"/>
+		<property name="deliveryCalendar" type="java.lang.String" />
+	</bean>
+	
+	<bean class="de.hybris.platform.apboccaddon.dto.category.ApbCategoryListWsDTO">
+		<property name="category"
+		          type="java.util.List&lt;de.hybris.platform.commercewebservicescommons.dto.product.CategoryWsDTO>"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.product.CategoryWsDTO">
+		<property name="categoryName" type="java.lang.String" />
+		<property name="parentCategoryId" type="java.lang.String" />
+		<property name="companyCode" type="java.lang.String"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.order.OrderWsDTO">
+		<property name="salesOrderId" type="java.lang.String" />
+		<property name="invoiceId" type="java.lang.String" />
+		<property name="orderType" type="java.lang.String" />
+		<property name="isPrepaid" type="Boolean" />
+		<property name="customerReference" type="java.lang.String" />
+		<property name="deliveryInstruction" type="java.lang.String" />
+		<property name="orderOriginId" type="java.lang.String" />
+		<property name="orderGST" type="Double" />
+		<property name="freight" type="java.lang.String" />
+		<property name="minOrderFee" type="java.lang.String" />
+		<property name="scheduleDeliveryDate" type="java.lang.String" />
+		<property name="scheduleShippingDate" type="java.lang.String" />
+		<property name="backendCreatedDate" type="java.lang.String" />
+		<property name="timePickListDate" type="java.lang.String" />
+		<property name="invoiceCreatedDate" type="java.lang.String" />
+		<property name="shippingWarehouse" type="java.lang.String" />
+		<property name="invoiceAmountWithGST" type="Double" />
+		<property name="errorMsg" type="java.lang.String" />
+		<property name="pickingListId" type="java.lang.String" />
+		<property name="onlineOrder" type="Boolean" />
+		<property name="custAccount" type="java.lang.String" />
+		<property name="currencyIso" type="java.lang.String" />
+		<property name="companyCode" type="java.lang.String" />
+		<property name="statusCode" type="java.lang.String" />
+		<property name="orderPlacedBy" type="java.lang.String" />
+		<property name="portalOrderId" type="java.lang.String" />
+		<property name="custOrderType" type="java.lang.String" />
+		<property name="deviceType" type="java.lang.String" />
+		<property name="orderCDL" type="Double" />
+		<property name="orderTotalCDL" type="Double" />
+	</bean>
+	
+	<bean class="de.hybris.platform.commercewebservicescommons.dto.order.OrderEntryWsDTO">
+		<property name="lineNum" type="java.lang.String"/>
+		<property name="backendUid" type="java.lang.String"/>
+		<property name="inventoryTransId" type="java.lang.String"/>
+		<property name="pickinglistQty" type="Integer"/>
+		<property name="invoicedQty" type="Integer"/>
+		<property name="isBonusStock" type="Boolean"/>
+		<property name="netUnitPrice" type="Double" />
+		<property name="netLineOrderAmount" type="Double" />
+		<property name="netLineInvoiceAmount" type="Double" />
+		<property name="orderEntryGST" type="Double" />
+		<property name="wetItem" type="java.lang.String"/>
+		<property name="cdl" type="Double" />
+	</bean>
+	
+	<bean class="de.hybris.platform.apboccaddon.dto.order.OrderListWsDTO">
+		<property name="salesOrder"
+		          type="java.util.List&lt;de.hybris.platform.commercewebservicescommons.dto.order.OrderWsDTO>"/>
+	</bean>
+	
+	<!-- SAM Web Service DTOs -->
+	<bean class="de.hybris.platform.apboccaddon.dto.sam.AsahiSAMInvoicesWsDTO">
+		<property name="invoices"
+		          type="java.util.List&lt;de.hybris.platform.apboccaddon.dto.sam.AsahiSAMInvoiceWsDTO>"/>
+	</bean>
+	<bean class="de.hybris.platform.apboccaddon.dto.sam.AsahiSAMInvoiceWsDTO">
+		<property name="custAccount" type="java.lang.String" />
+		<property name="documentNumber" type="java.lang.String"/>
+		<property name="lineNumber" type="java.lang.String"/>
+		<property name="deliveryNumber" type="java.lang.String"/>
+		<property name="invoiceAmount" type="java.lang.String"/>
+		<property name="invoiceDate" type="java.lang.String"/>
+		<property name="invoiceDueDate" type="java.lang.String"/>
+		<property name="status" type="java.lang.String" />
+		<property name="documentPostedDate" type="java.lang.String" />
+		<property name="invoiceIndicator" type="java.lang.String" />
+		<property name="transactionDate" type="java.lang.String" />
+		<property name="paymentType" type="java.lang.String"/>
+		<property name="receiptNumber" type="java.lang.String"/>
+		<property name="paymentReference" type="java.lang.String"/>
+		<property name="documentType" type="java.lang.String"/>
+		<property name="clearingdocumentNumber" type="java.lang.String"/>
+		<property name="paymentDocIdentifier" type="java.lang.String"/>
+		<property name="soldToName" type="java.lang.String"/>
+		<property name="debitInvoiceRef" type="java.lang.String"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.apboccaddon.dto.sam.AsahiSAMStatementsWsDTO">
+		<property name="statements"
+		          type="java.util.List&lt;de.hybris.platform.apboccaddon.dto.sam.AsahiSAMStatementWsDTO>"/>
+	</bean>
+	<bean class="de.hybris.platform.apboccaddon.dto.sam.AsahiSAMStatementWsDTO">
+		<property name="custAccount" type="java.lang.String" />
+		<property name="statementPeriod" type="java.lang.String"/>
+		<property name="statementBalance" type="java.lang.String"/>
+		<property name="statementNumber" type="java.lang.String"/>
+		<property name="invoice" type="java.util.List&lt;de.hybris.platform.apboccaddon.dto.sam.AsahiSAMInvoiceWsDTO>"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.apboccaddon.dto.sam.AsahiSAMPaymentHistWsDTO">
+		<property name="documents" type="java.util.List&lt;de.hybris.platform.apboccaddon.dto.sam.AsahiSAMPaymentWsDTO>"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.apboccaddon.dto.sam.AsahiSAMPaymentWsDTO">
+		<property name="totalDocs" type="java.lang.String"/>
+		<property name="invoices" type="java.util.List&lt;de.hybris.platform.apboccaddon.dto.sam.AsahiSAMInvoiceWsDTO>"/>
+	</bean>
+</beans>

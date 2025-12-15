@@ -1,0 +1,171 @@
+<ns0:CustomerERPReplicationRequestMessage_V1
+	xmlns:ns0="urn:gl.sabmiller.com:3rdp:masterdata">
+	<MessageHeader>
+		<ID schemeID="customer">aeb0d8629b3e11e5cad600000045bdb8</ID>
+		<CreationDateTime>2015-12-05T10:55:22Z</CreationDateTime>
+		<RecipientParty>
+			<InternalID>HYBRIS</InternalID>
+		</RecipientParty>
+	</MessageHeader>
+	<Customer>
+		<ID>0001302116</ID>
+		<Common>
+			<Name>
+				<FormOfAddressCode>A3</FormOfAddressCode>
+				<FirstLineName>THE LICENSEE</FirstLineName>
+				<SecondLineName>GOLDEN BARLEY HOTEL</SecondLineName>
+			</Name>
+			<CustERPRplctnReqCom>
+				<Title>Company</Title>
+				<SearchTerm>LICENSE TE</SearchTerm>
+				<HouseNumber>169 EDGEWARE RD, TEST 234</HouseNumber>
+				<City>ENMORE</City>
+				<CountryCode>NSW</CountryCode>
+				<CountryKey>AU</CountryKey>
+				<LanguageKey>EN</LanguageKey>
+				<ExternalCustID />
+				<TransportationZone>7AA0700002</TransportationZone>
+				<NielsenID>G2</NielsenID>
+				<CustomerClassificationCode>Y1</CustomerClassificationCode>
+				<CustomerType>CB</CustomerType>
+				<Location>C1C</Location>
+				<LocalSubChannel>1A7</LocalSubChannel>
+				<GlobalSubChannel>G2D</GlobalSubChannel>
+				<InternationalLocationNumber1>0000000</InternationalLocationNumber1>
+				<InternationalLocationNumber2>00000</InternationalLocationNumber2>
+				<CheckDigitInternationalLocationNumber>0
+				</CheckDigitInternationalLocationNumber>
+				<PrimaryGroupKey>A3</PrimaryGroupKey>
+				<PrimaryGroupDescription>AU ALPHA FLIGHT SER
+				</PrimaryGroupDescription>
+				<SubGroupKey>A4</SubGroupKey>
+				<SubGroupDescription>AU ADV INDEP ENHANCE</SubGroupDescription>
+			</CustERPRplctnReqCom>
+		</Common>
+		<AddressInformation>
+			<Address>
+				<PhysicalAddress>
+					<CountryCode>AU</CountryCode>
+					<RegionCode>NSW</RegionCode>
+					<StreetPostalCode>2042</StreetPostalCode>
+					<CityName>ENMORE</CityName>
+					<StreetName>169 EDGEWARE RD</StreetName>
+				</PhysicalAddress>
+			</Address>
+		</AddressInformation>
+		<AccountGroup>ZADP</AccountGroup>
+		<CustomerRelationship>
+			<PartnerCode>AG</PartnerCode>
+			<ID>0001302116</ID>
+			<Name>
+				<FirstLineName>THE LICENSEE</FirstLineName>
+			</Name>
+		</CustomerRelationship>
+		<CustomerRelationship>
+			<PartnerCode>OU</PartnerCode>
+			<ID>0001302116</ID>
+			<Name>
+				<FirstLineName>THE LICENSEE</FirstLineName>
+			</Name>
+		</CustomerRelationship>
+		<CustomerRelationship>
+			<PartnerCode>RE</PartnerCode>
+			<ID>0001302116</ID>
+			<Name>
+				<FirstLineName>THE LICENSEE</FirstLineName>
+			</Name>
+		</CustomerRelationship>
+		<CustomerRelationship>
+			<PartnerCode>RG</PartnerCode>
+			<ID>0001302116</ID>
+			<Name>
+				<FirstLineName>THE LICENSEE</FirstLineName>
+			</Name>
+		</CustomerRelationship>
+		<CustomerRelationship>
+			<PartnerCode>SB</PartnerCode>
+			<ID>0001302116</ID>
+			<Name>
+				<FirstLineName>THE LICENSEE</FirstLineName>
+			</Name>
+		</CustomerRelationship>
+		<CustomerRelationship>
+			<PartnerCode>WE</PartnerCode>
+			<ID>0001302116</ID>
+			<Name>
+				<FirstLineName>THE LICENSEE</FirstLineName>
+			</Name>
+		</CustomerRelationship>
+		<UnloadingPoint>
+			<UnldingPoint>0</UnldingPoint>
+			<GoodsReceiveHrsMonAm1>000000</GoodsReceiveHrsMonAm1>
+			<GoodsReceiveHrsMonAm2>000000</GoodsReceiveHrsMonAm2>
+			<GoodsReceiveHrsMonPm1>000000</GoodsReceiveHrsMonPm1>
+			<GoodsReceiveHrsMonPm2>000000</GoodsReceiveHrsMonPm2>
+			<GoodsReceiveHrsTuesAm1>000000</GoodsReceiveHrsTuesAm1>
+			<GoodsReceiveHrsTuesAm2>000000</GoodsReceiveHrsTuesAm2>
+			<GoodsReceiveHrsTuesPm1>000000</GoodsReceiveHrsTuesPm1>
+			<GoodsReceiveHrsTuesPm2>000000</GoodsReceiveHrsTuesPm2>
+			<GoodsReceiveHrsWedAm1>000000</GoodsReceiveHrsWedAm1>
+			<GoodsReceiveHrsWedAm2>000000</GoodsReceiveHrsWedAm2>
+			<GoodsReceiveHrsWedPm1>000000</GoodsReceiveHrsWedPm1>
+			<GoodsReceiveHrsWedPm2>000000</GoodsReceiveHrsWedPm2>
+			<GoodsReceiveHrsThursAm1>000000</GoodsReceiveHrsThursAm1>
+			<GoodsReceiveHrsThursAm2>000000</GoodsReceiveHrsThursAm2>
+			<GoodsReceiveHrsThursPm1>000000</GoodsReceiveHrsThursPm1>
+			<GoodsReceiveHrsThursPm2>000000</GoodsReceiveHrsThursPm2>
+			<GoodsReceiveHrsFriAm1>000000</GoodsReceiveHrsFriAm1>
+			<GoodsReceiveHrsFriAm2>000000</GoodsReceiveHrsFriAm2>
+			<GoodsReceiveHrsFriPm1>000000</GoodsReceiveHrsFriPm1>
+			<GoodsReceiveHrsFriPm2>000000</GoodsReceiveHrsFriPm2>
+			<GoodsReceiveHrSatAm1>000000</GoodsReceiveHrSatAm1>
+			<GoodsReceiveHrSatAm2>000000</GoodsReceiveHrSatAm2>
+			<GoodsReceiveHrSatPm1>000000</GoodsReceiveHrSatPm1>
+			<GoodsReceiveHrSatPm2>000000</GoodsReceiveHrSatPm2>
+			<GoodsReceiveHrSunAm1>000000</GoodsReceiveHrSunAm1>
+			<GoodsReceiveHrSunAm2>000000</GoodsReceiveHrSunAm2>
+			<GoodsReceiveHrSunPm1>000000</GoodsReceiveHrSunPm1>
+			<GoodsReceiveHrSunPm2>000000</GoodsReceiveHrSunPm2>
+			<ns0:UnldingPointDefault>0</ns0:UnldingPointDefault>
+		</UnloadingPoint>
+		<SalesData>
+			<SalesOrganisation>7001</SalesOrganisation>
+			<DistributionChannel>00</DistributionChannel>
+			<Division>00</Division>
+			<DeletionIndicator>
+			</DeletionIndicator>
+			<DefaultDeliveryPlant>7ABC</DefaultDeliveryPlant>
+			<CustomerBlockingReasonCode>TBC</CustomerBlockingReasonCode>
+		</SalesData>
+		<SalesOrgData>
+			<SalesGroup>U06</SalesGroup>
+			<SalesOfficeCode>AU02</SalesOfficeCode>
+			<SalesDistrictCode>A2ON10</SalesDistrictCode>
+			<CustomerGroup>UB</CustomerGroup>
+			<GroupDescription>NSW BDM ON SYD OUT</GroupDescription>
+			<DeliveryPriority>03</DeliveryPriority>
+			<ShippingConditions>A0</ShippingConditions>
+			<AccountAssigmentGroupCode>Y1</AccountAssigmentGroupCode>
+			<TermsOfPaymentKey>ZP01</TermsOfPaymentKey>
+			<TermsOfPaymentDescription>Immediate payment (Prepayment)
+			</TermsOfPaymentDescription>
+			<Currency>AUD</Currency>
+			<DepartureCountry>AU</DepartureCountry>
+			<TaxCategory>ATX1</TaxCategory>
+			<TaxClassification>1</TaxClassification>
+		</SalesOrgData>
+		<AlternativeDeliveryAddresses>
+			<ShipToID>0001302116</ShipToID>
+			<Address>
+				<PhysicalAddress>
+					<CountryKey>AU</CountryKey>
+					<RegionCode>NSW</RegionCode>
+					<StreetPostalCode>2042</StreetPostalCode>
+					<CityName>ENMORE</CityName>
+					<StreetName>169 EDGEWARE RD</StreetName>
+					<SupplementID />
+				</PhysicalAddress>
+			</Address>
+		</AlternativeDeliveryAddresses>
+	</Customer>
+</ns0:CustomerERPReplicationRequestMessage_V1>

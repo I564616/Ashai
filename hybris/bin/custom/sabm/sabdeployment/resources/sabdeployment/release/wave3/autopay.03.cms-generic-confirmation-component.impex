@@ -1,0 +1,58 @@
+$contentCatalog = sabmContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Staged])[default = $contentCatalog:Staged]
+$productCV = catalogVersion(catalog(id[default = $productCatalog]), version[default = 'Staged'])[unique = true, default = $productCatalog:Staged]
+$siteResource = jar:com.sabmiller.initialdata.setup.InitialDataSystemSetup&/sabminitialdata/import/sampledata/contentCatalogs/$contentCatalog
+$pageId = GenericComponentsConfirmationPage
+$pageIdTemplate = GenericComponentsConfirmationPageTemplate
+
+
+# Import modulegen config properties into impex macros
+UPDATE GenericItem[processor = de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor]; pk[unique = true]
+$jarResourceCms = $config-jarResourceCmsValue
+
+# STEP 1 - Create a new page template
+INSERT_UPDATE PageTemplate; $contentCV[unique = true]; uid[unique = true]; name; frontendTemplateName; restrictedPageTypes(code); active[default = true]
+; ; $pageIdTemplate ; Generic Component Confirmation Page Template ; generic/genericComponentConfirmationPageTemplate ; ContentPage
+
+# STEP 2 - Create new pages
+# Functional Content Pages
+INSERT_UPDATE ContentPage; $contentCV[unique = true]; uid[unique = true]; name; masterTemplate(uid, $contentCV); label; defaultPage[default = 'true']; approvalStatus(code)[default = 'approved']; homepage[default = 'false'];
+; ; $pageId ; Generic Confirmation Page ; $pageIdTemplate ; $pageId
+
+# STEP 3 - Create content slot names required for the template
+# Rewards Signup Page Template
+INSERT_UPDATE ContentSlotName; name[unique = true]; template(uid, $contentCV)[unique = true][default = 'GenericComponentsConfirmationPageTemplate']; validComponentTypes(code); compTypeGroup(code)
+; SiteLogo               ; ; ; logo
+; SearchBox              ; ; ; searchbox
+; MiniCart               ; ; ; minicart
+; NavigationBar          ; ; ; navigation
+; NotificationSlot       ; ; ; wide
+; Footer                 ; ; ; footer
+; PlaceholderContentSlot ; ; ;
+
+INSERT_UPDATE CMSLinkEnhancedComponent; $contentCV[unique = true]; uid[unique = true]; name; url; renderType(code);
+; ; HomePageButton1 ; "Go to CUB Homepage" ; / ; BUTTON
+
+INSERT_UPDATE SABMGenericConfirmationComponent; $contentCV[unique = true]; uid[unique = true]; textTitle; textDescription; desktopImage(code, $contentCV); ctaLinks(uid, $contentCV); &componentRef
+; ; SABMGenericNotificationComponent1 ; "Your Application has Been sent!" ; "Thanks for applying our Rewards Program. We have received your application. We will be in touch within 1 to 2 business days." ; rewards-application-confirmation01.svg ; HomePageButton1 ; SABMGenericNotificationComponent1
+
+# ContentSlot
+INSERT_UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]; name; active; cmsComponents(&componentRef);;;
+; ; NotificationSlot-SABMGenericNotificationComponent1 ; NotificationSlot ; true ; SABMGenericNotificationComponent1 ; ; ;
+
+# ContentSlotForPage
+INSERT_UPDATE ContentSlotForPage; $contentCV[unique = true]; uid[unique = true]; position[unique = true]; page(uid, $contentCV)[unique = true][default = 'GenericComponentsConfirmationPage']; contentSlot(uid, $contentCV)[unique = true];;;
+; ; NotificationSlot-SABMGenericNotificationComponent1 ; NotificationSlot ; ; NotificationSlot-SABMGenericNotificationComponent1 ; ; ; ;
+
+INSERT_UPDATE ContentSlotForTemplate; $contentCV[unique = true]; uid[unique = true]; position[unique = true]; pageTemplate(uid, $contentCV)[unique = true][default = 'GenericComponentsConfirmationPageTemplate']; contentSlot(uid, $contentCV)[unique = true]; allowOverwrite
+; ; SiteLogo-GenericComponentConfirmationPageTemplate               ; SiteLogo               ; ; SiteLogoSlot                                       ; true
+; ; SearchBox-GenericComponentConfirmationPageTemplate              ; SearchBox              ; ; SearchBoxSlot                                      ; true
+; ; MiniCart-GenericComponentConfirmationPageTemplate               ; MiniCart               ; ; MiniCartSlot                                       ; true
+; ; NavigationBar-GenericComponentConfirmationPageTemplate          ; NavigationBar          ; ; NavigationBarSlot                                  ; true
+; ; Footer-GenericComponentConfirmationPageTemplate                 ; Footer                 ; ; FooterSlot                                         ; true
+; ; PlaceholderContentSlot-GenericComponentConfirmationPageTemplate ; PlaceholderContentSlot ; ; PlaceholderContentSlot                             ; true
+; ; DeliveryDatepickerSlot-GenericComponentConfirmationPageTemplate ; DeliveryDatepickerBar  ; ; DeliveryDatepickerSlot                             ; true
+
+#######Component Group Types configuration ######
+INSERT_UPDATE ComponentTypeGroups2ComponentType; source(code)[unique = true]; target(code)[unique = true]
+; wide ; SABMGenericConfirmationComponent

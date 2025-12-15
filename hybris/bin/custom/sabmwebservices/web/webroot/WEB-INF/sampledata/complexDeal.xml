@@ -1,0 +1,405 @@
+<ns1:DealConditions xmlns:ns1="urn:gl.sabmiller.com:com:3rdp:mastdata">
+	<MessageHeader>
+		<ID schemeID="complexdeals">571f3acba3cb07a0e10080000af8ca23</ID>
+		<ReferenceID>LnywoQFB1w3X08002lZA8m</ReferenceID>
+		<CreationDateTime>2016-04-27T05:01:36Z</CreationDateTime>
+		<RecipientParty>
+			<InternalID>HYBRIS</InternalID>
+		</RecipientParty>
+	</MessageHeader>
+	<DealCondition>
+		<ConditionNumber>5000000172</ConditionNumber>
+		<DealType>AUSC</DealType>
+		<Status>R</Status>
+		<ValidFrom>2016-04-28</ValidFrom>
+		<ValidTo>2016-07-30</ValidTo>
+		<InStore>true</InStore>
+		<CustomerPOType>B2B</CustomerPOType>
+		<Assignments>
+			<SequenceNumber>000010</SequenceNumber>
+			<SalesOrganization>7001</SalesOrganization>
+			<Customer>0000623505</Customer>
+			<CustomerGroup />
+			<SalesGroup />
+		</Assignments>
+		<PreConditions>
+			<PreCoditionScale>
+				<Scale>001</Scale>
+				<QuantityFrom>1.000 </QuantityFrom>
+				<QuantityTo>9999.000 </QuantityTo>
+			</PreCoditionScale>
+			<PreCondition>
+				<SequenceNumber>000010</SequenceNumber>
+				<Material />
+				<Line />
+				<Brand>B20</Brand>
+				<Variety />
+				<Empties />
+				<EmptyType />
+				<Present>C08</Present>
+				<TargetQty>1.000 </TargetQty>
+				<UnitOfMeasure>CS</UnitOfMeasure>
+			</PreCondition>
+			<PreCondition>
+				<SequenceNumber>000020</SequenceNumber>
+				<Material>000000000000087597</Material>
+				<Line />
+				<Brand />
+				<Variety />
+				<Empties />
+				<EmptyType />
+				<Present />
+				<TargetQty>0.000 </TargetQty>
+				<UnitOfMeasure />
+				<Exclusion>true</Exclusion>
+			</PreCondition>
+			<PreCondition>
+				<SequenceNumber>000030</SequenceNumber>
+				<Material>000000000000087590</Material>
+				<Line />
+				<Brand />
+				<Variety />
+				<Empties />
+				<EmptyType />
+				<Present />
+				<TargetQty>0.000 </TargetQty>
+				<UnitOfMeasure />
+				<Exclusion>true</Exclusion>
+			</PreCondition>
+		</PreConditions>
+		<PercentageAndAmount>
+			<SequenceNumber>000010</SequenceNumber>
+			<Scale>001</Scale>
+			<ConditionRate>1.00 </ConditionRate>
+			<Unit />
+		</PercentageAndAmount>
+		<Descriptions>
+			<Language>E</Language>
+			<DealConditionsDescription>INT001_10</DealConditionsDescription>
+		</Descriptions>
+		<Adminstration>
+			<CreatedOn>2016-04-19</CreatedOn>
+			<CreatedTime>13:55:56</CreatedTime>
+			<ChangedOn>2016-04-27</ChangedOn>
+			<ChangedTime>05:00:09</ChangedTime>
+		</Adminstration>
+	</DealCondition>
+	<DealCondition>
+		<ConditionNumber>5000000238</ConditionNumber>
+		<DealType>AUSC</DealType>
+		<Status>R</Status>
+		<ValidFrom>2016-04-28</ValidFrom>
+		<ValidTo>2016-06-30</ValidTo>
+		<InStore>false</InStore>
+		<CustomerPOType />
+		<Assignments>
+			<SequenceNumber>000010</SequenceNumber>
+			<SalesOrganization>7001</SalesOrganization>
+			<Customer />
+			<CustomerGroup />
+			<SalesGroup>U01</SalesGroup>
+			<Banner>02</Banner>
+		</Assignments>
+		<Assignments>
+			<SequenceNumber>000020</SequenceNumber>
+			<Customer />
+			<CustomerGroup />
+			<SalesGroup>U01</SalesGroup>
+			<SalesOffice>AU03</SalesOffice>
+			<Exclusion>true</Exclusion>
+		</Assignments>
+		<PreConditions>
+			<PreCoditionScale>
+				<Scale>001</Scale>
+				<QuantityFrom>1.000 </QuantityFrom>
+				<QuantityTo>9999.000 </QuantityTo>
+			</PreCoditionScale>
+			<PreCondition>
+				<SequenceNumber>000010</SequenceNumber>
+				<Material />
+				<Line />
+				<Brand>B20</Brand>
+				<Variety />
+				<Empties />
+				<EmptyType />
+				<Present>C08</Present>
+				<TargetQty>1.000 </TargetQty>
+				<UnitOfMeasure>CS</UnitOfMeasure>
+			</PreCondition>
+		</PreConditions>
+		<PercentageAndAmount>
+			<SequenceNumber>000010</SequenceNumber>
+			<Scale>001</Scale>
+			<ConditionRate>1.00 </ConditionRate>
+			<Unit />
+		</PercentageAndAmount>
+		<Descriptions>
+			<Language>E</Language>
+			<DealConditionsDescription>AL_9</DealConditionsDescription>
+		</Descriptions>
+		<Adminstration>
+			<CreatedOn>2016-04-21</CreatedOn>
+			<CreatedTime>13:48:25</CreatedTime>
+			<ChangedOn>2016-04-27</ChangedOn>
+			<ChangedTime>04:59:01</ChangedTime>
+		</Adminstration>
+	</DealCondition>
+	<DealCondition>
+		<ConditionNumber>5000000240</ConditionNumber>
+		<DealType>AUSC</DealType>
+		<Status>R</Status>
+		<ValidFrom>2016-04-28</ValidFrom>
+		<ValidTo>2016-05-30</ValidTo>
+		<InStore>false</InStore>
+		<CustomerPOType>B2B</CustomerPOType>
+		<Assignments>
+			<SequenceNumber>000010</SequenceNumber>
+			<Customer>0000623505</Customer>
+			<CustomerGroup />
+			<SalesGroup />
+		</Assignments>
+		<PreConditions>
+			<PreCoditionScale>
+				<Scale>001</Scale>
+				<QuantityFrom>1.000 </QuantityFrom>
+				<QuantityTo>9999.000 </QuantityTo>
+			</PreCoditionScale>
+			<PreCondition>
+				<SequenceNumber>000010</SequenceNumber>
+				<Material />
+				<Line />
+				<Brand>B20</Brand>
+				<Variety />
+				<Empties />
+				<EmptyType />
+				<Present>C08</Present>
+				<TargetQty>1.000 </TargetQty>
+				<UnitOfMeasure>CS</UnitOfMeasure>
+			</PreCondition>
+			<PreCondition>
+				<SequenceNumber>000020</SequenceNumber>
+				<Material>000000000000088122</Material>
+				<Line />
+				<Brand />
+				<Variety />
+				<Empties />
+				<EmptyType />
+				<Present />
+				<TargetQty>0.000 </TargetQty>
+				<UnitOfMeasure />
+				<Exclusion>true</Exclusion>
+			</PreCondition>
+		</PreConditions>
+		<PercentageAndAmount>
+			<SequenceNumber>000010</SequenceNumber>
+			<Scale>001</Scale>
+			<ConditionRate>1.00 </ConditionRate>
+			<Unit />
+		</PercentageAndAmount>
+		<Descriptions>
+			<Language>E</Language>
+			<DealConditionsDescription>AL_11</DealConditionsDescription>
+		</Descriptions>
+		<Adminstration>
+			<CreatedOn>2016-04-22</CreatedOn>
+			<CreatedTime>03:26:26</CreatedTime>
+			<ChangedOn>2016-04-27</ChangedOn>
+			<ChangedTime>04:57:57</ChangedTime>
+		</Adminstration>
+	</DealCondition>
+	<DealCondition>
+		<ConditionNumber>5000000258</ConditionNumber>
+		<DealType>AUSC</DealType>
+		<Status>R</Status>
+		<ValidFrom>2016-05-01</ValidFrom>
+		<ValidTo>2016-05-30</ValidTo>
+		<InStore>false</InStore>
+		<CustomerPOType>B2B</CustomerPOType>
+		<Assignments>
+			<SequenceNumber>000010</SequenceNumber>
+			<SalesOrganization>7001</SalesOrganization>
+			<Customer />
+			<CustomerGroup />
+			<SalesGroup>U01</SalesGroup>
+			<SalesOffice>AU03</SalesOffice>
+			<PrimaryBanner>A1</PrimaryBanner>
+		</Assignments>
+		<PreConditions>
+			<PreCoditionScale>
+				<Scale>001</Scale>
+				<QuantityFrom>1.000 </QuantityFrom>
+				<QuantityTo>100.000 </QuantityTo>
+			</PreCoditionScale>
+			<PreCoditionScale>
+				<Scale>002</Scale>
+				<QuantityFrom>101.000 </QuantityFrom>
+				<QuantityTo>200.000 </QuantityTo>
+			</PreCoditionScale>
+			<PreCondition>
+				<SequenceNumber>000010</SequenceNumber>
+				<Material />
+				<Line />
+				<Brand>B20</Brand>
+				<Variety />
+				<Empties />
+				<EmptyType />
+				<Present>C08</Present>
+				<TargetQty>1.000 </TargetQty>
+				<UnitOfMeasure>CS</UnitOfMeasure>
+			</PreCondition>
+		</PreConditions>
+		<PercentageAndAmount>
+			<SequenceNumber>000010</SequenceNumber>
+			<Scale>001</Scale>
+			<ConditionRate>2.00 </ConditionRate>
+			<Unit />
+		</PercentageAndAmount>
+		<PercentageAndAmount>
+			<SequenceNumber>000010</SequenceNumber>
+			<Scale>002</Scale>
+			<ConditionRate>4.00 </ConditionRate>
+			<Unit />
+		</PercentageAndAmount>
+		<FreeGoods>
+			<SequenceNumber>000010</SequenceNumber>
+			<Scale>001</Scale>
+			<Material>000000000000088122</Material>
+			<TargetQty>1.000 </TargetQty>
+			<UnitOfMeasure>CS</UnitOfMeasure>
+		</FreeGoods>
+		<FreeGoods>
+			<SequenceNumber>000010</SequenceNumber>
+			<Scale>002</Scale>
+			<Material>000000000000088122</Material>
+			<TargetQty>2.000 </TargetQty>
+			<UnitOfMeasure>CS</UnitOfMeasure>
+		</FreeGoods>
+		<Descriptions>
+			<Language>E</Language>
+			<DealConditionsDescription>INT01_16_1</DealConditionsDescription>
+		</Descriptions>
+		<Adminstration>
+			<CreatedOn>2016-04-25</CreatedOn>
+			<CreatedTime>11:37:29</CreatedTime>
+			<ChangedOn>2016-04-27</ChangedOn>
+			<ChangedTime>04:54:38</ChangedTime>
+		</Adminstration>
+	</DealCondition>
+	<DealCondition>
+		<ConditionNumber>5000000259</ConditionNumber>
+		<DealType>AUSC</DealType>
+		<Status>R</Status>
+		<ValidFrom>2016-04-28</ValidFrom>
+		<ValidTo>2016-05-30</ValidTo>
+		<InStore>false</InStore>
+		<CustomerPOType>B2B</CustomerPOType>
+		<Assignments>
+			<SequenceNumber>000010</SequenceNumber>
+			<SalesOrganization>7001</SalesOrganization>
+			<Customer />
+			<CustomerGroup />
+			<SalesGroup>U01</SalesGroup>
+			<SalesOffice>AU03</SalesOffice>
+		</Assignments>
+		<PreConditions>
+			<PreCoditionScale>
+				<Scale>001</Scale>
+				<QuantityFrom>10.000 </QuantityFrom>
+				<QuantityTo>50.000 </QuantityTo>
+			</PreCoditionScale>
+			<PreCoditionScale>
+				<Scale>002</Scale>
+				<QuantityFrom>51.000 </QuantityFrom>
+				<QuantityTo>100.000 </QuantityTo>
+			</PreCoditionScale>
+			<PreCondition>
+				<SequenceNumber>000010</SequenceNumber>
+				<Material>000000000000088122</Material>
+				<Line />
+				<Brand />
+				<Variety />
+				<Empties />
+				<EmptyType />
+				<Present />
+				<TargetQty>1.000 </TargetQty>
+				<UnitOfMeasure>CS</UnitOfMeasure>
+			</PreCondition>
+			<PreCondition>
+				<SequenceNumber>000020</SequenceNumber>
+				<Material />
+				<Line />
+				<Brand>B20</Brand>
+				<Variety />
+				<Empties />
+				<EmptyType />
+				<Present>C08</Present>
+				<TargetQty>1.000 </TargetQty>
+				<UnitOfMeasure>CS</UnitOfMeasure>
+				<Mandatory>true</Mandatory>
+			</PreCondition>
+			<PreCondition>
+				<SequenceNumber>000030</SequenceNumber>
+				<Material>000000000000087590</Material>
+				<Line />
+				<Brand />
+				<Variety />
+				<Empties />
+				<EmptyType />
+				<Present />
+				<TargetQty>0.000 </TargetQty>
+				<UnitOfMeasure />
+				<Exclusion>true</Exclusion>
+			</PreCondition>
+		</PreConditions>
+		<PercentageAndAmount>
+			<SequenceNumber>000010</SequenceNumber>
+			<Scale>001</Scale>
+			<ConditionRate>5.00 </ConditionRate>
+			<Unit />
+		</PercentageAndAmount>
+		<PercentageAndAmount>
+			<SequenceNumber>000010</SequenceNumber>
+			<Scale>002</Scale>
+			<ConditionRate>10.00 </ConditionRate>
+			<Unit />
+		</PercentageAndAmount>
+		<FreeGoods>
+			<SequenceNumber>000010</SequenceNumber>
+			<Scale>001</Scale>
+			<Material>000000000000088122</Material>
+			<TargetQty>1.000 </TargetQty>
+			<UnitOfMeasure>CS</UnitOfMeasure>
+		</FreeGoods>
+		<FreeGoods>
+			<SequenceNumber>000020</SequenceNumber>
+			<Scale>001</Scale>
+			<Material>000000000000087590</Material>
+			<TargetQty>1.000 </TargetQty>
+			<UnitOfMeasure>CS</UnitOfMeasure>
+		</FreeGoods>
+		<FreeGoods>
+			<SequenceNumber>000010</SequenceNumber>
+			<Scale>002</Scale>
+			<Material>000000000000088122</Material>
+			<TargetQty>2.000 </TargetQty>
+			<UnitOfMeasure>CS</UnitOfMeasure>
+		</FreeGoods>
+		<FreeGoods>
+			<SequenceNumber>000020</SequenceNumber>
+			<Scale>002</Scale>
+			<Material>000000000000087590</Material>
+			<TargetQty>1.000 </TargetQty>
+			<UnitOfMeasure>CS</UnitOfMeasure>
+		</FreeGoods>
+		<Descriptions>
+			<Language>E</Language>
+			<DealConditionsDescription>INT01_16_2</DealConditionsDescription>
+		</Descriptions>
+		<Adminstration>
+			<CreatedOn>2016-04-25</CreatedOn>
+			<CreatedTime>11:43:07</CreatedTime>
+			<ChangedOn>2016-04-27</ChangedOn>
+			<ChangedTime>04:53:15</ChangedTime>
+		</Adminstration>
+	</DealCondition>
+</ns1:DealConditions>

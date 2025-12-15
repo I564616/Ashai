@@ -1,0 +1,14 @@
+$lang=en
+
+$jarResourceHeader=jar:com.sabmiller.core.setup.CoreSystemSetup&/impex/headers
+
+INSERT_UPDATE HeaderLibrary;code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime;fieldSeparator;quoteCharacter;commentCharacter;encoding(code,itemType(code));linesToSkip;removeOnSuccess
+;Sabmrecommendation_report;$jarResourceHeader/SABMRecommendation_export.impex;text/x-comma-separated-values;";";"""";#;UTF-8:EncodingEnum;0;false
+
+#####################INSERT THE SPRING ID INTO SERVICE LAYER JOB#############################
+INSERT_UPDATE ServicelayerJob;code[unique=true];springId[unique=true]
+;sabmRecommendationExportJob;sabmRecommendationExportJob
+
+#####################ASSOCIATE THE JOB LOGIC TO CRONJOB######################################
+INSERT_UPDATE SABMEmailExportCronJob;code[unique=true];job(code);sessionUser(uid);sessionLanguage(isocode);emailFrom;emailTo;subject;body
+;sabmRecommendationExportJob;sabmRecommendationExportJob;admin;en;report@cub.com.au;report@cub.com.au;DAILY RECOMMENDATION REPORT;PFA the latest recommendation report

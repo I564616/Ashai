@@ -1,0 +1,23 @@
+$defaultLanguage=en
+
+# Old Price Row Cleanup CronJobs
+INSERT_UPDATE OldSABMPriceRowRemovalCronJob;code[unique=true];job(code);age;batchSize;sessionLanguage(isocode)
+;oldSABMPriceRowRemovalCronJob;oldSABMPriceRowRemovalJob;180;1000;$defaultLanguage
+
+# Old Last Update Time Entity Cleanup CronJobs
+INSERT_UPDATE OldLastUpdateTimeEntityRemovalCronJob;code[unique=true];job(code);age;batchSize;sessionLanguage(isocode)
+;oldLastUpdateTimeEntityRemovalCronJob;oldLastUpdateTimeEntityRemovalJob;180;1000;$defaultLanguage
+
+INSERT_UPDATE Trigger;cronJob(code)[unique=true];cronExpression;relative;active;maxAcceptableDelay
+;oldSABMPriceRowRemovalCronJob;0 0 3 L * ?;false;true;-1
+;oldLastUpdateTimeEntityRemovalCronJob;0 30 3 L * ?;false;true;-1
+
+
+
+INSERT_UPDATE Unit;unitType[unique=true];code[unique=true];name[lang=en];pluralName[lang=en]
+;drum;EA;Drum;Drums
+
+$solrCustomerIndexedType = sabmStoreB2bCustomerType
+
+INSERT_UPDATE SolrIndexedProperty; solrIndexedType(identifier)[unique = true]; name[unique = true]; type(code); sortableType(code); currency[default = false]; localized[default = false]; multiValue[default = false]; useForSpellchecking[default = false]; useForAutocomplete[default = false]; fieldValueProvider; valueProviderParameters(key, value)[map-delimiter = |];  valueProviderParameter; 
+; $solrCustomerIndexedType       ; dealsExists                ; boolean         ;  ; ;      ;      ;      ; ; dealsExistsProvider                 ;                        ;    ;    

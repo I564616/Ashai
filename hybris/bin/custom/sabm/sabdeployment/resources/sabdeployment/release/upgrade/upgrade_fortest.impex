@@ -1,0 +1,285 @@
+####################SOLR CONFIGURATION UPDATE#######################
+$serverConfigName = sabmStoreSolrServerConfig
+
+INSERT_UPDATE SolrServerConfig; name[unique = true]; mode(code);username   ; password  ; indexingUsername   ; indexingPassword
+                              ; $serverConfigName ; standalone ; solrclient ; client123 ; solrindexingclient ; indexingclient123
+
+INSERT_UPDATE SolrEndpointUrl; solrServerConfig(name)[unique = true]; url[unique = true]; master[unique = true, default = false]
+                             ; $serverConfigName ; https://localhost:8983/solr ; true
+
+
+# ImpEx for SOLR Configuration
+
+# Macros / Replacement Parameter definitions
+$facetSearchConfigName=sabmStoreIndex
+
+# Language
+$lang=en
+# Synonyms (Must use INSERT_UPDATE here)
+INSERT_UPDATE SolrSynonymConfig;facetSearchConfig(name)[unique=true,default='sabmStoreIndex'];language(isocode)[unique=true,default=$lang];synonymFrom[unique=true];synonymTo
+;;;4;pine,brook;;
+;;;iron;great;;
+;;;leggera,legg;legere;;
+;;;grolsch,grol;stella;;
+;;;peroni,per,nastro,pero;stella;;
+;;;export stout;export;;
+;;;coopers;lazy yak;;
+;;;spirit,spirits;Spirits;;
+;;;xxxx;great northern;;
+;;;woodstock;cougar;;
+;;;guinness;stout;;
+;;;great northern crisp;great northern;;
+;;;FAT;fat yak;;
+;;;carona;corona;;
+;;;bulmers pear;pear cider;;
+;;;couger;cougar;;
+;;;Cascade Premium Light;cascade;;
+;;;carlton draught 750ml;87887,88003;;
+;;;canadian;douglas;;
+;;;bottle;bottles;;
+;;;pac;pacif;;
+;;;magners;bulmers;;
+;;;carlton draught 49.5l;87882;;
+;;;beez neez;beez;;
+;;;pure blonde 355ml;89343,88147;;
+;;;pure blonde keg;89350;;
+;;;miller chill;90616;;
+;;;mercury dry;87926,87953;;
+;;;mercury draught;88190,88212,91285;;
+;;;guiness;stout;;
+;;;boags;cascade;;
+;;;vic bitter;vb;;
+;;;vb can;vb;;
+;;;pacific radler;radler;;
+;;;long necks;500ml,700ml,750ml;;
+;;;bulmers keg;bulmers;;
+;;;somersby;little green;;
+;;;james;yak;;
+;;;Victoria;vb;;
+;;;peroni keg;stella;;
+;;;heineken,hein;becks;;
+;;;fat yak keg;fat yak;;
+;;;Victoria,victoria;vb;;
+;;;hahn;carlton;;
+;;;stronbow;strongbow;;
+;;;res;resch;;
+;;;cascade export;export;;
+;;;carlton dry lime;90616;;
+;;;great northern keg;great northern;;
+;;;xxxx;great northern;;
+;;;mercury hard;hard;;
+;;;matilda bay;matilda;;
+;;;bow;strongbow;;
+;;;black d;douglas;;
+;;;PURE;pure blonde;;
+;;;cooper;lazy yak;;
+;;;dirty granny;Dirty Granny;;
+;;;vb keg;88205;;
+;;;crown lager;crown;;
+;;;black douglas;douglas;;
+;;;miller;budweiser;;
+;;;pure blonde cider;pure blonde apple cider;;
+;;;victoria;vb;;
+;;;cassis;cassis liqueur;;
+;;;brandy;brandy liqueur;;
+;;;peach;peach liqueur;;
+;;;strawberry;strawberry liqueur;;
+;;;blue;blue curacao;;
+;;;triple;triple sec;;
+;;;Coyote Tequila;coyote tequila;;
+;;;pear;pear cider;;
+;;;apple;apple cider;;
+;;;keg;kegs,barrel;;
+;;;fat;fat yak;;
+;;;lazy;lazy yak;;
+;;;The;The Black Douglas,Scotch,Whisky;;
+;;;leffe;leffe blonde,leffe brune;;
+;;;stella;stella artois;;
+;;;little;little green;;
+;;;carlton;carlton dry,carlton draught,carlton mid,carlton cold,carlton pale,carlton light,carlton black;;
+;;;bottles;stubbies;;
+;;;great;great northern;;
+;;;Pure,pure;pure blonde;;
+;;;wild yak;Wild Yak;;
+;;;wild;wild yak;;
+;;;carlton pale;91680;;
+;;;Spirits;spirits ;;
+;;;ouzo;oyzo;;
+;;;Beer;beer;;
+;;;87940;9320000090292;;
+;;;slab;24,4x6;;
+;;;vb;victoria,vb gold;;
+;;;vb;victoria;;
+;;;gnbc;great northern;;
+;;;Melbourne, melbourne;melbourne;;
+
+$solrIndexedType = sabmStoreProductType
+
+# Define the available sorts
+INSERT_UPDATE SolrSort; &sortRefID; indexedType(identifier)[unique = true]; code[unique = true]; useBoost; visible
+                      ; relevanceSort ; $solrIndexedType ; relevance ; true ; false
+                      ; bestsellerSort ; $solrIndexedType ; bestseller; false ; true
+                      ; popularSort ; $solrIndexedType ; popular; false ; true
+                      ; sortRef3 ; $solrIndexedType ; name-asc  ; false ; true
+                      ; sortRef4 ; $solrIndexedType ; name-desc ; false ; true
+# Define the sort fields
+INSERT_UPDATE SolrSortField; sort(indexedType(identifier), code)[unique = true]; fieldName[unique = true]; ascending[unique = true]
+                           ; $solrIndexedType:relevance ; score ; false
+                           ; $solrIndexedType:bestseller; bestseller ; false
+                           ; $solrIndexedType:popular; popular ; true
+                           ; $solrIndexedType:name-asc  ; name  ; true
+                           ; $solrIndexedType:name-desc ; name  ; false
+
+# Define the sort fields
+INSERT_UPDATE SolrSortField;sort(indexedType(identifier),code)[unique=true];fieldName[unique=true];ascending[unique=true]
+;$solrIndexedType:relevance;score;false
+;$solrIndexedType:name-asc;name;true
+;$solrIndexedType:name-desc;name;false
+
+# Declare the indexed type Product
+INSERT_UPDATE SolrIndexedType; identifier[unique = true]; type(code); variant; sorts(&sortRefID)
+                             ; $solrIndexedType ; Product ; false ; bestsellerSort, popularSort, sortRef3, sortRef4, relevanceSort
+
+
+
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2018 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+
+$solrValueRanges = solrValueRanges(name);
+$defaultSortOrder = defaultSortOrder;
+$document = document(code);
+$solrSearchConfig = solrSearchConfig(pageSize);
+
+$solrSearchConfig = solrSearchConfig(&Item);
+$solrIndexerQueries = solrIndexerQueries(identifier)[forceWrite = true];
+$solrIndexedTypes = solrIndexedTypes(identifier);
+$solrServerConfig = solrServerConfig(name);
+$solrIndexConfig = solrIndexConfig(name);
+$solrIndexedType = solrIndexedType(identifier)[unique = true, default = 'BackofficeProduct'];
+$backofficeSFCName = Solr Config for Backoffice;
+$ftsWildcardQueryType = ftsWildcardQueryType(code);
+
+$solrValueRangeSets = solrValueRangeSets(name)
+$solrValueRangeSet = solrValueRangeSet(name)
+$solrValueRanges = solrValueRanges(name);
+
+$updateBackofficeIndexCronJob = update-backofficeIndex-CronJob;
+
+# Currencies
+INSERT_UPDATE Currency; isocode[unique = true]; symbol
+                      ; EUR ; €
+                      ; USD ; $
+
+INSERT_UPDATE SolrSearchConfig; &Item; pageSize[unique = true]; description[unique = true]; $defaultSortOrder; legacyMode; restrictFieldsInResponse;
+                              ; BSFC ; 20 ; SolrSearchConfig for backoffice ; score,pk ; false ; true ;
+
+INSERT_UPDATE SolrIndexerQuery; identifier[unique = true]; type(code); query; injectLastIndexTime[default = false]; injectCurrentTime[default = true]; injectCurrentDate[default = true]; user(uid); solrIndexerQueryParameters(name);
+                              ; backofficeProductFull   ; full   ; SELECT {pk} FROM {SABMAlcoholVariantProductEAN}                                        ;      ; ; ; admin ; ;
+                              ; backofficeProductUpdate ; update ; SELECT {pk} FROM {SABMAlcoholVariantProductEAN} WHERE {modifiedtime} >= ?lastIndexTime ; true ; ; ; admin ; ;
+                              ; backofficeProductDelete ; delete ; SELECT {pk} FROM {SABMAlcoholVariantProductEAN}                                        ; true ; ; ; admin ; ;
+
+INSERT_UPDATE SolrIndexedType; identifier[unique = true]; type(code); $solrIndexerQueries; variant; identityProvider; modelLoader; configSet; indexName;
+                             ; BackofficeProduct ; SABMAlcoholVariantProductEAN ; backofficeProductFull,backofficeProductUpdate,backofficeProductDelete ; false ; backofficeIdentityProvider ; ; default ; backoffice_product
+
+#references
+INSERT_UPDATE SolrIndexedProperty; name[unique = true]; $solrIndexedType; type(code); fieldValueProvider; includeInResponse[default = false];
+                                 ; variantType      ; ; long    ; referenceValueResolver        ; ;
+                                 ; unit             ; ; long    ; referenceValueResolver        ; ;
+                                 ; catalogPk        ; ; long    ; catalogPKValueResolver        ; ;
+                                 ; catalogVersionPk ; ; long    ; catalogVersionPKValueResolver ; ;
+                                 ; uncategorized    ; ; boolean ; superCategoriesValueResolver  ; ;
+
+#multivalue references (collections)
+INSERT_UPDATE SolrIndexedProperty; name[unique = true]; $solrIndexedType; type(code); fieldValueProvider; multiValue; localized[default = false]; includeInResponse[default = false];
+                                 ; supercategories                ; ; long ; collectionValueResolver                   ; true ;      ; ;
+                                 ; categoryPk                     ; ; long ; variantAwareCategoryPKValueResolver       ; true ;      ; ;
+                                 ; classificationCatalogs         ; ; long ; classificationCatalogValueResolver        ; true ;      ; ;
+                                 ; classificationCatalogsVersions ; ; long ; classificationCatalogVersionValueResolver ; true ;      ; ;
+                                 ; comments                       ; ; long ; collectionValueResolver                   ; true ;      ; ;
+                                 ; keywords                       ; ; long ; collectionValueResolver                   ; true ; true ;
+
+#enums
+INSERT_UPDATE SolrIndexedProperty; name[unique = true]; $solrIndexedType; type(code); fieldValueProvider; includeInResponse[default = false]; facetType(code)[default = 'MultiSelectOr'];
+                                 ; approvalStatus ; ; string ; solrEnumValueResolver ; ; ;
+
+#simple fields
+INSERT_UPDATE SolrIndexedProperty; name[unique = true]; $solrIndexedType; type(code); localized[default = false]; currency[default = false]; multiValue[default = false]; includeInResponse[default = false]; useForSpellChecking[default = false];
+                                 ; itemtype           ; ; string ;      ;      ; ; ; ;
+                                 ; code               ; ; text   ;      ;      ; ; ; ;
+                                 ; name               ; ; text   ; true ;      ; ; ; ;
+                                 ; articleStatus      ; ; string ;      ;      ; ; ; ;
+                                 ; description        ; ; text   ; true ;      ; ; ; ;
+                                 ; ean                ; ; text   ;      ;      ; ; ; ;
+                                 ; manufacturerName   ; ; text   ;      ;      ; ; ; ;
+                                 ; numberContentUnits ; ; double ;      ;      ; ; ; ;
+                                 ; priceQuantity      ; ; double ;      ;      ; ; ; ;
+                                 ; remarks            ; ; text   ; true ;      ; ; ; ;
+                                 ; segment            ; ; text   ; true ;      ; ; ; ;
+
+#free text search fields
+INSERT_UPDATE SolrIndexedProperty; name[unique = true]; $solrIndexedType; type(code); localized[default = false]; currency[default = false]; multiValue[default = false]; fieldValueProvider; ftsQuery; ftsQueryBoost; ftsPhraseQuery; ftsPhraseQueryBoost; ftsWildcardQuery; $ftsWildcardQueryType; includeInResponse; useForSpellChecking; useForAutocomplete;
+                                 ; _backofficeLabel ; ; text ; true ; ; ; backofficeValueResolver ; true ; 1.0 ; true ; 5.0 ; true ; POSTFIX ; false ; true ; true ;
+                                 ; code             ; ; text ;      ; ; ;                         ; true ; 1.0 ; true ; 5.0 ; true ; POSTFIX ; false ; true ; true ;
+                                 ; name             ; ; text ; true ; ; ; backofficeValueResolver ; true ; 1.0 ; true ; 5.0 ; true ; POSTFIX ; false ; true ; true ;
+
+INSERT_UPDATE SolrIndexedProperty; name[unique = true]; $solrIndexedType; type(code); localized[default = false]; currency[default = false]; multiValue[default = false]; fieldValueProvider; includeInResponse[default = false];
+                                 ; offlineDate  ; ; date ; ; ; ; defaultDateValueResolver ; ;
+                                 ; onlineDate   ; ; date ; ; ; ; defaultDateValueResolver ; ;
+                                 ; creationtime ; ; date ; ; ; ; defaultDateValueResolver ; ;
+                                 ; modifiedtime ; ; date ; ; ; ; defaultDateValueResolver ; ;
+
+INSERT_UPDATE SolrIndexedProperty; name[unique = true]; $solrIndexedType; type(code); localized[default = false]; currency[default = false]; multiValue[default = false]; fieldValueProvider; ftsQuery; ftsQueryBoost; ftsPhraseQuery; ftsPhraseQueryBoost; includeInResponse; useForSpellChecking; useForAutocomplete;
+                                 ; pk ; ; string ; false ; ; ; ; true ; 1.0 ; true ; 10.0 ; false ; false ; false ;
+
+#facets
+INSERT_UPDATE SolrValueRangeSet; name[unique = true]; type; $solrValueRanges;
+                               ; backofficePriceRanges ; double ; 0-19.99,20-69.99,70-99.99,100-100000 ;
+
+INSERT_UPDATE SolrValueRange; name[unique = true]; from; to; $solrValueRangeSet;
+                            ; 0-19.99    ; 0   ; 19.99  ; backofficePriceRanges ;
+                            ; 20-69.99   ; 20  ; 69.99  ; backofficePriceRanges ;
+                            ; 70-99.99   ; 70  ; 99.99  ; backofficePriceRanges ;
+                            ; 100-100000 ; 100 ; 100000 ; backofficePriceRanges ;
+
+INSERT_UPDATE SolrIndexedProperty; name[unique = true]; $solrIndexedType[unique = true]; type(code); facet[default = true]; localized[default = false]; currency[default = false]; multiValue[default = false]; rangeSet(name); facetDisplayNameProvider; fieldValueProvider; includeInResponse[default = false]; rangeSets(name); facetType(code)[unique = true, default = 'MultiSelectOr'];
+                                 ; price          ; ; double ; true ;      ; true ;      ; backofficePriceRanges ; ; productPriceValueProvider             ; ; ; Refine ;
+                                 ; priceValue     ; ; double ;      ;      ; true ;      ;                       ; ; productPriceValueProvider             ; ; ;        ;
+                                 ; category       ; ; string ; true ;      ;      ; true ;                       ; ; variantAwareCategoryCodeValueResolver ; ; ;        ;
+                                 ; catalogVersion ; ; string ; true ; true ;      ;      ;                       ; ; catalogVersionLabelValueResolver      ; ; ;        ;
+                                 ; catalog        ; ; string ; true ; true ;      ;      ;                       ; ; catalogLabelValueResolver             ; ; ;        ;
+
+INSERT_UPDATE SolrIndexConfig; name[unique = true]; legacyMode; batchSize; exportPath; indexMode(code);
+                             ; indexConfig-Backoffice ; false ; 100 ; ; TWO_PHASE ;
+
+INSERT_UPDATE SolrFacetSearchConfig; name[unique = true]; description; $document; $solrSearchConfig; currencies(isocode); languages(isocode); $solrValueRangeSets; $solrIndexedTypes; $solrServerConfig; $solrIndexConfig; indexNamePrefix
+                                   ; $backofficeSFCName ; $backofficeSFCName ; ; BSFC ; EUR,USD ; de,en ; backofficePriceRanges ; BackofficeProduct ; Default ; indexConfig-Backoffice ; backoffice
+
+INSERT_UPDATE BackofficeIndexedTypeToSolrFacetSearchConfig; indexedType(code)[unique = true]; solrFacetSearchConfig(name);
+                                                          ; Product ; $backofficeSFCName ;
+
+INSERT_UPDATE SolrIndexerCronJob; code[unique = true]; job(code); singleExecutable; sessionLanguage(isocode); active; facetSearchConfig(name); indexerOperation(code)
+                                ; $updateBackofficeIndexCronJob ; solrIndexerJob ; false ; en ; true ; $backofficeSFCName ; update
+
+INSERT Trigger; cronJob(code); active; activationTime; year; month; day; hour; minute; second; relative; weekInterval; daysOfWeek;
+              ; $updateBackofficeIndexCronJob      ; true ; ; -1 ; -1 ; -1 ; -1 ; -1 ; 05 ; false ; 0 ; ;
+
+###########################################################CONFIRM PICKUP BUTTON IN BACKOFFICE#############################################################
+
+INSERT_UPDATE Script  ; scriptType(code)  ; active[forceWrite=true]  ; code[unique=true]     ; version[unique]   ; content;
+                      ; GROOVY            ; true    ; confirmConsignmentPickup         ; 0         ; "import de.hybris.platform.basecommerce.enums.ConsignmentStatus; import com.hybris.cockpitng.actions.ActionContext; import com.hybris.cockpitng.actions.ActionResult; import de.hybris.platform.ordersplitting.model.ConsignmentModel; import de.hybris.platform.ordersplitting.model.ConsignmentProcessModel; import de.hybris.platform.processengine.BusinessProcessService; import com.hybris.cockpitng.util.BackofficeSpringUtil; import com.hybris.cockpitng.actions.CockpitAction; import com.hybris.cockpitng.dataaccess.facades.object.ObjectFacade; import com.hybris.cockpitng.dataaccess.facades.object.exceptions.ObjectSavingException;  public class PickupConfirmationAction implements CockpitAction {        public ActionResult perform(final ActionContext ctx)      {         final Object data = ctx.getData();         if(data instanceof ConsignmentModel){             try{                 ((ConsignmentModel)data).setStatus(ConsignmentStatus.PICKUP_COMPLETE);                 getObjectFacade().save(data);                 for (final ConsignmentProcessModel process : ((ConsignmentModel)data).getConsignmentProcesses())                 {                     getBusinessProcessService().triggerEvent(process.getCode() + ""_ConsignmentPickup"");                 }             }             catch(final ObjectSavingException e){                 throw new RuntimeException(e);             };             return new ActionResult(ActionResult.SUCCESS);         };         return new ActionResult(ActionResult.ERROR);     };      public boolean canPerform(final ActionContext ctx)     {         return (ctx.getData() instanceof ConsignmentModel) && !((ConsignmentModel)ctx.getData()).getStatus().equals(ConsignmentStatus.PICKUP_COMPLETE)     };      public boolean needsConfirmation(final ActionContext ctx)     {         return false;     };      public String getConfirmationMessage(final ActionContext ctx)     {         return ""Are you sure?"";     };       public ObjectFacade getObjectFacade(){         return (ObjectFacade) BackofficeSpringUtil.getBean(""objectFacade"");     };       protected BusinessProcessService getBusinessProcessService()     {         return BackofficeSpringUtil.getBean(""businessProcessService"", BusinessProcessService.class);     } }";
+
+$contentCatalog=Default
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Online])[default=$contentCatalog:Online]
+$siteResource=jar:com.sabmiller.core.setup.CoreSystemSetup&/sabmcore/import/backoffice/icons
+
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='image/jpeg'];altText;folder(qualifier)[default='images']
+;;icon-confirmpickup-enabled;icon_confirm_pickup_enabled.png;$siteResource/icon_confirm_pickup_enabled.png;;Confirm Pickup;
+;;icon-confirmpickup-disabled;icon_confirm_pickup_disabled.png;$siteResource/icon_confirm_pickup_disabled.png;;Confirm Pickup Disabled;

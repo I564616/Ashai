@@ -1,0 +1,25 @@
+#
+# Import the CMS content for the site
+#
+$contentCatalog=sabmContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$lang=en
+$jarEmailResource=jar:com.sabmiller.initialdata.setup.InitialDataSystemSetup&/sabminitialdata/import/coredata/contentCatalogs/sabmContentCatalog/emails
+$yourBusinessContent=Stay on top of your account and manage your personal information, business users, payments and order templates online. View your order history and get access to our online support.
+$billingAndPaymentContent=Search, view, print and email your transactions and invoices. Pay your account online by credit card.
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+$emailResource=$config-emailResourceValue
+
+UPDATE SearchRestriction;code[unique=true];active
+;branch_restriction;false
+
+# Import order confirmation email velocity templates
+UPDATE RendererTemplate;code[unique=true];description[lang=$lang];templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+;sabmiller_Email_Welcome_Body;"Welcome Email.";$emailResource/email-welcomeBody.vm
+
+# Update YourBusiness and BillingAndPayment Components
+INSERT_UPDATE LinkParagraphComponent;$contentCV[unique=true];uid[unique=true];name;title;content;linkText
+;;YourBusiness;Your Business;Your Business;$yourBusinessContent;Go to Your Business
+;;BillingAndPayment;Billing and Payment;Billing and Payment;$billingAndPaymentContent;View all transactions and invoices

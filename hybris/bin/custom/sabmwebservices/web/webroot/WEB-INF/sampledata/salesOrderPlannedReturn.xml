@@ -1,0 +1,146 @@
+<ns2:SalesOrderInformation xmlns:ns2="urn:gl.sabmiller.com:com:3rdp:transdata">
+	<MessageHeader>
+		<ID schemeID="salesorder">56b82c856acb1da0e10080000af8ca7d</ID>
+		<CreationDateTime>2016-02-15T05:53:46Z</CreationDateTime>
+		<RecipientBusinessSystemID>HYBRIS_ES</RecipientBusinessSystemID>
+	</MessageHeader>
+	<SalesOrder>
+		<ProcessingTypeCode>YSR1</ProcessingTypeCode>
+		<SalesOrderNumber>1300109999</SalesOrderNumber>
+		<CreationDate>2016-02-11</CreationDate>
+		<SystemAdministrativeData>
+			<CreationUserAccountID>GGUTURA02</CreationUserAccountID>
+		</SystemAdministrativeData>
+		<BuyerDocument>
+			<PONumber>jfyfiuijkh</PONumber>
+		</BuyerDocument>
+		<DataOriginCategoryCode>B2B</DataOriginCategoryCode>
+		<SalesAndServiceBusinessArea>
+			<SalesOrganisation>7001</SalesOrganisation>
+		</SalesAndServiceBusinessArea>
+		<BuyerParty>
+			<SoldTo>0000842292</SoldTo>
+		</BuyerParty>
+		<GoodsRecepientParty>
+			<ShipTo>0000842292</ShipTo>
+		</GoodsRecepientParty>
+		<DateTerms>
+			<RequestedDeliveryDate>2016-02-12</RequestedDeliveryDate>
+		</DateTerms>
+		<Party>
+			<RoleCode>1A</RoleCode>
+			<RoleName LanguageCode="en">Customer hierarchy 1</RoleName>
+			<BillTo>0000842292</BillTo>
+		</Party>
+		<Party>
+			<RoleCode>1B</RoleCode>
+			<RoleName LanguageCode="en">Customer hierarchy 2</RoleName>
+			<BillTo>0000842292</BillTo>
+		</Party>
+		<Party>
+			<RoleCode>1C</RoleCode>
+			<RoleName LanguageCode="en">Customer hierarchy 3</RoleName>
+			<BillTo>0000842292</BillTo>
+		</Party>
+		<Party>
+			<RoleCode>1D</RoleCode>
+			<RoleName LanguageCode="en">Customer hierarchy 4</RoleName>
+			<BillTo>0000842292</BillTo>
+		</Party>
+		<Party>
+			<RoleCode>AG</RoleCode>
+			<RoleName LanguageCode="en">Sold-to party</RoleName>
+			<BillTo>0000842292</BillTo>
+		</Party>
+		<Party>
+			<RoleCode>BO</RoleCode>
+			<RoleName LanguageCode="en">External Carrier</RoleName>
+			<BillTo>0000842292</BillTo>
+		</Party>
+		<Party>
+			<RoleCode>OU</RoleCode>
+			<RoleName LanguageCode="en">Outlet</RoleName>
+			<BillTo>0000842292</BillTo>
+		</Party>
+		<Party>
+			<RoleCode>RE</RoleCode>
+			<RoleName LanguageCode="en">Bill-to party</RoleName>
+			<BillTo>0000842292</BillTo>
+		</Party>
+		<Party>
+			<RoleCode>RG</RoleCode>
+			<RoleName LanguageCode="en">Payer</RoleName>
+			<BillTo>0000842292</BillTo>
+		</Party>
+		<Party>
+			<RoleCode>SB</RoleCode>
+			<RoleName LanguageCode="en">Sp.Stock Resp</RoleName>
+			<BillTo>0000842292</BillTo>
+		</Party>
+		<Party>
+			<RoleCode>UD</RoleCode>
+			<RoleName LanguageCode="en">Distributor</RoleName>
+			<BillTo>0000842292</BillTo>
+		</Party>
+		<Party>
+			<RoleCode>WE</RoleCode>
+			<RoleName LanguageCode="en">Ship-to party</RoleName>
+			<BillTo>0000842292</BillTo>
+		</Party>
+		<Party>
+			<RoleCode>ZK</RoleCode>
+			<RoleName LanguageCode="en">Key Account</RoleName>
+			<BillTo>0000842292</BillTo>
+		</Party>
+		<Item>
+			<ItemNumber>20</ItemNumber>
+			<FreeGoodsIdentifier>YR44</FreeGoodsIdentifier>
+			<Product>
+				<MaterialNumber>000000000000090355</MaterialNumber>
+			</Product>
+			<ScheduleLine>
+				<ConfirmedMaterialQuantity unitCode="CS">24.0
+				</ConfirmedMaterialQuantity>
+			</ScheduleLine>
+			<SalesTerms>
+				<RejectionReason>3</RejectionReason>
+			</SalesTerms>
+			<Status>
+				<RejectionReason>B</RejectionReason>
+			</Status>
+		</Item>
+		<Item>
+			<ItemNumber>30</ItemNumber>
+			<FreeGoodsIdentifier>YR44</FreeGoodsIdentifier>
+			<Product>
+				<MaterialNumber>000000000000090368</MaterialNumber>
+			</Product>
+			<ScheduleLine>
+				<ConfirmedMaterialQuantity unitCode="CS">26.0
+				</ConfirmedMaterialQuantity>
+			</ScheduleLine>
+		</Item>
+		<Item>
+			<ItemNumber>40</ItemNumber>
+			<FreeGoodsIdentifier>YR44</FreeGoodsIdentifier>
+			<Product>
+				<MaterialNumber>000000000000087361</MaterialNumber>
+			</Product>
+			<ScheduleLine>
+				<ConfirmedMaterialQuantity unitCode="CS">20.0
+				</ConfirmedMaterialQuantity>
+			</ScheduleLine>
+		</Item>
+		<Item>
+			<ItemNumber>50</ItemNumber>
+			<FreeGoodsIdentifier>YR44</FreeGoodsIdentifier>
+			<Product>
+				<MaterialNumber>000000000000088776</MaterialNumber>
+			</Product>
+			<ScheduleLine>
+				<ConfirmedMaterialQuantity unitCode="CS">4.0
+				</ConfirmedMaterialQuantity>
+			</ScheduleLine>
+		</Item>
+	</SalesOrder>
+</ns2:SalesOrderInformation>

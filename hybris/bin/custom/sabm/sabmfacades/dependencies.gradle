@@ -1,0 +1,4 @@
+ext {
+	libraries = []
+}
+libraries << "org.apache.commons:commons-collections4:4.0"

@@ -1,0 +1,16 @@
+INSERT_UPDATE OfflineProductPrice 	; accNumber[unique=true] ; productCode[unique=true] ; listPrice ; netPrice ; discount ; wET ; gST ; freight ; freightGST;
+									; 12345;kingfisher-lager;2000;1500;100;100;50;50;10;
+									; 12345;kingfisher_lager_25L_keg;3000;2000;200;200;100;100;20;
+									; 12345;kingfisher_lager_330ml_bottles;1000;800;80;80;40;40;10;
+									; 12345;kingfisher_premium_lager;2000;1500;100;100;50;50;10;
+									; 12345;beer_asahi_soukai;2000;1500;100;100;50;50;10;
+									; 12345;asahi_super_dry_black;3000;2000;200;200;100;100;20;
+									; 12345;asahi_soukai;1000;800;80;80;40;40;10;
+									; 12345;*;100;90;10;3;3;2;1;
+									; *;delivery_product;20;20;0;0;2;0;0;
+									
+INSERT_UPDATE AsahiB2BUnit ; backendRecordID ; uid[unique=true,allownull=true] ; accountNum     ; abnNumber  ; name                                           ; phone                  ; teleFax      ; eclFreightAreaId ;liquorLicensenumber
+                           ; 5111164748      ; testPriceB2bUnit                ; 12345    ; 31111028   ; TEST B2B UNIT                                  ; 0396905439             ; 0396905286   ; 1100             ;LC0001                
+
+INSERT_UPDATE B2BCustomer ; uid[unique=true]                ; groups(uid)[mode=append]      ; defaultB2BUnit(uid)    ;email                                                                 
+                          ; linda.wolf@rustic-hw.com        ; testPriceB2bUnit               ; testPriceB2bUnit      ; linda.wolf@rustic-hw.com                            

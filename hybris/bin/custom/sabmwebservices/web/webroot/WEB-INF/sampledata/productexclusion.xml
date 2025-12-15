@@ -1,0 +1,54 @@
+<ns1:ProductExclusion xmlns:ns1="urn:gl.sabmiller.com:com:3rdp:mastdata">
+	<MessageHeader>
+		<ID schemeID="productexclusion">56b8ba60530d1dc0e10080000af8ca7d</ID>
+		<CreationDateTime>2016-02-19T05:00:41</CreationDateTime>
+		<RecipientParty>
+			<InternalID>HYBRIS</InternalID>
+		</RecipientParty>
+	</MessageHeader>
+	<ProductExclusion>
+		<ConditionType>Z001</ConditionType>
+		<SalesOrg>7001</SalesOrg>
+		<Customer>0000845902</Customer>
+		<Material>000000000000087884</Material>
+		<ValidFrom>20140714</ValidFrom>
+		<ValidTo>99991231</ValidTo>
+		<Priority>14</Priority>
+	</ProductExclusion>
+</ns1:ProductExclusion>
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<ns1:ProductExclusionResponse xmlns:ns1="urn:gl.sabmiller.com:com:3rdp:mastdata">
+	<MessageHeader>
+		<ID schemeID="productexclusion"></ID>
+		<ReferenceID>L{UPaNNu5Q3X08002lZA8m</ReferenceID>
+		<CreationDateTime>2016-09-27T08:32:33</CreationDateTime>
+		<RecipientParty>
+			<InternalID>HYBRIS</InternalID>
+		</RecipientParty>
+	</MessageHeader>
+	<ProductExclusionHeader>
+		<Customer>0000623505</Customer>
+		<SalesOrg>7001</SalesOrg>
+	</ProductExclusionHeader>
+	<ProductExclusion>
+		<Material>000000000000087590</Material>
+		<ValidFrom>20160914</ValidFrom>
+		<ValidTo>20160915</ValidTo>
+		<Priority>19</Priority>
+	</ProductExclusion>
+	<ProductExclusion>
+		<Material>000000000000087590</Material>
+		<ValidFrom>20160920</ValidFrom>
+		<ValidTo>99991231</ValidTo>
+		<Priority>24</Priority>
+	</ProductExclusion>
+	<ProductExclusion>
+		<Material>000000000000088114</Material>
+		<ValidFrom>20160523</ValidFrom>
+		<ValidTo>99991231</ValidTo>
+		<Priority>22</Priority>
+	</ProductExclusion>
+</ns1:ProductExclusionResponse>
+ 

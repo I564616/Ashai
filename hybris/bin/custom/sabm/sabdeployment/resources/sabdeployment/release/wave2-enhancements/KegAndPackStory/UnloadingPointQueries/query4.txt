@@ -1,0 +1,81 @@
+import com.sabmiller.core.enums.DeliveryModeType
+import org.apache.commons.lang.StringUtils
+import org.apache.commons.collections4.SetUtils
+import java.util.HashSet
+/**
+ * Query that returns list of B2bUnits that has the following:
+ * B2bunits with only N/A unloading points!!
+ * Created by evariz.p.papellero on 9/6/17.
+ */
+
+fss = spring.getBean("flexibleSearchService")
+
+b2bUnits = fss.search("Select {pk} from {B2BUnit} where {accountGroup} ='ZALB'").result
+def deliveryModeMapping = [1:DeliveryModeType.CUB_DELIVERY,
+                           2:DeliveryModeType.CUSTOMER_DELIVERY,
+                           3:DeliveryModeType.CUSTOMER_DELIVERY,
+                           5:DeliveryModeType.CUB_DELIVERY,
+                           6:DeliveryModeType.CUB_DELIVERY,
+                           11:DeliveryModeType.CUB_DELIVERY,
+                           13:DeliveryModeType.CUSTOMER_DELIVERY,
+                           16:DeliveryModeType.CUSTOMER_DELIVERY]
+
+out.println("B2bunits with only N/A unloading points!!")
+out.println("B2BUNIT ID,B2BUNIT NAME,UNLOADING POINTS")
+
+
+//Loop all b2bUnits
+for (b2bUnit in b2bUnits) {
+    if (b2bUnit.getUnloadingPoints().size() > 1) {
+ 
+  defaultUnloadingPoint =  b2bUnit.getDefaultUnloadingPoint();
+    if(defaultUnloadingPoint!=null){
+    defaultUnloadingPointCode = defaultUnloadingPoint.getCode().split("-");
+    defaultUnloadingPointCodePackType = defaultUnloadingPointCode[0];
+    defaultDays = defaultUnloadingPoint.getMap().keySet();
+      
+    
+    iscub = false
+    iscustomer = false
+    errorMessage = ''<<''
+    //Check the unloading points
+     unloadingDays =new HashSet<>();
+     unloadingDaysSamePackType=new HashSet<>();
+    unloadingPointPackTypeToPrint=""
+    unloadingPointSamePackTypeToPrint=""
+    for (unloadingPoint in b2bUnit.getUnloadingPoints()) {
+        if (unloadingPoint!=null && StringUtils.isNotEmpty(unloadingPoint.getCode()) && unloadingPoint.getCode().matches("([BULK]|[PACK])+-\\w+-\\d+")) {
+            //Derive the Delivery Mode from unloading point code format : PACKTYPE-DAYS-MODE
+            codes = unloadingPoint.getCode().split("-")
+          unloadingPointPackType = codes[0]
+          
+      if(!StringUtils.equalsIgnoreCase(defaultUnloadingPointCodePackType,unloadingPointPackType)){
+        unloadingDays.addAll(unloadingPoint.getMap().keySet());
+        unloadingPointPackTypeToPrint=unloadingPointPackType;
+        } else {
+
+        if(!defaultDays.containsAll(unloadingPoint.getMap().keySet())){
+          unloadingDaysSamePackTypeTemp = new HashSet<>();
+          unloadingDaysSamePackTypeTemp = unloadingPoint.getMap().keySet();
+          if(defaultDays!=null && defaultDays.size()>0){
+          unloadingDaysSamePackTypeTemp.removeAll(defaultDays);
+          if(unloadingDaysSamePackTypeTemp!=null && unloadingDaysSamePackTypeTemp.size()>0){
+          for(defaultDay in defaultDays){
+        unloadingDaysSamePackType.addAll(unloadingDaysSamePackTypeTemp);
+        unloadingPointSamePackTypeToPrint=unloadingPointPackType;
+          }
+          }
+        }
+        }
+    }
+
+   }
+    if(!SetUtils.isEqualSet(defaultDays,unloadingDays)){
+         out.println(b2bUnit.getUid() + ";" + b2bUnit.getName() + ";"+defaultUnloadingPointCodePackType+"-"+defaultDays+";"+unloadingPointSamePackTypeToPrint+"-"+unloadingDaysSamePackType+";"+unloadingPointPackTypeToPrint+"-"+unloadingDays)
+      }
+       
+   
+    }
+   
+  }
+}

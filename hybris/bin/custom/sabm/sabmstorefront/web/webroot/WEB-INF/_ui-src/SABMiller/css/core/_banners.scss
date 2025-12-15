@@ -1,0 +1,133 @@
+// ==========================================================================
+//   Banner Styles
+// ==========================================================================
+
+
+.banner-image{
+    img {
+    	width: 100%;
+    }
+    &.banner-image-desktop {
+    	display: none;
+    }
+    &.banner-image-mobile {
+		display: block;
+	}
+    &.banner-top {
+        margin-bottom: $spacing-large;
+    }
+    &.banner-bottom {
+        margin-top: $spacing-large;
+    }
+    @media (min-width: $tablet){
+		&.banner-image-desktop {
+			display: block;
+		}
+		&.banner-image-mobile {
+			display: none;
+		}
+    }
+}
+
+.smart-order-banner {
+    overflow: hidden;
+    margin-bottom: $spacing-large;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#002346+0,002346+49,466f99+50,466f99+100 */
+background: #002346; /* Old browsers */
+background: -moz-linear-gradient(left,  #002346 0%, #002346 49%, #466f99 50%, #466f99 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(left,  #002346 0%,#002346 49%,#466f99 50%,#466f99 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to right,  #002346 0%,#002346 49%,#466f99 50%,#466f99 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#002346', endColorstr='#466f99',GradientType=1 ); /* IE6-9 */
+
+    .bg-image {
+        width: 100%;
+        margin: 0 auto;
+        padding: 10px 0;
+        height: auto;
+        background: url('../img/manusingmac_mobile.png') 50% 50% no-repeat;
+        @media (min-width: $tablet){
+            background: url('../img/manusingmac_desktop.png') 0 0 no-repeat;
+        }
+/*         @media (min-width: 1280px){
+            width: 1280px;
+        } */
+    }
+    .icon-glasses {
+        width: 35px;
+        height: 20px;
+        color: $baby-blue;
+        margin-right: $spacing-x-small;
+        position: relative;
+        top: -2px;
+    } 
+    h2, h3, p, a {
+        color: $white;
+    }
+    a {
+        position: relative;
+        vertical-align: -webkit-baseline-middle;
+        &:hover,
+        &:focus{
+            border-bottom: 1px solid $white;
+        }
+        &:after{
+            content:'';
+            width:13px;
+            height:13px;
+            background:url($arrow-down-white) no-repeat;
+            position: absolute;
+            transform: rotate(-90deg);
+            right: -20px;
+            top: 4px;
+            @media (min-width: $desktop){
+                top: 3px;
+                
+            }
+        }
+    }
+    &:before {
+
+    }
+    &:after {
+
+    }
+}
+
+.text-banner {
+  margin: $spacing-small 0;
+  .page-homepage & {
+    margin: $spacing-x-small 0 $spacing-large 0;
+  }
+}
+
+.test-slider {
+    position: relative;
+    .desktop {
+        display: none;
+    }
+    .buttons {
+        position: absolute;
+        padding-left: 15px;
+        bottom: 30px;
+        left: 30px;
+        .btn-primary {
+            margin-right: 20px;
+        }
+    }
+    @media (min-width: $tablet){
+        .desktop {
+            display: block;
+        }
+        .mobile {
+            display: none;
+        }
+    }
+    @media (min-width: $desktop){
+        .desktop {
+            display: block;
+        }
+        .mobile {
+            display: none;
+        }
+    }
+}

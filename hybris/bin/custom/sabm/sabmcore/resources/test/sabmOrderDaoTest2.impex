@@ -1,0 +1,12 @@
+Remove B2BCustomer;uid[unique=true];
+;user1@testsample123.com;
+;user2@testsample123.com;
+
+
+Remove Order;code[unique=true];
+;testOrder1;
+;testOrder2;
+;testOrder3;
+;testOrder4;
+;testOrder5;
+;testOrder6;

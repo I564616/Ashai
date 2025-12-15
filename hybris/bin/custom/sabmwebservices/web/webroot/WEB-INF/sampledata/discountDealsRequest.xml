@@ -1,0 +1,5 @@
+<n0:PricingDiscountConditionsRequest syncIndicator="TRUE" xmlns:n0="urn:gl.sabmiller.com:com:ecc:mastdata">
+ <SalesOrganisation>7001</SalesOrganisation>
+ <Customer>794396</Customer>
+ <Date>2015-12-15</Date>
+</n0:PricingDiscountConditionsRequest>

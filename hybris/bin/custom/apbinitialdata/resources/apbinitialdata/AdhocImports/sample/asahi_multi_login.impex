@@ -1,0 +1,43 @@
+# USE CTRL-SPACE for type-ahead support
+$contentCatalog=apbContentCatalog
+$contentCatalogName=Apb Content Catalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$lang=en
+$siteResource=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/sampledata/contentCatalogs/$contentCatalog
+
+# Import modulegen config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$jarResourceCms=$config-jarResourceCmsValue
+
+INSERT_UPDATE JspIncludeComponent ; $contentCV[unique=true] ; uid[unique=true]           ; name                ; page                                                          ; actions(uid,$contentCV) ; &componentRef             
+                                  ;                         ; CurrentB2BUnitComponent	  ; Current B2BUnit		; /WEB-INF/tags/responsive/common/header/currentb2bunitComponent.jsp   ;                  ; CurrentB2BUnitComponent  
+
+                                  
+INSERT_UPDATE ContentSlot ; $contentCV[unique=true] ; uid[unique=true] ; cmsComponents(uid,$contentCV)
+                          ;                         ; HeaderLinksSlot  ; CurrentB2BUnitComponent,MyAccountComponent
+
+
+############### MULTI-ACCOUNT PAGE CONGIFURATION - START #############
+
+INSERT_UPDATE PageTemplate ; $contentCV[unique=true] ; uid[unique=true]                       ; name                                        ; frontendTemplateName                                                ; restrictedPageTypes(code) ; active[default=true]
+                           ;                         ; MultiAccountPageTemplate             	 ; Multi Account Page Template                 ; multiAccount/multiAccountListPage 
+
+# Update Page template with velocity template
+UPDATE PageTemplate ; $contentCV[unique=true] ; uid[unique=true]     	 ; velocityTemplate[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                    ;                         ; MultiAccountPageTemplate ; $jarResourceCms/structure-view/structure_multiAccountPageTemplate.vm               
+                    
+# Search Results List Page Template
+INSERT_UPDATE ContentSlotName ; name[unique=true]      ; template(uid,$contentCV)[unique=true][default='MultiAccountPageTemplate'] ; validComponentTypes(code) ; compTypeGroup(code)
+                              ; SiteLogo               ;                                                                           ;                           ; logo    
+                              ; TopHeaderSlot    		 ;                                                                       	  ;                           ; wide                                        
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]           		; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='MultiAccountPageTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogo-MultiAccountPage  		; SiteLogo              ;                                                                               ; SiteLogoSlot                             ; true  
+                                     ;                         ; TopHeaderSlot-MultiAccountPage ; TopHeaderSlot         ;                                                                           	  ; TopHeaderSlot                            ; true   
+                                          
+                              
+
+INSERT_UPDATE ContentPage ; $contentCV[unique=true] ; uid[unique=true]                     ; name                                      ; masterTemplate(uid,$contentCV)         ; label                               ; defaultPage[default='true'] ; approvalStatus(code)[default='approved'] ; homepage[default='false'] ;  ; backgroundImage(code, $contentCV)[default='backgroundImage']
+                          ;                         ; multiAccount                         ; Multi Account list  Page                  ; MultiAccountPageTemplate          	  ; multiAccount                              
+                         
+############### MULTI-ACCOUNT PAGE CONGIFURATION - END #############                          

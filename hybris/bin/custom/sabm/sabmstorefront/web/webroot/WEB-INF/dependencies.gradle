@@ -1,0 +1,8 @@
+ext {
+	libraries = []
+}
+libraries << "org.glassfish.web:jstl-impl:1.2"
+libraries << "org.springframework.security:spring-security-taglibs:3.2.5.RELEASE"
+libraries << "de.hybris.external:granule:1.0.9"
+libraries << "de.hybris.external:json-taglib:0.4.1"
+libraries << "org.jsoup:jsoup:1.6.1"

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<config xmlns="http://www.hybris.com/cockpit/config">
+    <context component="explorer-tree">
+        <explorer-tree:explorer-tree xmlns:explorer-tree="http://www.hybris.com/cockpitng/config/explorertree" xmlns="http://www.hybris.com/cockpitng/config/explorertree">
+            <navigation-node id="SABM System">
+                <type-node code="WebServiceLog" id="WebServiceLog"/>
+                <type-node code="ErrorEvent" id="ErrorEvent"/>
+            </navigation-node>
+        </explorer-tree:explorer-tree>
+    </context>
+    <context merge-by="type" type="ErrorEvent" component="listview">
+        <list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+            <column qualifier="code"/>
+            <column qualifier="integration"/>
+            <column qualifier="errorType"/>
+        </list-view:list-view>
+    </context>
+    <context merge-by="type" type="WebServiceLog" component="listview">
+        <list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns="http://www.hybris.com/cockpitng/component/listView">
+            <column qualifier="userId"/>
+            <column qualifier="url"/>
+            <column qualifier="responseStatus"/>
+            <column qualifier="requestDate"/>
+            <column qualifier="totalTimeTaken"/>
+            <column qualifier="sessionId"/>
+        </list-view:list-view>
+    </context>
+    <context merge-by="type" type="ErrorEvent" component="editor-area">
+        <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea" xmlns="http://www.hybris.com/cockpitng/component/editorArea">
+            <essentials>
+                <essentialSection name="hmc.essential">
+                    <attribute qualifier="code"/>
+                    <attribute qualifier="integration"/>
+                    <attribute qualifier="errorType"/>
+                </essentialSection>
+            </essentials>
+            <tab name="hmc.more.details">
+                <section name="hmc.definition">
+                    <attribute qualifier="requestData"/>
+                    <attribute qualifier="rootCause"/>
+                    <attribute qualifier="additionalDetails"/>
+                </section>
+            </tab>
+        </editorArea:editorArea>
+    </context>
+    <context merge-by="type" type="WebServiceLog" component="editor-area">
+        <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea" xmlns="http://www.hybris.com/cockpitng/component/editorArea">
+            <essentials>
+                <essentialSection name="hmc.essential">
+                    <attribute qualifier="userId"/>
+                    <attribute qualifier="sessionId"/>
+                    <attribute qualifier="url"/>
+                    <attribute qualifier="requestDate"/>
+                    <attribute qualifier="responseDate"/>
+                    <attribute qualifier="totalTimeTaken"/>
+                </essentialSection>
+            </essentials>
+            <tab name="hmc.webservice.details">
+                <section name="hmc.definition">
+                    <attribute qualifier="responseStatus"/>
+                    <attribute qualifier="request"/>
+                    <attribute qualifier="response"/>
+                </section>
+            </tab>
+        </editorArea:editorArea>
+    </context>
+    <context merge-by="type" type="ErrorEvent" component="advanced-search">
+        <advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
+            <field-list>
+                <field name="additionalDetails" selected="false"/>
+                <field name="code" selected="true"/>
+                <field name="errorType" selected="true"/>
+                <field name="integration" selected="true"/>
+                <field name="requestData" selected="false"/>
+                <field name="rootCause" selected="false"/>
+                <field name="assignedCockpitItemTemplates" selected="false"/>
+                <field name="comments" selected="false"/>
+                <field name="creationtime" selected="false"/>
+                <field name="itemtype" selected="false"/>
+                <field name="modifiedtime" selected="false"/>
+                <field name="owner" selected="false"/>
+                <field editor="java.lang.Long" name="pk" selected="false"/>
+            </field-list>
+        </advanced-search:advanced-search>
+    </context>
+    <context merge-by="type" type="WebServiceLog" component="advanced-search">
+        <advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
+            <field-list>
+                <field name="request" selected="false"/>
+                <field name="requestDate" selected="true"/>
+                <field name="response" selected="false"/>
+                <field name="responseDate" selected="false"/>
+                <field name="responseStatus" selected="false"/>
+                <field name="sessionId" selected="false"/>
+                <field name="totalTimeTaken" selected="false"/>
+                <field name="url" selected="true"/>
+                <field name="userId" selected="true"/>
+                <field name="assignedCockpitItemTemplates" selected="false"/>
+                <field name="comments" selected="false"/>
+                <field name="creationtime" selected="false"/>
+                <field name="itemtype" selected="false"/>
+                <field name="modifiedtime" selected="false"/>
+                <field name="owner" selected="false"/>
+                <field editor="java.lang.Long" name="pk" selected="false"/>
+            </field-list>
+        </advanced-search:advanced-search>
+    </context>
+</config>

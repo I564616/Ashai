@@ -1,0 +1,13 @@
+# Macros / Replacement Parameter definitions
+$contentCatalog=sabmContentCatalog
+
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$picture=media(code, $contentCV);
+$pictureMobile=mediaForMobile(code, $contentCV);
+$siteResource=jar:com.sabmiller.initialdata.setup.InitialDataSystemSetup&/sabminitialdata/import/sampledata/contentCatalogs/$contentCatalog
+$media=media(code, $contentCV);
+$mediaMobile=mediaForMobile(code, $contentCV);
+
+UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(uid,$contentCV)
+;;Section2ASlot-Homepage;Section2A Slot for Homepage;true;SABMillerHomepageRotatingImagesComponent, HomePageSmartOrderComponent
+;;Section3Slot-Homepage;Home page Smart Order Slot;true;

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2013 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <alias name="customSSOUserService" alias="ssoUserService"/>
+    <bean id="customSSOUserService" class="com.sabmiller.staff.singlesignon.CustomSSOService" parent="backofficeSSOUserService">
+        <property name="sabmssoAdditionalRolesProvider" ref="sabmssoAdditionalRolesProvider" />
+        <property name="configurationService" ref="configurationService" />
+		<property name="customUserService" ref="userService" />
+        <property name="customModelService" ref="modelService" />
+    </bean>
+
+    <alias name="sabmssoAdditionalRolesProviderImpl" alias="sabmssoAdditionalRolesProvider" />
+    <bean id="sabmssoAdditionalRolesProviderImpl" class="com.sabmiller.staff.singlesignon.services.impl.SABMSSOAdditionalRolesProviderImpl">
+        <property name="configurationService" ref="configurationService"/>
+    </bean>
+
+
+</beans>

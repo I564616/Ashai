@@ -1,0 +1,3 @@
+insert CreditCardPaymentInfo,code[unique=true],"user(uid)[unique=true,allownull=true,forceWrite=true]",billingAddress(pk)
+
+,testsga@test.com_aa841170-cffd-4659-b438-786e7758b8b3,testsga@test.com,,8799403245591

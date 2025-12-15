@@ -1,0 +1,207 @@
+#
+# Import the CMS content for the notification emails
+#
+$lang=en
+$contentCatalog=sabmContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$wideContent=CMSImageComponent,BannerComponent,CMSParagraphComponent
+$siteResource=jar:com.sabmiller.initialdata.setup.InitialDataSystemSetup&/sabminitialdata/import/coredata/contentCatalogs/$contentCatalog
+
+# Import modulegen config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+$jarResourceCms=$config-jarResourceCmsValue
+$emailPackageName=$config-emailContextPackageName
+$emailResource=$config-emailResourceValue
+
+
+
+###  - Notifications - Track Delivery - Start ###
+
+# Email page Template
+INSERT_UPDATE EmailPageTemplate;$contentCV[unique=true];uid[unique=true];name;active;frontendTemplateName;subject(code);htmlTemplate(code);restrictedPageTypes(code)
+;;OrderDeliveredNotificationEmailTemplate;Order Delivered Notification Email Template;true;orderDeliveredNotificationEmail;sabmStore_Email_Order_Delivered_Notification_Subject;sabmStore_Email_Order_Delivered_Notification_Body;EmailPage
+;;OrderUnableToDeliverNotificationEmailTemplate;Order Unable To Deliver Notification Email Template;true;orderUnableToDeliverNotificationEmail;sabmStore_Email_Order_Unable_To_Deliver_Notification_Subject;sabmStore_Email_Order_Unable_To_Deliver_Notification_Body;EmailPage
+;;OrderNextInQueueDeliveryNotificationEmailTemplate;Order Next In Queue Delivery Notification Email Template;true;orderNextInQueueDeliveryNotificationEmail;sabmStore_Email_Order_Next_In_Queue_Delivery_Notification_Subject;sabmStore_Email_Order_Next_In_Queue_Delivery_Notification_Body;EmailPage
+;;TrackOrderTimePassesETANotificationEmailTemplate;Track Order Time Passes ETA Notification Email Template;true;trackOrderTimePassesETANotificationEmail;sabmStore_Email_Track_Order_Time_Passes_ETA_Notification_Subject;sabmStore_Email_Track_Order_Time_Passes_ETA_Notification_Body;EmailPage
+;;TrackOrderETAChangesNotificationEmailTemplate;Track Order ETA Changes Notification Email Template;true;trackOrderETAChangesNotificationEmail;sabmStore_Email_Track_Order_ETA_Changes_Notification_Subject;sabmStore_Email_Track_Order_ETA_Changes_Notification_Body;EmailPage
+;;TrackOrderETANotificationEmailTemplate;Track Order ETA Notification Email Template;true;trackOrderETANotificationEmail;sabmStore_Email_Track_Order_ETA_Notification_Subject;sabmStore_Email_Track_Order_ETA_Notification_Body;EmailPage
+
+
+
+# Templates for CMS Cockpit Page Edit
+INSERT_UPDATE EmailPageTemplate;$contentCV[unique=true];uid[unique=true];velocityTemplate[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+;;OrderDeliveredNotificationEmailTemplate;$jarResourceCms/structure-view/structure_orderDeliveredNotificationEmailTemplate.vm
+;;OrderUnableToDeliverNotificationEmailTemplate;$jarResourceCms/structure-view/structure_orderUnableToDeliverNotificationEmailTemplate.vm
+;;OrderNextInQueueDeliveryNotificationEmailTemplate;$jarResourceCms/structure-view/structure_orderNextInQueueDeliveryNotificationEmailTemplate.vm
+;;TrackOrderTimePassesETANotificationEmailTemplate;$jarResourceCms/structure-view/structure_trackOrderTimePassesETANotificationEmailTemplate.vm
+;;TrackOrderETAChangesNotificationEmailTemplate;$jarResourceCms/structure-view/structure_trackOrderETAChangesNotificationEmailTemplate.vm
+;;TrackOrderETANotificationEmailTemplate;$jarResourceCms/structure-view/structure_trackOrderETANotificationEmailTemplate.vm
+
+
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='OrderDeliveredNotificationEmailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='OrderUnableToDeliverNotificationEmailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='OrderNextInQueueDeliveryNotificationEmailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='TrackOrderTimePassesETANotificationEmailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='TrackOrderETAChangesNotificationEmailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='TrackOrderETANotificationEmailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='OrderDeliveredNotificationEmailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-OrderDeliveredNotificationEmail;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-OrderDeliveredNotificationEmail;TopContent;;EmailTopSlot;true
+;;BottomContent-OrderDeliveredNotificationEmail;BottomContent;;EmailBottomSlot;true
+
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='OrderUnableToDeliverNotificationEmailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-OrderUnableToDeliverNotificationEmail;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-OrderUnableToDeliverNotificationEmail;TopContent;;EmailTopSlot;true
+;;BottomContent-OrderUnableToDeliverNotificationEmail;BottomContent;;EmailBottomSlot;true
+
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='OrderNextInQueueDeliveryNotificationEmailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-OrderNextInQueueDeliveryNotificationEmail;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-OrderNextInQueueDeliveryNotificationEmail;TopContent;;EmailTopSlot;true
+;;BottomContent-OrderNextInQueueDeliveryNotificationEmail;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='TrackOrderTimePassesETANotificationEmailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-TrackOrderTimePassesETANotificationEmail;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-TrackOrderTimePassesETANotificationEmail;TopContent;;EmailTopSlot;true
+;;BottomContent-TrackOrderTimePassesETANotificationEmail;BottomContent;;EmailBottomSlot;true
+
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='TrackOrderETAChangesNotificationEmailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-TrackOrderETAChangesNotificationEmail;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-TrackOrderETAChangesNotificationEmail;TopContent;;EmailTopSlot;true
+;;BottomContent-TrackOrderETAChangesNotificationEmail;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='TrackOrderETANotificationEmailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-TrackOrderETANotificationEmail;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-TrackOrderETANotificationEmail;TopContent;;EmailTopSlot;true
+;;BottomContent-TrackOrderETANotificationEmail;BottomContent;;EmailBottomSlot;true
+
+
+# Email Pages
+INSERT_UPDATE EmailPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);defaultPage;approvalStatus(code)[default='approved']
+;;OrderDeliveredNotificationEmail;Order Delivered Notification Email;OrderDeliveredNotificationEmailTemplate;true;
+;;OrderUnableToDeliverNotificationEmail;Order Unable to Deliver Notification Email;OrderUnableToDeliverNotificationEmailTemplate;true;
+;;OrderNextInQueueDeliveryNotificationEmail;Order Next In Queue Delivery Notification Email;OrderNextInQueueDeliveryNotificationEmailTemplate;true;
+;;TrackOrderTimePassesETANotificationEmail;Track Order TimePasses ETA Notification Email;TrackOrderTimePassesETANotificationEmailTemplate;true;
+;;TrackOrderETAChangesNotificationEmail;Track Order ETA Changes Notification Email;TrackOrderETAChangesNotificationEmailTemplate;true;
+;;TrackOrderETANotificationEmail;Track Order ETA Notification Email;TrackOrderETANotificationEmailTemplate;true;
+
+
+
+
+# Email velocity templates
+INSERT_UPDATE RendererTemplate;code[unique=true];contextClass;rendererType(code)[default='velocity']
+;sabmStore_Email_Order_Delivered_Notification_Subject;$emailPackageName.OrderDeliveredNotificationEmailContext
+;sabmStore_Email_Order_Delivered_Notification_Body;$emailPackageName.OrderDeliveredNotificationEmailContext
+;sabmStore_Email_Order_Unable_To_Deliver_Notification_Subject;$emailPackageName.OrderUnableToDeliverNotificationEmailContext
+;sabmStore_Email_Order_Unable_To_Deliver_Notification_Body;$emailPackageName.OrderUnableToDeliverNotificationEmailContext
+;sabmStore_Email_Order_Next_In_Queue_Delivery_Notification_Subject;$emailPackageName.OrderNextInQueueDeliveryNotificationEmailContext
+;sabmStore_Email_Order_Next_In_Queue_Delivery_Notification_Body;$emailPackageName.OrderNextInQueueDeliveryNotificationEmailContext
+;sabmStore_Email_Track_Order_Time_Passes_ETA_Notification_Subject;$emailPackageName.TrackOrderTimePassesETANotificationEmailContext
+;sabmStore_Email_Track_Order_Time_Passes_ETA_Notification_Body;$emailPackageName.TrackOrderTimePassesETANotificationEmailContext
+
+;sabmStore_Email_Track_Order_ETA_Changes_Notification_Subject;$emailPackageName.TrackOrderETAChangesNotificationEmailContext
+;sabmStore_Email_Track_Order_ETA_Changes_Notification_Body;$emailPackageName.TrackOrderETAChangesNotificationEmailContext
+
+;sabmStore_Email_Track_Order_ETA_Notification_Subject;$emailPackageName.TrackOrderETANotificationEmailContext
+;sabmStore_Email_Track_Order_ETA_Notification_Body;$emailPackageName.TrackOrderETANotificationEmailContext
+
+
+
+# Preview Image for use in the CMS Cockpit
+#INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true]
+#;;EmailPageModel_preview;text/gif;EmailPageModel_preview.gif;$jarResourceCms/preview-images/EmailPageModel_preview.gif
+
+INSERT_UPDATE EmailPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV)
+;;OrderDeliveredNotificationEmail;EmailPageModel_preview
+;;OrderUnableToDeliverNotificationEmail;EmailPageModel_preview
+;;OrderNextInQueueDeliveryNotificationEmail;EmailPageModel_preview
+;;TrackOrderTimePassesETANotificationEmail;EmailPageModel_preview
+;;TrackOrderETAChangesNotificationEmail;EmailPageModel_preview
+;;TrackOrderETANotificationEmail;EmailPageModel_preview
+
+
+INSERT_UPDATE RendererTemplate;code[unique=true];description[lang=$lang];templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+;sabmStore_Email_Order_Delivered_Notification_Subject;"Order Delivered Notification Email Subject";$emailResource/email-orderDeliveredNotificationSubject.vm
+;sabmStore_Email_Order_Delivered_Notification_Body;"Order Delivered Notification Email Body";$emailResource/email-orderDeliveredNotificationBody.vm
+;sabmStore_Email_Order_Unable_To_Deliver_Notification_Subject;"Order Unable To Deliver Notification Email Subject";$emailResource/email-orderUnableToDeliverNotificationSubject.vm
+;sabmStore_Email_Order_Unable_To_Deliver_Notification_Body;"Order Unable To Deliver Notification Email Body";$emailResource/email-orderUnableToDeliverNotificationBody.vm
+
+;sabmStore_Email_Order_Next_In_Queue_Delivery_Notification_Subject;"Order Next In Queue Delivery Notification Email Subject";$emailResource/email-orderNextInQueueDeliveryNotificationSubject.vm
+;sabmStore_Email_Order_Next_In_Queue_Delivery_Notification_Body;"Order Next In Queue Delivery Notification Email Body";$emailResource/email-orderNextInQueueDeliveryNotificationBody.vm
+
+;sabmStore_Email_Order_Dispatch_Notification_Body;"Order Dispatch Notification Email Body";$emailResource/email-orderDispatchNotificationBody.vm
+;sabmStore_Email_Order_Confirmation_Body;"Order Confirmation Email Body";$emailResource/email-orderConfirmationBody.vm
+;sabmStore_Email_Order_Confirmation_Subject;"Order Confirmation Email Subject";$emailResource/email-orderConfirmationSubject.vm
+ 
+;sabmStore_Email_Track_Order_Time_Passes_ETA_Notification_Subject;"Track Order Time Passes ETA Notification Email Subject";$emailResource/email-trackOrderTimePassesETANotificationSubject.vm
+;sabmStore_Email_Track_Order_Time_Passes_ETA_Notification_Body;"Track Order Time Passes ETA Notification Email Body";$emailResource/email-trackOrderTimePassesETANotificationBody.vm
+
+;sabmStore_Email_Track_Order_ETA_Changes_Notification_Subject;"Track Order ETA Changes Notification Email Subject";$emailResource/email-trackOrderETAChangesNotificationSubject.vm
+;sabmStore_Email_Track_Order_ETA_Changes_Notification_Body;"Track Order ETA Changes Notification Email Body";$emailResource/email-trackOrderETAChangesNotificationBody.vm
+
+;sabmStore_Email_Track_Order_ETA_Notification_Subject;"Track Order ETA Notification Email Subject";$emailResource/email-trackOrderETANotificationSubject.vm
+;sabmStore_Email_Track_Order_ETA_Notification_Body;"Track Order ETA Notification Email Body";$emailResource/email-trackOrderETANotificationBody.vm
+
+
+INSERT_UPDATE EmailPage;$contentCV[unique=true];uid[unique=true];fromEmail[lang=$lang];fromName[lang=$lang];masterTemplate(uid,$contentCV)
+;;OrderDeliveredNotificationEmail;"no-reply-online@cub.com.au";"CUB Online No Reply";OrderDeliveredNotificationEmailTemplate
+;;OrderUnableToDeliverNotificationEmail;"no-reply-online@cub.com.au";"CUB Online No Reply";OrderUnableToDeliverNotificationEmailTemplate
+;;OrderNextInQueueDeliveryNotificationEmail;"no-reply-online@cub.com.au";"CUB Online No Reply";OrderNextInQueueDeliveryNotificationEmailTemplate
+;;TrackOrderTimePassesETANotificationEmail;"no-reply-online@cub.com.au";"CUB Online No Reply";TrackOrderTimePassesETANotificationEmailTemplate
+;;TrackOrderETAChangesNotificationEmail;"no-reply-online@cub.com.au";"CUB Online No Reply";TrackOrderETAChangesNotificationEmailTemplate
+;;TrackOrderETANotificationEmail;"no-reply-online@cub.com.au";"CUB Online No Reply";TrackOrderETANotificationEmailTemplate
+
+
+UPDATE EmailPage;$contentCV[unique=true];uid[unique=true];fromEmail[lang=$lang];fromName[lang=$lang]
+;;OrderDispatchNotificationEmail;"no-reply-online@cub.com.au";"CUB Online No Reply"
+
+
+$lang=en 
+ 
+INSERT_UPDATE CronJob;code[unique=true];job(code);user(uid);nodegroup;sessionLanguage(isocode)
+;trackOrderTimePassesETANotificationsCronJob;trackOrderTimePassesETANotificationsJob;admin;admin;$lang
+
+INSERT_UPDATE Trigger;cronJob(code)[unique=true];cronExpression;relative;active;maxAcceptableDelay
+;trackOrderTimePassesETANotificationsCronJob;0 0/5 * * * ?;false;true;-1
+
+#####################INSERT THE SPRING ID INTO SERVICE LAYER JOB#############################
+INSERT_UPDATE ServicelayerJob;code[unique=true];springId[unique=true]
+;sabmTrackOrderExportJob;sabmTrackOrderReportExportJob
+
+#####################ASSOCIATE THE JOB LOGIC TO CRONJOB######################################
+INSERT_UPDATE SABMEmailExportCronJob;code[unique=true];job(code);sessionUser(uid);sessionLanguage(isocode);emailFrom;emailTo;subject;body;nodegroup;active
+;sabmTrackOrderReportExportJob;sabmTrackOrderReportExportJob;admin;en;report@cub.com.au;philip.moore@cub.com.au;Track Order Report;PFA the latest track order report;admin;false
+
+INSERT_UPDATE Trigger;cronJob(code)[unique=true];cronExpression
+# Run the sabmTrackOrderReportExportJob at 1:00 AM every day
+;sabmTrackOrderReportExportJob;0 0 1 ? * MON *;
+
+###  - Notifications - Track Delivery - End ###

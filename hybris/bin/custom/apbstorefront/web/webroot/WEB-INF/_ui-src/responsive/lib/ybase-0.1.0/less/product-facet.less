@@ -1,0 +1,285 @@
+.product__facet {
+  margin: 0;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.product__facet .facet {
+  padding: 0px 20px 20px 0px;
+    border-right: 1px solid #f1f1f1;
+  .clearfix;
+    &:first-child{
+        padding-top: 0;
+    }
+  &:last-child {
+	margin: 0;
+  }
+
+  .facet__name {
+	font-size: 14px;
+	font-weight: bold;
+	color: @headline-color;
+	margin-left: -5px;
+	
+  }
+   .facet__clear{
+        margin-top:7px;
+	 	font-weight:normal;
+   }
+
+  .facet__list {
+	.list-unstyled;
+	margin:  (@grid-gutter-width/2) 0;
+	margin-bottom:0;
+
+	li{
+	  padding: 3px 0;
+        text-transform: capitalize;
+	}
+
+	label{
+	  cursor: pointer;
+	  font-weight: normal;
+	  display: block;
+	  margin: 0;
+	}
+
+	.facet__list__mark {
+	  display: inline-block;
+	  width: 20px;
+	  height: 20px;
+	  padding: 0;
+	  margin-right:  (@grid-gutter-width/2);
+	  border: 1px solid @input-border-color;
+	  text-align: center;
+	  vertical-align: middle;
+	  background: @input-background;
+	  margin-top: -3px;
+	}
+
+	.facet__list__checkbox:checked + .facet__list__label {
+
+	  .facet__list__mark {
+		background: @link-color;
+		border:1px solid @link-color;
+		.box-shadow(~"inset 0 0  0 1px @check-box-bg");
+	  }
+
+	  .facet__list__text {
+		color: @link-color;
+	  }
+
+	}
+
+	.facet__list__checkbox:focus + .facet__list__label {
+	  .facet__list__mark {
+		border:1px solid @brand-primary;
+		.box-shadow(~"inset 0 0  0 1px @check-box-bg");
+	  }
+	}
+
+	.facet__list__text {
+	  line-height: 20px;
+	}
+
+  }
+
+  .facet__list.facet__list--hidden {
+	display: none;
+  }
+
+  .facet__values__more {
+	display: block;
+    font-weight:bold;
+      a{
+          text-decoration: underline;
+      }
+  }
+
+  .facet__values__less {
+	display: none;
+    font-weight:bold;
+      a{
+          text-decoration: underline;
+      }
+  }
+
+
+  .facet__form {
+	padding-top: 10px;
+
+	.input-group {
+	  background-color: @input-background;
+	  min-height: 32px;
+	  border: 1px solid @input-border-color;
+
+	  .form-control {
+		border: 0 none;
+		height: 32px;
+		box-shadow: none;
+	  }
+
+	  .btn {
+		width: 40px;
+		height: 32px;
+		line-height: 32px;
+		padding: 0;
+
+		.glyphicon-search {
+		  color: @searchbar-icon-color;
+		  font-size: 17px;
+		  top: 0;
+		}
+	  }
+	}
+
+	.line-text {
+	  margin: @grid-gutter-width 0;
+	}
+
+  }
+
+  .facet__form__hidden {
+	display: none;
+  }
+
+  .facet__results__hidden {
+	display: none;
+  }
+}
+#cboxOverlay{
+    background:none;
+}
+.facet-colorbox{
+    width:100%;
+    background:none !important;
+   
+    #cboxTitle{
+        background-color: rgba(66, 81, 90, 0.6);;
+        padding:16px 20px 10px;
+        height:50px;
+        margin-top:-49px;
+        .headline{
+            font-size: 14px;
+            color:#fff;
+            font-weight:700;
+            margin-bottom:0px;
+			font-family: @font-family-gotham-narrow;
+           
+        }
+      
+    }
+    #cboxWrapper{
+        padding-top: 6px;
+    }
+    #cboxClose{
+            color:#fff;
+        top:-49px
+    }
+    #cboxMiddleLeft, #cboxMiddleRight{
+        width:0px;
+    }
+    
+    #cboxContent{
+        width: 100% !important;
+		background: @facet-colorbox-bg-color;
+       
+    }
+    #cboxLoadedContent{
+         width: 100%;
+        padding:0;
+        margin-top: 0;
+    }
+}
+
+@media (max-width: @screen-sm-max) { 
+  .product__facet {
+	padding: (@grid-gutter-width/2) 0;
+	margin: 0;
+	border: 0 none;
+
+	#colorbox &{
+	  display: block !important;
+	}
+
+	.facet {
+	  float: none;
+	  width: 100%;
+	  border:0;
+	  margin: 0;
+	  padding: 0 0  (@grid-gutter-width/2) 18px;
+        &:last-child{
+            border-bottom: 0;
+        }
+	  .facet__name {
+		cursor: pointer;
+		padding: (@grid-gutter-width/2);
+		padding-left: (@grid-gutter-width + 2px);
+        padding-bottom:0;
+		position: relative;
+        font-weight:normal;
+
+		.facet__arrow {
+		  font-size: 12px;
+		  position: absolute;
+		  top: 13px;
+		  left: 6px;
+
+		  &:before {
+			content: "\002b";
+		  }
+		}
+	  }
+
+	  .facet__values {
+		display: none;
+         .facet__list{
+              margin-top: 10px;
+              li{
+                  font-weight:bold;
+                  padding:10px 0 10px 45px;
+                  font-size:14px;
+                  
+                  &.clear-text{
+                      padding-left: 6px;
+                      font-size:14px;
+                      font-weight: normal;
+                  }
+                  .glyphicon-remove{
+                      display: inline-block;
+                      float: right;
+                      margin-right:24px;
+                      margin-top:4px;
+                  }              
+              }
+          }
+	  }
+        .facet__values__more {
+	   display: block;
+        font-weight:bold;
+        padding-left: 45px;
+            a{
+                text-decoration: underline;
+            }
+    	}
+        .facet__values__less{
+            padding-left: 45px;
+            
+        }
+	}
+
+	.facet.active {
+
+	  .facet__arrow {
+		&:before {
+		  content: "\2212";
+		}
+	  }
+
+	  .facet__values{
+		display: block;
+	  }
+
+	}
+  }
+}

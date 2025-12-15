@@ -1,0 +1,28 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# ImpEx for Importing Category Classifications into SGA Store (English)
+
+# Macros / Replacement Parameter definitions
+$productCatalog=sgaProductCatalog
+$productCatalogName=SGA Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$classCatalogVersion=catalogversion(catalog(id[default='SgaClassification']),version[default='1.0'])[unique=true,default='SgaClassification:1.0']
+$classSystemVersion=systemVersion(catalog(id[default='SgaClassification']),version[default='1.0'])[unique=true]
+$class=classificationClass(ClassificationClass.code,$classCatalogVersion)[unique=true]
+
+$lang=en
+
+# Insert Classifications
+UPDATE ClassificationClass ; $classCatalogVersion ; code[unique=true] ; name[lang=$lang]    
+
+
+# Insert Classification Attributes
+UPDATE ClassificationAttribute ; $classSystemVersion ; code[unique=true]                ; name[lang=$lang]                          

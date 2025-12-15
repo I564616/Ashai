@@ -1,0 +1,2 @@
+insert AsahiSAMAccess,approvalDenied[allownull=true],b2bCustomer(uid),orderAccess[allownull=true],payAccess[allownull=true],payer(uid),pendingApproval[allownull=true],requestDate[dateformat=dd.MM.yyyy hh:mm:ss]
+,false,test@test.com,true,true,0100432341,false,

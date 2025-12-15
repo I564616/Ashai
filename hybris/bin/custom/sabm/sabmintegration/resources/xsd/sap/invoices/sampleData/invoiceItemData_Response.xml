@@ -1,0 +1,56 @@
+<n0:InvoiceItemData_Response xmlns:n0="urn:gl.sabmiller.com:com:3rdp:transdata" xmlns:prx="urn:sap.com:proxy:EQ7:/1SAI/TASED006B41FDF20219FE73:701:2013/05/24">
+    <Invoice>
+        <Item>
+            <ItemID>1 </ItemID>
+            <ItemDescription>BR Pure Blonde NGB 355ML 4x6</ItemDescription>
+            <Material>000000000000089343</Material>
+            <Quantity>10.000 </Quantity>
+            <UoM>CAS</UoM>
+            <UnitPrice>47.67 </UnitPrice>
+            <Amount>476.70 </Amount>
+            <LocalFreight>0.00 </LocalFreight>
+            <GST>Y</GST>
+            <TotalExGST>476.70 </TotalExGST>
+            <LUCExGST>47.67 </LUCExGST>
+        </Item>
+        <Item>
+            <ItemID>2 </ItemID>
+            <ItemDescription>BR Stella Artois Reg NGB 330ML 4x6 CUB</ItemDescription>
+            <Material>000000000000091851</Material>
+            <Quantity>5.000 </Quantity>
+            <UoM>CAS</UoM>
+            <UnitPrice>49.53 </UnitPrice>
+            <Amount>247.65 </Amount>
+            <LocalFreight>0.00 </LocalFreight>
+            <GST>Y</GST>
+            <TotalExGST>247.65 </TotalExGST>
+            <LUCExGST>49.53 </LUCExGST>
+        </Item>
+        <Item>
+            <ItemID>3 </ItemID>
+            <ItemDescription>BR Corona Extra 355ML B 4x6 Summer IMP_T</ItemDescription>
+            <Material>000000000000092491</Material>
+            <Quantity>20.000 </Quantity>
+            <UoM>CAS</UoM>
+            <UnitPrice>55.59 </UnitPrice>
+            <Amount>1111.80 </Amount>
+            <LocalFreight>0.00 </LocalFreight>
+            <GST>Y</GST>
+            <TotalExGST>1111.80 </TotalExGST>
+            <LUCExGST>55.59 </LUCExGST>
+        </Item>
+        <Item>
+            <ItemID>4 </ItemID>
+            <ItemDescription>BR GNBC Spr Crisp NGB 330ML 4x6</ItemDescription>
+            <Material>000000000000089166</Material>
+            <Quantity>10.000 </Quantity>
+            <UoM>CAS</UoM>
+            <UnitPrice>41.31 </UnitPrice>
+            <Amount>413.10 </Amount>
+            <LocalFreight>0.00 </LocalFreight>
+            <GST>Y</GST>
+            <TotalExGST>413.10 </TotalExGST>
+            <LUCExGST>41.31 </LUCExGST>
+        </Item>
+    </Invoice>
+</n0:InvoiceItemData_Response>

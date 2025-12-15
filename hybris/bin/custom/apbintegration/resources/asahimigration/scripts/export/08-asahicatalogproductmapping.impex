@@ -1,0 +1,70 @@
+INSERT_UPDATE ScriptingJob	;code[unique=true]		;scriptURI
+							;catalogproductmappingExportScriptJob	;model://catalogproductmappingExportScript
+							
+INSERT_UPDATE CronJob	;code[unique=true]			;job(code)				;sessionLanguage(isocode)	;sessionUser(uid)
+						;catalogproductmappingExportScriptCronJob	;catalogproductmappingExportScriptJob	;en	;admin	
+					
+
+INSERT_UPDATE Script; code[unique=true];content;active[default=true, unique=true]
+;catalogproductmappingExportScript;"import java.io.File;
+import java.lang.Exception;
+import java.io.InputStream;
+import de.hybris.platform.util.CSVConstants;
+import java.io.IOException;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.sql.Timestamp;
+import org.apache.log4j.*;
+import org.apache.commons.io.IOUtils;
+import com.google.common.base.Stopwatch;
+
+import de.hybris.platform.servicelayer.impex.ExportConfig;
+import de.hybris.platform.servicelayer.impex.ExportConfig.ValidationMode;
+import de.hybris.platform.servicelayer.impex.ExportResult;
+import de.hybris.platform.servicelayer.impex.ExportService;
+import de.hybris.platform.servicelayer.impex.ImpExResource;
+import de.hybris.platform.impex.model.ImpExMediaModel;
+import de.hybris.platform.impex.jalo.exp.ImpExExportMedia;
+import de.hybris.platform.servicelayer.impex.impl.StreamBasedImpExResource;
+import de.hybris.platform.impex.model.exp.ImpExExportMediaModel;
+
+import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
+import de.hybris.platform.servicelayer.search.SearchResult;
+import de.hybris.platform.impex.model.cronjob.ImpExExportCronJobModel;
+
+final Logger LOG = Logger.getLogger(""asahi"");
+
+
+
+def exportService = spring.getBean(""exportService"");
+
+final Date start = new Date();
+
+header = ""insert_update AsahiCatalogProductMapping;&Item;catalogId[unique=true];products(catalogVersion(catalog(id),version),code);\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {AsahiCatalogProductMapping}\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n"";
+
+ InputStream resourceAsStream = null;
+try {
+	resourceAsStream = new ByteArrayInputStream(header.getBytes());
+	final ImpExResource resource = new StreamBasedImpExResource(resourceAsStream, CSVConstants.DEFAULT_ENCODING);
+	
+	final ExportConfig config = new ExportConfig();
+	config.setScript(resource);
+	config.setValidationMode(ValidationMode.WITHOUT);
+	config.setSingleFile(true);
+	config.setExportedDataCode(""catalogproductmappinguration-""+new SimpleDateFormat(""yyyyMMddHHmmssSSS"").format(new Date()));
+	final ExportResult result = exportService.exportData(config);
+	
+	if (result.isError()){
+		LOG.info(""Exception occurred during export"");
+	}
+}
+catch (final Exception exception) {
+		LOG.error(""Exception occurred during export"", exception.getMessage());
+	} 
+finally
+	{
+		resourceAsStream.close();
+	}";;
+
+	

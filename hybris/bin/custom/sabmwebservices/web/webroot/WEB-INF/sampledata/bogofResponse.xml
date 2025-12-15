@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><n0:PricingBOGOFDealsResponse xmlns:n0="urn:gl.sabmiller.com:com:ecc:mastdata" xmlns:prx="urn:sap.com:proxy:ET7:/1SAI/TASD4C2723AEE16A7F2FA93:701:2013/05/24">
+    <PricingBOGOFDealsResponseHeader>
+        <Customer>0000850218</Customer>
+        <SalesOrganisation>7001</SalesOrganisation>
+    </PricingBOGOFDealsResponseHeader>
+    <PricingBOGOFDealsResponseItem>
+        <ConditionType>YTPM</ConditionType>
+        <Material>000000000000087361</Material>
+        <MinimumQuantity>140.000 </MinimumQuantity>
+        <FreeGoodsQty>140.000 </FreeGoodsQty>
+        <UnitOfMeasure>CAS</UnitOfMeasure>
+        <AdditionalQtyFreeGoods>4.000 </AdditionalQtyFreeGoods>
+        <AdditionalUnitOfMeasure>CAS</AdditionalUnitOfMeasure>
+        <Rule>2</Rule>
+        <ValidFrom>2016-01-01</ValidFrom>
+        <ValidTo>2016-03-10</ValidTo>
+        <Priority>70</Priority>
+    </PricingBOGOFDealsResponseItem>
+    <PricingBOGOFDealsResponseItem>
+        <ConditionType>YTPM</ConditionType>
+        <Material>000000000000088776</Material>
+        <MinimumQuantity>10.000 </MinimumQuantity>
+        <FreeGoodsQty>10.000 </FreeGoodsQty>
+        <UnitOfMeasure>CAS</UnitOfMeasure>
+        <AdditionalQtyFreeGoods>1.000 </AdditionalQtyFreeGoods>
+        <AdditionalUnitOfMeasure>CAS</AdditionalUnitOfMeasure>
+        <Rule>2</Rule>
+        <AdditionalMaterial>000000000000088776</AdditionalMaterial>
+        <ValidFrom>2015-10-27</ValidFrom>
+        <ValidTo>9999-12-31</ValidTo>
+        <Priority>50</Priority>
+    </PricingBOGOFDealsResponseItem>
+    <PricingBOGOFDealsResponseItem>
+        <ConditionType>YTPM</ConditionType>
+        <Material>000000000000088777</Material>
+        <MinimumQuantity>156.000 </MinimumQuantity>
+        <FreeGoodsQty>156.000 </FreeGoodsQty>
+        <UnitOfMeasure>CAS</UnitOfMeasure>
+        <AdditionalQtyFreeGoods>4.000 </AdditionalQtyFreeGoods>
+        <AdditionalUnitOfMeasure>CAS</AdditionalUnitOfMeasure>
+        <Rule>2</Rule>
+        <ValidFrom>2016-01-01</ValidFrom>
+        <ValidTo>2016-03-10</ValidTo>
+        <Priority>70</Priority>
+    </PricingBOGOFDealsResponseItem>
+    <PricingBOGOFDealsResponseItem>
+        <ConditionType>YTPM</ConditionType>
+        <Material>000000000000088779</Material>
+        <MinimumQuantity>140.000 </MinimumQuantity>
+        <FreeGoodsQty>140.000 </FreeGoodsQty>
+        <UnitOfMeasure>CAS</UnitOfMeasure>
+        <AdditionalQtyFreeGoods>4.000 </AdditionalQtyFreeGoods>
+        <AdditionalUnitOfMeasure>CAS</AdditionalUnitOfMeasure>
+        <Rule>2</Rule>
+        <ValidFrom>2016-01-01</ValidFrom>
+        <ValidTo>2016-03-10</ValidTo>
+        <Priority>70</Priority>
+    </PricingBOGOFDealsResponseItem>
+</n0:PricingBOGOFDealsResponse>

@@ -1,0 +1,7 @@
+<n0:InvoiceValidation_Response xmlns:n0="urn:gl.sabmiller.com:com:3rdp:transdata" xmlns:prx="urn:sap.com:proxy:EQ7:/1SAI/TAS331E7D9D2771BA90FEB1:701:2013/05/24">
+    <Invoice>
+        <SoldTo>1298381</SoldTo>
+        <InvoiceNumber>75022728612e231</InvoiceNumber>
+        <Status>True</Status>
+    </Invoice>
+</n0:InvoiceValidation_Response>

@@ -1,0 +1,2 @@
+backendID,"""code[unique=true,allownull=true]""","""cutOffDate[allownull=true,dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ]""","""deliveryDate[allownull=true,dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ]"""
+,0000688812050006,2020-11-24 01:00:00.000 +1100,2020-11-26 01:00:00.000 +1100

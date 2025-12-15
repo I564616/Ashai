@@ -1,0 +1,2318 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2015 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+-->
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
+
+	<bean class="com.sabmiller.facades.order.OrderMessageData">
+		<property name="code" type="java.lang.String"/>
+		<property name="arguments" type="java.util.Collection&lt;java.lang.Object>"/>
+	</bean>
+
+	<bean class="com.sabmiller.facades.deal.DealPageData">
+        <property name="deals" type="java.util.List&lt;com.sabmiller.facades.deal.data.DealData>"/>
+        <property name="facets" type="java.util.List&lt;de.hybris.platform.commerceservices.search.facetdata.FacetData>"/>
+	</bean>
+	
+    <bean class="de.hybris.platform.commercefacades.product.data.ProductData">
+		<property name="genders" type="java.util.List&lt;com.sabmiller.facades.product.data.GenderData>"/>
+	   	<property name="uomList" type="java.util.List&lt;com.sabmiller.facades.product.data.UomData&gt;"/>
+	   	<property name="uomMappingList" type="java.util.List&lt;com.sabmiller.facades.product.data.ProductUOMMappingData&gt;"/>
+	   	<property name="internalId" type="String"/>
+	   	<property name="baseName" type="String"/>
+	   	<property name="brand" type="String"/>
+	   	<property name="subBrand" type="String"/>
+	   	<property name="style" type="String"/>
+	   	<property name="abv" type="String"/>
+	   	<property name="ean" type="String"/>
+	   	<property name="categoryVariety" type="String"/>
+	   	<property name="categoryAttribute" type="String"/>
+	   	<property name="findOutMore" type="String"/>
+	   	<property name="unit" type="String"/>
+	   	<property name="container" type="String"/>
+	   	<property name="capacity" type="String"/>
+		<property name="presentation" type="String"/>
+		<property name="sizeUnit" type="String"/>
+		<property name="weight" type="String"/>
+		<property name="length" type="String"/>
+	   	<property name="width" type="String"/>
+	   	<property name="height" type="String"/>
+	   	<property name="foodMatch" type="String"/>
+	   	<property name="heirarchyLevels" type="java.util.List&lt;com.sabmiller.facades.product.data.HeirarchyLevelData&gt;"/>
+	   	<property name="parent" type="de.hybris.platform.commercefacades.product.data.CategoryData"/>
+		<property name="sellingName" type="String"/>
+	    <property name="packConfiguration" type="String"/>
+	    <property name="sapAvailability" type="String"/>
+	    <property name="hierarchy" type="String"/>
+	    <property name="level1Hierarchy" type="String"/>
+	    <property name="level2Hierarchy" type="String"/>
+	    <property name="level3Hierarchy" type="String"/>
+	    <property name="leadSku" type="boolean"/>
+	    <!-- SAB-1039 -->
+	    <property name="basePrice" type="PriceData"/>
+	    <property name="savingsPrice" type="PriceData"/>
+	    <!-- SAB-1039 -->
+	    <property name="deals" type="java.util.List&lt;com.sabmiller.facades.deal.data.DealData&gt;"/>
+	    <!-- SAB-558 -->
+	    <property name="dealsFlag" type="boolean"/>
+	    <property name="visible" type="boolean"/>
+	    <property name="searchable" type="boolean"/>
+	    <property name="newProductFlag" type="boolean"/>
+	    <!-- SAB-2727 -->
+	    <property name="leadSkuId" type="String"/>
+
+       <!-- SABMC-641 -->
+       <property name="videos" type="java.util.Collection&lt;de.hybris.platform.commercefacades.product.data.ImageData&gt;"/>
+
+
+		<property name="dealsTitle" type="java.util.List&lt;String&gt;"/>
+		<property name="cubStockStatus" type="de.hybris.platform.basecommerce.enums.StockLevelStatus"/>
+		<property name="maxOrderQuantity" type="Integer"/>
+		<!-- ALB Code start -->
+		<property name="apbBrand" type="com.apb.facades.product.data.BrandData" />
+		<property name="flavour" type="com.apb.facades.product.data.FlavourData" />
+		<property name="maxQty" type="java.lang.Integer" />
+		<property name="minQty" type="java.lang.Integer" />
+		<property name="unitVolume" type="com.apb.facades.product.data.UnitVolumeData" />
+		<property name="productType" type="java.lang.Double" />
+		<property name="packageType" type="com.apb.facades.product.data.PackageTypeData" />
+		<property name="packageSize" type="com.apb.facades.product.data.PackageSizeData" />
+		<property name="productGroup" type="com.apb.facades.product.data.ProductGroupData" />		
+		<property name="alcoholType" type="com.apb.facades.product.data.AlcoholTypeData" />
+		<property name="itemGroup" type="com.apb.facades.product.data.ItemGroupData" />
+		<property name="alcoholPercent" type="java.lang.Double" />				
+		<property name="backendUnitPerCase" type="java.lang.Integer" />
+		<property name="unitPerInner" type="java.lang.Integer" />
+		<property name="qtyPerLayer" type="java.lang.Integer" />
+		<property name="standardPalletQuantity" type="java.lang.Integer" />										
+		<property name="depth" type="java.lang.Double" />
+		<property name="apbWidth" type="java.lang.Double" />
+		<property name="apbHeight" type="java.lang.Double" />			
+		<property name="b2bUnit" type="java.lang.String"/>			
+		<property name="companyCode" type="java.lang.String"/>
+		<property name="backendName" type="java.lang.String"/>
+		<property name="backendUnitVolume" type="java.lang.Double"/>
+		<property name="productDetail" type="java.lang.String"/>
+		<property name="active" type="Boolean" />
+		<property name="alcoholic" type="Boolean" />
+		<property name="licenseRequired" type="Boolean" />
+		<property name="priceError" type="Boolean" />
+		<property name="isExcluded" type="Boolean" />
+		<property name="newProduct" type="Boolean" />
+		<property name="isPromotionActive" type="Boolean" />
+		<property name="promotionMsg" type="java.lang.String" />
+		<property name="rank" type="java.lang.Integer" />
+		<property name="discountPrice" type="PriceData" />
+		<property name="lineDiscount" type="Double" />
+		<property name="allowedBonusQty" type="Long" />
+		<property name="bagInBox" type="Boolean" />
+		<property name="approved" type="boolean" />
+		<property name="recommendedRank" type="java.lang.Integer" />
+		<property name="wetEligible" type="boolean" />
+		<property name="level4" type="java.lang.String" />
+		<property name="recommendedQuantity" type="java.lang.Integer" />
+		<property name="asahiDealsInfo" type="java.util.List&lt;com.apb.facades.deal.data.AsahiDealData&gt;" /> 
+		<property name="maxOrderQuantityDays" type="Integer"/>
+		<!-- ALB Code END -->
+	</bean>
+	<!-- ALB Code start -->
+	<bean class="com.apb.facades.product.data.UnitVolumeData">
+		<property name="code" type="java.lang.String"/>
+		<property name="name" type="java.lang.String"/>
+	</bean>
+	<bean class="com.apb.facades.product.data.ItemGroupData">
+		<property name="code" type="java.lang.String"/>
+		<property name="name" type="java.lang.String"/>
+	</bean>
+	<bean class="com.apb.facades.product.data.ProductGroupData">
+		<property name="code" type="java.lang.String"/>
+		<property name="name" type="java.lang.String"/>
+	</bean>
+	
+	<bean class="com.apb.facades.product.data.AlcoholTypeData">
+		<property name="code" type="java.lang.String"/>
+		<property name="name" type="java.lang.String"/>
+	</bean>
+	
+	<bean class="com.apb.facades.product.data.PackageTypeData">
+		<property name="code" type="java.lang.String"/>
+		<property name="name" type="java.lang.String"/>
+	</bean>
+	<bean class="com.apb.facades.product.data.PackageSizeData">
+		<property name="code" type="java.lang.String"/>
+		<property name="name" type="java.lang.String"/>
+		<property name="backendName" type="java.lang.String"/>
+	</bean>
+	
+	<bean class="com.apb.facades.product.data.FlavourData">
+		<property name="code" type="java.lang.String"/>
+		<property name="name" type="java.lang.String"/>
+	</bean>
+
+	<bean class="com.apb.facades.product.data.BrandData">
+		<property name="code" type="java.lang.String"/>
+		<property name="name" type="java.lang.String"/>
+		<property name="backendBrandName" type="java.lang.String"/>
+	</bean>
+	<bean class="com.apb.facades.product.data.SubProductGroupData">
+		<property name="code" type="java.lang.String"/>
+		<property name="name" type="java.lang.String"/>
+	</bean>
+	
+	<enum class="de.hybris.platform.commercefacades.product.ProductOption">
+		<value>QUANTITY</value>
+		<value>STANDARD</value>
+		<value>ALCOHOL</value>
+		<value>PACKAGING</value>
+		<value>DIMENSION</value>
+		<value>DEALS</value>
+	</enum>
+
+	
+	<bean class="de.hybris.platform.commercefacades.customer.data.AsahiB2BUnitData">
+		<property name="uid" type="java.lang.String"/>
+		<property name="name" type="java.lang.String"/>
+		<property name="backendRecordID" type="java.lang.String"/>
+		<property name="accountNum" type="java.lang.String"/>
+		<property name="abnNumber" type="java.lang.String" />
+		<property name="liquorLicensenumber" type="java.lang.String" />
+		<property name="phone" type="java.lang.String" />
+		<property name="cellularPhone" type="java.lang.String" />
+		<property name="purposeCode" type="java.lang.String" />
+		<property name="salesRepCode" type="java.lang.String" />
+		<property name="salesRepName" type="java.lang.String" />
+		<property name="salesRepEmailID" type="java.lang.String" />
+		<property name="teleFax" type="java.lang.String" />		
+		<property name="invoiceAccount" type="java.lang.String" />
+		<property name="custGroup" type="java.lang.String" />
+		<property name="eclAccountGroupId" type="com.apb.facades.b2bunit.data.AccountGroupsData" />
+		<property name="eclAccountTypeId" type="com.apb.facades.b2bunit.data.AccountTypeData" />
+		<property name="eclBannerGroupid" type="com.apb.facades.b2bunit.data.BannerGroupsData" />
+		<property name="eclSubchannelCode" type="com.apb.facades.b2bunit.data.SubChannelData" />
+		<property name="eclFreightAreaId" type="java.lang.String" />
+		<property name="eclChannelCode" type="com.apb.facades.b2bunit.data.ChannelData" />
+		<property name="eclLicenseTypeCode" type="com.apb.facades.b2bunit.data.LicenseTypesData" />
+		<property name="eclLicenseClassCode" type="com.apb.facades.b2bunit.data.LicenceClassData" />
+		<property name="warehouse" type="de.hybris.platform.warehousingfacades.storelocator.data.WarehouseData" />		
+		<property name="companyCode" type="java.lang.String"/>
+		<property name="address" type="de.hybris.platform.commercefacades.user.data.AddressData"/>
+		<property name="tradingName" type="String" />
+		<property name="email" type="String" />
+		<property name="active" type="Boolean"/>
+		<!-- Below attribute are created for SGA -->
+		<property name="custOrderType" type="String" />
+		<property name="salesOrg" type="String" />
+		<property name="distributionChannel" type="String" />
+		<property name="division" type="String" />
+		<property name="creditControlArea" type="String" />
+		<property name="deliveryDate" type="java.util.List&lt;com.apb.facades.delivery.data.CutOffDeliveryData>" />
+		<property name="tier" type="String" />
+		<property name="paymentTerm" type="java.lang.String" />
+		<property name="cutOffTime" type="java.lang.String" />
+		<property name="catalogHierarchyId" type="java.util.List&lt;String>" />
+		<property name="addressId" type="String" />
+		<property name="notifyType" type="String" />
+		<property name="cutoffDate" type="String" />
+		<property name="newDeliveryDate" type="String" />
+		<property name="holidayDate" type="String" />
+		<property name="holidayText" type="String" />
+		<property name="cooDate" type="java.lang.String" />
+		<property name="customerType" type="String" />
+		<property name="payerAccount" type="String" />
+		<property name="salesRepPhone" type="String" />
+		<property name="shipTo" type="java.util.List&lt;String>" />
+	</bean>
+	
+	<bean class="com.apb.facades.delivery.data.CutOffDeliveryData">
+		<property name="cutoffDate" type="java.lang.String"/>
+		<property name="deliveryDate" type="java.lang.String"/>
+	</bean>
+	
+	<bean class="com.apb.facades.b2bunit.data.AccountGroupsData">
+		<property name="code" type="java.lang.String" />
+		<property name="name" type="java.lang.String" />
+	</bean>
+	
+	<bean class="com.apb.facades.b2bunit.data.AccountTypeData">
+		<property name="code" type="java.lang.String" />
+		<property name="name" type="java.lang.String" />
+	</bean>
+	
+	<bean class="com.apb.facades.b2bunit.data.BannerGroupsData">
+		<property name="code" type="java.lang.String" />
+		<property name="name" type="java.lang.String" />
+		<property name="familyId" type="java.lang.String" />
+	</bean>
+	
+	<bean class="com.apb.facades.b2bunit.data.SubChannelData">
+		<property name="code" type="java.lang.String" />
+		<property name="description" type="java.lang.String" />
+		<property name="name" type="java.lang.String" />
+	</bean>
+	
+	<bean class="com.apb.facades.b2bunit.data.ChannelData">
+		<property name="code" type="java.lang.String" />
+		<property name="name" type="java.lang.String" />
+		<property name="description" type="java.lang.String" />
+	</bean>
+	
+	<bean class="com.apb.facades.b2bunit.data.LicenseTypesData">
+		<property name="code" type="java.lang.String" />
+		<property name="name" type="java.lang.String" />
+	</bean>
+	
+	<bean class="com.apb.facades.b2bunit.data.LicenceClassData">
+		<property name="code" type="java.lang.String" />
+		<property name="name" type="java.lang.String" />
+	</bean>
+		
+	<bean class="com.apb.facades.product.data.AsahiRoleData">
+		<property name="code" type="String"/>
+		<property name="name" type="String"/>
+	</bean>
+	
+	<bean class="com.apb.facades.delivery.data.DeliveryInfoData">
+		<property name="deliveryCutOff" type="java.lang.String"/>
+		<property name="deliveryDays" type="java.lang.String"/>
+		<property name="maxDeliveryDays" type="java.lang.String"/>
+		<property name="cutOffDate" type="java.lang.String"/>
+		<property name="disableDeferredDelivery" type="Boolean"/>
+		<property name="deferredDeliveryOptions" type="java.util.List&lt;java.lang.String>"/>
+		<property name="beforeCutOff" type="Boolean" />
+	</bean>
+	
+	<bean class="de.hybris.platform.commercefacades.user.data.AddressData">
+		<property name="deliveryInstruction" type="java.lang.String"/>
+		<property name="recordId" type="java.lang.String" />
+		<property name="dlvModeId" type="java.lang.String" />
+		<property name="deliveryTimeSlotTo" type="java.lang.String" />
+		<property name="deliveryTimeSlotFrom" type="java.lang.String" />
+		<property name="address" type="java.lang.String" />
+		<property name="streetname" type="java.lang.String" />
+		<property name="streetnumber" type="java.lang.String" />
+		<property name="companyCode" type="java.lang.String"/>
+		<property name="deliveryTimeFrameFromMM" type="Integer" />
+		<property name="deliveryTimeFrameFromHH" type="Integer" />
+		<property name="deliveryTimeFrameToMM" type="Integer" />
+		<property name="deliveryTimeFrameToHH" type="Integer" />
+		<property name="deliveryCalendar" type="String" />
+		<property name="deliveryAddress" type="String" />
+		<property name="removeRequestAddress" type="Integer" />
+		<property name="changeRequestAddress" type="Integer" />
+		<property name="addressType" type="java.lang.String"/>
+		<property name="customerRecId" type="java.lang.String"/>
+		<property name="addressId" type="String" />
+		<property name="code" type="java.lang.String"/>
+		<property name="name" type="java.lang.String"/>
+		<property name="addressInterface" type="Boolean"/>
+		<property name="backendAddressType" type="com.sabmiller.core.enums.AddressType"/>
+		<property name="sgaOrder" type="boolean"/>
+		<property name="streetField" type="String"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.commercefacades.product.data.CategoryData">
+		<property name="categoryName" type="java.lang.String" />
+		<property name="parentCategoryId" type="java.lang.String" />
+		<property name="companyCode" type="java.lang.String"/>
+	</bean>
+	
+	
+	<!-- <bean class="com.apb.storefront.data.ApbRegisterData" extends="de.hybris.platform.commercefacades.user.data.RegisterData">
+		<property name="phone" type="String"/>
+		<property name="abnAccountId" type="String"/>
+		<property name="abnNumber" type="String"/>
+		<property name="liquorLicense" type="String"/>
+		<property name="role" type="String"/>
+		<property name="email" type="String"/>
+		<property name="confirmEmail" type="String"/>
+		<property name="termsCondition" type="boolean"/>
+		<property name="customer" type="boolean"/>
+		<property name="roleOther" type="String"/>
+		<property name="roleOtherTemp" type="String"/>
+	</bean> -->
+	
+	<bean class="com.apb.facades.register.data.ApbRequestRegisterData">
+		<property name="requestRefNumber" type="String" />
+		<property name="outletName" type="String" />
+		<property name="tradingName" type="String" />
+		<property name="companyName" type="String" />
+		<property name="streetNumber" type="String" />
+		<property name="streetName" type="String" />
+		<property name="streetAbreviation" type="String" />
+		<property name="unitNoShopNo" type="String" />
+		<property name="level" type="String" />
+		<property name="suburb" type="String" />
+		<property name="stateInvoice" type="String" />
+		<property name="postcodeInvoice" type="String" />
+		<property name="contactName" type="String" />
+		<property name="alternateContact" type="String" />
+		<property name="phoneNoInvoice" type="String" />
+		<property name="customerType" type="String" />
+		<property name="alternativePhoneNo" type="String" />
+		<property name="warehouseNo" type="String" />
+		<property name="emailAddress" type="String" />
+		<property name="abn" type="String" />
+		<property name="liquorLicense" type="String" />
+		<property name="acn" type="String" />
+		<property name="sameasInvoiceAddress" type="boolean" />
+		<property name="shippingStreet" type="String" />
+		<property name="shippingSuburb" type="String" />
+		<property name="stateDelivery" type="String" />
+		<property name="postcodeDelivery" type="String" />
+		<property name="deliveryInstructions" type="String" />
+		<property name="applicantCarry" type="boolean" />
+		<property name="typeofEntity" type="String" />
+		<property name="typeofBusiness" type="String" />
+		<property name="dateBusinessEstablished" type="String" />
+		<property name="licensedPremisesAddress" type="String" />
+		<property name="licensee" type="String" />
+		<property name="bannerGroup" type="String" />
+		<property name="dateandExpiryofLiquorLicense" type="String" />
+		<property name="purchasingOfficer" type="String" />
+		<property name="accountsContact" type="String" />
+		
+		<property name="name" type="String" />
+		<property name="position" type="String" />
+		<property name="address" type="String" />
+		<property name="dateofBirth" type="String" />
+		<property name="addAnother" type="boolean" />
+		<property name="name1" type="String" />
+		<property name="position1" type="String" />
+		<property name="address1" type="String" />
+		<property name="dateofBirth1" type="String" />
+		
+		<property name="bankBranch " type="String" />
+		<property name="contact" type="String" />
+		<property name="phoneNoReference" type="String" />
+		<property name="requestTermsConditions" type="boolean" />
+		<property name="requestCustomer" type="boolean" />		
+		<property name="trustName" type="String" />
+		<property name="trustDeed " type="String" />
+		<property name="trustAbn" type="String" />
+		<property name="trust" type="boolean" />
+		<property name="pdfFile" type="org.springframework.web.multipart.MultipartFile" />
+		<property name="pdfFileName" type="String" />
+		<property name="sameasDeliveryAddressLPA" type="boolean" />
+		<property name="phoneNo" type="String" />
+		<property name="phoneNo1" type="String" />
+		
+	</bean>
+	
+	<bean class="com.apb.facades.checkout.data.B2BUnitDeliveryAddressData">
+		<property name="b2bUnit" type="java.lang.String"/>
+		<property name="deliveryAddresses" type="java.util.List&lt;de.hybris.platform.commercefacades.user.data.AddressData>"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.commercefacades.order.data.OrderEntryData">
+		<property name="productOutOfStock" type="boolean"/>
+		<property name="calculated" type="boolean"/>
+		<property name="wetNotIncluded" type="boolean" />
+	</bean>
+	
+	<bean class="de.hybris.platform.commercefacades.order.data.OrderData" extends="de.hybris.platform.commercefacades.order.data.AbstractOrderData">
+		<property name="salesOrderId" type="java.lang.String" />
+		<property name="invoiceId" type="java.lang.String" />
+		<property name="orderType" type="java.lang.String" />
+		<property name="customerReference" type="java.lang.String" />
+		<property name="deliveryInstruction" type="java.lang.String" />
+		<property name="orderOriginId" type="java.lang.String" />
+		<property name="orderGST" type="Double" />
+		<property name="freight" type="java.lang.String" />
+		<property name="minOrderFee" type="java.lang.String" />
+		<property name="scheduleDeliveryDate" type="java.lang.String" />
+		<property name="scheduleShippingDate" type="java.lang.String" />
+		<property name="backendCreatedDate" type="java.lang.String" />
+		<property name="timePickListDate" type="java.lang.String" />
+		<property name="invoiceCreatedDate" type="java.lang.String" />
+		<property name="shippingWarehouse" type="java.lang.String" />
+		<property name="invoiceAmountWithGST" type="Double" />
+		<property name="errorMsg" type="java.lang.String" />
+		<property name="pickingListId" type="java.lang.String" />
+		<property name="onlineOrder" type="Boolean" />
+		<property name="custAccount" type="java.lang.String" />
+		<property name="currencyIso" type="java.lang.String" />
+		<property name="companyCode" type="java.lang.String" />
+		<property name="statusCode" type="java.lang.String" />
+		<property name="orderPlacedBy" type="java.lang.String" />
+		<property name="portalOrderId" type="java.lang.String" />
+		<property name="custOrderType" type="java.lang.String" />
+		<property name="deviceType" type="java.lang.String" />
+		<property name="isOnlyBonus" type="Boolean"/>
+		<property name="orderTotalCDL" type="Double"/>
+		<property name="deliveryOrder" type="boolean"/>
+		<property name="isFreeGoodOrder" type="Boolean"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.commercefacades.order.data.AbstractOrderData">
+		<property name="portalGST" type="PriceData" />
+		<property name="portalFreight" type="PriceData" />
+		<property name="portalWET" type="PriceData"/>
+		<property name="portalFreightGST" type="PriceData"/>
+		<property name="portalCreditSurcharge" type="PriceData"/>
+		<property name="poNumber" type="java.lang.String"/>
+		<property name="placedByName" type="java.lang.String" />
+		<property name="warehouse" type="java.lang.String" />
+		<property name="licenseRequired" type="Boolean" />
+		<property name="isPrepaid" type="Boolean" />
+		<property name="cardData" type="com.apb.facades.card.payment.AsahiCardData" />
+		<property name="deferredDelivery" type="Boolean" />
+		<property name="deliveryRequestDate" type="java.lang.String" />
+		<property name="priceUpdated" type="Boolean" />
+		<property name="orderCDL" type="PriceData"/>
+		<property name="deliveryInstruction" type="java.lang.String" />
+		<property name="minicartSubTotal" type="PriceData"/>
+	</bean>
+	
+	
+	<bean class="com.apb.facades.card.payment.AsahiCardData">
+		<property name="cardType" type="java.lang.String"/>
+		<property name="cardNumber" type="java.lang.String"/>
+		<property name="cardExpiry" type="java.lang.String"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.commercefacades.order.data.OrderEntryData">
+		<property name="lineNum" type="java.lang.String"/>
+		<property name="backendUid" type="java.lang.String"/>
+		<property name="inventoryTransId" type="java.lang.String"/>
+		<property name="pickinglistQty" type="Integer"/>
+		<property name="invoicedQty" type="Integer"/>
+		<property name="isBonusStock" type="Boolean"/>
+		<property name="netUnitPrice" type="Double" />
+		<property name="netLineOrderAmount" type="Double" />
+		<property name="netLineInvoiceAmount" type="Double" />
+		<property name="orderEntryGST" type="Double" />
+		<property name="orderEntryWET" type="Double"/>
+		<property name="companyCode" type="java.lang.String" />
+		<property name="wetItem" type="java.lang.String"/>
+		<property name="orderId" type="java.lang.String"/>
+		<property name="orderEntryStatus" type="java.lang.String"/>
+		<property name="currencyIso" type="java.lang.String"/>
+		<property name="cdl" type="Double" />
+		<property name="discountPrice" type="PriceData" />
+		<property name="isBonusLineAvailable" type="Boolean"/>
+		<property name="historyTotalPrice" type="PriceData"/>
+		<property name="orderStatus" type="java.lang.String"/>
+		<property name="suggestedQty" type="Integer"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.commercefacades.product.data.AsahiSearchProductData">
+		<property name="url" type="String"/>
+		<property name="potentialPromotions"
+		          type="java.util.Collection&lt;de.hybris.platform.commercefacades.product.data.PromotionData>"/>
+		<property name="name" type="String"/>
+		<property name="brand" type="com.apb.facades.product.data.BrandData" />
+		<property name="variantOptions"
+		          type="java.util.List&lt;de.hybris.platform.commercefacades.product.data.VariantOptionData>"/>
+		<property name="availableForPickup" type="java.lang.Boolean"/>
+		<property name="code" type="String"/>
+		<property name="multidimensional" type="Boolean"/>
+		<property name="priceRange" type="de.hybris.platform.acceleratorfacades.order.data.PriceRangeData" />
+		<property name="price" type="PriceData"/>
+		<property name="images"
+		          type="java.util.Collection&lt;de.hybris.platform.commercefacades.product.data.ImageData>"/>
+		<property name="maxQty" type="java.lang.Integer" />
+		<property name="minQty" type="java.lang.Integer" />
+		<property name="stock" type="de.hybris.platform.commercefacades.product.data.StockData"/>
+		<property name="averageRating" type="Double"/>
+		<property name="numberOfReviews" type="Integer"/>
+		<property name="portalUnitVolume" type="String" />
+		<property name="packageSize" type="String" />
+		<property name="licenseRequired" type="Boolean" />
+		<property name="newProduct" type="Boolean" />
+		<property name="isPromotionActive" type="Boolean" />
+		<property name="discountPrice" type="PriceData"/>
+		<property name="allowedBonusQty" type="Long" />
+		<property name="dealsFlag" type="boolean" />
+		<property name="dealsTitle" type="java.util.List&lt;String&gt;"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.commercefacades.product.data.StockData">
+		<property name="stockLevelStatusName" type="String"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.commercefacades.product.data.AsahiSearchResultsData">
+		<property name="results"
+		          type="java.util.List&lt;de.hybris.platform.commercefacades.product.data.AsahiSearchProductData>"/>
+		<property name="pagination" type="de.hybris.platform.commerceservices.search.pagedata.PaginationData"/>
+		<property name="isAnonymousUser" type="Boolean"/>
+	</bean>
+
+	<bean class="com.apb.facades.price.PriceInfo">
+		<property name="code" type="String" />
+		<property name="listPrice" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+		<property name="netPrice" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+		<property name="wET" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+	</bean>
+	
+	<bean class="com.apb.facades.price.PriceInfoData">
+		<property name="productPriceInfo" type="java.util.List&lt;com.apb.facades.price.PriceInfo>" />
+	</bean>
+	
+	<bean class="com.apb.facades.user.data.ApbCompanyData">
+		<property name="accountNumber" type="String" />
+		<property name="acccountName" type="String" />
+		<property name="tradingName" type="String" />
+		<property name="abn" type="String" />
+		<property name="liquorLicense" type="String" />
+		<property name="companyBillingAddress" type="String" />
+		<property name="companyPhone" type="String" />
+		<property name="companyMobilePhone" type="String" />
+		<property name="companyFax" type="String" />
+		<property name="companyEmailAddress" type="String" />
+		<property name="deliveryCalendar" type="String" />
+		<property name="sameasInvoiceAddress" type="boolean" />
+		<property name="deliveryAddresses" type="java.util.List&lt;com.apb.facades.checkout.data.B2BUnitDeliveryAddressData>"/>
+		<property name="customer" type="String" />
+	</bean>
+	
+	<bean class="de.hybris.platform.commercefacades.order.data.OrderHistoryData">
+		<property name="orderType" type="String"/>
+		<property name="firstName" type="String"/>
+		<property name="salesOrderId" type="String"/>
+		<property name="allProductExcluded" type="Boolean" />
+		<property name="isOnlyBonus" type="Boolean"></property>
+		<property name="orderPlacedDate" type="String"/>
+		<property name="deliveryRequestDate" type="String" />
+		<property name="orderNetPrice" type="de.hybris.platform.commercefacades.product.data.PriceData"/>
+		<property name="orderGST" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+		<property name="orderCDL" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+		<property name="subTotal" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+		<property name="entries" type="java.util.List&lt;de.hybris.platform.commercefacades.order.data.OrderHistoryEntryData>" />
+		 
+	</bean>
+
+
+	<bean class="de.hybris.platform.commercefacades.order.data.OrderHistoryEntryData">
+		<property name="productName" type="String" />
+		<property name="productPackageSize" type="String" />
+		<property name="productUnitVolume" type="String" />
+		<property name="orderQuantity" type="String" />
+		<property name="productBasePrice" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+	</bean>
+	
+	<bean class="de.hybris.platform.commercefacades.user.data.CustomerData">
+		<property name="asahiRole" type="com.apb.facades.product.data.AsahiRoleData" />
+		<property name="disableEmailNotification" type="Boolean" />
+		<property name="loggedInBefore" type="Boolean" />
+		<property name="samAccess" type="String"/>
+		<property name="pendingApproval" type="Boolean"/>
+		<property name="accessDenied" type="Boolean"/>
+		<property name="isAdminUser" type="Boolean"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.commercefacades.order.data.OrderTemplateEntryData">
+		<property name="totalPrice" type="Double" />
+		<property name="quantity" type="Long" />
+		<property name="entryNumber" type="Integer" />
+		<property name="product" type="de.hybris.platform.commercefacades.product.data.ProductData" />
+		<property name="basePrice" type="Double" />
+		<property name="pk" type="String"/>
+		<property name="templateTotalPrice" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+		<property name="templateBasePrice" type="de.hybris.platform.commercefacades.product.data.PriceData" />
+		<property name="priceUpdated" type="boolean" />
+		<property name="maxQty" type="java.lang.Integer" />
+	</bean>
+	
+	<bean class="de.hybris.platform.commercefacades.order.data.OrderTemplateData" extends="de.hybris.platform.commercefacades.order.data.CartData">
+		<property name="templateEntry" type="java.util.List&lt;de.hybris.platform.commercefacades.order.data.OrderTemplateEntryData>" />
+		<property name="createdDate" type="String"/>
+		<property name="totalOrderedQty" type="Long" />
+		<property name="priceError" type="Boolean" />
+		<property name="showExclusionError" type="Boolean" />
+		<property name="allProductExcluded" type="Boolean" />	
+		<property name="isQuickOrder" type="Boolean"/>	
+	</bean>
+
+	<bean class="com.apb.facades.contactust.data.PriceDiscrepancyData">
+		<property name="materialNumber" type="String" />
+		<property name="expectedTotalPay" type="String" />
+		<property name="amtCharged" type="String" />
+	</bean>
+
+	<bean class="com.apb.facades.contactust.data.DeliveryDiscrepancyData">
+		<property name="materialNumber" type="String" />
+		<property name="qtyWithDelIssue" type="String" />
+		<property name="qtyReceived" type="String" />
+		<property name="expectedQty" type="String" />
+	</bean>
+
+	<bean class="com.apb.facades.contactust.data.ApbContactUsData">
+		<property name="requestRefNumber" type="String" />
+		<property name="accountNumber" type="String" />
+		<property name="companyName" type="String" />
+		<property name="name" type="String" />
+		<property name="emailAddress" type="String" />
+		<property name="contactNumber" type="String" />
+		<property name="furtherDetail" type="String" />
+		<property name="pdfFile" type="org.springframework.web.multipart.MultipartFile" />
+		<property name="fileUploadName" type="String" />
+		<property name="contactUsQueryType" type="com.apb.facades.contactust.data.ContactUsQueryTypeData" />
+		<property name="subjectOther" type="String" />
+		<property name="subject" type="String" />
+		<property name="subjectFlag" type="String" />
+		<property name="asahiContactUsSaleRepData" type="com.apb.facades.contactust.data.AsahiContactUsSaleRepData" />
+		<property name="salesRepName" type="String" />
+		<property name="salesRepEmailID" type="String" />
+		<property name="salesRepPhone" type="String" />
+
+		<property name="priceDiscrepancyDTOs" type="java.util.List&lt;com.apb.facades.contactust.data.PriceDiscrepancyData>" />
+		<property name="DeliveryDiscrepancyDTOs" type="java.util.List&lt;com.apb.facades.contactust.data.DeliveryDiscrepancyData>" />
+		<property name="enquiryType" type="String" />
+		<property name="enquirySubType" type="String" />
+		<property name="deliveryNumber" type="String" />
+		<property name="addInfo" type="String"/>
+		<property name="message" type="String"/>
+		<property name="contact" type="String"/>
+		<property name="datePlaced" type="java.util.Date" />
+		<property name="payAccess" type="boolean"/>
+
+	</bean>
+	
+	<bean class="com.apb.facades.contactust.data.ContactUsQueryTypeData">
+		<property name="code" type="String"/>
+		<property name="name" type="String"/>
+		<property name="contactUsQueryType" type="String"/>
+		<property name="otherContactUsQueryType" type="String"/>
+		<property name="toEmailAddress" type="String"/>
+		<property name="site" type="String"/>
+	</bean>
+	
+	<bean class="com.apb.facades.contactust.data.AsahiContactUsSaleRepData">
+		<property name="name" type="String" />
+		<property name="emailAddress" type="String" />
+		<property name="contactNumber" type="String" />
+		<property name="showSalesRep" type="boolean" />
+		<property name="activeSalesRep" type="boolean" />
+		
+	</bean>
+	
+	<bean class="de.hybris.platform.commercefacades.user.data.RegionData">
+		<property name="code" type="String"/>
+	</bean>
+	
+	<bean class="com.apb.facades.kegreturn.data.ApbKegReturnData">
+		<property name="requestRefNumber" type="String" />
+		<property name="accountNumber" type="String" />
+		<property name="accountName" type="String" />
+		<property name="contactName" type="String" />
+		<property name="emailAddress" type="String" />
+		<property name="contactNumber" type="String" />
+		<property name="kegComments" type="String" />
+		<property name="pickupAddressId" type="String" />
+		<property name="pickupAddressData" type="de.hybris.platform.commercefacades.user.data.AddressData" />
+		<property name="kegSize" type="java.util.List&lt;com.apb.facades.kegreturn.data.KegSizeData>"/>
+	</bean>
+	<bean class="com.apb.facades.kegreturn.data.KegSizeData">
+		<property name="code" type="java.lang.String"/>
+		<property name="kegSize" type="java.lang.String" />
+		<property name="kegQuantity" type="Integer" />
+		<property name="kegActive" type="boolean" />
+	</bean>
+	<bean class="com.apb.facades.data.QuickOrderData">
+		<property name="code" type="java.lang.String"/>
+		<property name="quantity" type="Integer" />
+	</bean>
+	<bean class="de.hybris.platform.commercefacades.order.data.CCPaymentInfoData">
+		<property name="displayName" type="String"/>
+		<property name="token" type="String"/>
+	</bean>
+	<bean class="de.hybris.platform.payment.dto.CardInfo" extends="de.hybris.platform.payment.dto.BasicCardInfo" template="resources/copyable-template.vm">
+		<property name="token" type="String"/>
+	</bean>
+	
+	<!-- Payment integration start  -->
+	
+
+
+	<bean class="com.apb.facades.card.payment.AsahiPaymentDetailsData">
+		<property name="customerNumber" type="String" />
+		<property name="transactionMessage" type="String" />
+		<property name="cardExpiry" type="String" />
+		<property name="cardNumber" type="String" />
+		<property name="CardTypeInfo" type="String" />
+		<property name="responseCode" type="String" />
+		<property name="cardToken" type="String" />
+		<property name="customerIP" type="String"/>
+		<property name="totalAmount" type="java.lang.Double"/>
+		<property name="cardReference" type="String"/>
+		<property name="samPayment" type="boolean" />
+		<property name="asahiSAMPaymentData" type="com.apb.facades.sam.data.AsahiSAMPaymentData"/>
+		
+	</bean>
+	
+	<bean class="de.hybris.platform.ordermanagementfacades.payment.data.PaymentTransactionEntryData">
+		<property name="decimalAmount" type="java.lang.String"/>
+		<property name="captureStatus" type="java.lang.String"/>
+		<property name="authorizationId" type="java.lang.String"/>
+		<property name="cardNumber" type="java.lang.String"/>
+		<property name="cardHolder" type="java.lang.String"/>
+		<property name="cardExpiry" type="java.lang.String"/>
+		<property name="successfulStatus" type="java.lang.String"/>
+		<property name="responseMessage" type="java.lang.String"/>
+		<property name="requestedReference" type="java.lang.String"/>
+		<property name="currencyCode" type="java.lang.String"/>
+		<property name="settlementDate" type="java.lang.String"/>
+		<property name="transactionDate" type="java.lang.String"/>
+		<property name="responseCode" type="java.lang.String"/>
+		<property name="rrn" type="java.lang.String"/>
+		<property name="cvvMatch" type="java.lang.String"/>
+		<property name="cardType" type="java.lang.String"/>
+		<property name="cardCategory" type="java.lang.String"/>
+		<property name="cardSubCategory" type="java.lang.String"/>
+		<property name="transactionId" type="java.lang.String"/>
+		<property name="capturedAmount" type="java.lang.String"/>
+		<property name="responsePayload" type="java.lang.String"/>
+		
+	</bean>
+	
+	<bean class="de.hybris.platform.ordermanagementfacades.payment.data.PaymentTransactionData">
+		<property name="captureStatus" type="java.lang.String"/>
+		<property name="requestPayload" type="java.lang.String"/>
+		<property name="extraParam" type="java.lang.String"/>
+		<property name="samPaymentRef" type="java.lang.String"/>
+		<property name="samPartialPayReason" type="java.lang.String"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.commercefacades.order.data.AbstractOrderData" >
+		<property name="asahiPaymentTransactions" type="java.util.List&lt;de.hybris.platform.ordermanagementfacades.payment.data.PaymentTransactionData>"/>
+		<property name="showExclusionError" type="Boolean" />
+		<property name="allProductExcluded" type="Boolean" />
+		<property name="unavProdCount" type="int" />
+		<property name="outofStockItemAvailable" type="Boolean" />
+	</bean>
+	
+	<enum class="com.apb.facades.card.payment.AsahiCreditCardTypeEnum">
+		<value>AMEX</value>
+		<value>VISA</value>
+		<value>MASTERCARD</value>
+		<value>MASTER</value>
+	</enum>
+	
+	<bean class="com.apb.facades.card.payment.AsahiPaymentPurchaseResponseData">
+		
+		<property name="responseId" type="java.lang.String"/>
+		<property name="requestAmount" type="java.lang.String"/>
+		<property name="decimalAmount" type="java.lang.String"/>
+		<property name="captureStatus" type="java.lang.String"/>
+		<property name="authorizationId" type="java.lang.String"/>
+		<property name="cardNumber" type="java.lang.String"/>
+		<property name="cardHolder" type="java.lang.String"/>
+		<property name="cardExpiry" type="java.lang.String"/>
+		<property name="cardToken" type="java.lang.String"/>
+		<property name="successfulStatus" type="java.lang.String"/>
+		<property name="responseMessage" type="java.lang.String"/>
+		<property name="requestedReference" type="java.lang.String"/>
+		<property name="currencyCode" type="java.lang.String"/>
+		<property name="settlementDate" type="java.lang.String"/>
+		<property name="transactionDate" type="java.lang.String"/>
+		<property name="responseCode" type="java.lang.String"/>
+		<property name="rrn" type="java.lang.String"/>
+		<property name="cvvMatch" type="java.lang.String"/>
+		<property name="cardType" type="java.lang.String"/>
+		<property name="cardCategory" type="java.lang.String"/>
+		<property name="cardSubCategory" type="java.lang.String"/>
+		<property name="transactionId" type="java.lang.String"/>
+		<property name="capturedAmount" type="java.lang.String"/>
+		<property name="responsePayload" type="java.lang.String"/>
+		<property name="responseErrorMessages" type="java.util.List&lt;java.lang.String>"/>
+		
+	</bean>
+	<!-- Payment integration end  -->
+	<!-- QuickOrder page start  -->
+	<bean class="com.apb.facades.order.data.AsahiQuickOrderEntryData">
+		<property name="brand" type="String" />
+		<property name="code" type="String" />
+		<property name="portalUnitVolume" type="String" />
+		<property name="name" type="java.lang.String"/>
+		<property name="packageSize" type="com.apb.facades.product.data.PackageSizeData" />
+		<property name="dateRange" type="java.util.Map&lt;String,Long>"/>
+		<property name="image" type="de.hybris.platform.commercefacades.product.data.ImageData"/>
+		<property name="url" type="String"/>
+		<property name="isExcluded" type="Boolean" />
+		<property name="active" type="boolean" />
+		<property name="quantity" type="java.lang.String" />
+		<property name="lastOrdered" type="java.lang.String" />
+		<property name="lastOrderedDate" type="java.util.Date" />
+		<property name="maxQty" type="java.lang.Integer" />
+		<property name="dealsFlag" type="boolean" />
+		<property name="dealsTitle" type="java.util.List&lt;String&gt;"/>
+		<property name="stock" type="de.hybris.platform.commercefacades.product.data.StockData"/>
+	</bean>
+	
+	<bean class="com.apb.facades.order.data.AsahiQuickOrderData">
+		<property name="entries" type="java.util.List&lt;com.apb.facades.order.data.AsahiQuickOrderEntryData>"/>
+		<property name="dateRange" type="java.util.Set&lt;java.lang.String>"/>
+		<property name="dateRangeExcluded" type="java.util.Map&lt;String,Boolean>"/>
+		<property name="allProductExcluded" type="Boolean" />
+		<property name="showExclusionError" type="Boolean" />
+		<property name="code" type="java.lang.String" />
+	</bean>
+	<!-- QuickOrder page start  -->
+	<bean class="de.hybris.platform.commerceservices.service.data.CommerceCartParameter">
+		<property name="bonusAction" type="String" />
+	</bean>
+	
+	<!-- SGA-SAM Page DTOs -->
+	<bean class="com.apb.facades.sam.data.AsahiSAMInvoiceData">
+		<property name="custAccount" type="java.lang.String" />
+		<property name="documentNumber" type="java.lang.String"/>
+		<property name="lineNumber" type="java.lang.String"/>
+		<property name="deliveryNumber" type="java.lang.String"/>
+		<property name="documentType" type="java.lang.String"/>
+		<property name="remainingAmount" type="java.lang.String"/>
+		<property name="invoiceDate" type="java.lang.String"/>
+		<property name="invoiceDueDate" type="java.lang.String"/>
+		<property name="status" type="java.lang.String" />
+		<property name="documentPostedDate" type="java.lang.String" />
+		<property name="totalPaidAmount" type="java.lang.String" />
+		<property name="overdue" type="boolean" />
+		<property name="soldToAccount" type="java.lang.String" />
+		<property name="paidAmount" type="java.lang.String"/>
+		<property name="invoiceAmount" type="java.lang.String"/>
+		<property name="invoiceIndicator" type="java.lang.String" />
+		<property name="transactionDate" type="java.lang.String" />
+		<property name="paymentType" type="java.lang.String"/>
+		<property name="receiptNumber" type="java.lang.String"/>
+		<property name="paymentReference" type="java.lang.String"/>
+		<property name="clearingdocumentNumber" type="java.lang.String"/>
+		<property name="paymentDocIdentifier" type="java.lang.String"/>
+		<property name="paymentMade" type="boolean" />
+		<property name="paymentOption" type="java.lang.String"/>
+		<property name="enableDownloadLink" type="boolean" />
+		<property name="soldToName" type="java.lang.String"/>
+		<property name="debitInvoiceRef" type="java.lang.String"/>
+	</bean>
+	<bean class="com.apb.facades.sam.data.AsahiSAMStatementData">
+		<property name="custAccount" type="java.lang.String" />
+		<property name="statementPeriod" type="java.lang.String"/>
+		<property name="statementBalance" type="java.lang.String"/>
+		<property name="statementNumber" type="java.lang.String"/>
+		<property name="invoice" type="java.util.List&lt;com.apb.facades.sam.data.AsahiSAMInvoiceData>"/>
+	</bean>
+	<bean class="com.apb.facades.sam.data.AsahiSAMPaymentData">
+		<property name="custAccount" type="java.lang.String" />
+		<property name="transactionDate" type="java.lang.String" />
+		<property name="amount" type="java.lang.String"/>
+		<property name="paymentType" type="java.lang.String"/>
+		<property name="receiptNumber" type="java.lang.String"/>
+		<property name="paymentReference" type="java.lang.String"/>
+		<property name="invoice" type="java.util.List&lt;com.apb.facades.sam.data.AsahiSAMInvoiceData>"/>
+		<property name="totalAmount" type="java.lang.Double"/>
+		<property name="documentType" type="java.lang.String"/>
+		<property name="clearingdocumentNumber" type="java.lang.String"/>
+		<property name="paymentTransactionId" type="java.lang.String"/>
+		<property name="partialPaymentReason" type="java.lang.String"/>
+		<property name="totalDocs" type="java.lang.String"/>
+		<property name="paymentDocIdentifier" type="java.lang.String"/>
+	</bean>
+	<bean class="com.apb.facades.sam.data.AsahiSAMDetailData">
+		<property name="openCount" type="java.lang.Integer" />
+		<property name="closedCount" type="java.lang.Integer"/>
+		<property name="dueNowCount" type="java.lang.Integer"/>
+		<property name="notYetDueCount" type="java.lang.Integer"/>
+		<property name="creditCount" type="java.lang.Integer" />
+		<property name="invoiceCount" type="java.lang.Integer"/>
+		<property name="invoices" type="java.util.List&lt;com.apb.facades.sam.data.AsahiSAMInvoiceData>"/>
+		<property name="statements" type="java.util.List&lt;com.apb.facades.sam.data.AsahiSAMStatementData>"/>
+		<property name="invoicePageSize" type="java.lang.Integer"/>
+	</bean>
+	
+	<bean class="com.apb.facades.sam.data.AsahiCaptureResponseData">
+		<property name="paymentReference" type="java.lang.String" />
+		<property name="totalPaidAmount" type="java.lang.String"/>
+		<property name="invoiceCount" type="int"/>
+	</bean>
+	
+	<bean class="com.apb.facades.sam.data.AsahiSAMStatementMonthData">
+		<property name="code" type="java.lang.Integer" />
+		<property name="name" type="java.lang.String" />
+		<property name="queryYear" type="java.lang.Integer" />
+        <property name="displayYear" type="java.lang.Integer" />
+		<property name="link" type="Boolean" />
+	</bean>
+	<bean class="com.apb.facades.sam.data.AsahiSAMStatementPageData">
+		<property name="months" type="java.util.Map&lt;String,java.util.Map&lt;Integer,com.apb.facades.sam.data.AsahiSAMStatementMonthData>>"/>
+		<property name="currentYear" type="java.lang.String" />
+		<property name="lastYear" type="java.lang.String" />
+		<property name="previousYear" type="java.lang.String" />
+	</bean>
+	
+	<bean class="de.hybris.platform.b2bcommercefacades.company.data.B2BUnitData" extends="de.hybris.platform.commercefacades.user.data.CompanyData">
+		<property name="accountNumber" type="String"/>
+	</bean>
+	
+	<bean class="com.apb.facades.sam.data.AsahiDirectDebitData">
+		<property name="custAccount" type="java.lang.String" />
+		<property name="custAccountNum" type="java.lang.String" />
+		<property name="personalName" type="java.lang.String"/>
+		<property name="date" type="java.lang.String"/>
+		<property name="error" type="boolean"/>
+		<property name="directDebitPaymentData" type="com.apb.facades.sam.data.AsahiDirectDebitPaymentData"/>
+		<property name="paymentTerm" type="java.lang.String" />
+	</bean>
+	
+	<bean class="com.apb.facades.sam.data.AsahiDirectDebitPaymentData" extends="com.apb.facades.card.payment.AsahiCardData">
+		<property name="tokenType" type="java.lang.String" />
+		<property name="token" type="java.lang.String" />
+		<property name="accountName" type="java.lang.String"/>
+		<property name="accountNum" type="java.lang.String"/>
+		<property name="bsb" type="java.lang.String"/>
+		<property name="financialInstitution" type="java.lang.String"/>
+		<property name="suburb" type="java.lang.String"/>
+		<property name="region" type="java.lang.String"/>
+		<property name="nameOnCard" type="java.lang.String"/>
+		<property name="companyCode" type="java.lang.String"/>
+	</bean>
+	
+
+	<!-- ALB Code END -->
+
+	<bean class="com.sabmiller.facades.deal.data.CartDealsJson">
+		<property name="partial" type="com.sabmiller.facades.deal.data.PartiallyQualifiedDealsJson"/>
+		<property name="conflict" type="java.util.List&lt;com.sabmiller.facades.deal.data.ConflictDealJson&gt;"/>
+		<property name="free" type="java.util.List&lt;com.sabmiller.facades.deal.data.DealFreeProductJson&gt;"/>
+	</bean>
+
+	<bean class="com.sabmiller.facades.deal.data.PartiallyQualifiedDealsJson">
+		<property name="deals" type="java.util.List&lt;DealJson&gt;"/>
+		<property name="conflicts" type="java.util.List&lt;ConflictDealsJson&gt;"/>
+	</bean>
+
+	<bean class="com.sabmiller.facades.deal.data.ConflictDealsJson">
+		<property name="conflict" type="java.util.List&lt;DealJson&gt;"/>
+	</bean>
+	
+	<bean class="com.sabmiller.facades.deal.data.DealJson">
+		<property name="title" type="String"/>
+		<property name="validFrom" type="Long"/>
+		<property name="validTo" type="Long"/>
+		<property name="brands" type="java.util.List&lt;String&gt;"/>
+		<property name="categories" type="java.util.List&lt;String&gt;"/>
+		<property name="freeProducts" type="java.util.List&lt;com.sabmiller.facades.deal.data.DealFreeProductJson&gt;"/>
+		<property name="selectableProducts" type="java.util.List&lt;com.sabmiller.facades.deal.data.DealFreeProductJson&gt;"/>
+		<property name="code" type="String"/>
+		<property name="badges" type="java.util.List&lt;Integer&gt;"/> <!--  list of badges to show (0 = lastChance, 1 = in store...) -->
+		<property name="ranges" type="java.util.List&lt;com.sabmiller.facades.deal.data.DealRangeJson&gt;"/>
+		<property name="active" type="boolean"/>
+		<property name="remainingValue" type="Double"/>
+		<property name="remainingQty" type="Long"/>
+		<property name="isInDeliveryPackType" type="Boolean"/>
+		<property name="scales" type="String"/>
+	</bean>
+
+	<bean class="com.sabmiller.facades.deal.data.RecommendationDealJson" extends="com.sabmiller.facades.deal.data.DealJson">
+		<property name="recommendationId" type="String"/>
+		<property name="recommendedBy" type="String"/>
+		<property name="recommendationType" type="com.sabmiller.core.enums.RecommendationType"/>
+	</bean>
+	<bean class="com.sabmiller.facades.deal.data.DealProductJson">
+		<property name="title" type="String"/>
+		<property name="packConfig" type="String"/>
+		<property name="image" type="String"/>
+		<property name="url" type="String"/>
+		<property name="proportionalFreeGood" type="Boolean" />
+		<property name="brand" type="String"/>
+		<property name="categories"
+		          type="java.util.Collection&lt;de.hybris.platform.commercefacades.product.data.CategoryData>"/>
+	    <property name="price" type="de.hybris.platform.commercefacades.product.data.PriceData"/>
+	    <property name="cubStockStatus" type="de.hybris.platform.basecommerce.enums.StockLevelStatus"/>
+	</bean>
+	
+	<bean class="com.sabmiller.facades.deal.data.DealFreeProductJson" extends="com.sabmiller.facades.deal.data.DealProductJson">
+		<property name="qty" type="java.util.Map&lt;java.lang.Integer, java.lang.Integer>"/>
+		<property name="code" type="String"/>
+	</bean>
+	
+	<bean class="com.sabmiller.facades.deal.data.DealBaseProductJson" extends="com.sabmiller.facades.deal.data.DealProductJson">
+		<property name="qty" type="Integer"/>
+		<property name="recommendedQty" type="Integer"/>
+		<property name="uomS" type="String"/>
+		<property name="uomP" type="String"/>
+		<property name="productCode" type="String"/>
+		<property name="uomCode" type="String"/>
+	</bean>
+	
+	<bean class="com.sabmiller.facades.deal.data.DealRangeJson">
+		<property name="title" type="String"/>
+		<property name="minQty" type="Integer"/>
+		<property name="maxQty" type="Integer"/>
+		<property name="baseProducts" type="java.util.List&lt;com.sabmiller.facades.deal.data.DealBaseProductJson&gt;"/>
+	</bean>
+
+	<bean class="com.sabmiller.facades.product.data.HeirarchyLevelData">
+		<property name="code" type="String"/>
+		<property name="level" type="Integer"/>
+		<property name="name" type="String"/>
+	</bean>
+	
+	<bean class="com.sabmiller.facades.product.data.UomData">
+		<property name="code" type="String"/>
+		<property name="name" type="String"/>
+		<property name="pluralName" type="String"/>
+	</bean>
+
+	<bean class="com.sabmiller.facades.product.data.GenderData">
+		<property name="code" type="String"/>
+		<property name="name" type="String"/>
+	</bean>
+	 <bean class="com.sabmiller.facades.product.data.ProductUOMMappingData">
+		<property name="fromUnit" type="String"/>
+		<property name="toUnit" type="String"/>
+		<property name="qtyConversion" type="Double"/>	
+	 </bean>
+	<bean class="de.hybris.platform.commercefacades.product.data.CategoryData">
+		<property name="images" type="java.util.Collection&lt;de.hybris.platform.commercefacades.product.data.ImageData>"/>
+		<property name="parent" type="de.hybris.platform.commercefacades.product.data.CategoryData"/>
+	</bean>
+	 
+	 <bean class="de.hybris.platform.b2bcommercefacades.company.data.B2BUnitData">
+		<property name="externalCustomerId" type="String"/>
+		<property name="blockType" type="com.sabmiller.core.enums.BlockTypeEnum"/>
+		<property name="customerFlag" type="String"/>
+		<property name="blockReason" type="String"/>
+		<property name="paymentRequired" type="boolean"/>
+		<property name="payerId" type="String"/>
+		<property name="soldTo" type="String"/>
+		<property name="shipTo" type="String"/>
+		<property name="defaultUnloadingPoint" type="UnloadingPoint"/>
+		<property name="defaultCarrier" type="ShippingCarrier"/>
+		<property name="accountGroup" type="String"/>
+		<property name="defaultShipTo" type="String"/>
+		<property name="defaultDeliveryPlant" type="String"/>
+		<property name="salesData" type="com.sabmiller.facades.b2bunit.data.SalesData"/>
+		<property name="salesOrgData" type="com.sabmiller.facades.b2bunit.data.SalesOrgData"/>
+		<property name="salesOrgId" type="String"/>
+		<property name="b2bUnitGroup" type="com.sabmiller.facades.b2bunit.data.B2BUnitGroup"/>
+		<property name="shippingCarriers" type="java.util.List&lt;com.sabmiller.facades.b2bunit.data.ShippingCarrier>"/>
+		<property name="unloadingPoints" type="java.util.List&lt;com.sabmiller.facades.b2bunit.data.UnloadingPoint>"/>
+		<property name="primaryAdmin" type="de.hybris.platform.commercefacades.user.data.CustomerData"/>
+		<property name="contact" type="de.hybris.platform.commercefacades.user.data.CustomerData"/>
+		<property name="requestedDeliveryDate" type="String"/>
+		<property name="cupCallInProgress" type="boolean"/>
+		<property name="bogofDealsCallInProgress" type="boolean"/>
+		<property name="discountDealsCallInProgress" type="boolean"/>
+		<property name="dealsCallInProgress" type="boolean"/>
+		<property name="activeUsers" type="int" />
+        <property name="contactAddress" type="de.hybris.platform.commercefacades.user.data.AddressData" />
+		<property name="address" type="de.hybris.platform.commercefacades.user.data.AddressData"/>	
+	    <property name="b2BUnitStatus" type="String"/>
+		<property name="isDepositApplicable" type="boolean"/>
+		<property name="autoPayStatus" type="com.sabmiller.core.enums.AutoPayStatus"/>
+	    <property name="bdeUserName" type="String"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.commercefacades.user.data.AddressData">
+		<property name="partnerFunction" type="String"/>
+		<property name="partnerNumber" type="String"/>
+		<property name="contactAddress" type="boolean"/>
+		<property name="defaultB2BunitAddress" type="boolean"/>
+	</bean>
+	 
+	 <bean class="com.sabmiller.facades.b2bunit.data.SalesData">
+	 	<property name="salesOrgId" type="String"/>
+		<property name="distributionChannel" type="String"/>
+		<property name="division" type="String"/>
+		<property name="deletionIndicator" type="String"/>
+		<property name="defaultDeliveryPlant" type="String"/>
+		<property name="productAttributes" type="String"/>
+	 </bean>
+	 
+	 <bean class="com.sabmiller.facades.b2bunit.data.SalesOrgData">
+		<property name="salesGroup" type="String"/>
+		<property name="salesOfficeCode" type="String"/>
+		<property name="salesDistrictCode" type="String"/>
+		<property name="customerStatisticGroup" type="String"/>
+		<property name="customerGroup" type="String"/>
+		<property name="groupDescription" type="String"/>
+		<property name="priceGroup" type="String"/>
+		<property name="shippingCondition" type="String"/>
+	 </bean>
+	 
+	 <bean class="com.sabmiller.facades.b2bunit.data.ShippingCarrier">
+		<property name="code" type="String"/>
+		<property name="description" type="String"/>
+		<property name="customerOwned" type="Boolean"/>
+		<property name="shippingCondition" type="String"/>
+	 </bean>
+	 
+	 <bean class="com.sabmiller.facades.b2bunit.data.B2BUnitGroup">
+	 	<property name="groupKey" type="String"/>	
+		<property name="primaryGroupKey" type="String"/>
+		<property name="subGroupKey" type="String"/>
+		<property name="primaryGroupDescription" type="String"/>
+		<property name="subGroupDescription" type="String"/>
+		<property name="groupDescription" type="String"/>
+		<property name="subChannel" type="String"/>
+		<property name="subChannelDescription" type="String"/>
+	</bean>
+	 
+	 <bean class="com.sabmiller.facades.b2bunit.data.UnloadingPoint">
+	 	<property name="code" type="String"/>
+		<property name="map" type="java.util.Map&lt;java.lang.String, java.util.Set&lt;java.lang.String&gt;>"/>
+	 </bean>
+	 
+	 <bean class="de.hybris.platform.commercefacades.product.data.VariantOptionData">
+		<property name="name" type="String"/>
+		<property name="images"
+		          type="java.util.Collection&lt;de.hybris.platform.commercefacades.product.data.ImageData>"/>
+		<property name="packConfiguration" type="String"/>
+		<property name="purchasable" type="Boolean"/>
+		<property name="savingsPrice" type="PriceData"/>
+		<property name="uomList" type="java.util.List&lt;com.sabmiller.facades.product.data.UomData&gt;"/>
+		<property name="cubStockStatus" type="de.hybris.platform.basecommerce.enums.StockLevelStatus"/>
+	 </bean>
+	 
+	 <bean class="com.sabmiller.facades.customer.ProductExclusionData">
+	 	<property name="customer" type="String" />
+	 	<property name="salesOrg" type="String" />
+	 	<property name="product" type="String" />
+	 	<property name="validFrom" type="java.util.Date" />
+	 	<property name="validTo" type="java.util.Date" />
+	 </bean>
+	 
+	 <bean class="com.sabmiller.facades.deals.DealTitleData">
+	 	<property name="dealSeqNo" type="String" />
+	 	<property name="dealTitle" type="String" />
+		</bean>
+	 <bean class="com.sabmiller.facades.customer.ProductExclusionImportData">
+	 <property name="ProductExclusionDataList" type="java.util.Set&lt;com.sabmiller.facades.customer.ProductExclusionData&gt;"/>
+	 <property name="processingErrors" type="String"/>
+	 </bean>
+	 
+	<bean class="de.hybris.platform.commercefacades.order.data.OrderEntryData">
+		<property name="unit" type="com.sabmiller.facades.product.data.UomData"/>  <!-- add for the unit of product in the order SAB-572 -->
+		<property name="baseQuantity" type="Long"/>  <!-- add for memory the base Quantity before the change of the unit SAB-572-->
+		<property name="baseUnit" type="com.sabmiller.facades.product.data.UomData"/>
+		<property name="sapConfirmedQuantity" type="Long"/>
+		<property name="mpaCode" type="String"/>
+		<property name="isFreeGood" type="boolean"/>
+		<property name="sapLineNumber" type="String"/>
+		<property name="freeGoodEntryNumber" type="String"/>
+		<property name="availabilityInfo" type="String"/>
+		<property name="deliveryCost" type="PriceData"/>
+		<property name="discountedBasePrice" type="PriceData"/>
+		<property name="offerData" type="java.util.List&lt;de.hybris.platform.commercefacades.order.data.EntryOfferInfoData>"/>
+		<property name="unitDiscountAmount" type="PriceData"/>
+		<property name="totalDiscountAmount" type="PriceData"/>
+		<property name="loyaltyFeePrice" type="PriceData"/>
+		<property name="autoPayAdvantageDiscount" type="PriceData"/>
+		<property name="autoPayAdvantagePlusDiscount" type="PriceData"/>
+		<property name="rejected" type="boolean"/>
+		<property name="info" type="String"/>
+		<property name="dealTitle" type="java.util.List&lt;com.sabmiller.facades.deals.DealTitleData&gt;"/>
+		<property name="chooseFrees" type="boolean"/>
+		<property name="freeGoodsForDeal" type="String"/>
+		<property name="isChange" type="boolean"/>     
+		<property name="isLimitedExceed" type="boolean"/>
+		<property name="minimumStockOnHand" type="Integer"/>
+		<property name="imageStream" type="java.io.InputStream"/>
+		<property name="sequenceNumber" type="Integer"/>
+		<property name="deposit" type="PriceData"/>
+		<property name="wet" type="PriceData"/>
+		<property name="orderDetails" type="String"/>
+		<property name="freeGoodEntryQty" type="Long"/>
+		<property name="asahiDealTitle" type="String"/> 
+		<property name="dealSequenceNumber" type="Integer" />
+	</bean>
+	
+	<bean class="de.hybris.platform.commercefacades.order.data.AbstractOrderData">
+		<property name="b2bUnit" type="de.hybris.platform.b2bcommercefacades.company.data.B2BUnitData"/>
+	    <property name="salesOrderSimulateSyncDate" type="java.util.Date"/>
+	    <property name="gst" type="PriceData"/>
+	    <property name="wet" type="PriceData"/>
+	    <property name="totalLoyaltyFeePrice" type="PriceData"/>
+		<property name="autoPayAdvantageDiscount" type="PriceData"/>
+		<property name="autoPayAdvantagePlusDiscount" type="PriceData"/>
+	    <property name="deliveryInstructions" type="String"/>
+		<property name="deliveryShippingCarrier" type="com.sabmiller.facades.b2bunit.data.ShippingCarrier"/>
+		<property name="requestToken" type="String"/>
+		<property name="paymentCardType" type="String"/>
+		<property name="sapSalesOrderNumber" type="String"/>
+		<property name="netAmount" type="PriceData"/>
+		<property name="requestedDeliveryDate" type="java.util.Date"/>
+		<property name="orderSimulationStatus" type="java.lang.String"/>
+		<property name="deposit" type="PriceData"/>
+		<!--<property name="purchaseOrderNumber" type="String"/>-->
+		<property name="language" type="String"/>
+		<property name="processingTypeCode" type="String"/>
+		<property name="autoAppliedDeals" type="java.util.List&lt;com.sabmiller.facades.deal.data.DealJson>"/>
+		<property name="autoAppliedAllDealsToCart" type="java.util.List&lt;com.sabmiller.facades.deal.data.DealJson>"/>
+		<property name="userDisplayName" type="String"/>
+		<property name="actualDeliveryCost" type="PriceData"/>
+		<property name="freightLimit" type="PriceData"/>
+		<property name="freightSurcharge" type="PriceData"/>
+		<property name="dealsTitleMap" type="java.util.Map&lt;java.lang.String,java.lang.Integer&gt;"/>
+		<property name="cutoffTime" type="java.lang.String"/>
+		<property name="bdeOrderUserEmails" type="java.util.List&lt;java.lang.String&gt;"/>
+		<property name="bdeOrderCustomerEmails" type="java.util.List&lt;java.lang.String&gt;"/>
+		<property name="bdeOrderEmails" type="java.util.List&lt;java.lang.String&gt;"/>
+		<property name="bdeOrderEmailText" type="java.lang.String"/>
+		<property name="bdeOrder" type="Boolean"/>
+	</bean>
+	
+		 
+	<bean class="de.hybris.platform.commercefacades.order.data.EntryOfferInfoData">
+		<property name="offerType" type="String"/>
+		<property name="scaleAmount" type="String"/>
+		<property name="scaleUnit" type="com.sabmiller.facades.product.data.UomData"/>
+		<property name="scaleQuantity" type="Long"/>
+		<property name="freeGoodProduct" type="de.hybris.platform.commercefacades.product.data.ProductData"/>
+		<property name="freeGoodQuantity" type="Long"/>
+		<property name="scaleAmountType" type="String"/>
+	</bean>    
+		
+	  <bean class="de.hybris.platform.commerceservices.service.data.CommerceCheckoutParameter">
+		<property name="shippingCarrier" type="com.sabmiller.core.model.ShippingCarrierModel">
+			<description>The ShippingCarrierModel</description>
+		</property>
+		</bean>
+	
+	<bean class="com.sabmiller.facades.invoice.SABMInvoiceData">
+		<property name="type" type="String"/>
+		<property name="branch" type="String"/>
+		<property name="invoiceNumber" type="String"/>
+		<property name="orderNumber" type="String"/>
+		<property name="purchaseOrderNumber" type="String"/>
+		<property name="transactionDate" type="String"/>
+		<property name="transactionDateStamp" type="Long"/>
+		<property name="dueDate" type="String"/>
+		<property name="dueDateStamp" type="Long"/>
+		<property name="openAmount" type="String"/>
+		<property name="status" type="String"/>
+		<property name="printable" type="Boolean"/>
+	</bean>
+
+
+	<bean class="com.sabmiller.facades.invoice.SABMInvoicePageData">
+		<property name="openBalance" type="java.lang.String"/>
+		<property name="invoices" type="java.util.List&lt;com.sabmiller.facades.invoice.SABMInvoiceData>"/>
+	</bean>
+
+
+	<!--Credit Adjustment -->
+	<bean class="com.sabmiller.facades.invoice.SABMInvoiceItemData">
+		<property name="itemID" type="String"/>
+		<property name="itemDescriptionLine1" type="String"/>
+		<property name="itemDescriptionLine2" type="String"/>
+		<property name="material" type="String"/>
+		<property name="quantity" type="String"/>
+		<property name="uoM" type="String"/>
+		<property name="unitPrice" type="String"/>
+		<property name="discount" type="String"/>
+		<property name="amount" type="String"/>
+		<property name="containerDeposit" type="String"/>
+		<property name="wet" type="String"/>
+		<property name="localFreight" type="String"/>
+		<property name="gst" type="String"/>
+		<property name="totalExGST" type="String"/>
+		<property name="lucExGST" type="String"/>
+		<property name="discountReceived" type="String"/>
+		<property name="discountExpected" type="String"/>
+	</bean>
+
+
+	<bean class="com.sabmiller.facades.invoice.SABMInvoiceDiscrepancyData">
+		<property name="soldTo" type="String"/>
+		<property name="invoiceNumber" type="String"/>
+        <property name="sapInvoiceNumber" type="String"/>
+        <property name="invoiceDate" type="String"/>
+		<property name="validationStatus" type="Boolean"/>
+		<property name="creditAdjustmentStatus" type="String"/>
+		<property name="creditAdjustmentStatusDescription" type="String"/>
+		<property name="creditAdjustmentRequestId" type="String"/>
+		<property name="referenceNumber" type="int"/>
+		<property name="raisedDate" type="String"/>
+		<property name="raisedBy" type="String"/>
+		<property name="raisedBy_email" type="String"/>
+        <property name="raisedByBDE" type="Boolean"/>
+		<property name="invoiceType" type="String"/>
+		<property name="expectedTotalAmount" type="String"/>
+		<property name="actualTotalAmount" type="String"/>
+		<property name="freightChargedAmount" type="String"/>
+		<property name="freightExpectedAmount" type="String"/>
+		<property name="invoices" type="java.util.List&lt;com.sabmiller.facades.invoice.SABMInvoiceItemData>"/>
+		<property name="requestDescription" type="String"/>
+		<property name="notificationList" type="java.util.List&lt;String>"/>
+	</bean>
+
+
+
+	<bean class="com.sabmiller.facades.invoice.SABMInvoiceList">
+		<property name="CustomerSoldTo" type="java.lang.String"/>
+		<property name="DateStart" type="String"/>
+		<property name="DateEnd" type="String"/>
+		<property name="invoices" type="java.util.List&lt;String>"/>
+	</bean>
+
+	<bean class="com.sabmiller.facades.invoice.SABMInvoiceValidationResult">
+		<property name="invoiceInSAP" type="Boolean"/>
+		<property name="invoiceDiscrepencyRequestRaised" type="Boolean"/>
+	</bean>
+
+	<bean class="com.sabmiller.facades.invoice.SABMInvoicePDFData">
+		<property name="documentNumber" type="java.lang.String"/>
+		<property name="binaryData" type="byte[]"/>
+	</bean>
+
+	<!-- END Credit Adjustment -->
+
+	<bean class="com.sabmiller.facades.order.json.OrderHistoryJson">
+		<property name="orderNo" type="String"/>
+		<property name="sapOrderNo" type="String"/>
+		<property name="dateStamp" type="Long"/>
+		<property name="date" type="String"/>
+		<property name="deliveryDateStamp" type="Long"/>
+		<property name="deliveryDate" type="String"/>
+		<property name="amount" type="String"/>
+		<property name="status" type="String"/>
+	</bean>
+	
+
+	<bean class="com.sabmiller.facades.deal.data.DealConditionData">
+		<property name="conditionType" type="String"/>
+		<property name="product" type="de.hybris.platform.commercefacades.product.data.ProductData"/>
+		<property name="minQty" type="Integer"/>
+		<property name="unit" type="com.sabmiller.facades.product.data.UomData"/>
+	</bean>
+	
+	<bean class="com.sabmiller.facades.deal.data.DealBenefitData">
+		<property name="benefitType" type="String"/>
+		<property name="product" type="de.hybris.platform.commercefacades.product.data.ProductData"/>
+		<property name="quantity" type="Integer"/>
+		<property name="unit" type="com.sabmiller.facades.product.data.UomData"/>
+		<property name="amount" type="Double"/>
+		<property name="currency" type="Boolean"/>
+		<property name="saleUnit" type="Integer"/>
+	</bean>
+	
+	<bean class="com.sabmiller.facades.deal.data.DealConditionGroupData">
+		<property name="dealConditions" type="java.util.List&lt;com.sabmiller.facades.deal.data.DealConditionData&gt;"/>
+		<property name="dealBenefits" type="java.util.List&lt;com.sabmiller.facades.deal.data.DealBenefitData&gt;"/>
+	</bean>
+	
+	<bean class="com.sabmiller.facades.deal.data.DealData">
+		<property name="code" type="String"/>
+		<property name="validFrom" type="String"/>
+		<property name="validTo" type="String"/>
+		<property name="dealType" type="String"/>
+		<property name="description" type="String"/>
+		<property name="dealConditionGroupData" type="com.sabmiller.facades.deal.data.DealConditionGroupData"/>
+	</bean>
+
+
+	<bean class="de.hybris.platform.commercefacades.order.data.OrderData">
+		<property name="salesApplication" type="String"/>
+		<property name="sapSalesOrderNumber" type="String"/>
+		<property name="soldTo" type="String"/>
+		<property name="shipTo" type="String"/>
+		<property name="dataOriginCategoryCode" type="String"/>
+		<property name="userDisplayName" type="String"/>
+        <property name="trackMyDeliveryEnabled" type="java.lang.Boolean"/>
+        <property name="statusToDisplay" type="de.hybris.platform.basecommerce.enums.ConsignmentStatus"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.commercefacades.order.data.ConsignmentEntryData">
+		<property name="deliveryItemNumber" type="String"/>
+		<property name="productCode" type="String"/>
+		<property name="salesOrderNumber" type="String"/>
+		<property name="lineNumber" type="String"/>
+		<property name="status" type="de.hybris.platform.basecommerce.enums.ConsignmentStatus"/>
+		<property name="completionIndicator" type="boolean"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.commercefacades.order.data.ConsignmentData">
+		<property name="salesOrderNumber" type="String"/>
+		<property name="deliveryActionCode" type="String"/>
+		<property name="deliveryType" type="String"/>
+		<property name="dispatchNotifEmailSent" type="boolean"/>
+	</bean>
+	
+	<bean class="com.sabmiller.facades.order.data.OrderTemplateData">
+		<property name="code" type="String"/>
+		<property name="name" type="String"/>
+		<property name="entries" type="java.util.List&lt;de.hybris.platform.commercefacades.order.data.OrderEntryData>"/>
+	</bean>
+
+	<bean class="com.sabmiller.facades.notifications.data.NotificationPreferenceData">
+		<property name="notificationType" type="String"/>
+		<property name="notificationTypeEnabled" type="boolean"/>
+		<property name="emailEnabled" type="boolean"/>
+		<property name="smsEnabled" type="boolean"/>
+		<property name="mobileNumber" type="Integer"/>
+		<property name="emailDuration" type="Integer"/>
+		<property name="emailDurationTimeUnit" type="String"/>
+		<property name="smsDuration" type="Integer"/>
+		<property name="smsDurationTimeUnit" type="String"/>
+		<property name="duration" type="String"/>
+		<property name="durationList" type="java.util.List&lt;java.lang.String&gt;"/>
+	</bean>
+
+	<bean class="com.sabmiller.facades.notifications.data.NotificationData">
+		<property name="userId" type="String"/>
+		<property name="mobileNumber" type="String"/>
+		<property name="notificationPrefMap" type="java.util.Map&lt;java.lang.String,com.sabmiller.facades.notifications.data.NotificationPreferenceData&gt;"/>
+	</bean>
+
+
+	<bean class="com.sabmiller.facades.recommendation.data.RecommendationData">
+		<property name="recommendationId" type="String"/>
+		<property name="product" type="com.sabmiller.facades.recommendation.data.RecommendationProductData"/>
+		<property name="recommendedBy" type="String"/>
+		<property name="recommendationType" type="com.sabmiller.core.enums.RecommendationType"/>
+		<property name="recommendationDealJson" type="com.sabmiller.facades.deal.data.RecommendationDealJson"/>
+		<property name="dealProducts" type="java.util.List&lt;com.sabmiller.facades.recommendation.data.RecommendationProductData>"/>
+        <property name="isInDeliveryPackType" type="Boolean"/>
+	</bean>
+
+	<bean class="com.sabmiller.facades.recommendation.data.RecommendationProductData">
+		<property name="product" type="de.hybris.platform.commercefacades.product.data.ProductData"/>
+		<property name="quantity" type="Integer"/>
+		<property name="unit" type="com.sabmiller.facades.product.data.UomData"/>
+		<property name="minQuantity" type="Integer"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.user.data.CustomerData">
+		<property name="orderLimit" type="Integer" />
+		<property name="userRole" type="String" />
+		<property name="canPlaceOrder" type="String" />
+		<property name="canViewPayInvoice" type="String" />
+		<property name="personalAssistant" type="String"/>
+		<property name="receiveUpdates" type="Boolean" />
+		<property name="receiveUpdatesForSms" type="Boolean" />
+		<property name="primaryAdmin" type="Boolean" />
+		<property name="gaUid" type="String" />
+		<property name="createdBy" type="de.hybris.platform.commercefacades.user.data.CustomerData" />
+		<property name="addressStreetName" type="String" />
+		<property name="addressSuburb" type="String" />
+		<property name="postCode" type="String" />
+		<property name="isocodeShort" type="String" />
+		<property name="accountPayerNumber" type="String" />
+		<property name="isZadp" type="Boolean" />
+		<property name="b2bUnits" type="java.util.List&lt;de.hybris.platform.b2bcommercefacades.company.data.B2BUnitData>" />
+		<property name="remenberPreviousUnit" type="java.lang.Boolean"></property>
+		<property name="defaultB2bUnit" type="de.hybris.platform.b2bcommercefacades.company.data.B2BUnitData"></property>
+		<property name="primaryAdminStatus" type="String" />
+		<property name="isCashOnlyCustomer" type="Boolean" />
+		<property name="dealsExists" type="Boolean" />
+		<property name="welcomeEmailSentStatus" type="Boolean" />
+		<property name="passwordIsSet" type="Boolean" />
+		<property name="orderingStatus" type="String" />
+		<property name="mobileNumber" type="String" />
+		<property name="businessContactNumber" type="String" />
+		<property name="displayWelcomeEmailLink" type="Boolean"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.user.data.PrincipalGroupData" extends="de.hybris.platform.commercefacades.user.data.PrincipalData">
+		<property name="subChannelDescription" type="String"/>
+		<property name="primaryGroupDescription" type="String"/>
+		<property name="postCode" type="String"/>
+		<property name="isDepositApplicable" type="boolean"/>
+	</bean>
+	<bean class="de.hybris.platform.commercefacades.user.data.PrincipalData">
+		<property name="groups" type="java.util.List&lt;? extends PrincipalGroupData>"/>
+		<property name="branches" type="java.util.List&lt;? extends PrincipalGroupData>"/>
+		<property name="currentB2BUnit" type="de.hybris.platform.commercefacades.user.data.PrincipalGroupData"/>
+	</bean>
+	
+	<bean class="com.sabmiller.facades.customer.SABMCreateUserFormData">
+		<property name="uid" type="String"/>
+		<property name="firstName" type="String"/>
+		<property name="surName" type="String"/>
+		<property name="email" type="String"/>
+		<property name="b2bUnits" type="java.util.List&lt;java.lang.String&gt;"/>
+		<property name="personalAssistant" type="String"/>
+		<property name="canPlaceOrder" type="String"/>
+		<property name="canViewPayInvoice" type="String"/>
+		<property name="orderLimit" type="String"/>
+	</bean>
+	
+	<bean class="com.sabmiller.facades.customer.BaseCustomerJson">
+	    <property name="email" type="String"/>
+	</bean>
+	  
+    <bean class="com.sabmiller.facades.customer.AdminCustomerJson" extends="com.sabmiller.facades.customer.BaseCustomerJson">
+    	<property name="name" type="String"/>
+    </bean>
+    
+    <bean class="com.sabmiller.facades.customer.B2BUnitJson">
+    	<property name="active" type="boolean"/>
+    	<property name="selected" type="boolean"/>
+    	<property name="code" type="String"/>
+    	<property name="name" type="String"/>
+    	<property name="address" type="String"/>
+    </bean>
+  
+    <bean class="com.sabmiller.facades.customer.RegionJson">
+    	<property name="isocode" type="String"/>
+    	<property name="b2bunits" type="java.util.List&lt;com.sabmiller.facades.customer.B2BUnitJson&gt;"/>
+    </bean>
+    
+    <bean class="com.sabmiller.facades.customer.PermissionsJson">
+    	<property name="pa" type="boolean"/>
+	    <property name="pay" type="boolean"/>
+	    <property name="orders" type="boolean"/>
+	    <property name="orderLimit" type="Integer"/>
+    </bean>
+    
+    <bean class="com.sabmiller.facades.customer.CustomerJson" extends="com.sabmiller.facades.customer.BaseCustomerJson">
+	    <property name="exists" type="boolean"/>
+	    <property name="active" type="boolean"/>
+	    <property name="thisZADP" type="boolean"/>
+	    <property name="firstName" type="String"/>
+	    <property name="surName" type="String"/>
+	    <property name="permissions" type="com.sabmiller.facades.customer.PermissionsJson"/>
+	    <property name="admins" type="java.util.List&lt;com.sabmiller.facades.customer.AdminCustomerJson&gt;"/>
+	    <property name="states" type="java.util.List&lt;com.sabmiller.facades.customer.RegionJson&gt;"/>
+	    <property name="b2bUnitId" type="String"/>
+	    <property name="self" type="boolean" />
+	    <property name="currentEmail" type="String"/>
+		<property name="phoneNumber" type="String"/>
+	</bean>
+	
+	<bean class="com.sabmiller.facades.customer.CustomerJsonResponse">
+	    <property name="message" type="String"/>
+	    <property name="messageType" type="String"/>
+	    <property name="redirectUrl" type="String"/>
+	</bean>
+		
+
+   <bean class="com.sabmiller.facades.dataimport.response.DataImportResponse">
+		<property name="exist" type="Boolean"/>
+   </bean>
+
+	<bean class="com.sabmiller.facades.dataimport.response.SalesOrderDataImportResponse" extends="com.sabmiller.facades.dataimport.response.DataImportResponse">
+		<property name="orderId" type="String"/>
+		<property name="source" type="String"/>
+		<property name="fake" type="boolean"/>
+   </bean>
+   
+	<bean class="com.sabmiller.facades.customer.SABMUserAccessHistoryData">
+		<property name="uid" type="String"/>
+		<property name="rememberMeEnabled" type="Boolean"/>
+		<property name="publicIPAddress" type="String"/>
+		<property name="userAgent" type="String"/>
+   </bean>
+   
+   <bean class="de.hybris.platform.commercefacades.order.data.CCPaymentInfoData">
+		<property name="hideCardNumber" type="String"/>
+   </bean>
+   
+   <bean class="com.sabmiller.facades.complexdeals.data.ComplexDealData" extends="com.sabmiller.facades.deal.data.DealData">
+	   	<!-- <property name="dealType" type="String"/> -->
+	   	<property name="status" type="String"/>
+	   	<property name="group" type="String"/>
+	   	<property name="mandatory" type="boolean"/>
+	 	<property name="inStore" type="boolean"/>
+	 	<property name="customerPOType" type="String"/>
+	 	<property name="validFromDate" type="java.util.Date" />
+	 	<property name="validToDate" type="java.util.Date" />
+	 	
+	   	<property name="assignments" type="java.util.List&lt;com.sabmiller.facades.complexdeals.data.ComplexDealAssignmentData>"/>
+	   	<property name="preconditions" type="java.util.List&lt;com.sabmiller.facades.complexdeals.data.ComplexDealPreconditionData&gt;"/>
+	   	<property name="resultPercentAmount" type="java.util.List&lt;com.sabmiller.facades.complexdeals.data.ComplexDealResultPercentAmountData&gt;"/>
+	   	<property name="resultFreeGood" type="java.util.List&lt;com.sabmiller.facades.complexdeals.data.ComplexDealResultFreeGoodData&gt;"/>
+	   	<property name="scales" type="java.util.List&lt;com.sabmiller.facades.complexdeals.data.DealScaleData&gt;"/>
+	</bean>
+	
+	<bean class="com.sabmiller.facades.complexdeals.data.ComplexDealAssignmentData">
+		<property name="sequenceNumber" type="String"/>
+		<property name="salesOrganization" type="String"/>
+		<property name="distributionChannel" type="String"/>
+		<property name="division" type="String"/>
+		<property name="plant" type="String"/>
+		<property name="customer" type="String"/>
+		<property name="customerGroup" type="String"/>
+		<property name="salesGroup" type="String"/>
+		<property name="salesOffice" type="String"/>
+		<property name="banner" type="String"/>
+		<property name="primaryBanner" type="String"/>
+		<property name="subBanner" type="String"/>
+		<property name="subChannel" type="String"/>
+		<property name="priceGroup" type="String"/>
+		<property name="exclusion" type="boolean"/>
+	</bean>
+	
+	<bean class="com.sabmiller.facades.complexdeals.data.ComplexDealPreconditionData">
+		<property name="scale" type="String"/>
+		<property name="quantityFrom" type="String"/>
+		<property name="quantityTo" type="String"/>
+		<property name="sequenceNumber" type="String"/>
+		<property name="material" type="String"/>
+		<property name="line" type="String"/>
+		<property name="brand" type="String"/>
+		<property name="variety" type="String"/>
+		<property name="empties" type="String"/>
+		<property name="emptyType" type="String"/>
+		<property name="presentation" type="String"/>
+		<property name="quantity" type="String"/>
+		<property name="uom" type="String"/>
+		<property name="mandatory" type="boolean"/>
+		<property name="exclusion" type="boolean"/>
+	</bean>
+	
+	<bean class="com.sabmiller.facades.complexdeals.data.DealScaleData">
+		<property name="scale" type="String"/>
+		<property name="quantityFrom" type="String"/>
+		<property name="quantityTo" type="String"/>
+	</bean>
+	
+	
+	<bean class="com.sabmiller.facades.complexdeals.data.ComplexDealResultData">
+		<property name="amounts" type="boolean"/>
+		<property name="freeGoodsFlag" type="boolean"/>
+		<property name="scale" type="String"/>
+		<property name="sequenceNumber" type="String"/>
+	</bean>
+	
+	<bean class="com.sabmiller.facades.complexdeals.data.ComplexDealResultPercentAmountData" extends="com.sabmiller.facades.complexdeals.data.ComplexDealResultData">
+		<property name="conditionRate" type="String"/>
+		<property name="unit" type="String"/>
+		<property name="headerResult" type="String"/>
+	</bean>
+	
+	<bean class="com.sabmiller.facades.complexdeals.data.ComplexDealResultFreeGoodData"  extends="com.sabmiller.facades.complexdeals.data.ComplexDealResultData">
+		<property name="material" type="String"/>
+		<property name="quantity" type="String"/>
+		<property name="uom" type="String"/>
+	</bean>	
+ <!-- customer search data -->
+
+	<bean class="com.sabmiller.facades.search.data.CustomerSearchPageData&lt;STATE, RESULT&gt;" extends="de.hybris.platform.commerceservices.search.facetdata.FacetSearchPageData&lt;STATE, RESULT>">
+		<description>POJO containing the result page for customer search.</description>
+		<property name="freeTextSearch" type="String"/>
+		<property name="spellingSuggestion" type="de.hybris.platform.commerceservices.search.facetdata.SpellingSuggestionData&lt;STATE>"/>
+	</bean>
+
+	<bean class="com.sabmiller.facades.search.data.DealSearchPageData&lt;STATE, RESULT&gt;" extends="de.hybris.platform.commerceservices.search.facetdata.FacetSearchPageData&lt;STATE, RESULT>">
+		<description>POJO containing the result page for Deal search.</description>
+		<property name="freeTextSearch" type="String"/>
+		<property name="spellingSuggestion" type="de.hybris.platform.commerceservices.search.facetdata.SpellingSuggestionData&lt;STATE>"/>
+	</bean>
+	
+	<!--  YSDM start -->
+	<bean class="com.sabmiller.facades.ysdm.data.YSDMRequest">
+		<property name="salesOrg" type="String"/>
+		<property name="distributionChannel" type="String"/>
+		<property name="division" type="String"/>
+		<property name="poNumber" type="String"/>
+		<property name="poOrderType" type="String"/>
+		<property name="requestedDeliveryDate" type="java.util.Date"/>
+		<property name="currency" type="String"/>
+		<property name="ccPaymentFlag" type="String"/>
+		<property name="soldTo" type="String"/>
+		<property name="shipTo" type="String"/>
+		<property name="carrier" type="String"/>
+		<property name="unloadingPoint" type="String"/>
+		<property name="grossTotal" type="Double"/>
+	</bean>
+	
+	<!--  YSDM end -->
+
+	
+	<bean class="com.sabmiller.facades.deal.repdriven.data.RepDrivenDealConditionData">
+		<property name="dealConditionNumber" type="String"/>
+		<property name="status" type="boolean"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.commercefacades.user.data.RegionData">
+		<property name="b2bUnits" type="java.util.List&lt;de.hybris.platform.b2bcommercefacades.company.data.B2BUnitData>"/>
+	</bean>
+	
+	<bean class="com.sabmiller.facades.smartOrders.json.SmartOrdersProductsHistoryJson">
+		<property name="qty" type="Integer"/>
+		<property name="date" type="String"/>
+	</bean>
+	<bean class="com.sabmiller.facades.smartOrders.json.SmartOrdersProductsJson">
+		<property name="image" type="String"/>
+		<property name="code" type="String"/>
+		<property name="title" type="String"/>
+		<property name="packConfig" type="String"/>
+		<property name="qty" type="Integer"/>
+		<property name="uomList" type="java.util.List&lt;com.sabmiller.facades.product.data.UomData&gt;"/>
+		<property name="url" type="String"/>
+		<property name="newProductFlag" type="boolean"/>
+		<property name="dealsFlag" type="boolean"/>
+		<property name="history" type="java.util.List&lt;com.sabmiller.facades.smartOrders.json.SmartOrdersProductsHistoryJson&gt;"/>
+		<property name="dealsTitle" type="java.util.List&lt;String&gt;"/>
+		<property name="cubStockStatus" type="de.hybris.platform.basecommerce.enums.StockLevelStatus"/>
+		<property name="brand" type="String"/>
+		<property name="numberOfTimesOrdered" type="Integer"/>
+	</bean>
+	
+	<bean class="com.sabmiller.facades.smartOrders.json.SmartOrdersJson">
+		<property name="date" type="String"/>
+		<property name="previousOrdersLink" type="boolean"/>
+		<property name="nextOrdersLink" type="boolean"/>
+		<property name="seeThisTimeLastYearLink" type="boolean"/>
+		<property name="dates" type="java.util.List&lt;String&gt;"/>
+		<property name="products" type="java.util.List&lt;com.sabmiller.facades.smartOrders.json.SmartOrdersProductsJson&gt;"/>
+	</bean>	
+	
+	<bean class="com.sabmiller.facades.customer.data.RemoveCustomerJson">
+		<property name="message" type="String"/>
+		<property name="messageType" type="String"/>
+		<property name="openModal" type="String"/>
+	</bean>
+
+	<bean class="com.sabmiller.facades.deal.data.ConflictDealJson">
+		<property name="title" type="String"/>
+		<property name="code" type="String"/>
+		<property name="ranges" type="java.util.List&lt;com.sabmiller.facades.deal.data.DealRangeJson&gt;"/>
+	</bean>
+	
+
+	<bean class="com.sabmiller.facades.deal.data.LostdealJson">
+		<property name="title" type="java.util.Set&lt;String>"></property>
+		<property name="code" type="java.util.List&lt;String>"></property>
+		<property name="isLost" type="boolean"></property>
+		<property name="newQty" type="String"></property>
+	</bean>
+
+	
+	<!-- Business Enquiry -->
+	
+	<bean class="com.sabmiller.facades.businessenquiry.data.AbstractBusinessEnquiryData">
+		<property name="name" type="String"/>
+		<property name="businessUnit" type="String"/>
+		<property name="preferredContactMethod" type="String"/>
+		<property name="emailAddress" type="String"/>
+		<property name="phoneNumber" type="String"/>
+		<property name="uid" type="String"/>
+		<property name="plantID" type="String"/>		
+		<property name="requestType" type="String"/>
+		<property name="data" type="java.util.Map&lt;java.lang.String,java.lang.Object&gt;"/>
+	</bean>
+	
+	<!-- Delivery Enquiry -->
+	<bean class="com.sabmiller.facades.businessenquiry.data.SabmDeliveryEnquiryData"
+		extends="com.sabmiller.facades.businessenquiry.data.AbstractBusinessEnquiryData">
+		<property name="orderNumber" type="String"/>
+		<property name="orderDate" type="java.util.Date"/>
+		<property name="expectedDeliveryDate" type="java.util.Date"/>
+		<property name="otherInformation" type="String"/>		
+		<property name="orderDateString" type="String"/>
+		<property name="expectedDeliveryDateString" type="String"/>
+	</bean>
+	
+	<!-- Product Return -->	
+	<bean class="com.sabmiller.facades.businessenquiry.data.SabmProductReturnData"
+		extends="com.sabmiller.facades.businessenquiry.data.AbstractBusinessEnquiryData">
+		<property name="invoiceNumber" type="Long"/>
+		<property name="invoiceDate" type="java.util.Date"/>
+		<property name="productDescription" type="String"/>
+		<property name="productQuantity" type="Integer"/>
+		<property name="productQuantityUOM" type="String"/>
+		<property name="returnReason" type="String"/>
+		<property name="stockReturned" type="Boolean"/>
+		<property name="otherInformation" type="String"/>		
+		<property name="invoiceDateString" type="String"/>
+	</bean>
+	
+	<!-- Keg Issue -->
+	<bean class="com.sabmiller.facades.businessenquiry.data.SabmKegIssueData"
+		extends="com.sabmiller.facades.businessenquiry.data.AbstractBusinessEnquiryData">
+		<property name="kegBrand" type="String"/>
+		<property name="kegNumber" type="Integer"/>
+		<property name="bestBeforeDate" type="java.util.Date"/>
+		<property name="kegProblem" type="String"/>		
+		<property name="bestBeforeDateString" type="String"/>
+        <property name="timecode" type="String"/>
+        <property name="plantcode" type="String"/>
+		<property name="sku" type="String"/>
+		<property name="userPk" type="String"/>
+		<property name="bestBeforeDateAvailable" type="String"/>
+		<property name="reasonCode" type="String"/>
+	</bean>
+
+
+	<!-- Delivery Issue -->
+	<bean class="com.sabmiller.facades.businessenquiry.data.SabmDeliveryIssueData"
+              extends="com.sabmiller.facades.businessenquiry.data.AbstractBusinessEnquiryData">
+              <property name="invoiceNumber" type="Long"/>
+              <property name="invoiceDate" type="java.util.Date"/>
+              <property name="product" type="String"/>
+              <property name="quantity" type="Integer"/>
+              <property name="quantityUOM" type="String"/>
+              <property name="damageStock" type="Boolean"/>
+              <property name="damagePremise" type="Boolean"/>
+              <property name="kegsNotCollected" type="Boolean"/>
+              <property name="pickingError" type="Boolean"/>
+              <property name="driverComplaint" type="Boolean"/>
+              <property name="notAllItemsDelivered" type="Boolean"/>
+              <property name="other" type="Boolean"/>
+              <property name="otherInformation" type="String"/>              
+              <property name="invoiceDateString" type="String"/>
+       </bean>
+
+
+	   
+   <!-- Price Enquiry -->
+	<bean class="com.sabmiller.facades.businessenquiry.data.SabmPriceEnquiryData"
+		extends="com.sabmiller.facades.businessenquiry.data.AbstractBusinessEnquiryData">
+		<property name="type" type="String"/>
+		<property name="product" type="String"/>
+		<property name="minQuantity" type="String"/>
+		<property name="discountExpected" type="String"/>
+		<property name="discountDisplayed" type="String"/>
+		<property name="otherInformation" type="String"/>
+	</bean>
+   
+	<!-- Product Enquiry -->
+	<bean class="com.sabmiller.facades.businessenquiry.data.SabmProductEnquiryData"
+		extends="com.sabmiller.facades.businessenquiry.data.AbstractBusinessEnquiryData">
+		<property name="product" type="String"/>
+		<property name="promotionalStock" type="Boolean"/>
+		<property name="enquiryInformation" type="String"/>
+	</bean>
+	
+	<!-- Keg Pickup -->
+	<bean class="com.sabmiller.facades.businessenquiry.data.SabmKegPickupData"
+		extends="com.sabmiller.facades.businessenquiry.data.AbstractBusinessEnquiryData">
+		<property name="numberOfEmptyKegs" type="Integer"/>
+		<property name="numberOfPartFullKegs" type="Integer"/>
+		<property name="otherInformation" type="String"/>
+	</bean>
+	
+	<!-- Update My Details & Deliver Options -->
+	<bean class="com.sabmiller.facades.businessenquiry.data.SabmMyDetailsAndDeliverOptionsData"
+		extends="com.sabmiller.facades.businessenquiry.data.AbstractBusinessEnquiryData">
+		<property name="changeType" type="String"/>
+		<property name="currentDetails" type="String"/>
+		<property name="newDetails" type="String"/>
+		<property name="otherInformation" type="String"/>
+	</bean>
+	
+	<!-- Empty Pallet Pickup -->
+	<bean class="com.sabmiller.facades.businessenquiry.data.SabmEmptyPalletPickupData"
+		extends="com.sabmiller.facades.businessenquiry.data.AbstractBusinessEnquiryData">
+		<property name="numberOfEmptyPallets" type="Integer"/>
+		<property name="otherInformation" type="String"/>
+	</bean>
+	
+	<!-- Website Errors -->
+	<bean class="com.sabmiller.facades.businessenquiry.data.SabmWebsiteErrorsData"
+		extends="com.sabmiller.facades.businessenquiry.data.AbstractBusinessEnquiryData">
+		<property name="issueDescription" type="String"/>
+	</bean>
+	
+	<!-- General Inquiry -->
+	<bean class="com.sabmiller.facades.businessenquiry.data.SabmGeneralInquiryData"
+		extends="com.sabmiller.facades.businessenquiry.data.AbstractBusinessEnquiryData">
+		<property name="inquiryMessage" type="String"/>
+	</bean>
+	
+	<!-- Website Enquiries/Feedback -->
+	<bean class="com.sabmiller.facades.businessenquiry.data.SabmWebsiteInquiryFeedbackData"
+		extends="com.sabmiller.facades.businessenquiry.data.AbstractBusinessEnquiryData">
+		<property name="websiteEnquiryFeedback" type="String"/>
+	</bean>
+	
+	<!-- SABM Business Response Entity -->
+	<bean class="com.sabmiller.facades.businessenquiry.data.SabmResponseEntity">
+		<property name="errors" type="java.util.List&lt;String&gt;"/>
+		<property name="redirectUrl" type="String"/>
+		<property name="status" type="String"/>
+		<property name="bean" type="com.sabmiller.facades.businessenquiry.data.AbstractBusinessEnquiryData"/>
+	</bean>
+	
+	<!--  Contact Us Enquiry -->
+	<bean class="com.sabmiller.facades.businessenquiry.data.SabmContactUsData"
+		extends="com.sabmiller.facades.businessenquiry.data.AbstractBusinessEnquiryData">
+		<property name="inquiryMessage" type="String"/>
+	</bean>
+	
+	<!-- Autopay Inquiry -->
+	<bean class="com.sabmiller.facades.businessenquiry.data.SabmAutopayInquiryData"
+		extends="com.sabmiller.facades.businessenquiry.data.AbstractBusinessEnquiryData">
+		<property name="inquiryMessage" type="String"/>
+	</bean>
+	
+	<!-- Order Enquiry -->
+	<bean class="com.sabmiller.facades.businessenquiry.data.SabmOrderEnquiryData"
+		extends="com.sabmiller.facades.businessenquiry.data.AbstractBusinessEnquiryData">
+		<property name="orderNumber" type="String"/>
+		<property name="yourMessage" type="String"/>
+	</bean>
+	
+	<!-- Update Existing Enquiry -->
+	<bean class="com.sabmiller.facades.businessenquiry.data.SabmUpdateExistingEnquiryData"
+		extends="com.sabmiller.facades.businessenquiry.data.AbstractBusinessEnquiryData">
+		<property name="caseNumber" type="String"/>
+		<property name="yourMessage" type="String"/>
+	</bean>
+	
+	<!-- End of Business Enquiry -->
+	
+	<bean class="com.sabmiller.facades.user.EmployeeData">
+		<property name="uid" type="String"/>
+		<property name="normalizedUid" type="String"/>
+		<property name="name" type="String"/>
+		<property name="email" type="String"/>
+	</bean>
+		
+	<bean class="com.sabmiller.facades.user.SearchB2bUnitData">
+		<property name="uid" type="String"/>
+		<property name="name" type="String"/>
+		<property name="customers" type="java.util.List&lt;de.hybris.platform.commercefacades.user.data.CustomerData&gt;"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commerceservices.search.pagedata.SortData">
+		<property name="visible" type="Boolean"/>
+	</bean>
+	
+	<bean class="com.sabmiller.facades.registrationrequest.data.RegistrationRequestForm">
+		<property name="firstName" type="String"/>
+		<property name="lastName" type="String"/>
+		<property name="email" type="String"/>
+		<property name="cubAccount" type="String"/>
+		<property name="accountName" type="String"/>
+		<property name="workPhoneNum" type="String"/>
+		<property name="mobilePhoneNum" type="String"/>
+		<property name="accoutType" type="java.util.List&lt;String&gt;"/>
+		<property name="accessType" type="java.util.List&lt;String&gt;"/>
+		<property name="haveMoreAccount" type="Boolean"/>
+	</bean>
+
+	<bean class="com.sabmiller.storefront.form.SABMNotificationForm">
+
+		<property name="notificationType" type="String"/>
+		<property name="notificationEnabled" type="Boolean"/>
+		<property name="emailEnabled" type="Boolean"/>
+		<property name="smsEnabled" type="Boolean"/>
+		<property name="emailDuration" type="String"/>
+		<property name="smsDuration" type="String"/>
+		<!--<property name="mobileNumber" type="String"/>-->
+	</bean>
+
+	<bean class="com.sabmiller.storefront.form.SABMNotificationForms">
+		<property name="forms" type=" java.util.List&lt;com.sabmiller.storefront.form.SABMNotificationForm&gt;"/>
+		<property name="mobileNumber" type="String"/>
+	</bean>
+
+	<bean class="com.sabmiller.storefront.form.UpdateProfileForm">
+		<property name="receiveUpdates" type="Boolean"/>
+        <property name="receiveUpdatesForSms" type="Boolean"/>
+		<property name="defaultUnit" type="String"/>
+		<property name="mobileNumber" type="String"/>
+		<property name="businessPhoneNumber" type="String"/>
+		<property name="titleCode" type="String"/>
+		<property name="firstName" type="String"/>
+		<property name="lastName" type="String"/>
+	</bean>
+
+
+
+	<bean class="com.sabmiller.facades.user.NotificationData">
+		<property name="code" type="String"/>
+		<property name="text" type="String"/>
+	</bean>
+
+	<bean class="com.sabmiller.facades.notification.DealEmailNotificationData">
+		<property name="imageUrl" type="String"/>
+		<property name="title" type="String"/>
+		<property name="daysRemain" type="Integer"/>
+        <property name="rangeTitle" type="String"/>
+        <property name="minQty" type="Integer"/>
+		<property name="validFrom" type="String"/>
+		<property name="validTo" type="String"/>
+		<property name="lastChance" type="boolean"/>
+		<property name="limitedOffer" type="boolean"/>
+		<property name="onlineOnly" type="boolean"/>
+		<property name="active" type="boolean"/>
+	</bean>
+	<bean class="com.sabmiller.facades.delivery.data.DeliveryModePackTypeDeliveryDatesData">
+		<property name="mode" type="com.sabmiller.core.enums.DeliveryModeType"/>
+		<property name="packType" type="com.sabmiller.core.enums.PackType"/>
+		<property name="dateList" type="java.util.List&lt;Long&gt;"/>
+	</bean>
+
+	<bean class="com.sabmiller.facades.delivery.data.B2bDeliveryDatesConfig">
+		<property name="deliveryDatesData" type="java.util.List&lt;com.sabmiller.facades.delivery.data.DeliveryModePackTypeDeliveryDatesData&gt;"/>
+		<property name="cubArrangedEnabled" type="Boolean"/>
+		<property name="customerArrangedEnabled" type="Boolean"/>
+		<property name="customerOwned" type="Boolean"/>
+		<property name="selectedCarrier" type="com.sabmiller.facades.b2bunit.data.ShippingCarrier"/>
+		<property name="shippingCarriers" type="java.util.List&lt;com.sabmiller.facades.b2bunit.data.ShippingCarrier>"/>
+	</bean>
+
+	<bean class="com.sabmiller.facades.bdeordering.BDEOrderEmailForm">
+		<property name="email" type="String"/>
+		<property name="firstName" type="String"/>
+	</bean>
+
+	<bean class="com.sabmiller.facades.bdeordering.BdeOrderDetailsForm">
+		<property name="users" type="java.util.List&lt;com.sabmiller.facades.bdeordering.BDEOrderEmailForm&gt;"/>
+		<property name="customers" type="java.util.List&lt;com.sabmiller.facades.bdeordering.BDEOrderEmailForm&gt;"/>
+		<property name="emailText" type="String"/>
+	</bean>
+
+	<!-- Track order bean -->
+	<bean class="com.sabmiller.facades.order.data.TrackOrderData">
+
+		<property name="orderCode" type="String"/>
+		<property name="statusId" type="Integer"/>
+		<property name="status" type="String"/>
+		<property name="subStatus" type="String"/>
+		<property name="startETA" type="java.util.Date"/>
+		<property name="endETA" type="java.util.Date"/>
+		<property name="deliveredTime" type="java.util.Date"/>
+		<property name="beingPickedTime" type="java.util.Date"/>
+		<property name="dispatchedTime" type="java.util.Date"/>
+		<property name="confirmedTime" type="java.util.Date"/>
+		<property name="arrivedTime" type="java.util.Date"/>
+		<property name="orderedAndDispatchedQuantityNotEqual" type="boolean"/>
+
+		<property name="signature" type="String"/>
+		<property name="shipmentId" type="Integer"/>
+		<property name="requestedDeliveryDate" type="java.util.Date"/>
+		<property name="consignment" type="de.hybris.platform.commercefacades.order.data.ConsignmentData"/>
+		<property name="b2bUnitName" type="String"/>
+		<property name="ETAPassed" type="boolean"/>
+		<property name="timeZone" type="String"/>
+		<property name="firstETAMessageTime" type="java.util.Date" />
+        <property name="notDeliveredReason" type="String" />
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.order.data.ConsignmentData">
+		<property name="estimatedArrivedTime" type="java.util.Date" />
+		<property name="consignmentDeliveredDate" type="java.util.Date" />
+		<property name="inTransitNextInQueue" type="boolean"/>
+		<property name="inTransitArrived" type="boolean"/>
+		<property name="signature" type="String"/>
+		<property name="notDeliveredReason" type="String"/>
+	</bean>
+
+
+	<!--
+	WAVE 3 GENERIC COMPONENTNS CONVERTERS START
+	-->
+
+	<bean class="com.sabmiller.facades.generic.data.FAQData">
+		<property name="pageItemsThreshold" type="java.lang.Integer"/>
+		<property name="title" type="java.lang.String"/>
+		<property name="sendQuestionText" type="java.lang.String"/>
+		<property name="categories"
+				  type="java.util.List&lt;com.sabmiller.facades.generic.data.FAQCategoryItemData&gt;"/>
+		<property name="sendQuestionRenderType" type="java.lang.String"/>
+		<property name="sendQuestionLinkButtonText" type="java.lang.String"/>
+		<property name="sendQuestionLinkButtonURL" type="java.lang.String"/>
+	</bean>
+
+	<bean class="com.sabmiller.facades.generic.data.FAQCategoryItemData">
+		<property name="title" type="java.lang.String"/>
+		<property name="questionList"
+				  type="java.util.List&lt;com.sabmiller.facades.generic.data.GenericTextContentItemData&gt;"/>
+	</bean>
+
+	<bean class="com.sabmiller.facades.generic.data.GenericTextContentItemData">
+		<property name="text" type="java.lang.String" />
+		<property name="subText" type="java.lang.String" />
+	</bean>
+
+	<bean class="com.sabmiller.facades.generic.data.SABMEnquirySubTypeData">
+		<property name="code" type="java.lang.String" />
+		<property name="name" type="java.lang.String" />
+	</bean>
+
+	<bean class="com.sabmiller.facades.merchant.suite.data.SABMBankDetailsData">
+		<property name="accountNumber" type="java.lang.String" />
+		<property name="accountName" type="java.lang.String" />
+		<property name="bsb" type="java.lang.String" />
+	</bean>
+
+	<bean class="com.sabmiller.facades.merchant.suite.data.SABMCreditCardTransactionData">
+		<property name="amount" type="java.lang.Long" />
+		<property name="totalAmount" type="java.lang.Long" />
+		<property name="surcharge" type="java.lang.Long" />
+		<property name="currency" type="java.lang.String" />
+		<property name="cartCode" type="java.lang.String" />
+		<property name="invoiceNumber" type="java.lang.String" />
+		<property name="invoicePayment" type="java.lang.Boolean" />
+		<property name="cartPayment" type="java.lang.Boolean" />
+		<property name="paymentReference" type="java.lang.String" />
+		<property name="accountNumber" type="java.lang.String" />
+		<property name="authKey" type="java.lang.String" />
+		<property name="cartId" type="java.lang.String" />
+        <property name="error" type="java.lang.String" />
+		<property name="testMode" type="java.lang.Boolean" />
+		<property name="paymentUrl" type="java.lang.String" />
+		<property name="displayAmount" type="java.lang.String" />
+		<property name="displaySurcharge" type="java.lang.String" />
+		<property name="displayTotalAmount" type="java.lang.String" />
+	</bean>
+
+
+    <bean class="com.sabmiller.facades.merchant.suite.data.SABMCreditCardValidationData">
+        <property name="cardType" type="java.lang.String" />
+        <property name="lengthValidation" type="java.lang.String"/>
+		<property name="cvvValidation" type="java.lang.String"/>
+        <property name="digitValidation" type="java.util.List&lt;java.lang.String&gt;"/>
+        <property name="seriesValidation" type="java.util.List&lt;java.lang.String&gt;"/>
+    </bean>
+    
+	<!--
+	WAVE 3 GENERIC COMPONENTNS CONVERTERS END
+    -->
+
+
+
+    <!--SFMC  Email/SMS bean  Start -->
+	<bean class="com.sabmiller.facades.sfmc.context.SFMCAbstractContextData">
+		<property name="transactionDate" type="java.lang.String" />
+		<property name="accountNumber" type="java.lang.String" />
+	</bean>
+
+
+	<bean class="com.sabmiller.facades.sfmc.context.SFMCEmailAbstractContextData" extends="com.sabmiller.facades.sfmc.context.SFMCAbstractContextData">
+		<property name="hostName" type="java.lang.String" />
+	</bean>
+
+	<bean class="com.sabmiller.facades.sfmc.context.SFMCSmsAbstractContextData" extends="com.sabmiller.facades.sfmc.context.SFMCAbstractContextData">
+		<property name="envType" type="java.lang.String" />
+	</bean>
+
+	<bean class="com.sabmiller.facades.sfmc.context.SABMCreditApprovedSMSContextData" extends="com.sabmiller.facades.sfmc.context.SFMCSmsAbstractContextData">
+		<!-- <property name="creditAmount" type="java.lang.Double" /> -->
+		<property name="amount" type="java.lang.Double" />
+		<property name="invoiceNumber" type="java.lang.String" />
+	</bean>
+
+	<bean class="com.sabmiller.facades.sfmc.context.SABMCreditRecievedEmailContextData" extends="com.sabmiller.facades.sfmc.context.SFMCEmailAbstractContextData">
+		<property name="raisedBy" type="java.lang.String" />
+		<property name="businessName" type="java.lang.String" />
+		<property name="invoiceNumber" type="java.lang.String" />
+		<property name="issueType" type="java.lang.String" />
+		<!-- <property name="expectedDiscount" type="java.lang.Double" /> -->
+		<property name="amount" type="java.lang.Double" />
+		<property name="comments" type="java.lang.String" />
+        <property name="ccAddress" type="java.lang.String" />
+
+	</bean>
+
+	<bean class="com.sabmiller.facades.sfmc.context.SABMCreditApprovedEmailContextData" extends="com.sabmiller.facades.sfmc.context.SFMCEmailAbstractContextData">
+		<!-- <property name="creditAmount" type="java.lang.Double" /> -->
+		<property name="amount" type="java.lang.Double" />
+        <property name="ccAddress" type="java.lang.String" />
+		<property name="invoiceNumber" type="java.lang.String" />
+	</bean>
+
+	<!--
+	WAVE 3 GENERIC COMPONENTNS CONVERTERS END
+	-->
+	<bean class="com.sabmiller.facades.sfmc.context.SABMOrderCutOffSMSContextData" extends="com.sabmiller.facades.sfmc.context.SFMCSmsAbstractContextData">
+		<property name="cutOffPreference" type="java.lang.String" />
+		<property name="cutOffDay" type="java.lang.String" />
+		<!-- <property name="cutOffHour" type="java.lang.String" /> -->
+		<property name="cutOffTime" type="java.lang.String" />
+	</bean>
+
+	<bean class="com.sabmiller.facades.sfmc.context.SABMOrderDispatchedSMSContextData" extends="com.sabmiller.facades.sfmc.context.SFMCSmsAbstractContextData">
+		<property name="orderNumber" type="java.lang.String" />
+	</bean>
+
+	<bean class="com.sabmiller.facades.sfmc.context.SABMTmdDeliveredSMSContextData" extends="com.sabmiller.facades.sfmc.context.SFMCSmsAbstractContextData">
+		<property name="orderNumber" type="java.lang.String" />
+	</bean>
+
+	<bean class="com.sabmiller.facades.sfmc.context.SABMTmdInTransitSMSContextData" extends="com.sabmiller.facades.sfmc.context.SFMCSmsAbstractContextData">
+		<property name="orderNumber" type="java.lang.String" />
+		<property name="ETA1" type="java.lang.String" />
+		<property name="ETA2" type="java.lang.String" />
+	</bean>
+
+	<bean class="com.sabmiller.facades.sfmc.context.SABMTmdNextInQueueSMSContextData" extends="com.sabmiller.facades.sfmc.context.SFMCSmsAbstractContextData">
+		<property name="orderNumber" type="java.lang.String" />
+		<property name="ETA1" type="java.lang.String" />
+		<property name="ETA2" type="java.lang.String" />
+	</bean>
+
+	<bean class="com.sabmiller.facades.sfmc.context.SABMTmdPassETASMSContextData" extends="com.sabmiller.facades.sfmc.context.SFMCSmsAbstractContextData">
+		<property name="orderNumber" type="java.lang.String" />
+	</bean>
+
+	<bean class="com.sabmiller.facades.sfmc.context.SABMTmdExceedETASMSContextData" extends="com.sabmiller.facades.sfmc.context.SFMCSmsAbstractContextData">
+		<property name="orderNumber" type="java.lang.String" />
+	</bean>
+
+	<!--SFMC  Email/SMS bean  END-->
+
+	<enum class="com.sabmiller.facades.order.OrderTemplatePopulationOption">
+		<value>BASIC</value>
+		<value>EXTENDED</value>
+	</enum>
+	
+	<!-- sales force welcome mail send property -->
+	
+	<bean class="com.sabmiller.facades.salesforce.welcomemail.CustomerWelcomeMailData">
+		<property name="primaryKey" type="String"/>
+		<property name="firstName" type="String"/>
+		<property name="lastName" type="String"/>
+		<property name="email" type="String"/>		
+		<!-- <property name="emailOptIn" type="String"/> -->
+		<property name="registrationDate" type="java.util.Date" />
+		<property name="passwordSetToken" type="String"/>
+		<property name="accountNumber" type="String"/>
+		<property name="venue" type="String"/>
+		<property name="payeeNumber" type="String"/>
+		<property name="paymentTerms" type="String"/>
+		<property name="primaryAdmin" type="String"/>		
+	</bean>
+	
+	<bean class="de.hybris.platform.commerceservices.search.pagedata.PageableData">
+		<property name="startDate" type="String"/>
+		<property name="endDate" type="String"/>
+	</bean>
+	
+	<!-- ALB Notification Preferences -->
+		<bean class="com.asahi.facades.notifications.data.AsahiNotificationPreferenceData">
+		<property name="notificationType" type="String"/>
+		<property name="emailEnabled" type="boolean"/>
+		
+	</bean>
+
+	<bean class="com.asahi.facades.notifications.data.AsahiNotificationData">
+		<property name="notificationPreferences" type="java.util.Map&lt;java.lang.String,com.asahi.facades.notifications.data.AsahiNotificationPreferenceData&gt;"/>
+	</bean>
+	
+	<bean class ="com.asahi.facades.planograms.PlanogramData">
+		<property name="code" type="String"/>
+		<property name="documentName" type="String"/>
+		<property name="uploadedDate" type="java.util.Date" />
+		<property name="uploadedBy" type="String"/>
+		<property name="mediaURL" type="String"/>	
+		<property name="file" type="org.springframework.web.multipart.MultipartFile" />
+	</bean>
+	
+	<bean class="com.apb.facades.deal.data.AsahiDealData">
+		<property name="title" type="String"/>
+		<property name="validFrom" type="java.util.Date"/>
+		<property name="validTo" type="java.util.Date"/>
+		<property name="conditionProduct" type="com.apb.facades.deal.data.AsahiDealProductData"/>
+		<property name="benefitProduct" type="com.apb.facades.deal.data.AsahiDealProductData"/>
+		<property name="expiryDaysRemaining" type ="String" />
+		<property name="code" type="String"/>
+		<property name="active" type="boolean"/>
+	</bean>
+	
+	<bean class="com.apb.facades.deal.data.AsahiDealProductData">
+		<property name="title" type="String"/>
+		<property name="packConfig" type="String"/>
+		<property name="images" type="java.util.Collection&lt;de.hybris.platform.commercefacades.product.data.ImageData>"/>
+		<property name="url" type="String"/>
+		<property name="brand" type="String"/>
+		<property name="categories"
+		          type="java.util.Collection&lt;de.hybris.platform.commercefacades.product.data.CategoryData>"/>
+	    <property name="price" type="de.hybris.platform.commercefacades.product.data.PriceData"/>
+	    <property name="qty" type="java.lang.Integer"/>
+		<property name="code" type="String"/>
+	</bean>
+
+</beans>

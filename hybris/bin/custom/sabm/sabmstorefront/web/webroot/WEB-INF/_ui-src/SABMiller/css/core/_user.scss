@@ -1,0 +1,37 @@
+.page-businessUnits,
+ .page-businessUnitDetail {
+	.users-table {
+		th.sendWelcomeEmail {
+			.footable-sort-indicator {
+				display: none;
+			}
+		}
+	}
+	.send-welcome-email-popup {
+		width: 50%;
+		margin: 0 auto;
+		text-align: center;
+		color: $primary-blue;
+		padding: $spacing-large $spacing-small;
+		background-color: $white;
+		ul {
+			margin-bottom: $spacing-small;
+		}
+		.btn {
+			margin-bottom: $spacing-small;
+		}
+		div.title {
+			margin-bottom: $spacing-x-small;
+		}
+		@media(min-width: $tablet){
+			width: 500px;
+			.btn {
+				margin-bottom: 0;
+			}
+			.inline {
+				float: left;
+				margin-top: 17px;
+			}
+		}
+	}
+}

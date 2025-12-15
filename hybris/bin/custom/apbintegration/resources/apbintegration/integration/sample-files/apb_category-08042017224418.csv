@@ -1,0 +1,4 @@
+#CategoryCode,  Super Category Code, Category Name,   Category Description,allowedPrincipals,$catalogVersion
+TEST-Asahi       , L40011|L40012        ,"Category Name1" , "Category Description"
+TEST-Peroni      , L40011|L40012        ,"Category Name2" , "Category Description2"
+TEST-Kingfisher  , L4001               ,"Category Name3" , "Category Description3"

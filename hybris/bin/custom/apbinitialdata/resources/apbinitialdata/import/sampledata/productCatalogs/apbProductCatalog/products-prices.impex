@@ -1,0 +1,36 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# ImpEx for Importing Apb Store Prices
+#% impex.setLocale( Locale.GERMAN ); 
+
+$productCatalog=apbProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default='$productCatalog:Staged']
+$prices=Europe1prices[translator=de.hybris.platform.europe1.jalo.impex.Europe1PricesTranslator]
+$taxGroup=Europe1PriceFactory_PTG(code)[default=us-sales-tax-full]
+
+# Set product approval status to Approved only for those products that have prices.
+$approved=approvalstatus(code)[default='approved']
+
+
+			   
+INSERT_UPDATE PriceRow;catalogVersion(catalog(id),version);channel(code,itemtype(code));currency(isocode)[allownull=true];giveAwayPrice[allownull=true];matchValue;minqtd[allownull=true];net[allownull=true];pg(code,itemtype(code))[forceWrite=true];price[allownull=true];product(catalogVersion(catalog(id),version),code)[forceWrite=true,,unique=true];productId[forceWrite=true,unique=true];productMatchQualifier;sequenceId;unit(code)[allownull=true];unitFactor[allownull=true];userMatchQualifier;
+
+
+;;;AUD;FALSE;1;1;FALSE;;61.06;;110005;0;;pieces;1;0;
+;;;AUD;FALSE;5;1;FALSE;;65.48;;11210016;8,796,125,954,049;;pieces;1;0;
+;;;AUD;FALSE;5;1;FALSE;;43.08;;12210022;8,796,125,921,281;;pieces;1;0;
+;;;AUD;FALSE;5;1;FALSE;;85.83;;12215004;8,796,125,986,817;;pieces;1;0
+;;;AUD;FALSE;1;1;FALSE;;94.95;;12215013;0;;pieces;1;0;
+;;;AUD;FALSE;1;1;FALSE;;87.71;;12215024;0;;pieces;1;0;
+;;;AUD;FALSE;1;1;FALSE;;107.45;;11205001;0;;pieces;1;0;
+;;;AUD;FALSE;1;1;FALSE;;53.71;;12210006;0;;pieces;1;0;
+;;;AUD;FALSE;1;1;FALSE;;100.43;;12243001;0;;pieces;1;0;
+;;;AUD;FALSE;1;1;FALSE;;98.19;;12243002;0;;pieces;1;0;

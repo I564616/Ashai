@@ -1,0 +1,8 @@
+$lang=en
+#####################INSERT THE SPRING ID INTO SERVICE LAYER JOB#############################
+INSERT_UPDATE ServicelayerJob;code[unique=true];springId[unique=true]
+;stagingSABMRecommendationCleanUpJob;stagingSABMRecommendationCleanUpJob
+
+#####################ASSOCIATE THE JOB LOGIC TO CRONJOB######################################
+INSERT_UPDATE CronJob;code[unique=true];job(code);sessionLanguage(isocode)
+;StagingSABMRecommendationCleanUpCronJob;stagingSABMRecommendationCleanUpJob;$lang

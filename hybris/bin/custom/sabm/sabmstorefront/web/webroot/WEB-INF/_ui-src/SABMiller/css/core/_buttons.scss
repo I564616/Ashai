@@ -1,0 +1,267 @@
+// ==========================================================================
+//   Button Styles
+// ==========================================================================
+
+.btn {
+	color: $white;
+	text-align: center;
+	border-radius: $border-radius;
+	outline: 0;
+	border: 0 none;
+	font-weight: bold;
+	text-transform: uppercase;
+	width: 100%;
+	display: block;
+	height: 60px;
+	line-height: 60px;
+	vertical-align: top;
+	padding: 0;
+	&:focus,
+	&:hover {
+		outline: none;
+		color: $white;
+	}
+	@media (min-width: $tablet){
+		height: 40px;
+		line-height: 40px;
+		display: inline-block;
+		width: auto;
+		padding: 0 30px;
+	}
+
+	&.btn-s{
+		display: block;
+		width: 100%;
+		padding: 0;
+		@media (min-width: $tablet){
+			padding: 0 $spacing-gutter;
+			width:auto;
+		}
+	}
+
+	&.btn-block {
+		display: block;
+		width: 100%;
+		padding: 0;
+	}
+	&.btn-fixed{
+		padding-left:$spacing-large;
+		padding-right:$spacing-large;
+		margin-bottom:$spacing-small;
+		width:100%;
+		@media (min-width: $desktop){
+			width:220px;
+		}
+	}
+  // &.btn-padd{
+  //   padding-left:$spacing-medium;
+  //   padding-right:$spacing-medium;
+  //   margin-bottom:0;
+  // }
+	&.btn-primary {
+		background-color: $primary-blue;
+		&:hover {
+			@media(min-width:$tablet){
+				background-color: $primary-blue-hover;
+			}
+		}
+		&:active {
+			@media(min-width:$tablet){
+				background-color: $primary-blue-hover;
+			}
+		}
+		&.disabled, &[disabled] {
+			background-color: $cancel-grey;
+			&:focus, &:hover {
+				background-color: $cancel-grey;
+			}
+		}
+
+    &.btn-invert {
+      background-color: $white;
+      color: $primary-blue;
+      border: 1px solid $primary-blue;
+      &:hover {
+        @media(min-width:$tablet){
+          color: $primary-blue-hover;
+          border: 1px solid $primary-blue-hover;
+        }
+      }
+    }
+
+    &.btn-changeDeliveryDate {
+        margin-top: 0;
+    }
+	}
+
+	&.btn-secondary {
+		background-color: $secondary-blue;
+		&[disabled]{
+			background-color: $cancel-grey;
+			&:hover{
+				background-color: $cancel-grey;
+			}
+		}
+
+		&:hover {
+			@media(min-width:$tablet){
+				 background-color: $secondary-blue-hover;
+			 }
+		}
+		&:active {
+			@media(min-width:$tablet){
+				background-color: $secondary-blue-active;
+			}
+		}
+	}
+
+	&.btn-cancel {
+		background-color: $cancel-grey;
+		&:hover {
+			background-color: $cancel-grey-hover;
+		}
+		&:active {
+			background-color: $cancel-grey-active;
+		}
+	}
+
+	&.btn-create {
+	    height: $btn-small;
+	    font-size: $font-x-small;
+	    line-height: $btn-small;
+	}
+
+	@media (min-width: $tablet){
+	    &.btn-pull-top{
+	      margin-top: -5px;
+	    }
+	}
+
+	@media (min-width: $desktop){
+	    &.btn-create {
+	      height: $btn-x-small;
+	      font-size: $font-x-small;
+	      line-height: $btn-x-small;
+	    }
+	}
+}
+
+.btn-height {
+	line-height: 60px;
+	@media (min-width: $tablet){
+	    line-height: 40px;
+	}
+}
+
+.btn-inline {
+	font-size: $font-small;
+	color: $primary-blue;
+	display: inline-block;
+	background-color: transparent;
+	margin: 15px 0;
+	box-sizing: border-box;
+	@media (min-width: $tablet){
+	    margin: 10px 0;
+	}
+	&:hover, &:focus {
+		border-bottom: 1px solid currentColor;
+		cursor: pointer;
+		margin-bottom: 14px;
+	}
+	i {
+		margin-left: 5px;
+		svg {
+			fill: $primary-blue;
+			height: 12px;
+			width: 12px;
+			position: relative;
+			top: -1px;
+		}
+	}
+}
+
+// tabs
+.tabs {
+	.nav-tabs {
+		li {
+			width: 50%;
+		}
+	}
+	.tab-content {
+		.tab-pane {
+			padding: $spacing-small $spacing-x-small;
+		}
+	}
+}
+
+.select-quantity-label{
+	height: 40px;
+	line-height: 41px;
+	font-weight: normal;
+	display: block;
+	&.select-quantity-label-lg {
+		height: 47px;
+		line-height: 46px;
+	}
+	&.select-quantity-label-sm {
+		height: 35px;
+		line-height: 37px;
+	}
+	@media (min-width: $desktop){
+		text-align:center;
+		&.select-quantity-lg {
+			li {
+				height: 47px;
+				line-height: 46px;
+			}
+		}
+	}
+}
+
+.select {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  select {
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    display: block;
+    margin: 0;
+    background: transparent;
+    padding-right: 15px;
+    &::-ms-expand {
+		display: none;
+    }
+    &:hover {
+    	cursor: pointer;
+    }
+  }
+  .arrow {
+    background-color: $light-grey;
+    bottom: 5px;
+    position: absolute;
+    right: 7px;
+    top: 5px;
+    width: 12px;
+    pointer-events: none;
+    &:after {
+    	content: "";
+    	width: 10px;
+    	height: 10px;
+    	right: 0;
+    	top: 11px;
+    	position: absolute;
+    	background: svg-url('<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" viewBox="0 0 10 5.969"><path d="M9.8 1.162L5.454 5.756c-.257.27-.674.27-.93 0L.177 1.162C-.08.892-.08.45.178.178c.257-.272.674-.272.93 0l3.88 4.1L8.87.18c.258-.272.675-.272.932 0s.257.713 0 .984z" class="cls-1"/></svg>') 0 0 no-repeat;
+    }
+    @media (min-width: $desktop){
+		&:after {
+	        width: 12px;
+		    height: 8px;
+		    right: 0;
+		    top: 9px;
+		}
+    }
+  }
+}

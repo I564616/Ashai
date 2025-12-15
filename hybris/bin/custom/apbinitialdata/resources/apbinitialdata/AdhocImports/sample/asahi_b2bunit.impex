@@ -1,0 +1,14 @@
+#Update SalesRepCode and Email ID
+UPDATE AsahiB2BUnit ; uid[unique=true] ; accountNum ; salesRepCode ; salesRepEmailID              
+                    ; 100000           ; 100000     ; 1028         ; Justin.Camilleri@asahi.com.au
+                    ; 100002           ; 100002     ; 1301         ; caseyt@asahipb.com           
+                    ; 100009           ; 100009     ; 1240         ;                              
+                    ; 100010           ; 100010     ; 1475         ; NicholasS@asahipb.com        
+                    ; 100012           ; 100012     ; 1301         ; caseyt@asahipb.com           
+                    ; 100016           ; 100016     ; 47           ; PatricD@asahipb.com          
+                    ; 100025           ; 100025     ; 995          ; AUSalesAnalyst@asahipb.com   
+                    ; 100035           ; 100035     ; 1301         ; caseyt@asahipb.com           
+                    ; 100037           ; 100037     ; 80           ; David@asahipb.com            
+                    ; 100051           ; 100051     ; 1183         ; StuartB@asahipb.com          
+
+#Update SalesRepCode and Email ID                    

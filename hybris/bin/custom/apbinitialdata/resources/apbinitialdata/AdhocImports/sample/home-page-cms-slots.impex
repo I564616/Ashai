@@ -1,0 +1,114 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+$contentCatalog=apbContentCatalog
+$contentCatalogName=Apb Content Catalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$productCatalog=apbProductCatalog
+$productCatalogName=Apb Product Catalog
+$productCV=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$picture=media(code, $contentCV);
+$image=image(code, $contentCV);
+$media=media(code, $contentCV);
+$page=page(uid, $contentCV);
+$contentPage=contentPage(uid, $contentCV);
+$product=product(code, $productCV)
+$category=category(code, $productCV)
+$siteResource=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/sampledata/contentCatalogs/$contentCatalog
+$productResource=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/sampledata/productCatalogs/$productCatalog
+$jarResourceCms=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/sampledata/cockpits/cmscockpit
+$addonExtensionName=b2bacceleratoraddon
+$medias=medias(code, $contentCV); 
+$mediaContainer=media(qualifier, $contentCV);                     
+$siteUid=apb
+     
+#Home Page 
+INSERT_UPDATE ContentSlotForPage ; $contentCV[unique=true] ; uid[unique=true]   ; position[unique=true] ; page(uid,$contentCV)[unique=true][default='homepage'] ; contentSlot(uid,$contentCV)[unique=true]
+                                 ;                         ; Section1-Homepage  ; Section1              ;                                                       ; Section1Slot-Homepage                   
+                                 ;                         ; Section2A-Homepage ; Section2A             ;                                                       ; Section2ASlot-Homepage                  
+                                 ;                         ; Section2B-Homepage ; Section2B             ;                                                       ; Section2BSlot-Homepage                  
+                                 ;                         ; Section3-Homepage  ; Section3              ;                                                       ; Section3Slot-Homepage
+                                 ;                         ; Section4-Homepage  ; Section4              ;                                                       ; Section4Slot-Homepage                   
+                                 ;                         ; Section5-Homepage  ; Section5              ;                                                       ; Section5Slot-Homepage
+                                 ;                         ; Section6-Homepage  ; Section6              ;                                                       ; Section6Slot-Homepage                   
+
+                                 ;                         ; Section7-Homepage  ; Section7              ;                                                       ; Section7Slot-Homepage
+                                 ;                         ; Section8-Homepage  ; Section8              ;                                                       ; Section8Slot-Homepage                   
+                                 ;                         ; Section9-Homepage  ; Section9              ;                                                       ; Section9Slot-Homepage
+                                 ;                         ; Section10-Homepage  ; Section10            ;                                                       ; Section10Slot-Homepage
+                                 ;                         ; Section11-Homepage  ; Section11            ;                                                       ; Section11Slot-Homepage
+                                 ;                         ; Section12-Homepage  ; Section12            ;                                                       ; Section12Slot-Homepage
+                                 ;                         ; Section13-Homepage  ; Section13            ;                                                       ; Section13Slot-Homepage
+                                 ;                         ; Section14-Homepage  ; Section14            ;                                                       ; Section14Slot-Homepage
+
+INSERT_UPDATE ContentSlot ; $contentCV[unique=true] ; uid[unique=true]       ; name                        ; active ; cmsComponents(&componentRef)                                                                                          
+                          ;                         ; Section1Slot-Homepage  ; Section1 Slot for Homepage  ; true   ; CustomerCreditLimitExceedParagraphComponent                                           
+                          ;                         ; Section2ASlot-Homepage ; Section2A Slot for Homepage ; true   ;                                            
+                          ;                         ; Section2BSlot-Homepage ; Section2B Slot for Homepage ; true   ;                                            
+                          ;                         ; Section3Slot-Homepage  ; Section3 Slot for Homepage  ; true   ;homePage3ATextParagraph,homePage3BTextParagraph,homePage3CTextParagraph
+                          ;                         ; Section4Slot-Homepage  ; Section4 Slot for Homepage  ; true   ;homePage4TextParagraph
+                          ;                         ; Section5Slot-Homepage  ; Section5 Slot for Homepage  ; true   ;homePage5OurStoryTextParagraph
+                          ;                         ; Section6Slot-Homepage  ; Section6 Slot for Homepage  ; true   ;homePage6OnpremiseTextParagraph                                         
+                          ;                         ; Section7Slot-Homepage  ; Section7 Slot for Homepage  ; true   ;homePage7TextParagraph
+                          ;                         ; Section8Slot-Homepage  ; Section8 Slot for Homepage  ; true   ;homePage8TextParagraph                             
+                          ;                         ; Section9Slot-Homepage  ; Section9 Slot for Homepage  ; true   ;homePage9TextParagraph
+                          ;                         ; Section10Slot-Homepage  ; Section10 Slot for Homepage  ; true   ;homePage10TextParagraph
+                          ;                         ; Section11Slot-Homepage  ; Section11 Slot for Homepage  ; true   ;homePage11TextParagraph
+                          ;                         ; Section12Slot-Homepage  ; Section12 Slot for Homepage  ; true   ;homePage12TextParagraph
+                          ;                         ; Section13Slot-Homepage  ; Section13 Slot for Homepage  ; true   ;homePage13TextParagraph
+                          ;                         ; Section14Slot-Homepage  ; Section14 Slot for Homepage  ; true   ;homePage14TextParagraph
+                          
+INSERT_UPDATE CMSParagraphComponent ; $contentCV[unique=true] ; uid[unique=true]                ; name                           ; &componentRef                   ; content ;  ;  ;  
+                                    ;                         ; homePage3ATextParagraph ; homePage3ATextParagraph ; homePage3ATextParagraph ;  image1;  ;  ;
+                                    ;                         ; homePage3BTextParagraph ; homePage3BTextParagraph ; homePage3BTextParagraph ;  image2;  ;  ;
+                                    ;                         ; homePage3CTextParagraph ; homePage3CTextParagraph ; homePage3CTextParagraph ;  image3;  ;  ;
+                                    ;                         ; homePage4TextParagraph ; homePage4TextParagraph ; homePage4TextParagraph    ;  MainImage;  ;  ;
+                                    ;                         ; homePage5OurStoryTextParagraph ; homePage5OurStoryTextParagraph ; homePage5OurStoryTextParagraph    ;  Our Story Content;  ;  ;
+                                    ;                         ; homePage6OnpremiseTextParagraph ; homePage6OnpremiseTextParagraph ; homePage6OnpremiseTextParagraph    ;  On-Premise Content;  ;  ;
+                                    
+                                    ;                         ; homePage7TextParagraph ; homePage7TextParagraph ; homePage7TextParagraph    ;  homePage7 content;  ;  ;
+                                    ;                         ; homePage8TextParagraph ; homePage8TextParagraph ; homePage8TextParagraph    ;  homePage8 content;  ;  ;
+                                    ;                         ; homePage9TextParagraph ; homePage9TextParagraph ; homePage9TextParagraph    ;  homePage9 content;  ;  ;
+                                    ;                         ; homePage10TextParagraph ; homePage10TextParagraph ; homePage10TextParagraph    ;  homePage10 content;  ;  ;
+                                    ;                         ; homePage11TextParagraph ; homePage11TextParagraph ; homePage11TextParagraph    ;  homePage11 content;  ;  ;
+                                    ;                         ; homePage12TextParagraph ; homePage12TextParagraph ; homePage12TextParagraph    ;  homePage12 content;  ;  ;
+                                    ;                         ; homePage13TextParagraph ; homePage13TextParagraph ; homePage13TextParagraph    ;  homePage13 content;  ;  ;
+                                    ;                         ; homePage14TextParagraph ; homePage14extParagraph ; homePage14TextParagraph    ;  homePage14 content;  ;  ;
+
+#For About Us page                                    
+INSERT_UPDATE ContentSlotForPage ; $contentCV[unique=true] ; uid[unique=true]   ; position[unique=true] ; page(uid,$contentCV)[unique=true][default='aboutUsPage'] ; contentSlot(uid,$contentCV)[unique=true]
+                                 ;                         ; Section1-AboutUsPage  ; Section1              ;                                                       ; Section1Slot-Homepage                   
+                                 ;                         ; Section2A-AboutUsPage ; Section2A             ;                                                       ; Section2ASlot-Homepage                  
+                                 ;                         ; Section2B-AboutUsPage ; Section2B             ;                                                       ; Section2BSlot-Homepage                  
+                                 ;                         ; Section3-AboutUsPage  ; Section3              ;                                                       ; Section3Slot-Homepage
+                                 ;                         ; Section4-AboutUsPage  ; Section4              ;                                                       ; Section4Slot-Homepage                   
+                                 ;                         ; Section5-AboutUsPage  ; Section5              ;                                                       ; Section5Slot-Homepage
+                                 ;                         ; Section6-AboutUsPage  ; Section6              ;                                                       ; Section6Slot-Homepage                   
+
+                                 ;                         ; Section7-AboutUsPage  ; Section7              ;                                                       ; Section7Slot-Homepage
+                                 ;                         ; Section8-AboutUsPage  ; Section8              ;                                                       ; Section8Slot-Homepage                   
+                                 ;                         ; Section9-AboutUsPage  ; Section9              ;                                                       ; Section9Slot-Homepage
+                                 ;                         ; Section10-AboutUsPage  ; Section10             ;                                                       ; Section10Slot-Homepage
+                                 ;                         ; Section11-AboutUsPage  ; Section11             ;                                                       ; Section11Slot-Homepage
+                                 ;                         ; Section12-AboutUsPage  ; Section12             ;                                                       ; Section12Slot-Homepage
+                                 ;                         ; Section13-AboutUsPage  ; Section13             ;                                                       ; Section13Slot-Homepage
+                                 ;                         ; Section14-AboutUsPage  ; Section14             ;                                                       ; Section14Slot-Homepage                   
+
+INSERT_UPDATE Media ; $contentCV[unique=true] ; code[unique=true]                           ; realfilename                  ; @media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator] ; mime[default='image/svgxml'] ; altText            ; folder(qualifier)[default='images']
+                    ;                         ; /images/banners/homepage/responsive/onprem-final-SeventhSense.png ; onprem-final-SeventhSense.png ; $siteResource/images/banners/homepage/responsive/onprem-final-SeventhSense.png                   ; image/svgxml                 ;  ;
+                    ;                         ; /images/banners/homepage/responsive/onprem-final-TheDrinkCabinet.png ; onprem-final-TheDrinkCabinet.png ; $siteResource/images/banners/homepage/responsive/onprem-final-TheDrinkCabinet.png                   ; image/svgxml                 ;  ;
+            		;                         ; /images/banners/homepage/responsive/onprem-final-TigerPistol.png ; onprem-final-TigerPistol.png ; $siteResource/images/banners/homepage/responsive/onprem-final-TigerPistol.png                   ; image/svgxml                 ;  ;
+            		;                         ; /images/banners/homepage/responsive/ourstory-final-desktop.png ; ourstory-final-desktop.png ; $siteResource/images/banners/homepage/responsive/ourstory-final-desktop.png                   ; image/svgxml                 ;  ;
+            		;                         ; /images/banners/homepage/responsive/ourstory-final-mobile.png ; ourstory-final-mobile.png ; $siteResource/images/banners/homepage/responsive/ourstory-final-mobile.png                   ; image/svgxml                 ;  ;
+            		;                         ; /images/banners/homepage/responsive/ourstory-final-tablet.png ; ourstory-final-tablet.png ; $siteResource/images/banners/homepage/responsive/ourstory-final-tablet.png                   ; image/svgxml                 ;  ;
+    
+	INSERT_UPDATE CMSParagraphComponent ; $contentCV[unique=true] ; uid[unique=true]                            ; name                                             ; &componentRef                              
+                                    ;                         ; CustomerCreditLimitExceedParagraphComponent ; Customer Credit Limit Exceed Paragraph Component ; CustomerCreditLimitExceedParagraphComponent
+   

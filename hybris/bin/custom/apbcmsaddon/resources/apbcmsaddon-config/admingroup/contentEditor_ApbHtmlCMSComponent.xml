@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-editor hideEmpty="true" hideReadOnly="true" groupCollections="false">
+    <template>
+        <![CDATA[
+        <table width="100%" style="margin:0px;padding:0px">
+            <tbody>
+                <tr>
+                    <td colspan="2"><div style="height:6px"/></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><div class="contentEditorHeader" style="background-color:#C3C3C3;font-size:11px;padding:3px;"><b>$label</b></div></td>
+                </tr>
+                <tr>
+                   <td style="width:900px"><cockpit code="property" value="ApbHtmlCMSComponent.animation"/></td>
+                   <td><div style="height:6px"/></td>
+                </tr>
+                <tr>
+                   <td style="width:900px"><cockpit code="property" value="ApbHtmlCMSComponent.animationDelay"/></td>
+                   <td><div style="height:6px"/></td>
+                </tr>
+                <tr>
+                   <td style="width:900px"><cockpit code="property" value="ApbHtmlCMSComponent.animationDuration"/></td>
+                   <td><div style="height:6px"/></td>
+                </tr>
+                <tr>
+                   <td style="width:900px"><cockpit code="property" value="ApbHtmlCMSComponent.desktop_width"/></td>
+                   <td><div style="height:6px"/></td>
+                </tr>
+                <tr>
+                   <td style="width:900px"><cockpit code="property" value="ApbHtmlCMSComponent.desktop_height"/></td>
+                   <td><div style="height:6px"/></td>
+                </tr>
+                <tr>
+                   <td style="width:900px"><cockpit code="property" value="ApbHtmlCMSComponent.mobile_width"/></td>
+                   <td><div style="height:6px"/></td>
+                </tr>
+                <tr>
+                   <td style="width:900px"><cockpit code="property" value="ApbHtmlCMSComponent.mobile_height"/></td>
+                   <td><div style="height:6px"/></td>
+                </tr>
+                <tr>
+                    <td style="width:900px"><cockpit code="property" value="ApbHtmlCMSComponent.useCustomized"/></td>
+                    <td><div style="height:6px"/></td>
+                </tr>
+                <tr>
+                    <td style="text-align:left"><cockpit code="list" value="ApbHtmlCMSComponent.banners"/></td>
+                    <td><div style="height:6px"/></td>
+                </tr>
+                <tr>
+                    <td style="width:900px"><cockpit code="property" value="ApbHtmlCMSComponent.content"/></td>
+                    <td><div style="height:6px"/></td>
+                </tr>
+            </tbody>
+        </table>
+    ]]>
+    </template>
+    <custom-editors>
+        <property qualifier="ApbHtmlCMSComponent.animationDelay" editorCode="pixelNumberEditor"/>
+        <property qualifier="ApbHtmlCMSComponent.animationDuration" editorCode="pixelNumberEditor"/>
+        <property qualifier="AsahiBannerComponent.media" editorCode="simpleMediaReferenceSelector">
+            <parameter>
+                <name>mimeTypes</name>
+                <value>image/jpeg;image/gif;image/png</value>
+            </parameter>
+            <parameter>
+                <name>allowCreate</name>
+                <value>true</value>
+            </parameter>
+            <parameter>
+                <name>predefinedValuesStrategy</name>
+                <value>imageMediaPredefinedValuesStrategy</value>
+            </parameter>
+        </property>
+        <property qualifier="ApbHtmlCMSComponent.content" editorCode="wysiwyg">
+            <parameter>
+                <name>inline</name>
+                <value>true</value>
+            </parameter>
+            <parameter>
+                <name>fckToolbarConfiguration</name>
+                <value>
+                    <!--[['Bold', 'Italic','Underline','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyFull','-','OrderedList','UnorderedList','-','Outdent','Indent','-','Table'],'/',['FontName','FontSize','TextColor','-','Source']] -->
+                    [['Bold','Underline','-','OrderedList','UnorderedList','-','Table'],'/',['FontSize','-','Source']]
+                </value>
+            </parameter>
+            <parameter>
+                <name>editorWidth</name>
+                <value>650px</value>
+            </parameter>
+            <parameter>
+                <name>editorHeight</name>
+                <value>300px</value>
+            </parameter>
+            <parameter>
+                <name>labelWidth</name>
+                <value>80px</value>
+            </parameter>
+        </property>
+
+    </custom-editors>
+</content-editor>

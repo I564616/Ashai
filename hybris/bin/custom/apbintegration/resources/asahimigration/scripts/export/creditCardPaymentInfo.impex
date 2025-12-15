@@ -1,0 +1,94 @@
+INSERT_UPDATE ScriptingJob	;code[unique=true]		;scriptURI
+							;ccPaymentInfoExportScriptJob	;model://ccPaymentInfoExportScript
+							
+INSERT_UPDATE CronJob	;code[unique=true]			;job(code)				;sessionLanguage(isocode)	;sessionUser(uid)
+						;ccPaymentInfoExportScriptCronJob	;ccPaymentInfoExportScriptJob	;en	;admin	
+
+INSERT_UPDATE Script; code[unique=true];content;active[default=true, unique=true]
+;ccPaymentInfoExportScript;"import java.io.File;
+import java.lang.Exception;
+import java.io.InputStream;
+import de.hybris.platform.util.CSVConstants;
+
+import java.io.IOException;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.sql.Timestamp;
+import org.apache.log4j.Logger;
+import org.apache.commons.io.IOUtils;
+
+import de.hybris.platform.servicelayer.impex.ExportConfig;
+import de.hybris.platform.servicelayer.impex.ExportConfig.ValidationMode;
+import de.hybris.platform.servicelayer.impex.ExportResult;
+import de.hybris.platform.servicelayer.impex.ExportService;
+import de.hybris.platform.servicelayer.impex.ImpExResource;
+import de.hybris.platform.impex.model.ImpExMediaModel;
+import de.hybris.platform.impex.jalo.exp.ImpExExportMedia;
+import de.hybris.platform.servicelayer.impex.impl.StreamBasedImpExResource;
+import de.hybris.platform.impex.model.exp.ImpExExportMediaModel;
+import de.hybris.platform.core.model.order.payment.CreditCardPaymentInfoModel;
+import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
+import de.hybris.platform.servicelayer.search.SearchResult;
+import de.hybris.platform.impex.model.cronjob.ImpExExportCronJobModel;
+import com.google.common.base.Stopwatch;
+
+final Logger LOG = Logger.getLogger(""asahi"");
+
+flexibleSearchService = spring.getBean(""flexibleSearchService"");
+
+def exportService = spring.getBean(""exportService"");
+
+final FlexibleSearchQuery query = new FlexibleSearchQuery(""select {pk} from {CreditCardPaymentInfo}"");
+
+final SearchResult<CreditCardPaymentInfoModel> result1 = flexibleSearchService
+		.search(query);
+int count = result1.getCount();
+int batch = result1.getCount() > 25000 ? 25000 : result1.getCount();
+	
+LOG.info(""Total record count ######"" +count);
+
+int i=0;
+if (count > 0) {
+
+while (i < count ){
+
+	final Stopwatch stopwatch = Stopwatch.createUnstarted();
+	stopwatch.start();
+	
+	
+	header = ""insert CreditCardPaymentInfo;ccOwner[allownull=true];code[allownull=true];displayName;duplicate;issueNumber;number[allownull=true];saved;subscriptionId;subscriptionValidated;token[allownull=true];type(code,itemtype(code))[allownull=true];user(uid)[allownull=true,forceWrite=true];validFromMonth;validFromYear;validToMonth[allownull=true];validToYear[allownull=true];creationtime[forceWrite=true,dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ];modifiedtime[forceWrite=true,dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ];\n""+
+	""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {CreditCardPaymentInfo}\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), false, true, ${i}, ${batch} );\""\n"";                                                   
+
+	InputStream resourceAsStream = null;
+	try {
+		resourceAsStream = new ByteArrayInputStream(header.getBytes());
+		final ImpExResource resource = new StreamBasedImpExResource(resourceAsStream, CSVConstants.DEFAULT_ENCODING);
+		final ExportConfig config = new ExportConfig();
+		config.setScript(resource);
+		config.setValidationMode(ValidationMode.WITHOUT);
+		config.setSingleFile(true);
+		char c=',';
+		config.setFieldSeparator(c);
+		config.setExportedDataCode(""10-ccPaymentInfo-""+new SimpleDateFormat(""yyyyMMddHHmmssSSS"").format(new Date()));
+		final ExportResult result = exportService.exportData(config);
+		stopwatch.stop();
+		if (result.isError()){
+			LOG.error(""Exception occurred during export"");
+		}
+		else {
+			LOG.info(""Time taken to export CCPaymentInfo for batch size : ""  + batch +""......"" + stopwatch.toString());
+		}
+	}
+	catch (final Exception exception) {
+			LOG.log(Level.ERROR, exception.getMessage());	
+			
+		}  
+	finally
+	{
+		resourceAsStream.close();
+	}
+	i=i+batch;
+} 
+	
+}";;
+

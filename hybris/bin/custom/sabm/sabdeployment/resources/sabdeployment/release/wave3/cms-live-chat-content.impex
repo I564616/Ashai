@@ -1,0 +1,34 @@
+$contentCatalog = sabmContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Staged])[default = $contentCatalog:Staged]
+$productCV = catalogVersion(catalog(id[default = $productCatalog]), version[default = 'Staged'])[unique = true, default = $productCatalog:Staged]
+
+# Import modulegen config properties into impex macros
+UPDATE GenericItem[processor = de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor]; pk[unique = true]
+$jarResourceCms = $config-jarResourceCmsValue
+
+
+
+INSERT_UPDATE SABMCMSUserGroupRestriction; $contentCV[unique = true]; uid[unique = true]; name
+; ; livechatrestriction ; livechatrestriction
+
+
+#This has to be manually imported after deployment, because the b2b units are different in each environment.
+# choose uat or prod for target environment
+UPDATE SABMCMSUserGroupRestriction; $contentCV[unique = true]; uid[unique = true]; userGroups(uid)
+# UAT B2B Units
+#; ; livechatrestriction  ; 0000849809,0000849338,0000853006,0000851468,0000854309,0000857499,0000856269,0000855971,0000850706,0000853575,0000858974,0000849194,0000849196,0000858538,0000853581,0000846343,0000849055,0000859141,0000850664,0000850573,0001414727,0000850843,0000859065,0000859389,0000847509,0000851974,0000846479,0000852954,0000855432,0000856233,0000850464,0000859003,0000850786,0000849226,0000857330,0000855397,0000856613,0000856721,0000851790,0000854815,0000856435,0000850705,0000858570,0000850748,0000850995,0000851127,0000845677,0000859342,0000858326,0000853326,0000853414
+
+# PROD B2B Units
+#; ; livechatrestriction  ; 0000859038,0001410724,0000859181,0000853663,0000859361,0000853462,0000853391,0000855740,0000859368,0000852870,0001370644,0001378336,0001398469,0000857909,0000850766,0000852501,0000857887,0001410918,0001398487,0000853153,0000853171,0000846403,0001201479,0000851703,0000850270,0001274116,0000851410,0000970225,0000845890,0000851093,0000853252,0001408271,0001354104,0000850072,0000849809,0001382102,0001269462,0000848741,0001360688,0000845955,0000846165,0000853193,0000859423,0001322937,0001391527,0000848342,0000850640,0000854184,0000849338,0000849282
+
+INSERT_UPDATE ComponentTypeGroups2ComponentType; source(code)[unique = true]; target(code)[unique = true]
+; wide ; LiveChatComponent
+
+
+INSERT_UPDATE LiveChatComponent; $contentCV[unique = true]; uid[unique = true]; name; fromHour; toHour; fromMinute; toMinute; restrictions(uid, $contentCV); onlyOneRestrictionMustApply[default = 'true']
+; ; livechatcomponent ; Live chat component ; 9 ; 16 ; 0 ; 59 ; livechatrestriction ;
+
+
+
+
+

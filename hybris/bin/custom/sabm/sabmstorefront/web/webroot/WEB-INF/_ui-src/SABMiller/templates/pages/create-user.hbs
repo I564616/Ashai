@@ -1,0 +1,140 @@
+---
+title: Product Detail
+bodyClass: page-yourBusiness
+---
+<div class="banner-image banner-top banner-image-desktop">
+    <img src="http://placehold.it/940x140?text=CMS+Content" alt="CMS Content">
+</div>
+<div class="banner-image banner-top banner-image-mobile">
+    <img src="http://placehold.it/768x140?text=CMS+Content" alt="CMS Content">
+</div>
+<h1>Create User</h1>
+<section class="standard">
+    <form>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="firstName1">First Name</label>
+                    <input type="text" class="form-control" id="firstName1">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="surname1">Surname</label>
+                    <input type="password" class="form-control" id="surname1" placeholder="Rivers" autocomplete="off">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="river@water.com">
+                </div>
+            </div>
+        </div>
+        <div class="row margin-top-30">
+            <div class="col-sm-4">
+                <h3>Business Unit</h3>
+                <p>Pronto Bars</p>
+            </div>
+        </div>
+       <div class="row margin-top-30">
+            <div class="col-sm-6">
+                <h3>Roles</h3>
+                <p>
+                    You can create two types of users. User access can be changed at any stage.
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-7">
+                <ul class="list-radio">
+                    <li>
+                        <div class="radio">
+                            <input id="admin" type="radio" name="user-role" value="admin">
+                            <label for="admin"><span>Administrator</span>Administrators can set up other admin users and have full access to place orders, make payments and view invoices on behalf of your business.</label>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="radio">
+                            <input id="staff-users" type="radio" name="user-role" value="staff-users">
+                            <label for="staff-users"><span>Staff Users</span>Staff Users can be given limited access to specific areas of your business account.  You have the ability to select both or either options. Staff Users do not have the ability to create other users.</label>
+                        </div>
+                    </li>
+                </ul>
+                <div class="dependant-form-area" id="staff-users-dependant">
+                    <ul class="list-checkbox checkbox">
+                        <li>
+                            <input id="place-orders" type="checkbox" name="check" value="place-orders" checked>
+                            <label for="place-orders">
+                                Place orders on the business' behalf
+                            </label>
+                        </li>
+                        <li>
+                            <input id="view-and-pay" type="checkbox" name="check" value="view-and-pay" checked>
+                            <label for="view-and-pay">
+                                View and pay invoices
+                            </label>
+                        </li>
+                    </ul>
+                    <div class="dependant-form-area-sub" id="place-orders-dependant">
+                        <div class="form-group">
+                            <ul class="list-inline">
+                                <li>
+                                    <label for="order-limit">Order Limit</label>
+                                </li>
+                                <li>
+                                    <input type="text" class="form-control" id="order-limit">
+                                </li>
+                                <li>
+                                    AUD
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row margin-top-20">
+            <div class="col-sm-6">
+                <h3>Conditions</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <ul class="list-checkbox checkbox">
+                    <li>
+                        <input id="confirm1" type="checkbox" name="check" value="confirm1">
+                        <label for="confirm1">
+                            You agree to our <a href="#" class="inline">online ordering terms and conditions</a>
+                        </label>
+                    </li>
+                    <li>
+                        <input id="confirm2" type="checkbox" name="check" value="confirm2">
+                        <label for="confirm2">
+                            In editing this user, I confirm that this user is aged 18 or over.
+                        </label>
+                    </li>
+                </ul>
+                <ul class="list-button margin-top-30">
+                    <li>
+                        <button type="submit" class="btn btn-primary btn-fixed btn-large">Save</button>
+                    </li>
+                </ul>
+                <p class="margin-top-20">
+                    <a href="#" class="inline">Cancel</a>
+                </p>
+            </div>
+        </div>
+    </form>
+</section>
+<div class="banner-image banner-top banner-image-desktop">
+    <img src="http://placehold.it/940x140?text=CMS+Content" alt="CMS Content">
+</div>
+<div class="banner-image banner-top banner-image-mobile">
+    <img src="http://placehold.it/768x140?text=CMS+Content" alt="CMS Content">
+</div>

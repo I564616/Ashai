@@ -1,0 +1,108 @@
+//Update receive updates to true
+
+ms = spring.getBean("modelService")
+fss = spring.getBean("flexibleSearchService")
+
+customers = fss.search("Select {pk} from {Customer} where {receiveUpdatesForSms} is null and {uid} !='anonymous' and {uid}!= 'manager@pantonhillhotel.com.au' and {uid}!='foodandbev@fitzroyriverlodge.com.au' and {uid} !='kylie@pantonhillhotel.com.au' and {uid} != 'bde-0000838524@cub.com.au' and {uid} != 'bde-0000841268@cub.com.au'").result
+
+out.println(" Total number of customers found " + "  " + customers.size())
+
+int i = 1;
+for(customer in customers)
+    {
+
+    if(i<=5000){
+    //LOGGING PURPOSE
+
+    //update the receive update flag to true
+    customer.setReceiveUpdatesForSms(true)
+ out.println(" before save, The email id " + "  " + customer.contactEmail + " : " + customer.receiveUpdatesForSms)
+
+    ms.save(customer)
+     i++;
+
+    out.println(" after save, The email id " + "  " + customer.contactEmail + " : " + customer.receiveUpdatesForSms)
+
+  }
+
+}
+
+###some more script to change raisedByName
+
+import de.hybris.platform.core.model.user.CustomerModel
+
+ms = spring.getBean("modelService")
+fss = spring.getBean("flexibleSearchService")
+
+invoiceRequests = fss.search("Select {pk} from {InvoiceDiscrepancyRequest} ").result
+
+out.println(" Total number of InvoiceDiscrepancyRequest found " + "  " + invoiceRequests.size())
+
+int i = 1;
+for(request in invoiceRequests)
+    {
+
+    if(i<=5000){
+    //LOGGING PURPOSE
+
+    //update the receive update flag to true
+     CustomerModel customer = request.getRaisedBy();
+
+      if(customer!=null){
+             String name = customer.getName();
+
+             out.println("before name:"   + name);
+
+
+             request.setRaisedByName(name);
+
+
+               out.println("after name:"   + name);
+
+             ms.save(request)
+
+
+             i++;
+
+      }
+
+  }
+
+}
+
+
+
+
+##in case customer missing b2bUnit
+import de.hybris.platform.core.model.security.PrincipalGroupModel
+
+
+ms = spring.getBean("modelService")
+fss = spring.getBean("flexibleSearchService")
+b2bUnitService = spring.getBean("defaultSabmB2BUnitService")
+
+
+customers = fss.search("Select {pk} from {User as c} where {c.uid} LIKE '%(1)%'" ).result
+b2bUnits  =  fss.search("Select {pk} from {B2BUnit as b} where {b.uid} =  'deletedcustomergroup'" ).result
+out.println(" Total number of customers found " + "  " + customers.size())
+
+
+
+
+for(customer in customers)
+{
+
+//LOGGING PURPOSE
+//out.println(" The email id " + "  " + customer.contactEmail + " : " + customer.receiveUpdatesForSms)
+
+b2bUnitService.updateParentB2BUnit(b2bUnits.get(0),customer);
+
+out.println(" group size :"   + customer.getGroups().size());
+
+
+
+ms.save(customer)
+
+}
+
+

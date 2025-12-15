@@ -1,0 +1,20 @@
+#
+# Import the CMS content for the notification emails
+#
+$lang=en
+$contentCatalog=sabmContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$wideContent=CMSImageComponent,BannerComponent,CMSParagraphComponent
+$siteResource=jar:com.sabmiller.initialdata.setup.InitialDataSystemSetup&/sabminitialdata/import/coredata/contentCatalogs/$contentCatalog
+
+# Import modulegen config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+$jarResourceCms=$config-jarResourceCmsValue
+$emailPackageName=$config-emailContextPackageName
+$emailResource=$config-emailResourceValue
+
+
+UPDATE RendererTemplate;code[unique=true];description[lang=$lang];templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+;sabmStore_Email_Order_Cutoff_Notification_Body;"Order Cutoff Notification Email Body";$emailResource/email-orderCutoffNotificationBody.vm
+;sabmStore_Email_Deal_Notification_Body;"Order Cutoff Notification Email Body";$emailResource/email-dealNotificationBody.vm
+;sabmStore_Email_Order_Dispatch_Notification_Body;"Order Dispatch Notification Email Body";$emailResource/email-orderDispatchNotificationBody.vm

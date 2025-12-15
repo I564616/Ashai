@@ -1,0 +1,246 @@
+$contentCatalog=apbContentCatalog
+$contentCatalogName=Apb Content Catalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$productCatalog=apbProductCatalog
+$productCatalogName=Apb Product Catalog
+$productCV=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$picture=media(code, $contentCV);
+$image=image(code, $contentCV);
+$media=media(code, $contentCV);
+$page=page(uid, $contentCV);
+$contentPage=contentPage(uid, $contentCV);
+$product=product(code, $productCV)
+$category=category(code, $productCV)
+$siteResource=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/sampledata/contentCatalogs/$contentCatalog
+$productResource=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/sampledata/productCatalogs/$productCatalog
+$jarResourceCms=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/sampledata/cockpits/cmscockpit
+$addonExtensionName=b2bacceleratoraddon
+$medias=medias(code, $contentCV);  
+$mediaContainer=media(qualifier, $contentCV);                      
+$siteUid=apb
+      
+      
+
+                  
+INSERT_UPDATE CMSNavigationNode ; uid[unique=true]  		; $contentCV[unique=true] ; name                    			; parent(uid, $contentCV) ; links(&linkRef) ; &nodeRef         			; children(uid,$contentCV)
+                                ; PostMixSyrupNavNode     	;                         ; Post Mix Syrups   					; NonAlcNavNode		      ;                 ; PostMixSyrupNavNode    	; PMSPepsiNavNode,PMSSchweppesNavNode,PMSSoloNavNode,PMSSunkistNavNode
+								; WaterNavNode     			;                         ; Water			   					; NonAlcNavNode		      ;                 ; WaterNavNode    			; WaterVossNavNode,WaterCoolRidgeNavNode,WaterSchweppesNavNode,WaterFrantelleNavNode,WaterPopTopsNavNode,WaterSpringValleyNavNode,WaterCharliesNavNode
+								; SoftDrinkAndMixersNavNode ;                         ; Soft Drink and Mixers				; NonAlcNavNode		      ;                 ; SoftDrinkAndMixersNavNode	; SDMPepsiNavNode,SDMSchweppesNavNode,SDMSoloNavNode,SDMSunkistNavNode,SDM7UpNavNode,SDMMineralWaterNavNode,SDMPheonixOrganicNavNode,SDMPassionaNavNode,SDMMountainDewNavNode   
+								; JuiceNavNode     			;                         ; Juice			   					; NonAlcNavNode		      ;                 ; JuiceNavNode				; JuiceSpringValleyNavNode,JuiceCharliesNavNode,JuiceExtraJuicyNavNode,JuicePopTopsNavNode   
+								; CordialNavNode     		;                     	  ; Cordial			   					; NonAlcNavNode		      ;                 ; CordialNavNode    		; CordialSchweppesNavNode
+								; SportsNavNode     		;                         ; Sports			   					; NonAlcNavNode		      ;                 ; SportsNavNode    			; SportsGatoradeNavNode
+								; IcedTeaNavNode   			;                         ; Iced tea		   					; NonAlcNavNode		      ;                 ; IcedTeaNavNode    		; ITRealIcedTeaCoNavNode
+								; FrozenBevAncNavNode 		;                    	  ; Frozen Beverages and Ancillaries	; NonAlcNavNode		      ;                 ; FrozenBevAncNavNode    	; FBASunkistNavNode,FBAPepsiNavNode,FBASchweppesNavNode,FBAAccessoryItemsNavNode
+								
+## entries of the above navigation nodes ##
+INSERT_UPDATE CMSNavigationEntry ; uid[unique=true]       			; $contentCV[unique=true] 	; name                        		; navigationNode(&nodeRef) 	; item(CMSLinkComponent.uid,CMSLinkComponent.$contentCV) 	;  
+                                 ; PostMixSyrupNavNodeEntry 		;                         	; Post Mix Syrup Node Entry 		; PostMixSyrupNavNode       ; PostMixSyrupCategoryLink                               	;  
+								 ; WaterNavNodeEntry 				;                         	; Water Node Entry 					; WaterNavNode           	; WaterCategoryLink                               	     	;  
+								 ; SoftDrinkAndMixersNavNodeEntry 	;                         	; Soft Drink and Mixers Node Entry 	; SoftDrinkAndMixersNavNode ; SoftDrinkAndMixersCategoryLink                         	;  
+								 ; JuiceNavNodeEntry 				;                      		; JuiceNode Entry 					; JuiceNavNode           	; JuiceCategoryLink                               		 	;  
+								 ; CordialNavNodeEntry 				;                         	; Cordial Node Entry 				; CordialNavNode           	; CordialCategoryLink                               	 	;  
+								 ; SportsNavNodeEntry 				;                         	; Sports Node Entry 				; SportsNavNode           	; SportsCategoryLink                               		 	;  
+								 ; IcedTeaNavNodeEntry 				;                         	; IcedTea Node Entry 				; IcedTeaNavNode           	; IcedTeaCategoryLink                               		;  
+								 ; FrozenBevAncNavNodeEntry 		;                         	; Post Mix Syrup Node Entry 		; FrozenBevAncNavNode       ; FrozenBevAncCategoryLink                               	;  
+								 
+
+								 
+								 
+## links of the above navigation nodes ##
+INSERT_UPDATE CMSLinkComponent ; $contentCV[unique=true] ; uid[unique=true]       			; linkName[lang=en] 			;name                       			; url        ;category(code, $productCV) 	; &linkRef               		; &componentRef         		; target(code)[default='sameWindow']
+                               ;                         ; PostMixSyrupCategoryLink     	; Post Mix Syrups	 			;Post Mix Syrups Link    				; 			 ;L30011						; PostMixSyrupCategoryLink     	; PostMixSyrupCategoryLink    
+							   ;                         ; WaterCategoryLink     			; Water			 				;Water Link    							; 			 ;L30013						; WaterCategoryLink     		; WaterCategoryLink    
+							   ;                         ; SoftDrinkAndMixersCategoryLink   ; Soft Drink and Mixers			;Soft Drink and Mixers Link    			; 			 ;L30012						; SoftDrinkAndMixersCategoryLink; SoftDrinkAndMixersCategoryLink    
+							   ;                         ; JuiceCategoryLink     			; Juice				 			;Juice Link    							; 			 ;L30014						; JuiceCategoryLink     		; JuiceCategoryLink    
+							   ;                         ; CordialCategoryLink     			; Cordial			 			;Cordial Link    						; 			 ;L30015						; CordialCategoryLink     		; CordialCategoryLink    
+							   ;                         ; SportsCategoryLink     			; Sports			 			;Sports Link    						; 			 ;L30016						; SportsCategoryLink     		; SportsCategoryLink    
+							   ;                         ; IcedTeaCategoryLink     			; Iced Tea			 			;Iced Tea Link    						; 			 ;L30017						; IcedTeaCategoryLink     		; IcedTeaCategoryLink    
+							   ;                         ; FrozenBevAncCategoryLink     	; Frozen Beverages and Ancillary;Frozen Beverages and Ancillary Link 	; 			 ;L30018						; FrozenBevAncCategoryLink     	; FrozenBevAncCategoryLink    
+
+							   
+							   
+							   
+							   
+							   
+							   
+							   
+## ============================================================Child Node- PostMixSyrupNavNode==================================================================
+INSERT_UPDATE CMSNavigationNode ; uid[unique=true]  		; $contentCV[unique=true] ; name                    	; parent(uid, $contentCV) 			; links(&linkRef) ; &nodeRef         		; children(uid,$contentCV)
+                                ; PMSPepsiNavNode     		;                         ; Pepsi   					; PostMixSyrupNavNode		      	;                 ; PMSPepsiNavNode    		;
+								; PMSSchweppesNavNode  		;                         ; Schweppes   				; PostMixSyrupNavNode		      	;                 ; PMSSchweppesNavNode  	;
+								; PMSSoloNavNode     		;                         ; Solo   						; PostMixSyrupNavNode		      	;                 ; PMSSoloNavNode    		;
+								; PMSSunkistNavNode     	;                         ; Sunkist   					; PostMixSyrupNavNode		      	;                 ; PMSSunkistNavNode    	;
+			
+## entries of the above navigation nodes ##
+INSERT_UPDATE CMSNavigationEntry ; uid[unique=true]       	; $contentCV[unique=true] 	; name                  	; navigationNode(&nodeRef) 		; item(CMSLinkComponent.uid,CMSLinkComponent.$contentCV) 	;  
+                                 ; PMSPepsiNavNodeEntry 	;                         	; Pepsi Node Entry 			; PMSPepsiNavNode       		; PMSPepsiCategoryLink        									;  
+								 ; PMSSchweppesNavNodeEntry ;                         	; Schweppes Node Entry 		; PMSSchweppesNavNode   		; PMSSchweppesCategoryLink                            			;  
+								 ; PMSSoloNavNodeEntry 		;                         	; Solo Node Entry 			; PMSSoloNavNode       			; PMSSoloCategoryLink        									;  
+								 ; PMSSunkistNavNodeEntry 	;                         	; Sunkist Node Entry 		; PMSSunkistNavNode       		; PMSSunkistCategoryLink        								;  
+	 
+								 
+## links of the above navigation nodes ##
+INSERT_UPDATE CMSLinkComponent ; $contentCV[unique=true] ; uid[unique=true]       		; linkName[lang=en] 		;name                      	; url        ;category(code, $productCV) 	; &linkRef               		; &componentRef         		; target(code)[default='sameWindow']
+                               ;                         ; PMSPepsiCategoryLink     	; Pepsi	 					;Pepsi Link    				; 			 ;L40033						; PMSPepsiCategoryLink     		; PMSPepsiCategoryLink    			;
+							   ;                         ; PMSSchweppesCategoryLink     ; Schweppes	 				;Schweppes Link    			; 			 ;L40034						; PMSSchweppesCategoryLink     	; PMSSchweppesCategoryLink    		;
+							   ;                         ; PMSSoloCategoryLink     		; Solo	 					;Solo Link    				; 			 ;L40035						; PMSSoloCategoryLink     		; PMSSoloCategoryLink    			;
+							   ;                         ; PMSSunkistCategoryLink     	; Sunkist	 				;Sunkist Link    			; 			 ;L40036						; PMSSunkistCategoryLink     	; PMSSunkistCategoryLink    		;							   
+							   
+
+## ============================================================Child Node- SoftDrinkAndMixersNavNode==================================================================
+INSERT_UPDATE CMSNavigationNode ; uid[unique=true]  		; $contentCV[unique=true] ; name                    	; parent(uid, $contentCV) 					; links(&linkRef) ; &nodeRef         			; children(uid,$contentCV)
+                                ; SDMPepsiNavNode     			;                         ; Pepsi   					; SoftDrinkAndMixersNavNode		      	;                 ; SDMPepsiNavNode    			;
+								; SDMSchweppesNavNode  			;                         ; Schweppes   				; SoftDrinkAndMixersNavNode		      	;                 ; SDMSchweppesNavNode  		;
+								; SDMSoloNavNode     			;                         ; Solo   						; SoftDrinkAndMixersNavNode		      	;                 ; SDMSoloNavNode    			;
+								; SDMSunkistNavNode     		;                         ; Sunkist   					; SoftDrinkAndMixersNavNode		      	;                 ; SDMSunkistNavNode    		;
+								; SDM7UpNavNode     			;                         ; 7Up	   					; SoftDrinkAndMixersNavNode		      	;                 ; SDM7UpNavNode    			;
+								; SDMMineralWaterNavNode		;                         ; Mineral Water				; SoftDrinkAndMixersNavNode		      	;                 ; SDMMineralWaterNavNode		;
+								; SDMPheonixOrganicNavNode  	;                         ; Pheonix Organic				; SoftDrinkAndMixersNavNode		      	;                 ; SDMPheonixOrganicNavNode  	;
+								; SDMPassionaNavNode     		;                         ; Passiona 					; SoftDrinkAndMixersNavNode		      	;                 ; SDMPassionaNavNode    		;
+								; SDMMountainDewNavNode     	;                         ; Mountain Dew   				; SoftDrinkAndMixersNavNode		      	;                 ; SDMMountainDewNavNode    	;
+			
+## entries of the above navigation nodes ##
+INSERT_UPDATE CMSNavigationEntry ; uid[unique=true]       		; $contentCV[unique=true] 	; name                  	; navigationNode(&nodeRef) 		; item(CMSLinkComponent.uid,CMSLinkComponent.$contentCV) 		;  
+                                 ; SDMPepsiNavNodeEntry 		;                         	; Pepsi Node Entry 			; SDMPepsiNavNode       		; SDMPepsiCategoryLink        									;  
+								 ; SDMSchweppesNavNodeEntry 	;                         	; Schweppes Node Entry 		; SDMSchweppesNavNode   		; SDMSchweppesCategoryLink                            			;  
+								 ; SDMSoloNavNodeEntry 			;                         	; Solo Node Entry 			; SDMSoloNavNode       			; SDMSoloCategoryLink        									;  
+								 ; SDMSunkistNavNodeEntry 		;                         	; Sunkist Node Entry 		; SDMSunkistNavNode       		; SDMSunkistCategoryLink        								;  
+								 ; SDM7UpNavNodeEntry 			;                         	; 7Up Node Entry 			; SDM7UpNavNode       			; SDM7UpCategoryLink        									;  
+								 ; SDMMineralWaterNavNodeEntry 	;                         	; Mineral Water Node Entry 	; SDMMineralWaterNavNode   		; SDMMineralWaterCategoryLink                            		;  
+								 ; SDMPheonixOrganicNavNodeEntry;                         	; Pheonix Organic Node Entry; SDMPheonixOrganicNavNode     	; SDMPheonixOrganicCategoryLink        							;  
+								 ; SDMPassionaNavNodeEntry 		;                         	; Passiona Node Entry 		; SDMPassionaNavNode       		; SDMPassionaCategoryLink        								;  
+								 ; SDMMountainDewNavNodeEntry 	;                         	; Mountain Dew Node Entry 	; SDMMountainDewNavNode       	; SDMMountainDewCategoryLink        							;  
+	 
+								 
+## links of the above navigation nodes ##
+INSERT_UPDATE CMSLinkComponent ; $contentCV[unique=true] ; uid[unique=true]       			; linkName[lang=en] 		;name                      	; url        ;category(code, $productCV) 	; &linkRef               			; &componentRef         		; target(code)[default='sameWindow']
+                               ;                         ; SDMPepsiCategoryLink     		; Pepsi	 					;Pepsi Link    				; 			 ;L40037						; SDMPepsiCategoryLink     			; SDMPepsiCategoryLink    			;
+							   ;                         ; SDMSchweppesCategoryLink     	; Schweppes	 				;Schweppes Link    			; 			 ;L40038						; SDMSchweppesCategoryLink     		; SDMSchweppesCategoryLink    		;
+							   ;                         ; SDMSoloCategoryLink     			; Solo	 					;Solo Link    				; 			 ;L40039						; SDMSoloCategoryLink     			; SDMSoloCategoryLink    			;
+							   ;                         ; SDMSunkistCategoryLink     		; Sunkist	 				;Sunkist Link    			; 			 ;L40040						; SDMSunkistCategoryLink     		; SDMSunkistCategoryLink    		;							   
+							   ;                         ; SDM7UpCategoryLink     			; 7Up	 					;7Up Link    				; 			 ;L40041						; SDM7UpCategoryLink     			; SDM7UpCategoryLink    			;
+							   ;                         ; SDMMineralWaterCategoryLink     	; Mineral Water	 			;Mineral Water Link    		; 			 ;L40042						; SDMMineralWaterCategoryLink     	; SDMMineralWaterCategoryLink    	;
+							   ;                         ; SDMPheonixOrganicCategoryLink   	; Pheonix Organic	 		;Pheonix Organic Link    	; 			 ;L40043						; SDMPheonixOrganicCategoryLink    	; SDMPheonixOrganicCategoryLink    ;
+							   ;                         ; SDMPassionaCategoryLink     		; Passiona	 				;Passiona Link    			; 			 ;L40044						; SDMPassionaCategoryLink     		; SDMPassionaCategoryLink    		;							   
+							   ;                         ; SDMMountainDewCategoryLink     	; Mountain Dew	 			;Mountain Dew Link    		; 			 ;L40045						; SDMMountainDewCategoryLink     	; SDMMountainDewCategoryLink    	;							   
+							   
+
+## ============================================================Child Node- WaterNavNode==================================================================
+INSERT_UPDATE CMSNavigationNode ; uid[unique=true]  		; $contentCV[unique=true] ; name                    	; parent(uid, $contentCV) 			; links(&linkRef) ; &nodeRef         	; children(uid,$contentCV)
+                                ; WaterVossNavNode     		;                         ; Voss   						; WaterNavNode		      	;                 ; WaterVossNavNode    		;
+								; WaterCoolRidgeNavNode  	;                         ; Cool Ridge   				; WaterNavNode		      	;                 ; WaterCoolRidgeNavNode  		;
+								; WaterSchweppesNavNode     ;                         ; Schweppes   				; WaterNavNode		      	;                 ; WaterSchweppesNavNode    	;
+								; WaterFrantelleNavNode     ;                         ; Frantelle   				; WaterNavNode		      	;                 ; WaterFrantelleNavNode    	;
+								; WaterPopTopsNavNode  		;                         ; Pop Tops   					; WaterNavNode		      	;                 ; WaterPopTopsNavNode  		;
+								; WaterSpringValleyNavNode 	;                         ; Spring Valley    			; WaterNavNode		      	;                 ; WaterSpringValleyNavNode    ;
+								; WaterCharliesNavNode     	;                         ; Charlie's   				; WaterNavNode		      	;                 ; WaterCharliesNavNode    	;
+			
+## entries of the above navigation nodes ##
+INSERT_UPDATE CMSNavigationEntry ; uid[unique=true]       		; $contentCV[unique=true] 	; name                  	; navigationNode(&nodeRef) 	; item(CMSLinkComponent.uid,CMSLinkComponent.$contentCV) 	;  
+                                 ; WaterVossNavNodeEntry 		;                         	; Voss Node Entry 			; WaterVossNavNode       	; WaterVossCategoryLink        									;  
+								 ; WaterCoolRidgeNavNodeEntry 	;                         	; Cool Ridge Node Entry 	; WaterCoolRidgeNavNode   	; WaterCoolRidgeCategoryLink                            			;  
+								 ; WaterSchweppesNavNodeEntry 	;                         	; Schweppes Node Entry 		; WaterSchweppesNavNode     ; WaterSchweppesCategoryLink        									;  
+								 ; WaterFrantelleNavNodeEntry 	;                         	; Frantelle Node Entry 		; WaterFrantelleNavNode     ; WaterFrantelleCategoryLink        								;  
+								 ; WaterPopTopsNavNodeEntry 	;                         	; Pop Tops Node Entry 		; WaterPopTopsNavNode   	; WaterPopTopsCategoryLink                            			;  
+								 ; WaterSpringValleyNavNodeEntry;                         	; Spring Valley Node Entry 	; WaterSpringValleyNavNode  ; WaterSpringValleyCategoryLink        									;  
+								 ; WaterCharliesNavNodeEntry 	;                         	; Charlie's Node Entry 		; WaterCharliesNavNode      ; WaterCharliesCategoryLink        								;  
+	 
+								 
+## links of the above navigation nodes ##
+INSERT_UPDATE CMSLinkComponent 	; $contentCV[unique=true] 	; uid[unique=true]       		; linkName[lang=en] 		;name                      	; url        ; category(code, $productCV) 	; &linkRef               			; &componentRef         		; target(code)[default='sameWindow']
+								;                         	; WaterVossCategoryLink     	; Voss	 					;Voss Link    				; 			 ; L40046						; WaterVossCategoryLink     		; WaterVossCategoryLink    		;
+								;                         	; WaterCoolRidgeCategoryLink    ; Cool Ridge	 			;Cool Ridge Link    		; 			 ; L40047						; WaterCoolRidgeCategoryLink     	; WaterCoolRidgeCategoryLink    ;
+								;                         	; WaterSchweppesCategoryLink    ; Schweppes	 				;Schweppes Link    			; 			 ; L40048						; WaterSchweppesCategoryLink     	; WaterSchweppesCategoryLink    ;
+								;                         	; WaterFrantelleCategoryLink    ; Frantelle	 				;Frantelle Link    			; 			 ; L40049						; WaterFrantelleCategoryLink     	; WaterFrantelleCategoryLink    ;
+								; 							; WaterPopTopsCategoryLink   	; Pop Tops	 				;Pop Tops Link   			; 			 ; L40050						; WaterPopTopsCategoryLink     		; WaterPopTopsCategoryLink    	;
+								;                         	; WaterSpringValleyCategoryLink ; Spring Valley	 			;Spring Valley Link   		; 			 ; L40051						; WaterSpringValleyCategoryLink     ; WaterSpringValleyCategoryLink ;
+								;                         	; WaterCharliesCategoryLink     ; Charlie's	 				;Charlie's Link    			; 			 ; L40052						; WaterCharliesCategoryLink     	; WaterCharliesCategoryLink    	;							   
+
+							   
+## ============================================================Child Node- JuiceNavNode==================================================================
+INSERT_UPDATE CMSNavigationNode ; uid[unique=true]  			; $contentCV[unique=true] ; name                    	; parent(uid, $contentCV) 	; links(&linkRef) ; &nodeRef         		; children(uid,$contentCV)
+                                ; JuiceSpringValleyNavNode     	;                         ; Spring Valley   			; JuiceNavNode		      	;                 ; JuiceSpringValleyNavNode;
+								; JuiceCharliesNavNode  		;                         ; Charlie's   				; JuiceNavNode		      	;                 ; JuiceCharliesNavNode  	;
+								; JuiceExtraJuicyNavNode     	;                         ; Extra Juicy   				; JuiceNavNode		      	;                 ; JuiceExtraJuicyNavNode  ;
+								; JuicePopTopsNavNode     		;                         ; Pop Tops   					; JuiceNavNode		      	;                 ; JuicePopTopsNavNode    	;
+			
+## entries of the above navigation nodes ##
+INSERT_UPDATE CMSNavigationEntry ; uid[unique=true]       		; $contentCV[unique=true] 	; name                  	; navigationNode(&nodeRef) 	; item(CMSLinkComponent.uid,CMSLinkComponent.$contentCV) 	;  
+                                 ; JuiceSpringValleyNodeEntry 	;                         	; Spring Valley Node Entry 	; JuiceSpringValleyNavNode  ; JuiceSpringValleyCategoryLink        						;  
+								 ; JuiceCharliesNavNodeEntry 	;                         	; Charlie's Node Entry 		; JuiceCharliesNavNode   	; JuiceCharliesCategoryLink                            		;  
+								 ; JuiceExtraJuicyNavNodeEntry 	;                         	; Extra Juicy Node Entry 	; JuiceExtraJuicyNavNode       	; JuiceExtraJuicyCategoryLink        						;  
+								 ; JuicePopTopsNavNodeEntry 	;                         	; Pop Tops Node Entry 		; JuicePopTopsNavNode       	; JuicePopTopsCategoryLink        							;  
+	 
+								 
+## links of the above navigation nodes ##
+INSERT_UPDATE CMSLinkComponent ; $contentCV[unique=true] ; uid[unique=true]       		; linkName[lang=en] 		;name                      	; url        ; category(code, $productCV) 	; &linkRef               		; &componentRef         		; target(code)[default='sameWindow']
+                               ;                         ; JuiceSpringValleyCategoryLink; Spring Valley	 			;Spring Valley Link    		; 			 ; L40053						; JuiceSpringValleyCategoryLink ; JuiceSpringValleyCategoryLink ;
+							   ;                         ; JuiceCharliesCategoryLink    ; Charlie's	 				;Charlies Link    			; 			 ; L40054						; JuiceCharliesCategoryLink     ; JuiceCharliesCategoryLink    	;
+							   ;                         ; JuiceExtraJuicyCategoryLink  ; Extra Juicy	 			;Extra Juicy Link    		; 			 ; L40055						; JuiceExtraJuicyCategoryLink   ; JuiceExtraJuicyCategoryLink   ;
+							   ;                         ; JuicePopTopsCategoryLink     ; Pop Tops	 				;Pop Tops Link    			; 			 ; L40056						; JuicePopTopsCategoryLink     	; JuicePopTopsCategoryLink    	;							   
+							   
+
+## ============================================================Child Node- CordialNavNode==================================================================
+INSERT_UPDATE CMSNavigationNode ; uid[unique=true]  		; $contentCV[unique=true] ; name                ; parent(uid, $contentCV) 	; links(&linkRef) ; &nodeRef         			; children(uid,$contentCV)
+                                ; CordialSchweppesNavNode   ;                         ; Schweppes   		; CordialNavNode		    ;                 ; CordialSchweppesNavNode    	;
+								
+			
+## entries of the above navigation nodes ##
+INSERT_UPDATE CMSNavigationEntry ; uid[unique=true]       		; $contentCV[unique=true] 	; name                  	; navigationNode(&nodeRef) 	; item(CMSLinkComponent.uid,CMSLinkComponent.$contentCV) 	;  
+                                 ; CordialSchweppesNavNodeEntry ;                         	; Schweppes Node Entry 		; CordialSchweppesNavNode   ; CordialSchweppesCategoryLink        						;  
+								 
+	 
+								 
+## links of the above navigation nodes ##
+INSERT_UPDATE CMSLinkComponent ; $contentCV[unique=true] ; uid[unique=true]       		; linkName[lang=en] 		;name                      	; url        ;category(code, $productCV) 	; &linkRef               		; &componentRef         		; target(code)[default='sameWindow']
+                               ;                         ; CordialSchweppesCategoryLink ; Schweppes	 				; Schweppes Link    		; 			 ;L40062						; CordialSchweppesCategoryLink  ; CordialSchweppesCategoryLink  ;
+							   							   
+							   
+
+## ============================================================Child Node- SportsNavNode==================================================================
+INSERT_UPDATE CMSNavigationNode ; uid[unique=true]  		; $contentCV[unique=true] ; name                    	; parent(uid, $contentCV) 	; links(&linkRef) ; &nodeRef         		; children(uid,$contentCV)
+                                ; SportsGatoradeNavNode     ;                         ; Gatorade   					; SportsNavNode		      	;                 ; SportsGatoradeNavNode   ;
+								
+## entries of the above navigation nodes ##
+INSERT_UPDATE CMSNavigationEntry ; uid[unique=true]       		; $contentCV[unique=true] 	; name                  	; navigationNode(&nodeRef) 	; item(CMSLinkComponent.uid,CMSLinkComponent.$contentCV) 	;  
+                                 ; SportsGatoradeNavNodeEntry 	;                         	; Gatorade Node Entry 		; SportsGatoradeNavNode     ; SportsGatoradeCategoryLink        									;  
+								 
+								 
+## links of the above navigation nodes ##
+INSERT_UPDATE CMSLinkComponent ; $contentCV[unique=true] ; uid[unique=true]       		; linkName[lang=en] 		; name                      	; url        ;category(code, $productCV) 	; &linkRef               		; &componentRef         		; target(code)[default='sameWindow']
+                               ;                         ; SportsGatoradeCategoryLink   ; Gatorade	 				; Gatorade Link    				; 			 ;L40058						; SportsGatoradeCategoryLink    ; SportsGatoradeCategoryLink    ;
+							   
+
+## ============================================================Child Node- IcedTeaNavNode==================================================================
+INSERT_UPDATE CMSNavigationNode ; uid[unique=true]  		; $contentCV[unique=true] ; name                    	; parent(uid, $contentCV) 		; links(&linkRef) ; &nodeRef         		; children(uid,$contentCV)
+                                ; ITRealIcedTeaCoNavNode    ;                         ; Real Iced Tea Co   			; IcedTeaNavNode		      	;                 ; ITRealIcedTeaCoNavNode  ;
+								
+## entries of the above navigation nodes ##
+INSERT_UPDATE CMSNavigationEntry ; uid[unique=true]       		; $contentCV[unique=true] 	; name                  		; navigationNode(&nodeRef) 	; item(CMSLinkComponent.uid,CMSLinkComponent.$contentCV) 	;  
+                                 ; ITRealIcedTeaCoNavNodeEntry 	;                         	; Real Iced Tea Co Node Entry 	; ITRealIcedTeaCoNavNode    ; RealIcedTeaCoCategoryLink        									;  
+								 								 
+## links of the above navigation nodes ##
+INSERT_UPDATE CMSLinkComponent ; $contentCV[unique=true] ; uid[unique=true]       		; linkName[lang=en] 	;name                      	; url        ;category(code, $productCV) 	; &linkRef               		; &componentRef         		; target(code)[default='sameWindow']
+                               ;                         ; RealIcedTeaCoCategoryLink    ; Real Iced Tea Co		;Real Iced Tea Co Link    	; 			 ;L40059						; ITRealIcedTeaCoCategoryLink   ; ITRealIcedTeaCoCategoryLink   ;
+							   							   
+## ============================================================Child Node- FrozenBevAncNavNode==================================================================
+INSERT_UPDATE CMSNavigationNode ; uid[unique=true]  		; $contentCV[unique=true] ; name                    	; parent(uid, $contentCV) 			; links(&linkRef) ; &nodeRef         		; children(uid,$contentCV)
+                                ; FBASunkistNavNode     	;                         ; Sunkist   					; FrozenBevAncNavNode		      	;                 ; FBASunkistNavNode   	;
+								; FBAPepsiNavNode  			;                         ; Pepsi   					; FrozenBevAncNavNode		      	;                 ; FBAPepsiNavNode  		;
+								; FBASchweppesNavNode     	;                         ; Schweppes   				; FrozenBevAncNavNode		      	;                 ; FBASchweppesNavNode 	;
+								; FBAAccessoryItemsNavNode  ;                         ; Accessory Items   			; FrozenBevAncNavNode		      	;                 ; FBAAccessoryItemsNavNode;
+			
+## entries of the above navigation nodes ##
+INSERT_UPDATE CMSNavigationEntry ; uid[unique=true]       			; $contentCV[unique=true] 	; name                  	; navigationNode(&nodeRef) 	; item(CMSLinkComponent.uid,CMSLinkComponent.$contentCV) 	;  
+                                 ; FBASunkistNavNodeEntry 			;                         	; Sunkist Node Entry 		; FBASunkistNavNode       	; FBASunkistCategoryLink        							;  
+								 ; FBAPepsiNavNodeEntry 			;                         	; Pepsi Node Entry 			; FBAPepsiNavNode   		; FBAPepsiCategoryLink                            			;  
+								 ; FBASchweppesNavNodeEntry 		;                         	; Schweppes Node Entry 		; FBASchweppesNavNode       ; FBASchweppesCategoryLink        							;  
+								 ; FBAAccessoryItemsNavNodeEntry 	;                         	; Accessory Items Node Entry; FBAAccessoryItemsNavNode  ; FBAAccessoryItemsCategoryLink        						;  
+	 
+								 
+## links of the above navigation nodes ##
+INSERT_UPDATE CMSLinkComponent ; $contentCV[unique=true] ; uid[unique=true]       		; linkName[lang=en] 		;name                      	; url        ;category(code, $productCV) 	; &linkRef               		; &componentRef         		; target(code)[default='sameWindow']
+                               ;                         ; FBASunkistCategoryLink     	; Sunkist	 				;Sunkist Link    			; 			 ;L40060						; FBASunkistCategoryLink     	; FBASunkistCategoryLink    	;
+							   ;                         ; FBAPepsiCategoryLink     	; Pepsi	 					;Pepsi Link    				; 			 ;L40061						; FBAPepsiCategoryLink     		; FBAPepsiCategoryLink    		;
+							   ;                         ; FBASchweppesCategoryLink     ; Schweppes	 				;Schweppes Link    			; 			 ;L40062						; FBASchweppesCategoryLink     	; FBASchweppesCategoryLink    	;
+							   ;                         ; FBAAccessoryItemsCategoryLink; Accessory Items	 		;Accessory Items Link    	; 			 ;L40063						; FBAAccessoryItemsCategoryLink ; FBAAccessoryItemsCategoryLink ;							   

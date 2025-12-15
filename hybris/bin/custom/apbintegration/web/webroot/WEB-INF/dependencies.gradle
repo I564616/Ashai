@@ -1,0 +1,5 @@
+ext {
+	libraries = []
+}
+libraries << "displaytag:displaytag:1.2"
+libraries << "org.glassfish.web:jstl-impl:1.2"

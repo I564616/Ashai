@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<n0:InvoiceDataResponse
+    xmlns:n0="urn:gl.sabmiller.com:com:3rdp:transdata"
+    xmlns:prx="urn:sap.com:proxy:EP7:/1SAI/TASED006B41FDF20219FE73:701:2013/05/24">
+    <InvoiceData>
+        <DocumentNumber>7504583677</DocumentNumber>
+		<Status>S</Status>
+        <BinaryData>Invoice PDF Test</BinaryData>        
+    </InvoiceData>
+</n0:InvoiceDataResponse>

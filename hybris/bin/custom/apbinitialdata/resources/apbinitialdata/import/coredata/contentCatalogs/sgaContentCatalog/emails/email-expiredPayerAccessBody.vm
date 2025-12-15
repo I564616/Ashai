@@ -1,0 +1,116 @@
+## messageSource=classpath:/sabmcore/messages/email-payerAccess_$lang.properties
+#macro(genHtmlLinkStartTag $url)
+<a href="$url"><font color="#42515a">
+#end
+#macro(genHtmlLinkEndTag)
+</font></a>
+#end
+#macro(genHtmlLink $url $textColor $bodyContent)
+<a href="$url"><font color="$textColor">$bodyContent</font></a>
+#end
+
+
+<html lang="en">
+    <head>
+    </head>
+    <body style="margin: -3px -3px 0 -3px;">
+        <table width="50%" cellpadding="0" cellspacing="0" align="center" bgcolor="#ffffff">
+            <tr>
+                <td class="tg-yw43" colspan="2">
+                    <a href="${ctx.baseUrl}" style="padding: 0px 0px 0px 0px; display: inline-block; margin: 0;">
+                                ${ctx.cmsSlotContents.TopContent}
+                    </a>
+                </td>
+            </tr>
+        <tr>
+        <td style="border-right:1px solid #EBEBEB;display:block; border-left: 1px solid #EBEBEB";>
+            
+            <div class="tg-wrap" style="font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+                font-size: 16px;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;">
+                <table class="tg" style="
+                    undefined;
+                    table-layout: fixed;
+                    width: 100%;
+                    display: block;
+                    width: auto !important;">
+
+                    
+
+                    <tr>
+                        <table style="margin: 10px 20px 0px 20px;">
+                            <tr>
+                                <td class="header-image">
+                                    <a href="${ctx.baseUrl}" style="padding: 0px 0px 0px 0px; display: inline-block; margin: 0 auto;">
+                                        ${ctx.cmsSlotContents.SiteLogo}
+                                    </a>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="2" style="
+                                    color: #42515a;
+                                    font-family:'Open Sans', Helvetica, Arial, sans-serif;
+                                    font-size: 25px;
+                                    line-height: 35px;
+                                    padding: 25px 0px 5px 0px;
+                                    margin: 0;">
+                                    <b>${ctx.messages.payerContent14}</b>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table style="margin: 0px 20px 0px 20px;">    
+                            <tr>
+                                <td style="
+                                    width: 50px;
+                                    border: none;
+                                    border-top: solid #42515a 2.25px;
+                                    padding: 0px 3px 0 3px;">
+                                </td>
+                                <td style="border-top:none">
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table style="margin: 30px 20px 0px 20px;">    
+                            <tr>
+                                <td class="body-text" colspan="2" style="color: #42515a; font-family:'Open Sans', Helvetica, Arial, sans-serif;">
+                                    ${ctx.messages.salutation} ${ctx.displayName},<br><br><br>
+                                    ${ctx.messages.expiredPayerContent1} 
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table style="margin: 10px 20px 20px 20px;"> 
+                            <tr>
+                                <td style="color: #42515a; font-family:'Open Sans', Helvetica, Arial, sans-serif;">  
+                                    ${ctx.messages.PayerContent13}
+                                </td>
+                            </tr> 
+                        </table>
+
+                        <table style="margin: 10px 20px 20px 20px;"> 
+                            <tr>
+                                <td class="tg-yw4l" colspan="3" style="padding: 0px 0px 20px 0px; color: #42515a; font-family:'Open Sans', Helvetica, Arial, sans-serif;">
+                                    <br>${ctx.messages.payerContent11}<br>
+                                    <br>${ctx.messages.payerContent12}<br>
+                                </td>
+                            </tr>
+                        </table>
+                    </tr>
+                    <tr>
+                        <td class="footer-image" colspan="2">
+                            <a href="${ctx.baseUrl}" style="padding: 0px 0px 0px 0px; display: inline-block; margin: 0 auto;">
+                            ${ctx.cmsSlotContents.BottomContent}
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+        </tr>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,72 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# ImpEx for Importing Products
+
+# Macros / Replacement Parameter definitions
+$productCatalog=sgaProductCatalog
+$productCatalogName=SGA Product Catalog
+
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$supercategories=supercategories(code, $catalogVersion)
+$baseProduct=baseProduct(code,$catalogVersion)
+$approved=approvalstatus(code)[default='approved']
+$lang=en
+
+INSERT_UPDATE UnitVolume; code[unique=true] ; name[lang=$lang]
+; samlpleUnitVol1; 330 ml bottles
+; samlpleUnitVol300; 300 ml Bottle
+; samlpleUnitVol600; 600 ml Bottle
+
+INSERT_UPDATE PackageSize; code[unique=true] ; name[lang=$lang]
+; samlplePackageSize1; 24 (6 x 4)
+; samplePackageSize1243; 12 (4 x 3)
+; samplePackageSize2464; 24 (6 x 4)
+
+
+INSERT_UPDATE Brand ; code[unique=true] ; name[lang=en]
+; brandCharlies; Charlie's
+; brandSchweppes; Schweppes
+; brandSchweppesTraditional; Schweppes Traditional
+; brandSolo; Solo
+; brandGatorade; Gatorade
+; brandPepsi; Pepsi
+; brandPepsiMax; Pepsi Max
+
+INSERT_UPDATE Flavour ; code[unique=true] ; name[lang=en]  
+;409;BLUE BOLT
+
+INSERT_UPDATE PackageType ; code[unique=true] ; name[lang=en]  
+;28;FG Keg
+
+INSERT_UPDATE AlcoholType ; code[unique=true] ; name[lang=en] 
+                         ; 10                 ; Non Alcoholic 
+
+
+INSERT_UPDATE ApbProduct ; code[unique=true];$supercategories[collection-delimiter=|];minQty;maxQty;depth;height;width;standardPalletQuantity;qtyPerLayer;unitPerInner;alcoholPercent;alcoholType(code);packageType(code);flavour(code);brand(code);sequenceId;$catalogVersion;portalUnitVolume(code); packageSize(code); $approved;unit(code)[default='pieces']
+
+;10005000;L30033;0;50;10;10;10;60;10;6;0;10;28;409;brandCharlies;;     ;samlpleUnitVol300;samplePackageSize1243;;
+;10006152;L30033;0;50;10;10;10;60;10;6;0;10;28;409;brandCharlies;;     ;samlpleUnitVol300;samplePackageSize1243;;
+;10006140;L30033;0;50;10;10;10;60;10;6;0;10;28;409;brandCharlies;;     ;samlpleUnitVol300;samplePackageSize1243;;
+;10004997;L30033;0;50;10;10;10;60;10;6;0;10;28;409;brandCharlies;;     ;samlpleUnitVol300;samplePackageSize1243;;
+;2919;L30009;0;50;10;10;10;60;10;6;0;10;28;409;brandSchweppes;;     ;samlpleUnitVol600;samplePackageSize2464;;
+;2925;L30009;0;50;10;10;10;60;10;6;0;10;28;409;brandSchweppesTraditional;;     ;samlpleUnitVol600;samplePackageSize2464;;
+;2918;L30009;0;50;10;10;10;60;10;6;0;10;28;409;brandSolo;;     ;samlpleUnitVol600;samplePackageSize2464;;
+;10005124;L30031;0;50;10;10;10;60;10;6;0;10;28;409;brandGatorade;;     ;samlpleUnitVol600;samplePackageSize1243;;
+;10000838;L30031;0;50;10;10;10;60;10;6;0;10;28;409;brandGatorade;;     ;samlpleUnitVol600;samplePackageSize1243;;
+;10000844;L30031;0;50;10;10;10;60;10;6;0;10;28;409;brandGatorade;;     ;samlpleUnitVol600;samplePackageSize1243;;
+;10006110;L30031;0;50;10;10;10;60;10;6;0;10;28;409;brandGatorade;;     ;samlpleUnitVol600;samplePackageSize1243;;
+;3221;L30009;0;50;10;10;10;60;10;6;0;10;28;409;brandPepsi;;     ;samlpleUnitVol600;samplePackageSize2464;;
+;3226;L30009;0;50;10;10;10;60;10;6;0;10;28;409;brandPepsiMax;;     ;samlpleUnitVol600;samplePackageSize2464;;
+;10005919;L30009;0;50;10;10;10;60;10;6;0;10;28;409;brandPepsiMax;;     ;samlpleUnitVol600;samplePackageSize2464;;
+;10000997;L30031;0;50;10;10;10;60;10;6;0;10;28;409;brandGatorade;;     ;samlpleUnitVol600;samplePackageSize1243;;
+;10000840;L30031;0;50;10;10;10;60;10;6;0;10;28;409;brandGatorade;;     ;samlpleUnitVol600;samplePackageSize1243;;
+;10006231;L30031;0;50;10;10;10;60;10;6;0;10;28;409;brandGatorade;;     ;samlpleUnitVol600;samplePackageSize1243;;
+;10006111;L30031;0;50;10;10;10;60;10;6;0;10;28;409;brandGatorade;;     ;samlpleUnitVol600;samplePackageSize1243;;

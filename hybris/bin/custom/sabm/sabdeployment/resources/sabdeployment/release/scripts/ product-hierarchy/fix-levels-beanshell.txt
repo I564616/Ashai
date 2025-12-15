@@ -1,0 +1,31 @@
+import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
+import de.hybris.platform.servicelayer.model.ModelService;
+
+modelService = spring.getBean("modelService");
+flexiQuery = new FlexibleSearchQuery("SELECT {pk} FROM {SABMAlcoholVariantProductMaterial as m JOIN CatalogVersion as cv on {m.catalogVersion}={cv.pk}} WHERE {cv.version}='Staged' AND {hierarchy} IS NOT NULL");
+flexiService = spring.getBean("flexibleSearchService");
+materials = flexiService.search(flexiQuery);
+
+for(m in materials.result)
+{
+    h = m.hierarchy;
+    level1 = h.substring(0,4);
+    level2 = h.substring(4,7);
+    level3 = h.substring(7,10);
+    level4 = h.substring(10,11);
+    level5 = h.substring(11,15);
+    level6 = h.substring(15,18);
+  
+    eanModel = m.baseProduct;
+    eanModel.level4=level4;
+    eanModel.level5=level5;
+    eanModel.level6=level6;
+  
+    alcModel = eanModel.baseProduct;
+    alcModel.level1=level1;
+    alcModel.level2=level2;
+    alcModel.level3 = level3;
+
+    modelService.save(eanModel);
+    modelService.save(alcModel); 
+}

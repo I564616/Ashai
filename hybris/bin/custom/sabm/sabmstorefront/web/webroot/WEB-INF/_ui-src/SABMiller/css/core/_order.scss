@@ -1,0 +1,107 @@
+// ==========================================================================
+//   Order Classes
+// ==========================================================================
+.track-order-link{
+	a{
+		text-decoration:underline;
+	}
+}
+
+
+
+//Smart Order
+.smart-order{
+	padding-bottom: $spacing-x-small;
+	margin-bottom: $spacing-small;
+	margin-left: -$spacing-gutter;
+  margin-right: -$spacing-gutter;
+  padding-left: $spacing-gutter;
+  padding-right: $spacing-gutter;
+	border-bottom: 2px solid $light-lighter-grey;
+
+	.smart-order-title,
+	.smart-order-subtitle{
+		font-size: $font-medium;
+		line-height: normal;
+		@media (min-width: $tablet){
+			font-size: $font-small;
+		}
+	}
+}
+
+.page-order {
+	.magnific-template-order {
+		width: 100%;
+		button {
+			margin-top: $spacing-small;
+		}
+		@media(min-width: $tablet){
+			width: auto;
+			button {
+				margin-top: 0;
+				margin-left: $spacing-x-small;
+			}
+			a {
+				position: relative;
+				top: 9px;
+			}
+		}
+	}
+}
+
+
+.page-orderConfirmationPage {
+	.magnific-template-order {
+		width: 100%;
+		.btn {
+			margin-bottom: $spacing-small;
+		}
+		@media(min-width: $tablet){
+			width: auto;
+			.btn {
+				margin-bottom: 0;
+				margin-right: $spacing-x-small;
+			}
+			.inline {
+				position: relative;
+				top: 9px;
+			}
+		}
+	}
+
+	.action-box{
+		.btn {
+			margin-bottom: $spacing-small;
+		}
+		.magnific-template-order{
+			display:inline-block;
+			margin-left:5px;
+		}
+		@media(min-width: $tablet){
+			width: auto;
+			.btn {
+				margin-bottom: 0;
+				margin-right: $spacing-x-small;
+			}
+			.inline {
+				position: relative;
+				top: 9px;
+			}
+			.magnific-template-order{
+				margin-left:0;
+			}
+		}
+	}
+}
+.light-blue-messagebox {
+	background-color:lightblue;
+	text-align:justify;
+	max-width:500px;
+	padding: 12px;
+}
+
+//Confirm Merchant Fee - Total
+.msfTotal-box {
+	background-color:#f8f8f8;
+	padding:12px;
+}

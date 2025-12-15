@@ -1,0 +1,144 @@
+# Macros / Replacement Parameter definitions
+$productCatalog = sabmProductCatalog
+$productCatalogName = SABMiller Product Catalog
+
+$catalogVersion = catalogversion(catalog(id[default=$productCatalog]), version[default='Staged'])[unique=true, default=$productCatalog:Staged]
+$supercategories = source(code, $catalogVersion)[unique=true]
+$categories = target(code, $catalogVersion)[unique=true]
+
+$lang = en
+
+INSERT_UPDATE Category; $catalogVersion; code[unique = true]; name[lang = $lang]; description[lang = $lang]
+                      ;                ; 15               ; RTDs     ; RTDs
+INSERT_UPDATE Keyword; keyword[unique = true]; categories(code, $catalogVersion)[lang = $lang]; $catalogVersion; language(isocode)[default = $lang]
+                     ; RTDs        ; 15
+
+
+
+
+
+
+#
+# Import the CMS content for the site
+#
+$contentCatalog = sabmContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Staged])[default = $contentCatalog:Staged]
+
+INSERT_UPDATE CMSLinkComponent; $contentCV[unique = true]; uid[unique = true]        ; name                       ; linkName      ; url; contentPage(uid, $contentCV); target(code)[default = 'sameWindow'];
+                              ;                          ; RTDCategoryLink ; RTD Category Link ; RTDs ; /RTDs/c/15
+INSERT_UPDATE CMSLinkComponent; $contentCV[unique = true]; uid[unique = true]; name; url; &linkRef; &componentRef; target(code)[default = 'sameWindow']
+#RTDs
+; ;CraftRTDsCategoryLink                ; Craft Category Link                      ;  /c/15                                                ; CraftRTDsCategoryLink                   ; CraftRTDsCategoryLink
+; ;LexingtonHillRTDsCategoryLink                ; Lexington Hill Category Link                      ;  /c/15                                                ; LexingtonHillRTDsCategoryLink                   ; LexingtonHillRTDsCategoryLink
+; ;SomersByRTDsCategoryLink                ; SomersBy RTDsCategoryLink Category Link                      ;  /c/15                                                ; SomersByRTDsCategoryLink                   ; SomersByRTDsCategoryLink
+
+; ;HardRatedRTDsCategoryLink                 ; Hard Rated Category Link                      ;  /c/15                                                ; HardRatedRTDsCategoryLink                   ; HardRatedRTDsCategoryLink
+; ; VodkaCruiserRTDsCategoryLink                 ;Vodka Cruiser Category Link                ;  /c/15                                             ; VodkaCruiserRTDsCategoryLink            ; VodkaCruiserRTDsCategoryLink
+; ; BrookvaleUnionRTDsCategoryLink               ;Brookvale Union Category Link                      ;/c/15                                             ;  BrookvaleUnionRTDsCategoryLink         ; BrookvaleUnionRTDsCategoryLink
+; ; ActualVodkaRTDsCategoryLink                   ;Actual Vodka Category Link                      ; /c/15                                                  ; ActualVodkaRTDsCategoryLink                  ; ActualVodkaRTDsCategoryLink
+; ; GoodTidesRTDsCategoryLink                   ;Good Tides Category Link                      ;/c/15                                                   ; GoodTidesRTDsCategoryLink                  ; GoodTidesRTDsCategoryLink
+; ; WoodstockRTDsCategoryLink                   ;Woodstock Category Link                      ; /c/15                                                  ; WoodstockRTDsCategoryLink                   ; WoodstockRTDsCategoryLink
+; ; HausmixRTDsCategoryLink                   ;Hausmix Category Link                      ; /c/15                                                  ; HausmixRTDsCategoryLink                   ; HausmixRTDsCategoryLink
+; ; BlackDouglasRTDsCategoryLink                   ;Black Douglas Category Link                      ;  /c/15                                                 ; BlackDouglasRTDsCategoryLink                   ; BlackDouglasRTDsCategoryLink
+; ; HighlandRTDsCategoryLink                   ;Highland Category Link                      ;  /c/15                                                 ; HighlandRTDsCategoryLink                   ; HighlandRTDsCategoryLink
+; ; YakAlesRTDsCategoryLink                   ;Yak Ales Category Link                      ;  /c/15                                                 ; YakAlesRTDsCategoryLink                   ; YakAlesRTDsCategoryLink
+; ; GreatNorthernRTDsCategoryLink              ;Great Northern Category Link                      ; /c/15                                                  ; GreatNorthernRTDsCategoryLink                   ; GreatNorthernRTDsCategoryLink
+; ; RedBearRTDsCategoryLink                   ;Red Bear Category Link                      ;  /c/15                                                 ; RedBearRTDsCategoryLink                   ; RedBearRTDsCategoryLink
+; ; MountainGoatRTDsCategoryLink                ;Mountain Goat Category Link                      ;  /c/15                                                 ; MountainGoatRTDsCategoryLink                   ; MountainGoatRTDsCategoryLink
+; ; CougarRTDsCategoryLink                   ;Cougar Category Link                      ; /c/15                                                  ; CougarRTDsCategoryLink                   ; CougarRTDsCategoryLink
+; ; VodkaRTDsCategoryLink                   ;Vodka Category Link                      ; /c/15                                                  ; VodkaRTDsCategoryLink                   ; VodkaRTDsCategoryLink
+; ; GingerBeerRTDsCategoryLink                   ;Ginger Beer Category Link                      ;/c/15                                                   ; GingerBeerRTDsCategoryLink                   ; GingerBeerRTDsCategoryLink
+; ; BourbonRTDsCategoryLink                   ;Bourbon Category Link                      ;  /c/15                                                 ; BourbonRTDsCategoryLink                   ; BourbonRTDsCategoryLink
+; ; RumRTDsCategoryLink                   ;Rum Category Link                      ;  /c/15                                                 ; RumRTDsCategoryLink                   ; RumRTDsCategoryLink
+; ; WhiskyRTDsCategoryLink                   ;Whisky Category Link                      ; /c/15                                                  ; WhiskyRTDsCategoryLink                   ; WhiskyRTDsCategoryLink
+; ; PremixRTDsCategoryLink                   ;Premix Category Link                      ; /c/15                                                  ; PremixRTDsCategoryLink                   ; PremixRTDsCategoryLink
+; ; LightRTDsCategoryLink                   ;Light Category Link                      ; /c/15                                                  ; LightRTDsCategoryLink                   ; LightRTDsCategoryLink
+; ; DarkRTDsCategoryLink                   ;Dark Category Link                      ; /c/15                                                  ; DarkRTDsCategoryLink                   ; DarkRTDsCategoryLink
+; ; BottleRTDsCategoryLink                   ;Bottle Category Link                      ;  /c/15                                                 ; BottleRTDsCategoryLink                   ; BottleRTDsCategoryLink
+; ; CanRTDsCategoryLink                   ;Can Category Link                      ; /c/15                                                  ; CanRTDsCategoryLink                   ; CanRTDsCategoryLink
+; ; KegRTDsCategoryLink                   ;Keg Category Link                      ; /c/15                                                  ; KegRTDsCategoryLink                   ; KegRTDsCategoryLink
+; ; DomesticPremiumRTDsCategoryLink                   ;DomesticPremium RTDs Category Link                      ; /c/15                                                  ; DomesticPremiumRTDsCategoryLink                   ; DomesticPremiumRTDsCategoryLink
+; ; TraditionalRegularRTDsCategoryLink                   ;TraditionalRegular Category Link                      ; /c/15                                                  ; TraditionalRegularRTDsCategoryLink                  ; TraditionalRegularRTDsCategoryLink
+; ; TequilaRTDsCategoryLink                   ;Tequila Category Link                      ; /c/15                                                  ; TequilaRTDsCategoryLink                  ; TequilaRTDsCategoryLink
+; ; FruitsRTDsCategoryLink                   ;Fruits Category Link                      ; /c/15                                                  ; FruitsRTDsCategoryLink                  ; FruitsRTDsCategoryLink
+
+; ; RTDRTDsCategoryLink                   ;RTD Category Link                      ; /c/15                                                  ; RTDRTDsCategoryLink                  ; RTDRTDsCategoryLink
+
+
+
+
+INSERT_UPDATE CMSNavigationNode; uid[unique = true]; $contentCV[unique = true]; name; parent(uid, $contentCV); links(&componentRef); &nodeRef
+; RTDNavNode               ; ; RTD Category         ; SABMillerNavNode ; ; RTDNavNode                                                                                                                                                                                                                                                                                                                                                                             
+; RTDPopularNavNode        ; ; Popular Category      ; RTDNavNode      ;HardRatedRTDsCategoryLink,VodkaCruiserRTDsCategoryLink,BrookvaleUnionRTDsCategoryLink,ActualVodkaRTDsCategoryLink,GoodTidesRTDsCategoryLink,WoodstockRTDsCategoryLink,HausmixRTDsCategoryLink ;RTDPopularNavNode                                                                                                                                                                                                                                                                 
+; RTDBrandNavNode          ; ; Brand Category        ; RTDNavNode      ;LexingtonHillRTDsCategoryLink,SomersByRTDsCategoryLink,BlackDouglasRTDsCategoryLink,HighlandRTDsCategoryLink,YakAlesRTDsCategoryLink,GreatNorthernRTDsCategoryLink,RedBearRTDsCategoryLink,MountainGoatRTDsCategoryLink,CougarRTDsCategoryLink  ; RTDBrandNavNode
+; RTDStyleNavNode          ; ; Style Category        ; RTDNavNode      ;VodkaRTDsCategoryLink,GingerBeerRTDsCategoryLink,BourbonRTDsCategoryLink,RumRTDsCategoryLink,WhiskyRTDsCategoryLink,PremixRTDsCategoryLink,TequilaRTDsCategoryLink,FruitsRTDsCategoryLink;RTDStyleNavNode                                                                                                                                                                                                                                     
+; RTDSubcategoryNavNode    ; ; Subcategory Category  ; RTDNavNode      ;CraftRTDsCategoryLink,DomesticPremiumRTDsCategoryLink, RTDRTDsCategoryLink,TraditionalRegularRTDsCategoryLink;RTDSubcategoryNavNode                                                                                                                                                                     
+; RTDPackageTypeNavNode    ; ; Package Type Category ; RTDNavNode      ;BottleRTDsCategoryLink,CanRTDsCategoryLink ,KegRTDsCategoryLink;RTDPackageTypeNavNode                                                                                                                                                                                                                                                                                                         
+
+ 
+
+
+
+
+
+#### Navigation Bar Component ####
+INSERT_UPDATE NavigationBarWithImageComponent; $contentCV[unique = true]; uid[unique = true]; name; wrapAfter; link(uid, $contentCV); styleClass; navigationNode(&nodeRef); dropDownLayout(code)[default = AUTO]; &componentRef
+; ; RTDBarComponent  ; RTD Bar Component  ; 10 ; RTDCategoryLink  ; ; RTDNavNode  ; ; RTDBarComponent
+
+
+
+#
+# Import the CMS content for the site
+#
+$contentCatalog = sabmContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Staged])[default = $contentCatalog:Staged]
+$lang=en
+# CMS Navigation Nodes
+UPDATE CMSNavigationNode;$contentCV[unique=true];uid[unique=true];title[lang=en]
+;;RTDNavNode;"RTDs"
+;;RTDPopularNavNode;"Popular"
+;;RTDBrandNavNode;"Brand"
+;;RTDStyleNavNode;"Style"
+;;RTDSubcategoryNavNode;"Subcategory"
+;;RTDPackageTypeNavNode;"Package Type"
+
+UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];linkName[lang=$lang]
+ ;                          ; RTDCategoryLink ; RTDs;
+
+
+#### CMS Link Components ####
+UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];linkName[lang=$lang]
+#RTDs
+;;LexingtonHillRTDsCategoryLink;"Lexington Hill";
+;;SomersByRTDsCategoryLink;"SomersBy"
+;;HardRatedRTDsCategoryLink;"Hard Rated";
+;;VodkaCruiserRTDsCategoryLink;"Cruiser";
+;;BrookvaleUnionRTDsCategoryLink;"Brookvale Union";
+;;ActualVodkaRTDsCategoryLink;"Actual";
+;;GoodTidesRTDsCategoryLink;"Good Tides";
+;;WoodstockRTDsCategoryLink;"Woodstock";
+;;HausmixRTDsCategoryLink;"Hausmix";
+;;BlackDouglasRTDsCategoryLink;"Black Douglas";
+;;HighlandRTDsCategoryLink;"Highland";
+;;YakAlesRTDsCategoryLink;"Yak Ales";
+;;GreatNorthernRTDsCategoryLink;"Great Northern";
+;;RedBearRTDsCategoryLink;"Red Bear";
+;;MountainGoatRTDsCategoryLink;"Mountain Goat";
+;;CougarRTDsCategoryLink;"Cougar";
+;;VodkaRTDsCategoryLink;"Vodka";
+;;GingerBeerRTDsCategoryLink;"Ginger Beer";
+;;BourbonRTDsCategoryLink;"Bourbon";
+;;RumRTDsCategoryLink;"Rum";
+;;WhiskyRTDsCategoryLink;"Whisky";
+;;PremixRTDsCategoryLink;"Premix";
+;;LightRTDsCategoryLink;"Light";
+;;DarkRTDsCategoryLink;"Dark";
+;;BottleRTDsCategoryLink;"Bottle";
+;;CanRTDsCategoryLink;"Can";
+;;KegRTDsCategoryLink;"Keg";
+;;DomesticPremiumRTDsCategoryLink;"Domestic Premium";
+;;TraditionalRegularRTDsCategoryLink;"Traditional Regular";
+;;CraftRTDsCategoryLink;"Craft";
+;;TequilaRTDsCategoryLink;"Tequila";
+;;FruitsRTDsCategoryLink;"Fruits Cider";
+;;RTDRTDsCategoryLink;"Rtd";

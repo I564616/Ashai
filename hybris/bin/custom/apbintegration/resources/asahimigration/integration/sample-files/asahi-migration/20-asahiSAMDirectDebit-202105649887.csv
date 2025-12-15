@@ -1,0 +1,2 @@
+insert AsahiSAMDirectDebit,pk,customer(uid),name,paymentTransaction(code),signDate[dateformat=dd.MM.yyyy hh:mm:ss],updateRemoveIndicator
+,8796158635759,0100418986,ZAMB PTY LTD,00002001,04.04.2019 11:31:13,

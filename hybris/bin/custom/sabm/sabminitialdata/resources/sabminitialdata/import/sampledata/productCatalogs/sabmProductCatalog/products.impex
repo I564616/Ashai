@@ -1,0 +1,100 @@
+INSERT_UPDATE Deal; code[unique = 'true']; b2bUnit(uid); dealType(code); dealVisibility(code); description; validFrom[dateformat = dd.MM.yyyy]; validTo[dateformat = dd.MM.yyyy]; conditionGroup(&componentRef); group[default = ""]; status[default = "R"]
+; deal_1  ; "Test Sample B2B Brisbane" ; DISCOUNT ; PUBLIC ;                                                                              ; "01.12.2015" ; "01.12.2018" ; deal_1_condGroup
+; deal_2  ; "Test Sample B2B Brisbane" ; DISCOUNT ; PUBLIC ;                                                                              ; "02.12.2015" ; "31.12.2015" ; deal_2_condGroup
+; deal_3  ; "Test Sample B2B Brisbane" ; DISCOUNT ; PUBLIC ;                                                                              ; "16.12.2015" ; "01.12.2018" ; deal_3_condGroup
+
+; deal_5  ; "Test Sample B2B Brisbane" ; BOGOF    ; PUBLIC ;                                                                              ; "01.12.2015" ; "01.12.2018" ; deal_5_condGroup
+; deal_6  ; "Test Sample B2B Brisbane" ; BOGOF    ; PUBLIC ;                                                                              ; "01.12.2015" ; "01.12.2018" ; deal_6_condGroup
+; deal_7  ; "Test Sample B2B Brisbane" ; BOGOF    ; PUBLIC ;                                                                              ; "01.12.2015" ; "01.12.2018" ; deal_7_condGroup
+; deal_8  ; "Test Sample B2B Brisbane" ; DISCOUNT ; PUBLIC ; "Lorem Ipsum is simply dummy text of the printing and typesetting industry." ; "01.8.2015"  ; "01.12.2018" ; deal_8_condGroup
+; deal_9  ; "Test Sample B2B Brisbane" ; DISCOUNT ; PUBLIC ;                                                                              ; "01.9.2015"  ; "01.12.2018" ; deal_9_condGroup
+; deal_10 ; "Test Sample B2B Brisbane" ; DISCOUNT ; PUBLIC ;                                                                              ; "01.10.2015" ; "01.12.2018" ; deal_10_condGroup
+; deal_11 ; "Test Sample B2B Brisbane" ; DISCOUNT ; PUBLIC ;                                                                              ; "01.11.2015" ; "01.12.2018" ; deal_11_condGroup
+; deal_12 ; "Test Sample B2B Brisbane" ; DISCOUNT ; PUBLIC ;                                                                              ; "10.11.2015" ; "01.12.2018" ; deal_12_condGroup
+
+; deal_14 ; "Test Sample B2B Brisbane" ; BOGOF    ; PUBLIC ;                                                                              ; "01.12.2015" ; "01.12.2018" ; deal_14_condGroup
+; deal_15 ; "Test Sample B2B Brisbane" ; BOGOF    ; PUBLIC ;                                                                              ; "01.12.2015" ; "01.12.2018" ; deal_15_condGroup
+; deal_20 ; "Test Sample B2B Brisbane" ; BOGOF    ; PUBLIC ;                                                                              ; "01.12.2015" ; "22.12.2015" ; deal_20_condGroup
+; deal_21 ; "Test Sample B2B Brisbane" ; BOGOF    ; PUBLIC ;                                                                              ; "01.12.2015" ; "12.12.2015" ; deal_21_condGroup
+; deal_22 ; "Test Sample B2B Brisbane" ; DISCOUNT ; PUBLIC ;                                                                              ; "01.12.2015" ; "20.1.2016"  ; deal_22_condGroup
+; deal_23 ; "Test Sample B2B Brisbane" ; DISCOUNT ; PUBLIC ;                                                                              ; "01.12.2015" ; "22.1.2016"  ; deal_23_condGroup
+; deal_24 ; "Test Sample B2B Brisbane" ; DISCOUNT ; PUBLIC ;                                                                              ; "01.11.2015" ; "25.1.2016"  ; deal_24_condGroup
+; deal_25 ; "Test Sample B2B Brisbane" ; DISCOUNT ; PUBLIC ;                                                                              ; "23.11.2015" ; "20.1.2016"  ; deal_25_condGroup
+
+; deal_4  ; "Test Sample B2B Brisbane" ; DISCOUNT ; PUBLIC ;                                                                              ; "01.12.2015" ; "01.12.2018" ; deal_4_condGroup
+; deal_13 ; "Test Sample B2B Brisbane" ; BOGOF    ; PUBLIC ;                                                                              ; "01.12.2015" ; "01.12.2018" ; deal_13_condGroup
+
+INSERT_UPDATE DealConditionGroup; dealBenefits(&componentRef)[unique = 'true']; dealConditions(&componentRef)[unique = 'true']; &componentRef
+; benefit_1   ; deal_1_cond  ; deal_1_condGroup
+; benefit_2               ; deal_2_cond  ; deal_2_condGroup
+; benefit_3               ; deal_3_cond  ; deal_3_condGroup
+; benefit_4               ; deal_4_cond  ; deal_4_condGroup
+; benefit_5               ; deal_5_cond  ; deal_5_condGroup
+; benefit_6               ; deal_6_cond  ; deal_6_condGroup
+; benefit_7   ; deal_7_cond  ; deal_7_condGroup
+; benefit_8               ; deal_8_cond  ; deal_8_condGroup
+; benefit_9               ; deal_9_cond  ; deal_9_condGroup
+; benefit_10              ; deal_10_cond ; deal_10_condGroup
+; benefit_11              ; deal_11_cond ; deal_11_condGroup
+; benefit_12              ; deal_12_cond ; deal_12_condGroup
+; benefit_13              ; deal_13_cond ; deal_13_condGroup
+; benefit_14 ; deal_14_cond ; deal_14_condGroup
+; benefit_15              ; deal_15_cond ; deal_15_condGroup
+; benefit_20              ; deal_20_cond ; deal_20_condGroup
+; benefit_21              ; deal_21_cond ; deal_21_condGroup
+; benefit_22              ; deal_22_cond ; deal_22_condGroup
+; benefit_23              ; deal_23_cond ; deal_23_condGroup
+; benefit_24              ; deal_24_cond ; deal_24_condGroup
+; benefit_25              ; deal_25_cond ; deal_25_condGroup
+
+
+INSERT_UPDATE ProductDealCondition; dealCode[unique = 'true']; minQty[unique = 'true']; productCode[unique = 'true']; unit(unitType)[unique = 'true']; &componentRef
+; deal_1  ; 2 ; matVariant01 ; keg ; deal_1_cond
+#; deal_1_b ; 2 ; matVariant03 ; cas ; deal_1b_cond
+; deal_2  ; 1 ; matVariant02 ; cas ; deal_2_cond
+; deal_4  ; 2 ; matVariant04 ; cas ; deal_4_cond
+; deal_5  ; 2 ; matVariant05 ; cas ; deal_5_cond
+; deal_6  ; 2 ; matVariant06 ; cas ; deal_6_cond
+; deal_7  ; 2 ; matVariant07 ; cas ; deal_7_cond
+; deal_8  ; 1 ; matVariant04 ; cas ; deal_8_cond
+; deal_9  ; 4 ; matVariant04 ; cas ; deal_9_cond
+; deal_10 ; 1 ; matVariant08 ; cas ; deal_10_cond
+; deal_11 ; 3 ; matVariant08 ; cas ; deal_11_cond
+; deal_12 ; 3 ; matVariant04 ; cas ; deal_12_cond
+; deal_13 ; 1 ; matVariant03 ; cas ; deal_13_cond
+; deal_14 ; 8 ; matVariant02 ; cas ; deal_14_cond
+; deal_15 ; 5 ; matVariant11 ; cas ; deal_15_cond
+; deal_20 ; 2 ; matVariant04 ; cas ; deal_20_cond
+; deal_21 ; 3 ; matVariant05 ; keg ; deal_21_cond
+; deal_22 ; 2 ; matVariant06 ; cas ; deal_22_cond
+; deal_23 ; 4 ; matVariant07 ; keg ; deal_23_cond
+; deal_24 ; 1 ; matVariant11 ; cas ; deal_24_cond
+; deal_25 ; 1 ; matVariant06 ; cas ; deal_25_cond
+
+INSERT_UPDATE MinQtyDealCondition; unit(unitType)[unique = 'true']; minQty[unique = 'true']; &componentRef
+; keg ; 1 ; deal_3_cond
+
+
+
+INSERT_UPDATE DiscountDealBenefit; unit(unitType)[unique = 'true']; amount[unique = 'true']; currency[unique = 'true']; saleUnit[unique = 'true']; &componentRef
+; keg ; 10    ; true  ; 1 ; benefit_1
+; keg ; 10.3  ; true  ; 1 ; benefit_2
+; cas ; 10.1  ; true  ; 1 ; benefit_3
+; cas ; 10.2  ; true  ; 1 ; benefit_6
+; cas ; 1.9   ; false ; 1 ; benefit_5
+; cas ; 3.2   ; false ; 1 ; benefit_4
+; cas ; 15.90 ; false ; 1 ; benefit_7
+; cas ; 20    ; false ; 1 ; benefit_8
+; cas ; 18.7  ; false ; 1 ; benefit_9
+; cas ; 40    ; true  ; 1 ; benefit_10
+; cas ; 11.3  ; true  ; 1 ; benefit_11
+; cas ; 15.2  ; true  ; 1 ; benefit_13
+; cas ; 5.5   ; false ; 1 ; benefit_12
+; cas ; 6.9   ; true  ; 1 ; benefit_14
+; cas ; 3.8   ; true  ; 1 ; benefit_15
+; cas ; 10.9  ; true  ; 1 ; benefit_20
+; keg ; 11.7  ; false ; 1 ; benefit_21
+; cas ; 10.21 ; true  ; 1 ; benefit_22
+; keg ; 12.2  ; false ; 1 ; benefit_23
+; cas ; 4.9   ; true  ; 1 ; benefit_24
+; cas ; 2.6   ; false ; 1 ; benefit_25

@@ -1,0 +1,38 @@
+
+
+######################################### RECOMMENDATION IMPORT CONFIGURATION #############################################
+
+$contentCatalog=sabmContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$media=media(code, $contentCV);
+$ImportCockpitResource=jar:com.sabmiller.initialdata.setup.InitialDataSystemSetup&/sabminitialdata/import/sampledata/cockpits/importCockpit
+$lang=en
+
+#INSERT_UPDATE ImportCockpitJob;code[unique=true];sessionLanguage(isoCode)[default=en]
+#;ProductRecommendationsImportJob
+#;DealRecommendationsImportJob
+
+#INSERT_UPDATE ImportCockpitMapping;code[unique=true];folder(qualifier);@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='text/xml']
+#;ProductRecommendationsImportMapping;cronjob;$ImportCockpitResource/xml/ProductRecommendationsMapping.xml;
+#;DealRecommendationsImportMapping;cronjob;$ImportCockpitResource/xml/DealRecommendationsMapping.xml;
+
+#INSERT_UPDATE ImportCockpitInputMedia;code[unique=true];realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='text/csv'];fieldSeparator
+#;ProductRecommendationsImportCockpitMedia;ProductRecommendationsSource.csv;$ImportCockpitResource/csv/ProductRecommendationsSource.csv;;,
+#;DealRecommendationsImportCockpitMedia;DealRecommendationsSource.csv;$ImportCockpitResource/csv/DealRecommendationsSource.csv;;,
+
+#INSERT_UPDATE ImportCockpitCronJob; code[unique=true];job(code);inputMedia(code);mapping(code);mappingValid;sessionLanguage(isocode)
+#;ProductRecommendationsImportCockpitJob;ProductRecommendationsImportJob;ProductRecommendationsImportCockpitMedia;ProductRecommendationsImportMapping;true;$lang
+#;DealRecommendationsImportCockpitJob;DealRecommendationsImportJob;DealRecommendationsImportCockpitMedia;DealRecommendationsImportMapping;true;$lang
+
+
+########################################## CRONOJOB TO EXPIRE RECOMMENDATIONS ##############################################
+INSERT_UPDATE ServicelayerJob;code[unique=true];springId[unique=true]
+;sabmRecommendationCleanUpPerformable;sabmRecommendationCleanUpPerformable
+
+#setting expiry of 13 weeks(91 days)
+INSERT_UPDATE SabmRecommendationCleanUpCronJob;code[unique=true];job(code);sessionLanguage(isocode);noOfDaysForExpiry;active
+;SabmRecommendationCleanUpCronJob;sabmRecommendationCleanUpPerformable;en;91;false
+
+INSERT_UPDATE Trigger;cronJob(code)[unique=true];cronExpression;relative;active;maxAcceptableDelay
+;SabmRecommendationCleanUpCronJob;0 5 18 ? * *;false;true;-1
+

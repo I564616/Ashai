@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<!--
+	ATTENTION: This is just an example file. You have to edit it according to your needs.
+-->
+
+<items xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="items.xsd">
+
+    <collectiontypes>
+        <collectiontype code="BannerList" elementtype="AsahiBannerComponent" generate="true" autocreate="true" type="list" />
+    </collectiontypes>
+    <enumtypes>
+        <enumtype code="ImageAnimationEffect" generate="true" autocreate="true" dynamic="false">
+            <value code="fade"/>
+            <value code="rotate"/>
+            <value code="slide"/>
+        </enumtype>
+    </enumtypes>
+
+    <itemtypes>
+        <itemtype code="ApbHtmlCMSComponent" extends="SimpleCMSComponent" jaloclass="com.apb.jalo.ApbHtmlCMSComponent"
+                  autocreate="true" generate="true">
+            <attributes>
+                <attribute qualifier="useCustomized" type="java.lang.Boolean">
+                    <defaultvalue>Boolean.TRUE</defaultvalue>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="content" type="localized:java.lang.String">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="animation" type="ImageAnimationEffect">
+                    <defaultvalue>em().getEnumerationValue("ImageAnimationEffect", "slide")</defaultvalue>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="animationDuration" type="java.lang.Integer">
+                    <defaultvalue>Integer.valueOf(1000)</defaultvalue>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="animationDelay" type="java.lang.Integer">
+                    <defaultvalue>Integer.valueOf(5000)</defaultvalue>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="banners" type="BannerList">
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="desktop_width" type="java.lang.String">
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="desktop_height" type="java.lang.String">
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="mobile_width" type="java.lang.String">
+                    <persistence type="property" />
+                </attribute>
+                <attribute qualifier="mobile_height" type="java.lang.String">
+                    <persistence type="property" />
+                </attribute>
+            </attributes>
+        </itemtype>
+        <itemtype code="AsahiBannerComponent" extends="SimpleCMSComponent" autocreate="true" generate="true" jaloclass="com.apb.jalo.AsahiBannerComponent">
+            <attributes>
+                <attribute qualifier="title" type="localized:java.lang.String">
+                    <description>Description to display on banner image</description>
+                    <persistence type="property" />
+                </attribute>
+                <attribute type="localized:Media" qualifier="media">
+                    <persistence type="property" />
+                </attribute>
+                <attribute type="java.lang.String" qualifier="urlLink">
+                    <persistence type="property" />
+                </attribute>
+            </attributes>
+        </itemtype>
+    </itemtypes>
+</items>

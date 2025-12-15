@@ -1,0 +1,126 @@
+import com.sabmiller.core.model.SABMAlcoholProductModel
+import com.sabmiller.core.model.SABMAlcoholVariantProductEANModel
+import de.hybris.platform.catalog.model.CatalogModel
+import org.apache.commons.lang.BooleanUtils
+import java.util.Collection
+import de.hybris.platform.variants.model.VariantProductModel
+
+fss = spring.getBean("flexibleSearchService")
+ms = spring.getBean("modelService")
+ps = spring.getBean("productService")
+cs = spring.getBean("catalogVersionDeterminationStrategy")
+
+//Get the materials from Staged product catalog
+materials = fss.search("Select {material.pk} from {SABMAlcoholVariantProductMaterial AS material LEFT JOIN CatalogVersion AS catalog ON {material.catalogversion} = {catalog.PK}} where {catalog.version} = 'Staged'").result
+//materials = fss.search("Select {material.pk} from {SABMAlcoholVariantProductMaterial AS material LEFT JOIN CatalogVersion AS catalog ON {material.catalogversion} = {catalog.PK}} WHERE {material.code} = '000000000000087594' AND {catalog.version} = 'Staged'").result
+sabmillerProductHierarchyLength = 18
+
+out.println(" The number of total materials found " + "  " + materials.size())
+
+for(material in materials)
+{
+    heirarchy =material.hierarchy
+
+    //For logging purpose
+    try
+    {
+	    if(heirarchy==null || heirarchy.size() != 18)
+	    {
+	        out.println(String.format("Material [%s] hierarchy is invalid skipping...", material.code));
+	        continue;
+	    }
+
+        //First lets check if the given material is orphaned.
+		SABMAlcoholVariantProductEANModel ean = material.baseProduct
+		if(ean == null)
+		{
+		    out.println(String.format("Material [%s] is orphaned skipping...", material.code));
+		    continue;
+		}
+
+		out.println(String.format("Processing material [%s] with hierarchy [%s]", material.code, heirarchy));
+
+        //First extract out the LVL 1 - 3 from the given material...
+		newAlcoholCode =   heirarchy.substring(0,10)
+
+		//Get the Alcohol Product
+		SABMAlcoholProductModel alcoholPdt = ean.baseProduct
+
+        //Now check if alcohol product with new code exists...
+		alcoholproducts = fss.search("Select {alcoholProduct.pk} from {SABMAlcoholProduct AS alcoholProduct LEFT JOIN CatalogVersion AS catalog ON {alcoholProduct.catalogversion} = {catalog.PK}} where {catalog.version} = 'Staged' and {code} ='"+ newAlcoholCode+ "'").result
+	   
+		if(alcoholproducts ==null || alcoholproducts.size() ==0  )
+		{ 
+			out.println("Creating new alcohol product with code : " + newAlcoholCode)
+
+			//Step 2c: create a SABMAlcoholProduct
+			SABMAlcoholProductModel sbm =ms.create(SABMAlcoholProductModel.class)
+		
+			sbm.setCode(newAlcoholCode)
+			sbm.setAbv(alcoholPdt.abv)
+			sbm.setBrand(alcoholPdt.brand)
+	 
+			sbm.setCatalogVersion(cs.offlineCatalogVersion())      
+			sbm.setCategoryAttribute(alcoholPdt.categoryAttribute)    
+			sbm.setCategoryVariety(alcoholPdt.categoryVariety)
+
+			sbm.setSubBrand(alcoholPdt.subBrand)
+			//Added newly
+			sbm.setSapAvailabilityStatus(alcoholPdt.sapAvailabilityStatus)
+			sbm.setDescription(alcoholPdt.description)
+			sbm.setPackConfiguration(alcoholPdt.packConfiguration)
+			sbm.setStyle(alcoholPdt.style)
+			sbm.setUnit(alcoholPdt.unit)
+			sbm.setSellingName(alcoholPdt.sellingName)
+			sbm.setName(alcoholPdt.name)
+			//Enriched
+			sbm.setFindOutMore(alcoholPdt.findOutMore)
+			sbm.setFoodMatch(alcoholPdt.foodMatch)
+			sbm.setName(alcoholPdt.name)	
+			sbm.setIsNewProduct(alcoholPdt.isNewProduct) 
+			sbm.setApprovalStatus(alcoholPdt.approvalStatus )
+		 
+			//Step 4
+			sbm.setSupercategories(alcoholPdt.supercategories)
+			//Step 3
+			sbm.setVariantType(alcoholPdt.variantType)
+
+//DO NOT do this here, shift the EAN individually per material.
+//		    out.print("Shifting the following EANS")
+//		    for (eanVariant in alcoholPdt.variants)
+//		    {
+//		        out.print(String.format(" [%s]", eanVariant.code))
+//		    }
+//		    out.println(" to new Alcohol Product...");
+//			sbm.setVariants(alcoholPdt.variants)
+		
+			sbm.setIsNewProduct(alcoholPdt.isNewProduct) 
+			
+			//Wave 1 new attributes
+			sbm.setLevel1(alcoholPdt.level1)
+			sbm.setLevel2(alcoholPdt.level2)
+			sbm.setLevel3(alcoholPdt.level3)
+
+			ms.save(sbm)
+			ms.refresh(sbm)
+
+			//Now new alcohol product is created, lets link the materials EAN to it.
+			out.println(String.format("Linking EAN [%s] to Alcohol Product [%s]. Was linked to [%s].", ean.code, sbm.code, ean.baseProduct.code));
+			ean.baseProduct = sbm
+			ms.save(ean)
+		}
+		else
+		{
+		    //This is really to cater for Alcohol Products with multiple EANs
+		    //New Alcohol product already exists so lets set the material's EAN to the new Alcohol product.
+		    out.println(String.format("New alcohol product [%s] already exists so pointing EAN [%s] to it. Was linked to [%s].", newAlcoholCode, ean.code, ean.baseProduct.code))
+		    newAlcoholProduct = alcoholproducts.get(0)
+		    ean.baseProduct = newAlcoholProduct
+		    ms.save(ean)
+		}
+  }
+  catch(Exception e)
+  {
+   out.println("Exception: " + e.getMessage());
+  }
+}	

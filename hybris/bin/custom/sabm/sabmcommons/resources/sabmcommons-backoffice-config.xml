@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<config xmlns="http://www.hybris.com/cockpit/config">
+    <context component="explorer-tree">
+        <explorer-tree:explorer-tree xmlns:explorer-tree="http://www.hybris.com/cockpitng/config/explorertree" xmlns="http://www.hybris.com/cockpitng/config/explorertree">
+            <navigation-node id="SABM System">
+                <type-node code="SystemEmailMessage" id="SystemEmailMessage"/>
+            </navigation-node>
+        </explorer-tree:explorer-tree>
+    </context>
+</config>

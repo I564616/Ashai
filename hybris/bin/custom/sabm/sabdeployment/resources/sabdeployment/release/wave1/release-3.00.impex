@@ -1,0 +1,777 @@
+    #####################################################################
+   #                 Release Impex for Sprints 4 and 5                 #
+  #   !!!WARNING!!! Please test that this impex is never broken       #
+ #     !!!HINT!!!    Test it in the HAC impex loader                 #
+#####################################################################
+
+#########################
+# SABMC-628 & SABMC-629 #
+#        START          #
+#########################
+$lang=en
+$contentCatalog=sabmContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$siteResource=jar:com.sabmiller.initialdata.setup.InitialDataSystemSetup&/sabminitialdata/import/sampledata/contentCatalogs/$contentCatalog
+$picture=media(code, $contentCV);
+$pictureMobile=mediaForMobile(code, $contentCV);
+$ImportCockpitResource=jar:com.sabmiller.initialdata.setup.InitialDataSystemSetup&/sabminitialdata/import/sampledata/cockpits/importCockpit
+
+
+$serviceRequestDescription=Do you need service support on a recent delivery or want to update your account details? Simply raise an enquiry using our online enquiry form and we will contact you directly.
+$contactUsDescription=Find information on how to get in contact with CUB.
+$faqsDescription=Find answers to our most Frequently Asked Questions.
+
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false']
+;;businessEnquiry;Business Enquiry;ContentPage3Template;/businessEnquiry
+;;businessEnquirySent;Business Enquiry Sent;ContentPage3Template;/businessEnquirySent
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;BusinessEnquiryComponent;Business Enquiry Component;../businessEnquiry/businessEnquiry.jsp;;BusinessEnquiryComponent
+;;BusinessEnquirySentComponent;Business Enquiry Sent Component;../businessEnquiry/businessEnquirySent.jsp;;BusinessEnquirySentComponent
+
+###### SABMiller Business Enquiry Page
+
+# ContentSlot
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;Section2-businessEnquiry;Business Enquiry Form Page;true;BusinessEnquiryComponent;;;
+# ContentSlotForPage
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='businessEnquiry'];contentSlot(uid,$contentCV)[unique=true];;;
+;;Section2-businessEnquiry;Section2;;Section2-businessEnquiry;;;
+
+###### SABMiller Business Enquiry Sent Page
+
+# ContentSlot
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;Section2-businessEnquirySent;Business Enquiry Sent Form Page;true;BusinessEnquirySentComponent;;;
+# ContentSlotForPage
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='businessEnquirySent'];contentSlot(uid,$contentCV)[unique=true];;;
+;;Section2-businessEnquirySent;Section2;;Section2-businessEnquirySent;;;
+
+### Business Enquiry CMS banners ###
+# CMS Standard Text Banner Components Send Business Enquiry Result Page
+INSERT_UPDATE StandardTextBannerComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef
+;;StandardTextBanner-BusinessEnquiry-Top;Standard Text Banner;StandardTextBanner-BusinessEnquiry-Top
+;;StandardTextBanner-BusinessEnquiry-Bottom;Standard Text Banner;StandardTextBanner-BusinessEnquiry-Bottom
+
+# CMS Standard Image and Text Banner Components for Send Business Enquiry Result Page
+INSERT_UPDATE StandardImageAndTextBannerComponent;$contentCV[unique=true];uid[unique=true];name;textComponent(uid,$contentCV);&componentRef
+;;StandardImageAndTextBanner-BusinessEnquiryPage-Top;Standard Image and Text Banner Top;StandardTextBanner-BusinessEnquiry-Top;StandardImageAndTextBanner-BusinessEnquiry-Top
+;;StandardImageAndTextBanner-BusinessEnquiryPage-Bottom;Standard Image and Text Banner Bottom;StandardTextBanner-BusinessEnquiry-Bottom;StandardImageAndTextBanner-BusinessEnquiry-Bottom
+
+# ContentSlot
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;Section1-businessEnquiry;Business Enquiry Form Page;true;StandardImageAndTextBanner-BusinessEnquiry-Top
+;;Section3-businessEnquiry;Business Enquiry Form Page;true;StandardImageAndTextBanner-BusinessEnquiry-Bottom
+# ContentSlotForPage
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='businessEnquiry'];contentSlot(uid,$contentCV)[unique=true];;;
+;;Section1-businessEnquiry;Section1;;Section1-businessEnquiry
+;;Section3-businessEnquiry;Section3;;Section3-businessEnquiry
+
+### Business Enquiry Sent CMS banners ###
+# CMS Standard Text Banner Components Send Business Enquiry Sent Result Page
+INSERT_UPDATE StandardTextBannerComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef
+;;StandardTextBanner-BusinessEnquirySent-Top;Standard Text Banner;StandardTextBanner-BusinessEnquirySent-Top
+;;StandardTextBanner-BusinessEnquirySent-Bottom;Standard Text Banner;StandardTextBanner-BusinessEnquirySent-Bottom
+
+# CMS Standard Image and Text Banner Components for Send Business Enquiry Sent Result Page
+INSERT_UPDATE StandardImageAndTextBannerComponent;$contentCV[unique=true];uid[unique=true];name;textComponent(uid,$contentCV);&componentRef
+;;StandardImageAndTextBanner-BusinessEnquirySentPage-Top;Standard Image and Text Banner Top;StandardTextBanner-BusinessEnquirySent-Top;StandardImageAndTextBanner-BusinessEnquirySent-Top
+;;StandardImageAndTextBanner-BusinessEnquirySentPage-Bottom;Standard Image and Text Banner Bottom;StandardTextBanner-BusinessEnquirySent-Bottom;StandardImageAndTextBanner-BusinessEnquirySent-Bottom
+
+# ContentSlot
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;Section1-businessEnquirySent;Business Enquiry Sent Form Page;true;StandardImageAndTextBanner-BusinessEnquirySent-Top
+;;Section3-businessEnquirySent;Business Enquiry Sent Form Page;true;StandardImageAndTextBanner-BusinessEnquirySent-Bottom
+# ContentSlotForPage
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='businessEnquirySent'];contentSlot(uid,$contentCV)[unique=true];;;
+;;Section1-businessEnquirySent;Section1;;Section1-businessEnquirySent
+;;Section3-businessEnquirySent;Section3;;Section3-businessEnquirySent
+
+###### SABMiller Business Enquiry Page ######
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='image/jpeg'];altText;folder(qualifier)[default='images']
+#;;ImageAndTextBanner-BusinessEnquiryPage-Top;Standard-ImageAndText-Banner.png;$siteResource/images/theme/Standard-ImageAndText-Banner.png;;banner with text;
+#;;ImageAndTextBannerMobile-BusinessEnquiryPage-Top;Standard-ImageAndText-Banner-Mobile.png;$siteResource/images/theme/Standard-ImageAndText-Banner-Mobile.png;;banner with text mobile;
+#;;ImageAndTextBanner-BusinessEnquiryPage-Bottom;Standard-ImageAndText-Banner.png;$siteResource/images/theme/Standard-ImageAndText-Banner.png;;banner with text;
+#;;ImageAndTextBannerMobile-BusinessEnquiryPage-Bottom;Standard-ImageAndText-Banner-Mobile.png;$siteResource/images/theme/Standard-ImageAndText-Banner-Mobile.png;;banner with text mobile;
+
+# CMS Standard Image and Text Banner Components for Send Business Enquiry Result Page
+INSERT_UPDATE StandardImageAndTextBannerComponent;$contentCV[unique=true];uid[unique=true];$picture[lang=$lang];$pictureMobile[lang=$lang]
+#;;StandardImageAndTextBanner-BusinessEnquiryPage-Top;ImageAndTextBanner-BusinessEnquiryPage-Top;ImageAndTextBannerMobile-BusinessEnquiryPage-Top
+#;;StandardImageAndTextBanner-BusinessEnquiryPage-Bottom;ImageAndTextBanner-BusinessEnquiryPage-Bottom;ImageAndTextBannerMobile-BusinessEnquiryPage-Bottom
+###### END OF SABMiller Business Enquiry Page ######
+
+###### SABMiller Business Enquiry Sent Page ######
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='image/jpeg'];altText;folder(qualifier)[default='images']
+#;;ImageAndTextBanner-BusinessEnquirySentPage-Top;Standard-ImageAndText-Banner.png;$siteResource/images/theme/Standard-ImageAndText-Banner.png;;banner with text;
+#;;ImageAndTextBannerMobile-BusinessEnquirySentPage-Top;Standard-ImageAndText-Banner-Mobile.png;$siteResource/images/theme/Standard-ImageAndText-Banner-Mobile.png;;banner with text mobile;
+#;;ImageAndTextBanner-BusinessEnquirySentPage-Bottom;Standard-ImageAndText-Banner.png;$siteResource/images/theme/Standard-ImageAndText-Banner.png;;banner with text;
+#;;ImageAndTextBannerMobile-BusinessEnquirySentPage-Bottom;Standard-ImageAndText-Banner-Mobile.png;$siteResource/images/theme/Standard-ImageAndText-Banner-Mobile.png;;banner with text mobile;
+
+# CMS Standard Image and Text Banner Components for Send Business Enquiry Sent Result Page
+INSERT_UPDATE StandardImageAndTextBannerComponent;$contentCV[unique=true];uid[unique=true];$picture[lang=$lang];$pictureMobile[lang=$lang]
+#;;StandardImageAndTextBanner-BusinessEnquirySentPage-Top;ImageAndTextBanner-BusinessEnquirySentPage-Top;ImageAndTextBannerMobile-BusinessEnquirySentPage-Top
+#;;StandardImageAndTextBanner-BusinessEnquirySentPage-Bottom;ImageAndTextBanner-BusinessEnquirySentPage-Bottom;ImageAndTextBannerMobile-BusinessEnquirySentPage-Bottom
+###### END OF SABMiller Business Enquiry Sent Page ######
+
+#########################
+# SABMC-628 & SABMC-629 #
+#         END           #
+#########################
+
+#########################
+# SABMC-641 & SABMC-642 #
+#         Start         #
+#########################
+
+# Media formats
+INSERT_UPDATE MediaFormat;qualifier[unique=true]
+;video
+
+$productCatalog=sabmProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog]
+$others=others(code, $catalogVersion)
+
+# Sample external Videos media
+INSERT_UPDATE Media;$catalogVersion[unique=true];code[unique=true];realfilename;url;altText;mediaFormat(qualifier)
+#;;video1;Sample Video 1;https://www.youtube.com/watch?v=yj6wv204Kpo;Sample Video 1;video
+#;;video2;Sample Video 2;https://www.youtube.com/watch?v=y4oIlY3HJfo;Sample Video 2;video
+#;;video3;Sample Video 3;https://www.youtube.com/watch?v=8nLWRf-9Q0Y;Sample Video 3;video
+
+#UPDATE SABMAlcoholVariantProductEAN;code[unique=true];$others[mode=append];$catalogVersion[unique=true]
+#;ean000000000090355;video2;
+#;ean000000000090368;video2;
+#;ean000000000090399;video2;
+#;ean000000000090357;video2;
+#;ean000000000090362;video2;
+#;ean000000000090363;video2;
+#;ean000000000090364;video2;
+#;ean000000000090365;video2;
+#;ean000000000090366;video2;
+#;ean000000000090374;video2;
+#;ean000000000090375;video2;
+#;ean000000000090383;video2;
+#;ean000000000090388;video2;
+#;ean000000000090390;video2;
+#;ean000000000090393;video2;
+#;ean000000000090396;video2;
+#;ean000000000090399;video2;
+#;ean000000000090358;video2;
+#;ean000000000090354;video2;
+#;ean000000000090479;video2;
+#;ean000000000089101;video2;
+#;ean000000000090619;video2;
+#;ean000000000090708;video2;
+#;ean000000000087361;video2;
+#;ean000000000088776;video2;
+#;ean000000000088777;video2;
+#;ean000000000088778;video2;
+#;ean000000000088779;video2;
+#;ean000000000088780;video2;
+#;ean000000000088784;video2;
+#;ean000000000089979;video2;
+#;ean000000000090344;video2;
+#;ean000000000090357;video2;
+
+
+# ContentSlotName
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true];validComponentTypes(code)
+;Section2B;ContentPage1Template;SABMVideoComponent
+
+# Sample external Videos media
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];realfilename;url;altText;mediaFormat(qualifier)
+#;;video4;Sample Video 4;https://www.youtube.com/watch?v=yj6wv204Kpo;Sample Video 4;video
+
+#SABM Video Component
+#INSERT_UPDATE SABMVideoComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;video(code,$contentCV)
+#;;VideoComponent1;Video Component 1;VideoComponent1;video4
+
+#Content slot for FAQ Video
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+#;;Section3Slot-FAQ;Video Slot for FAQ page;true;VideoComponent1
+
+# ContentSlotForPage  for FAQ page
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='faq'];contentSlot(uid,$contentCV)[unique=true];;;
+#;;Section3-FAQ;Section3;;Section3Slot-FAQ;;;	
+
+
+
+# Sample Buttons for SABMBannerComponent
+INSERT_UPDATE SABMBannerButtonComponent;code[unique=true];color;urlLink;text;
+#;samplebutton1;sample_color1;sample_urlLink1;sample_text1
+#;samplebutton2;sample_color2;sample_urlLink2;sample_text2
+#;samplebutton3;sample_color3;sample_urlLink3;sample_text3
+#;samplebutton4;sample_color4;sample_urlLink4;sample_text4
+
+INSERT_UPDATE SABMBannerWithButtonComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;urlLink;buttons(code)
+#;;HomePageRotatingImageBanner1;Home Page Rotating Image Banner 1;HomePageRotatingImageBanner1;/Open-Catalogue/Tools/Sanders/c/1596?q=:relevance:brand:brand_980;samplebutton1,samplebutton2
+#;;HomePageRotatingImageBanner2;Home Page Rotating Image Banner 2;HomePageRotatingImageBanner2;/Brands/Bosch/c/brand_753;samplebutton3,samplebutton4
+#;;HomePageRotatingImageBanner3;Home Page Rotating Image Banner 3;HomePageRotatingImageBanner3;/Open-Catalogue/Tools/Power-Drills/c/1360;samplebutton1,samplebutton2
+#;;HomePageRotatingImageBanner4;Home Page Rotating Image Banner 4;HomePageRotatingImageBanner4;/Open-Catalogue/Tools/Sanders/c/1596?q=:relevance:brand:brand_980;samplebutton3,samplebutton4
+
+
+INSERT_UPDATE RotatingImagesComponent;$contentCV[unique=true];uid[unique=true];name;timeout;banners(&componentRef);&componentRef
+#;;SABMillerHomepageRotatingImagesComponent;SABMiller Homepage Rotating Images Component;4000;;SABMillerHomepageRotatingImagesComponent
+
+INSERT_UPDATE SABMBannerWithButtonComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;urlLink;buttons(code)
+#;;DealsPageRotatingImageBanner10;DealsPage Rotating Image Banner 10;DealsPageRotatingImageBanner10;/Open-Catalogue/Tools/Sanders/c/1596?q=:relevance:brand:brand_980;samplebutton1,samplebutton2
+#;;DealsPageRotatingImageBanner11;DealsPage Rotating Image Banner 11;DealsPageRotatingImageBanner11;/Brands/Bosch/c/brand_753;samplebutton1,samplebutton2
+#;;DealsPageRotatingImageBanner12;DealsPage Rotating Image Banner 12;DealsPageRotatingImageBanner12;/Open-Catalogue/Tools/Power-Drills/c/1360;samplebutton1,samplebutton2
+
+INSERT_UPDATE RotatingImagesComponent;$contentCV[unique=true];uid[unique=true];name;timeout;banners(&componentRef)
+#;;DealspageRotatingImagesComponent;Dealspage Rotating Images Component;4000;
+
+UPDATE SABMBannerWithButtonComponent;$contentCV[unique=true];uid[unique=true];headline[lang=en];$picture[lang=$lang];$pictureMobile;content[lang=en]
+#;;HomePageRotatingImageBanner1;Home Page Rotating banner description 1;homepageBanner;homepageBannerMobile;
+#;;HomePageRotatingImageBanner2;Home Page Rotating banner description 2;homepageBanner;homepageBannerMobile;
+#;;HomePageRotatingImageBanner3;Home Page Rotating banner description 3;homepageBanner;homepageBannerMobile;
+#;;HomePageRotatingImageBanner4;Home Page Rotating banner description 4;homepageBanner;homepageBannerMobile;
+
+UPDATE SABMBannerWithButtonComponent;$contentCV[unique=true];uid[unique=true];headline[lang=en];$picture[lang=$lang];$pictureMobile;content[lang=en]
+#;;DealsPageRotatingImageBanner10;DealsPage Rotating banner description 10;homepageBanner;homepageBannerMobile;
+#;;DealsPageRotatingImageBanner11;DealsPage Rotating banner description 11;homepageBanner;homepageBannerMobile;
+#;;DealsPageRotatingImageBanner12;DealsPage Rotating banner description 12;homepageBanner;homepageBannerMobile;
+
+#########################
+# SABMC-641 & SABMC-642 #
+#         End           #
+#########################
+
+#########################
+#      SABMC-434        #
+#        START          #
+#########################
+
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false']
+;;smartOrders;Smart Orders Page;ContentPage1Template;/smartOrders
+
+#### Jsp Include Component ####
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;SmartOrdersComponent;Smart Orders Component;../cart/smartOrders.jsp;;SmartOrdersComponent
+
+###### SABMiller Smart Orders Page
+### Create the product carousel for the home page ###
+INSERT_UPDATE ProductCarouselComponent;$contentCV[unique=true];uid[unique=true];name;scroll(code);popup;searchQuery;categoryCode;&componentRef;title
+#;;CUBPicksProductCarouselComponent1; CUB Picks Product Carousel1;allVisible;false;;;CUBPicksProductCarouselComponent1;Pick of the week1
+#;;CUBPicksProductCarouselComponent2; CUB Picks Product Carousel2;allVisible;false;;;CUBPicksProductCarouselComponent2;Pick of the week2
+#;;CUBPicksProductCarouselComponent3; CUB Picks Product Carousel3;allVisible;false;;;CUBPicksProductCarouselComponent3;Pick of the week3
+#;;CUBPicksProductCarouselComponent4; CUB Picks Product Carousel4;allVisible;false;;;CUBPicksProductCarouselComponent4;Pick of the week4
+
+#CUB Picks Products For HomePage
+INSERT_UPDATE CUBPicksComponent;$contentCV[unique=true];uid[unique=true];name;products(&componentRef);&componentRef
+#;;HomePageCUBPicksComponent;Home Page CUB Picks Component;;HomePageCUBPicksComponent
+
+# ContentSlot
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;Section1-smartOrders;Smart Orders Page Section 1 Content Slot;true;SmartOrdersComponent;;;
+#;;Section3-smartOrders;Smart Orders Page Section 3 Content Slot;true;HomePageCUBPicksComponent;;;
+###TODO insert extended component here which excludes products###
+# ContentSlotForPage
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='smartOrders'];contentSlot(uid,$contentCV)[unique=true];;;
+;;Section1-smartOrders;Section1;;Section1-smartOrders;;;
+#;;Section3-smartOrders;Section3;;Section3-smartOrders;;;
+
+#########################
+#      SABMC-434        #
+#         END           #
+#########################
+
+#########################
+#      SABMC-433        #
+#         Start         #
+#########################
+
+# CMS Home Page Smart Order Components
+INSERT_UPDATE LinkParagraphComponent;$contentCV[unique=true];uid[unique=true];name;title;content;linkText;url;icon;&componentRef
+;;HomeSmartOrderParagraph;Home Smart Order Paragraph;Shop like a genius;Smart Order allows you to accurately order your favorite products in seconds.;Start Shopping;/smartOrders;icon-connected icon-text-offset;HomeSmartOrderParagraph
+
+# CMS Standard Image and Paragraph Banner Components for Home page Smart Order
+INSERT_UPDATE StandardImageAndLinkParagraphComponent;$contentCV[unique=true];uid[unique=true];name;linkParagraphComponent(uid,$contentCV);&componentRef
+;;HomePageSmartOrderComponent;Home Page Smart Order Component;HomeSmartOrderParagraph;HomePageSmartOrderComponent
+
+#Content slot for Home page Smart Order
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;Section3Slot-Homepage;Home page Smart Order Slot;true;HomePageSmartOrderComponent
+
+
+$media=media(code, $contentCV);
+$mediaMobile=mediaForMobile(code, $contentCV);
+# Language
+$lang=en
+#UPDATE StandardImageAndLinkParagraphComponent;$contentCV[unique=true];uid[unique=true];$media[lang=$lang];$mediaMobile
+#;;HomePageSmartOrderComponent;/images/theme/cms-content.png;/images/theme/cms-content-mobile.png
+
+#########################
+#      SABMC-433        #
+#         End           #
+#########################
+
+#########################
+#      SABMC-626        #
+#        START          #
+#########################
+#### CMS Link Components ####
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];name;&linkRef;&componentRef;target(code)[default='sameWindow']
+;;DeliveryInfoLink;Delivery Info Link;DeliveryInfoLink;DeliveryInfoLink
+;;FAQsLink;FAQs Link;FAQsLink;FAQsLink
+;;TermsAndConditionsLink;Terms and Conditions Link;TermsAndConditionsLink;TermsAndConditionsLink
+;;PrivacySecurityLink;Privacy and Security Link;PrivacySecurityLink;PrivacySecurityLink
+;;BusinessEnquiryLink;Business Enquiry Link;BusinessEnquiryLink;BusinessEnquiryLink
+;;ContactUsLink;Contact Us Link;ContactUsLink;ContactUsLink
+;;TemplateOrdersLink;Template Orders Link;TemplateOrdersLink;TemplateOrdersLink
+
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&componentRef);&nodeRef
+#;SABMFooterNavNode;;SABM Pages;SABMillerNavNode;DeliveryInfoLink,FAQsLink,TermsAndConditionsLink,PrivacySecurityLink,BusinessEnquiryLink,ContactUsLink,TemplateOrdersLink;SABMFooterNavNode
+
+UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];linkName[lang=en]
+;;BusinessEnquiryLink;"Business Enquiry"
+#########################
+#      SABMC-626        #
+#         END           #
+#########################
+
+#########################
+#   SABMC-631 & 632     #
+#        START          #
+#########################
+
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false']
+;;serviceRequest;Contact Us;ContentPage3Template;/serviceRequest
+;;serviceRequestEmailSent;Message Sent;ContentPage3Template;/serviceRequestEmailSent
+
+#########################
+#   SABMC-631 & 632     #
+#         END           #
+#########################
+
+#########################
+#      SABMC-541        #
+#         Start         #
+#########################
+
+$wideContent=CMSImageComponent,BannerComponent,CMSParagraphComponent
+$jarEmailResource=jar:com.sabmiller.core.constants.SabmCoreConstants&/sabminitialdata/import/coredata/contentCatalogs/sabmContentCatalog/emails
+
+# Import modulegen config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+$jarResourceCms=$config-jarResourceCmsValue
+$emailPackageName=$config-emailContextPackageName
+
+### Confirm enabled deals email template ###
+# Email page Template
+INSERT_UPDATE EmailPageTemplate;$contentCV[unique=true];uid[unique=true];name;active;frontendTemplateName;subject(code);htmlTemplate(code);restrictedPageTypes(code)
+;;PaymentConfirmationEmailTemplate;Payment Confirmation EmailTemplate;true;paymentConfirmationEmail;sabmiller_Email_Payment_Confirmation_Subject;sabmiller_Email_Payment_Confirmation_Body;EmailPage
+
+# Templates for CMS Cockpit Page Edit
+UPDATE EmailPageTemplate;$contentCV[unique=true];uid[unique=true];velocityTemplate[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+;;PaymentConfirmationEmailTemplate;$jarResourceCms/structure-view/structure_readyForPaymentConfirmationTemplate.vm
+
+
+# Email Pages
+INSERT_UPDATE EmailPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);defaultPage;approvalStatus(code)[default='approved']
+;;PaymentConfirmationEmail;Payment Confirmation Email;PaymentConfirmationEmailTemplate;true;
+
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='PaymentConfirmationEmailTemplate'];validComponentTypes(code);compTypeGroup(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+;Footer;;;footer
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='PaymentConfirmationEmailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-PaymentConfirmationEmail;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-PaymentConfirmationEmail;TopContent;;EmailTopSlot;true
+;;BottomContent-PaymentConfirmationEmail;BottomContent;;EmailBottomSlot;true
+;;Footer-PaymentConfirmationEmail;Footer;;EmailFooterSlot;true
+
+# Email velocity templates
+INSERT_UPDATE RendererTemplate;code[unique=true];contextClass;rendererType(code)[default='velocity']
+;sabmiller_Email_Payment_Confirmation_Body;$emailPackageName.PaymentConfirmationEmailContext
+;sabmiller_Email_Payment_Confirmation_Subject;$emailPackageName.PaymentConfirmationEmailContext
+
+UPDATE EmailPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV)
+;;PaymentConfirmationEmail;EmailPageModel_preview
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+$emailResource=$config-emailResourceValue
+
+# Email Pages
+UPDATE EmailPage;$contentCV[unique=true];uid[unique=true];fromEmail[lang=$lang];fromName[lang=$lang]
+;;PaymentConfirmationEmail;"no-reply-online@cub.com.au";"CUB Online No Reply"
+ 
+# CMS components and Email velocity templates
+UPDATE RendererTemplate;code[unique=true];description[lang=$lang];templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+;sabmiller_Email_Payment_Confirmation_Body;"Payment Confirmation Email Body Template";$emailResource/email-paymentConfirmationBody.vm
+;sabmiller_Email_Payment_Confirmation_Subject;"Payment Confirmation Email Subject Template";$emailResource/email-paymentConfirmationSubject.vm
+
+;sabmiller_Email_Confirm_Deals_Body;"CMSBannerComponent Template";$emailResource/email-confirmEnabledDealBody.vm
+;sabmStore_Email_Order_Confirmation_Body;"Order Confirmation Email Body";$emailResource/email-orderConfirmationBody.vm
+
+#########################
+#      SABMC-541        #
+#         end           #
+#########################
+
+########################### SABMC-630 ###########################
+
+INSERT_UPDATE EmailPageTemplate;$contentCV[unique=true];uid[unique=true];name;active;frontendTemplateName;subject(code);htmlTemplate(code);restrictedPageTypes(code)
+;;BusinessEnquiryEmailTemplate;Business Enquiry Email Template;true;businessEnquiryEmail;sabmStore_Email_Business_Enquiry_Subject;sabmStore_Email_Business_Enquiry_Body;EmailPage
+
+UPDATE EmailPageTemplate;$contentCV[unique=true];uid[unique=true];velocityTemplate[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+;;BusinessEnquiryEmailTemplate;$jarResourceCms/structure-view/structure_businessEnquiryEmailTemplate.vm
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='BusinessEnquiryEmailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='BusinessEnquiryEmailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-BusinessEnquiryEmail;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-BusinessEnquiryEmail;TopContent;;EmailTopSlot;true
+;;BottomContent-BusinessEnquiryEmail;BottomContent;;EmailBottomSlot;true
+
+INSERT_UPDATE EmailPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);defaultPage;approvalStatus(code)[default='approved']
+;;BusinessEnquiryEmail;Business Enquiry Email;BusinessEnquiryEmailTemplate;true;
+
+INSERT_UPDATE RendererTemplate;code[unique=true];contextClass;rendererType(code)[default='velocity']
+;sabmStore_Email_Business_Enquiry_Body;$emailPackageName.BusinessEnquiryEmailContext
+;sabmStore_Email_Business_Enquiry_Subject;$emailPackageName.BusinessEnquiryEmailContext
+
+UPDATE EmailPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV)
+;;BusinessEnquiryEmail;EmailPageModel_preview
+
+UPDATE RendererTemplate;code[unique=true];description[lang=$lang];templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+ ;sabmStore_Email_Business_Enquiry_Body;"Business Enquiry Email Body";$emailResource/email-businessEnquiryBody.vm
+ ;sabmStore_Email_Business_Enquiry_Subject;"Business Enquiry Email Subject";$emailResource/email-businessEnquirySubject.vm
+ 
+UPDATE EmailPage;$contentCV[unique=true];uid[unique=true];fromEmail[lang=$lang];fromName[lang=$lang]
+ ;;BusinessEnquiryEmail;"no-reply-online@cub.com.au";"CUB Online No Reply"
+ 
+####################### end of SABMC-630 ########################
+
+####################### start of SABMC-897 ########################
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false']
+;;personalAssistanceSearch;Search;Portal-ContentPage3Template;/paSearch
+
+# ContentSlotForPage
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='personalAssistanceSearch'];contentSlot(uid,$contentCV)[unique=true];;;
+;;Section2-personalAssistanceSearch;Section2;;Section2-personalAssistanceSearch;;;
+
+##### Jsp Include Component ####
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;personalAssistanceSearchComponent;Personal Assistance Search Page Component;../personalassistance/paSearchPage.jsp;;personalAssistanceSearchComponent
+#
+## ContentSlot
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;Section2-personalAssistanceSearch;Personal Assistance Search;true;personalAssistanceSearchComponent;;;
+#
+######################## end of SABMC-897 ########################
+
+####################### SABMC-1031 ########################
+INSERT_UPDATE LinkParagraphComponent;$contentCV[unique=true];uid[unique=true];name;title;content;linkText;url;icon;&componentRef
+;;BusinessEnquiry;Business Enquiry;;$businessEnquiryDescription;Business Enquiry;/businessEnquiry;;BusinessEnquiry
+;;ContactUs;Contact us;;$contactUsDescription;Contact us;/serviceRequest;;ContactUs
+;;FAQs;FAQs;;$faqsDescription;FAQs;/faqs;;FAQs
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;Section3Slot-YourBusinessOverview;Section3;true;BusinessEnquiry,ContactUs,FAQs
+####################### end of SABMC-1031 ########################
+
+####################### start of SABMC-973 ########################
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false']
+;;personalAssistanceSearchResult;Search Result;Portal-ContentPage3Template;/paSearchResult
+
+# ContentSlotForPage
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='personalAssistanceSearchResult'];contentSlot(uid,$contentCV)[unique=true];;;
+;;Section2-personalAssistanceSearchResult;Section2;;Section2-personalAssistanceSearchResult;;;
+
+#### Jsp Include Component ####
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;personalAssistanceSearchResultComponent;Personal Assistance Search Result Page Component;../personalassistance/paSearchResultsPage.jsp;;personalAssistanceSearchResultComponent
+
+# ContentSlot
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;Section2-personalAssistanceSearchResult;Personal Assistance Search Result;true;personalAssistanceSearchResultComponent;;;
+
+####################### end of SABMC-973 ########################
+
+
+######################### START  SABMC-928  #########################
+#INSERT_UPDATE ImportCockpitJob;code[unique=true]
+#;deliverydateImportCockpitJob
+
+#INSERT_UPDATE ImportCockpitMapping;code[unique=true];folder(qualifier);@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='text/xml']
+#;deliverydateImportMapping;cronjob;$ImportCockpitResource/xml/AdditionalDeliverydateMapping.xml;
+
+#INSERT_UPDATE ImportCockpitInputMedia;code[unique=true];realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='text/csv']
+#;deliverydateImportCockpitMedia;AdditionalDeliverydate.csv;$ImportCockpitResource/csv/AdditionalDeliverydate.csv;
+
+#INSERT_UPDATE ImportCockpitCronJob; code[unique=true];job(code);inputMedia(code);mapping(code);mappingValid;sessionLanguage(isocode)
+#;deliverydateImportJob;deliverydateImportCockpitJob;deliverydateImportCockpitMedia;deliverydateImportMapping;true;$lang
+######################### END SABMC-928 #########################
+
+#########################
+#      SABMC-606        #
+#       Start           #
+#########################
+INSERT_UPDATE Usergroup;uid[unique=true];groups(uid);locname[lang=en];
+;bdegroup;employeegroup;bdegroup
+;bdeviewonlygroup;b2bcustomergroup,b2bordercustomer,b2binvoicecustomer,b2badmingroup;BDE View Only Group
+;pagroup;employeegroup;Personal Assiatance Group
+
+#########################
+#      SABMC-606        #
+#         End           #
+#########################
+
+######################### START  SABMC-1110  #########################
+UPDATE SearchRestriction;code[unique=true];restrictedType(code)[unique=true];query
+;Backend_visibility;VariantProduct;{catalogVersion} IN ( ?session.catalogversions )
+######################### START  SABMC-1110  #########################
+
+
+######################### START  SABMC-1217  ###############
+## get the order by b2bcustomer's current b2bunit
+INSERT_UPDATE SearchRestriction;code[unique=true];principal(UID);restrictedType(code)[unique=true];active;generate;query
+;b2border_restriction;b2bgroup;Order;true;true;"({item:Unit} IN (?session.session.attr.b2bUnit) OR ({item:Unit} is NULL AND {item:User}=?session.user))"
+######################### END  SABMC-1217  #################
+
+
+########################### START SABMC-1123 (Load BDE Employeees into Hybris) ###########################
+#INSERT_UPDATE Employee;name;uid[unique=true];groups(uid)[default=bdegroup]
+#;Anna Pracilio;Anna.Pracilio@cub.com.au
+#;Brad Eckermann;Brad.Eckermann@cub.com.au
+#;Brad Stott;Brad.Stott@cub.com.au
+#;Chris Davies;Chris.Davies@cub.com.au
+#;Chris Lane;Chris.Lane@cub.com.au
+#;Ciara Singleton;Ciara.Singleton@cub.com.au
+#;Clay Faulds;Clay.Faulds@cub.com.au
+#;Clinton Taylor;Clinton.Taylor@cub.com.au
+#;Gerad Inglis;Gerad.Inglis@cub.com.au
+#;Jason Lane;Jason.Lane@cub.com.au
+#;Joshua Smith;Joshua.Smith@cub.com.au
+#;Kevin Dhillon;Kevin.Dhillon@cub.com.au
+#;Kyle Nathan;Kyle.Nathan@cub.com.au
+#;Laurilee Dalton-Smith;Laurilee.Dalton-Smith@cub.com.au
+#;Loretta Wheadon;Loretta.Wheadon@cub.com.au
+#;Marco Daquino;Marco.Daquino@peroniitaly.com
+#;Ray Ruck;Ray.Ruck@cub.com.au
+#;Rod Higbid;Rod.Higbid@cub.com.au
+#;Russell Loomes;Russell.Loomes@cub.com.au
+#;Stephen Buchanan;Stephen.Buchanan@cub.com.au
+#;Stephen Davies;Stephen.Davies@cub.com.au
+#;Storm Harper-Penman;Storm.Harper-Penman@cub.com.au
+#;Zachary Van Baalen;Zachary.VanBaalen@cub.com.au
+#;Alex Illman;Alex.Illman@cub.com.au
+#;Angela Oswin;Angela.Oswin@cub.com.au
+#;John Mann;John.Mann@cub.com.au
+#;Justin Black;Justin.Black@cub.com.au
+#;Mark Weaver;Mark.Weaver@cub.com.au
+#;Scott McCallum;Scott.McCallum@cub.com.au
+#;Shane Manshanden;Shane.Manshanden@cub.com.au
+#;Sue James;Sue.James@cub.com.au
+#;Tony French;Tony.French@cub.com.au
+#;Adam Harkin;Adam.Harkin@cub.com.au
+#;Christine Tassone;Christine.Tassone@cub.com.au
+#;Hugh Marshall;Hugh.Marshall@cub.com.au
+#;Kane Oakley;Kane.Oakley@cub.com.au
+#;Michael Egan;Michael.Egan@cub.com.au
+#;Pauline Munro;Pauline.Munro@cub.com.au
+#;Philip Caldwell;Philip.Caldwell@cub.com.au
+#;Russell Hosking;Russell.Hosking@cub.com.au
+#;Sam Snoad;Sam.Snoad@cub.com.au
+#;Scott Elix;Scott.Elix@cub.com.au
+#;Sean Holmes;Sean.Holmes@cub.com.au
+#;Tom Christiansen;Thomas.Christiansen@cub.com.au
+#;Darren Coote;Darren.Coote@cub.com.au
+#;Gabriel Waterford;Gabriel.Waterford@cub.com.au
+#;Matthew McPhee;Matthew.McPhee@cub.com.au
+#;Matthew Wane;Matthew.Wane@cub.com.au
+#;Nolan Fuazudeen;Nolan.Fuazudeen@cub.com.au
+#;Rebecca O'Mahony;Rebecca.OMahony@cub.com.au
+#;Adrian Moelands;Adrian.Moelands@cub.com.au
+#;Annette Audino;Annette.Audino@cub.com.au
+#;Anthony Bain;Anthony.Bain@cub.com.au
+#;Belinda Butcher;Belinda.Butcher@cub.com.au
+#;Ben Freeman;Ben.Freeman@cub.com.au
+#;Brad Jensen;Brad.Jensen@cub.com.au
+#;Brent Mounsey;Brent.Mounsey@cub.com.au
+#;Chris Campbell;Chris.Campbell@cub.com.au
+#;David Rusling;David.Rusling@cub.com.au
+#;Dean Stone;Dean.Stone@cub.com.au
+#;Eftis Efthimiou;Eftis.Efthimiou@cub.com.au
+#;Felicity Gibson;Felicity.Gibson@cub.com.au
+#;Glenn Everett;Glenn.Everett@cub.com.au
+#;Hamish Cameron;Hamish.Cameron@cub.com.au
+#;Jeff Ingram;Jeff.Ingram@cub.com.au
+#;John East;John.East@cub.com.au
+#;John Van de Camp;John.VandeCamp@cub.com.au
+#;Justin Stapleton;Justin.Stapleton@cub.com.au
+#;Katrina Thorn;Katrina.Thorn@cub.com.au
+#;Kim Simrajh;Kim.Simrajh@cub.com.au
+#;Lloyd Agnew;Lloyd.Agnew@cub.com.au
+#;Mark Whitney;Mark.Whitney@cub.com.au
+#;Matthew Hales;Matthew.Hales@cub.com.au
+#;Matthew Ross-Soden;Matthew.Ross-Soden@cub.com.au
+#;Michael Debono;Michael.Debono@cub.com.au
+#;Michael Hickox;Michael.Hickox@cub.com.au
+#;Michael Whitman;Michael.Whitman@cub.com.au
+#;Natalie Gunn;Natalie.Gunn@cub.com.au
+#;Nathan Hitch;Nathan.Hitch@cub.com.au
+#;Nathan O'Neill;Nathan.ONeill@cub.com.au
+#;Nathan Silvey;Nathan.Silvey@cub.com.au
+#;Nathan Stewart;Nathan.Stewart@cub.com.au
+#;Nigel Wilson;Nigel.Wilson@cub.com.au
+#;Olympia Stamatopoulos;Olympia.Petrou@cub.com.au
+#;Patrick Clancey;Patrick.Clancey@cub.com.au
+#;Rebecca Hyland;Rebecca.Hyland@cub.com.au
+#;Rob Hearn;Rob.Hearn@cub.com.au
+#;Robert Frampton;Robert.Frampton@cub.com.au
+#;Ross Brodie;Ross.Brodie@cub.com.au
+#;Sarah Evans;Sarah.Evans@cub.com.au
+#;Scott Freeman;Scott.Freeman@cub.com.au
+#;Scott McCormack;Scott.McCormack@cub.com.au
+#;Stephen Howard;Stephen.Howard@cub.com.au
+#;Steven Hardingham;Steven.Hardingham@cub.com.au
+#;Sue James;Sue.James@cub.com.au
+#;Tim Cooksley;Tim.Cooksley@cub.com.au
+#;Vin Armstrong;Vin.Armstrong@cub.com.au
+#;Wayne Lasslett;Wayne.Lasslett@cub.com.au
+#;Andrew Bainbridge;Andrew.Bainbridge@cub.com.au
+#;Ashley Fox;Ashley.Fox@cub.com.au
+#;Ashley Stanton;Ashley.Stanton@cub.com.au
+#;Bradley Acton;Bradley.Acton@cub.com.au
+#;Brett Newman;Brett.Newman@cub.com.au
+#;Brian Evans;Brian.Evans@cub.com.au
+#;Brian Gulliver;Brian.Gulliver@cub.com.au
+#;Brian Semmens;Brian.Semmens@cub.com.au
+#;Daniel Apsley;Daniel.Apsley@cub.com.au
+#;Darryl Sweeney;Darryl.Sweeney@cub.com.au
+#;David Bardini;David.Bardini@cub.com.au
+#;David Brewer;David.Brewer@cub.com.au
+#;David Mann;David.Mann@cub.com.au
+#;David McLean;David.McLean@cub.com.au
+#;Dene Rauchle;Dene.Rauchle@cub.com.au
+#;Gavin Rohde;Gavin.Rohde@cub.com.au
+#;Ian Giles;Ian.Giles@cub.com.au
+#;Jason Britton;Jason.Britton@cub.com.au
+#;Jay Hunter;Jay.Hunter@cub.com.au
+#;Joe Hennessy;Joe.Hennessy@cub.com.au
+#;John Grasso;John.Grasso@cub.com.au
+#;Josef Barth;Josef.Barth@cub.com.au
+#;Juliette Mundell;Juliette.Mundell@cub.com.au
+#;Larissa Williams;Larissa.Williams@cub.com.au
+#;Lisa Holmes;Lisa.Holmes@cub.com.au
+#;Louise Bury;Louise.Bury@cub.com.au
+#;Mark Cox;Mark.Cox@cub.com.au
+#;Mark O'Brien;Mark.O'Brien@cub.com.au
+#;Matthew Turner;Matthew.Turner@cub.com.au
+#;Michael O'Connor;Michael.O'Connor@cub.com.au
+#;Paul Noake;Paul.Noake@cub.com.au
+#;Peter Dunn;Peter.Dunn@cub.com.au
+#;Rachel Brown;Rachel.Brown@cub.com.au
+#;Rob Tomlinson;Rob.Tomlinson@cub.com.au
+#;Robert Jackson;Robert.Jackson@cub.com.au
+#;Shane Kerr;Shane.Kerr@cub.com.au
+#;Steve Halpin;Steve.Halpin@cub.com.au
+#;Tammy Heuych;Tammy.Heuych@cub.com.au
+#;Tony Butcher;Tony.Butcher@cub.com.au
+#;Trent Aldons;Trent.Aldons@cub.com.au
+#;Wayne Wolff;Wayne.Wolff@cub.com.au
+#;Zachary Blowes;Zachary.Blowes@cub.com.au
+#;Zoran Zlatic;Zoran.Zlatic@cub.com.au
+#;Alex Croke;Alex.Croke@cub.com.au
+#;Andrew Cameron;Andrew.Cameron@cub.com.au
+#;Andrew Hill;Andrew.Hill@cub.com.au
+#;Anthony Dunn;Anthony.Dunn@cub.com.au
+#;Barry Muncke;Barry.Muncke@cub.com.au
+#;Bob Proctor;Bob.Proctor@cub.com.au
+#;Bradley Hall;Bradley.Hall@cub.com.au
+#;Brian Gallagher;Brian.Gallagher@cub.com.au
+#;Bruce Finlayson;Bruce.Finlayson@cub.com.au
+#;Cameron Duff;Cameron.Duff@cub.com.au
+#;Carina Clark;Carina.Clark@cub.com.au
+#;Cathy Staniland;Cathy.Staniland@cub.com.au
+#;Charles Franklin;Charles.Franklin@cub.com.au
+#;Chris Rohanna;Chris.Rohanna@cub.com.au
+#;Christine Tallon;Christine.Tallon@cub.com.au
+#;Colin Hill;Colin.Hill@cub.com.au
+#;David Collins;David.Collins@cub.com.au
+#;David Hancock;David.Hancock@cub.com.au
+#;Dean Robinson;Dean.Robinson@cub.com.au
+#;Debbie Taylor;Debbie.Taylor@cub.com.au
+#;Graeme Wynn;Graeme.Wynn@cub.com.au
+#;Graham Carter;Graham.Carter@cub.com.au
+#;Grant Galloway;Grant.Galloway@cub.com.au
+#;Greg Carr;Greg.Carr@cub.com.au
+#;Greg Sankey;Greg.Sankey@cub.com.au
+#;Greg Williams;Greg.Williams@cub.com.au
+#;Hayley Fazakerley;Hayley.Fazakerley@cub.com.au
+#;Jakki Corcoran;Jakki.Corcoran@cub.com.au
+#;James Pearce;James.Pearce@cub.com.au
+#;Jason Fomiatti;Jason.Fomiatti@cub.com.au
+#;Jason Greenwood;Jason.Greenwood@cub.com.au
+#;Joel Beauchamp;Joel.Beauchamp@cub.com.au
+#;Lauren Dal Pozzo;Lauren.DalPozzo@cub.com.au
+#;Lewis Winter;Lewis.Winter@cub.com.au
+#;Matthew Healey;Matthew.Healey@cub.com.au
+#;Maurice Collins;Maurice.Collins@cub.com.au
+#;Michael Cary;Michael.Cary@cub.com.au
+#;Michael Hofman;Michael.Hofman@cub.com.au
+#;Michael Williams;Michael.Williams@cub.com.au
+#;Mike Smith;Mike.Smith@cub.com.au
+#;Nicholas Larsen;Nicholas.Larsen@cub.com.au
+#;Nicholas OConnell;Nicholas.OConnell@cub.com.au
+#;Richard Hinton;Richard.Hinton@cub.com.au
+#;Rodney Westcott;Rodney.Westcott@cub.com.au
+#;Ryan Brown;Ryan.Brown@cub.com.au
+#;Sally Dowker;Sally.Dowker@cub.com.au
+#;Sara Hesse;Sara.Hesse@cub.com.au
+#;Saskia Valkema;Saskia.Valkema@cub.com.au
+#;Sean Crowe-Maxwell;Sean.Crowe-Maxwell@cub.com.au
+#;Sean Hugg;Sean.Hugg@cub.com.au
+#;Shawn Elliott;Shawn.Elliott@cub.com.au
+#;Stephen Woods;Stephen.Woods@cub.com.au
+#;Steve Micevski;Steve.Micevski@cub.com.au
+#;Stewart Meredith;Stewart.Meredith@cub.com.au
+#;Tara Lill;Tara.Lill@cub.com.au
+#;Tim Barber;Tim.Barber@cub.com.au
+#;Tony Mogg;Tony.Mogg@cub.com.au
+#;Troy Bailey;Troy.Bailey@cub.com.au
+#;Warren Weaver;Warren.Weaver@cub.com.au
+
+########################### END SABMC-1123 (Load BDE Employeees into Hybris) ###########################
+
+
+
+########################### SABMC-1343 START (Staff Portal Logout & Error Page) ###########################
+######  SABMiller Portal Pages ######
+# Create PageTemplates
+# These define the layout for pages
+# "FrontendTemplateName" is used to define the JSP that should be used to render the page for pages with multiple possible layouts.
+# "RestrictedPageTypes" is used to restrict templates to page types
+INSERT_UPDATE PageTemplate;$contentCV[unique=true];uid[unique=true];name;frontendTemplateName;restrictedPageTypes(code);active[default=true]
+;;Portal-LogoutPageTemplate;Logout Page Template;account/staffAccountLogoutPage;ContentPage
+;;Portal-SSOErrorPageTemplate;SSO Error Page Template;account/staffAccountErrorPage;ContentPage
+
+# Simple Content Pages (Portal-ContentPage3Template)
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false']
+;;portalLogoutRedirect;Portal Logout Page;Portal-LogoutPageTemplate;logoutRedirect
+;;portalSSOError;Portal SSO Login Error Page;Portal-SSOErrorPageTemplate;ssoError
+
+########################### SABMC-1343 END (Staff Portal Logout Page) ###########################
+
+###### START SABMC-1406 The BDE deal page ######
+INSERT_UPDATE SearchRestriction;code[unique=true];principal(UID);restrictedType(code)[unique=true];active;generate;query
+;BDE_ProductPrimaryImage;bdegroup;SABMAlcoholVariantProductEAN;true;true;"{item.picture} is not null"
+;BDE_ProductPrimaryImage;bdegroup;SABMAlcoholVariantProductMaterial;true;true;"1=1"
+###### END SABMC-1406 The BDE deal page ######
+
+###### START SABMC-1416 Create JOB to Sync Stage and Online Catalog ######
+INSERT_UPDATE SABMCatalogVersionSyncJob;code[unique=true];job(code);sessionLanguage(isocode)
+;sabmCatalogVersionSyncCronJob;sabmCatalogVersionSyncJob;$lang
+###### END SABMC-1416 ######
+
+UPDATE SearchRestriction;code[unique=true];active
+;branch_restriction;false
+;employee_restriction;false

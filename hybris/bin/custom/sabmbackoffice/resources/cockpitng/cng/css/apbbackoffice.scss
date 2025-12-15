@@ -1,0 +1,104 @@
+@import url("cockpit.css");
+
+$systembar_bg-color: #BD5C33;
+$systembar_hover-bg-color: #ce724b;
+$systembar_selected-bg-color: #c76840;
+
+/*body {
+    background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAALUlEQVQImWNYtHzHf2S8aceZ/wzoAouW70AIwgTggsgCi5bv+M+ALrBo+Y7/AIsfTAo95vSpAAAAAElFTkSuQmCC) repeat #A2A7B8;
+}*/
+
+.yw-systemBarContainer {
+    .yw-systemItemsContainer {
+/*
+        background: url('images/my_bg.png');
+        background-position: 0 -28px;
+        width: 200px;
+        height: 34px;
+        margin-top: 5px;
+*/
+        .z-toolbarbutton {
+            display: none;
+        }
+    }
+}
+
+/*.yw-systemBarContainer .yw-statusToolbar div.yw-logoContainer {
+    background: url('images/asahiBeverages_White_RGB.png') no-repeat;
+    width: 200px;
+    height: 50px;
+    margin-top: 2px;
+    background-size: 86px;
+}*/
+
+.yw-com_hybris_cockpitng_widgets_common_systembar div.yw-systemBarContainer,
+.yw-systemBarContainer .yw-perspective-breadcrumb.yw-perspective-breadcrumb-expanded,
+.yw-perspective-popup tbody.z-treechildren,
+.yw-roleChooser-popup .z-listbox-body .z-listbox-emptybody td,
+.yw-quickToggleLocale .yw-quickToggleLocale-cl {
+    background-color: $systembar_bg-color;
+}
+
+.yw-systemBarContainer .yw-statusToolbar .widget_cnt .z-toolbarbutton,
+.yw-systemBarContainer .yw-statusToolbar a.z-toolbarbutton,
+.yw-perspective-popup tr.z-treerow {
+    &:hover, 
+    &:focus, 
+    &:active {
+        background-color: $systembar_hover-bg-color;
+    }
+}
+
+.yw-selector-grid {
+  width: 350px;
+  margin: 0 auto;
+  padding-top: 150px;
+  background-size: 200px 100px !important;
+  background: url("images/asahiBeverages_Blue_RGB.png") center top no-repeat transparent !important;
+  -webkit-transform: translate(0, 50%);
+      -ms-transform: translate(0, 50%);
+          transform: translate(0, 50%);
+}
+
+.yw-quickToggleLocale .z-popup-content,
+.yw-roleChooser-popup .z-popup-content {
+    .z-listitem {
+        &, &:hover,
+        &.z-listitem-selected, &.z-listitem-selected:hover {
+            background-color: $systembar_bg-color;
+        }
+        .z-listcell {
+            &:hover {
+                background-color: $systembar_hover-bg-color;
+            }
+        }
+        &.z-listitem-selected .z-listcell {
+            background-color: $systembar_selected-bg-color;
+            &:hover {
+                background-color: $systembar_hover-bg-color;
+            }
+        }
+    }
+}
+
+.yw-com_hybris_cockpitng_authorityGroupSelector {
+    /*.login-container {
+        background: url(images/asahiBeverages_Blue_RGB.png) center top no-repeat transparent !important;
+        box-shadow: none;
+    }*/
+    .yw-selector-grid {
+        background: none !important;
+    }
+    .z-listitem {
+        background: none;
+    }
+    .yw-selector-body {
+        padding-bottom: 24px !important;
+      }
+    .login-wrapper::before {
+        margin-top: 100px;
+    }
+    .yw-selector-grid.login_grid.z-div {
+        margin-top: -100px;
+    }
+}

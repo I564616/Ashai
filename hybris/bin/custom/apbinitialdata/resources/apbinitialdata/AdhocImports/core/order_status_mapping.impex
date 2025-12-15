@@ -1,0 +1,18 @@
+# ACP-2214: Changed Cancelled to 40 and Completed to 50.
+INSERT_UPDATE OrderStatusMapping 	; statusCode[unique=true] ; dynamicsStatusCode[unique=true] ; DisplayStatus ;
+		; ASSIGNED_TO_ADMIN				;01								;Order Placed;
+		; CREATED						;01								;Order Placed;
+		; IN_PROGRESS					;10								;In Progress
+		; IN_PROGRESS					;20								;In Progress
+		; PAYMENT_CAPTURED				;01								; Order Placed
+		; PAYMENT_APPROVED				;01								; Order Placed
+		; PAYMENT_NOT_CAPTURED			;01								; Order Placed
+		; PAYMENT_AUTHORIZED			;01								; Order Placed
+		; SENT_TO_BACKEND_FAILED		;01								; In Progress
+		; PROCESSING_ERROR				;10								; In Progress
+		; SENT_TO_BACKEND				;20								; In Progress
+		; PICKLIST_GENERATED			;30								; In Progress
+		; CANCELLED						;40								; Cancelled
+		; COMPLETED						;50								; Completed
+		; ORDER_SENT_TO_BACKEND			;60								; In Progress
+		; ORDER_SENT_TO_BACKEND_FAILED	;70								; In Progress		

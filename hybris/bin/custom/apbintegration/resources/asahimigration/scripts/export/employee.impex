@@ -1,0 +1,84 @@
+INSERT_UPDATE ScriptingJob	;code[unique=true]		;scriptURI
+							;employeeExportScriptJob	;model://employeeExportScriptJob
+							
+INSERT_UPDATE CronJob	;code[unique=true]			;job(code)				;sessionLanguage(isocode)	;sessionUser(uid)
+						;employeeExportScriptCronJob	;employeeExportScriptJob	;en		;admin
+
+INSERT_UPDATE Script; code[unique=true];content;active[default=true, unique=true]
+;employeeExportScriptJob;"import java.io.File;
+import java.lang.Exception;
+import java.io.InputStream;
+import de.hybris.platform.util.CSVConstants;
+
+import java.io.IOException;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.sql.Timestamp;
+import org.apache.log4j.*;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.exception.ExceptionUtils;
+
+import de.hybris.platform.servicelayer.impex.ExportConfig;
+import de.hybris.platform.servicelayer.impex.ExportConfig.ValidationMode;
+import de.hybris.platform.servicelayer.impex.ExportResult;
+import de.hybris.platform.servicelayer.impex.ExportService;
+import de.hybris.platform.servicelayer.impex.ImpExResource;
+import de.hybris.platform.impex.model.ImpExMediaModel;
+import de.hybris.platform.impex.jalo.exp.ImpExExportMedia;
+import de.hybris.platform.servicelayer.impex.impl.StreamBasedImpExResource;
+import de.hybris.platform.impex.model.exp.ImpExExportMediaModel;
+
+import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
+import de.hybris.platform.servicelayer.search.SearchResult;
+import de.hybris.platform.impex.model.cronjob.ImpExExportCronJobModel;
+
+final Logger LOG = Logger.getLogger(""asahi"");
+
+def exportService = spring.getBean(""exportService"");
+
+header = 
+""insert AsahiEmployee;activeSalesRep;authorizedToUnlockPages[allownull=true];backOfficeLoginDisabled;description;encodedPassword;hmcLoginDisabled;lastLogin[dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ];loginDisabled[allownull=true];name;@password[translator=de.hybris.platform.impex.jalo.translators.UserPasswordTranslator];passwordAnswer;passwordEncoding;passwordQuestion;phone;purposeCode;referenceId[unique=true];salesRepCode;salesRepEmail;salesType(code,itemtype(code));sessionCurrency(isocode);sessionLanguage(isocode);showSalesRep;uid[unique=true,allownull=true];groups(uid)[collection-delimiter=,];\n""+
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {AsahiEmployee}\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+""insert Employee;uid[unique=true,allownull=true];authorizedToUnlockPages[allownull=true];backOfficeLoginDisabled;description;encodedPassword;hmcLoginDisabled;lastLogin[dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ];loginDisabled[allownull=true];name;@password[translator=de.hybris.platform.impex.jalo.translators.UserPasswordTranslator];passwordAnswer;passwordEncoding;passwordQuestion;sessionCurrency(isocode);sessionLanguage(isocode);groups(uid)[collection-delimiter=,];\n""+
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {Employee!} where {uid} NOT IN ('admin','cmsmanager')\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+""UPDATE Employee;uid[unique=true,allownull=true];authorizedToUnlockPages[allownull=true];description;sessionCurrency(isocode);sessionLanguage(isocode);groups(uid)[collection-delimiter=,mode=append];\n""+
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {Employee!} where {uid} NOT IN ('admin','cmsmanager')\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+""INSERT_UPDATE BackofficeSavedQuery;&savedQueryRef;globalOperatorCode;includeSubtypes;name[lang=en, unique=true];queryOwner(uid)[allownull=true,unique=true];sortAsc;sortAttribute;tokenizable;typeCode[allownull=true];userGroups(uid);\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {BackofficeSavedQuery}\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+""INSERT_UPDATE BackofficeSearchCondition ; value[unique=true] ; attribute     ; selected ; operatorCode ; valueReference(Employee.uid)[unique=true] ; savedQuery(&savedQueryRef)[unique=true] ;\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {BackofficeSearchCondition} where {valuereference} IN ({{select {pk} from {Employee} }}) \""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+""INSERT_UPDATE BackofficeSearchCondition ; value[unique=true] ; attribute     ; selected ; operatorCode ; savedQuery(&savedQueryRef)[unique=true] ;\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {BackofficeSearchCondition} where {valuereference} is NULL\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+""INSERT_UPDATE BackofficeSearchCondition ; value[unique=true] ; attribute     ; selected ; operatorCode ; valueReference(CMSSite.uid)[unique=true] ; savedQuery(&savedQueryRef)[unique=true] ;\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {BackofficeSearchCondition} where {valuereference} IN ({{select {pk} from {CMSSite} }}) \""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""INSERT_UPDATE CatalogVersion ; catalog(id)[unique=true] ; version[unique=true] ; readPrincipals(uid) ; writePrincipals(uid);\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {CatalogVersion}\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n"";
+
+InputStream resourceAsStream = null;
+try {
+	resourceAsStream = new ByteArrayInputStream(header.getBytes());
+	final ImpExResource resource = new StreamBasedImpExResource(resourceAsStream, CSVConstants.DEFAULT_ENCODING);
+	final ExportConfig config = new ExportConfig();
+	config.setScript(resource);
+	config.setSingleFile(true);
+	config.setValidationMode(ValidationMode.WITHOUT);
+	config.setExportedDataCode(""employees-""+new SimpleDateFormat(""yyyyMMddHHmmssSSS"").format(new Date()));
+	final ExportResult result = exportService.exportData(config);
+	
+	if (result.isError()){
+		println (""Error occurred"");
+		LOG.info(""Exception occurred during export of Employees"");
+	}
+}
+catch (final Exception exception) {
+		println (ExceptionUtils.getStackTrace(exception));
+		LOG.error(ExceptionUtils.getStackTrace(exception));
+		LOG.log(Level.ERROR, exception.getStackTrace());
+	}  
+finally
+	{
+			resourceAsStream.close();
+	}";;
+	
+

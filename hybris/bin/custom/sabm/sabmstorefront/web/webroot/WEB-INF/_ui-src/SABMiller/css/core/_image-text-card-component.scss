@@ -1,0 +1,81 @@
+.image-text-card-component {
+  -webkit-box-shadow: 0 0 50px -5px rgba(0,0,0,.1);
+  box-shadow: 0 0 50px -5px rgba(0,0,0,.1);
+  display: table;
+  margin: $double-spacing-unit auto;
+  padding: $spacing-unit-base*1.5;
+  width: 100%;
+  position: relative;
+  @include coloured-bracket-corner($color:#f7e63b, $size:60px, $desktop-offset:30px);
+  h2 {
+    margin: $spacing-unit-base*.5 0 $spacing-unit-base*3;
+    text-align: center;
+  }
+  .card {
+    @media (max-width: $mobile-max) {
+      padding-left: 0;
+      padding-right: 0;
+      &:not(:last-child) {
+        padding-bottom: $spacing-unit-base*4;
+        &:before {
+          background: url($grey-dot-vertical) 33.3333333333%*.5 5px repeat-y;
+          bottom: 0;
+          content: '';
+          left: 0;
+          position: absolute;
+          right: 0;
+          top: 0;
+        }
+      }
+    }
+    .col-xs-4, .col-xs-8 {
+      @media (max-width: $mobile-max) {
+        padding-right: 0;
+        padding-left: 0;
+      }
+    }
+    .col-xs-8 {
+      @media (max-width: $mobile-max) {
+        padding-left: $spacing-unit-base;
+      }
+    }
+  }
+  .panel-heading {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    img {
+      display: inline-block;
+      width: 112px;
+    }
+  }
+  .panel-body {
+    font-size: $font-medium;
+    padding: $spacing-unit-base*.5 0;
+    position: relative;
+    @media (min-width: $mobile-max) {
+      padding: $spacing-unit-base*.5;
+      text-align: center;
+    }
+    .caption {
+      color: $dark-grey;
+      font-size: $font-medium-x;
+      font-weight: 500;
+      @media (max-width: $mobile-max) {
+        margin: 0;
+      }
+    }
+    h3 {
+      font-size: $font-large;
+      line-height: $line-height-large;
+      @media (min-width: $mobile-max) {
+        padding: $spacing-unit-base*.5 0;
+      }
+    }
+    .description {
+      color: $lighter-dark-grey;
+      font-size: $font-medium;
+    }
+  }
+}

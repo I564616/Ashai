@@ -1,0 +1,93 @@
+$defaultLanguage = en
+$ImportCockpitResource = jar:com.sabmiller.initialdata.setup.InitialDataSystemSetup&/sabminitialdata/import/sampledata/cockpits/importCockpit
+
+INSERT_UPDATE CronJob; code[unique = true]; job(code); user(uid); sessionLanguage(isocode)
+; imageImportCronJob              ; imageDataLoaderJob              ; admin ; $defaultLanguage
+; sendCustomerWelcomeEmailCronJob ; sendCustomerWelcomeEmailJob     ; false ; $defaultLanguage
+; systemEmailCronJob              ; systemEmailJob                  ; false ; $defaultLanguage
+; dailyMonitoringCronJob          ; dailyMonitoringJob              ; false ; $defaultLanguage
+; fetchCustomerCUPJob             ; fetchCustomerCUPJob             ; false ; $defaultLanguage ;
+; manualProductExclusionImportJob ; manualProductExclusionImportJob ; false ; $defaultLanguage ;
+
+# Old User Access History Cleanup CronJobs
+INSERT_UPDATE OldSABMUserAccessHistoryRemovalCronJob; code[unique = true]; job(code); age; batchSize; sessionLanguage(isocode)
+; oldSABMUserAccessHistoryRemovalCronJob ; oldSABMUserAccessHistoryRemovalJob ; 730 ; 1000 ; $defaultLanguage
+
+# Old RepDrivenDealConditionStatus CronJobs
+INSERT_UPDATE OldRepDrivenDealConditionStatusRemovalCronJob; code[unique = true]; job(code); age; batchSize; sessionLanguage(isocode)
+; oldRepDrivenDealConditionStatusRemovalCronJob ; oldRepDrivenDealConditionStatusRemovalJob ; 180 ; 1000 ; $defaultLanguage
+
+INSERT_UPDATE SABMEmailExportCronJob; code[unique = true]; job(code); sessionUser(uid); sessionLanguage(isocode); emailFrom; emailTo; subject; body
+; exportCustomerCronJob ; exportCustomerJob ; admin ; $defaultLanguage ; report@cub.com.au ; report@cub.com.au ; DAILY CUSTOMER REPORT ; PFA the latest customer report
+
+INSERT_UPDATE Trigger; cronJob(code)[unique = true]; cronExpression; relative; active; maxAcceptableDelay
+; sendCustomerWelcomeEmailCronJob        ; 0 0/5 * * * ? ; false ; true ; -1
+; systemEmailCronJob                     ; 0 0/5 * * * ? ; false ; true ; -1
+; oldSABMUserAccessHistoryRemovalCronJob ; 0 15 2 L * ?  ; false ; true ; -1
+; oldWebServiceLogRemovalCronJob         ; 0 0 1 * * ?   ; false ; true ; -1
+; exportCustomerCronJob                  ; 0 0 6 * * ?   ; false ; true ; -1
+; imageImportCronJob                     ; 0 0 4 * * ?   ; false ; true ; -1
+; oldSABMPriceRowRemovalCronJob          ; 0 15 3 L * ?  ; false ; true ; -1
+; oldLastUpdateTimeEntityRemovalCronJob  ; 0 15 4 L * ?  ; false ; true ; -1
+; dailyMonitoringCronJob                 ; 0 0 14 * * ?  ; false ; true ; -1
+; fetchCustomerCUPJob                    ; 0 0 19 ? * 1  ; false ; true ; -1
+; manualProductExclusionImportJob        ; 0 0 19 ? * 6  ; false ; true ; -1
+; OldSABMDealsRemovalCronJob             ; 0 15 3 L * ?  ; false ; true ; -1
+######################### START  SABMC-928  #########################
+#INSERT_UPDATE ImportCockpitJob; code[unique = true]
+#; deliverydateImportCockpitJob
+
+#INSERT_UPDATE ImportCockpitMapping; code[unique = true]; folder(qualifier); @media[translator = de.hybris.platform.impex.jalo.media.MediaDataTranslator]; mime[default = 'text/xml']
+#; deliverydateImportMapping ; cronjob ; $ImportCockpitResource/xml/AdditionalDeliverydateMapping.xml ;
+
+#INSERT_UPDATE ImportCockpitInputMedia; code[unique = true]; realfilename; @media[translator = de.hybris.platform.impex.jalo.media.MediaDataTranslator]; mime[default = 'text/csv']
+#; deliverydateImportCockpitMedia ; AdditionalDeliverydate.csv ; $ImportCockpitResource/csv/AdditionalDeliverydate.csv ;
+
+#INSERT_UPDATE ImportCockpitCronJob; code[unique = true]; job(code); inputMedia(code); mapping(code); mappingValid; sessionLanguage(isocode)
+#; deliverydateImportJob ; deliverydateImportCockpitJob ; deliverydateImportCockpitMedia ; deliverydateImportMapping ; true ; $defaultLanguage
+######################### END SABMC-928 #########################
+
+INSERT_UPDATE SABMCatalogVersionSyncJob; code[unique = true]; job(code); sessionLanguage(isocode)
+; sabmCatalogVersionSyncCronJob ; sabmCatalogVersionSyncJob ; $defaultLanguage
+
+# Old Price Row Cleanup CronJobs
+INSERT_UPDATE OldSABMPriceRowRemovalCronJob; code[unique = true]; job(code); age; batchSize; sessionLanguage(isocode)
+; oldSABMPriceRowRemovalCronJob ; oldSABMPriceRowRemovalJob ; 180 ; 1000 ; $defaultLanguage
+
+# Old Deals Cleanup CronJobs
+INSERT_UPDATE OldSABMDealsRemovalCronJob; code[unique = true]; job(code); batchSize; sessionLanguage(isocode)
+; OldSABMDealsRemovalCronJob ; OldSABMDealsRemovalJob ; 1000 ; $defaultLanguage
+
+# Old Last Update Time Entity Cleanup CronJobs
+INSERT_UPDATE OldLastUpdateTimeEntityRemovalCronJob; code[unique = true]; job(code); age; batchSize; sessionLanguage(isocode)
+; oldLastUpdateTimeEntityRemovalCronJob ; oldLastUpdateTimeEntityRemovalJob ; 180 ; 1000 ; $defaultLanguage
+
+INSERT_UPDATE OldWebServiceLogRemovalCronJob; code[unique = true]; job(code); age; batchSize; sessionLanguage(isocode)
+; oldWebServiceLogRemovalCronJob ; oldWebServiceLogRemovalJob ; 180 ; 1000 ; $defaultLanguage
+
+
+######################### Start Customer Notification Report CronJob ######################################
+
+INSERT_UPDATE ServicelayerJob; code[unique=true];springId[unique=true]
+;customerNotificationJob;customerNotificationJob;
+
+INSERT_UPDATE CustomerNotificationCronJob;code[unique=true];job(code);singleExecutable;sessionLanguage(isocode)
+;customerNotificationCronJob;customerNotificationJob;false;$defaultLanguage;
+
+ INSERT_UPDATE Trigger;cronJob(code)[unique=true];cronExpression;relative;active;maxAcceptableDelay
+;customerNotificationCronJob;0 0 18 * * ?;false;true;-1
+
+######################## End Customer Notification Report CronJob ###########################################
+
+######################### Start Export BDE Order Report CronJob ######################################
+
+INSERT_UPDATE ServicelayerJob; code[unique=true];springId[unique=true]
+;exportBDEOrdersJob;exportBDEOrdersJob;
+
+INSERT_UPDATE SABMBDEEmailExportCronJob; code[unique = true]; job(code); emailFrom; emailTo; subject; body
+; exportBDEOrdersCronJob ; exportBDEOrdersJob ; report@cub.com.au ; report@cub.com.au ; BDE Orders Weekly Report; PFA the last 7 days BDE orders report
+
+INSERT_UPDATE Trigger;cronJob(code)[unique=true];cronExpression;relative;active;maxAcceptableDelay
+;exportBDEOrdersCronJob;0 0 21 ? * 1;false;true;-1
+
+######################## End Export BDE Order Report CronJob ###########################################

@@ -1,0 +1,184 @@
+# Import essential data for the Accelerator
+#
+# Includes:
+# * Languages
+# * Currencies
+# * Titles
+# * Vendors
+# * Warehouses
+# * Supported Credit/Debit cards
+# * User Groups
+# * DistanceUnits for Storelocator
+# * MediaFolders
+# * MediaFormats
+# * Tax & Tax Groups
+# * Jobs
+
+# Languages
+INSERT_UPDATE Language; isocode[unique = true]; fallbackLanguages(isocode); active[default = true]
+; en ;    ; ;
+; de ; en ; ;
+; ja ; en ; ;
+; zh ; en ; ;
+
+# Currencies
+INSERT_UPDATE Currency; isocode[unique = true]; conversion; digits; symbol
+; GBP ; 1    ; 2 ; £
+; EUR ; 1    ; 2 ; €
+; USD ; 1, 4 ; 2 ; $
+; JPY ; 120  ; 0 ; ¥
+; AUD ; 1    ; 2 ; $
+
+# SiteMap Language Currencies
+INSERT_UPDATE SiteMapLanguageCurrency; &siteMapLanguageCurrency; language(isoCode)[unique = true]; currency(isocode)[unique = true];
+; enUsd ; en ; USD
+; enJpy ; en ; JPY
+; enGbp ; en ; GBP
+; enEur ; en ; EUR
+; jaUsd ; ja ; USD
+; jaJpy ; ja ; JPY
+; jaGbp ; ja ; GBP
+; jaEur ; ja ; EUR
+; deUsd ; de ; USD
+; deJpy ; de ; JPY
+; deGbp ; de ; GBP
+; deEur ; de ; EUR
+; zhUsd ; zh ; USD
+; zhJpy ; zh ; JPY
+; zhGbp ; zh ; GBP
+; zhEur ; zh ; EUR
+
+# Vendor
+INSERT_UPDATE Vendor; code[unique = true]; name
+; default ; Default Vendor
+
+# Warehouse
+INSERT_UPDATE Warehouse; code[unique = true]; name; vendor(code)[default = default]; default[default = true]
+; default     ; Default Warehouse ;
+; warehouse_s ; Warehouse South   ;
+; warehouse_e ; Warehouse East    ;
+; warehouse_w ; Warehouse West    ;
+; warehouse_n ; Warehouse North   ;
+
+# Disable preview for email pages
+UPDATE CMSPageType; code[unique = true]; previewDisabled
+; EmailPage ; true
+
+# Titles
+INSERT_UPDATE Title; code[unique = true]
+; mr
+; mrs
+; miss
+; ms
+; dr
+; rev
+
+# Media Folders
+INSERT_UPDATE MediaFolder; qualifier[unique = true]; path[unique = true]
+; images            ; images
+; email-body        ; email-body
+; email-attachments ; email-attachments
+
+# Media formats
+INSERT_UPDATE MediaFormat; qualifier[unique = true]
+; 1200Wx1200H
+; 515Wx515H
+; 365Wx246H
+; 300Wx300H
+; 96Wx96H
+; 65Wx65H
+; 30Wx30H
+; video
+
+# Tax & Tax Groups
+INSERT_UPDATE UserTaxGroup; code[unique = true]
+; de-taxes
+; jp-taxes
+; uk-taxes
+; us-taxes
+; ca-taxes
+
+INSERT_UPDATE ProductTaxGroup; code[unique = true]
+; jp-vat-full
+; eu-vat-full
+; eu-vat-half
+; us-sales-tax-full
+; ca-sales-tax-full
+
+INSERT_UPDATE Tax; code[unique = true]; value; currency(isocode)
+; de-vat-full       ; 19
+; de-vat-half       ; 7
+; jp-vat-full       ; 5
+; uk-vat-full       ; 20
+; uk-vat-half       ; 5
+; us-sales-tax-full ; 0
+; ca-sales-tax-full ; 0
+
+INSERT_UPDATE ServicelayerJob; code[unique = true]; springId[unique = true]
+; cartRemovalJob  ; cartRemovalJob
+; siteMapMediaJob ; siteMapMediaJob
+
+INSERT_UPDATE Unit; unitType[unique = true]; code[unique = true]; name[lang = en]; pluralName[lang = en]
+; keg    ; KEG ; Keg    ; Kegs
+; pallet ; PAL ; Pallet ; Pallets
+; layer  ; LAY ; Layer  ; Layers
+; case   ; CAR ; Case   ; Cases
+; cas    ; CAS ; Case   ; Cases
+; drum   ; DRM ; Drum   ; Drums
+
+INSERT_UPDATE InvoiceType; accountingType[unique = true]; description; displayText[lang = en]
+; Y2   ; Check Collection     ; Cheque payment
+; Y5   ; Direct Deb(Cus Alc)  ; ADD Payment
+; Y6   ; Direct Debit (Visa)  ; ADD Visa Payment
+; Y7   ; Direct Debit(Master) ; ADD Mastercard Payment
+; Y8   ; Direct Debit(AMEX)   ; ADD AMEX payment
+; Y9   ; Over Counter Receipt ; OTC Deposit
+; YC   ; BPay Alc Collection  ; BPay payment
+; YD   ; BPay CreditCard Coll ; BPay Payment Credit Card
+; YE   ; Credit Card Visa     ; Phone payment Visa
+; YF   ; Credit Card Master   ; Phone payment Master card
+; YG   ; Credit Card Amex     ; Phone payment Amex
+; ZB   ; Electronic bank rec. ; Reconciliation Item
+; AR   ; Customer Clearing    ; Adjustment
+; DA   ; Customer Document    ; Adjustment
+; DD   ; Tax Debit Note       ; Debit Adjustment
+; DG   ; Tax Credit Note      ; Credit Adjustment
+; DH   ; Credit Note-Deductio ; Deduction Credit
+; DR   ; Tax Invoice          ; Tax Invoice
+; DX   ; RD Cheque            ; Dishonoured Payment
+; DZ   ; Customer Payment     ; EFT payment
+; ID   ; Interface Upload: AR ; Rebate Credit
+; RV   ; Billing doc.transfer ; SD Billing Document
+; SA   ; G/L account document ; Foreign Currency Payment
+
+; YSCM ; Credit value memo nr ; Credit adjustment
+; YSCR ; Credit value memo    ; Credit adjustment
+; YSDM ; Debit value memo Mer ; Debit adjustment
+; YSDR ; Debit value memo     ; Debit adjustment
+; YSER ; SD Empty return bill ; Credit Adjustment
+; YSFO ; SD Free Order Billin ; Tax Invoice
+; YSFR ; SD Free Order Return ; Credit Adjustment
+; YSIC ; SD Internal consumpt ; Tax Invoice
+; YSOR ; SD Standard Billing  ; Tax Invoice
+; YSRE ; SD Return Billing    ; Credit adjustment
+; YSS1 ; Cancellation         ; Cancellation
+; YSS2 ; Credit Cancellation  ; Credit Cancellation
+; YSSS ; SD Sundry Sales Bill ; Tax Invoice
+; YSSR ; SD Sundry Return Bil ; Credit memo
+
+#Region
+INSERT_UPDATE Region; country(isocode); isocode[unique = true]; businessCode; isocodeShort; name[lang = en]; active[default = true]
+; AU ; NSW ; cub; NSW ; "New South Wales"
+; AU ; QLD ; cub; QLD ; "Queensland"
+; AU ; SA  ; cub; SA  ; "South Australia"
+; AU ; TAS ; cub; TAS ; "Tasmania"
+; AU ; VIC ; cub; VIC ; "Victoria"
+; AU ; WA  ; cub; WA  ; "Western Australia"
+; AU ; ACT ; cub; ACT ; "Australian Capital Territory"
+
+UPDATE SearchRestriction; code[unique = true]; active
+; employee_restriction ; true
+; branch_restriction   ; true
+
+INSERT_UPDATE SabmConfiguration; partialDealThreshold[unique = true];
+; 50 ;

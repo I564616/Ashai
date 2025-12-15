@@ -1,0 +1,38 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd
+           http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+		   http://www.springframework.org/schema/integration/file http://www.springframework.org/schema/integration/file/spring-integration-file.xsd
+		   http://www.springframework.org/schema/integration/http http://www.springframework.org/schema/integration/http/spring-integration-http.xsd
+		   http://www.springframework.org/schema/integration/xml
+    	   http://www.springframework.org/schema/integration/xml/spring-integration-xml.xsd
+    	   http://www.springframework.org/schema/oxm http://www.springframework.org/schema/oxm/spring-oxm.xsd
+    	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+    	   http://www.springframework.org/schema/integration/mail http://www.springframework.org/schema/integration/mail/spring-integration-mail.xsd"
+>
+
+
+    <bean id="dispatchInfoImportService" class="com.sabmiller.webservice.dispatchinfo.handler.DispatchInfoImportHandler"/>
+
+    <bean id="dispatchInfoUnmarshallingTransformer" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+        <property name="contextPath" value="com.sabmiller.webservice.dispatchinfo"/>
+    </bean>
+
+    <!--  Converters defined in this extension -->
+    <bean id="dispatchInfoConsignmentConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="de.hybris.platform.commercefacades.order.data.ConsignmentData"/>
+        <property name="populators">
+            <list>
+                <ref bean="dispatchInfoConsignmentPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="dispatchInfoImportRecordReverseConverter" class="com.sabmiller.webservice.dispatchinfo.converters.DispatchInfoImportRecordReverseConverter"/>
+    <bean id="dispatchInfoConsignmentPopulator" class="com.sabmiller.webservice.dispatchinfo.converters.populator.DispatchInfoConsignmentPopulator"/>
+
+</beans>

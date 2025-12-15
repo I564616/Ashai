@@ -1,0 +1,209 @@
+# ImpEx for Importing Prices
+
+# Macros / Replacement Parameter definitions
+$productCatalog=sabmProductCatalog
+
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+
+#Set the user price group. Price should be mapped against the group and not the user
+INSERT_UPDATE UserPriceGroup;code[unique=true]
+;0000842292;"Test Org Melbourne"
+;Test Sample B2B Sydney;"Test Org Sydney"
+;Test Sample B2B Perth;"Test Org Perth"
+;Test Sample B2B Brisbane;"Test Org Brisbane"
+
+## update by SAB-560  add user,product,basePrice
+INSERT_UPDATE PriceRow;minqtd[unique=true];price[unique=true];unit(unitType)[unique=true];unitFactor[unique=true];Currency(isocode)[unique=true];ug(code)[unique=true];product(code,$catalogVersion)[unique=true];basePrice[unique=true]
+;1;50;keg;1;AUD;0000842292;eanVariant01;200
+#;1;50;case;1;AUD;0000842292;eanVariant02;200
+;1;50;case;1;AUD;0000842292;eanVariant02_5;200
+;1;60;case;1;AUD;0000842292;eanVariant02_6;200
+;1;70;case;1;AUD;0000842292;eanVariant02_7;200
+;1;80;case;1;AUD;0000842292;eanVariant02_8;200
+;1;10;case;1;AUD;0000842292;eanVariant02_9;200
+;1;30;case;1;AUD;0000842292;eanVariant02_10;200
+;1;40;case;1;AUD;0000842292;eanVariant02_11;200
+;1;55;case;1;AUD;0000842292;eanVariant02_12;200
+;1;66;case;1;AUD;0000842292;eanVariant02_13;200
+;1;77;case;1;AUD;0000842292;eanVariant02_14;200
+;1;77;case;1;AUD;0000842292;eanVariant02_15;200
+;1;77;case;1;AUD;0000842292;eanVariant02_16;200
+;1;77;case;1;AUD;0000842292;eanVariant02_17;200
+;1;77;case;1;AUD;0000842292;eanVariant02_18;200
+;1;77;case;1;AUD;0000842292;eanVariant02_19;200
+;1;77;case;1;AUD;0000842292;eanVariant02_20;200
+;1;77;case;1;AUD;0000842292;eanVariant02_21;200
+;1;77;case;1;AUD;0000842292;eanVariant02_22;200
+;1;77;case;1;AUD;0000842292;ean000000000090355;200
+;1;77;case;1;AUD;0000842292;ean000000000090368;200
+;1;77;keg;1;AUD;0000842292;ean000000000090399;200
+;1;77;keg;1;AUD;0000842292;ean000000000090357;200
+;1;77;case;1;AUD;0000842292;ean000000000090362;200
+
+;1;77;case;1;AUD;0000842292;ean000000000090363;200
+;1;77;case;1;AUD;0000842292;ean000000000090364;200
+;1;77;case;1;AUD;0000842292;ean000000000090365;200
+;1;77;keg;1;AUD;0000842292;ean000000000090366;200
+
+
+;1;77;case;1;AUD;0000842292;eanVariant02_28;200
+;1;77;case;1;AUD;0000842292;eanVariant02_29;200
+;1;77;case;1;AUD;0000842292;eanVariant02_30;200
+;1;77;case;1;AUD;0000842292;eanVariant02_31;200
+;1;77;case;1;AUD;0000842292;eanVariant02_32;200
+;1;77;case;1;AUD;0000842292;eanVariant02_33;200
+;1;77;case;1;AUD;0000842292;eanVariant02_34;200
+#;1;88;case;1;AUD;0000842292;eanVariant03;200
+#;1;22;case;1;AUD;0000842292;eanVariant04;200
+#;1;44;case;1;AUD;0000842292;eanVariant05;200
+#;1;76;case;1;AUD;0000842292;eanVariant06;200
+#;1;76;case;1;AUD;0000842292;eanVariant07;200
+#;1;30;case;1;AUD;0000842292;eanVariant08;200
+#;1;30;case;1;AUD;0000842292;eanVariant09;200
+#;1;30;case;1;AUD;0000842292;eanVariant10;200
+#;1;30;case;1;AUD;0000842292;eanVariant11;200
+#;1;20;case;1;AUD;Test Sample B2B Perth;eanVariant01;200
+;1;50;case;1;AUD;Test Sample B2B Perth;eanVariant02_5;200
+;1;60;case;1;AUD;Test Sample B2B Perth;eanVariant02_6;200
+;1;70;case;1;AUD;Test Sample B2B Perth;eanVariant02_7;200
+;1;80;case;1;AUD;Test Sample B2B Perth;eanVariant02_8;200
+;1;10;case;1;AUD;Test Sample B2B Perth;eanVariant02_9;200
+;1;30;case;1;AUD;Test Sample B2B Perth;eanVariant02_10;200
+;1;40;case;1;AUD;Test Sample B2B Perth;eanVariant02_11;200
+;1;55;case;1;AUD;Test Sample B2B Perth;eanVariant02_12;200
+;1;66;case;1;AUD;Test Sample B2B Perth;eanVariant02_13;200
+;1;77;case;1;AUD;Test Sample B2B Perth;eanVariant02_14;200
+;1;77;case;1;AUD;Test Sample B2B Perth;eanVariant02_15;200
+;1;77;case;1;AUD;Test Sample B2B Perth;eanVariant02_16;200
+;1;77;case;1;AUD;Test Sample B2B Perth;eanVariant02_17;200
+;1;77;case;1;AUD;Test Sample B2B Perth;eanVariant02_18;200
+;1;77;case;1;AUD;Test Sample B2B Perth;eanVariant02_19;200
+;1;77;case;1;AUD;Test Sample B2B Perth;eanVariant02_20;200
+;1;77;case;1;AUD;Test Sample B2B Perth;eanVariant02_21;200
+;1;77;case;1;AUD;Test Sample B2B Perth;eanVariant02_22;200
+;1;77;case;1;AUD;Test Sample B2B Perth;ean000000000090355;200
+;1;77;case;1;AUD;Test Sample B2B Perth;ean000000000090368;200
+;1;77;keg;1;AUD;Test Sample B2B Perth;ean000000000090399;200
+;1;77;keg;1;AUD;Test Sample B2B Perth;ean000000000090357;200
+;1;77;case;1;AUD;Test Sample B2B Perth;ean000000000090362;200
+
+;1;77;case;1;AUD;Test Sample B2B Perth;ean000000000090363;200
+;1;77;case;1;AUD;Test Sample B2B Perth;ean000000000090364;200
+;1;77;case;1;AUD;Test Sample B2B Perth;ean000000000090365;200
+;1;77;keg;1;AUD;Test Sample B2B Perth;ean000000000090366;200
+
+
+;1;77;case;1;AUD;Test Sample B2B Perth;eanVariant02_28;200
+;1;77;case;1;AUD;Test Sample B2B Perth;eanVariant02_29;200
+;1;77;case;1;AUD;Test Sample B2B Perth;eanVariant02_30;200
+;1;77;case;1;AUD;Test Sample B2B Perth;eanVariant02_31;200
+;1;77;case;1;AUD;Test Sample B2B Perth;eanVariant02_32;200
+;1;77;case;1;AUD;Test Sample B2B Perth;eanVariant02_33;200
+;1;77;case;1;AUD;Test Sample B2B Perth;eanVariant02_34;200
+#;1;88;case;1;AUD;Test Sample B2B Perth;eanVariant03;200
+#;1;22;case;1;AUD;Test Sample B2B Perth;eanVariant04;200
+#;1;44;case;1;AUD;Test Sample B2B Perth;eanVariant05;200
+#;1;76;case;1;AUD;Test Sample B2B Perth;eanVariant06;200
+#;1;76;case;1;AUD;Test Sample B2B Perth;eanVariant07;200
+#;1;30;case;1;AUD;Test Sample B2B Perth;eanVariant08;200
+#;1;30;case;1;AUD;Test Sample B2B Perth;eanVariant09;200
+#;1;30;case;1;AUD;Test Sample B2B Perth;eanVariant10;200
+#;1;30;case;1;AUD;Test Sample B2B Perth;eanVariant11;200
+#;1;20;case;1;AUD;Test Sample B2B Brisbane;eanVariant01;200
+;1;50;case;1;AUD;Test Sample B2B Brisbane;eanVariant02_5;200
+;1;60;case;1;AUD;Test Sample B2B Brisbane;eanVariant02_6;200
+;1;70;case;1;AUD;Test Sample B2B Brisbane;eanVariant02_7;200
+;1;80;case;1;AUD;Test Sample B2B Brisbane;eanVariant02_8;200
+;1;10;case;1;AUD;Test Sample B2B Brisbane;eanVariant02_9;200
+;1;30;case;1;AUD;Test Sample B2B Brisbane;eanVariant02_10;200
+;1;40;case;1;AUD;Test Sample B2B Brisbane;eanVariant02_11;200
+;1;55;case;1;AUD;Test Sample B2B Brisbane;eanVariant02_12;200
+;1;66;case;1;AUD;Test Sample B2B Brisbane;eanVariant02_13;200
+;1;77;case;1;AUD;Test Sample B2B Brisbane;eanVariant02_14;200
+;1;77;case;1;AUD;Test Sample B2B Brisbane;eanVariant02_15;200
+;1;77;case;1;AUD;Test Sample B2B Brisbane;eanVariant02_16;200
+;1;77;case;1;AUD;Test Sample B2B Brisbane;eanVariant02_17;200
+;1;77;case;1;AUD;Test Sample B2B Brisbane;eanVariant02_18;200
+;1;77;case;1;AUD;Test Sample B2B Brisbane;eanVariant02_19;200
+;1;77;case;1;AUD;Test Sample B2B Brisbane;eanVariant02_20;200
+;1;77;case;1;AUD;Test Sample B2B Brisbane;eanVariant02_21;200
+;1;77;case;1;AUD;Test Sample B2B Brisbane;eanVariant02_22;200
+;1;77;case;1;AUD;Test Sample B2B Brisbane;ean000000000090355;200
+;1;77;case;1;AUD;Test Sample B2B Brisbane;ean000000000090368;200
+;1;77;keg;1;AUD;Test Sample B2B Brisbane;ean000000000090399;200
+;1;77;keg;1;AUD;Test Sample B2B Brisbane;ean000000000090357;200
+;1;77;case;1;AUD;Test Sample B2B Brisbane;ean000000000090362;200
+
+;1;77;keg;1;AUD;Test Sample B2B Brisbane;ean000000000090366;200
+;1;77;case;1;AUD;Test Sample B2B Brisbane;ean000000000090365;200
+;1;77;case;1;AUD;Test Sample B2B Brisbane;ean000000000090364;200
+;1;77;case;1;AUD;Test Sample B2B Brisbane;ean000000000090363;200
+
+;1;77;case;1;AUD;Test Sample B2B Brisbane;eanVariant02_28;200
+;1;77;case;1;AUD;Test Sample B2B Brisbane;eanVariant02_29;200
+;1;77;case;1;AUD;Test Sample B2B Brisbane;eanVariant02_30;200
+;1;77;case;1;AUD;Test Sample B2B Brisbane;eanVariant02_31;200
+;1;77;case;1;AUD;Test Sample B2B Brisbane;eanVariant02_32;200
+;1;77;case;1;AUD;Test Sample B2B Brisbane;eanVariant02_33;200
+;1;77;case;1;AUD;Test Sample B2B Brisbane;eanVariant02_34;200
+#;1;20;case;1;AUD;Test Sample B2B Sydney;eanVariant01;200
+;1;50;case;1;AUD;Test Sample B2B Sydney;eanVariant02_5;200
+;1;60;case;1;AUD;Test Sample B2B Sydney;eanVariant02_6;200
+;1;70;case;1;AUD;Test Sample B2B Sydney;eanVariant02_7;200
+;1;80;case;1;AUD;Test Sample B2B Sydney;eanVariant02_8;200
+;1;10;case;1;AUD;Test Sample B2B Sydney;eanVariant02_9;200
+;1;30;case;1;AUD;Test Sample B2B Sydney;eanVariant02_10;200
+;1;40;case;1;AUD;Test Sample B2B Sydney;eanVariant02_11;200
+;1;55;case;1;AUD;Test Sample B2B Sydney;eanVariant02_12;200
+;1;66;case;1;AUD;Test Sample B2B Sydney;eanVariant02_13;200
+;1;77;case;1;AUD;Test Sample B2B Sydney;eanVariant02_14;200
+;1;77;case;1;AUD;Test Sample B2B Sydney;eanVariant02_15;200
+;1;77;case;1;AUD;Test Sample B2B Sydney;eanVariant02_16;200
+;1;77;case;1;AUD;Test Sample B2B Sydney;eanVariant02_17;200
+;1;77;case;1;AUD;Test Sample B2B Sydney;eanVariant02_18;200
+;1;77;case;1;AUD;Test Sample B2B Sydney;eanVariant02_19;200
+;1;77;case;1;AUD;Test Sample B2B Sydney;eanVariant02_20;200
+;1;77;case;1;AUD;Test Sample B2B Sydney;eanVariant02_21;200
+;1;77;case;1;AUD;Test Sample B2B Sydney;eanVariant02_22;200
+;1;77;case;1;AUD;Test Sample B2B Sydney;ean000000000090355;200
+;1;77;case;1;AUD;Test Sample B2B Sydney;ean000000000090368;200
+;1;77;keg;1;AUD;Test Sample B2B Sydney;ean000000000090399;200
+;1;77;keg;1;AUD;Test Sample B2B Sydney;ean000000000090357;200
+;1;77;case;1;AUD;Test Sample B2B Sydney;ean000000000090362;200
+
+;1;77;case;1;AUD;Test Sample B2B Sydney;ean000000000090363;200
+;1;77;case;1;AUD;Test Sample B2B Sydney;ean000000000090364;200
+;1;77;case;1;AUD;Test Sample B2B Sydney;ean000000000090365;200
+;1;77;keg;1;AUD;Test Sample B2B Sydney;ean000000000090366;200
+
+;1;77;case;1;AUD;Test Sample B2B Sydney;eanVariant02_28;200
+;1;77;case;1;AUD;Test Sample B2B Sydney;eanVariant02_29;200
+;1;77;case;1;AUD;Test Sample B2B Sydney;eanVariant02_30;200
+;1;77;case;1;AUD;Test Sample B2B Sydney;eanVariant02_31;200
+;1;77;case;1;AUD;Test Sample B2B Sydney;eanVariant02_32;200
+;1;77;case;1;AUD;Test Sample B2B Sydney;eanVariant02_33;200
+;1;77;case;1;AUD;Test Sample B2B Sydney;eanVariant02_34;200
+
+#;1;50;keg;1;AUD;0000842292;ean000000000090374;200
+#;1;50;case;1;AUD;0000842292;ean000000000090375;200
+#;1;50;case;1;AUD;0000842292;ean000000000090383;200
+#;1;60;case;1;AUD;0000842292;ean000000000090388;200
+#;1;70;case;1;AUD;0000842292;ean000000000090390;200
+#;1;80;case;1;AUD;0000842292;ean000000000090393;200
+#;1;10;case;1;AUD;0000842292;ean000000000090396;200
+#;1;30;case;1;AUD;0000842292;ean000000000090399;200
+#;1;40;case;1;AUD;0000842292;ean000000000090358;200
+#;1;55;case;1;AUD;0000842292;ean000000000090354;200
+#;1;66;case;1;AUD;0000842292;ean000000000090479;200
+#;1;77;case;1;AUD;0000842292;ean000000000089101;200
+#;1;77;case;1;AUD;0000842292;ean000000000090619;200
+#;1;77;case;1;AUD;0000842292;ean000000000090708;200
+#;1;77;case;1;AUD;0000842292;ean000000000087361;200
+#;1;77;case;1;AUD;0000842292;ean000000000088776;200
+;1;77;keg;1;AUD;Test Sample B2B Sydney;ean000000000090357;200
+
+
+INSERT_UPDATE PriceRow;minqtd[unique=true];price[unique=true];unit(unitType)[unique=true];unitFactor[unique=true];Currency(isocode)[unique=true];basePrice[unique=true]
+;1;49;case;1;AUD;200
+;1;49;keg;1;AUD;200
+;1;98;layer;1;AUD;400

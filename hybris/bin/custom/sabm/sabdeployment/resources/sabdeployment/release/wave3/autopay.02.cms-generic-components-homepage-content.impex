@@ -1,0 +1,260 @@
+$contentCatalog = sabmContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Staged])[default = $contentCatalog:Staged]
+$productCV = catalogVersion(catalog(id[default = $productCatalog]), version[default = 'Staged'])[unique = true, default = $productCatalog:Staged]
+$siteResource = jar:com.sabmiller.initialdata.setup.InitialDataSystemSetup&/sabminitialdata/import/sampledata/contentCatalogs/$contentCatalog
+$lang = en
+$pageId = GenericComponentsHomePage
+$pageIdTemplate = GenericComponentsPageTemplate
+$picture = media(code, $contentCV);
+
+# Import modulegen config properties into impex macros
+UPDATE GenericItem[processor = de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor]; pk[unique = true]
+$jarResourceCms = $config-jarResourceCmsValue
+
+#Step 1 Create a new page template
+INSERT_UPDATE PageTemplate; $contentCV[unique = true]; uid[unique = true]; name; frontendTemplateName; restrictedPageTypes(code); active[default = true]
+#; ; $pageIdTemplate ; Home Page Template ; reward/rewardsHomePageTemplate ; ContentPage
+; ; $pageIdTemplate ; Generic Home Page Template ; generic/genericHomePageTemplate ; ContentPage
+
+
+# STEP 2 - Create new pages
+INSERT_UPDATE ContentPage; $contentCV[unique = true]; uid[unique = true]; name; masterTemplate(uid, $contentCV); label; defaultPage[default = 'true']; approvalStatus(code)[default = 'approved']; homepage[default = 'false'];
+; ; $pageId ; Generic Home Page ; $pageIdTemplate ; $pageId
+
+# STEP 3 - Create content slot names required for the template
+INSERT_UPDATE ContentSlotName; name[unique = true]; template(uid, $contentCV)[unique = true][default = 'GenericComponentsPageTemplate']; validComponentTypes(code); compTypeGroup(code)
+; SiteLogo                  ; ; ; logo
+; SearchBox                 ; ; ; searchbox
+; MiniCart                  ; ; ; minicart
+; NavigationBar             ; ; ; navigation
+; TopHeaderSlot             ; ; ; wide
+; TextImageThreeColumnsSlot ; ; ; wide
+; InformationBoxSlot        ; ; ; wide
+; TextImageFourColumnsSlot  ; ; ; wide
+; PointsContentSlot         ; ; ; wide
+; ImageCarouselSlot         ; ; ; wide
+; MembershipSlot            ; ; ; wide
+; VideoListSlot             ; ; ; wide
+; SmallInformationBoxSlot   ; ; ; wide
+; TabContentSlot            ; ; ; wide
+; FaqsContentSlot           ; ; ; wide
+; Footer                    ; ; ; footer
+; PlaceholderContentSlot    ; ; ;
+
+#HERO BANNER ROTATING IMAGE START
+
+INSERT_UPDATE GenericTextContentItem; $contentCV[unique = true]; uid[unique = true]; name; sabmSubText;
+; ; HeroBannerComponentRewardsHomePageText1 ; "As a CUB Rewards member you will accumulate points with every purchase. Redeem points on our exclusive deals or simply usr as credit on your next order. Apply now and start earning points!" ;
+
+INSERT_UPDATE CMSLinkEnhancedComponent; $contentCV[unique = true]; uid[unique = true]; name; url; renderType(code);
+; ; SABMHeroBannerComponentRewardsHomePageLink1 ; "APPLY NOW" ; # ; BUTTON
+
+#Hero Banner List Component for Carousel
+INSERT_UPDATE SABMHeroBannerComponent; $contentCV[unique = true]; uid[unique = true]; desktopTitle; mobileTitle; textList(uid, $contentCV); ctaLinks(uid, $contentCV); desktopHeroImage(code, $contentCV); mobileHeroImage(code, $contentCV); &componentRef
+; ; RewardsHomePageSABMHeroBannerComponent1 ; Join our Rewards Program Today   ; Join our Rewards Program Today   ; HeroBannerComponentRewardsHomePageText1 ; SABMHeroBannerComponentRewardsHomePageLink1 ; hero-banner01-desktop.jpg ; hero-banner01-mobile.jpg ; RewardsHomePageSABMHeroBannerComponent1 ;
+; ; RewardsHomePageSABMHeroBannerComponent2 ; Join our Rewards Program Today 2 ; Join our Rewards Program Today 2 ; HeroBannerComponentRewardsHomePageText1 ; SABMHeroBannerComponentRewardsHomePageLink1 ; hero-banner01-desktop.jpg ; hero-banner01-mobile.jpg ; RewardsHomePageSABMHeroBannerComponent2 ;
+
+
+#Hero Banner List Component for Carousel
+INSERT_UPDATE HeroBannerRotatingImagesComponent; $contentCV[unique = true]; uid[unique = true]; name; heroBanners(uid, $contentCV); timeout; &componentRef
+; ; RewardsHomePageHeroBannerRotatingImagesComponent ; Hero Banner Rotating Rewards Banner Carousel Component ; RewardsHomePageSABMHeroBannerComponent1,RewardsHomePageSABMHeroBannerComponent2 ; 4000 ; RewardsHomePageHeroBannerRotatingImagesComponent ;
+#HERO BANNER ROTATING IMAGE END
+
+#TEXT AND IMAGE CONTENT 3 COLUMNS START
+
+INSERT_UPDATE GenericTextAndImageContentItem; $contentCV[unique = true]; uid[unique = true]; name; textTitle; textDescription; desktopImage(code, $contentCV); mobileImage(code, $contentCV);
+; ; three_columns_RewardsHomePageTextAndImageContentItem1 ; "Text Image 1" ; Become a Member      ; Complete the online form and setup your permissions.    ; step1-icon.svg ; step1-icon.svg ;
+; ; three_columns_RewardsHomePageTextAndImageContentItem2 ; "Text Image 2" ; Confirm your account ; Update your payment method for Automatic Direct Debit.  ; step2-icon.svg ; step2-icon.svg ;
+; ; three_columns_RewardsHomePageTextAndImageContentItem3 ; "Text Image 3" ; Start earning points ; We will let you know when your application is approved. ; step3-icon.svg ; step3-icon.svg ;
+
+INSERT_UPDATE SABMTextImageBannerComponent; $contentCV[unique = true]; uid[unique = true]; textAndImages(uid, $contentCV); &componentRef
+; ; three_columns_RewardsHomePageSABMTextImageBannerComponent ; three_columns_RewardsHomePageTextAndImageContentItem1,three_columns_RewardsHomePageTextAndImageContentItem2,three_columns_RewardsHomePageTextAndImageContentItem3 ; three_columns_RewardsHomePageSABMTextImageBannerComponent
+#TEXT AND IMAGE CONTENT 3 COLUMNS END
+
+#INFORMATION BOX START
+INSERT_UPDATE GenericTextContentItem; $contentCV[unique = true]; uid[unique = true]; name; sabmSubText; $picture
+; ; SABMInformationBoxComponent1 ; "A Membership Fee Applies."                                        ; "<p>A Membership Fee of 0.38% will be charged on every invoice.</p>" ; invoice-fee_36x36.svg
+; ; SABMInformationBoxComponent2 ; "You have a choice from the following payment options."            ; "<p>You can elect to pay via Automatic Direct Debit, which is processed on your invoice data. Alternatively, you can make payment via credit card at checkout. Merchant fees apply to credit card payments.</p>" ; calendar_36x36.svg
+; ; SABMInformationBoxComponent3 ; "We may need to contact you in order to set up your direct debit." ; "<p>If you don’t currently utilise this payment option on your existing CUB account, a member of our credit team will contact you to do obtain your Autmatic Direct Debit Details. Direct Debit can be processed from either your nominated Bank Account or Credit Card. Merchant Fees apply to Credit Card payments.</p>" ; receivepoints_36x36.svg
+
+INSERT_UPDATE CMSLinkEnhancedComponent; $contentCV[unique = true]; uid[unique = true]; name; url; renderType(code);
+; ; SABMInformationBoxComponentLink1 ; "Find out more" ; /urlValue ; LINK
+
+INSERT_UPDATE SABMInformationBoxComponent; $contentCV[unique = true]; uid[unique = true]; desktopTitle; titleIconDesktop(code, $contentCV); textList(uid, $contentCV); ctaLinks(uid, $contentCV); &componentRef
+; ; SABMInformationBoxComponent ; What do you Need to Know ; info-icon.svg ; SABMInformationBoxComponent1,SABMInformationBoxComponent2,SABMInformationBoxComponent3 ; SABMInformationBoxComponentLink1 ; SABMInformationBoxComponent ;
+#INFORMATION BOX END
+
+#HERO BANNER COMPONENT REDEEM POINTS START
+INSERT_UPDATE GenericTextContentItem; $contentCV[unique = true]; uid[unique = true]; name; text;
+; ; HeroBannerRewardsHomePageText1 ; "Hero Banner Redeem Points" ; "Your points can be redeemed anytime, anywhere by simply logging in to CUB Online. Choose from a range of redemption options to suit your individual and business needs." ;
+
+INSERT_UPDATE SABMHeroBannerComponent; $contentCV[unique = true]; uid[unique = true]; name; desktopTitle; mobileTitle; textList(uid, $contentCV); colorTreatment(code); &componentRef
+; ; HomePgePointsSABMHeroBannerComponent_backgroundimage ; "Hero Banner Redeem Points" ; What can you redeem points for ; What can you redeem points for ; HeroBannerRewardsHomePageText1 ; DARK ; HomePgePointsSABMHeroBannerComponent_backgroundimage ;
+#HERO BANNER COMPONENT REDEEM POINTS END
+
+#TEXT AND IMAGE CONTENT 4 COLUMNS START
+INSERT_UPDATE GenericTextAndImageContentItem; $contentCV[unique = true]; uid[unique = true]; name; textTitle; textDescription; hoverText; desktopImage(code, $contentCV); mobileImage(code, $contentCV);
+; ; four_columns_RewardsHomePageTextAndImageContentItem1 ; "Text Image 1" ; 10 points  ; per $1   ; "Every order earns you points. You receive 5 points for each $1 ordered through our call centre and 10 points when you palce your orders via CUB Online"    ; step2-icon.svg ; step2-icon.svg ;
+; ; four_columns_RewardsHomePageTextAndImageContentItem2 ; "Text Image 2" ; Easy       ; access   ; "We have a range of redemption options for you to chooe from. Use your points to redeem Bonus Stock, Account Credits, Travel, VISA or Gift Card Vouchers."  ; step2-icon.svg ; step2-icon.svg ;
+; ; four_columns_RewardsHomePageTextAndImageContentItem3 ; "Text Image 3" ; Convinient ; payments ; "To partificate you’ll need to update your account to a direct debit either on credit card or bank account. </br> 0.38% program fee applies on each order." ; step2-icon.svg ; step2-icon.svg ;
+; ; four_columns_RewardsHomePageTextAndImageContentItem4 ; "Text Image 4" ; 24/7       ; access   ; "Access and redeem your points Whenever and wherever you are. by simply into CUB Online. </br> Available on your mobile, tablet or computer"                ; step2-icon.svg ; step2-icon.svg ;
+
+INSERT_UPDATE SABMTextImageBannerComponent; $contentCV[unique = true]; uid[unique = true]; textAndImages(uid, $contentCV); textTitle; &componentRef
+; ; four_columns_RewardsHomePageSABMTextImageBannerComponent ; four_columns_RewardsHomePageTextAndImageContentItem1,four_columns_RewardsHomePageTextAndImageContentItem2,four_columns_RewardsHomePageTextAndImageContentItem3,four_columns_RewardsHomePageTextAndImageContentItem4 ; Members can enjoy these benefits ; four_columns_RewardsHomePageSABMTextImageBannerComponent ;
+#TEXT AND IMAGE CONTENT 4 COLUMNS END
+
+#IMAGE CAROUSEL START
+INSERT_UPDATE SABMGenericCarouselComponent; $contentCV[unique = true]; uid[unique = true]; name; carouselImageTitle; carouselImageDescription; carouselImage(code, $contentCV); &componentRef;
+; ; SABMGenericCarouselComponent1 ; "Image 1" ; Bonus      ; stock       ; step3-icon.svg ; SABMGenericCarouselComponent1 ;
+; ; SABMGenericCarouselComponent2 ; "Image 2" ; Account    ; credit      ; step3-icon.svg ; SABMGenericCarouselComponent2 ;
+; ; SABMGenericCarouselComponent3 ; "Image 3" ; Travel     ; points      ; step3-icon.svg ; SABMGenericCarouselComponent3 ;
+; ; SABMGenericCarouselComponent4 ; "Image 4" ; Lifestyle  ; products    ; step3-icon.svg ; SABMGenericCarouselComponent4 ;
+; ; SABMGenericCarouselComponent5 ; "Image 5" ; Pre-paid   ; cards       ; step3-icon.svg ; SABMGenericCarouselComponent5 ;
+; ; SABMGenericCarouselComponent6 ; "Image 6" ; Test Title ; description ; step3-icon.svg ; SABMGenericCarouselComponent6 ;
+
+
+INSERT_UPDATE SABMGenericCarouselItemsComponent; $contentCV[unique = true]; uid[unique = true]; name; carouselImageItems(uid, $contentCV); &componentRef
+; ; SABMGenericCarouselsComponentList ; Image Carousel ; SABMGenericCarouselComponent1,SABMGenericCarouselComponent2,SABMGenericCarouselComponent3,SABMGenericCarouselComponent4,SABMGenericCarouselComponent5,SABMGenericCarouselComponent6 ; SABMGenericCarouselsComponentList ;
+#IMAGE CAROUSEL END
+
+
+#HERO BANNER COMPONENT MEMBERSHIP START
+INSERT_UPDATE SABMHeroBannerComponent; $contentCV[unique = true]; uid[unique = true]; desktopTitle; mobileTitle; desktopHeroImage(code, $contentCV); colorTreatment(code); &componentRef
+; ; HomePageMembersSABMHeroBannerComponent_backgroundimage ; Spend.Earn.Redeem ; Spend.Earn.Redeem ; hero-banner01-mobile.jpg ; LIGHT ; HomePageMembersSABMHeroBannerComponent_backgroundimage ;
+#HERO BANNER COMPONENT MEMBERSHIP END
+
+#SABM VIDEO COMPONENT START
+INSERT_UPDATE SABMVideoComponent; $contentCV[unique = true]; uid[unique = true]; name; videoTitle; videoEmbeddedCode; videoDescription; &componentRef;
+; ; RewardHomePageSABMVideoComponent1 ; Video Component 1 ; How to sign up for the rewards program ; <iframe width="854" height="480" src="https://www.youtube.com/embed/yj6wv204Kpo" ></iframe> ; Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vechicula quis non auctor. ; RewardHomePageSABMVideoComponent1 ;
+
+INSERT_UPDATE SABMVideoListComponent; $contentCV[unique = true]; uid[unique = true]; name; videoListTitle; videoList(uid, $contentCV); &componentRef
+; ; RewardHomePageSABMVideoListComponent ; SABM Video List ; How It works ; RewardHomePageSABMVideoComponent1 ; RewardHomePageSABMVideoListComponent
+#SABM VIDEO COMPONENT START
+
+#TAB ITEMS COMPONENT START
+INSERT_UPDATE GenericTextContentItem; $contentCV[unique = true]; uid[unique = true]; name; sabmSubText; $picture
+; ; GenericTextContentItemAboutRewardsTab1 ; "Payment will be due on invoice data"                                    ; "<p>Payment terms for pogram members will be 0 days, immediate payment charged on invoice. There is no join fee.</p>" 						; 	invoice-fee_36x36.svg 	;
+; ; GenericTextContentItemAboutRewardsTab2 ; "You must use Automatic Direct Debit for all orders on your CUB account" ; "<p>Our credit team will contact you, if required, to setup your choice of Bank Account or Credit Card payments. Merchant fees apply.</p>" 	; 	invoice-fee_36x36.svg 	;
+; ; GenericTextContentItemAboutRewardsTab3 ; "Credit card payments attract Merchant Service Fees"                     ; "<p>When purchasing an order a merchant fee is calculated and included in the payment value. When paying on direct debig, a merchant fee is calculated at the beginning of each month for payments received in the prior month  and you will be invoiced. This invoice will be due immediately and will trigger a direct debit.</p>" ; invoice-fee_36x36.svg ;
+; ; GenericTextContentItemAboutPointsTab1  ; "We have something for everyone"                                         ; "<p>When you are ready to redeem your points, you have a choice from the following:</p>"  													;                  			;
+; ; GenericTextContentItemAboutPointsTab2  ; "Bonus stock"                                                            ; "<p>To list a few, Carlton Draught, Great Northern, Corona, Victoria Bitter and more.</p>"  												; 	invoice-fee_36x36.svg 	;
+; ; GenericTextContentItemAboutPointsTab3  ; "Account credit"                                                         ; "<p>Convert your points to credit to use on your next order.</p>"  																			; 	invoice-fee_36x36.svg 	;
+; ; GenericTextContentItemAboutPointsTab4  ; "Travel pointst"                                                         ; "<p>Convert points to Airline points including Virigin, Accor Hotels, Star Alliance.</p>"  													; 	invoice-fee_36x36.svg 	;
+; ; GenericTextContentItemAboutPointsTab5  ; "Lifestyle Products"                                                     ; "<p>To list a few, Apple products, electrical, fitness wear and more.</p>"  																; 	invoice-fee_36x36.svg 	;
+; ; GenericTextContentItemAboutPointsTab6  ; "Pre-paid cards"                                                         ; "<p>To list a few, Apple, Hoyts, BCF, JB HiFi and more.</p>"  																				; 	invoice-fee_36x36.svg 	;
+
+INSERT_UPDATE SABMInformationBoxComponent; $contentCV[unique = true]; uid[unique = true]; desktopTitle; textList(uid, $contentCV); &componentRef
+; ; SABMInformationBoxComponentRewards_tab ; "More about Rewards"     ; GenericTextContentItemAboutRewardsTab1,GenericTextContentItemAboutRewardsTab2,GenericTextContentItemAboutRewardsTab3                                                                                                                ; SABMInformationBoxComponentRewards_tab ;
+; ; SABMInformationBoxComponentPoints_tab  ; "More about your Points" ; GenericTextContentItemAboutPointsTab1,GenericTextContentItemAboutPointsTab2,GenericTextContentItemAboutPointsTab3,GenericTextContentItemAboutPointsTab4,GenericTextContentItemAboutPointsTab5,GenericTextContentItemAboutPointsTab6 ; SABMInformationBoxComponentPoints_tab  ;
+
+INSERT_UPDATE SabmGenericTabItemListComponent; $contentCV[unique = true]; uid[unique = true]; name; headline; components(uid, $contentCV); &componentRef
+; ; SabmGenericTabItemListComponentRewardsTab ; "Generic Tab Items" ; ; SABMInformationBoxComponentRewards_tab,SABMInformationBoxComponentPoints_tab ; SabmGenericTabItemListComponentRewardsTab ;
+#TAB ITEMS COMPONENT END
+
+#SMALL INFORMATION BOX START
+INSERT_UPDATE GenericTextContentItem; $contentCV[unique = true]; uid[unique = true]; name; sabmSubText; $picture
+; ; GenericTextContentItem_smallbox ; "Need a Credit Card? Don’t worry we can help." ; "<p>To list a few, Apple, Hoyts, BCF, JB HiFi and more.</p>" ;
+
+INSERT_UPDATE CMSLinkEnhancedComponent; $contentCV[unique = true]; uid[unique = true]; name; url; renderType(code);
+; ; CMSLinkEnhancedComponent_smallbox ; "Find Out More" ; # ; BUTTON
+
+INSERT_UPDATE SABMInformationBoxComponent; $contentCV[unique = true]; uid[unique = true]; textList(uid, $contentCV); ctaLinks(uid, $contentCV); &componentRef
+; ; SABMInformationBoxComponentRewards_smallbox ; GenericTextContentItem_smallbox ; CMSLinkEnhancedComponent_smallbox ; SABMInformationBoxComponentRewards_smallbox ;
+#SMALL INFORMATION BOX END
+
+#FAQS START
+INSERT_UPDATE GenericTextContentItem; $contentCV[unique = true]; uid[unique = true]; name; text; sabmSubText;
+#General QA START
+; ; FAQCategoryItemComponentGeneralQA1  ; General QA 1  ; "Where do i go to redeem my rewards?"                               ;
+; ; FAQCategoryItemComponentGeneralQA2  ; General QA 2  ; "How do I set up a credit card for the Rewards Program?"            ;
+; ; FAQCategoryItemComponentGeneralQA3  ; General QA 3  ; "Can I edit my permissions even thogh I’m not an admin?"            ;
+; ; FAQCategoryItemComponentGeneralQA4  ; General QA 4  ; "I forgot my login. What should I do?"                              ;
+; ; FAQCategoryItemComponentGeneralQA5  ; General QA 5  ; "What kind of deals can i get out of the Rewards Program?"          ;
+; ; FAQCategoryItemComponentGeneralQA6  ; General QA 6  ; "Do I have to make a separate login for the CUB Rewards.."          ;
+; ; FAQCategoryItemComponentGeneralQA7  ; General QA 7  ; "Are there any kind of fees associated with signning up with the.." ;
+; ; FAQCategoryItemComponentGeneralQA8  ; General QA 8  ; "I was declined for the Rewards Program. What happens now?"         ;
+; ; FAQCategoryItemComponentGeneralQA9  ; General QA 9  ; "I am already a CUB Rewards member from a previous rewards.."       ;
+; ; FAQCategoryItemComponentGeneralQA10 ; General QA 10 ; "It says ‘Apply Now’ rather than ‘Join Now’. Does that mean I.."    ;
+#General QA END
+#Payments QA START
+; ; FAQCategoryItemComponentPaymentQA1  ; Payment QA 1  ; "How do i change my payment method?"                                ;
+; ; FAQCategoryItemComponentPaymentQA2  ; Payment QA 2  ; "How much does Reward program cost?"                                ;
+; ; FAQCategoryItemComponentPaymentQA3  ; Payment QA 3  ; "How does the payment compare to the old Reward program?"           ; "<p>The new Reward Program requires a direct debit payment done through either a credit card or a automatic direct debit via EFT.</p>"
+; ; FAQCategoryItemComponentPaymentQA4  ; Payment QA 4  ; "Can I pay by EFT direct debit?"                                    ;
+; ; FAQCategoryItemComponentPaymentQA5  ; Payment QA 5  ; "What are the benefits if I pay by credit card?"                    ;
+; ; FAQCategoryItemComponentPaymentQA6  ; Payment QA 6  ; "Why is there an extra cost on my invoice?"                         ;
+; ; FAQCategoryItemComponentPaymentQA7  ; Payment QA 7  ; "How long do I have to pay for an invoice?"                         ;
+; ; FAQCategoryItemComponentPaymentQA8  ; Payment QA 8  ; "I was declined fpr the Rewards Program. What happens now?"         ;
+; ; FAQCategoryItemComponentPaymentQA9  ; Payment QA 9  ; "I am already a CUB Rewards member form a previous rewards.."       ;
+; ; FAQCategoryItemComponentPaymentQA10 ; Payment QA 10 ; "It says ‘Apply Now’ rather than ‘Join Now’. Does that mean I.."    ;
+#Payments QA END
+
+INSERT_UPDATE FAQCategoryItemComponent; $contentCV[unique = true]; uid[unique = true]; name; title; questionList(uid, $contentCV);
+; ; FAQCategoryItemComponentCategories1 ; General Category                    ; "General"                    ; FAQCategoryItemComponentGeneralQA1,FAQCategoryItemComponentGeneralQA2,FAQCategoryItemComponentGeneralQA3,FAQCategoryItemComponentGeneralQA4,FAQCategoryItemComponentGeneralQA5,FAQCategoryItemComponentGeneralQA6,FAQCategoryItemComponentGeneralQA7,FAQCategoryItemComponentGeneralQA8,FAQCategoryItemComponentGeneralQA9,FAQCategoryItemComponentGeneralQA10
+; ; FAQCategoryItemComponentCategories2 ; Redeem Category                     ; "How to Redeem"              ;
+; ; FAQCategoryItemComponentCategories3 ; Managing User Account Category      ; "Managing User Accounts"     ;
+; ; FAQCategoryItemComponentCategories4 ; Products, Prices and Deals Category ; "Products, Prices and Deals" ;
+; ; FAQCategoryItemComponentCategories5 ; Account Help Category               ; "Account Help"               ;
+; ; FAQCategoryItemComponentCategories6 ; Payments Category                   ; "Payments"                   ; FAQCategoryItemComponentPaymentQA1,FAQCategoryItemComponentPaymentQA2,FAQCategoryItemComponentPaymentQA3,FAQCategoryItemComponentPaymentQA4,FAQCategoryItemComponentPaymentQA5,FAQCategoryItemComponentPaymentQA6,FAQCategoryItemComponentPaymentQA7,FAQCategoryItemComponentPaymentQA8,FAQCategoryItemComponentPaymentQA9,FAQCategoryItemComponentPaymentQA10
+; ; FAQCategoryItemComponentCategories7 ; Support and Feedback Category       ; "Support and Feedback"       ;
+
+INSERT_UPDATE CMSLinkEnhancedComponent; $contentCV[unique = true]; uid[unique = true]; name; url; renderType(code);
+; ; FAQSQuestionLink ; "Send us your question." ; # ; LINK
+
+INSERT_UPDATE FAQComponent; $contentCV[unique = true]; uid[unique = true]; name; title; sendQuestionText; sendQuestionCTA(uid, $contentCV); categories(uid, $contentCV); &componentRef
+; ; RewardsFAQComponent ; FAQ Component ; "Have a question?" ; "Can’t find what you are looking for?" ; FAQSQuestionLink ; FAQCategoryItemComponentCategories1,FAQCategoryItemComponentCategories2,FAQCategoryItemComponentCategories3,FAQCategoryItemComponentCategories4,FAQCategoryItemComponentCategories5,FAQCategoryItemComponentCategories6,FAQCategoryItemComponentCategories7 ; RewardsFAQComponent ;
+#FAQS END
+
+# ContentSlot
+INSERT_UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]; name; active; cmsComponents(&componentRef);
+; ; TopHeaderSlot-genericHomePageContentSlot               ; TopHeaderSlot             ; true ; RewardsHomePageHeroBannerRotatingImagesComponent          ;
+; ; TextImageThreeColumnsSlot-genericHomePageContentSlot   ; TextImageThreeColumnsSlot ; true ; three_columns_RewardsHomePageSABMTextImageBannerComponent ;
+; ; SABMInformationBoxComponent-genericHomePageContentSlot ; InformationBoxSlot        ; true ; SABMInformationBoxComponent                               ;
+; ; TextImageFourColumnsSlot-genericHomePageContentSlot    ; TextImageFourColumnsSlot  ; true ; four_columns_RewardsHomePageSABMTextImageBannerComponent  ;
+; ; ImageCarouselSlot-genericHomePageContentSlot           ; ImageCarouselSlot         ; true ; SABMGenericCarouselsComponentList                         ;
+; ; VideoListSlot-genericHomePageContentSlot               ; VideoListSlot             ; true ; RewardHomePageSABMVideoListComponent                      ;
+; ; PointsContentSlot-genericHomePageContentSlot           ; PointsContentSlot         ; true ; HomePgePointsSABMHeroBannerComponent_backgroundimage      ;
+; ; MembershipSlot-genericHomePageContentSlot              ; MembershipSlot            ; true ; HomePageMembersSABMHeroBannerComponent_backgroundimage    ;
+; ; TabContentSlot-genericHomePageContentSlot              ; TabContentSlot            ; true ; SabmGenericTabItemListComponentRewardsTab                 ;
+; ; SmallInformationBoxSlot-genericHomePageContentSlot     ; SmallInformationBoxSlot   ; true ; SABMInformationBoxComponentRewards_smallbox               ;
+; ; FaqsContentSlot-genericHomePageContentSlot             ; FaqsContentSlot           ; true ; RewardsFAQComponent                                       ;
+
+# ContentSlotForPage
+INSERT_UPDATE ContentSlotForPage; $contentCV[unique = true]; uid[unique = true]; position[unique = true]; page(uid, $contentCV)[unique = true][default = 'GenericComponentsHomePage']; contentSlot(uid, $contentCV)[unique = true];
+; ; TopHeaderSlot-genericHomePageContentSlot               ; TopHeaderSlot             ; ; TopHeaderSlot-genericHomePageContentSlot               ;
+; ; TextImageThreeColumnsSlot-genericHomePageContentSlot   ; TextImageThreeColumnsSlot ; ; TextImageThreeColumnsSlot-genericHomePageContentSlot   ;
+; ; SABMInformationBoxComponent-genericHomePageContentSlot ; InformationBoxSlot        ; ; SABMInformationBoxComponent-genericHomePageContentSlot ;
+; ; TextImageFourColumnsSlot-genericHomePageContentSlot    ; TextImageFourColumnsSlot  ; ; TextImageFourColumnsSlot-genericHomePageContentSlot    ;
+; ; ImageCarouselSlot-genericHomePageContentSlot           ; ImageCarouselSlot         ; ; ImageCarouselSlot-genericHomePageContentSlot           ;
+; ; VideoListSlot-genericHomePageContentSlot               ; VideoListSlot             ; ; VideoListSlot-genericHomePageContentSlot               ;
+; ; PointsContentSlot-genericHomePageContentSlot           ; PointsContentSlot         ; ; PointsContentSlot-genericHomePageContentSlot           ;
+; ; MembershipSlot-genericHomePageContentSlot              ; MembershipSlot            ; ; MembershipSlot-genericHomePageContentSlot              ;
+; ; TabContentSlot-genericHomePageContentSlot              ; TabContentSlot            ; ; TabContentSlot-genericHomePageContentSlot              ;
+; ; SmallInformationBoxSlot-genericHomePageContentSlot     ; SmallInformationBoxSlot   ; ; SmallInformationBoxSlot-genericHomePageContentSlot     ;
+; ; FaqsContentSlot-genericHomePageContentSlot             ; FaqsContentSlot           ; ; FaqsContentSlot-genericHomePageContentSlot             ;
+
+INSERT_UPDATE ContentSlotForTemplate; $contentCV[unique = true]; uid[unique = true]; position[unique = true]; pageTemplate(uid, $contentCV)[unique = true][default = 'GenericComponentsPageTemplate']; contentSlot(uid, $contentCV)[unique = true]; allowOverwrite
+; ; SiteLogo-GenericHomePageTemplate               ; SiteLogo               ; ; SiteLogoSlot           ; true
+; ; HomepageLink-GenericHomePageTemplate           ; HomepageNavLink        ; ; HomepageNavLinkSlot    ; true
+; ; SearchBox-GenericHomePageTemplate              ; SearchBox              ; ; SearchBoxSlot          ; true
+; ; MiniCart-GenericHomePageTemplate               ; MiniCart               ; ; MiniCartSlot           ; true
+; ; NavigationBar-GenericHomePageTemplate          ; NavigationBar          ; ; NavigationBarSlot      ; true
+; ; Footer-GenericHomePageTemplate                 ; Footer                 ; ; FooterSlot             ; true
+; ; PlaceholderContentSlot-GenericHomePageTemplate ; PlaceholderContentSlot ; ; PlaceholderContentSlot ; true
+; ; DeliveryDatepickerSlot-GenericHomePageTemplate ; DeliveryDatepickerBar  ; ; DeliveryDatepickerSlot ; true
+
+#######Component Group Types configuration ######
+INSERT_UPDATE ComponentTypeGroups2ComponentType; source(code)[unique = true]; target(code)[unique = true]
+; wide ; SABMHeroBannerComponent
+; wide ; HeroBannerRotatingImagesComponent
+; wide ; GenericTextAndImageContentItem
+; wide ; SABMTextImageBannerComponent
+; wide ; GenericTextContentItem
+; wide ; SABMGenericCarouselComponent
+; wide ; SABMGenericCarouselItemsComponent
+; wide ; SABMVideoComponent
+; wide ; SABMVideoListComponent
+; wide ; SABMInformationBoxComponent
+; wide ; FAQComponent
+; wide ; SABMInformationBoxComponent
+; wide ; SabmGenericTabItemListComponent

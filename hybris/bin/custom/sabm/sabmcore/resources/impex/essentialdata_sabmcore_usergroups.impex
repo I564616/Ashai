@@ -1,0 +1,3 @@
+INSERT_UPDATE UserGroup ; uid[unique=true] ; locName[lang=en]     
+                 ; b2bcustomergroup ; Customer General user
+                 ; b2badmingroup    ; Customer Super user  

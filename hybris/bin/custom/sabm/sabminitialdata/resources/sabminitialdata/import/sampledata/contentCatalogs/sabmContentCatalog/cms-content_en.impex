@@ -1,0 +1,199 @@
+# ImpEx for Importing CMS Content
+# English Localisation
+
+# Macros / Replacement Parameter definitions
+$contentCatalog=sabmContentCatalog
+
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$picture=media(code, $contentCV);
+$pictureMobile=mediaForMobile(code, $contentCV);
+$siteResource=jar:com.sabmiller.initialdata.setup.InitialDataSystemSetup&/sabminitialdata/import/sampledata/contentCatalogs/$contentCatalog
+$media=media(code, $contentCV);
+$mediaMobile=mediaForMobile(code, $contentCV);
+
+# Language
+$lang=en
+
+# SABMiller Homepage
+
+# Media
+#INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='image/jpeg'];&imageRef;altText
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='image/jpeg'];altText;folder(qualifier)[default='images']
+;;homepageBanner;homepage-banner.png;$siteResource/images/banners/homepage/homepage-banner.png;;home page banner;
+;;homepageBannerMobile;homepage-banner-mobile.png;$siteResource/images/banners/homepage/homepage-banner-mobile.png;;home page banner mobile;
+;;loginImage;200x200.png;$siteResource/images/banners/login/200x200.png;;login image;
+# SABMiller Home Page
+UPDATE BannerComponent;$contentCV[unique=true];uid[unique=true];headline[lang=en];$picture[lang=$lang];$pictureMobile;content[lang=en]
+;;RotatingImageBanner1;Rotating banner description 1;homepageBanner;homepageBannerMobile;
+;;RotatingImageBanner2;Rotating banner description 2;homepageBanner;homepageBannerMobile;
+;;RotatingImageBanner3;Rotating banner description 3;homepageBanner;homepageBannerMobile;
+;;RotatingImageBanner4;Rotating banner description 4;homepageBanner;homepageBannerMobile;
+;;RotatingImageBanner5;Rotating banner description 5;homepageBanner;homepageBannerMobile;
+;;RotatingImageBanner6;Rotating banner description 6;homepageBanner;homepageBannerMobile;
+
+UPDATE SABMBannerWithButtonComponent;$contentCV[unique=true];uid[unique=true];headline[lang=en];$picture[lang=$lang];$pictureMobile;content[lang=en]
+;;HomePageRotatingImageBanner1;Home Page Rotating banner description 1;homepageBanner;homepageBannerMobile;
+;;HomePageRotatingImageBanner2;Home Page Rotating banner description 2;homepageBanner;homepageBannerMobile;
+;;HomePageRotatingImageBanner3;Home Page Rotating banner description 3;homepageBanner;homepageBannerMobile;
+;;HomePageRotatingImageBanner4;Home Page Rotating banner description 4;homepageBanner;homepageBannerMobile;
+
+UPDATE ProductCarouselComponent;$contentCV[unique=true];uid[unique=true];title[lang=en]
+;;SABMillerHomepageProductCarouselComponent;"Our Bestselling Products"
+;;PremiumbuyersgroupHomepageProductCarouselComponent;"Our Bestselling Products"
+
+#### Navigation Bar Component ####
+UPDATE NavigationBarWithImageComponent;$contentCV[unique=true];uid[unique=true];name;image(code, $contentCV)
+;;BeerBarComponent;Beer Bar Component;loginImage
+;;CiderBarComponent;Cider Bar Component;loginImage
+;;DealBarComponent;Deal Bar Component;loginImage
+;;SpiritsBarComponent;Spirits Bar Component;loginImage
+;;BrandsBarComponent;Brands Bar Component;loginImage
+
+# SABMiller Deals Page
+UPDATE SimpleBannerComponent;$contentCV[unique=true];uid[unique=true];$picture[lang=$lang]
+;;dealpageSimpleBannerComponent1;/images/banners/dealpage/DealBanner1.jpg
+;;dealpageSimpleBannerComponent2;/images/banners/dealpage/DealBanner2.jpg
+
+# Deals CMS Image Banner Components
+UPDATE StandardImageComponent;$contentCV[unique=true];uid[unique=true];$picture;mediaForMobile(code, $contentCV);urlLink
+;;StandardImageBanner-DealsPage-Bottom;/images/theme/cms-content-narrow.png;/images/theme/cms-content-narrow-mobile.png;/deals
+
+UPDATE BannerComponent;$contentCV[unique=true];uid[unique=true];headline[lang=en];$picture[lang=$lang];$pictureMobile;content[lang=en]
+;;DealsPageRotatingImageBanner1;DealsPage Rotating banner description 1;homepageBanner;homepageBannerMobile;
+;;DealsPageRotatingImageBanner2;DealsPage Rotating banner description 2;homepageBanner;homepageBannerMobile;
+;;DealsPageRotatingImageBanner3;DealsPage Rotating banner description 3;homepageBanner;homepageBannerMobile;
+;;DealsPageRotatingImageBanner4;DealsPage Rotating banner description 4;homepageBanner;homepageBannerMobile;
+;;DealsPageRotatingImageBanner5;DealsPage Rotating banner description 5;homepageBanner;homepageBannerMobile;
+;;DealsPageRotatingImageBanner6;DealsPage Rotating banner description 6;homepageBanner;homepageBannerMobile;
+
+UPDATE SABMBannerWithButtonComponent;$contentCV[unique=true];uid[unique=true];headline[lang=en];$picture[lang=$lang];$pictureMobile;content[lang=en]
+;;DealsPageRotatingImageBanner10;DealsPage Rotating banner description 10;homepageBanner;homepageBannerMobile;
+;;DealsPageRotatingImageBanner11;DealsPage Rotating banner description 11;homepageBanner;homepageBannerMobile;
+;;DealsPageRotatingImageBanner12;DealsPage Rotating banner description 12;homepageBanner;homepageBannerMobile;
+
+
+# CMS tabs components
+UPDATE CMSTabParagraphComponent;$contentCV[unique=true];uid[unique=true];title[lang=$lang];content[lang=$lang]
+;;accordionComponent1;Caterogy;"Test Accordion Component"
+;;accordionComponent2;Brand;"Test Accordion Component"
+;;accordionComponent3;Package;"Test Accordion Component"
+;;accordionComponent4;Style;"Test Accordion Component"
+
+#### Standard Text Banner Component ####
+INSERT_UPDATE StandardTextBannerComponent;$contentCV[unique=true];uid[unique=true];content[lang=$lang];&componentRef
+;;StandardText-HomePage-TopBanner;StandardTextBanner for homepage top;Content For Standard Text Banner Component;StandardText-HomePage-TopBanner
+
+INSERT_UPDATE StandardImageComponent;$contentCV[unique=true];uid[unique=true];$picture[lang=$lang];$pictureMobile[lang=$lang];&componentRef
+;;CustomerMarketingPortalBanner-HomePage;/images/theme/customer-marketing-portal.png;/images/theme/customer-marketing-portal-mobile.png;CustomerMarketingPortalBanner-HomePage
+;;StandardImage-HomePage-BottomBanner;/images/theme/cms-content-narrow.png;/images/theme/cms-content-narrow-mobile.png;StandardImage-HomePage-BottomBanner
+
+
+# CMS Empty Cart Image Banner Components
+UPDATE StandardImageComponent;$contentCV[unique=true];uid[unique=true];$picture;mediaForMobile(code, $contentCV);urlLink
+;;EmptyCartBanner;/images/theme/customer-marketing-portal.png;/images/theme/customer-marketing-portal-mobile.png;/cart
+
+# Billing Page
+UPDATE StandardTextBannerComponent;$contentCV[unique=true];uid[unique=true];content[lang=$lang];link
+;;BillingPageTopTextBanner;Billing Page Top Text Banner;/your-business
+;;BillingPageBottomTextBanner;Billing Page Bottom Text Banner;/your-business
+
+UPDATE StandardImageAndTextBannerComponent;$contentCV[unique=true];uid[unique=true];$media[lang=$lang];$mediaMobile
+;;BillingPageTopImageWithTextBanner;/images/theme/cms-content.png;/images/theme/cms-content-mobile.png
+;;BillingPageBottomImageWithTextBanner;/images/theme/cms-content.png;/images/theme/cms-content-mobile.png
+
+
+# Standard Image Component for User Profile Page
+INSERT_UPDATE StandardImageComponent;$contentCV[unique=true];uid[unique=true];$picture[lang=$lang];$pictureMobile[lang=$lang];&componentRef
+;;StandardImage-UserPage-TopBanner;/images/theme/cms-content-narrow.png;/images/theme/cms-content-narrow-mobile.png;StandardImage-UserPage-TopBanner
+;;StandardImage-UserPage-BottomBanner;/images/theme/cms-content-narrow.png;/images/theme/cms-content-narrow-mobile.png;StandardImage-UserPage-BottomBanner
+
+# Standard Image Component for Update Password Page
+INSERT_UPDATE StandardImageComponent;$contentCV[unique=true];uid[unique=true];$picture[lang=$lang];$pictureMobile[lang=$lang];&componentRef
+;;StandardImage-updatePassword-TopBanner;/images/theme/cms-content-narrow.png;/images/theme/cms-content-narrow-mobile.png;StandardImage-updatePassword-TopBanner
+;;StandardImage-updatePassword-BottomBanner;/images/theme/cms-content-narrow.png;/images/theme/cms-content-narrow-mobile.png;StandardImage-updatePassword-BottomBanner
+
+
+# CMS Standard Text Banner Components For Cart Page
+UPDATE StandardTextBannerComponent;$contentCV[unique=true];uid[unique=true];content[lang=$lang];link
+;;CartTextBanner;Cart Text Banner;/cart
+
+
+# CMS Standard Text Banner Components Set the content
+INSERT_UPDATE StandardTextBannerComponent;$contentCV[unique=true];uid[unique=true];content[lang=$lang]
+;;StandardTextBanner-ServiceRequest-Top;Content for Standard Text Banner Component to the Top of the Service Request page
+;;StandardTextBanner-ServiceRequest-Bottom;Content for Standard Text Banner Componentto the Bottom of the Service Request page
+
+###### SABMiller Service Request Result Page ######
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='image/jpeg'];altText;folder(qualifier)[default='images']
+;;ImageAndTextBanner-ServiceRequest-Top;Standard-ImageAndText-Banner.png;$siteResource/images/theme/Standard-ImageAndText-Banner.png;;banner with text;
+;;ImageAndTextBannerMobile-ServiceRequest-Top;Standard-ImageAndText-Banner-Mobile.png;$siteResource/images/theme/Standard-ImageAndText-Banner-Mobile.png;;banner with text mobile;
+;;ImageAndTextBanner-ServiceRequest-Bottom;Standard-ImageAndText-Banner.png;$siteResource/images/theme/Standard-ImageAndText-Banner.png;;banner with text;
+;;ImageAndTextBannerMobile-ServiceRequest-Bottom;Standard-ImageAndText-Banner-Mobile.png;$siteResource/images/theme/Standard-ImageAndText-Banner-Mobile.png;;banner with text mobile;
+
+# CMS Standard Image and Text Banner Components for Send Service Request Result Page
+INSERT_UPDATE StandardImageAndTextBannerComponent;$contentCV[unique=true];uid[unique=true];$picture[lang=$lang];$pictureMobile[lang=$lang]
+;;StandardImageAndTextBanner-ServiceRequest-Top;ImageAndTextBanner-ServiceRequest-Top;ImageAndTextBannerMobile-ServiceRequest-Top
+;;StandardImageAndTextBanner-ServiceRequest-Bottom;ImageAndTextBanner-ServiceRequest-Bottom;ImageAndTextBannerMobile-ServiceRequest-Bottom
+
+
+# CMS Standard Text Banner Components Set the content
+INSERT_UPDATE StandardTextBannerComponent;$contentCV[unique=true];uid[unique=true];content[lang=$lang]
+;;StandardTextBanner-ServiceRequestPage-Top;Content for Standard Text Banner Component to the Top of the Service Request page
+;;StandardTextBanner-ServiceRequestPage-Bottom;Content for Standard Text Banner Componentto the Bottom of the Service Request page
+
+###### SABMiller Send Service Request Result Page ######
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='image/jpeg'];altText;folder(qualifier)[default='images']
+;;ImageAndTextBanner-ServiceRequestPage-Top;Standard-ImageAndText-Banner.png;$siteResource/images/theme/Standard-ImageAndText-Banner.png;;banner with text;
+;;ImageAndTextBannerMobile-ServiceRequestPage-Top;Standard-ImageAndText-Banner-Mobile.png;$siteResource/images/theme/Standard-ImageAndText-Banner-Mobile.png;;banner with text mobile;
+;;ImageAndTextBanner-ServiceRequestPage-Bottom;Standard-ImageAndText-Banner.png;$siteResource/images/theme/Standard-ImageAndText-Banner.png;;banner with text;
+;;ImageAndTextBannerMobile-ServiceRequestPage-Bottom;Standard-ImageAndText-Banner-Mobile.png;$siteResource/images/theme/Standard-ImageAndText-Banner-Mobile.png;;banner with text mobile;
+
+# CMS Standard Image and Text Banner Components for Send Service Request Result Page
+INSERT_UPDATE StandardImageAndTextBannerComponent;$contentCV[unique=true];uid[unique=true];$picture[lang=$lang];$pictureMobile[lang=$lang]
+;;StandardImageAndTextBanner-ServiceRequestPage-Top;ImageAndTextBanner-ServiceRequestPage-Top;ImageAndTextBannerMobile-ServiceRequestPage-Top
+;;StandardImageAndTextBanner-ServiceRequestPage-Bottom;ImageAndTextBanner-ServiceRequestPage-Bottom;ImageAndTextBannerMobile-ServiceRequestPage-Bottom
+
+
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='image/jpeg'];altText;folder(qualifier)[default='images']
+;;standardImage-banner;standard-image-940x103.png;$siteResource/images/banners/userprofile/standard-image-940x103.png;;standard Image banner;
+;;standardImage-banner-moblie;standard-image-940x103-mobile.png;$siteResource/images/banners/userprofile/standard-image-940x103-mobile.png;;standard Image banner mobile;
+
+# Standard Image Component for User Profile Page
+INSERT_UPDATE StandardImageComponent;$contentCV[unique=true];uid[unique=true];$picture[lang=$lang];$pictureMobile[lang=$lang]
+;;StandardImage-UserPage-TopBanner;standardImage-banner;standardImage-banner-moblie
+;;StandardImage-UserPage-BottomBanner;standardImage-banner;standardImage-banner-moblie
+
+# Standard Image Component for Update Password Page
+INSERT_UPDATE StandardImageComponent;$contentCV[unique=true];uid[unique=true];$picture[lang=$lang];$pictureMobile[lang=$lang]
+;;StandardImage-updatePassword-TopBanner;standardImage-banner;standardImage-banner-moblie
+;;StandardImage-updatePassword-BottomBanner;standardImage-banner;standardImage-banner-moblie
+
+###### SABMiller Business Enquiry Page ######
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='image/jpeg'];altText;folder(qualifier)[default='images']
+;;ImageAndTextBanner-BusinessEnquiryPage-Top;Standard-ImageAndText-Banner.png;$siteResource/images/theme/Standard-ImageAndText-Banner.png;;banner with text;
+;;ImageAndTextBannerMobile-BusinessEnquiryPage-Top;Standard-ImageAndText-Banner-Mobile.png;$siteResource/images/theme/Standard-ImageAndText-Banner-Mobile.png;;banner with text mobile;
+;;ImageAndTextBanner-BusinessEnquiryPage-Bottom;Standard-ImageAndText-Banner.png;$siteResource/images/theme/Standard-ImageAndText-Banner.png;;banner with text;
+;;ImageAndTextBannerMobile-BusinessEnquiryPage-Bottom;Standard-ImageAndText-Banner-Mobile.png;$siteResource/images/theme/Standard-ImageAndText-Banner-Mobile.png;;banner with text mobile;
+
+# CMS Standard Image and Text Banner Components for Send Business Enquiry Result Page
+INSERT_UPDATE StandardImageAndTextBannerComponent;$contentCV[unique=true];uid[unique=true];$picture[lang=$lang];$pictureMobile[lang=$lang]
+;;StandardImageAndTextBanner-BusinessEnquiryPage-Top;ImageAndTextBanner-BusinessEnquiryPage-Top;ImageAndTextBannerMobile-BusinessEnquiryPage-Top
+;;StandardImageAndTextBanner-BusinessEnquiryPage-Bottom;ImageAndTextBanner-BusinessEnquiryPage-Bottom;ImageAndTextBannerMobile-BusinessEnquiryPage-Bottom
+###### END OF SABMiller Business Enquiry Page ######
+
+###### SABMiller Business Enquiry Sent Page ######
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='image/jpeg'];altText;folder(qualifier)[default='images']
+;;ImageAndTextBanner-BusinessEnquirySentPage-Top;Standard-ImageAndText-Banner.png;$siteResource/images/theme/Standard-ImageAndText-Banner.png;;banner with text;
+;;ImageAndTextBannerMobile-BusinessEnquirySentPage-Top;Standard-ImageAndText-Banner-Mobile.png;$siteResource/images/theme/Standard-ImageAndText-Banner-Mobile.png;;banner with text mobile;
+;;ImageAndTextBanner-BusinessEnquirySentPage-Bottom;Standard-ImageAndText-Banner.png;$siteResource/images/theme/Standard-ImageAndText-Banner.png;;banner with text;
+;;ImageAndTextBannerMobile-BusinessEnquirySentPage-Bottom;Standard-ImageAndText-Banner-Mobile.png;$siteResource/images/theme/Standard-ImageAndText-Banner-Mobile.png;;banner with text mobile;
+
+# CMS Standard Image and Text Banner Components for Send Business Enquiry Sent Result Page
+INSERT_UPDATE StandardImageAndTextBannerComponent;$contentCV[unique=true];uid[unique=true];$picture[lang=$lang];$pictureMobile[lang=$lang]
+;;StandardImageAndTextBanner-BusinessEnquirySentPage-Top;ImageAndTextBanner-BusinessEnquirySentPage-Top;ImageAndTextBannerMobile-BusinessEnquirySentPage-Top
+;;StandardImageAndTextBanner-BusinessEnquirySentPage-Bottom;ImageAndTextBanner-BusinessEnquirySentPage-Bottom;ImageAndTextBannerMobile-BusinessEnquirySentPage-Bottom
+###### END OF SABMiller Business Enquiry Sent Page ######
+
+
+UPDATE StandardImageAndLinkParagraphComponent;$contentCV[unique=true];uid[unique=true];$media[lang=$lang];$mediaMobile
+;;HomePageSmartOrderComponent;/images/theme/cms-content.png;/images/theme/cms-content-mobile.png

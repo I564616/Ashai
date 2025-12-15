@@ -1,0 +1,9 @@
+$defaultPassword=12341234
+
+INSERT_UPDATE AsahiB2BUnit ; description ; uid[unique=true]  ; name            ; locName[lang=en] ; groups(uid) ; reportingOrganization(uid) ; Addresses(&addId) ; &B2BUnitID ; accountManager(uid) ; accountManagerGroups(uid) ; creditLimit(code) ; approvalProcessCode ; warehouse(code) ; salesRepCode
+                           ; Unit B      ; AsahiProntoSample ; Pronto Services ; Pronto Services  ; Pronto      ; Pronto                     ;                   ;            ;                     ;                           ;                   ;                     ; pw_warehouse_e  ; 56789
+
+
+
+INSERT_UPDATE AsahiEmployee ; UID[unique=true]    			; referenceId[unique=true];showSalesRep[default=true];activeSalesRep[default=true];password[default=$defaultPassword] ; description                    ; name                           ;  salesRepEmail        	; sessionLanguage(isocode) ; sessionCurrency(isocode) ; backOfficeLoginDisabled[default=false]
+							; Asahi CS Manager		        ; 56789                   ;						     ;						      ;									  ; Asahi customer support manager ; Asahi customer support manager ;  asahicsmanager@asahi.com ; en                       ; AUD                      

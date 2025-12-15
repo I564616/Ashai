@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2013 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+
+  
+--><!--
+ All hybris buildcallbacks.xml macrodefinitions:
+ 
+ Build/Documentation
+ 
+	 before/after ant macro "clean"
+		 <macrodef name="sabmsinglesignon_before_clean"/>
+		 <macrodef name="sabmsinglesignon_after_clean"/>
+	 
+	 before/after ant macro "build"
+		 <macrodef name="sabmsinglesignon_before_build"/>
+		 <macrodef name="sabmsinglesignon_after_build"/>
+		 
+	 before/after ant macro "compile_core" - the core module of the extension
+		 <macrodef name="sabmsinglesignon_before_compile_core">
+		 <macrodef name="sabmsinglesignon_after_compile_core">
+	 
+	 before/after ant macro "compile_web" - the web module of the extension
+		 <macrodef name="sabmsinglesignon_before_compile_web" />
+		 <macrodef name="sabmsinglesignon_after_compile_web" />
+	 
+	 before/after ant macro "compile_hmc" - the hmc module of the extension
+		 <macrodef name="sabmsinglesignon_before_compile_hmc" />
+		 <macrodef name="sabmsinglesignon_after_compile_hmc" />
+ 
+ Preparing extension
+ 
+	 will be called in the beginning of the ant call and only once (also when using multiple 
+	 ant targets e.g. ant build yunittest)	
+		 <macrodef name="sabmsinglesignon_only_once_prepare"/>
+ 
+ Creating ear module/production
+ 
+	 before/after ant macro "ear"
+		 <macrodef name="sabmsinglesignon_before_ear"/>
+		 <macrodef name="sabmsinglesignon_after_ear"/>
+
+	 before/after ant macro "production" - for hybris server only
+		 <macrodef name="sabmsinglesignon_before_production" />
+		 <macrodef name="sabmsinglesignon_after_production" />
+ 
+ JUnit Test
+ 
+	 before/after ant macro "yunitinit" 
+		 <macrodef name="sabmsinglesignon_before_yunitinit" />
+		 <macrodef name="sabmsinglesignon_after_yunitinit" />
+	 
+	 before/after ant macro "yunit"
+		 <macrodef name="sabmsinglesignon_before_yunit" />
+		 <macrodef name="sabmsinglesignon_after_yunit" /> 
+		 
+ Distribution package
+ 
+ 	 before/after ant macro "dist" - internal target; only for use when platform is available in source code
+		 <macrodef name="sabmsinglesignon_after_dist"/>
+		 <macrodef name="sabmsinglesignon_before_dist"/>
+	 
+	 before/after ant macro "dist_copy" - internal target; only for use when platform is available in source code
+		 <macrodef name="sabmsinglesignon_before_dist_copy"/>
+		 <macrodef name="sabmsinglesignon_after_dist_copy"/>
+		  
+ 	 With these filters you can override the default extension filters defined in platform/resources/ant/dist/filtersets.xml
+ 	  	 <patternset id="extension.sabmsinglesignon.binary.filter">
+ 	  	  	 <patternset refid="extension.filter" />
+ 	  	  	 <exclude name="**/*-source.jar" />
+ 	  	 </patternset>
+ 	  	 <patternset id="extension.sabmsinglesignon.source.filter">
+ 	  	  	 <exclude name="**/bin/**" />
+ 	  	 </patternset>
+ 
+--><project name="sabmsinglesignon_buildcallbacks">
+
+	<!-- 
+	    Called whenever 'ant ear' is used. this callback can be used to modify the content of the ear file
+	
+	     ${ear.path}: 			path to ear
+	 -->
+	<macrodef name="sabmsinglesignon_before_ear">
+		<sequential>
+
+			<!-- you can do anything before the EAR file is being packed -->
+
+		</sequential>
+	</macrodef>
+
+	<macrodef name="sabmsinglesignon_after_build">
+		<sequential>
+<!--			<patchSamlSSO />-->
+		</sequential>
+	</macrodef>
+
+	<macrodef name="patchSamlSSO">
+		<sequential>
+			<property name="securityConfigFile" value="${ext.samlsinglesignon.path}/web/webroot/WEB-INF/security/spring-security-config.xml"/>
+			<property name="samlImplFile" value="${ext.samlsinglesignon.path}/lib/opensaml-saml-impl-4.1.1.jar"/>
+			<if>
+				<available file="${securityConfigFile}" />
+				<then>
+					<echo>PATCHING ${securityConfigFile} to update samlAuthenticationProvider bean</echo>
+					<tempfile property="tempFile"/>
+					<xslt style="${ext.sabmsinglesignon.path}/resources/sabmsinglesignon/beans-transform.xsl" in="${securityConfigFile}" out="${tempFile}"
+						  classpath="${platformhome}/apache-ant/lib/ant-apache-xalan2.jar"/>
+					<move file="${tempFile}" tofile="${securityConfigFile}" overwrite="true"/>
+					<echo>Successfully patched ${securityConfigFile}</echo>
+				</then>
+				<else>
+					<echo>ERROR!!!: ${securityConfigFile} file doesn't exist</echo>
+					<fail message="${securityConfigFile} file doesn't exist"/>
+				</else>
+			</if>
+			<if>
+				<available file="${samlImplFile}" />
+				<then>
+					<echo>PATCHING ${samlImplFile} to update AbstractSubjectConfirmationValidator class</echo>
+					<jar destfile="${samlImplFile}" update="true">
+						<fileset dir="${ext.sabmsinglesignon.path}/classes" includes="**/AbstractSubjectConfirmationValidator*.class" />
+					</jar>
+					<echo>Successfully patched ${samlImplFile}</echo>
+				</then>
+				<else>
+					<echo>ERROR!!!: ${samlImplFile} file doesn't exist</echo>
+					<fail message="${samlImplFile} file doesn't exist"/>
+				</else>
+			</if>
+		</sequential>
+	</macrodef>
+</project>

@@ -1,0 +1,266 @@
+insert_update ScriptingJob	;code[unique=true]		;scriptURI
+							;cmscontentScriptJob	;model://cmscontentScript
+							
+insert_update CronJob	;code[unique=true]			;job(code)				;sessionLanguage(isocode)	;sessionUser(uid)
+						;cmscontentScriptCronJob	;cmscontentScriptJob	;en		;admin
+
+
+INSERT_UPDATE Script; code[unique=true];content;active[default=true, unique=true]
+;cmscontentScript;"import java.io.File;
+import java.lang.Exception;
+import java.io.InputStream;
+import de.hybris.platform.util.CSVConstants;
+
+import java.io.IOException;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.sql.Timestamp;
+import org.apache.log4j.*;
+import org.apache.commons.io.IOUtils;
+import de.hybris.platform.servicelayer.impex.ExportConfig;
+import de.hybris.platform.servicelayer.impex.ExportConfig.ValidationMode;
+import de.hybris.platform.servicelayer.impex.ExportResult;
+import de.hybris.platform.servicelayer.impex.ExportService;
+import de.hybris.platform.servicelayer.impex.ImpExResource;
+import de.hybris.platform.servicelayer.impex.impl.StreamBasedImpExResource;
+
+final Logger LOG = Logger.getLogger(""asahi"");
+
+def exportService = spring.getBean(""exportService"");
+
+header =  ""INSERT_UPDATE Media;code[unique=true];mediaFormat(qualifier);catalogversion(catalog(id),version)[unique=true];mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];folder(qualifier)[default='images'];\n"" +
+ ""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {m.pk} FROM {Media! as m}  WHERE {m.code} IN ('DirectDebitForm.pdf','CUB Premium Beverages - Primary Logo - White (PROD).png') OR {m.catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1  );\""\n""+
+ 
+""INSERT_UPDATE MediaContainer ; qualifier[unique=true];order; catalogVersion(catalog(id),version)[unique=true,allownull=true];medias(code, catalogversion(catalog(id),version)[unique=true]);name[lang=en];\n""+
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {m.pk} FROM {MediaContainer as m}  WHERE {m.catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }})}})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1  );\""\n""+
+
+""insert_update ApbHtmlCMSComponent;animation(code,itemtype(code));animationDelay;animationDuration;banners(catalogVersion(catalog(id),version[default='Staged']),uid);catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];content[lang=en];desktop_height;desktop_width;mobile_height;mobile_width;name;onlyOneRestrictionMustApply[allownull=true];uid[unique=true,allownull=true];useCustomized;visible[allownull=true];actions(uid,catalogVersion(catalog(id),version[default='Staged']));\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {ApbHtmlCMSComponent} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update AsahiBannerComponent;catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];media(catalogVersion(catalog(id),version[default='Staged']),code)[lang=en];name;onlyOneRestrictionMustApply[allownull=true];title[lang=en];uid[unique=true,allownull=true];urlLink;visible[allownull=true];actions(uid,catalogVersion(catalog(id),version[default='Staged']));\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {AsahiBannerComponent} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update MessageItem;catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];messageCategory(code,itemtype(code))[allownull=true];messageValue[lang=en];name;uid[unique=true,allownull=true];\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {MessageItem} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update ListQuantityAddToCartAction;catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];name;onlyOneRestrictionMustApply[allownull=true];uid[unique=true,allownull=true];url;visible[allownull=true];\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {ListQuantityAddToCartAction} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update CMSLinkComponent;accessType(code,itemtype(code));catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];category(catalogVersion(catalog(id),version[default='Staged']),code);categoryPOS;contentPage(catalogVersion(catalog(id),version[default='Staged']),uid);contentPagePOS;external[allownull=true];linkName[lang=en];name;onlyOneRestrictionMustApply[allownull=true];product(catalogVersion(catalog(id),version[default='Staged']),code);productPOS;styleAttributes;target(code,itemtype(code))[allownull=true];uid[unique=true,allownull=true];url;visible[allownull=true];actions(uid,catalogVersion(catalog(id),version[default='Staged']));\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {CMSLinkComponent} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update CMSImageComponent;catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];media(catalogVersion(catalog(id),version[default='Staged']),code)[lang=en];name;onlyOneRestrictionMustApply[allownull=true];uid[unique=true,allownull=true];visible[allownull=true];actions(uid,catalogVersion(catalog(id),version[default='Staged']));\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {CMSImageComponent} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update CMSInverseRestriction;catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];name;originalRestriction(catalogVersion(catalog(id),version[default='Staged']),uid)[allownull=true];uid[unique=true,allownull=true];components(uid, catalogVersion(CatalogVersion.catalog(Catalog.id),CatalogVersion.version));\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {CMSInverseRestriction} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update CMSNavigationEntry;catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];name;navigationNode(catalogVersion(catalog(id),version[default='Staged']),uid);navigationNodePOS;uid[unique=true,allownull=true];item(&linkRef)\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {CMSNavigationEntry} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+
+""insert_update CMSNavigationNode;catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];name;parent(uid,catalogVersion(catalog(id),version[default='Staged']),uid);parentPOS;children(uid,catalogVersion(catalog(id),version[default='Staged']));title[lang=en];uid[unique=true,allownull=true];visible[allownull=true];links(&linkRef);pages(&page)\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {CMSNavigationNode} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update CMSParagraphComponent;catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];content[lang=en];name;onlyOneRestrictionMustApply[allownull=true];uid[unique=true,allownull=true];visible[allownull=true];actions(uid,catalogVersion(catalog(id),version[default='Staged']));\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {CMSParagraphComponent} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update CMSUserGroupRestriction;catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];includeSubgroups[allownull=true];name;uid[unique=true,allownull=true];components(uid, catalogVersion(CatalogVersion.catalog(Catalog.id),CatalogVersion.version));userGroups(uid);\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {CMSUserGroupRestriction} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update CMSUserRestriction;catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];uid[unique=true,allownull=true];components(uid, catalogVersion(CatalogVersion.catalog(Catalog.id),CatalogVersion.version));users(uid);\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {CMSUserRestriction} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update CMSLinkComponent;&linkRef;accessType(code,itemtype(code));catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];category(catalogVersion(catalog(id),version[default='Staged']),code);categoryPOS;contentPage(catalogVersion(catalog(id),version[default='Staged']),uid);contentPagePOS;external[allownull=true];linkName[lang=en];name;onlyOneRestrictionMustApply[allownull=true];product(catalogVersion(catalog(id),version[default='Staged']),code);productPOS;styleAttributes;target(code,itemtype(code))[allownull=true];uid[unique=true,allownull=true];url;visible[allownull=true];actions(uid,catalogVersion(catalog(id),version[default='Staged']));\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {CMSLinkComponent} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update ContentPage;&page;approvalStatus(code,itemtype(code))[allownull=true];backgroundImage(catalogVersion(catalog(id),version[default='Staged']),code);catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];defaultPage[allownull=true];description[lang=en];homepage[allownull=true];keywords[lang=en];label;lockedBy(uid);masterTemplate(catalogVersion(catalog(id),version[default='Staged']),uid)[allownull=true];name;navigationNodeList(catalogVersion(catalog(id),version[default='Staged']),uid);onlyOneRestrictionMustApply[allownull=true];previewImage(catalogVersion(catalog(id),version[default='Staged']),code);title[lang=en];uid[unique=true,allownull=true];\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {ContentPage} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+
+""insert_update ContentSlot;activeFrom[dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ];activeUntil[dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ];active[allownull=true];catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];currentPosition;name;uid[unique=true,allownull=true];\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {ContentSlot} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update ContentSlotForPage;catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];contentSlot(catalogVersion(catalog(id),version[default='Staged']),uid)[allownull=true];page(catalogVersion(catalog(id),version[default='Staged']),uid)[allownull=true];position[allownull=true];uid[unique=true,allownull=true];\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {ContentSlotForPage} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update ContentSlotForTemplate;allowOverwrite[allownull=true];catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];contentSlot(catalogVersion(catalog(id),version[default='Staged']),uid)[allownull=true];pageTemplate(catalogVersion(catalog(id),version[default='Staged']),uid)[allownull=true];position[allownull=true];uid[unique=true,allownull=true];\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {ContentSlotForTemplate} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update ContentSlotName;compTypeGroup(code);name[allownull=true,unique=true];template(catalogVersion(catalog(id),version[default='Staged']),uid)[allownull=true,forceWrite=true,unique=true];templatePOS;validComponentTypes(code);\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {cs.pk} FROM {ContentSlotName as cs},{PageTemplate as pt} where {cs.template}={pt.pk} and {pt.catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update EmailPage;approvalStatus(code,itemtype(code))[allownull=true];backgroundImage(catalogVersion(catalog(id),version[default='Staged']),code);catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];defaultPage[allownull=true];fromEmail[lang=en];fromName[lang=en];lockedBy(uid);masterTemplate(catalogVersion(catalog(id),version[default='Staged']),uid)[allownull=true];name;navigationNodeList(catalogVersion(catalog(id),version[default='Staged']),uid);onlyOneRestrictionMustApply[allownull=true];previewImage(catalogVersion(catalog(id),version[default='Staged']),code);title[lang=en];uid[unique=true,allownull=true];\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {EmailPage} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update EmailPageTemplate;active[allownull=true];catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];frontendTemplateName;htmlTemplate(code);name;previewIcon(catalogVersion(catalog(id),version[default='Staged']),code);subject(code);uid[unique=true,allownull=true];velocityTemplate;\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {EmailPageTemplate} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update FooterNavigationComponent;catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];name;navigationNode(catalogVersion(catalog(id),version[default='Staged']),uid);notice[lang=en];onlyOneRestrictionMustApply[allownull=true];showLanguageCurrency;styleClass;uid[unique=true,allownull=true];visible[allownull=true];wrapAfter;actions(uid,catalogVersion(catalog(id),version[default='Staged']));\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {FooterNavigationComponent} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update JspIncludeComponent;catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];name;onlyOneRestrictionMustApply[allownull=true];page;title[lang=en];uid[unique=true,allownull=true];visible[allownull=true];actions(uid,catalogVersion(catalog(id),version[default='Staged']));restrictions(uid,catalogVersion(CatalogVersion.catalog(Catalog.id),CatalogVersion.version));\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {JspIncludeComponent} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update MiniCartComponent;catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];lightboxBannerComponent(catalogVersion(catalog(id),version[default='Staged']),uid);name;onlyOneRestrictionMustApply[allownull=true];shownProductCount[allownull=true];title[lang=en];totalDisplay(code,itemtype(code))[allownull=true];uid[unique=true,allownull=true];visible[allownull=true];actions(uid,catalogVersion(catalog(id),version[default='Staged']));\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {MiniCartComponent} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update NavigationBarComponent;catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];dropDownLayout(code,itemtype(code));link(catalogVersion(catalog(id),version[default='Staged']),uid)[allownull=true];name;navigationNode(catalogVersion(catalog(id),version[default='Staged']),uid);onlyOneRestrictionMustApply[allownull=true];styleClass;uid[unique=true,allownull=true];visible[allownull=true];wrapAfter;actions(uid,catalogVersion(catalog(id),version[default='Staged']));\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {NavigationBarComponent} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update AccountNavigationComponent;catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];name;navigationNode(catalogVersion(catalog(id),version[default='Staged']),uid);onlyOneRestrictionMustApply[allownull=true];styleClass;title[lang=en];uid[unique=true,allownull=true];visible[allownull=true];actions(uid,catalogVersion(catalog(id),version[default='Staged']));\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {AccountNavigationComponent} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update PageTemplate;active[allownull=true];catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];frontendTemplateName;name;previewIcon(catalogVersion(catalog(id),version[default='Staged']),code);uid[unique=true,allownull=true];velocityTemplate;restrictedPageTypes(code);\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {PageTemplate} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update ProductCarouselComponent;catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];categoryCode;name;onlyOneRestrictionMustApply[allownull=true];popup[allownull=true];scroll(code,itemtype(code))[allownull=true];searchQuery;title[lang=en];uid[unique=true,allownull=true];visible[allownull=true];actions(uid,catalogVersion(catalog(id),version[default='Staged']));\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {ProductCarouselComponent} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+
+""insert_update ProductReferencesComponent;catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];displayProductPrices[allownull=true];displayProductTitles[allownull=true];maximumNumberProducts[allownull=true];name;onlyOneRestrictionMustApply[allownull=true];productReferenceTypes(code,itemtype(code));title[lang=en];uid[unique=true,allownull=true];visible[allownull=true];actions(uid,catalogVersion(catalog(id),version[default='Staged']));\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {ProductReferencesComponent} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update RendererTemplate;code[unique=true,allownull=true];contextClass;description[lang=en];outputMimeType;rendererType(code,itemtype(code))[allownull=true];templateScript[lang=en];content[lang=en];\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {RendererTemplate} \""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update RestrictionType;autocreate[allownull=true];catalogItemType[allownull=true];catalogVersionAttribute(enclosingType(code),qualifier);catalogVersionAttributeQualifier;code[forceWrite=true,unique=true,allownull=true];declaredattributedescriptors(enclosingType(code),qualifier);defaultValue;description[lang=en];extensionName;generate[allownull=true];jaloclass;jaloonly[allownull=true];legacyPersistence;name[lang=en];singleton[allownull=true];systemType[allownull=true];uniqueKeyAttributeQualifier;uniqueKeyAttributes(enclosingType(code),qualifier);\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {RestrictionType} \""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update RotatingImagesComponent;catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];effect(code,itemtype(code));name;onlyOneRestrictionMustApply[allownull=true];timeout;uid[unique=true,allownull=true];visible[allownull=true];actions(uid,catalogVersion(catalog(id),version[default='Staged']));\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {RotatingImagesComponent} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update SearchBoxComponent;catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];displayProductImages[allownull=true];displayProducts[allownull=true];displaySuggestions[allownull=true];maxProducts[allownull=true];maxSuggestions[allownull=true];minCharactersBeforeRequest[allownull=true];name;onlyOneRestrictionMustApply[allownull=true];uid[unique=true,allownull=true];visible[allownull=true];waitTimeBeforeRequest[allownull=true];actions(uid,catalogVersion(catalog(id),version[default='Staged']));\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {SearchBoxComponent} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update AddToCartAction;catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];name;onlyOneRestrictionMustApply[allownull=true];uid[unique=true,allownull=true];url;visible[allownull=true];restrictions(uid,catalogVersion(CatalogVersion.catalog(Catalog.id),CatalogVersion.version));\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {AddToCartAction} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+
+""insert_update ApproveOrderAction;catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];name;onlyOneRestrictionMustApply[allownull=true];uid[unique=true,allownull=true];url;visible[allownull=true];restrictions(uid,catalogVersion(CatalogVersion.catalog(Catalog.id),CatalogVersion.version));\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {ApproveOrderAction} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update AsmDevicesUsedComponent;catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];name;onlyOneRestrictionMustApply[allownull=true];uid[unique=true,allownull=true];visible[allownull=true];actions(uid,catalogVersion(catalog(id),version[default='Staged']));\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {AsmDevicesUsedComponent} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update AsmFavoriteColorsComponent;catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];name;onlyOneRestrictionMustApply[allownull=true];uid[unique=true,allownull=true];visible[allownull=true];actions(uid,catalogVersion(catalog(id),version[default='Staged']));\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {AsmFavoriteColorsComponent} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update AssistedServiceComponent;catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];content[lang=en];name;onlyOneRestrictionMustApply[allownull=true];uid[unique=true,allownull=true];visible[allownull=true];actions(uid,catalogVersion(catalog(id),version[default='Staged']));\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {AssistedServiceComponent} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update AssistedServiceSessionRestriction;uid[unique=true,allownull=true];catalogVersion(catalog(id),version)[unique=true,allownull=true];creationtime[forceWrite=true,dateformat=dd.MM.yyyy hh:mm:ss];modifiedtime[dateformat=dd.MM.yyyy hh:mm:ss];name;\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {AssistedServiceSessionRestriction} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update BannerComponent;catalogVersion(catalog(id),version)[unique=true,allownull=true];content[lang=en];external[allownull=true];headline[lang=en];media(catalogVersion(catalog(id),version),code)[lang=en];name;onlyOneRestrictionMustApply[allownull=true];page(catalogVersion(catalog(id),version),uid);uid[unique=true,allownull=true];urlLink;visible[allownull=true];actions(uid,catalogVersion(catalog(id),version[default='Staged']));\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {BannerComponent} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update NavigationComponent;catalogVersion(catalog(id),version)[unique=true,allownull=true];name;navigationNode(catalogVersion(catalog(id),version),uid);onlyOneRestrictionMustApply[allownull=true];styleClass;uid[unique=true,allownull=true];visible[allownull=true];actions(uid,catalogVersion(catalog(id),version[default='Staged']));wrapAfter;\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {NavigationComponent} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update BannersForRotatingComponent;language(isocode)[unique=true];qualifier;reverseSequenceNumber;sequenceNumber;source(catalogVersion(catalog(id),version[default='Staged']),uid)[unique=true,allownull=true];target(catalogVersion(catalog(id),version[default='Staged']),uid)[unique=true,allownull=true];\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {BannersForRotatingComponent as link} ,{RotatingImagesComponent as source} where {link.source}={source.pk} and {source.catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }}) \""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update BreadcrumbComponent;catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];name;onlyOneRestrictionMustApply[allownull=true];uid[unique=true,allownull=true];visible[allownull=true];actions(uid,catalogVersion(catalog(id),version[default='Staged']));\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {BreadcrumbComponent} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update CMSActionRestriction;catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];name;uid[unique=true,allownull=true];\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {CMSActionRestriction} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update CMSProductListComponent;catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];name;onlyOneRestrictionMustApply[allownull=true];uid[unique=true,allownull=true];visible[allownull=true];actions(uid,catalogVersion(catalog(id),version[default='Staged']));\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {CMSProductListComponent} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update CMSTabParagraphContainer;catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];name;onlyOneRestrictionMustApply[allownull=true];uid[unique=true,allownull=true];visible[allownull=true];simpleCMSComponents(uid,catalogVersion(catalog(id),version[default='Staged']));\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {CMSTabParagraphContainer} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update CartSuggestionComponent;catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];displayProductPrices[allownull=true];displayProductTitles[allownull=true];filterPurchased[allownull=true];maximumNumberProducts[allownull=true];name;onlyOneRestrictionMustApply[allownull=true];productReferenceTypes(code,itemtype(code));title[lang=en];uid[unique=true,allownull=true];visible[allownull=true];actions(uid,catalogVersion(catalog(id),version[default='Staged']));\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {CartSuggestionComponent} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update CategoryNavigationComponent;catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];name;navigationNode(catalogVersion(catalog(id),version[default='Staged']),uid);onlyOneRestrictionMustApply[allownull=true];styleClass;uid[unique=true,allownull=true];visible[allownull=true];wrapAfter;actions(uid,catalogVersion(catalog(id),version[default='Staged']));\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {CategoryNavigationComponent} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update CategoryPage;approvalStatus(code,itemtype(code))[allownull=true];backgroundImage(catalogVersion(catalog(id),version[default='Staged']),code);catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];defaultPage[allownull=true];lockedBy(uid);masterTemplate(catalogVersion(catalog(id),version[default='Staged']),uid)[allownull=true];name;navigationNodeList(catalogVersion(catalog(id),version[default='Staged']),uid);onlyOneRestrictionMustApply[allownull=true];previewImage(catalogVersion(catalog(id),version[default='Staged']),code);title[lang=en];uid[unique=true,allownull=true];\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {CategoryPage} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update DocumentPage;approvalStatus(code,itemtype(code))[allownull=true];backgroundImage(catalogVersion(catalog(id),version[default='Staged']),code);catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];defaultPage[allownull=true];lockedBy(uid);masterTemplate(catalogVersion(catalog(id),version[default='Staged']),uid)[allownull=true];name;navigationNodeList(catalogVersion(catalog(id),version[default='Staged']),uid);onlyOneRestrictionMustApply[allownull=true];previewImage(catalogVersion(catalog(id),version[default='Staged']),code);title[lang=en];uid[unique=true,allownull=true];\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {DocumentPage} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update ElementsForSlot;language(isocode)[unique=true];qualifier;reverseSequenceNumber;sequenceNumber;source(catalogVersion(catalog(id),version[default='Staged']),uid)[unique=true,allownull=true];target(catalogVersion(catalog(id),version[default='Staged']),uid)[unique=true,allownull=true];\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {ElementsForSlot as link} ,{ContentSlot as source} where {link.source}={source.pk} and {source.catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }}) \""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update ListAddToCartAction;catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];name;onlyOneRestrictionMustApply[allownull=true];uid[unique=true,allownull=true];url;visible[allownull=true];\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {ListAddToCartAction} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update ListOrderFormAction;catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];name;onlyOneRestrictionMustApply[allownull=true];uid[unique=true,allownull=true];url;visible[allownull=true];\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {ListOrderFormAction} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update ListPickUpInStoreAction;catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];name;onlyOneRestrictionMustApply[allownull=true];uid[unique=true,allownull=true];url;visible[allownull=true];\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {ListPickUpInStoreAction} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update PickUpInStoreAction;catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];name;onlyOneRestrictionMustApply[allownull=true];uid[unique=true,allownull=true];url;visible[allownull=true];\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {PickUpInStoreAction} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update ProductAddToCartComponent;catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];name;onlyOneRestrictionMustApply[allownull=true];uid[unique=true,allownull=true];visible[allownull=true];actions(uid,catalogVersion(catalog(id),version[default='Staged']));\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {ProductAddToCartComponent} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update ProductGridComponent;catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];name;onlyOneRestrictionMustApply[allownull=true];uid[unique=true,allownull=true];visible[allownull=true];actions(uid,catalogVersion(catalog(id),version[default='Staged']));\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {ProductGridComponent} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update ProductPage;approvalStatus(code,itemtype(code))[allownull=true];backgroundImage(catalogVersion(catalog(id),version[default='Staged']),code);catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];defaultPage[allownull=true];lockedBy(uid);masterTemplate(catalogVersion(catalog(id),version[default='Staged']),uid)[allownull=true];name;navigationNodeList(catalogVersion(catalog(id),version[default='Staged']),uid);onlyOneRestrictionMustApply[allownull=true];previewImage(catalogVersion(catalog(id),version[default='Staged']),code);title[lang=en];uid[unique=true,allownull=true];\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {ProductPage} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update ProductRefinementComponent;catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];name;onlyOneRestrictionMustApply[allownull=true];uid[unique=true,allownull=true];visible[allownull=true];actions(uid,catalogVersion(catalog(id),version[default='Staged']));\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {ProductRefinementComponent} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update ProductVariantSelectorComponent;catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];name;onlyOneRestrictionMustApply[allownull=true];uid[unique=true,allownull=true];visible[allownull=true];actions(uid,catalogVersion(catalog(id),version[default='Staged']));\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {ProductVariantSelectorComponent} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update ReorderAction;catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];name;onlyOneRestrictionMustApply[allownull=true];uid[unique=true,allownull=true];url;visible[allownull=true];restrictions(uid,catalogVersion(CatalogVersion.catalog(Catalog.id),CatalogVersion.version))\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {ReorderAction} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update SearchResultsGridComponent;catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];name;onlyOneRestrictionMustApply[allownull=true];uid[unique=true,allownull=true];visible[allownull=true];actions(uid,catalogVersion(catalog(id),version[default='Staged']));\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {SearchResultsGridComponent} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update SearchResultsListComponent;catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];name;onlyOneRestrictionMustApply[allownull=true];uid[unique=true,allownull=true];visible[allownull=true];actions(uid,catalogVersion(catalog(id),version[default='Staged']));\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {SearchResultsListComponent} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update SimpleBannerComponent;catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];external[allownull=true];media(catalogVersion(catalog(id),version[default='Staged']),code)[lang=en];name;onlyOneRestrictionMustApply[allownull=true];uid[unique=true,allownull=true];urlLink;visible[allownull=true];actions(uid,catalogVersion(catalog(id),version[default='Staged']));\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {SimpleBannerComponent} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update SimpleResponsiveBannerComponent;catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];media(catalogVersion(catalog(id),version[default='Staged']),qualifier)[lang=en];name;onlyOneRestrictionMustApply[allownull=true];uid[unique=true,allownull=true];urlLink;visible[allownull=true];actions(uid,catalogVersion(catalog(id),version[default='Staged']));\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {SimpleResponsiveBannerComponent} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update ViewOrderAction;catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];name;onlyOneRestrictionMustApply[allownull=true];uid[unique=true,allownull=true];url;visible[allownull=true];restrictions(uid,catalogVersion(CatalogVersion.catalog(Catalog.id),CatalogVersion.version));\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {ViewOrderAction} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+
+""insert_update ViewStoreAction;catalogVersion(catalog(id),version[default='Staged'])[unique=true,allownull=true];name;onlyOneRestrictionMustApply[allownull=true];uid[unique=true,allownull=true];url;visible[allownull=true];restrictions(uid,catalogVersion(CatalogVersion.catalog(Catalog.id),CatalogVersion.version));\n""+
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {ViewStoreAction} WHERE {catalogVersion} in  ({{select {pk} from {CatalogVersion} where {catalog} in ({{select {pk} from {Catalog} where {id} IN ('apbContentCatalog','sgaContentCatalog') }}) }})\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n"";
+
+
+
+
+InputStream resourceAsStream = null;
+try {
+	resourceAsStream = new ByteArrayInputStream(header.getBytes());
+	final ImpExResource resource = new StreamBasedImpExResource(resourceAsStream, CSVConstants.DEFAULT_ENCODING);
+	final ExportConfig config = new ExportConfig();
+	config.setScript(resource);
+	config.setSingleFile(true);
+	config.setValidationMode(ValidationMode.WITHOUT);
+	config.setExportedDataCode(""cmscontent-""+new SimpleDateFormat(""yyyyMMddHHmmssSSS"").format(new Date()));
+	final ExportResult result = exportService.exportData(config);
+	
+	if (result.isError()){
+		LOG.info(""Exception occurred during export of cmsContent"");
+	}
+}
+catch (final Exception exception) {
+		LOG.log(Level.ERROR, exception.getMessage());
+	} 
+finally
+	{
+		resourceAsStream.close();
+	}";;
+	
+
+

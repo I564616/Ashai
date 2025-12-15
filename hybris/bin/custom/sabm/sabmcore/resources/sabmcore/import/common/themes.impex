@@ -1,0 +1,13 @@
+#
+# Import Themes
+# Import the themes supported by the store front
+#
+
+INSERT_UPDATE SiteTheme;code[unique=true]
+;sabm
+;alpha            
+;lambda
+# Remove black and blue themes for responsive
+REMOVE SiteTheme ; code[unique=true]
+                 ; black            
+                 ; blue             

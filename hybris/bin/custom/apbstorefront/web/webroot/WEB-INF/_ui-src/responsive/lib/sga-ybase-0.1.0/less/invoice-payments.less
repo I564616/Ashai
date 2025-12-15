@@ -1,0 +1,949 @@
+//************************************************************
+//************************************************************
+//                  	Summary Section
+//************************************************************
+//************************************************************
+
+.summary-total-row {
+	background-color: @body-content-background-secondary;
+	padding: 30px 0px;
+}
+
+.summary-due-row {
+	background-color: @body-content-background-secondary;
+	padding: 17.5px 0px;
+	border-top: 1px solid @border-color-5;
+
+	.summary-label,
+	.summary-amount {
+		padding-top: 12.5px;
+	}
+}
+
+#payNowBtn {
+	padding-right: 5px !important;
+	
+	@media (max-width: @screen-xs-max) {
+		margin-top: 20px;
+		padding-left: 5px;
+	}
+}
+
+.summary-section {
+	font-size: 16px;
+	color: @text-color-sga;
+	float: left;
+}
+
+.summary-label {
+	text-align: left;
+	padding-left: 15px;
+}
+
+.summary-amount {
+	text-align: right;
+	
+	@media (max-width: @screen-xs-max) {
+		margin-right: 15px;
+	}
+}
+
+.invoice-payments-pages {
+	background-color: @body-content-background-secondary;
+	padding: 10px 0px;
+	margin: 20px 0px;
+	display: flex;
+	text-align: center;
+	font-weight: 700;
+	text-transform: uppercase;
+	
+	@media (max-width: @screen-xs-max) {
+		background: none;
+		background-image: none;
+		font-size: 14px !important;
+		-webkit-appearance: menulist;
+		padding: 0px 10px;
+    	margin: 20px 0px;
+		font-weight: 400;
+		text-transform: uppercase !important;
+	}
+}
+
+.links-container {
+	position: relative;
+	margin: 7px auto 13px auto;
+}
+
+.invoice-payments-pages-link {
+	&:hover {
+		text-decoration: none;
+		
+		&::after {
+			content: "";
+			position: absolute;
+			display: block;
+			margin: 0 auto;
+			width: 70px;
+			left: 0;
+			right: 0;
+			margin-top: 5px;
+			border-bottom: 3px solid @border-brand-secondary;
+		}
+	}
+}
+
+.invoice-payments-pages-link-selected {
+	&::after {
+		content: "";
+		position: absolute;
+		display: block;
+		margin: 0 auto;
+		width: 70px;
+		left: 0;
+		right: 0;
+		margin-top: 5px;
+		border-bottom: 3px solid @border-brand-secondary;
+	}
+}
+
+.invoices-and-credits-open-closed {
+	.tabs {
+		.tabs-list {
+			li {
+				a {
+					padding-bottom: 10px;
+				}
+			}
+		} 
+		
+		.tabbody {
+			padding: 20px 0px;
+			background: none;
+		}
+	}
+	
+	.account-open-invoices {
+		
+		.responsive-table {
+			margin: 0px;
+		}
+		
+		.responsive-table-head {
+			th {
+				&:last-child {
+					text-align: right;
+					padding-right: 0px;
+				}
+			}
+		}
+		
+		.responsive-table-item {
+			td {
+				padding: 20px 0px;
+				
+				@media (max-width: @screen-xs-max) {
+					padding: 3px 0px;
+				}
+			}
+			
+			input[type="checkbox"] {
+				margin-right: 0px;
+				margin-bottom: 0px;
+				float: right;
+			}
+			
+			#header1 {
+				text-decoration: underline;
+				font-weight: 700;
+			}
+		}
+		
+		#header6 {
+			text-align: right;
+			padding-right: 0px;
+		}
+	}
+	
+	.tabs-responsive {
+		.checkoutcartsummary {
+			@media (max-width: @screen-sm-max) {
+				margin-left: 0px;
+				margin-right: 0px;
+			}
+		}
+	}
+}
+
+.refine-button-sips {
+	width: 100%;
+	color: @text-color-sga;
+	border: 1px solid @border-color;
+	height: 50px !important;
+	background-color: @bg-color-1;
+	margin-top: -10px;
+
+	@media (max-width: @screen-xs-max) {
+		margin-top: 30px;
+	}
+}
+
+#refine-button-payment {
+	@media (max-width: @screen-xs-max) {
+		margin-top: 0px;
+	}
+}
+
+.paddingForSAM {
+	@media (max-width: @screen-sm-max) {
+		padding: 20px 0px 0px 0px;
+	}
+}
+
+.no-invoices, .no-invoices-closed {
+	margin-top: 25px;
+	font-size: 16px;
+}
+
+.sold-to-account-name-td {
+	word-wrap: break-word;
+	
+	@media (max-width: @screen-xs-max) {
+		width: 42% !important;
+	}
+}
+
+.checkbox-invoice-mobile {
+    width: 15% !important;
+}
+
+.invoices-rem-amount-mobile {
+	@media (max-width: @screen-xs-max) {
+		float: none !important;
+	}
+}
+
+.facet-colorbox.invoicedetail-js {
+	.js-product-facet {
+		padding-left: 0px;
+	}
+}
+
+.bottom-payselected {
+	margin-top: 30px;
+}
+
+.checkbox-mobile-fix {
+	@media (max-width: @screen-xs-max) {
+		width: 100% !important;
+	}
+	
+	.js-invoice-select {
+		@media (max-width: @screen-xs-max) {
+			margin-top: -30%;
+		}
+	}
+}
+
+#submitSamIvoices {
+	.responsive-table-item {
+		@media (max-width: @screen-xs-max) {
+			padding-top: 20px;
+			padding-bottom: 0px;
+		}
+	}
+}
+
+//************************************************************
+//************************************************************
+//                  	Direct Debit Section
+//************************************************************
+//************************************************************
+
+#submitDirectDebitForm {
+	margin-top: 35px;
+}
+
+.form-label {
+	margin-bottom: 5px;
+}
+
+#ddterms-label {
+	font-size: 13px;
+}
+
+.form-checkbox-label {
+	margin-left: 5px;
+}
+
+.account-directdebit-label {
+	margin-top: 20px;
+}
+
+.account-directdebit-btn {
+	margin: 20px 0px 0px 0px;
+	
+	a {
+		padding-top: 15px;
+	}
+}
+
+#keyword-js {
+	.facet__name {
+		padding-left: 0px;
+	}
+	
+	.keyword-search {
+		.form-group {
+			margin-right: 10px;
+		}
+	}
+}
+
+.invoices-payments-facet {
+	.facet {
+		.facet__name {
+			margin-left: 0px;
+			
+			@media (min-width: @screen-md) {
+				margin-left: -5px;
+			}
+			
+			.facet__arrow {
+				left: 0px;
+			}
+		}
+	}
+	
+	.keyword-search {
+		margin: 10px 0px 0px 0px;
+	}
+
+	.keyword-search-go {
+		height: 50px;
+		width: 60px;
+		float: right;
+		margin-top: 10px;
+		border: 1px solid @border-color;
+	}
+}
+
+.date-range-label {
+	display: inline-block;
+	line-height: 40px;
+}
+
+.date-range-input {
+	float: right;
+	width: 100%;
+}
+
+/* hide date picker */
+
+input::-webkit-calendar-picker-indicator {
+	display: none;
+}
+
+input[type="date"]::-webkit-input-placeholder {
+	visibility: hidden !important;
+}
+
+/* Statements Section */
+
+.statements-count {
+	border-top: 1px solid;
+	margin-top: 40px;
+}
+
+.statements-displayed {
+	padding: 30px 0px;
+	font-size: 16px;
+}
+
+.statements-available {
+	border-bottom: 1px solid @border-color-4;
+	font-weight: 700;
+}
+
+.statements-section {
+	.three-tabs li {
+		width: 33.3% !important;
+	}
+}
+
+#bankAccountSection {
+	.row {
+		margin-bottom: 10px;
+	}
+}
+
+#ddtandcCheckbox {
+  margin-bottom: 0px;
+  margin-right: 0px;
+}
+
+.ddtandc {
+	margin-bottom: 10px;
+}
+
+.direct-debit-page {
+	font-size: 14px;
+	margin-bottom: 40px;
+	
+	.control-label {
+		font-size: 14px;
+	}
+	
+	.checkout-add-new-card {
+		padding-top: 0px !important;
+	}
+}
+
+//************************************************************
+//************************************************************
+//                  Payment History Section
+//************************************************************
+//************************************************************
+
+#no-payment-invoices {
+	padding: 20px 0px;
+	font-size: 16px;
+}
+
+.payment-detail-title {
+	background-color: #f1f1f1;
+	padding: 10px 15px;
+	font-size: 14px;
+	text-transform: uppercase;
+	border-bottom: 1px solid @border-color-5;
+	text-align: left !important;
+}
+
+.payment-detail-reference {
+	background-color: @table-bg-accent;
+	padding: 15px;
+	font-size: 16px;
+	text-align: left !important;
+	
+	@media (max-width: @screen-xs-max) {
+		padding: 15px 5px 0px 15px;
+	}
+}
+
+.payment-detail {
+	border: 0px;
+	background-color: @table-bg-accent;
+	
+	.mobile-alignment {
+		@media (max-width: @screen-xs-max) {
+			display: grid;
+			grid-template-columns: 50% 50%;
+		}
+	}
+}
+
+.payment-detail thead {
+	border-bottom: 1px solid @border-color-5;
+}
+
+.account-paymenthistory {
+	border-bottom: 1px solid @border-color-3;
+	
+	.responsive-table {
+		@media (max-width: @screen-xs-max) {
+			margin: 0px;
+			border-top: 1px solid @border-color-3;
+		}
+	}
+	
+	.responsive-table-item {
+		td {
+			padding: 30px 0px;
+			
+			@media (max-width: @screen-xs-max) {
+				padding: 3px 0px;
+			}
+			
+			@media (max-width: @screen-sm-max) {
+				text-align: left !important;
+			}
+		}
+	}
+	
+	.payment-detail-heading {
+		padding: 15px !important;
+		text-align: left;
+		
+		@media (max-width: @screen-xs-max) {
+			padding: 15px !important;
+			width: 50%;
+			text-align: left;
+		}
+	}
+
+	.payment-detail-item {
+		padding: 15px !important;
+		text-align: left;
+	}
+	
+	.paymenthistory-columns {
+		display: grid;
+		grid-template-columns: 22% 22% 22% 20% 14%;
+		
+		@media (max-width: @screen-xs-max) {
+			grid-template-columns: 40% 60%;
+		}
+		
+		text-align: left !important;
+	}
+	
+	.paymenthistory-columns, .header {
+		padding: 10px 0px;
+	}
+	
+	.paymenthistory-columns-viewmore {
+		padding: 0px !important;
+		
+		.mobile-alignment {
+			@media (max-width: @screen-xs-max) {
+				border-bottom: 1px solid @border-color-4;
+			}
+		}
+	}
+	
+	.view-more-table {
+		background-color: @table-bg-accent;
+		border-top: 0px;
+		border-bottom: 0px;
+		
+		thead {	
+			border-bottom: 1px solid @border-color-4;
+		}
+	}
+	
+	.responsive-table-item {
+		padding: 10px 0px;
+		
+		&:last-child {
+			border-bottom: 0px;
+		}
+	}
+	
+	.responsive-table-item-vm {
+		border-bottom: 0px; 
+		padding: 0px;
+		
+		@media (max-width: @screen-xs-max) {
+			display: none;
+		}
+	}
+}
+
+.pricing-text {
+	@media (min-width: @screen-sm) {
+		text-align: right;
+	}
+}
+
+.statements-count-history {
+	padding: 15px 0px;
+}
+
+.refine-button {
+	width: 100%;
+	height: 50px !important;
+}
+
+#viewMore {
+	@media (max-width: @screen-xs-max) {
+		margin-right: -13px;
+	}
+}
+
+.lastCol {
+	text-align: right !important;
+}
+
+.account-paymenthistory-pagination {
+	margin: 20px 0px;
+	
+	.pagination {
+		.page-number {
+			line-height: 40px;
+			width: 40px;
+			display: inline-block;
+			font-weight: 400;
+			
+			&:hover,
+			&:active,
+			&:focus {
+				text-decoration: none;
+			}
+			
+			&:active,
+			&:focus {
+				color: @text-color-sga;
+			}
+		}
+		
+		.active {
+			.page-number {
+				font-weight: 700 !important;
+			}
+			
+			pointer-events: none;
+		}
+		
+		@media (max-width: @screen-xs-max) {
+			width: 100%;
+		}
+	}
+}
+
+.dates-refine-mobile-js, .keywords-refine-mobile-js {
+	@media (max-width: @screen-sm-max) {
+		display: none;
+	}
+}
+
+.facet-colorbox.paymentHistory-js {
+	.invoices-payments-facet {
+		margin-right: 20px;
+	}
+}
+
+.applied-history-filters-js, .applied-filters-js {
+	word-break: break-all;
+}
+//************************************************************
+//************************************************************
+//                  Make a Payment Section
+//************************************************************
+//************************************************************
+
+.make-a-payment-section {
+	.account-label {
+		font-size: 16px;
+	}
+	
+	margin: 0px 0px 30px 0px;
+}
+
+#asahiSamPaymentForm {
+	margin: 0px 0px 20px 10px;
+	
+	.summary-amount {
+		font-weight: 700;
+	}
+	
+	.account-section {
+		border-bottom: 1px solid @border-color-3;
+		margin-bottom: 30px;
+		
+		th {
+			padding-right: 0px;
+		}
+	}
+	
+	#payableAmount {
+		padding: 20px 0px;
+		
+		input {
+			text-align: right;
+		}
+	}
+	
+	.link-margin {
+		margin-bottom: 20px;
+	}
+	
+	.summary-due-row {
+		margin: 0px 0px 30px 0px;
+	}
+	
+	.responsive-table-item {
+		&:last-child {
+			border-bottom: 1px solid @border-color-5;
+		}
+	}
+	
+	.payment-heading-1 {
+		width: 15%;
+	}
+	
+	.payment-heading-2 {
+		width: 20%;
+	}
+	
+	.payment-heading-3 {
+		width: 25%;
+		padding-left: 30px;
+	}
+	
+	.payment-heading-4 {
+		width: 25%;
+	}
+	
+	.payment-heading-5 {
+		width: 10%;
+		text-align: right;
+	}
+}
+
+.make-payment-info {
+    margin-top: 25px;
+    line-height: 1.5em;
+}
+
+.make-payment-info input {
+    margin-top: 15px;
+}
+
+.make-payment-info select {
+    margin-top: 15px;
+}
+
+#partial-payment-droplist {
+    width: 100%;
+    border: 1px solid @border-color-3;
+	padding-left: 10px;
+    border-radius: 0px;
+    height: 40px;
+	background-color: @input-background;
+    color: #77838bc4;
+}
+
+.selected-droplist {
+    color: #455560 !important;
+}
+
+
+#partialPaymentSection, #paymentRefSection {
+	margin-bottom: 20px;
+}
+
+#samIframePaymentSection {
+	margin-left: -10px;
+}
+
+.right-align-label {
+	text-align: right;
+}
+
+.ref-label {
+	margin-bottom: 5px;
+}
+
+.credit-card-label {
+	margin-bottom: 10px;
+}
+
+.payment-confirmation-section {
+	height: calc(~"100vh - 285px");
+	margin: 80px 0px 0px 0px;
+	
+	@media (min-width: @screen-sm) and (max-width: @screen-sm-max) {
+		margin: 60px 0px 0px 0px;
+		height: calc(~"100vh - 265px");
+	}
+	
+	@media (max-width: @screen-xs-max) {
+		margin: 0px 0px 0px 0px;
+		height: calc(~"100vh - 203px");
+	}
+	
+	.confirmation-heading {
+		font-size: 25px;
+		font-weight: bold;
+		
+		@media (max-width: @screen-xs-max) {
+			margin: 30px 0px 30px 0px;
+		}
+		
+		img {
+			width: 30px;
+			height: 30px;
+			margin-top: -5px;
+			margin-right: 10px;
+		}
+	}
+	
+	.confirmation-message {
+		font-size: 16px;
+		margin-top: 20px;
+		font-weight: 400;
+	}
+	
+	a {
+		margin-top: 80px;
+	}
+	
+	.summary-due-row {
+		padding: 0px;
+		border-top: 0px;
+	}
+}
+
+.confirmation-goback-link {
+	margin-top: 65px;
+	
+	@media (max-width: @screen-xs-max) {
+		margin: 40px 0px 40px 0px;
+	}
+	
+	a {
+		font-size: 16px;
+	}
+}
+
+.payment-ref-section {
+	padding: 20px 30px;
+	font-size: 16px;
+	
+	@media (min-width: @screen-sm) and (max-width: @screen-sm-max) {
+		padding: 30px 30px;
+	}
+	
+	@media (max-width: @screen-xs-max) {
+		padding: 20px 20px;
+	}
+}
+
+.payment-total-section {
+	padding: 10px 30px 20px 30px;
+	font-size: 18px;
+	
+	@media (min-width: @screen-sm) and (max-width: @screen-sm-max) {
+		padding: 10px 30px 30px 30px;
+	}
+	
+	@media (max-width: @screen-xs-max) {
+		padding: 10px 20px 20px 20px;
+	}
+}
+
+.payment-ref-no {
+	float: right;
+	font-weight: 700;
+}
+
+.sam-card-payment-section {
+	.checkout-card-payment-section {
+		padding-left: 0px;
+	}
+}
+
+.invoices-rem-amount {
+	float: right;
+}
+
+.filter-js {
+	.glyphicon-remove {
+		position: relative;
+		top: 1.5px;
+	}
+}
+
+.clear-all-js, .payment-clear-all-js {
+	@media (min-width: @screen-md) {
+		font-weight: 700;
+		float: right;
+	}
+}
+
+#overDueJS {
+	text-transform: uppercase;
+    font-size: 12px;
+    color: @sga-error-text;
+    font-weight: 700;
+}
+
+#pendingJS {
+	text-transform: uppercase;
+    font-size: 12px;
+    color: @sga-success-text;
+    font-weight: 700;
+}
+
+.facet__list {
+	a {
+		&:hover, &:active, &:focus {
+			text-decoration: none;
+		}
+	}
+}
+
+.credit-card-normal {
+    font-weight: normal !important;
+    text-transform: none;
+}
+
+.make-payment-table {
+    @media (max-width: @screen-xs-max) {
+        display: grid;
+        grid-template-columns: 65% 35%;
+    }
+}
+
+.payments-table-row {
+    width: 100% !important;
+    padding: 3px 0 !important;
+}
+
+.payment-heading-3{ 
+    @media (max-width: @screen-xs-max) {
+        padding-left: 0px !important;
+    }
+}
+
+.payments-table-amount-box {
+	@media (max-width: @screen-xs-max) {
+        padding: 0px !important;
+    	width: 100% !important;
+    	height: 90% !important;
+    }
+}
+
+.payments-table-amount-input {
+	@media (max-width: @screen-xs-max) {
+        text-align: left !important;
+    	padding-left: 5px;
+    	margin-bottom: 10px;
+    }
+}
+
+.extra-top-margin {
+    margin-top: 32px !important;
+}
+
+.checkout-card-list {
+    display: flex;
+}
+
+.responsive-table-invoices {
+    @media (max-width: @screen-xs-max) {
+        width: 95% !important;
+    }
+}
+
+.account-section-no-border {
+    @media (max-width: @screen-xs-max) {
+        border-bottom: 0px !important;
+    }
+}
+
+.page-invoicedetail {
+    .invoice-payment-link {
+        position: relative;
+        cursor: initial;
+        font-weight: 400;
+        text-decoration: none;
+    }
+    .preventDefault {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: auto;
+    }
+}

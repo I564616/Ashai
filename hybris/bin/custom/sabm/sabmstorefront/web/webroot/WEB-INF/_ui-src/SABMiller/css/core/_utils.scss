@@ -1,0 +1,444 @@
+// ==========================================================================
+//   Utility Classes
+// ==========================================================================
+
+.red {
+	color: $red;
+}
+
+// Text alignment
+.text-center {
+	text-align: center;
+}
+
+.text-right {
+	text-align: right;
+}
+
+.text-left {
+	text-align: left;
+}
+
+
+// To trim column padding
+.trim-right {
+	padding-right: 0;
+}
+.trim-left {
+	padding-left: 0;
+}
+
+.trim-left-important {
+	padding-left: 0 !important;
+}
+.trim-both {
+	padding-right: 0;
+	padding-left: 0;
+}
+.trim-right-5 {
+	padding-right: 5px;
+}
+.trim-left-5 {
+	padding-left: 5px;
+}
+.trim-right-10 {
+	padding-right: 10px;
+}
+.trim-left-10 {
+	padding-left: 10px;
+}
+
+.trim-0{
+	padding: 0px;
+}
+
+.padding-top-25{
+	padding-top: 25px !important;
+}
+.padding-right-1em{
+	padding-right: 1em;
+}
+// Margin top spacing
+.margin-0 {
+	margin: 0;
+}
+.margin-top-0 {
+  margin-top: 0!important;
+}
+.margin-top-3 {
+	margin-top: 3px;
+}
+.margin-top-8{
+  margin-top:8px;
+}
+.margin-top-10{
+	margin-top:$spacing-x-small;
+}
+.margin-top-20{
+	margin-top:$spacing-small;
+}
+.margin-top-30{
+	margin-top:$spacing-medium;
+}
+.margin-top-40{
+	margin-top:$spacing-large;
+}
+
+// Margin bottom spacing
+.offset-bottom-none{
+	margin-bottom:0;
+}
+.offset-bottom-xxsmall{
+	margin-bottom:$spacing-x-small/2;
+}
+.offset-bottom-xsmall{
+	margin-bottom:$spacing-x-small;
+}
+.offset-bottom-small{
+	margin-bottom:$spacing-small;
+}
+.offset-bottom-medium{
+	margin-bottom:$spacing-medium;
+}
+.offset-bottom-large{
+	margin-bottom:$spacing-large;
+}
+.offset-bottom-xlarge{
+	margin-bottom:$spacing-x-large;
+}
+.offset-bottom-xxlarge{
+	margin-bottom:$spacing-xx-large;
+}
+.offset-bottom-xxxlarge{
+	margin-bottom:$spacing-xxx-large;
+}
+.offset-bottom{
+	margin-bottom:$spacing-x-large;
+}
+
+//Margin left
+.margin-left-initial{
+	margin-left: initial;
+}
+
+.margin-left-auto{
+	margin-left: auto;
+}
+
+//Margin right
+.margin-right-1em{
+	margin-right: 1em;
+}
+
+
+
+
+// Positioning
+.relative {
+	position: relative;
+}
+
+// Width
+.full-width{
+	width:100%;
+}
+.half-width{
+	width:50%;
+}
+.third-width{
+	width:33.33%;
+}
+
+.offset-left-small{
+	margin-left:0;
+}
+
+.no-overflow-x {
+	overflow-x: hidden;
+}
+
+.inner-padding-alpha{
+	padding:$spacing-medium $spacing-small;
+}
+
+.padding-left-medium {
+	padding-left: $spacing-medium;
+}
+
+.icon-offset{
+  margin-right:$spacing-x-small;
+}
+
+.icon-offset-medium{
+  margin-right:17px;
+}
+
+.margin-bottom-20-xs{
+  margin-bottom: $spacing-small;
+}
+
+@media (min-width: $tablet) and (max-width: $desktop){
+	.trim-left-md {
+		padding-left: 0;
+	}
+	.trim-left-5-md {
+		padding-left: 5px;
+	}
+	
+}
+@media (min-width: $desktop){
+
+  .trim-right-large{
+    padding-left: 0;
+  }
+
+  .trim-right-large{
+    padding-right: 0;
+  }
+
+  .text-margin-right{
+    margin-right:0px;
+  }
+
+	.trim-right-lg {
+		padding-right: 0;
+	}
+
+	.trim-left-lg {
+		padding-left: 0;
+	}
+
+	.trim-right-5-lg {
+		padding-right: 5px;
+	}
+
+	.trim-left-5-lg {
+		padding-left: 5px;
+	}
+	.offset-bottom{
+		margin-bottom:0;
+	}
+	.offset-left-small{
+		margin-left:$spacing-small;
+	}
+
+	.margin-top-10-lg{
+		margin-top:$spacing-x-small;
+	}
+
+	.margin-top-5-lg{
+		margin-top:5px;
+	}
+
+  .margin-bottom-20-xs{
+    margin-bottom: 0;
+  }
+}
+
+
+@media(min-width: $tablet) and (max-width: $desktop){
+	.margin-top-15-md{
+		margin-top:15px;
+	}
+	.trim-left-80-md{
+		padding-left: $spacing-xx-large;
+	}
+}
+
+@media(max-width: $mobile-max){
+  .trim-left-small {
+    padding-left: 0;
+  }
+  
+  .trim-left-23-xs{
+  	padding-left: 23px;
+  }
+  .text-margin-right{
+    margin-right:10px;
+  }
+
+	.margin-top-10-xs{
+		margin-top:$spacing-x-small;
+	}
+	.margin-top-20-xs{
+		margin-top:$spacing-small;
+	}
+	.margin-top-30-xs{
+		margin-top:$spacing-medium;
+	}
+	
+	.trim-left-80-xs{
+		padding-left: $spacing-xx-large;
+	}
+	//.margin-bottom-20-xs{
+	//	margin-bottom: $spacing-small;
+	//}
+}
+
+//Line height
+.line-height-initial{
+		line-height: initial;
+}
+
+.light-grey-backround{
+	background-color:$light-grey;
+}
+
+.row-flex, .row-flex > div[class*='col-'] {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    flex:1 1 auto;
+}
+
+.positive{
+	color: $primary-blue;
+	border: 1px solid $primary-blue;
+}
+
+.indent{
+	padding-left:$spacing-large;
+}
+
+.underline{
+	border-bottom: 1px solid $dark-grey;
+}
+
+.no-underline{
+	text-decoration: none !important;
+}
+
+.strike{
+	text-decoration: line-through;
+}
+
+.text-normal {
+	font-weight: normal;
+}
+.bold {
+	font-weight: bold;
+}
+.text-green{
+	color:$green;
+}
+.text-blue{
+	color:$primary-blue;
+}
+
+.text-red{
+	color:$red;
+}
+
+.highlight-link{
+	font-weight: bold;
+    color: $primary-blue;
+    border-top:1px solid $light-grey;
+    cursor: pointer;
+}
+
+.dark-border{
+	border-top: 1px solid $lighter-dark-grey;
+}
+.show-on-top{
+	z-index:100;
+}
+
+.font-medium-grey{
+	color: $medium-dark-grey;
+}
+
+p.sentence-case{
+	text-transform:lowercase;
+	display:inline-block;
+	&:first-letter {
+    	text-transform: uppercase !important;
+    }
+}
+
+.text-lowercase {
+	text-transform: lowercase;
+}
+
+.break-word {
+	word-wrap: break-word;
+}
+
+p.text-ellipsis {
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.scroller{
+  max-height:260px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+span.sentence-case{
+  text-transform:lowercase;
+  &:first-letter {
+    text-transform: uppercase !important;
+  }
+}
+
+@media (max-width: $mobile-max){
+	.br-xs {
+		display: block;
+	}
+}
+
+.smaller-font {
+	font-size: 12px;
+}
+
+.block {
+	display: block;
+}
+
+.inline {
+	display: inline;
+}
+
+.inline-block {
+	display: inline-block;
+}
+
+.mobile-block{
+	display: block;
+	@media (min-width: $mobile) {
+			display: inline;
+	}
+}
+
+.white-background{
+	background: $white;
+}
+
+a.tcanchor {
+    display: block;
+    position: relative;
+    top: -150px;
+    visibility: hidden;
+}
+
+//Display
+.display-flex{
+	display: flex;  
+}
+
+.display-grid{
+	display: grid;  
+}
+
+//Float
+.float-right{
+	float: right;
+}
+.margin-left{
+      margin-left:8.5%;
+}
+.margin-left-left{
+      margin-left:10.7%;
+}

@@ -1,0 +1,176 @@
+<ns0:CustomerERPReplicationRequestMessage_V1
+	xmlns:ns0="urn:gl.sabmiller.com:3rdp:masterdata">
+	<MessageHeader>
+		<ID schemeID="customer">c0062b089eca11e5cef000000045bdb8</ID>
+		<CreationDateTime>2015-12-09T23:15:34Z</CreationDateTime>
+		<RecipientParty>
+			<InternalID>HYBRIS</InternalID>
+		</RecipientParty>
+	</MessageHeader>
+	<Customer>
+		<ID>0000811876</ID>
+		<Common>
+			<Name>
+				<FormOfAddressCode>2</FormOfAddressCode>
+				<FirstLineName>BFL WINES PTY LTD</FirstLineName>
+				<SecondLineName>PACIFIC PALMS BOWLING CLUB LTD</SecondLineName>
+			</Name>
+			<CustERPRplctnReqCom>
+				<Title>Company</Title>
+				<SearchTerm>151</SearchTerm>
+				<HouseNumber>SHOP 11 19-27 LAKESIDE BVD, TEST</HouseNumber>
+				<CityCode>Y00</CityCode>
+				<City>PAKENHAM</City>
+				<CountryCode>VIC</CountryCode>
+				<CountryKey>AU</CountryKey>
+				<LanguageKey>EN</LanguageKey>
+				<ExternalCustID />
+				<TransportationZone>7AA0700002</TransportationZone>
+				<NielsenID>G2</NielsenID>
+				<CustomerClassificationCode>24</CustomerClassificationCode>
+				<CustomerType>CB</CustomerType>
+				<GlobalSubChannel>G2H</GlobalSubChannel>
+				<InternationalLocationNumber1>0000000</InternationalLocationNumber1>
+				<InternationalLocationNumber2>00000</InternationalLocationNumber2>
+				<CheckDigitInternationalLocationNumber>0</CheckDigitInternationalLocationNumber>
+				<PrimaryGroupKey>2</PrimaryGroupKey>
+				<PrimaryGroupDescription>CH</PrimaryGroupDescription>
+				<SubGroupKey>A0</SubGroupKey>
+				<SubGroupDescription>AU NOT ASSIGNED</SubGroupDescription>
+			</CustERPRplctnReqCom>
+		</Common>
+		<AddressInformation>
+			<Address>
+				<PhysicalAddress>
+					<CountryCode>AU</CountryCode>
+					<RegionCode>VIC</RegionCode>
+					<StreetPostalCode>3810</StreetPostalCode>
+					<CityName>PAKENHAM</CityName>
+					<StreetName>SHOP 11 19-27 LAKESIDE BVD</StreetName>
+				</PhysicalAddress>
+			</Address>
+		</AddressInformation>
+		<AccountGroup>ZADP</AccountGroup>
+		<ContactPersons>
+			<Address>
+				<PersonName>
+					<GivenName>PETER</GivenName>
+					<FamilyName>TYLER</FamilyName>
+				</PersonName>
+				<DepartmentID>0005</DepartmentID>
+				<EMAIL>Petertyler@sabmiller.com</EMAIL>
+			</Address>
+		</ContactPersons>
+		<CustomerRelationship>
+			<PartnerCode>AG</PartnerCode>
+			<ID>0000811876</ID>
+			<Name>
+				<FirstLineName>BFL WINES PTY LTD</FirstLineName>
+			</Name>
+		</CustomerRelationship>
+		<CustomerRelationship>
+			<PartnerCode>OU</PartnerCode>
+			<ID>0000811876</ID>
+			<Name>
+				<FirstLineName>BFL WINES PTY LTD</FirstLineName>
+			</Name>
+		</CustomerRelationship>
+		<CustomerRelationship>
+			<PartnerCode>RE</PartnerCode>
+			<ID>0000811876</ID>
+			<Name>
+				<FirstLineName>BFL WINES PTY LTD</FirstLineName>
+			</Name>
+		</CustomerRelationship>
+		<CustomerRelationship>
+			<PartnerCode>RG</PartnerCode>
+			<ID>0000811876</ID>
+			<Name>
+				<FirstLineName>BFL WINES PTY LTD</FirstLineName>
+			</Name>
+		</CustomerRelationship>
+		<CustomerRelationship>
+			<PartnerCode>SB</PartnerCode>
+			<ID>0000811876</ID>
+			<Name>
+				<FirstLineName>BFL WINES PTY LTD</FirstLineName>
+			</Name>
+		</CustomerRelationship>
+		<CustomerRelationship>
+			<PartnerCode>WE</PartnerCode>
+			<ID>0000811878</ID>
+			<Name>
+				<FirstLineName>THE LICENSEE</FirstLineName>
+			</Name>
+		</CustomerRelationship>
+		<UnloadingPoint>
+			<UnldingPoint>0</UnldingPoint>
+			<GoodsReceiveHrsMonAm1>000000</GoodsReceiveHrsMonAm1>
+			<GoodsReceiveHrsMonAm2>000000</GoodsReceiveHrsMonAm2>
+			<GoodsReceiveHrsMonPm1>000000</GoodsReceiveHrsMonPm1>
+			<GoodsReceiveHrsMonPm2>000000</GoodsReceiveHrsMonPm2>
+			<GoodsReceiveHrsTuesAm1>000000</GoodsReceiveHrsTuesAm1>
+			<GoodsReceiveHrsTuesAm2>000000</GoodsReceiveHrsTuesAm2>
+			<GoodsReceiveHrsTuesPm1>000000</GoodsReceiveHrsTuesPm1>
+			<GoodsReceiveHrsTuesPm2>000000</GoodsReceiveHrsTuesPm2>
+			<GoodsReceiveHrsWedAm1>000000</GoodsReceiveHrsWedAm1>
+			<GoodsReceiveHrsWedAm2>000000</GoodsReceiveHrsWedAm2>
+			<GoodsReceiveHrsWedPm1>000000</GoodsReceiveHrsWedPm1>
+			<GoodsReceiveHrsWedPm2>000000</GoodsReceiveHrsWedPm2>
+			<GoodsReceiveHrsThursAm1>000000</GoodsReceiveHrsThursAm1>
+			<GoodsReceiveHrsThursAm2>000000</GoodsReceiveHrsThursAm2>
+			<GoodsReceiveHrsThursPm1>000000</GoodsReceiveHrsThursPm1>
+			<GoodsReceiveHrsThursPm2>000000</GoodsReceiveHrsThursPm2>
+			<GoodsReceiveHrsFriAm1>000000</GoodsReceiveHrsFriAm1>
+			<GoodsReceiveHrsFriAm2>000000</GoodsReceiveHrsFriAm2>
+			<GoodsReceiveHrsFriPm1>000000</GoodsReceiveHrsFriPm1>
+			<GoodsReceiveHrsFriPm2>000000</GoodsReceiveHrsFriPm2>
+			<GoodsReceiveHrSatAm1>000000</GoodsReceiveHrSatAm1>
+			<GoodsReceiveHrSatAm2>000000</GoodsReceiveHrSatAm2>
+			<GoodsReceiveHrSatPm1>000000</GoodsReceiveHrSatPm1>
+			<GoodsReceiveHrSatPm2>000000</GoodsReceiveHrSatPm2>
+			<GoodsReceiveHrSunAm1>000000</GoodsReceiveHrSunAm1>
+			<GoodsReceiveHrSunAm2>000000</GoodsReceiveHrSunAm2>
+			<GoodsReceiveHrSunPm1>000000</GoodsReceiveHrSunPm1>
+			<GoodsReceiveHrSunPm2>000000</GoodsReceiveHrSunPm2>
+			<ns0:UnldingPointDefault>0</ns0:UnldingPointDefault>
+		</UnloadingPoint>
+		<SalesData>
+			<SalesOrganisation>7001</SalesOrganisation>
+			<DistributionChannel>00</DistributionChannel>
+			<Division>00</Division>
+			<DeletionIndicator>
+			</DeletionIndicator>
+			<DefaultDeliveryPlant>7AHB</DefaultDeliveryPlant>
+			<CustomerBlockingReasonCode>TBC</CustomerBlockingReasonCode>
+		</SalesData>
+		<SalesOrgData>
+			<SalesGroup>U07</SalesGroup>
+			<SalesOfficeCode>AU02</SalesOfficeCode>
+			<SalesDistrictCode>A2RG23</SalesDistrictCode>
+			<CustomerGroup>UH</CustomerGroup>
+			<GroupDescription>NSW BDM REG COFFS</GroupDescription>
+			<DeliveryPriority>03</DeliveryPriority>
+			<ShippingConditions>A0</ShippingConditions>
+			<AccountAssigmentGroupCode>Y1</AccountAssigmentGroupCode>
+			<TermsOfPaymentKey>D008</TermsOfPaymentKey>
+			<Currency>EUR</Currency>
+			<DepartureCountry>AU</DepartureCountry>
+			<TaxCategory>ATX1</TaxCategory>
+			<TaxClassification>1</TaxClassification>
+		</SalesOrgData>
+		<AlternativeDeliveryAddresses>
+			<ShipToID>0000811876</ShipToID>
+			<Address>
+				<PhysicalAddress>
+					<CountryKey>AU</CountryKey>
+					<RegionCode>VIC</RegionCode>
+					<StreetPostalCode>3810</StreetPostalCode>
+					<CityName>PAKENHAM</CityName>
+					<StreetName>SHOP 11 19-27 LAKESIDE BVD</StreetName>
+					<SupplementID />
+				</PhysicalAddress>
+			</Address>
+		</AlternativeDeliveryAddresses>
+	</Customer>
+</ns0:CustomerERPReplicationRequestMessage_V1>

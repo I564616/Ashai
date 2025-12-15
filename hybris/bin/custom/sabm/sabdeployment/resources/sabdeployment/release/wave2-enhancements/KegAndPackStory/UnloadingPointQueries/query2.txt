@@ -1,0 +1,75 @@
+import com.sabmiller.core.enums.DeliveryModeType
+import org.apache.commons.lang.StringUtils
+
+/**
+ * Query that returns list of B2bUnits that has the following:
+ * Any of the shipping carriers is customer arranged and unloading points have both delivery methods and there is no CUB Arranged carrier!!
+ * Created by evariz.p.papellero on 9/6/17.
+ */
+
+fss = spring.getBean("flexibleSearchService")
+
+b2bUnits = fss.search("Select {pk} from {B2BUnit} where {accountGroup} ='ZALB'").result
+def deliveryModeMapping = [1:DeliveryModeType.CUB_DELIVERY,
+                           2:DeliveryModeType.CUSTOMER_DELIVERY,
+                           3:DeliveryModeType.CUSTOMER_DELIVERY,
+                           5:DeliveryModeType.CUB_DELIVERY,
+                           6:DeliveryModeType.CUB_DELIVERY,
+                           11:DeliveryModeType.CUB_DELIVERY,
+                           13:DeliveryModeType.CUSTOMER_DELIVERY,
+                           16:DeliveryModeType.CUSTOMER_DELIVERY]
+
+out.println("Any of the shipping carriers is customer arranged and unloading points have both delivery methods and there is no CUB Arranged carrier!!")
+out.println("B2BUNIT ID,B2BUNIT NAME,UNLOADING POINTS")
+
+//Loop all b2bUnits
+for (b2bUnit in b2bUnits) {
+
+    if (b2bUnit.getUnloadingPoints().size() < 1) {
+        continue
+    }
+
+    query2 = false
+
+    //If any Shipping Carrier is Customer arranged
+    for(shippingCarrier in b2bUnit.getShippingCarriers()) {
+        if(shippingCarrier.getCustomerOwned()) {
+            query2 = true
+        } else if (shippingCarrier.getCustomerOwned() == false) {
+            query2 = false;
+            break;
+        }
+    }
+
+    if(!query2) {
+        continue
+    }
+
+    iscub = false
+    iscustomer = false
+    errorMessage = ''<<''
+    //Check the unloading points
+    for (unloadingPoint in b2bUnit.getUnloadingPoints()) {
+        if (StringUtils.isNotEmpty(unloadingPoint.getCode()) && unloadingPoint.getCode().matches("([BULK]|[PACK])+-\\w+-\\d+")) {
+            //Derive the Delivery Mode from unloading point code format : PACKTYPE-DAYS-MODE
+            codes = unloadingPoint.getCode().split("-")
+            unloadingPointmethod = deliveryModeMapping.get(Integer.parseInt(codes[2]))
+
+            if(unloadingPointmethod == DeliveryModeType.CUSTOMER_DELIVERY) {
+                iscustomer = true
+                errorMessage.append(unloadingPoint.getCode()+";")
+            }
+            else if(unloadingPointmethod == DeliveryModeType.CUB_DELIVERY) {
+                iscub = true
+                errorMessage.append(unloadingPoint.getCode()+";")
+            }
+
+            if (iscustomer && iscub) {
+                if (query2) {
+                    out.println(b2bUnit.getUid() + "," + b2bUnit.getName() + ","+errorMessage)
+                }
+                break
+            }
+        }
+    }
+}

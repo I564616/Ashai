@@ -1,0 +1,301 @@
+## messageSource=classpath:/sabmcore/messages/email-businessEnquiry_$lang.properties
+#macro(genHtmlLinkStartTag $url)
+<a href="$url"><font color="#666666">
+#end
+#macro(genHtmlLinkEndTag)
+</font></a>
+#end
+#macro(genHtmlLink $url $textColor $bodyContent)
+<a href="$url"><font color="$textColor">$bodyContent</font></a>
+#end
+
+<html>
+	<head>
+	</head>
+	<body bgcolor="#ffffff">
+		<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#ffffff">
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td align="center" valign="top">
+					<table width="610" border="0" align="center" cellpadding="0" cellspacing="0" bordercolor="#ffffff">
+						<tr>
+							<td align="center" valign="top" bgcolor="#ffffff">
+								<table width="570" cellpadding="0" cellspacing="0" border="0" align="center">
+									<tr>
+										<td valign="middle">&nbsp;</td>
+									</tr>
+									<tr>
+										<td valign="middle" bgcolor="#002f5f" height="92" style="padding-left: 10px;">${ctx.cmsSlotContents.SiteLogo}</td>
+									</tr>
+									<tr>
+										<td valign="middle">&nbsp;</td>
+									</tr>
+									<tr>
+										<td align="center" valign="middle" bgcolor="#ffffff"><a href="${ctx.baseUrl}" style="display:block; margin-top:10px;margin-bottom:10px;">${ctx.cmsSlotContents.TopContent}</a></td>
+									</tr>
+									<tr>
+										<td>&nbsp;</td>
+									</tr>
+									<tr>
+										<td align="left" valign="top">
+											<p>
+												<b><font color="#002f5f" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.thankYouMessage}</font></b></br>
+												<b><font color="#002f5f" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.enquiryDetails}</font></b>
+											</p>
+										</td>
+									</tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                    </tr>
+									<tr>
+										<td>&nbsp;</td>
+									</tr>
+									<tr>
+										<td align="left" valign="top">
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Name:&nbsp;</strong>${ctx.businessEnquiryData.name}</font></p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Business unit:&nbsp;</strong>${ctx.businessEnquiryData.businessUnit}</font></p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Preferred contact method:&nbsp;</strong>${ctx.businessEnquiryData.preferredContactMethod}</font></p>
+											#if (${ctx.businessEnquiryData.preferredContactMethod} == "Phone")
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Phone:&nbsp;</strong>${ctx.businessEnquiryData.phoneNumber}</font></p>
+											#else
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Email:&nbsp;</strong>${ctx.businessEnquiryData.emailAddress}</font></p>
+											#end
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Customer Number:&nbsp;</strong>${ctx.businessEnquiryData.uid}</font></p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>PlantID:&nbsp;</strong>${ctx.businessEnquiryData.plantID}</font></p>
+										</td>
+									</tr>
+									<tr><td>&nbsp;</td></tr>
+									<tr>
+										<td>
+                                            #if (${ctx.requestType} != "contactus")<hr/>#end
+										</td>
+									</tr>
+									<tr><td>&nbsp;</td></tr>
+                                    #if (${ctx.requestType} == "DELIVERY_ENQUIRY")
+									<tr>
+										<td align="left" valign="top">
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Enquiry type:&nbsp;</strong>${ctx.subjectRequestType}</font></p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Order number:&nbsp;</strong>${ctx.businessEnquiryData.orderNumber}</font></p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Order date:&nbsp;</strong>${ctx.businessEnquiryData.orderDateString}</font></p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Expected delivery date:&nbsp;</strong>${ctx.businessEnquiryData.expectedDeliveryDateString}</font></p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Message:&nbsp;</strong></br>
+												$!ctx.businessEnquiryData.otherInformation
+											</font></p>
+										</td>
+									</tr>
+                                    #elseif (${ctx.requestType} == "PRODUCT_RETURN")
+									<tr>
+										<td align="left" valign="top">
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Enquiry type:&nbsp;</strong>${ctx.subjectRequestType}</font></p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Invoice Number:&nbsp;</strong>${ctx.businessEnquiryData.invoiceNumber}</font></p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Invoice Date:&nbsp;</strong>${ctx.businessEnquiryData.invoiceDateString}</font></p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Product description:&nbsp;</strong>${ctx.businessEnquiryData.productDescription}</font></p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Product quantity:&nbsp;</strong>${ctx.businessEnquiryData.productQuantity}&nbsp;${ctx.businessEnquiryData.productQuantityUOM}#if(${ctx.businessEnquiryData.productQuantity} > 1)s#end</font></p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Reason for return:&nbsp;</strong>${ctx.businessEnquiryData.returnReason}</font></p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Has stock been returned:&nbsp;</strong>
+												#if(${ctx.businessEnquiryData.stockReturned})
+												  YES
+												#else
+												  NO
+												#end
+												</font></p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Other information:&nbsp;</strong></br>
+												$!ctx.businessEnquiryData.otherInformation
+												</font></p>
+										</td>
+									</tr>
+                                    #elseif (${ctx.requestType} == "KEG_ISSUE")
+									<tr>
+										<td align="left" valign="top">
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Enquiry type:&nbsp;</strong>${ctx.subjectRequestType}</font></p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Keg brand:&nbsp;</strong>${ctx.businessEnquiryData.kegBrand}</font></p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Best before date:&nbsp;</strong>${ctx.businessEnquiryData.bestBeforeDateString}</font></p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>6 or 7 digit keg number:&nbsp;</strong>${ctx.businessEnquiryData.kegNumber}</font></p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Time Code:&nbsp;</strong>${ctx.businessEnquiryData.timecode}</font></p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Plant Code:&nbsp;</strong>${ctx.businessEnquiryData.plantcode}</font></p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Perceived problem with keg:&nbsp;</strong></br>${ctx.businessEnquiryData.kegProblem}</font></p>
+										</td>
+									</tr>
+                                    #elseif (${ctx.requestType} == "DELIVERY_ISSUE")
+									<tr>
+										<td align="left" valign="top">
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Enquiry type:&nbsp;</strong>${ctx.subjectRequestType}</font></p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Invoice number:&nbsp;</strong>${ctx.businessEnquiryData.invoiceNumber}</font></p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Invoice date:&nbsp;</strong>${ctx.businessEnquiryData.invoiceDateString}</font></p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Product:&nbsp;</strong>#if(!${ctx.businessEnquiryData.product}) #else${ctx.businessEnquiryData.product}#end</font></p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Quantity affected:&nbsp;</strong>${ctx.businessEnquiryData.quantity}&nbsp;#if(${ctx.businessEnquiryData.quantity} >  0)${ctx.businessEnquiryData.quantityUOM}#else  #end#if(${ctx.businessEnquiryData.quantity} > 1)s#end</font></p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Warehouse enquiry/issue:&nbsp;</strong><br>
+													#if(${ctx.businessEnquiryData.damageStock})
+													  &nbsp;-&nbsp;Damage to stock<br>
+													#end												
+													#if(${ctx.businessEnquiryData.damagePremise})
+													  &nbsp;-&nbsp;Damage to premise<br>
+													#end												
+													#if(${ctx.businessEnquiryData.driverComplaint})
+													  &nbsp;-&nbsp;Driver complaint<br>
+													#end												
+													#if(${ctx.businessEnquiryData.kegsNotCollected})
+													  &nbsp;-&nbsp;Empty pallets/kegs not collected<br>
+													#end												
+													#if(${ctx.businessEnquiryData.pickingError})
+													  &nbsp;-&nbsp;Picking error<br>
+													#end												
+													#if(${ctx.businessEnquiryData.notAllItemsDelivered})
+													  &nbsp;-&nbsp;Not all items delivered<br>
+													#end												
+													#if(${ctx.businessEnquiryData.other})
+													  &nbsp;-&nbsp;Other<br>
+													#end												
+												</font>
+											</p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Other information:&nbsp;</strong></br>
+												$!ctx.businessEnquiryData.otherInformation
+												</font></p>
+										</td>
+									</tr>
+                                    #elseif (${ctx.requestType} == "PRICE_ENQUIRY")
+									<tr>
+										<td align="left" valign="top">
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Enquiry type:&nbsp;</strong>${ctx.subjectRequestType}</font></p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Type:&nbsp;</strong>${ctx.businessEnquiryData.type}</font></p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Product:&nbsp;</strong>${ctx.businessEnquiryData.product}</font></p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Discount expected:&nbsp;</strong>${ctx.businessEnquiryData.discountExpected}</font></p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Discount displayed:&nbsp;</strong>${ctx.businessEnquiryData.discountDisplayed}</font></p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Other information:&nbsp;</strong></br>
+												$!ctx.businessEnquiryData.otherInformation
+												</font></p>
+										</td>
+									</tr>
+                                    #elseif (${ctx.requestType} == "PRODUCT_ENQUIRY")
+									<tr>
+										<td align="left" valign="top">
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Enquiry type:&nbsp;</strong>${ctx.subjectRequestType}</font></p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Product details:&nbsp;</strong>${ctx.businessEnquiryData.product}</font></p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Is this product Promotional Stock?:&nbsp;</strong>
+												#if(${ctx.businessEnquiryData.promotionalStock})
+												  YES
+												#else
+												  NO
+												#end												
+												</font></p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Product Enquiry information:&nbsp;</strong></br>${ctx.businessEnquiryData.enquiryInformation}</font></p>
+										</td>
+									</tr>
+                                    #elseif (${ctx.requestType} == "KEG_PICKUP")
+									<tr>
+										<td align="left" valign="top">
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Enquiry type:&nbsp;</strong>${ctx.subjectRequestType}</font></p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Number of empty kegs to be collected:&nbsp;</strong>${ctx.businessEnquiryData.numberOfEmptyKegs}</font></p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Number of part full kegs to be collected (this could be out of date kegs):&nbsp;</strong>${ctx.businessEnquiryData.numberOfPartFullKegs}</font></p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Other information:&nbsp;</strong></br>
+												$!ctx.businessEnquiryData.otherInformation
+												</font></p>
+										</td>
+									</tr>
+                                    #elseif (${ctx.requestType} == "UPDATE_DETAILS_DELIVERY_OPTIONS")
+									<tr>
+										<td align="left" valign="top">
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Enquiry type:&nbsp;</strong>${ctx.subjectRequestType}</font></p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Type of change:&nbsp;</strong>
+												#if (${ctx.businessEnquiryData.changeType} == "bu")
+													Business Unit Details
+												#elseif (${ctx.businessEnquiryData.changeType} == "delivery")
+													Delivery Details
+												#elseif (${ctx.businessEnquiryData.changeType} == "other")
+													Other
+												#else
+													${ctx.businessEnquiryData.changeType}
+												#end
+												</font></p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Current details:&nbsp;</strong>${ctx.businessEnquiryData.currentDetails}</font></p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>New details:&nbsp;</strong>${ctx.businessEnquiryData.newDetails}</font></p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Other information:&nbsp;</strong></br>
+												$!ctx.businessEnquiryData.otherInformation
+												</font></p>
+										</td>
+									</tr>
+                                    #elseif (${ctx.requestType} == "EMPTY_PALLET_PICKUP")
+									<tr>
+										<td align="left" valign="top">
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Enquiry type:&nbsp;</strong>${ctx.subjectRequestType}</font></p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Number of empty pallets to be collected:&nbsp;</strong>${ctx.businessEnquiryData.numberOfEmptyPallets}</font></p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Other information:&nbsp;</strong></br>
+												$!ctx.businessEnquiryData.otherInformation
+												</font></p>
+										</td>
+									</tr>
+                                    #elseif (${ctx.requestType} == "WEBSITE_FEEDBACK")
+									<tr>
+										<td align="left" valign="top">
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Enquiry type:&nbsp;</strong>${ctx.subjectRequestType}</font></p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Please describe the issue below:&nbsp;</strong></br>${ctx.businessEnquiryData.issueDescription}</font></p>
+										</td>
+									</tr>
+                                    #elseif (${ctx.requestType} == "GENERAL_ENQUIRY")
+									<tr>
+										<td align="left" valign="top">
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Enquiry type:&nbsp;</strong>${ctx.subjectRequestType}</font></p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Your message:&nbsp;</strong></br>${ctx.businessEnquiryData.inquiryMessage}</font></p>
+										</td>
+									</tr>
+                                    #elseif (${ctx.requestType} == "WEBSITE_ERRORS")
+									<tr>
+										<td align="left" valign="top">
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Enquiry type:&nbsp;</strong>${ctx.subjectRequestType}</font></p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Detail your enquiry/feedback:&nbsp;</strong></br>${ctx.businessEnquiryData.websiteEnquiryFeedback}</font></p>
+										</td>
+									</tr>
+									#elseif (${ctx.requestType} == "contactus")
+									<tr>
+										<td align="left" valign="top">
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Your message:&nbsp;</strong></br>${ctx.businessEnquiryData.inquiryMessage}</font></p>
+										</td>
+									</tr>
+									#elseif (${ctx.requestType} == "autopay")
+									<tr>
+										<td align="left" valign="top">
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Enquiry type:&nbsp;</strong>${ctx.subjectRequestType}</font></p>
+											<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Your message:&nbsp;</strong></br>${ctx.businessEnquiryData.inquiryMessage}</font></p>
+										</td>
+									</tr>
+									#elseif (${ctx.requestType} == "ORDER_ENQUIRY")
+                                    <tr>
+                                        <td align="left" valign="top">
+                                            <p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Enquiry type:&nbsp;</strong>${ctx.subjectRequestType}</font></p>
+                                            <p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Order Number:&nbsp;</strong></br>${ctx.businessEnquiryData.orderNumber}</font></p>
+                                            <p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Your message:&nbsp;</strong></br>${ctx.businessEnquiryData.yourMessage}</font></p>
+                                        </td>
+                                    </tr>
+									#elseif (${ctx.requestType} == "UPDATE_EXISTING_ENQUIRY")
+                                    <tr>
+                                        <td align="left" valign="top">
+                                            <p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Enquiry type:&nbsp;</strong>${ctx.subjectRequestType}</font></p>
+                                            <p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Case Number:&nbsp;</strong></br>${ctx.businessEnquiryData.caseNumber}</font></p>
+                                            <p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><strong>Your message:&nbsp;</strong></br>${ctx.businessEnquiryData.yourMessage}</font></p>
+                                        </td>
+                                    </tr>
+									#else
+										&nbsp;
+									#end
+									<tr><td>&nbsp;</td></tr>
+									<tr><td>&nbsp;</td></tr>
+									<tr><td>&nbsp;</td></tr>
+									<tr><td>&nbsp;</td></tr>
+									<tr><td>&nbsp;</td></tr>
+									<tr><td>&nbsp;</td></tr>
+									<tr>
+										<td align="left" valign="middle" bgcolor="#f5f5f5" height="92" style="font-family: Helvetica Neue, Helvetica, Arial, sans-serif; color: #666666; font-weight: bold; font-size: 12px; padding-left: 15px;">
+											&copy; Carlton &amp; United Breweries
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>

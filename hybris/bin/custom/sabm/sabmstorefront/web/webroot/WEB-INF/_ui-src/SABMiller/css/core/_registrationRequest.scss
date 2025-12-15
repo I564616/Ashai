@@ -1,0 +1,25 @@
+.checkbox-control-group{
+	margin-bottom: 20px;
+	width: 100%;
+	.checkbox-control {
+		float: left;
+		margin-right: 20px;
+		display: block;
+		label{
+			  position: relative;
+			  font-weight: inherit;
+			  color: #666666;
+			  line-height: 20px;
+		 }
+	}
+	.checkbox-control-single{
+			float: left;
+			span{
+				float: none;
+				margin-left: 0px;
+			}
+	}
+	.form-group{
+		    width: 100%;
+	}
+}

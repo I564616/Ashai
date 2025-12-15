@@ -1,0 +1,224 @@
+## messageSource=classpath:/sabmcore/messages/email-contactUs_$lang.properties
+#macro(genHtmlLinkStartTag $url)
+<a href="$url"><font color="#666666">
+#end
+#macro(genHtmlLinkEndTag)
+</font></a>
+#end
+#macro(genHtmlLink $url $textColor $bodyContent)
+<a href="$url"><font color="$textColor">$bodyContent</font></a>
+#end
+
+
+<html lang="en">
+    <head>
+    </head>
+    <body style="margin: -3px -3px 0 -3px;">
+        <table width="50%" cellpadding="0" cellspacing="0" align="center" bgcolor="#ffffff">
+            <tr>
+                <td class="tg-yw43" colspan="2">
+                    <a href="${ctx.baseUrl}" style="padding: 0px 0px 0px 0px; display: inline-block; margin: 0 auto;">
+                        ${ctx.cmsSlotContents.TopContent}
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td style="border-right:1px solid #EBEBEB;display:block; border-left: 1px solid #EBEBEB";>
+                    
+                    <div class="tg-wrap" style="font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+                        font-size: 16px;
+                        color: #455560;
+                        overflow-x: auto;
+                        -webkit-overflow-scrolling: touch;">
+                        <table class="tg" style="
+                            undefined;table-layout: fixed;
+                            width: 100%;
+                            display:block;
+                            width: auto !important;">
+                            <colgroup>
+                                <col style="width: 50%">
+                                <col style="width: 50%">
+                            </colgroup>
+
+                            <tr>
+                                <table style="margin: 30px 20px 0px 20px;">
+                                    <tr>
+                                        <td class="header-image">
+                                            <a href="${ctx.baseUrl}" style="padding: 0px 0px 0px 0px; display: inline-block; margin: 0 auto;">
+                                                ${ctx.cmsSlotContents.SiteLogo}
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="2" style="
+                                            font-size: 25px;
+                                            font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+                                            color: #455560;
+                                            line-height: 35px;
+                                            padding: 25px 0px 5px 0px;
+                                            margin: 0;">
+                                            <b>${ctx.messages.heading}</b>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table style="margin: 0px 20px 0px 20px;">    
+                                    <tr>
+                                        <td style="
+                                            width: 50px;
+                                            border: none;
+                                            border-top: solid #455560 2.25px;
+                                            padding: 0px 3px 0 3px;">
+                                        </td>
+                                        <td style="border-top:none">
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table style="margin: 30px 20px 0px 20px;">    
+                                    <tr>
+                                        <td style="color: #455560; font-family: 'Open Sans', Helvetica, Arial, sans-serif;">
+                                            ${ctx.messages.enquiry1}<br>
+                                            ${ctx.messages.getMessage('enquiryid', ${ctx.apbContactUsData.requestRefNumber})}<br><br>
+                                            ${ctx.messages.enquiry2}
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table style="width: 100%; margin: 0px 20px 20px 20px;">    
+                                    <tr>
+                                        <td class="tg-9hbo" style="width: 50%; vertical-align: top; padding: 10px 0px 0px 0px; color: #455560; font-family: 'Open Sans', Helvetica, Arial, sans-serif;">
+                                            #if (${ctx.customerservice})
+                                            <b>${ctx.customerservice}</b>
+                                            <br>${ctx.customerservicephone}
+                                            #else
+                                            <b>${ctx.messages.customerservice}</b>
+                                            <br>${ctx.messages.customerservicephone}
+                                            #end
+                                        </td>
+                                        <td class="tg-yw4l" style="width: 50%; vertical-align: top; padding: 10px 0px 0px 0px; color: #455560; font-family: 'Open Sans', Helvetica, Arial, sans-serif;">
+                                            <b>${ctx.messages.technicalsupport}</b>
+                                            <br>${ctx.messages.technicalsupportphone}
+                                        </td>
+                                    </tr>
+                                </table>
+                                <br>
+                                <span style="color: #455560; font-family: 'Open Sans', Helvetica, Arial, sans-serif; padding: 0px 20px 0px 25px; font-size: 14px;">${ctx.messages.yourmessage}</span>      
+                                <table style="width: 100%; padding: 0px 20px 0px 20px;">
+                                    <tr>
+                                        <td style="border: solid 1px #455560; padding: 10px 10px 10px 20px; color: #455560; font-family: 'Open Sans', Helvetica, Arial, sans-serif;">
+                                            
+                                            #if (!$ctx.enquirySubTypeName)
+                                                #if (!$ctx.enquiryTypeName)
+                                                    <b>${ctx.messages.contactussubject}</b><br>										 
+											
+                                                    #if ( ${ctx.apbContactUsData.subjectOther}=='NA' )
+                                                        #set ( $subject = ${ctx.apbContactUsData.subject} )
+                                                    #else
+												    #if (${ctx.apbContactUsData.subject} == 'Other')
+												        #set ($subject = ${ctx.apbContactUsData.subjectOther})
+												    #else
+													    #set ( $subject = ${ctx.apbContactUsData.subject} )
+                                                    #end
+                                                    #end
+												    $subject
+                                                #else
+                                                ${ctx.messages.enquirytype} ${ctx.enquiryTypeName}
+                                                #end
+											#else
+                                            ${ctx.messages.getMessage('enquirytype2', ${ctx.enquiryTypeName},${ctx.enquirySubTypeName})}
+                                            #end
+                                            
+                                            #if ((${ctx.apbContactUsData.enquiryType} == 'REPORT_DEL_ISSUE' && (${ctx.apbContactUsData.enquirySubType} == 'DAMAGED_PRODUCTS' || ${ctx.apbContactUsData.enquirySubType} == 'INCORRECT_PRODUCTS' || ${ctx.apbContactUsData.enquirySubType} == 'WRONG_QTY')) || ${ctx.apbContactUsData.enquiryType} == 'INCORRECT_CHARGE')
+                                            <br>
+                                            <br>
+                                            ${ctx.messages.discrepancydelivery} ${ctx.apbContactUsData.deliveryNumber}
+                                            <br>
+
+                                            <table style="width: 80%; text-align: left; padding: 15px 0px 0px 0px;">
+                                                <th align="left">${ctx.messages.discrepancymaterialno}</th>
+
+                                                #if (${ctx.apbContactUsData.enquiryType} == 'REPORT_DEL_ISSUE')
+                                                    #if (${ctx.apbContactUsData.enquirySubType} =='WRONG_QTY' || ${ctx.apbContactUsData.enquirySubType} =='INCORRECT_PRODUCTS')
+                                                        <th align="left">${ctx.messages.discrepancyqtyexpected}</th>
+                                                        <th align="left">${ctx.messages.discrepancyqtyreceived}</th>
+                                                    #else
+                                                    <th align="left">${ctx.messages.discrepancyqtywithissue}</th>
+                                                    #end
+                                                #else
+                                                    <th align="left">${ctx.messages.discrepancytotalexpected}</th>
+                                                    <th align="left">${ctx.messages.discrepancytotal}</th>
+                                                #end
+
+
+                                                #if (${ctx.apbContactUsData.enquiryType} == 'REPORT_DEL_ISSUE')
+                                                    #foreach($product in $ctx.apbContactUsData.DeliveryDiscrepancyDTOs)
+                                                    <tr style="padding: 10px 0px 0px 0px;">
+                                                        <td align="left">${product.materialNumber}</td>
+                                                        #if (${ctx.apbContactUsData.enquirySubType} =='WRONG_QTY' || ${ctx.apbContactUsData.enquirySubType} =='INCORRECT_PRODUCTS')
+                                                            <td align="left">${product.expectedQty}</td>
+                                                            <td align="left">${product.qtyReceived}</td>
+                                                        #else
+                                                        <td align="left">${product.QtyWithDelIssue}</td>
+                                                        #end
+                                                    </tr>
+                                                    #end
+                                                #else
+                                                    #foreach($product in $ctx.apbContactUsData.priceDiscrepancyDTOs)
+                                                    <tr style="padding: 10px 0px 0px 0px;">
+                                                        <td align="left">$product.materialNumber</td>
+                                                        <td align="left">$product.expectedTotalPay</td>
+                                                        <td align="left">$product.amtCharged</td>
+                                                    </tr>
+                                                    #end
+                                                #end
+                                                #*END LOOP*#
+                                            </table>
+                                            <br>${ctx.messages.enquirydescription} ${ctx.apbContactUsData.addInfo}
+                                            #else
+                                            <br><br>${ctx.messages.enquirymessage}<br>
+                                            #if(${ctx.apbContactUsData.addInfo})${ctx.apbContactUsData.addInfo}#end
+                                            #if(${ctx.apbContactUsData.furtherDetail})${ctx.apbContactUsData.furtherDetail}#end
+                                            #if(${ctx.apbContactUsData.message})${ctx.apbContactUsData.message}#end
+                                            #end
+
+
+                                            
+                                            
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table style="width: 100%; margin: 0px 20px 20px 20px;">    
+                                    <tr>
+                                        <td class="tg-9hbo" style="width: 50%; vertical-align: top; padding: 20px 0px 0px 0px; color: #455560; font-family: 'Open Sans', Helvetica, Arial, sans-serif;">
+                                            <b style="color: #455560; font-family: 'Open Sans', Helvetica, Arial, sans-serif;"> ${ctx.messages.companyinformation}</b><br><br>
+                                            ${ctx.messages.contactusaccountnumber} ${ctx.apbContactUsData.accountNumber}<br>
+                                            ${ctx.messages.contactuscompanyname}  ${ctx.apbContactUsData.companyName}<br><br><br></td>
+                                        <br><td class="tg-yw4l" style="width: 50%; vertical-align: top; padding: 20px 0px 0px 0px; color: #455560; font-family: 'Open Sans', Helvetica, Arial, sans-serif;">
+                                        <b style="color: #455560; font-family: 'Open Sans', Helvetica, Arial, sans-serif;">${ctx.messages.contactuscontactdetails}</b><br><br>
+                                        ${ctx.messages.contactusname}  ${ctx.apbContactUsData.name}<br>
+                                        ${ctx.messages.contactusemail}  ${ctx.apbContactUsData.emailAddress}<br>
+                                        ${ctx.messages.contactusphone}  ${ctx.apbContactUsData.contactNumber}<br></td>
+                                    </tr>
+                                </table>
+                                <table style="width: 100%; margin: 0px 20px 10px 20px;">
+                                    <tr>
+                                        <td class="tg-yw4l" colspan="3" style="padding: 0px 0px 20px 0px; color: #455560; font-family: 'Open Sans', Helvetica, Arial, sans-serif;">
+                                            <br>${ctx.messages.contactuswiththanks}<br>
+                                            <br>${ctx.messages.schweppesteam}<br>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </tr>
+                            <tr>
+                                <td class="footer-image" colspan="2">
+                                    <a href="${ctx.baseUrl}" style="padding: 0px 0px 0px 0px; display: inline-block; margin: 0 auto;">
+                                        ${ctx.cmsSlotContents.BottomContent}
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

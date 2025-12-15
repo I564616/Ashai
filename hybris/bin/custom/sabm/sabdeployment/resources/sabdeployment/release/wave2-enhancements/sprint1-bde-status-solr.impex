@@ -1,0 +1,10 @@
+#
+# Import the Solr configuration for the customer ordering status
+#
+
+$solrCustomerIndexedType = sabmStoreB2bCustomerType
+
+# Customer fields
+INSERT_UPDATE SolrIndexedProperty; solrIndexedType(identifier)[unique = true]; name[unique = true]; type(code); sortableType(code); currency[default = false]; localized[default = false]; multiValue[default = false]; useForSpellchecking[default = false]; useForAutocomplete[default = false]; fieldValueProvider; valueProviderParameters(key, value)[map-delimiter = |];  valueProviderParameter; 
+; $solrCustomerIndexedType       ; orderingStatus                ; string         ;  ; ;      ;      ;      ; ; orderingStatusProvider                 ;                        ;    ;
+

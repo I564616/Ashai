@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2018 SAP SE or an SAP affiliate company. All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <bean id="java2DMediaConversionService" class="com.sabm.mediaconversion.java2d.Java2DMediaConversionService">
+        <property name="commandLineParser" ref="java2DCommandLineParser"/>
+        <property name="optionsProcessor" ref="optionsProcessor"/>
+        <property name="actionRegistry" ref="actionRegistry"/>
+    </bean>
+
+    <bean id="java2DMediaConversionStrategy" parent="imageMagickMediaConversionStrategy">
+        <property name="imageMagickService" ref="java2DMediaConversionService"/>
+    </bean>
+
+    <bean id="java2DCommandLineParser" class="org.apache.commons.cli.DefaultParser"/>
+
+    <alias name="optionsProcessorImpl" alias="optionsProcessor"/>
+    <bean id="optionsProcessorImpl" class="com.sabm.mediaconversion.java2d.actions.util.impl.OptionsProcessorImpl">
+        <property name="actionRegistry" ref="actionRegistry"/>
+    </bean>
+
+    <alias name="actionRegistryImpl" alias="actionRegistry"/>
+    <bean id="actionRegistryImpl" class="com.sabm.mediaconversion.java2d.actions.util.impl.ActionRegistryImpl">
+        <property name="actionHandlerMap" ref="actionHandlerMap"/>
+    </bean>
+
+    <util:map id="actionHandlerMap" key-type="java.lang.Class" value-type="com.sabm.mediaconversion.java2d.actions.handler.ActionHandler">
+        <entry key="com.sabm.mediaconversion.java2d.actions.impl.ResizeConversionAction" value-ref="resizeActionHandler"/>
+    </util:map>
+
+    <alias name="resizeActionHandlerImpl" alias="resizeActionHandler"/>
+    <bean id="resizeActionHandlerImpl" class="com.sabm.mediaconversion.java2d.actions.handler.impl.ResizeActionHandler"/>
+</beans>

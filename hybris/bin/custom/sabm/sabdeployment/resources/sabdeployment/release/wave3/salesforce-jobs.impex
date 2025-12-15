@@ -1,0 +1,11 @@
+$defaultLanguage = en
+
+### Insert the Spring id SalesForceReportExportJob into the Service Layer job ###
+INSERT_UPDATE ServicelayerJob;code[unique=true];springId[unique=true]
+;SalesForceReportExportJob;SalesForceReportExportJob
+
+INSERT_UPDATE SalesForceExportCronjob; code[unique = true]; job(code); sessionLanguage(isocode);active
+; salesForceExportReportCronjob ; SalesForceReportExportJob ; $defaultLanguage;false
+
+INSERT_UPDATE Trigger; cronjob(code)[unique = true]; cronExpression
+; salesForceExportReportCronjob ;0 0 */6 ? * *

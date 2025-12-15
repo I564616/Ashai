@@ -1,0 +1,224 @@
+.login-page__headline,
+.user-register__headline{
+	.page-headline();
+    
+    &::after {
+        content: "";
+        display: block;
+        margin: 0 auto;
+        width: 70px;
+        margin-left: 0px;
+        margin-top: 5px;
+		border-bottom: 3px solid @brand-tertiary;
+    }
+}
+
+.login-left-content-slot{
+    margin-right: 10px;
+  	margin-left: 30px;
+
+  	@media (max-width: @screen-sm-max) {
+      margin-left: 20px;
+      margin-right: 20px;
+      .form-control{
+			height:32px;
+			font-size:12px;
+			padding:6px 12px;
+		}
+  	}
+  	
+	@media (max-width: @screen-xs-max) {
+      margin-left: 0px;
+      margin-right: 0px;
+  	}
+}
+
+#register-link-login {
+	@media (min-width: @screen-md) {
+		margin-top: 28px;	
+	}
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+
+#loginForm {
+	.checkbox {
+		.control-label {
+			text-transform: none;
+		}
+	}
+}
+
+.login-right-content-slot{
+    margin-right: 30px;
+  	margin-left: 10px;
+    
+    @media (min-width: @screen-md) {
+      float: right;
+  	}
+    
+  	@media (max-width: @screen-sm-max) {
+      margin-left: 20px;
+      margin-right: 20px;
+  	}
+	
+	@media (max-width: @screen-xs-max) {
+      margin-left: 0px;
+      margin-right: 0px;
+  	}
+}
+
+.forgotten-password{
+	
+	margin: 0px 0px 30px 0px; 
+
+  &.alert {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+	.description{
+      margin-bottom: (@grid-gutter-width/2);
+      margin-top: @grid-gutter-width;  
+	}
+
+  #colorbox & .btn-primary {
+    margin-top: 35px;
+  }
+    .btn-primary {
+    margin-top: 35px;
+  }
+}
+
+.register-form-action, .login-form-action {
+  margin-top: 35px;
+}
+
+.forgotten-password + .login-form-action {
+  margin-top: 0;
+}
+
+.alert-dismissable,
+.alert-dismissible  {
+  .close {
+	right: 0;
+  }
+}
+
+.register__container {
+  .full-width-padding();
+}
+
+@media (max-width: @screen-xs-max) {
+	.login-form-action {
+		.btn-default {
+          margin-top: @grid-gutter-width * 1.5;
+		}
+	}
+}
+
+@media (max-width: @screen-xs-max) {
+	.login-section,
+  	.register-section {
+
+		.forgotten-password {
+          margin-bottom: 30px;
+          margin-top: 30px;
+		}
+	}
+}
+.login-input-field .form-group .form-control {
+    border: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid @border-color;
+    box-shadow: none;
+    background-color: transparent;
+	padding-left: 30px;
+	margin-left: -20px;
+	width: 104%;
+	
+	@media (max-width: @screen-xs-max) {
+    	width: 103%;
+  	}
+}
+input.email-icon::before {
+        font-family: 'Glyphicons Halflings';
+        content:"\2709";
+}
+
+#login-page-icon {
+    background-color: transparent;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid @border-color;
+	padding: 0px;
+	
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus
+input:-webkit-autofill, 
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-text-fill-color: @border-color;
+  -webkit-box-shadow: 0 0 0px 1000px white inset;           // This color cannot be a variable.
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.login-inputs {
+	width: 20px;
+	height: 20px;
+}
+
+#login-inputs {
+	width: 100%;
+}
+
+
+.forgotten-password-link {
+	margin: 30px 0px;
+}
+
+.login__description {
+	margin-top: 20px;
+}
+
+#reset-password-page {
+	margin-bottom: 25px;
+}
+
+.login-section.forgotten-email {
+  margin-bottom: 80px;
+
+  .description {
+    margin-bottom: 10px;
+  }
+
+  ul {
+    list-style-position: inside;
+  }
+}
+
+.page-login {
+    .border-top {
+        border-top: 2px solid #d2d1d1;
+        padding-top: 10px;
+        width: 100%;
+    }
+}
+
+@media(min-width: @screenMdMin) {
+    .page-login {
+        .border-top {
+            width: 38%;
+        }
+    }
+}

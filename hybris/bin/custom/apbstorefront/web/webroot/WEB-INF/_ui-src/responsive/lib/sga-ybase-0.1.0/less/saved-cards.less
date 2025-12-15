@@ -1,0 +1,131 @@
+.pageBodyContent{
+.savedAddCardBodyContent{
+    
+    @media (max-width: @screen-xs-max){
+        padding:0 4px 10px 0;
+        .account-section .account-section-content .account-section-header, .add-card-complete-field, .accountActions-bottom{
+            padding-left:10px !important;
+        }
+        .saved-card-btn{
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        
+        
+    }
+}
+}
+.saved-card-btn label {
+      text-transform: none;
+      font-weight: normal;
+   }
+ 
+ .add-card-complete-field {
+ 	margin:0 0 30px;
+ }      
+.saved-cards-section{
+    .item__list {
+    
+        .item__list--header{
+            border-bottom: 1px solid #000;
+            li{
+                font-size: 14px;
+                &.item__name{
+                    font-weight: normal;
+            }
+            }
+            
+        }
+        .item__list--item {
+                padding: 10px 0px;
+    
+            .item__info{
+                padding:0;
+                word-break: break-all;
+               
+
+            }
+            .card_info{
+                padding-right: 10px;
+            }
+            .item__name{
+                font-size:16px;
+                font-weight: normal;
+            }
+            .btn{
+                font-size:14px;
+                
+                
+            }
+       
+            .saved-cards-remove{
+                
+                float:right;
+                .btn{
+                text-decoration: underline;
+                text-transform: none;
+				padding-right: 0px;
+                }
+            }
+            .saved-make-default{
+                padding-left: 0px;
+                padding-right:0px;
+            }
+           
+             @media (max-width: @screen-xs-max) {
+             border-bottom: 1px solid #ebebeb;
+             .item__info{
+                padding:3px 0;
+             }
+            .saved-cards-remove{
+                text-decoration: underline;
+                float:none;
+                .btn{padding-left:0;}
+            }
+            .saved-make-default{
+                padding-left: 10px;
+                padding-right:10px;
+                padding-top:10px;
+            }
+                  .saved-cards-heading{
+                display: inline-block;
+                width:38%;
+                   
+            }
+           
+            }
+        }
+      
+        
+        
+    }
+}
+
+.iframe-content{
+    width:380px;
+    height:255px;
+   @media (max-width: @screen-xs-max) {
+             width:100%;
+    }
+}
+.saved-card-empty{
+    padding-bottom: 20px;
+}
+.addCreditCardbtn {
+	padding-top:16px;
+}
+.btn-primary[disabled]{
+    pointer-events: none;
+}
+
+.save-cart-success .card-confirmation-message{
+	color: rgba(11, 127, 129, 0.9);
+	a{
+		font-weight: bold;
+		color: rgba(11, 127, 129, 0.9);
+	}
+}
+
+#addCardErrorMsg {
+	margin: 20px 0px;
+}

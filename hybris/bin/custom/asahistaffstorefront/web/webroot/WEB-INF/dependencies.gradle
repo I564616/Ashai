@@ -1,0 +1,5 @@
+ext {
+	libraries = []
+}
+libraries << "ro.isdc.wro4j:wro4j-core:1.8.0"
+libraries << "org.mozilla:rhino:1.7.7"

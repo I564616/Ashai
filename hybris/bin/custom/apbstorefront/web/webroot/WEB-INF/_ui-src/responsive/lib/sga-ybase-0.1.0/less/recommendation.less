@@ -1,0 +1,190 @@
+/*
+ * TM Recommendation page
+ */
+.recommendations {
+    &.item__list {
+        .item__image {
+            width :auto;
+        }
+
+        .item__info {
+            width: 100%;
+            padding-left: 40px;
+        }
+        .item__list--item:nth-child(2) {
+            border-top: 1px solid @border-color!important;
+        }
+        .item__list--item:last-child {
+            border-bottom: 1px solid @border-color;
+        }
+
+        .item__list--item .recommend-quantity {
+            padding-left: 115px;
+        }
+    }
+    .remove-action {
+        .js-ordertemplate_entry_delete
+    }
+}
+
+.product-item.recommendation {
+    .addtocart-component {
+        .recommendation-text-wrapper {
+            text-indent: 8px;
+        }
+        .recommendation-action.added {
+            margin-left: 0px !important;
+            white-space: nowrap;
+        }
+    }
+}
+
+@media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+    .recommendations {
+        &.item__list {
+            .item__info {
+                width :auto;
+                padding-left: 20px;
+            }
+        }
+    }
+}
+
+
+@media (max-width: @screen-xs-max) {
+    .recommendations {
+        &.item__list {
+            .item__image {
+                padding: 0 20px 0 0;
+            }
+            .item__info {
+                width :auto;
+                padding-left: 10px;
+            }
+        }
+    }
+
+    .product-item.recommendation {
+        .addtocart-component {
+            .qty-selector {
+                display: flex;
+            }
+            .recommendation-action {
+                display: block;
+                margin-top: 15px;
+                margin-left: 0px !important;
+            }
+        }
+    }
+}
+
+@media (max-width: @screen-xs-max) and (max-width: @screen-xs-min) {
+    .product-item.recommendation {
+        .addtocart-component {
+            .recommendation-action.input-group {
+                margin-left: -66px !important;
+            }
+        }
+    }
+}
+
+/*
+ * Recommendations component SGA Homepage
+ */
+
+.recommendations-section {
+    display: flex;
+    float: left;
+    justify-content: space-evenly;
+    gap: 1%;
+
+    .product-item {
+        background: rgba(255, 255, 255, 0.85);
+        box-shadow: 0px 2px 20px rgba(0, 0, 0, 50%);
+        padding-top: 0;
+        width: 270px;
+        display: flex;
+        flex-direction: column;
+    
+        &.blue {
+            box-shadow: 0 0 0 5px @brand-tertiary inset, 0px 2px 20px rgba(0, 0, 0, 50%);
+        }
+    
+        .thumbnail-img img {
+            width: auto;
+            height: auto;
+            max-width: 140px;
+            max-height: 140px;
+            margin-bottom: 20px;
+        }
+    
+        .title {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+            margin-top: 12px;
+    
+            &-blue {
+                background: @brand-tertiary;
+                background-clip: content-box;
+                margin-top: 0;
+                height: 36px;
+                line-height: 36px;
+                color: white;
+            
+                .title-star {
+                    height: 15px;
+                    margin-top: -3px;
+                    margin-right: 5px;
+                }
+            }
+        }
+    
+        .details {
+            .product-details {
+                margin-bottom: 0px;
+
+                .product-name {
+                    margin: auto;
+                    font-size: 16px;
+                    padding: 0 12px;
+                    overflow: hidden;
+                    color: #42515a;
+                    display: inline-block;
+                    text-align: center;
+                }
+            }
+
+            .price-details {
+                .price {
+                    font-size: 1em;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}
+
+// Component styling for mobile
+
+@media (max-width: @screen-xs) {
+    .recommendations-section {
+        flex-direction: column;
+    }
+}
+
+@media (min-width: @screen-md) {
+    .recommendations-section {
+        justify-content: initial;
+    }
+}
+
+@media (min-width: @screen-lg) {
+    .product-item .title {
+        font-size: 1.2em;
+    }
+}
+
+.aligned-row {
+    flex-grow: 1;
+}

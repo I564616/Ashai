@@ -1,0 +1,183 @@
+################################
+#         SABMC-1901           #
+#            Start             #
+################################
+$solrIndexedType = sabmStoreProductType
+
+#free text query
+INSERT_UPDATE SolrIndexedProperty; solrIndexedType(identifier)[unique = true]; name[unique = true]; type(code); sortableType(code); currency[default = false]; localized[default = false]; multiValue[default = false]; useForSpellchecking[default = false]; useForAutocomplete[default = false]; fieldValueProvider; valueProviderParameter; ftsQuery[default = false]; ftsQueryBoost;ftsWildcardQuery[default = false]
+; $solrIndexedType ; skuCode                 ; text  ;              ; ;      ;      ;      ; true ; productSkuCodeProvider                   ;    ; true  ;  100;true
+################################
+#         SABMC-1901           #
+#            End               #
+################################
+
+
+
+################################
+#         SABMC-1896           #
+#            Start             #
+################################
+$defaultLanguage=en
+
+INSERT_UPDATE Trigger;cronJob(code)[unique=true];cronExpression;relative;active;maxAcceptableDelay
+;oldWebServiceLogRemovalCronJob;0 0 1 * * ?;false;true;-1
+
+INSERT_UPDATE OldWebServiceLogRemovalCronJob;code[unique=true];job(code);age;batchSize;sessionLanguage(isocode)
+;oldWebServiceLogRemovalCronJob;oldWebServiceLogRemovalJob;180;1000;$defaultLanguage
+################################
+#         SABMC-1896           #
+#            End               #
+################################
+
+
+
+################################
+#          SAB-2708            #
+#            Start             #
+################################
+#
+# Import the CMS content for the site emails
+#
+$contentCatalog=sabmContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$wideContent=CMSImageComponent,BannerComponent,CMSParagraphComponent
+$jarEmailResource=jar:com.sabmiller.core.constants.SabmCoreConstants&/sabminitialdata/import/coredata/contentCatalogs/sabmContentCatalog/emails
+
+# Import modulegen config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+$jarResourceCms=$config-jarResourceCmsValue
+$emailPackageName=$config-emailContextPackageName
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+$emailResource=$config-emailResourceValue
+
+# Language
+$lang=en
+
+### Customer profile updated notice email template ###
+# Email page Template
+INSERT_UPDATE EmailPageTemplate;$contentCV[unique=true];uid[unique=true];name;active;frontendTemplateName;subject(code);htmlTemplate(code);restrictedPageTypes(code)
+;;ProfileUpdatedNoticeTemplate;Profile Updated Notice Email Template;true;profileUpdatedNotice;sabmiller_Email_Profile_Updated_Notice_Subject;sabmiller_Email_Profile_Updated_Notice_Body;EmailPage
+
+# Templates for CMS Cockpit Page Edit
+UPDATE EmailPageTemplate;$contentCV[unique=true];uid[unique=true];velocityTemplate[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+;;ProfileUpdatedNoticeTemplate;$jarResourceCms/structure-view/structure_readyForProfileUpdatedNoticeTemplate.vm
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='ProfileUpdatedNoticeTemplate'];validComponentTypes(code);compTypeGroup(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+;Footer;;;footer
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='ProfileUpdatedNoticeTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-ProfileUpdatedNoticeEmail;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-ProfileUpdatedNoticeEmail;TopContent;;EmailTopSlot;true
+;;BottomContent-ProfileUpdatedNoticeEmail;BottomContent;;EmailBottomSlot;true
+;;Footer-ProfileUpdatedNoticeEmail;Footer;;EmailFooterSlot;true
+
+# Email Pages
+INSERT_UPDATE EmailPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);defaultPage;approvalStatus(code)[default='approved'];previewImage(code, $contentCV)
+;;ProfileUpdatedNoticeEmail;Profile Updated Notice Email;ProfileUpdatedNoticeTemplate;true;;EmailPageModel_preview
+
+# Email velocity templates
+INSERT_UPDATE RendererTemplate;code[unique=true];contextClass;rendererType(code)[default='velocity']
+;sabmiller_Email_Profile_Updated_Notice_Body;$emailPackageName.ProfileUpdatedNoticeEmailContext
+;sabmiller_Email_Profile_Updated_Notice_Subject;$emailPackageName.ProfileUpdatedNoticeEmailContext
+
+
+# Email Pages
+INSERT_UPDATE EmailPage;$contentCV[unique=true];uid[unique=true];fromEmail[lang=$lang];fromName[lang=$lang]
+;;ProfileUpdatedNoticeEmail;"no-reply-online@cub.com.au";"CUB Online No Reply"
+ 
+ # CMS components and Email velocity templates
+UPDATE RendererTemplate;code[unique=true];description[lang=$lang];templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+;sabmiller_Email_Profile_Updated_Notice_Body;"CMSBannerComponent Template";$emailResource/email-profileUpdatedBody.vm
+;sabmiller_Email_Profile_Updated_Notice_Subject;"CMSBannerComponent Template";$emailResource/email-profileUpdatedSubject.vm
+
+### for online cataglog
+
+
+#
+# Import the CMS content for the site emails
+#
+$contentCatalog=sabmContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Online])[default=$contentCatalog:Online]
+$wideContent=CMSImageComponent,BannerComponent,CMSParagraphComponent
+$jarEmailResource=jar:com.sabmiller.core.constants.SabmCoreConstants&/sabminitialdata/import/coredata/contentCatalogs/sabmContentCatalog/emails
+
+# Import modulegen config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+$jarResourceCms=$config-jarResourceCmsValue
+$emailPackageName=$config-emailContextPackageName
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+$emailResource=$config-emailResourceValue
+
+# Language
+$lang=en
+
+### Customer profile updated notice email template ###
+# Email page Template
+INSERT_UPDATE EmailPageTemplate;$contentCV[unique=true];uid[unique=true];name;active;frontendTemplateName;subject(code);htmlTemplate(code);restrictedPageTypes(code)
+;;ProfileUpdatedNoticeTemplate;Profile Updated Notice Email Template;true;profileUpdatedNotice;sabmiller_Email_Profile_Updated_Notice_Subject;sabmiller_Email_Profile_Updated_Notice_Body;EmailPage
+
+# Templates for CMS Cockpit Page Edit
+UPDATE EmailPageTemplate;$contentCV[unique=true];uid[unique=true];velocityTemplate[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+;;ProfileUpdatedNoticeTemplate;$jarResourceCms/structure-view/structure_readyForProfileUpdatedNoticeTemplate.vm
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='ProfileUpdatedNoticeTemplate'];validComponentTypes(code);compTypeGroup(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+;Footer;;;footer
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='ProfileUpdatedNoticeTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-ProfileUpdatedNoticeEmail;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-ProfileUpdatedNoticeEmail;TopContent;;EmailTopSlot;true
+;;BottomContent-ProfileUpdatedNoticeEmail;BottomContent;;EmailBottomSlot;true
+;;Footer-ProfileUpdatedNoticeEmail;Footer;;EmailFooterSlot;true
+
+# Email Pages
+INSERT_UPDATE EmailPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);defaultPage;approvalStatus(code)[default='approved'];previewImage(code, $contentCV)
+;;ProfileUpdatedNoticeEmail;Profile Updated Notice Email;ProfileUpdatedNoticeTemplate;true;;EmailPageModel_preview
+
+# Email velocity templates
+INSERT_UPDATE RendererTemplate;code[unique=true];contextClass;rendererType(code)[default='velocity']
+;sabmiller_Email_Profile_Updated_Notice_Body;$emailPackageName.ProfileUpdatedNoticeEmailContext
+;sabmiller_Email_Profile_Updated_Notice_Subject;$emailPackageName.ProfileUpdatedNoticeEmailContext
+
+
+# Email Pages
+INSERT_UPDATE EmailPage;$contentCV[unique=true];uid[unique=true];fromEmail[lang=$lang];fromName[lang=$lang]
+;;ProfileUpdatedNoticeEmail;"no-reply-online@cub.com.au";"CUB Online No Reply"
+ 
+ # CMS components and Email velocity templates
+UPDATE RendererTemplate;code[unique=true];description[lang=$lang];templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+;sabmiller_Email_Profile_Updated_Notice_Body;"CMSBannerComponent Template";$emailResource/email-profileUpdatedBody.vm
+;sabmiller_Email_Profile_Updated_Notice_Subject;"CMSBannerComponent Template";$emailResource/email-profileUpdatedSubject.vm
+
+################################
+#          SAB-2708            #
+#            End               #
+################################
+
+
+################################
+#          SABMC-1899          #
+#            START             #
+################################
+
+
+$jarResourceHeader=jar:com.sabmiller.core.setup.CoreSystemSetup&/impex/headers
+
+INSERT_UPDATE HeaderLibrary;code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime;fieldSeparator;quoteCharacter;commentCharacter;encoding(code,itemType(code));linesToSkip;removeOnSuccess
+;Customer_export;$jarResourceHeader/Customer_export.impex;text/x-comma-separated-values;";";"""";#;UTF-8:EncodingEnum;0;false
+
+
+################################
+#          SABMC-1899          #
+#            END               #
+################################

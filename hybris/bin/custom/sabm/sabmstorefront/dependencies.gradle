@@ -1,0 +1,6 @@
+ext {
+	libraries = []
+}
+libraries << "org.codehaus.jackson:jackson-core-asl:2.4.4"
+libraries << "org.codehaus.jackson:jackson-mapper-asl:2.4.4"
+libraries << "net.sf.jasperreports:jasperreports:4.5.1"

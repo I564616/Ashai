@@ -1,0 +1,80 @@
+// ==========================================================================
+//   Flex Class
+// ==========================================================================
+
+@mixin flex-base{
+  display: flex;
+}
+
+@mixin flex-center-mixin{
+  @include flex-base;
+  justify-content:center;
+  align-items:center;
+}
+
+.flex-center{
+  @include flex-base;
+  justify-content:center;
+  align-items:center;
+}
+
+@media(min-width: $desktop){
+  .flex-center-desktop{
+    @include flex-center-mixin;
+  }
+}
+
+@media(min-width: $tablet){
+  .flex-center-tablet{
+    @include flex-center-mixin;
+  }
+}
+
+@media(max-width: $mobile){
+  .flex-center-mobile{
+    @include flex-center-mixin;
+  }
+}
+
+@media(max-width: $tablet){
+  .flex-center-mobile{
+    @include flex-center-mixin;
+  }
+}
+
+.flex-center.space-between, .space-between{
+  justify-content:space-between;
+}
+
+.flex-center-horizontal{
+  @include flex-base;
+  justify-content:center;
+  align-items:center;
+}
+.flex-stretch-horizontal{
+  @include flex-base;
+  justify-content:center;
+  align-items:stretch;
+}
+.flex-center-vertical{
+  @include flex-center-mixin;
+  flex-direction: column;
+}
+
+.flex-vertical{
+  @include flex-base;
+  flex-direction:column;
+}
+.flex-start{
+   @include flex-base;
+  align-items:flex-start;
+}
+.flex-end{
+  @include flex-base;
+  align-items:flex-end;
+}
+.flex-end-horizontal{
+  @include flex-base;
+  justify-content: flex-end;
+}
+

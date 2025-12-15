@@ -1,0 +1,47 @@
+$contentCatalog=sgaContentCatalog
+$contentCatalogName=SGA Content Catalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$productCatalog=sgaProductCatalog
+$productCatalogName=SGA Product Catalog
+$productCV=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$picture=media(code, $contentCV);
+$image=image(code, $contentCV);
+$media=media(code, $contentCV);
+$page=page(uid, $contentCV);
+$contentPage=contentPage(uid, $contentCV);
+$product=product(code, $productCV)
+$category=category(code, $productCV)
+$siteResource=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/sampledata/contentCatalogs/$contentCatalog
+$productResource=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/sampledata/productCatalogs/$productCatalog
+$jarResourceCms=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/sampledata/cockpits/cmscockpit
+$addonExtensionName=b2bacceleratoraddon
+$medias=medias(code, $contentCV);  
+$mediaContainer=media(qualifier, $contentCV);                      
+$siteUid=sga
+$lang=en
+
+
+INSERT_UPDATE ContentPage ; $contentCV[unique=true] ; uid[unique=true]                     	; name                                      			; masterTemplate(uid,$contentCV)         ; label                               ; defaultPage[default='true'] ; approvalStatus(code)[default='approved'] ; homepage[default='false'] ;  ; backgroundImage(code, $contentCV)[default='backgroundImage']
+
+;                         ; directDebitConfirmation                    ; Asahi DirectDebit Confirmation  Page                  		; SAMPageTemplate          	  		  ; directDebitConfirmation
+
+ 
+INSERT_UPDATE JspIncludeComponent ; $contentCV[unique=true] ; uid[unique=true] 						; name 											; page 											; actions(uid,$contentCV) ; &componentRef
+
+								  ;       						; AsahiDirectDebitConfirmationComponent  			; SAM Asahi DirectDebit Confirmation Component     		; directDebitConfirmationPage.jsp		   ;                         ; AsahiDirectDebitConfirmationComponent
+								  
+$contentCatalog=sgaContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$picture=media(code, $contentCV);
+$siteResource=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/sampledata/contentCatalogs/$contentCatalog
+$medias=medias(code, $contentCV);
+$mediaContainer=media(qualifier, $contentCV)[lang=$lang];
+$addonExtensionName=assistedservicestorefront								  
+
+INSERT_UPDATE ContentSlotForPage ; $contentCV[unique=true] ; uid[unique=true]        ; position[unique=true] ; page(uid,$contentCV)[unique=true][default='directDebitConfirmation'] ; contentSlot(uid,$contentCV)[unique=true]
+                                 ;                         ; Section3-AsahiDirectDebitConfirmation   ; Section3              ;                                                            ; AsahiDirectDebitConfirmationSlot 
+			 
+   
+
+INSERT_UPDATE ContentSlot ; $contentCV[unique=true] ; uid[unique=true] 					; name 				 						; active ; cmsComponents(&componentRef)
+;; AsahiDirectDebitConfirmationSlot	 			; Asahi DirectDebit ConfirmationSlot 				; true   ; AsahiDirectDebitConfirmationComponent

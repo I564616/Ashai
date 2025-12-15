@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<n0:InvoiceItemData_Response
+    xmlns:n0="urn:gl.sabmiller.com:com:3rdp:transdata"
+    xmlns:prx="urn:sap.com:proxy:EP7:/1SAI/TASED006B41FDF20219FE73:701:2013/05/24">
+    <Invoice>
+        <SoldTo>0000919494</SoldTo>
+        <InvoiceNumber>7504583677</InvoiceNumber>
+        <InvoiceDate>11072021</InvoiceDate>
+        <Item>
+            <ItemID>1 </ItemID>
+            <ItemDescription>BR BALTER TEststts</ItemDescription>
+            <Material>000000000000091768</Material>
+            <Quantity>2.000 </Quantity>
+            <UoM>CAS</UoM>
+            <UnitPrice>363.90 </UnitPrice>
+            <Amount>2183.40 </Amount>
+            <LocalFreight>47.58 </LocalFreight>
+            <GST>Y</GST>
+            <TotalExGST>2230.98 </TotalExGST>
+            <LUCExGST>371.83 </LUCExGST>
+            <EANCode>9320000507813</EANCode>
+        </Item>
+    </Invoice>
+</n0:InvoiceItemData_Response>

@@ -1,0 +1,76 @@
+.rewards-information-box-component {
+  background: $white;
+  border: 1px solid $primary-blue-new;
+  display: table;
+  margin: $double-spacing-unit auto;
+  width: 100%;
+  .panel-heading {
+    border: 0;
+    color: $primary-blue-new;
+    display: table;
+    font-size: $font-large;
+    font-weight: 500;
+    line-height: 36px;
+    margin: 0;
+    padding: $spacing-unit-base $spacing-unit-base $half-spacing-unit 56px;
+    position: relative;
+    width: 100%;
+    img {
+      position: absolute;
+      height: 36px;
+      left: $spacing-gutter;
+      width: 36px;
+    }
+    span {
+      @media (min-width: $tablet) {
+        float: right;
+      }
+    }
+  }
+  .panel-body {
+    font-size: $font-medium;
+    padding: $spacing-unit-base;
+    position: relative;
+    p {
+      font-size: $font-medium;
+      font-style: italic;
+      color: $lighter-dark-grey;
+      &.highlight {
+        font-style: normal;
+        font-weight: 500;
+      }
+    }
+    .btn {
+      height: $btn-x-small*2;
+      line-height: $btn-x-small*2;
+      padding: 0 $btn-x-small*2;
+      @media (min-width: $tablet) {
+        float: right;
+      }
+    }
+    .list-group {
+      display: table;
+      margin: 0;
+      padding-top: $spacing-unit-base*.5;
+      .list-group-item {
+        background: none;
+        border: 0;
+        color: $primary-blue-new;
+        padding: $spacing-unit-base*.5 0;
+        position: unset;
+        a {
+          background: transparent url($arrow-right-links-blue) no-repeat 98% 50%;
+          color: $primary-blue-new;
+          display: block;
+          font-weight: 500;
+          padding-right: $spacing-unit-base*2;
+          transition: all .2s $easing;
+          &:hover, &:focus {
+            background-position: 100% 50%;
+            color: $lighter-dark-grey;
+          }
+        }
+      }
+    }
+  }
+}

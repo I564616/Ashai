@@ -1,0 +1,294 @@
+]
+#Asahi Configurations  [translator=com.apb.core.translators.AsahiConfigurationImpexTranslator]
+INSERT_UPDATE Configuration ; configKey[unique=true]                              ; configValue[translator=com.apb.core.translators.AsahiConfigurationImpexTranslator]                              
+
+# SGA specific hot folder validation configuration 
+									 ; product.name.validation.length.sga                  ; 100                                                                                                             
+                            ; product.description.validation.length.sga           ; 2000                                                                                                            
+                            ; use.product.backend.name.sga                        ; false                                                                                                           
+                            ; use.product.backend.unit.volume.sga                 ; false                                                                                                           
+                            ; use.product.backend.unit.per.case.sga               ; false                                                                                                           
+                            ; product.detail.validation.length.sga                ; 2000                                                                                                            
+                            ; product.rank.max.limit.sga                          ; 1000
+                            ; enable.hooks.after.place.order				      ; true  
+                                    
+# SGA Specific Self- Registration configuration
+     
+                            ; storefront.passwordPattern.sga					  ; ^(?=.*\d)(?=.*[a-zA-Z])(?!.*\s).{5,20}$
+                            ; customer.password.length.sga						  ; 5  
+                            
+##########################################################################################################################################################
+###################################################### START EMAIL CONFIGURATION  ########################################################################
+##########################################################################################################################################################     
+### Register Page Email     
+                            ; self.registration.from.emailid.sga                  ; ALBConnect@asahi.com.au                                                                            
+                            ; self.registration.from.emailid.name.sga             ; ALB Connect                                                                                               
+                            ; self.registration.to.email.subject.sga              ; Welcome to ALB Connect                                                                                
+                            ; super.registration.from.emailid.sga                 ; ALBConnect@asahi.com.au                                                                            ;  
+                            ; super.registration.email.name.sga                   ; ALB Connect                                                                                               
+                            ; super.registration.to.email.subject.sga             ; New user registration on your account   
+                            
+                            ; self.registration.super.admin.group.sga			  ; sgaSuperAdmin
+                            ; send.email.to.admin.user.sga						  ; true
+                            
+                            ; assisted.customer.registration.email.subject.sga	  ; Welcome to ALB Connect
+                            
+                            ; forgot.password.from.emailid.sga               	  ; ALBConnect@asahi.com.au                                                                                                                                                                                                                                                                                                                                                                            ;  
+                            ; forgot.password.from.email.name.sga           	  ; ALB Connect                                                                                                                                                                                                                                                                                                                                                                                              
+                            ; forgot.password.email.subject.sga              	  ; Reset your password
+                           
+                            ; order.confirmation.from.emailid.sga				  ; ALBConnect@asahi.com.au
+                            ; order.confirmation.email.name.sga					  ; ALB Connect
+                            ; order.confirmation.to.email.subject.sga			  ; Order Confirmation
+##########################################################################################################################################################
+###################################################### PAYMENT INTEGRATION  ##############################################################################
+##########################################################################################################################################################   
+
+									; credit.card.iframe.external.css.url.sga			; https://mj7811.000webhostapp.com/testcss.css
+									; credit.card.iframe.external.css.url.sam.sga			; https://mj7811.000webhostapp.com/testcss.css
+									; payment.credit.card.reference.prefix.sga         ; SGAPAYREF       
+									; integration.inclusion.service.url.sga            ; https://dev.s2s-np.asahi.com.au:5080/hybris/LoginCheck_inb                                                                                                   
+									; inclusion.stub.enabled.sga								; false
+									; integration.inclusion.service.connection.timeout.sga	;2000
+									; integration.inclusion.service.connection.request.timeout.sga	;2000
+									; integration.inclusion.service.connection.read.timeout.sga		;10000
+									
+									; inclusion.checkout.stub.enabled.sga							; false
+									; integration.inclusion.checkout.service.url.sga            ; https://dev.s2s-np.asahi.com.au:5080/hybris/CheckoutCheck_inb
+									; integration.inclusion.checkout.service.connection.timeout.sga			;2000
+									; integration.inclusion.checkout.service.connection.request.timeout.sga	;2000
+									; integration.inclusion.checkout.service.connection.read.timeout.sga	;2000
+									
+									; integration.certificate.clientStore.password.sga				;1649
+									; integration.certificate.trustStore.password.sga				;changeit
+									; integration.certificate.clientStore.filename.sga				;hybrisuser.p12
+									; integration.certificate.trustStore.filename.sga				;keystore_Asahi.jks
+									; integration.certificate.filePath.sga							;/usr/java/latest/jre/lib/security
+                           ; checkout.payment.terms.sga               	; C00C       
+                           ; asahi.capture.request.retry.count.sga           			; 1          
+                           ; asahi.order.status.after.successfull.capture.request.sga ; PAYMENT_CAPTURED
+                           ; asahi.order.status.after.failed.capture.request.sga		; PAYMENT_NOT_CAPTURED
+                           ; asahi.block.send.order.job.sga									; true
+                           
+                           
+##########################################################################################################################################################
+###################################################### SEND ORDER TO ECC CONFIGURATION  ##################################################################
+##########################################################################################################################################################   									 
+									 
+									 ; asahi.status.max.order.retry.count.sga							; 1
+									 ; asahi.status.to.update.after.order.sent.sga					; SENT_TO_BACKEND
+									 ; asahi.status.to.update.after.order.not.sent.sga				; SENT_TO_BACKEND_FAILED
+									 ; service.order.url.sga												; https://dev.s2s-np.asahi.com.au:5080/hybris/SGASalesOrder_inb
+									 ; service.order.write.in.log.sga                         	; true
+									 ; service.order.connection.timeout.sga							; 1000
+									 ;	service.order.connection.request.timeout.sga					; 1000
+									 ; service.order.connection.read.timeout.sga						; 1000
+									 ; send.order.job.send.status.sga									; SENT_TO_BACKEND_FAILED,PAYMENT_CAPTURED
+									 ; asahi.order.code.prefix.sga										; 15 
+									 ; payment.rest.check.status.sga										; PAYMENT_NOT_CAPTURED
+									 ; payment.rest.update.status.sga									; PAYMENT_CAPTURED
+									 ; payment.rest.update.failed.status.sga							; PAYMENT_NOT_CAPTURED
+################################# Cronjob retry count #######################################################################################################     
+									 ; send.order.job.retry.count.sga				; 5      
+##############################################################################################################################################################
+###################################################### SEND ORDER TO ECC REQUEST CONFIGURATION  ##############################################################
+##############################################################################################################################################################									 
+									 ;	order.delivery.date.format.sga									; yyyy-MM-dd
+									 ; site.time.format.validation.sga									; hh:mm:ss
+									 ; site.date.format.validation.sga									; dd-MM-yyyy hh:mm:ss
+									 ; order.to.AX.default.sales.unit.sga 								; each
+									 ; order.to.AX.default.currency.code.sga							; AUD
+									 ; order.to.AX.default.customer.reference.sga						; 
+									 ; order.to.AX.default.delivery.instruction.sga						; 
+									 ; order.to.AX.default.external.discount.sga						; 0
+									 ; order.to.AX.default.external.discount.desc.sga					; 0
+									 ; order.to.AX.default.payment.surcharge.sga						; 0
+									 ; order.to.AX.default.payment.reference.sga						; 0
+									 ; order.to.AX.default.payment.amount.sga							; 0
+									 ; order.to.AX.default.payment.other.ref.sga						; 0                                                                                                                 		 
+                           			 ; customer.mobile.validation.pattern.sga              				; ^(?:\+?(61))? ?(?:\((?=.*\)))?(0?[2-57-8])\)? ?(\d\d(?:[- ](?=\d{3})|(?!\d\d[- ]?\d[- ]))\d\d[- ]?\d[- ]?\d{3})$
+    								 ; customer.email.validation.sga                       				; \b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}\b                                                             
+                                     ;contactus.keygen.code.prefix.sga                    				; CUS                                                                                                             
+                             		 ;contactus.email.subject.sga                         				;Customer service request. Ref Number: {0}                                                                       
+                            		 ;contactus.to.email.sga                              				;ACCConnect@asahi.com.au                                                                                    
+                            		 ;contactus.from.emailid.sga                          				;CustomerSupport@asahidirect.com.au                                                                              
+                            		 ;contactus.from.email.name.sga                       				;Asahi Portal Team                                                                                               
+                                     ;import.pdf.file.max.size.bytes.sga                  				;5240000        
+##############################################################################################################################################################
+###################################################### MAX ORDER QUANTY CART PAGE CHECK  #####################################################################
+##############################################################################################################################################################	   	
+									; max.packed.product.order.qty.sga	 								; 10
+									; max.bib.product.order.qty.sga										; 4
+									 ;quickorder.number.order.show.sga									;6
+									 ;quickorder.number.month.sga										;3 
+									; previous.order.entries.month.sga									; 3
+									; max.mix.packed.product.order.qty.sga								; 6
+									; max.mix.bib.product.order.qty.sga									; 2
+##############################################################################################################################################################
+###################################################### ASAHI CART REMOVAL JOB  ###############################################################################
+##############################################################################################################################################################
+									; asahi.default.anonymous.cart.max.age.sga						; 1209600
+									; asahi.default.cart.max.age.sga										; 2419200
+									
+									; customer.abn.validation.pattern.sga								; ^\d{10,15}$
+									; customer.account.id.pattern.sga									; ^0[a-zA-Z0-9_]+$
+									; customer.account.id.starts.with.sga								; 0
+									
+									
+																		
+##############################################################################################################################################################
+###################################################### ASAHI NOTIFICATION EMAIL  ###############################################################################
+##############################################################################################################################################################
+							
+							
+                            ; sga.email.notify.noDelivery				  ; NODEL							
+                            ; email.notify.from.emailid.nodel				  ; ACCSchweppesConnect@asahi.com.au
+                            ; email.notify.email.name.nodel					  ; Asahi Portal Team
+                            ; email.notify.to.email.subject.nodel			  ; Double order notification
+
+                            ; sga.email.notify.altCallDay				  ; ALTCALL
+                            ; email.notify.from.emailid.altcall				  ; ACCSchweppesConnect@asahi.com.au
+                            ; email.notify.email.name.altcall					  ; Asahi Portal Team
+                            ; email.notify.to.email.subject.altcall			  ; Change to order day 
+
+                            ; sga.email.notify.altDelDate				  ; ALTDEL
+                            ; email.notify.from.emailid.altdel				  ; ACCSchweppesConnect@asahi.com.au
+                            ; email.notify.email.name.altdel					  ; Asahi Portal Team
+                            ; email.notify.to.email.subject.altdel			  ; Change to delivery day
+							; sga.save.customer.notify.process			  ; false
+							
+							; sam.financial.year.start			  ; 01/07
+							; sam.open.invoice.history.timeframe		  ; 20
+							; sam.closed.invoice.history.timeframe		  ; 20
+							; sam.invoice.history.pagesize		  ; 10							
+##############################################################################################################################################################
+######################################################Product Reference config keys  ###############################################################################
+##############################################################################################################################################################
+							                          
+							;product.reference.pdp.enable.sga                ;true
+							;product.reference.cart.enable.sga				 ; true 
+							;site.date.format.sga                            ;dd/MM/yyyy                    
+##############################################################################################################################################################
+######################################################Multi Account config keys###############################################################################
+##############################################################################################################################################################						
+							
+							;multi.account.list.size.sga							;10
+							;integration.invoice.download.service.stub.sga			;false
+							;integration.invoice.download.service.stub.response.sga ;{ "invoiceDownloadResponse": { "fileName": "invoice369", "pdfResponse": "c2Nod2VwcGVzIGF1c3RyYWxpYSBwdHkgbHRk", "errorStatus": "", "errorMessage":"" } }
+							;integration.invoice.download.service.url.sga			;https://dev.s2s-np.asahi.com.au:5080/hybris/HybrisToECCgetCustomerInvoice
+							;integration.invoice.download.service.connection.timeout.sga	;2000
+							;integration.invoice.download.service.connection.request.timeout.sga	;2000
+							;integration.invoice.download.service.connection.read.timeout.sga		;2000
+							
+							;admin.restricted.links.sga			;manage profiles
+							;integration.statement.download.service.stub.sga			;false
+							;integration.statement.download.service.stub.response.sga ;{ "statementDownloadResponse": { "fileName": "statement369", "pdfResponse": "Tm8gU3RhdGVtZW50IERldGFpbHM=", "errorStatus": "", "errorMessage":"" }}
+							;integration.statement.download.service.url.sga			;https://dev.s2s-np.asahi.com.au:5080/hybris/HybrisToECCgetCustomerStatement
+							;integration.statement.download.service.connection.timeout.sga	;2000
+							;integration.statement.download.service.connection.request.timeout.sga	;2000
+							;integration.statement.download.service.connection.read.timeout.sga		;10000
+							
+							;integration.invoice.payment.service.url.sga			;https://tst.s2s-np.asahi.com.au:5080/hybris/HybrisToECCgetPaymentDetails
+							;integration.invoice.payment.service.connection.timeout.sga	;2000
+							;integration.invoice.payment.service.connection.request.timeout.sga	;2000
+							;integration.invoice.payment.service.connection.read.timeout.sga		;2000
+							;integration.invoice.payment.service.stub.sga ;false
+
+##############################################################################################################################################################
+######################################################SAM Payment Integration Configs#########################################################################
+##############################################################################################################################################################						
+
+
+
+							;sam.payment.apply.credit.surcharge					 ; false
+####### SAM Surcharge for Credit Card
+							; sam.credit.surcharge.for.amex.card			 ; 0
+							; sam.credit.surcharge.for.visa.card		 	 ; 0
+							; sam.credit.surcharge.for.master.card			 ; 0
+							
+							
+							; sam.payment.integration.visa.card.list			 ; Visa,VISA
+							; sam.payment.integration.master.card.list 			 ; MasterCard
+							; sam.payment.integration.amex.card.list			 ; AMEX
+							; sam.payment.hybris.prefix.code.sga			 ; HY
+							; sam.payment.partial.payment.reasons.sga		 ; Short Delivery / Non-Delivery of Goods,Damaged Stock,Pricing Claim,Rebates Claim,Discount Claim,Other
+							; sam.make.a.payment.breadcrumb					 ; Make a Payment
+							; sam.statement.start.year			 				 ; 2018
+							; sam.statement.download.day.enable			 	 ; 16
+							; query.date.format.sga								 ; dd/mm/YYYY
+							; populate.sql.parameter							 ; true
+							; sam.invoice.document.types.sga						 ;DZ,IB,IC,ID,SC,SD,SK,ZP,ZS,ZV
+							; sam.remove.invoice.number.year						 ;2
+							; sam.remove.invoice.payment						 ;true
+							
+							;integration.sam.document.service.stub.sga			;false
+							;integration.sam.document.service.stub.response.sga ;{ "invoiceDownloadResponse": { "fileName": "invoice369", "pdfResponse": "c2Nod2VwcGVzIGF1c3RyYWxpYSBwdHkgbHRk", "errorStatus": "", "errorMessage":"" } }
+							;integration.invoice.document.service.url.sga			;https://dev.s2s-np.asahi.com.au:5080/hybris/HybrisToECCgetCustomerInvoice
+							;integration.invoice.document.service.connection.timeout.sga	;2000
+							;integration.invoice.document.service.connection.request.timeout.sga	;2000
+							;integration.invoice.document.service.connection.read.timeout.sga		;2000
+							
+							;integration.sam.document.service.stub.sga			;false
+							;integration.sam.document.service.stub.response.sga ;{ "invoiceDownloadResponse": { "fileName": "invoice369", "pdfResponse": "c2Nod2VwcGVzIGF1c3RyYWxpYSBwdHkgbHRk", "errorStatus": "", "errorMessage":"" } }
+							;integration.invoice.payment.hist.document.service.url.sga			;https://dev.s2s-np.asahi.com.au:5080/hybris/HybrisToECCgetCustomerInvoice
+							;integration.invoice.payment.hist.document.service.connection.timeout.sga	;2000
+							;integration.invoice.payment.hist.document.service.connection.request.timeout.sga	;4000
+							;integration.invoice.payment.hist.document.service.connection.read.timeout.sga		;4000
+
+##############################################################################################################################################################
+######################################################SGA Payment Surcharge Configs ########################################################################
+##############################################################################################################################################################						
+							
+							
+							## Surcharge for Credit Card
+							; credit.surcharge.for.amex.card.sga			 ; 0
+							; credit.surcharge.for.visa.card.sga		 	 ; 0
+							; credit.surcharge.for.master.card.sga			 ; 0
+							; payment.apply.credit.surcharge.sga			 ; false
+							
+							## Saved Cards Page
+							; max.saved.cards.allowed.sga						 ; 3
+							
+							## Mapping of card types sent from fatzebra to Hybris card types	
+	
+							; payment.integration.visa.card.list.sga			 ; Visa,VISA
+							; payment.integration.master.card.list.sga 			 ; MasterCard
+							; payment.integration.amex.card.list.sga			 ; AMEX
+							;asahi.order.code.prefix.sga	;15
+							;credit.card.enable.sga			;false
+							;invoice.download.enable.link.date.sam.sga			;2018/10/10
+							
+							;integration.order.service.url.sga			;https://dev.s2s-np.asahi.com.au:5080/hybris/HybrisToECCgetCustomerInvoice
+							;service.order.connection.timeout.sga	;4000
+							;service.order.connection.request.timeout.sga	;4000
+							;service.order.connection.read.timeout.sga		;4000
+							
+							;Australian.Western.Standard.Time ; Australia/Perth
+							;Western.Standard.Time  ; Australia/Perth
+							;Australian.Central.Western.Standard.Time  ; Australia/Eucla
+							;Australian.Central.Standard.Time ; Australia/Adelaide
+							;Australian.Eastern.Standard.Time ; Australia/Sydney
+							;Eastern.Standard.Time ; Australia/Sydney
+							;Lord.Howe.Standard.Time ; Australia/Lord_Howe
+							;Australian.Eastern.Daylight.Time ; Australia/Victoria
+							;India.Standard.Time ; Asia/Kolkata
+							
+							;remove.order.number.year.apb;18
+							;remove.order.number.year.sga;06
+							
+################################################################################################################################
+###################################################### ASAHI PAYMENT CONFIRMATION EMAIL  ###############################################################################
+##############################################################################################################################################################
+							
+							
+                            ; email.payment.confirmation.from.emailid				  ; ACCSchweppesConnect@asahi.com.au
+                            ; email.payment.confirmation.name					  ; Asahi Portal Team
+                            ; email.payment.confirmation.to.email.subject			  ; Payment Confirmation
+                            ; direct.debit.bank.account.service.url.sga			;https://gateway.pmnts-sandbox.io/v1.0/bank_accounts
+                            ;integration.direct.debit.service.stub			;false
+							;integration.direct.debit.service.url.sga			;https://dev.s2s-np.asahi.com.au:5080/hybris/HybrisToECCdirectDebit
+							;integration.direct.debit.service.connection.timeout.sga	;2000
+							;integration.direct.debit.service.connection.request.timeout.sga	;4000
+							;integration.direct.debit.service.connection.read.timeout.sga		;4000
+							;enable.new.direct.debit.sga		;true
+							;sga.customer.notification.date.format;dd/MM/yyyy

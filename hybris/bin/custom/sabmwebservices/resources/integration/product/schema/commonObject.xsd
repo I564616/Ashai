@@ -1,0 +1,26 @@
+<xsd:schema targetNamespace="urn:gl.sabmiller.com:masterdata:ecc:commonobjects"
+			xmlns="urn:gl.sabmiller.com:masterdata:ecc:commonobjects" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			xmlns:p11="http://sap.com/xi/APPL/Global2">
+			<xsd:import namespace="http://sap.com/xi/APPL/Global2" />
+			<xsd:simpleType name="MaterialStatus">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="EN">Global Data Type for
+						Material Status</xsd:documentation>
+				</xsd:annotation>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="2" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:complexType name="BaseUnit">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="EN">BaseUnit
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleContent>
+					<xsd:extension base="p11:MeasureUnitCode">
+						<xsd:attribute name="unitCode" type="p11:MeasureUnitCode"
+							form="qualified" />
+					</xsd:extension>
+				</xsd:simpleContent>
+			</xsd:complexType>
+		</xsd:schema>

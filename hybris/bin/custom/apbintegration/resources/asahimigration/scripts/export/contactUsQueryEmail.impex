@@ -1,0 +1,196 @@
+#########Execute from HAC and download the media and data zip through Backoffice######
+
+####Import Media through Backoffice Import and thereafter ContactUsQueryEmail records through HAC #######
+
+insert_update ScriptingJob	;code[unique=true]		;scriptURI
+							;contactUsQueryEmailMediaScriptJob	;model://contactUsQueryEmailMediaScript
+							
+insert_update CronJob	;code[unique=true]			;job(code)				;sessionLanguage(isocode)	;sessionUser(uid)
+						;contactUsQueryEmailMediaScriptCronJob	;contactUsQueryEmailMediaScriptJob	;en		;admin
+
+
+INSERT_UPDATE Script; code[unique=true];content;active[default=true, unique=true]
+;contactUsQueryEmailMediaScript;"import java.io.File;
+import java.lang.Exception;
+import java.io.InputStream;
+import de.hybris.platform.util.CSVConstants;
+
+import java.io.IOException;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.sql.Timestamp;
+import org.apache.log4j.*;
+import org.apache.commons.io.IOUtils;
+import de.hybris.platform.servicelayer.impex.ExportConfig;
+import de.hybris.platform.servicelayer.impex.ExportConfig.ValidationMode;
+import de.hybris.platform.servicelayer.impex.ExportResult;
+import de.hybris.platform.servicelayer.impex.ExportService;
+import de.hybris.platform.servicelayer.impex.ImpExResource;
+import de.hybris.platform.servicelayer.impex.impl.StreamBasedImpExResource;
+
+final Logger LOG = Logger.getLogger(""asahi"");
+
+def exportService = spring.getBean(""exportService"");
+
+header = ""insert_update CatalogUnawareMedia;code[unique=true,allownull=true];altText;catalog(id)[allownull=true];catalogVersion(catalog(id),version)[unique=true,allownull=true];creationtime[forceWrite=true,dateformat=dd.MM.yyyy hh:mm:ss];description;folder(qualifier);mediaContainer(catalogVersion(catalog(id),version),qualifier);mediaFormat(qualifier);mime;modifiedtime[dateformat=dd.MM.yyyy hh:mm:ss];realFileName;size;subFolderPath;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];\n""+
+""\""#% impex.exportItemsFlexibleSearch(\""\"" select {pk} from {CatalogUnawareMedia} where {mime} LIKE 'image%' OR {mime} LIKE '%pdf' \""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n"";
+
+InputStream resourceAsStream = null;
+try {
+	resourceAsStream = new ByteArrayInputStream(header.getBytes());
+	final ImpExResource resource = new StreamBasedImpExResource(resourceAsStream, CSVConstants.DEFAULT_ENCODING);
+	final ExportConfig config = new ExportConfig();
+	config.setScript(resource);
+	config.setSingleFile(true);
+	config.setValidationMode(ValidationMode.WITHOUT);
+	config.setExportedDataCode(""contactUsQueryEmail-""+new SimpleDateFormat(""yyyyMMddHHmmssSSS"").format(new Date()));
+	final ExportResult result = exportService.exportData(config);
+	
+	if (result.isError()){
+		LOG.info(""Exception occurred during export of CatalogUnawareMedia"");
+	}
+}
+catch (final Exception exception) {
+		LOG.log(Level.ERROR, exception.getMessage());
+	} 
+finally
+	{
+		resourceAsStream.close();
+	}";;
+	
+
+#####Export ContactUsQueryEmail Field  CSV writer as it contains \n, \r characters###
+
+
+
+INSERT_UPDATE ScriptingJob	;code[unique=true]		;scriptURI
+							;contactUsQueryEmailScriptJob	;model://contactUsQueryEmailScript
+							
+INSERT_UPDATE CronJob	;code[unique=true]			;job(code)				;sessionLanguage(isocode)	;sessionUser(uid)
+						;contactUsQueryEmailScriptCronJob	;contactUsQueryEmailScriptJob	;en		;admin
+
+INSERT_UPDATE Script; code[unique=true];content;active[default=true, unique=true]
+;contactUsQueryEmailScript;"import java.io.File;
+import java.io.FileWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.exception.ExceptionUtils;
+import org.apache.log4j.Logger;
+
+import com.apb.core.model.ContactUsQueryEmailModel;
+import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
+import de.hybris.platform.servicelayer.search.FlexibleSearchService;
+import de.hybris.platform.servicelayer.search.SearchResult;
+import de.hybris.platform.util.CSVWriter;
+import com.google.common.base.Stopwatch;
+import de.hybris.platform.catalog.model.CatalogUnawareMediaModel;
+import com.google.common.base.Stopwatch;
+
+
+final Logger LOG = Logger.getLogger(""asahi"");
+def exportService = spring.getBean(""exportService"");
+SimpleDateFormat format = new SimpleDateFormat(""yyyy-MM-dd hh:mm:ss"");
+
+
+final Stopwatch stopwatch = Stopwatch.createUnstarted();
+stopwatch.start();
+
+final FlexibleSearchQuery query = new FlexibleSearchQuery(""select {pk} from {ContactUsQueryEmail}"");
+final SearchResult<ContactUsQueryEmailModel> result = flexibleSearchService
+					.search(query);
+int count = result.getCount();
+println(""Total record count ######"" +count);
+
+int batch  = count > 10000 ? 10000 : count;
+int i = 0;
+ final File file =new File(""contactUsQueryEmail-""+new SimpleDateFormat(""yyyyMMddHHmmssSSS"").format(new Date())+"".csv"");
+ FileWriter outputfile = new FileWriter(file);
+ CSVWriter writer = new CSVWriter(outputfile);	
+ char c = ';';
+ writer.setFieldseparator(c);
+ HashMap<Integer,Object> line = new HashMap();
+ 
+ String header = "";accountNumber;code[unique=true];companyName[lang=en];contactNumber;\""creationtime[forceWrite=true,dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ]\"";emailAddress;furtherDetail[lang=en];modifiedtime[dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ];name[lang=en];otherSubject;phoneNumber;referenceNumber;salesRepEmail;salesRepName;subject;uploadFile(code) "";
+ 
+ final String[] columns = header.split("",(?=([^\""]*\""[^\""]*\"")*[^\""]*\$)"");
+ for (int k =0; k < columns.length ; k++) {
+	 line.put (Integer.valueOf(k), columns[k]);
+ }
+writer.write(line);
+		while (i < count)
+		{
+			query.setStart(i);
+			query.setCount(batch);
+			final SearchResult<ContactUsQueryEmailModel> result1 = flexibleSearchService.search(query);
+	
+			List<ContactUsQueryEmailModel> queryEmails = result1.getResult();		
+
+			for(ContactUsQueryEmailModel email : queryEmails)
+			{
+				try {
+				line.put(Integer.valueOf(0), "";"");
+				line.put(Integer.valueOf(1), email.getAccountNumber());
+				line.put(Integer.valueOf(2), email.getCode());
+				line.put(Integer.valueOf(3), email.getCompanyName());
+				line.put(Integer.valueOf(4), email.getContactNumber());				
+				line.put(Integer.valueOf(5), null != email.getCreationtime() ? new SimpleDateFormat(""yyyy-MM-dd HH:mm:ss.SSS ZZZZ"").format(email.getCreationtime()): StringUtils.EMPTY);
+				line.put(Integer.valueOf(6), email.getEmailAddress());	
+				String furtherDetail=email.getFurtherDetail();
+				if (null!= furtherDetail)
+				 {
+					furtherDetail = furtherDetail.replace('\n','+++');
+					furtherDetail = furtherDetail.replace('\r','===');
+				 }
+				line.put(Integer.valueOf(7), furtherDetail);	
+				line.put(Integer.valueOf(8), null != email.getModifiedtime() ? new SimpleDateFormat(""yyyy-MM-dd HH:mm:ss.SSS ZZZZ"").format(email.getModifiedtime()): StringUtils.EMPTY);		
+				line.put(Integer.valueOf(9), email.getName());
+				line.put(Integer.valueOf(10), email.getOtherSubject()); 
+				line.put(Integer.valueOf(11), email.getPhoneNumber());
+				line.put(Integer.valueOf(12), email.getReferenceNumber()); 
+				line.put(Integer.valueOf(13), email.getSalesRepEmail()); 
+				line.put(Integer.valueOf(14), email.getSalesRepName());
+				line.put(Integer.valueOf(15), email.getSubject()); 
+				line.put(Integer.valueOf(16), null != email.getUploadFile() ? email.getUploadFile().getCode() : StringUtils.EMPTY);							
+			 writer.write(line);
+		}
+		 
+		  catch(final Exception exception)
+		  {
+			println (ExceptionUtils.getStackTrace(exception));
+			LOG.error (ExceptionUtils.getStackTrace(exception));
+			LOG.error(""ContactUsQueryEmail failed in export : "" + email.getCode() +exception.getStackTrace());
+		  }
+		}
+		i = i+batch;
+	}
+	writer.close();	
+				 
+	if (file != null  && file.length() > 0) {
+		try {
+			
+				final InputStream fileInputStream = new FileInputStream(file);
+				final CatalogUnawareMediaModel mediaModel = modelService.create(CatalogUnawareMediaModel.class);
+				LOG.info(""Media File Name is : ""+file.getName());
+				mediaModel.setCode(file.getName() + ""_"" + System.currentTimeMillis());
+				mediaModel.setRealfilename(file.getName());
+				modelService.save(mediaModel);
+				mediaService.setStreamForMedia(mediaModel, fileInputStream);
+				modelService.refresh(mediaModel);
+			}
+		        
+        catch (final Exception ex) {
+			LOG.error(""Exception while preparing file for  ContactUsQueryEmail during batch set ""+ex);
+   }
+		finally {
+			writer.close();	
+			stopwatch.stop();
+			   LOG.info(""Time taken to export ContactUsQueryEmail  : "" + stopwatch.toString());
+		   }
+ }";;
+

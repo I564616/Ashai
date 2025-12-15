@@ -1,0 +1,5 @@
+jakarta.servlet.jsp.jstl-3.0.1.jar
+jsoup-1.20.1.jar
+less-rhino-1.7.3.js
+lessc-rhino-1.7.3.js
+rhino1_7R4.jar

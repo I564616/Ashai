@@ -1,0 +1,70 @@
+.information-box-component {
+  background: $white;
+  display: table;
+  margin: $double-spacing-unit auto;
+  width: 100%;
+
+  img {
+    position: absolute;
+    height: 36px;
+    left: $spacing-gutter;
+    width: 36px;
+  }
+
+  .panel-heading {
+    background: $orange-new;
+    border: 0 none;
+    border-radius: 10px 10px 0 0;
+    color: $white;
+    display: table;
+    font-size: $font-large;
+    font-weight: 500;
+    line-height: 36px;
+    margin: 0;
+    padding: $half-spacing-unit $spacing-gutter $half-spacing-unit 66px;
+    position: relative;
+    width: 100%;
+    a {
+      color: $white;
+      display: block;
+      font-size: $font-medium-x;
+      line-height: normal;
+      padding-top: 5px;
+      text-decoration: underline;
+      &:hover, &:focus {
+        text-decoration: none;
+      }
+      &:after {
+        background: none;
+      }
+      @media (min-width: $tablet) {
+        display: inline-block;
+        float: right;
+      }
+    }
+  }
+
+  .list-group {
+    border: 1px solid $medium-grey;;
+    border-radius: 0 0 10px 10px;
+    .list-group-item {
+      background: none;
+      border: 0 none;
+      padding-bottom: $spacing-unit-base;
+      padding-left: 66px;
+      padding-top: $spacing-unit-base;
+      position: relative;
+      h4, p {
+        font-size: $font-medium-x;
+      }
+      p {
+        font-style: italic;
+        color: $lighter-dark-grey;
+      }
+    }
+  }
+
+  .btn {
+    margin: $spacing-gutter;
+  }
+}

@@ -1,0 +1,98 @@
+INSERT_UPDATE ScriptingJob	;code[unique=true]		;scriptURI
+							;b2bunitconfigDeltaExportScriptJob	;model://b2bunitconfigDeltaExportScript
+							
+INSERT_UPDATE CronJob	;code[unique=true]			;job(code)				;sessionLanguage(isocode)	;sessionUser(uid)
+						;b2bunitconfigDeltaExportScriptCronJob	;b2bunitconfigDeltaExportScriptJob	;en		;admin
+
+INSERT_UPDATE Script; code[unique=true];content;active[default=true, unique=true]
+;b2bunitconfigDeltaExportScript;"import java.io.File;
+import java.lang.Exception;
+import java.io.InputStream;
+import de.hybris.platform.util.CSVConstants;
+import java.io.IOException;
+
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.sql.Timestamp;
+import org.apache.log4j.*;
+import org.apache.commons.io.IOUtils;
+import de.hybris.platform.servicelayer.impex.ExportConfig;
+import de.hybris.platform.servicelayer.impex.ExportConfig.ValidationMode;
+import de.hybris.platform.servicelayer.impex.ExportResult;
+import de.hybris.platform.servicelayer.impex.ExportService;
+import de.hybris.platform.servicelayer.impex.ImpExResource;
+import de.hybris.platform.impex.model.ImpExMediaModel;
+import de.hybris.platform.impex.jalo.exp.ImpExExportMedia;
+import de.hybris.platform.servicelayer.impex.impl.StreamBasedImpExResource;
+import de.hybris.platform.impex.model.exp.ImpExExportMediaModel;
+
+import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
+import de.hybris.platform.servicelayer.search.SearchResult;
+import de.hybris.platform.impex.model.cronjob.ImpExExportCronJobModel;
+
+final Logger LOG = Logger.getLogger(""asahi"");
+
+def exportService = spring.getBean(""exportService"");
+
+Calendar cal1 = Calendar.getInstance(); 
+cal1.set(Calendar.HOUR_OF_DAY, 0)
+cal1.set(Calendar.MINUTE, 0);
+cal1.set(Calendar.SECOND, 0);
+cal1.add(Calendar.DAY_OF_MONTH, -7);
+Date d = cal1.getTime();
+String oldDate = new SimpleDateFormat(""yyyy-MM-dd HH:mm:ss.SSS ZZZZ"").format(d);
+final Map<String, Object> params = new HashMap<>();
+params.put(""modifiedTime1"", oldDate);
+def modifiedTime1 = oldDate;
+
+header = ""insert_update AccountGroups;code[unique=true,allownull=true];name[lang=en];\n"" +
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {AccountGroups} where {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+""insert_update AccountType;code[unique=true,allownull=true];name[lang=en];\n""+
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {AccountType} where {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+""insert AddressStatusMapping;dynamicsStatusCode;statusCode;\n""+
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {AddressStatusMapping} where {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+""insert_update Holiday;code[unique=true,allownull=true];date[dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ];description;region(country(isocode),isocode);\n""+
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {Holiday} where {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+""insert OrderStatusMapping;DisplayStatus;;dynamicsStatusCode;statusCode;\n""+
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {OrderStatusMapping} where {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+""insert_update AddressType; code[unique = true]; name[lang = en];\n""+
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {AddressType} where {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+""insert_update BackendCustomerType; code[unique = true]; name[lang = en];\n""+
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {BackendCustomerType} where {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+""insert_update Title; code[unique = true]; name[lang = en];\n""+
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {Title} where {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+""insert_update AsahiSAMInvoiceStatus; code[unique = true]; name[lang = en];\n""+
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {AsahiSAMInvoiceStatus} where {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+""insert_update AsahiSAMDocumentType; code[unique = true]; name[lang = en];\n""+
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {AsahiSAMDocumentType} where {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+""insert_update AsahiSAMPaymentType; code[unique = true]; name[lang = en];\n""+
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {AsahiSAMPaymentType} where {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+""insert_update AsahiOnAccountRestrictedCode;code[forceWrite=true,unique=true,allownull=true];icon(catalogVersion(catalog(id),version),code);itemtype(code)[unique=true];name[lang=en];sequenceNumber;\n""+
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {AsahiOnAccountRestrictedCode} where {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n""+
+""insert_update AsahiDirectDebitPaymentMode; code[unique = true]; name[lang = en];\n""+
+""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {AsahiDirectDebitPaymentMode} where {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );\""\n"";
+
+
+InputStream resourceAsStream = null;
+try {
+	resourceAsStream = new ByteArrayInputStream(header.getBytes());
+	final ImpExResource resource = new StreamBasedImpExResource(resourceAsStream, CSVConstants.DEFAULT_ENCODING);
+	final ExportConfig config = new ExportConfig();
+	config.setScript(resource);
+	config.setSingleFile(true);
+	config.setValidationMode(ValidationMode.WITHOUT);
+	config.setExportedDataCode(""b2bunitconfiguration-""+new SimpleDateFormat(""yyyyMMddHHmmssSSS"").format(new Date()));
+	final ExportResult result = exportService.exportData(config);
+	
+	if (result.isError()){
+		LOG.info(""Exception occurred during export"");
+	}
+}
+catch (final Exception exception) {
+		LOG.log(Level.ERROR, exception.getMessage());
+	} 
+finally
+		{
+			resourceAsStream.close();
+		}";;
+	

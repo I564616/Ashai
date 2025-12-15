@@ -1,0 +1,39 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# ImpEx for Importing SGA Store Prices
+#% impex.setLocale( Locale.GERMAN ); 
+
+$productCatalog=sgaProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default='$productCatalog:Staged']
+$prices=Europe1prices[translator=de.hybris.platform.europe1.jalo.impex.Europe1PricesTranslator]
+
+# Set product approval status to Approved only for those products that have prices.
+$approved=approvalstatus(code)[default='approved']
+
+UPDATE Product ; code[unique=true]                                      ; $prices             ; $approved ; $catalogVersion ; 
+               ;10005000; 1 pieces = 20 AUD N ;;;
+               ;10006152; 1 pieces = 20 AUD N ;;;
+               ;10006140; 1 pieces = 20 AUD N ;;;
+               ;10004997; 1 pieces = 20 AUD N ;;;
+               ;2919; 1 pieces = 20 AUD N ;;;
+               ;2925; 1 pieces = 20 AUD N ;;;
+               ;2918; 1 pieces = 20 AUD N ;;;
+               ;10005124; 1 pieces = 20 AUD N ;;;
+               ;10000838; 1 pieces = 20 AUD N ;;;
+               ;10000844; 1 pieces = 20 AUD N ;;;
+               ;10006110; 1 pieces = 20 AUD N ;;;
+               ;3221; 1 pieces = 20 AUD N ;;;
+               ;3226; 1 pieces = 20 AUD N ;;;
+               ;10005919; 1 pieces = 20 AUD N ;;;
+               ;10000997; 1 pieces = 150 AUD N;;;
+               ;10000840; 1 pieces = 150 AUD N;;;
+               ;10006231; 1 pieces = 150 AUD N;;;
+			   ;10006111; 1 pieces = 150 AUD N;;;

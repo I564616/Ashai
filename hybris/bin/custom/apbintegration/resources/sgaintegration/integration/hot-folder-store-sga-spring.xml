@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:file="http://www.springframework.org/schema/integration/file"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/integration
+		http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/integration/file
+		http://www.springframework.org/schema/integration/file/spring-integration-file.xsd
+		http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+		
+    <context:annotation-config/> 
+
+	<bean id="baseDirectorySga" class="java.lang.String">
+		<constructor-arg value="#{baseDirectory}/${tenantId}/sga" />
+	</bean>
+	
+	<!-- Note : If custom header needs to considered for SGA then correspondingly change file order comparator and also converter key accordingly -->
+	
+	
+	<bean id="fileOrderComparatorSga" class="de.hybris.platform.acceleratorservices.dataimport.batch.FileOrderComparator">
+		<property name="prefixPriority">
+			<map>
+				<!-- default priority is 0 -->
+				<entry key="sga_b2bunit" value="48" />
+				<entry key="sga_b2bunitAddress" value="47" />
+				<entry key="sga_customer" value="46" />
+				<entry key="sga_category" value="45" />
+            <entry key="sga_product_unit_volume" value="44" />
+            <entry key="sga_product_brand" value="43" />
+            <entry key="sga_product_package_Size" value="42" />
+            <entry key="sga_base_product" value="41" />
+            <entry key="sga_product_description" value="40" />
+            <entry key="sga_product-recommendations" value="39" />
+            <entry key="sga_product_enrichment" value="38" />
+            <entry key="sga_media" value="37" />
+            <entry key="sga_planogram_media" value="54" />
+			</map>
+		</property>
+	</bean>
+	<!-- 1) Scan for SGA Specific files -->
+     <file:inbound-channel-adapter id="batchFilesSga" directory="#{baseDirectorySga}" ignore-hidden="true"
+          filename-regex="^(.*)-(\d+)\.csv" comparator="fileOrderComparatorSga" auto-startup="#{configurationService.configuration.getProperty('hotfolder.configuration.enabled')}">
+          <int:poller fixed-rate="1000" />
+   	  </file:inbound-channel-adapter>
+	
+
+	<!-- 2) move the file to processing and setup header -->
+	<file:outbound-gateway request-channel="batchFilesSga" reply-channel="batchFilesSgaProc"
+		directory="#{baseDirectorySga}/processing" delete-source-files="true" />
+		
+	<int:service-activator input-channel="batchFilesSgaProc" output-channel="batchFilesHeaderInit"
+		ref="sgaHeaderSetupTask" method="execute" />
+		
+		
+		<!-- SGA Specific Product Catatlog  -->
+	<bean id="sgaHeaderSetupTask" class="de.hybris.platform.acceleratorservices.dataimport.batch.task.HeaderSetupTask">
+	
+		<property name="catalog" value="sgaProductCatalog" />
+		<property name="net" value="false" />
+		<property name="storeBaseDirectory" ref="baseDirectorySga" />
+	</bean>
+	
+		
+</beans>

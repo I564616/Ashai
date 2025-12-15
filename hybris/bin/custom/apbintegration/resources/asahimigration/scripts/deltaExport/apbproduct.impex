@@ -1,0 +1,105 @@
+INSERT_UPDATE ScriptingJob	;code[unique=true]		;scriptURI
+							;productDeltaExportScriptJob	;model://productDeltaExportScript
+							
+INSERT_UPDATE CronJob	;code[unique=true]			;job(code)				;sessionLanguage(isocode)	;sessionUser(uid)
+						;productDeltaExportScriptCronJob	;productDeltaExportScriptJob	;en		;admin
+
+
+INSERT_UPDATE Script; code[unique=true];content;active[default=true, unique=true]
+;productDeltaExportScript;"import java.io.File;
+import java.lang.Exception;
+import java.io.InputStream;
+import de.hybris.platform.util.CSVConstants;
+import java.io.IOException;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.sql.Timestamp;
+import org.apache.log4j.Logger;
+import org.apache.commons.io.IOUtils;
+import com.google.common.base.Stopwatch;
+import de.hybris.platform.servicelayer.impex.ExportConfig;
+import de.hybris.platform.servicelayer.impex.ExportConfig.ValidationMode;
+import de.hybris.platform.servicelayer.impex.ExportResult;
+import de.hybris.platform.servicelayer.impex.ExportService;
+import de.hybris.platform.servicelayer.impex.ImpExResource;
+import de.hybris.platform.impex.model.ImpExMediaModel;
+import de.hybris.platform.impex.jalo.exp.ImpExExportMedia;
+import de.hybris.platform.servicelayer.impex.impl.StreamBasedImpExResource;
+import de.hybris.platform.impex.model.exp.ImpExExportMediaModel;
+import com.apb.core.model.ApbProductModel;
+import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
+import de.hybris.platform.servicelayer.search.SearchResult;
+import de.hybris.platform.impex.model.cronjob.ImpExExportCronJobModel;
+
+final Logger LOG = Logger.getLogger(""asahi"");
+
+flexibleSearchService = spring.getBean(""flexibleSearchService"");
+def exportService = spring.getBean(""exportService"");
+
+Calendar cal1 = Calendar.getInstance(); 
+cal1.set(Calendar.HOUR_OF_DAY, 0)
+cal1.set(Calendar.MINUTE, 0);
+cal1.set(Calendar.SECOND, 0);
+cal1.add(Calendar.DAY_OF_MONTH, -7);
+Date d = cal1.getTime();
+String oldDate = new SimpleDateFormat(""yyyy-MM-dd HH:mm:ss.SSS ZZZZ"").format(d);
+final Map<String, Object> params = new HashMap<>();
+params.put(""modifiedTime1"", oldDate);
+def modifiedTime1 = oldDate;
+
+
+final FlexibleSearchQuery query = new FlexibleSearchQuery(""select {pk} from {ApbProduct} where {modifiedTime}>='' and {modifiedTime} <='' "", params);
+
+final SearchResult<ApbProductModel> result1 = flexibleSearchService
+		.search(query);
+int count = result1.getCount();
+int batch = result1.getCount() > 25000 ? 25000 : result1.getCount();
+
+LOG.info(""Total record count ######"" +count);
+	
+int i=0;
+if (count > 0) {
+
+while (i < count ){
+
+	final Stopwatch stopwatch = Stopwatch.createUnstarted();
+	stopwatch.start();
+	
+	
+	header = ""insert_update ApbProduct;catalogVersion(catalog(id),version)[unique=true,allownull=true];code[unique=true];active[allownull=true];alcoholPercent;alcoholSubType(code,itemtype(code));alcoholType(code);approvalStatus(code,itemtype(code))[allownull=true];backendUnitPerCase;backendUnitVolume;bagInBox;brand(code);catalog(id)[allownull=true];companyCode;contentUnit(code);deliveryTime;depth;diet;ean;flavour(code);height;itemGroup(code);maxOrderQuantity;maxQty;minOrderQuantity;minQty;newProduct[allownull=true];numberContentUnits;order;orderQuantityInterval;packageSize(code);packageType(code);portalUnitVolume(code);premium[allownull=true];priceQuantity;productGroup(code);productType(code,itemtype(code));qtyPerLayer;rank;sequenceId;standardPalletQuantity;unit(code);unitPerInner;variantType(code);width;buyerIDS;specialTreatmentClasses;name[lang=en];backendName[lang=en];summary[lang=en];supercategories(code, catalogVersion(catalog(id),version));outlet(code);articleStatus;creationtime[forceWrite=true,dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ];modifiedtime[forceWrite=true,dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ]\n""+
+	""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {pk} FROM {ApbProduct} where {modifiedTime}>='$modifiedTime1' \""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), false, true, ${i}, ${batch} );\""\n"";                                                   
+
+	InputStream resourceAsStream = null;
+	try {
+		resourceAsStream = new ByteArrayInputStream(header.getBytes());
+		final ImpExResource resource = new StreamBasedImpExResource(resourceAsStream, CSVConstants.DEFAULT_ENCODING);
+		final ExportConfig config = new ExportConfig();
+		config.setScript(resource);
+		config.setValidationMode(ValidationMode.WITHOUT);
+		config.setSingleFile(true);
+		char c=',';
+		config.setFieldSeparator(c);
+		config.setExportedDataCode(""07-apbProduct-""+new SimpleDateFormat(""yyyyMMddHHmmssSSS"").format(new Date()));
+		final ExportResult result = exportService.exportData(config);
+		stopwatch.stop();
+		if (result.isError()){
+			LOG.error(""Exception occurred during export"");
+		} else {
+			LOG.info(""Time taken to export ApbProduct for batch size : ""  + batch +""......"" + stopwatch.toString());
+		}
+		
+	}
+	catch (final Exception exception) {
+			LOG.log(Level.ERROR, exception.getMessage());	
+			
+		}
+	finally
+		{
+			resourceAsStream.close();
+		}	
+		
+	i=i+batch;
+} 
+	
+}";;
+

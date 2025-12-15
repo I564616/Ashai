@@ -1,0 +1,40 @@
+# Import the CMS content for the site
+#
+$contentCatalog = sabmContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Staged])[default = $contentCatalog:Staged]
+$productCV = catalogVersion(catalog(id[default = $productCatalog]), version[default = 'Staged'])[unique = true, default = $productCatalog:Staged]
+
+
+
+
+ UPDATE CMSNavigationNode; uid[unique = true]; $contentCV[unique = true];parentPOS               
+                          ;RTDPopularNavNode;;0
+						  ;RTDBrandNavNode;;1
+						  ;RTDStyleNavNode;;2
+						  ;RTDSubcategoryNavNode;;3
+						  ;RTDPackageTypeNavNode;;4
+						  ;CiderPopularNavNode;;0
+						  ;CiderBrandNavNode;;1
+						  ;CiderStyleNavNode;;2
+						  ;CiderSubcategoryNavNode;;3
+						  ;CiderPackageTypeNavNode;;4
+                          ;SpiritsPopularNavNode;;0
+						  ;SpiritsBrandNavNode;;1
+						  ;SpiritsStyleNavNode;;2
+						  ;SpiritsSubcategoryNavNode;;3
+						  ;SpiritsPackageTypeNavNode;;4
+                          ;ChildWineNavNode;;0
+						  ;WineBrandNavNode;;1
+						  ;WineStyleNavNode;;2
+						  ;WineSubcategoryNavNode;;3
+						  ;WinePackageTypeNavNode;;4
+						  ;ChildNonAlcoholicNavNode;;0
+						  ;NonAlocoholicBrandNavNode;;1
+						  ;NonAlocoholicStyleNavNode;;2
+						  ;NonAlocoholicSubcategoryNavNode;;3
+						  ;NonAlocoholicPackageTypeNavNode;;4
+						  
+						  
+
+
+

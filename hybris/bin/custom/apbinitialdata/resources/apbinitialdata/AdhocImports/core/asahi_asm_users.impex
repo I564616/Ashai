@@ -1,0 +1,20 @@
+$defaultPassword=12341234
+
+INSERT_UPDATE UserGroup ; uid[unique=true]                 ; groups(uid)                 ; locname[lang=en]                    ;description
+						; asagentgroup					   ;							;Common Assisted Service Agent Group;"Common Assisted Service Agent Group"
+                        ; asahiCustomerSupportManagerGroup ; customersupportmanagergroup ; Asahi customer support manager group;"The ASM CS Support Manager can do everything an 'ASM CS Support Agent' can do, and more, such as authorising a customer's quote request for example."
+                        ; asahiSalesRepresentativeGroup    ; asagentgroup                ; Asahi sales repesentative;    "The ASM CS Support Agent can provide sales and service support to a customer, but may be restricted, so that they cannot checkout a customer's cart, or authorise a customer's quote request for example."  
+	
+
+INSERT_UPDATE PrincipalGroupRelation;source(uid)[unique=true];target(uid)[unique=true]
+;asahiSalesRepresentativeGroup;asagentgroup
+;asahiCustomerSupportManagerGroup;asahiSalesRepresentativeGroup
+
+	
+INSERT_UPDATE Employee ; UID[unique=true]    ; password[default=$defaultPassword] ; description                    ; name                           ; groups(uid)[mode=append]         ; sessionLanguage(isocode) ; sessionCurrency(isocode) ; backOfficeLoginDisabled[default=false]
+                       ; asahicsmanager      ;                                    ; Asahi customer support manager ; Asahi customer support manager ; asahiCustomerSupportManagerGroup ; en                       ; AUD                      
+                       ; asahisalesrep       ;                                    ; Asahi sales repesentative      ; Sales rep                      ; asahiSalesRepresentativeGroup    ; en                       ; AUD                      
+
+
+INSERT_UPDATE CustomerList;uid[unique=true];implementationType;priority;members(uid)[mode=append];locname[lang=en]
+;myRecentCustomerSessions;"ASM_RECENT_SESSIONS";1;asagentgroup;"My Recent Customer Sessions"

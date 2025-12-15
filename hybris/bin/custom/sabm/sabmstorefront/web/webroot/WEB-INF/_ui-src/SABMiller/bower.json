@@ -1,0 +1,9 @@
+{
+  "name": "fedscaffold",
+  "version": "0.1.0",
+  "dependencies": {
+  	"jquery": "1.11",
+  	"bootstrap-sass-official": "3.3",
+  	"respond": "https://github.com/scottjehl/Respond.git#1.4.2"
+  }
+}

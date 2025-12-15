@@ -1,0 +1,244 @@
+$lang = en
+
+$contentCatalog = sabmContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Staged])[default = $contentCatalog:Staged]
+$productCV = catalogVersion(catalog(id[default = $productCatalog]), version[default = 'Staged'])[unique = true, default = $productCatalog:Staged]
+
+
+# Import modulegen config properties into impex macros
+UPDATE GenericItem[processor = de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor]; pk[unique = true]
+$jarResourceCms = $config-jarResourceCmsValue
+
+
+##########################################################CUB invoice discrepancy landing page################################
+$pageId = invoiceDiscrepancyPage
+$pageIdTemplate = invoiceDiscrepancyPageTemplate
+# STEP 1 - Create a new page template
+# Create PageTemplates
+# These define the layout for pages
+# "FrontendTemplateName" is used to define the JSP that should be used to render the page for pages with multiple possible layouts.
+# "RestrictedPageTypes" is used to restrict templates to page types
+INSERT_UPDATE PageTemplate; $contentCV[unique = true]; uid[unique = true]; name; frontendTemplateName; restrictedPageTypes(code); active[default = true]
+; ; $pageIdTemplate ; $pageIdTemplate ; invoice/$pageIdTemplate ; ContentPage
+
+# STEP 2 - Create new pages
+# Functional Content Pages
+INSERT_UPDATE ContentPage; $contentCV[unique = true]; uid[unique = true]; name; masterTemplate(uid, $contentCV); label; defaultPage[default = 'true']; approvalStatus(code)[default = 'approved']; homepage[default = 'false'];
+; ; $pageId ; $pageId ; $pageIdTemplate ; $pageId ;
+
+# STEP 3 - Create content slot names required for the template
+# Invoice  Discrepancy Page Template
+INSERT_UPDATE ContentSlotName; name[unique = true]; template(uid, $contentCV)[unique = true][default = 'invoiceDiscrepancyPageTemplate']; validComponentTypes(code); compTypeGroup(code)
+; SiteLogo               ; ; ; logo
+; HeaderLinks            ; ; ; headerlinks
+; SearchBox              ; ; ; searchbox
+; MiniCart               ; ; ; minicart
+; NavigationBar          ; ; ; navigation
+; TopContentSlot         ; ; ; wide
+; BottomContentSlot      ; ; ; wide
+; Footer                 ; ; ; footer
+; TopHeaderSlot          ; ; ; wide
+; BottomHeaderSlot       ; ; ; wide
+; PlaceholderContentSlot ; ; ; ;
+
+# STEP 4 - Create the components required for the pages
+### Jsp Include Component ###
+INSERT_UPDATE JspIncludeComponent; $contentCV[unique = true]; uid[unique = true]; name; page; actions(uid, $contentCV); &componentRef
+; ; InvoiceDiscrepancyComponent ; Invoice Discrepancy JSP component ; invoiceDiscrepancy.jsp ; ; InvoiceDiscrepancyComponent
+
+# STEP 5 - Create content slots for the pages
+INSERT_UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]; name; active; cmsComponents(&componentRef)
+; ; TopContentSlot-$pageId    ; TopContentSlot for $pageId    ; true ;
+; ; BottomContentSlot-$pageId ; BottomContentSlot for $pageId ; true ; InvoiceDiscrepancyComponent
+
+INSERT_UPDATE ContentSlotForPage; $contentCV[unique = true]; uid[unique = true]; position[unique = true]; page(uid, $contentCV)[unique = true][default = 'invoiceDiscrepancyPage']; contentSlot(uid, $contentCV)[unique = true]
+; ; TopContentSlot-$pageId    ; TopContentSlot    ; ; TopContentSlot-$pageId
+; ; BottomContentSlot-$pageId ; BottomContentSlot ; ; BottomContentSlot-$pageId
+
+
+# STEP 6 - Link the content slots for the  Page Template
+INSERT_UPDATE ContentSlotForTemplate; $contentCV[unique = true]; uid[unique = true]; position[unique = true]; pageTemplate(uid, $contentCV)[unique = true][default = 'invoiceDiscrepancyPageTemplate']; contentSlot(uid, $contentCV)[unique = true]; allowOverwrite
+; ; SiteLogo-$pageIdTemplate               ; SiteLogo               ; ; SiteLogoSlot           ; true
+; ; HomepageLink-$pageIdTemplate           ; HomepageNavLink        ; ; HomepageNavLinkSlot    ; true
+; ; DeliveryDatepickerSlot-$pageIdTemplate ; DeliveryDatepickerBar  ; ; DeliveryDatepickerSlot ; true
+; ; MiniCart-$pageIdTemplate               ; MiniCart               ; ; MiniCartSlot           ; true
+; ; NavigationBar-$pageIdTemplate          ; NavigationBar          ; ; NavigationBarSlot      ; true
+; ; BreadcrumbSlot-$pageIdTemplate         ; BreadcrumbBar          ; ; BreadcrumbSlot         ; true
+; ; Footer-$pageIdTemplate                 ; Footer                 ; ; FooterSlot             ; true
+; ; HeaderLinks-$pageIdTemplate            ; HeaderLinks            ; ; HeaderLinksSlot        ; true
+; ; SearchBox-$pageIdTemplate              ; SearchBox              ; ; SearchBoxSlot          ; true
+; ; TopHeaderSlot-$pageIdTemplate          ; TopHeaderSlot          ; ; TopHeaderSlot          ; true
+; ; BottomHeaderSlot-$pageIdTemplate       ; BottomHeaderSlot       ; ; BottomHeaderSlot       ; true
+; ; TopContentSlot-$pageIdTemplate         ; TopContentSlot         ; ; TopContentSlot         ; true
+; ; BottomContentSlot-$pageIdTemplate      ; BottomContentSlot      ; ; BottomContentSlot      ; true
+; ; PlaceholderContentSlot-$pageIdTemplate ; PlaceholderContentSlot ; ; PlaceholderContentSlot ; true
+
+
+# Add Velocity templates that are in the CMS Cockpit. These give a better layout for editing pages
+# The FileLoaderValueTranslator loads a File into a String property. The templates could also be inserted in-line in this file.
+UPDATE PageTemplate; $contentCV[unique = true]; uid[unique = true]; velocityTemplate[translator = de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+; ; $pageIdTemplate ; $jarResourceCms/structure-view/structure_invoiceDiscrepancyPageTemplate.vm
+
+###########################################################Home Page add link to invoice Discrepancy B2BCUB3-694################################
+
+#Update existing LinkParagraphComponent to have url2 and url3
+UPDATE LinkParagraphComponent; $contentCV[unique = true]; uid[unique = true]; linkText2; url2
+; ; BillingAndPayment ; Raise an Invoice Discrepancy ; /your-business/invoicediscrepancy
+
+UPDATE LinkParagraphComponent; $contentCV[unique = true]; uid[unique = true]; linkText3; url3
+; ; BillingAndPayment ; View Your Raised Invoice Discrepancies ; /your-business/raisedinvoicediscrepancy
+
+####Change the existing label 'View all transactions & Invoices' to 'View Billing & Payments'
+UPDATE LinkParagraphComponent; $contentCV[unique = true]; uid[unique = true]; linkText; url
+; ; BillingAndPayment ; View Billing and Payments ; /your-business/billing
+
+
+###########################################################Your Account (Billing & Payments) page B2BCUB3-694################################
+#HERO BANNER COMPONENT JOIN AUTOPAY START
+INSERT_UPDATE GenericTextContentItem; $contentCV[unique = true]; uid[unique = true]; name; sabmSubText;
+; ; RaisedInvoiceDiscrepancyEnquiryTextContentItem 	; "" ; "Review your recent invoice discrepancies raised through CUB Online." ;
+; ; CreditAdjustmentNotifictionTextContentItem     	; "" ; "You can receive notifications everytime a credit adjustment has been added to 'Billing and Payments' on CUB online. Simply visit"
+; ; SendUsNotifictionTextContentItem				; "" ; "Do you have a discrepancy on a particular invoice? Send us the details. Make sure you have the relevant invoice number to complete the required form."
+; ; BillingAndPaymentNotifictionTextContentItem    	; "" ; "You can view all credit adjustments added to your CUB Online account from Billing & Payments. Simply visit"
+
+INSERT_UPDATE CMSLinkEnhancedComponent; $contentCV[unique = true]; uid[unique = true]; name; url; renderType(code);
+; ; RaisedDiscripancyCMSLinkEnhancedComponent ; "VIEW YOUR DISCREPANCIES"   ; /your-business/raisedinvoicediscrepancy ; BUTTON
+; ; CreditAdjustmentCMSLinkEnhancedComponent  ; "Manage Your Notifications" ; /your-notifications                     ; LINK
+; ; SendUsCMSLinkEnhancedComponent 			  ; "Raise a Discrepancy"		; /your-business/invoicediscrepancy		  ; BUTTON
+; ; BillingAndPaymentCMSLinkEnhancedComponent ; "Billing and Payments"		; /your-business/billing				  ; LINK
+
+INSERT_UPDATE SABMHeroBannerComponent; $contentCV[unique = true]; uid[unique = true]; name; urlLink; boundary(code); boundaryType(code); fit(code); ctaAlignment(code); textAlignment(code); ctaLinks(uid, $contentCV); desktopTitle; mobileTitle; textList(uid, $contentCV); colorTreatment(code); visible[default = 'true']; titleIcon(code)
+; ; SupportRaisedInvoiceDiscrepancyComponent_backgroundimage ; Support Raised Invoice Discrepancy Component ; ; REGULAR ; SOLID ; SHRINK   ; LEFT ; LEFT ; RaisedDiscripancyCMSLinkEnhancedComponent ; Your Raised Invoice Discrepancies 		; Your Raised Invoice Discrepancies			; RaisedInvoiceDiscrepancyEnquiryTextContentItem ; LIGHT      	;; NONE
+; ; CreditAdjustmentComponent_backgroundimage                ; Credit Adjustment Component                  ; ; NONE    ; NONE  ; EXPANDED ; LEFT ; LEFT ; CreditAdjustmentCMSLinkEnhancedComponent  ; Did you know?                    		; Did you know ?                    		; CreditAdjustmentNotifictionTextContentItem     ; LIGHT_DARK 	;; BLUB
+; ; SendUsRaisedInvoiceDiscrepancyComponent_backgroundimage  ; Send Us Invoice Discrepancy Component  		; ; REGULAR ; SOLID ; EXPANDED ; LEFT ; LEFT ; SendUsCMSLinkEnhancedComponent		     ; Something not right with your invoice?  	; Something not right with your invoice?    ; SendUsNotifictionTextContentItem    			 ; LIGHT		;; NONE
+; ; BillingAndPaymentComponent_backgroundimage               ; Billing & Payment Component                 	; ; NONE    ; NONE  ; EXPANDED ; LEFT ; LEFT ; BillingAndPaymentCMSLinkEnhancedComponent ; Did you know?                    		; Did you know ?                    		; BillingAndPaymentNotifictionTextContentItem    ; LIGHT_DARK 	;; BLUB
+
+
+Update SABMHeroBannerComponent; $contentCV[unique = true]; uid[unique = true]; visible
+; ; SupportInvoiceDescrepancyComponent_backgroundimage ; true
+
+
+###Update content slot on billing page - /your-business/billing
+INSERT_UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]; name; active; cmsComponents(uid, $contentCV);
+; ; InvoiceDiscrepencyBottomContentSlot-$pageId ; InvoiceDiscrepency Bottom ContentSlot for $pageId ; true ; SupportInvoiceDescrepancyComponent_backgroundimage ,SupportRaisedInvoiceDiscrepancyComponent_backgroundimage,CreditAdjustmentComponent_backgroundimage ;
+
+
+INSERT_UPDATE ContentSlotForPage; $contentCV[unique = true]; uid[unique = true]; position[unique = true]; page(uid, $contentCV)[unique = true][default = 'billing']; contentSlot(uid, $contentCV)[unique = true]
+; ; InvoiceDiscrepencyBottomContentSlot-$pageId ; InvoiceDiscrepancyContentSlot ; ; InvoiceDiscrepencyBottomContentSlot-$pageId
+
+
+
+##########################################################CMS YourBusiness and BillingAndPayment Components################################
+$yourBusinessContent=Stay on top of your account and manage your personal information, business users, payments and order templates online. View your order history and get access to our online support.
+$billingAndPaymentContent=Search, view, print and email your transactions and invoices. Pay your account online by credit card.
+
+##fix Type from cms-credit-support-page-components.impex
+UPDATE CMSLinkEnhancedComponent; $contentCV[unique = true]; uid[unique = true]; name; url; renderType(code);
+; ; DescripancyCMSLinkEnhancedComponent ; "RAISE A DISCREPANCY" ; /your-business/invoicediscrepancy ; BUTTON
+
+INSERT_UPDATE LinkParagraphComponent;$contentCV[unique=true];uid[unique=true];name;title;content;linkText;icon
+;;YourBusiness;Your Business;Your Business;$yourBusinessContent;Go to Your Business; icon-business
+;;BillingAndPayment;Your Account;Your Account;$billingAndPaymentContent;View Billing and Payments; icon-invoice
+
+
+######  UPDATE SABMiller Your Business Overview Page Need a Hand Section ######
+$serviceRequestDescription=Do you need service support on a recent delivery or want to update your account details? Simply raise an enquiry using our online enquiry form and we will contact you directly.
+$contactUsDescription=Find information on how to get in contact with CUB.
+$faqsDescription=Find answers to our most Frequently Asked Questions.
+
+UPDATE LinkParagraphComponent;$contentCV[unique=true];uid[unique=true];name;title;content;linkText;url;icon;&componentRef
+;;BusinessEnquiry;Business Enquiry;;$serviceRequestDescription;Support;/businessEnquiry;;BusinessEnquiry
+;;ContactUs;Contact us;;$contactUsDescription;Contact Us;/serviceRequest;;ContactUs
+;;FAQs;FAQs;;$faqsDescription;FAQs;/serviceRequest#faqs;;FAQs
+;;ServiceRequest;Service request;;$serviceRequestDescription;Support;/serviceRequest;;ServiceRequest
+
+
+
+##########################################################CUB Raised Invoice discrepancy landing page################################
+$pageId = raisedInvoiceDiscrepancyPage
+$pageIdTemplate = raisedInvoiceDiscrepancyPageTemplate
+
+
+# STEP 1 - Create a new page template
+# Create PageTemplates
+# These define the layout for pages
+# "FrontendTemplateName" is used to define the JSP that should be used to render the page for pages with multiple possible layouts.
+# "RestrictedPageTypes" is used to restrict templates to page types
+INSERT_UPDATE PageTemplate; $contentCV[unique = true]; uid[unique = true]; name; frontendTemplateName; restrictedPageTypes(code); active[default = true]
+; ; $pageIdTemplate ; $pageIdTemplate ; invoice/$pageIdTemplate ; ContentPage
+
+# STEP 2 - Create new pages
+# Functional Content Pages
+INSERT_UPDATE ContentPage; $contentCV[unique = true]; uid[unique = true]; name; masterTemplate(uid, $contentCV); label; defaultPage[default = 'true']; approvalStatus(code)[default = 'approved']; homepage[default = 'false'];
+; ; $pageId ; $pageId ; $pageIdTemplate ; $pageId ;
+
+# STEP 3 - Create content slot names required for the template
+# Invoice  Discrepancy Page Template
+INSERT_UPDATE ContentSlotName; name[unique = true]; template(uid, $contentCV)[unique = true][default = 'raisedInvoiceDiscrepancyPageTemplate']; validComponentTypes(code); compTypeGroup(code)
+; SiteLogo               ; ; ; logo
+; HeaderLinks            ; ; ; headerlinks
+; SearchBox              ; ; ; searchbox
+; MiniCart               ; ; ; minicart
+; NavigationBar          ; ; ; navigation
+; TopContentSlot         ; ; ; wide
+; BottomContentSlot      ; ; ; wide
+; Footer                 ; ; ; footer
+; TopHeaderSlot          ; ; ; wide
+; BottomHeaderSlot       ; ; ; wide
+; PlaceholderContentSlot ; ; ; ;
+
+# STEP 4 - Create the components required for the pages
+### Jsp Include Component ###
+INSERT_UPDATE JspIncludeComponent; $contentCV[unique = true]; uid[unique = true]; name; page; actions(uid, $contentCV); &componentRef
+; ; RaisedInvoiceDiscrepancyComponent ; Raised Invoice Discrepancy JSP component ; raisedInvoiceDiscrepancy.jsp ; ; RaisedInvoiceDiscrepancyComponent
+
+# STEP 5 - Create content slots for the pages
+INSERT_UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]; name; active; cmsComponents(uid, $contentCV)
+; ; TopContentSlot-$pageId    ; TopContentSlot for $pageId    ; true ;
+; ; BottomContentSlot-$pageId ; BottomContentSlot for $pageId ; true ; RaisedInvoiceDiscrepancyComponent, SendUsRaisedInvoiceDiscrepancyComponent_backgroundimage, BillingAndPaymentComponent_backgroundimage
+
+INSERT_UPDATE ContentSlotForPage; $contentCV[unique = true]; uid[unique = true]; position[unique = true]; page(uid, $contentCV)[unique = true][default = 'raisedInvoiceDiscrepancyPage']; contentSlot(uid, $contentCV)[unique = true]
+; ; TopContentSlot-$pageId    ; TopContentSlot    ; ; TopContentSlot-$pageId
+; ; BottomContentSlot-$pageId ; BottomContentSlot ; ; BottomContentSlot-$pageId
+
+
+# STEP 6 - Link the content slots for the  Page Template
+INSERT_UPDATE ContentSlotForTemplate; $contentCV[unique = true]; uid[unique = true]; position[unique = true]; pageTemplate(uid, $contentCV)[unique = true][default = 'raisedInvoiceDiscrepancyPageTemplate']; contentSlot(uid, $contentCV)[unique = true]; allowOverwrite
+; ; SiteLogo-$pageIdTemplate               ; SiteLogo               ; ; SiteLogoSlot           ; true
+; ; HomepageLink-$pageIdTemplate           ; HomepageNavLink        ; ; HomepageNavLinkSlot    ; true
+; ; DeliveryDatepickerSlot-$pageIdTemplate ; DeliveryDatepickerBar  ; ; DeliveryDatepickerSlot ; true
+; ; MiniCart-$pageIdTemplate               ; MiniCart               ; ; MiniCartSlot           ; true
+; ; NavigationBar-$pageIdTemplate          ; NavigationBar          ; ; NavigationBarSlot      ; true
+; ; BreadcrumbSlot-$pageIdTemplate         ; BreadcrumbBar          ; ; BreadcrumbSlot         ; true
+; ; Footer-$pageIdTemplate                 ; Footer                 ; ; FooterSlot             ; true
+; ; HeaderLinks-$pageIdTemplate            ; HeaderLinks            ; ; HeaderLinksSlot        ; true
+; ; SearchBox-$pageIdTemplate              ; SearchBox              ; ; SearchBoxSlot          ; true
+; ; TopHeaderSlot-$pageIdTemplate          ; TopHeaderSlot          ; ; TopHeaderSlot          ; true
+; ; BottomHeaderSlot-$pageIdTemplate       ; BottomHeaderSlot       ; ; BottomHeaderSlot       ; true
+; ; TopContentSlot-$pageIdTemplate         ; TopContentSlot         ; ; TopContentSlot         ; true
+; ; BottomContentSlot-$pageIdTemplate      ; BottomContentSlot      ; ; BottomContentSlot      ; true
+; ; PlaceholderContentSlot-$pageIdTemplate ; PlaceholderContentSlot ; ; PlaceholderContentSlot ; true
+
+
+# Add Velocity templates that are in the CMS Cockpit. These give a better layout for editing pages
+# The FileLoaderValueTranslator loads a File into a String property. The templates could also be inserted in-line in this file.
+UPDATE PageTemplate; $contentCV[unique = true]; uid[unique = true]; velocityTemplate[translator = de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+; ; $pageIdTemplate ; $jarResourceCms/structure-view/structure_raisedInvoiceDiscrepancyPageTemplate.vm
+
+
+
+
+##########################################################import pilot b2b unit into SabmConfiguration for track delivery order function################################
+UPDATE SabmConfiguration; pk[unique = true]; enableInvoiceDiscrepancy; pilotFunctions(key(code), value(uid))[map-delimiter = ?][key2value-delimiter = ->]
+#; 8796093081984 ; false ; InvoiceDiscrepancy->0000830452,0000830467 ;
+#; 8796093081984 ; false ;
+
+#####################INSERT THE SPRING ID INTO SERVICE LAYER JOB#############################
+INSERT_UPDATE ServicelayerJob;code[unique=true];springId[unique=true]
+;bdeToB2BUnitRelationImportJob;bdeToB2BUnitRelationImportJob
+
+#####################ASSOCIATE THE JOB LOGIC TO CRONJOB######################################
+INSERT_UPDATE BDEToB2BUnitRelationImportCronJob;code[unique=true];job(code);sessionLanguage(isocode);fallbackRequired[default=false]
+;BDEToB2BUnitRelationImportCronJob;bdeToB2BUnitRelationImportJob;en;true
+
+

@@ -1,0 +1,596 @@
+.simpleimagecomponent{
+	a{
+		display: block;
+		img{
+			width: 100%;
+			height: auto;
+		}
+	}
+}
+ 
+
+.banner-component{
+	width: 100%;
+	a{
+		.clearfix;
+		display: block;
+		color: @text-color;
+		text-decoration: none;
+	}
+
+	.title{
+		font-weight: bold;
+	}
+	.thumb{
+		padding: (@grid-gutter-width/2) 0;
+		img{
+			width: 100%;
+			height: auto;
+		}
+	}
+
+}
+
+
+.simple-banner-component,
+.banner__component {
+
+  @media (max-width: @screen-xs-max) {
+    .row();
+  }
+    
+	img{
+		width: 100%;
+		height: auto;
+	}
+}
+ 
+.image-map-component{
+	img{
+		width: 100%;
+		height: auto;
+	}
+}
+
+
+.cms-image-component{
+	img{
+		width: 100%;
+		height: auto;
+	}
+}
+
+
+.onTabletTabs .tabs .tabs-list li {
+    
+        @media (max-width: @screen-sm-max) {
+                width: 30%;
+        }
+        
+        @media (max-width: @screen-xs-max) {
+                width: 50%;
+        }
+            
+    }
+ 
+.tabs{
+	margin: 0 0 0;
+	@media (max-width: @screen-sm-max) {
+//		border-top: 1px solid @border-color-3;
+	}
+
+	.tabs-list{
+		.nav;
+		.nav-tabs;
+
+//		display: table;
+		margin: 0 auto;
+		border: 0;
+	
+		.current-info{
+			.sr-only; 
+		}
+
+		/* one item */
+		li:first-child:nth-last-child(1) {
+		/* -or- li:only-child { */
+			width: 100%;
+		}
+		
+		/* two items */
+		li:first-child:nth-last-child(2),
+		li:first-child:nth-last-child(2) ~ li {
+			width: 50%;
+		}
+		
+		/* three items */
+		li:first-child:nth-last-child(3),
+		li:first-child:nth-last-child(3) ~ li {
+			width: 33%;
+		}
+        
+
+		li{
+            text-align: center;
+
+			a{
+				text-transform: uppercase;
+				color: @link-color;
+				padding: 0 0 5px 0;
+				border: 0;
+				border-bottom: 4px solid transparent;
+
+				&:focus,
+				&:hover {
+					cursor: pointer;
+					background-color: transparent;
+				}
+			}
+
+			+ li:before {
+//				content: "";
+//				position: absolute;
+//				height: 15px;
+//				left: 0;
+//				top: 2px;
+//				border-left: 1px solid @border-color-3;
+			}
+		}
+
+		li.active{
+			a,
+			a:hover,
+			a:focus{
+				color: @text-color;
+				font-weight: bold;
+				border: 0;
+				border-bottom: 5px solid @brand-tertiary; 
+//                padding-bottom: 10px;
+			}
+            
+            a::after {
+                    position: absolute;
+                    content: "";
+                    width: 0;
+                    height: 0;
+                    border-right: 10px solid rgba(0, 0, 0, 0);
+                    border-left: 10px solid rgba(0, 0, 0, 0);
+                    border-bottom: 10px solid @brand-tertiary;
+                    display: block;
+                    bottom: -4px;
+                    left: 50%;
+                    margin: 0 0 0 -10px;
+                    z-index: 10;
+            }
+		}
+
+	}
+	.tabhead{
+		.hidden-xs;
+		.hidden-sm;
+        .hidden-md;
+        .hidden-lg;
+        
+		height: 75px;
+		display: table;
+		
+		& + .tabbody{
+			display: none !important;
+		}
+
+
+		&.active{
+			font-weight: bold;
+
+			& + .tabbody{
+				display: block !important;
+				min-height:250px;
+			}
+		}
+
+		a {
+			padding: 0 (@grid-gutter-width/2);
+			color: inherit;
+			line-height: 1;
+			text-decoration: none;
+			display: table-cell;
+			width: 100%;
+			vertical-align: middle;
+
+			@media (max-width: @screen-md) {
+			  padding-left: 20px;
+			}
+		}
+	
+
+		.glyphicon{
+			padding: 0 (@grid-gutter-width/2);
+			.glyphicon-chevron-right;
+			display: table-cell;
+			vertical-align: middle;
+
+		  	@media (max-width: @screen-md) {
+			  padding-right: 20px;
+			}
+		}
+
+		&.active{
+			.glyphicon{
+				.glyphicon-chevron-down;
+			}
+		}
+
+
+
+
+	}
+	.tabbody{
+//		border-bottom:1px solid @border-color-3;
+		padding: 20px 20px;
+	  	//.full-width-padding();
+		background-color: @table-2n-line-bg;
+
+	  @media (min-width: @screen-md-min) {
+//		border-top:1px solid @border-color-3;
+	  }
+	}
+
+
+	&.tabs-responsive{
+		.tabs-list{
+//			.hidden-xs;
+//			.hidden-sm; This should not be hidden on mobile and tablet in order to match the VD.
+		
+		}
+
+		.tabhead{
+			text-transform: uppercase;
+			display: none !important;
+			border-bottom-color: @border-color-3;
+
+			&.active{
+				border-bottom: 4px solid @brand-primary;
+			}
+			
+			@media (max-width: @screen-sm-max) { 
+//				display: table !important;
+			}
+		}
+
+
+	}
+
+
+	&.tabs-accordion{
+		.tabs-list{
+			display: none !important;
+		
+		}
+
+		.tabhead{
+			display: table !important;
+			margin-bottom: 20px;
+		}
+
+
+	}
+}
+
+
+
+
+
+
+.languagecurrencycomponent{
+	.pull-right;
+
+	form{
+		display: inline-block;
+
+		+ form{
+			margin-left:(@grid-gutter-width/2) ;
+		}
+	}
+}
+
+
+.ui-helper-hidden-accessible{
+	.sr-only;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// badges
+
+.thumb{
+	position: relative;
+	.badges{
+		position: absolute;
+		top: (@grid-gutter-width/2);
+		left: (@grid-gutter-width/2);
+		right: (@grid-gutter-width/2);
+		bottom: (@grid-gutter-width/2);
+		overflow: hidden;
+		.badge{
+			float: left;
+   			clear: left;
+   			margin-bottom: (@grid-gutter-width/2);
+			
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+.com-space{
+	& > *{
+		padding: (@grid-gutter-width/2) 0;
+	}
+}
+
+
+
+
+
+
+
+
+.flex-column{
+	display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-direction: normal;
+    -moz-box-direction: normal;
+    -webkit-box-orient: vertical;
+    -moz-box-orient: vertical;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-pack: start;
+    -moz-box-pack: start;
+    -webkit-justify-content: flex-start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    -webkit-align-content: center;
+    -ms-flex-line-pack: center;
+    align-content: center;
+    -webkit-box-align: start;
+    -moz-box-align: start;
+    -webkit-align-items: flex-start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+
+    & > *{
+    	-webkit-box-flex: 1;
+		-moz-box-flex: 1;
+		-webkit-flex: 1 0 auto;
+		-ms-flex: 1 0 auto;
+		flex: 1 0 auto;
+		-webkit-align-self: flex-start;
+		-ms-flex-item-align: start;
+		align-self: flex-start;
+    }
+}
+
+
+
+
+
+
+
+
+
+.product-classifications{
+
+	.headline{
+		font-weight: bold;
+    padding: @grid-gutter-width/2;
+	}
+	
+	table.table{
+		td.attrib{
+			width: 50%;
+		}
+	}
+}
+
+
+.no-space{
+
+  	padding: 0 !important;
+
+	.yCmsComponent{
+		padding: 0 !important;
+	}
+}
+
+
+.simple-responsive-banner-component,
+.banner__component--responsive {
+
+	a {
+		display: block;
+	}
+
+	img {
+		width: 100%;
+		height: auto;
+		height: auto;
+        margin-bottom: 20px;
+	}
+}
+
+.error-page{
+	text-align: center;
+}
+
+// back link
+
+.back-link {
+  padding: @grid-gutter-width 0px;
+  .full-width-padding();
+
+  &.border {
+    border-bottom: 1px solid @border-color-3;
+  }
+
+  button {
+    padding: 0;
+  }
+
+  .glyphicon {
+    border-right: 1px solid @border-color-3;
+    border-radius: 0;
+    padding-right: 10px;
+    line-height: 16px;
+    top: -2px;
+  }
+
+  .label {
+    .page-headline();
+    padding-left: 10px;
+    white-space: normal;
+  }
+
+  &.product-details .label {
+    font-weight: 600;
+  }
+}
+
+
+/////////////////////////////////////////////////
+//                 accordion                   //
+/////////////////////////////////////////////////
+.accordion {
+  font-weight: 600;
+  text-transform: uppercase;
+  margin: 0;
+
+  .panel-group {
+    margin: 0;
+  }
+
+  .panel {
+    border: none;
+    .box-shadow(none);
+
+    .panel-heading {
+      background-color: lighten(@accordion-bg, 95%);
+      border-bottom: 1px solid #ffffff;
+      position: relative;
+      padding: 0;
+
+      .accordion-toggle {
+        display: block;
+        color: @text-color;
+        padding: @grid-gutter-width 30px;
+
+        &:before {
+          .glyphicon();
+        }
+        .glyphicon-chevron-up();
+
+        &.collapsed {
+          .glyphicon-chevron-down();
+        }
+      }
+      .accordion-lnk {
+        position: absolute;
+        left: 15 + @grid-gutter-width*2;
+        top: @grid-gutter-width;
+
+          &.no-subs {
+            display: block;
+            position: static;
+            padding: @grid-gutter-width;
+          }
+      }
+    }
+
+    .panel-collapse {
+      .accordion-bg(10);
+    }
+
+    .panel-heading + .panel-collapse > .panel-body {
+      border: none;
+      padding: 0;
+    }
+  }
+}
+.home-credit-exceed, .asahi-logout-msg { 
+	color: @text-color-sga;					// Different for SGA.
+	text-align: center;
+    background: @body-content-background-tertiary;	// Different for SGA. 
+	padding: 15px 30px 15px 30px;
+	font-weight: normal;
+	font-size: 14px;
+    margin: 0px -10px;
+}
+
+.account-hold-text {
+    font-weight: bold;
+//    color :#fff; 							Not needed for SGA.
+}
+.registerContent {
+    margin-left: 17px;
+    a {
+      font-weight: bold;
+      text-decoration: underline;
+    }
+}
+.asahi-logout-msg {
+	margin-top:40px;
+}
+.errorNotFoundPageMiddle{
+.simple-responsive-banner-component,
+.banner__component--responsive {
+    text-align: center;
+	a{
+		display: block;
+	}
+	img {
+      width:500px;
+		max-width: 100%;
+		height: auto;
+        margin-bottom: 20px;
+	}
+}
+}
+
+.stock-pull {
+	float: right !important;
+  
+  }
+  @media (max-width: 767px) {
+	.stock-pull {
+	  float: left !important;
+	}
+  }
+  
+   

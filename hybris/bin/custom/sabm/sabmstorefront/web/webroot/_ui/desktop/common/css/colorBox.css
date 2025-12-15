@@ -1,0 +1,47 @@
+/*
+## colorBox
+********************************************************************/
+
+#cboxOverlay{
+
+}
+
+
+#colorbox{
+
+}
+
+#cboxLoadedContent{
+	margin:0;
+	width:100%;
+}
+
+#cboxClose{
+	top:0;
+}
+
+/* SAB-379 pop up style update start*/
+#cboxTitle{
+	top:4px;
+	height:20px;
+}
+
+#cboxLoadedContent{
+	margin-top:28px;
+}
+/* end */
+
+/* SAB-1157 pop up style fix start*/
+@media screen and (max-width: 400px) {
+	#colorbox{
+		width: 100% !important;
+		left: 0 !important;
+	}
+	#cboxWrapper{
+		width: 100% !important;
+	}
+	#cboxLoadedContent{
+		width: 100% !important;
+	}
+}
+/* end */

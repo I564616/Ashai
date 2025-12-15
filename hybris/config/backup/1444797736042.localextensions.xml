@@ -1,0 +1,14 @@
+<hybrisconfig xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:noNamespaceSchemaLocation='../bin/platform/resources/schemas/extensions.xsd'>
+  <extensions>
+    <path dir='${HYBRIS_BIN_DIR}' autoload='false' />
+
+<extension name="sabmfulfilmentprocess"/>
+<extension name="sabmcore"/>
+<extension name="sabminitialdata"/>
+<extension name="sabmfacades"/>
+<extension name="sabmtest"/>
+<extension name="sabmstorefront"/>
+<extension name="sabmcockpits"/>
+
+  </extensions>
+</hybrisconfig>

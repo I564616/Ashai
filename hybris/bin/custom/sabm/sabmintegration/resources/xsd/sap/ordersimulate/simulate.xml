@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SalesOrderSimulateResponse xmlns:prx="urn:sap.com:proxy:GC7:/1SAI/TAS9D736CE242F9BD28175E:701:2013/05/24">
+	<SalesOrderResHeder>
+		<SoldTo>0000794397</SoldTo>
+		<ShipTo>0000794397</ShipTo>
+	</SalesOrderResHeder>
+	<SalesOrderResItem>
+		<RequestedDeliveryDate>20151220</RequestedDeliveryDate>
+		<Currency>AUD</Currency>
+		<LineNumber>000010</LineNumber>
+		<MaterialNumber>000000000000090368</MaterialNumber>
+		<MaterialEntered>000000000000090368</MaterialEntered>
+		<MaterialQuantity>10.000 </MaterialQuantity>
+		<UnitOfMeasure>CAR</UnitOfMeasure>
+		<SalesOrderItemCondition>
+			<ItemNumber>000010</ItemNumber>
+			<ConditionStep>840</ConditionStep>
+			<ConditionType>ZINC</ConditionType>
+			<CalculationType>C</CalculationType>
+			<ConditionAmount>0.000000000 </ConditionAmount>
+			<ConditionPricingUnit>1 </ConditionPricingUnit>
+			<ConditionUOM>CAR</ConditionUOM>
+			<TotalCondValue>0.000000000 </TotalCondValue>
+		</SalesOrderItemCondition>
+		<SalesOrderItemCondition>
+			<ItemNumber>000010</ItemNumber>
+			<ConditionStep>734</ConditionStep>
+			<ConditionType>ZPA3</ConditionType>
+			<CalculationType>C</CalculationType>
+			<ConditionAmount>0.000000000 </ConditionAmount>
+			<ConditionPricingUnit>1 </ConditionPricingUnit>
+			<ConditionUOM>CAR</ConditionUOM>
+			<TotalCondValue>90.900000000 </TotalCondValue>
+		</SalesOrderItemCondition>
+		<SalesOrderItemCondition>
+			<ItemNumber>000010</ItemNumber>
+			<ConditionStep>730</ConditionStep>
+			<ConditionType>VPRS</ConditionType>
+			<CalculationType>C</CalculationType>
+			<ConditionAmount>9090.410000000 </ConditionAmount>
+			<ConditionPricingUnit>1000 </ConditionPricingUnit>
+			<ConditionUOM>CAR</ConditionUOM>
+			<TotalCondValue>90.900000000 </TotalCondValue>
+		</SalesOrderItemCondition>
+		<SalesOrderItemCondition>
+			<ItemNumber>000010</ItemNumber>
+			<ConditionStep>707</ConditionStep>
+			<ConditionType>Y900</ConditionType>
+			<CalculationType>C</CalculationType>
+			<ConditionAmount>0.000000000 </ConditionAmount>
+			<ConditionPricingUnit>1 </ConditionPricingUnit>
+			<ConditionUOM>CAR</ConditionUOM>
+			<TotalCondValue>153.300000000 </TotalCondValue>
+		</SalesOrderItemCondition>
+		<SalesOrderItemCondition>
+			<ItemNumber>000010</ItemNumber>
+			<ConditionStep>549</ConditionStep>
+			<ConditionType>MWST</ConditionType>
+			<CalculationType>A</CalculationType>
+			<ConditionAmount>0.000000000 </ConditionAmount>
+			<ConditionPricingUnit>0 </ConditionPricingUnit>
+			<TotalCondValue>0.000000000 </TotalCondValue>
+		</SalesOrderItemCondition>
+		<SalesOrderItemCondition>
+			<ItemNumber>000010</ItemNumber>
+			<ConditionStep>510</ConditionStep>
+			<ConditionType>Z9W0</ConditionType>
+			<CalculationType>A</CalculationType>
+			<ConditionAmount>0.000000000 </ConditionAmount>
+			<ConditionPricingUnit>0 </ConditionPricingUnit>
+			<TotalCondValue>0.000000000 </TotalCondValue>
+		</SalesOrderItemCondition>
+		<SalesOrderItemCondition>
+			<ItemNumber>000010</ItemNumber>
+			<ConditionStep>260</ConditionStep>
+			<ConditionType>YDF0</ConditionType>
+			<CalculationType>C</CalculationType>
+			<ConditionAmount>0.000000000 </ConditionAmount>
+			<ConditionPricingUnit>1 </ConditionPricingUnit>
+			<ConditionUOM>CAR</ConditionUOM>
+			<TotalCondValue>0.000000000 </TotalCondValue>
+		</SalesOrderItemCondition>
+		<SalesOrderItemCondition>
+			<ItemNumber>000010</ItemNumber>
+			<ConditionStep>250</ConditionStep>
+			<ConditionType>YDE0</ConditionType>
+			<CalculationType>A</CalculationType>
+			<ConditionAmount>0.000000000 </ConditionAmount>
+			<ConditionPricingUnit>0 </ConditionPricingUnit>
+			<TotalCondValue>0.000000000 </TotalCondValue>
+		</SalesOrderItemCondition>
+		<SalesOrderItemCondition>
+			<ItemNumber>000010</ItemNumber>
+			<ConditionStep>160</ConditionStep>
+			<ConditionType>Z3F2</ConditionType>
+			<CalculationType>B</CalculationType>
+			<ConditionAmount>0.000000000 </ConditionAmount>
+			<ConditionPricingUnit>0 </ConditionPricingUnit>
+			<TotalCondValue>11.670000000 </TotalCondValue>
+		</SalesOrderItemCondition>
+		<SalesOrderItemCondition>
+			<ItemNumber>000010</ItemNumber>
+			<ConditionStep>150</ConditionStep>
+			<ConditionType>Z3F1</ConditionType>
+			<CalculationType>C</CalculationType>
+			<ConditionAmount>0.500000000 </ConditionAmount>
+			<ConditionPricingUnit>1 </ConditionPricingUnit>
+			<ConditionUOM>CAR</ConditionUOM>
+			<TotalCondValue>5.000000000 </TotalCondValue>
+			<SalesOrderItemScales>
+				<ItemNumber>000010</ItemNumber>
+				<ConditionType>Z3F1</ConditionType>
+				<CalculationType>C</CalculationType>
+				<ScaleQuantity>5.000 </ScaleQuantity>
+				<Amount>0.500000000 </Amount>
+			</SalesOrderItemScales>
+		</SalesOrderItemCondition>
+		<SalesOrderItemCondition>
+			<ItemNumber>000010</ItemNumber>
+			<ConditionStep>011</ConditionStep>
+			<ConditionType>PR00</ConditionType>
+			<CalculationType>C</CalculationType>
+			<ConditionAmount>40.000000000 </ConditionAmount>
+			<ConditionPricingUnit>1 </ConditionPricingUnit>
+			<ConditionUOM>CAR</ConditionUOM>
+			<TotalCondValue>400.000000000 </TotalCondValue>
+		</SalesOrderItemCondition>
+		<SalesOrderItemScheduling>
+			<ItemNumber>000010</ItemNumber>
+			<RequestedDeliveryDate>20151220</RequestedDeliveryDate>
+			<RequestedQty>10.000 </RequestedQty>
+			<ConfirmedQty>10.000 </ConfirmedQty>
+		</SalesOrderItemScheduling>
+	</SalesOrderResItem>
+	
+
+	<SalesOrderResItem>
+		<RequestedDeliveryDate>20151220</RequestedDeliveryDate>
+		<Currency>AUD</Currency>
+		<LineNumber>000020</LineNumber>
+		<MaterialNumber>000000000000090368</MaterialNumber>
+		<MaterialEntered>000000000000090368</MaterialEntered>
+		<MaterialQuantity>2.000 </MaterialQuantity>
+		<UnitOfMeasure>CAR</UnitOfMeasure>
+		<FreeGoodsFlag>X</FreeGoodsFlag>
+		<SalesItemRelFreeGoods>000010</SalesItemRelFreeGoods>
+		<SalesOrderFreeGoods>
+		   <ItemNumber>10</ItemNumber>
+         <MinimumQty>1 </MinimumQty>
+         <FreeGoodsQty>2</FreeGoodsQty>
+     </SalesOrderFreeGoods>
+		
+		<SalesOrderItemCondition>
+			<ItemNumber>000020</ItemNumber>
+			<ConditionStep>011</ConditionStep>
+			<ConditionType>PR00</ConditionType>
+			<CalculationType>C</CalculationType>
+			<ConditionAmount>40.000000000 </ConditionAmount>
+			<ConditionPricingUnit>1 </ConditionPricingUnit>
+			<ConditionUOM>CAR</ConditionUOM>
+			<TotalCondValue>80.000000000 </TotalCondValue>
+		</SalesOrderItemCondition>
+		<SalesOrderItemCondition>
+			<ItemNumber>000020</ItemNumber>
+			<ConditionStep>150</ConditionStep>
+			<ConditionType>Z3F1</ConditionType>
+			<CalculationType>C</CalculationType>
+			<ConditionAmount>0.500000000 </ConditionAmount>
+			<ConditionPricingUnit>1 </ConditionPricingUnit>
+			<ConditionUOM>CAR</ConditionUOM>
+			<TotalCondValue>1.000000000 </TotalCondValue>
+			<SalesOrderItemScales>
+				<ItemNumber>000020</ItemNumber>
+				<ConditionType>Z3F1</ConditionType>
+				<CalculationType>C</CalculationType>
+				<ScaleQuantity>5.000 </ScaleQuantity>
+				<Amount>0.500000000 </Amount>
+			</SalesOrderItemScales>
+		</SalesOrderItemCondition>
+		<SalesOrderItemCondition>
+			<ItemNumber>000020</ItemNumber>
+			<ConditionStep>160</ConditionStep>
+			<ConditionType>Z3F2</ConditionType>
+			<CalculationType>B</CalculationType>
+			<ConditionAmount>0.000000000 </ConditionAmount>
+			<ConditionPricingUnit>0 </ConditionPricingUnit>
+			<TotalCondValue>2.330000000 </TotalCondValue>
+		</SalesOrderItemCondition>
+		<SalesOrderItemCondition>
+			<ItemNumber>000020</ItemNumber>
+			<ConditionStep>250</ConditionStep>
+			<ConditionType>YDE0</ConditionType>
+			<CalculationType>A</CalculationType>
+			<ConditionAmount>0.000000000 </ConditionAmount>
+			<ConditionPricingUnit>0 </ConditionPricingUnit>
+			<TotalCondValue>0.000000000 </TotalCondValue>
+		</SalesOrderItemCondition>
+		<SalesOrderItemCondition>
+			<ItemNumber>000020</ItemNumber>
+			<ConditionStep>260</ConditionStep>
+			<ConditionType>YDF0</ConditionType>
+			<CalculationType>C</CalculationType>
+			<ConditionAmount>0.000000000 </ConditionAmount>
+			<ConditionPricingUnit>1 </ConditionPricingUnit>
+			<ConditionUOM>CAR</ConditionUOM>
+			<TotalCondValue>0.000000000 </TotalCondValue>
+		</SalesOrderItemCondition>
+		<SalesOrderItemCondition>
+			<ItemNumber>000020</ItemNumber>
+			<ConditionStep>531</ConditionStep>
+			<ConditionType>YDI0</ConditionType>
+			<CalculationType>A</CalculationType>
+			<ConditionAmount>100.000000000-</ConditionAmount>
+			<ConditionPricingUnit>0 </ConditionPricingUnit>
+			<TotalCondValue>83.330000000-</TotalCondValue>
+		</SalesOrderItemCondition>
+		<SalesOrderItemCondition>
+			<ItemNumber>000020</ItemNumber>
+			<ConditionStep>549</ConditionStep>
+			<ConditionType>MWST</ConditionType>
+			<CalculationType>A</CalculationType>
+			<ConditionAmount>0.000000000 </ConditionAmount>
+			<ConditionPricingUnit>0 </ConditionPricingUnit>
+			<TotalCondValue>0.000000000 </TotalCondValue>
+		</SalesOrderItemCondition>
+		<SalesOrderItemCondition>
+			<ItemNumber>000020</ItemNumber>
+			<ConditionStep>707</ConditionStep>
+			<ConditionType>Y900</ConditionType>
+			<CalculationType>C</CalculationType>
+			<ConditionAmount>0.000000000 </ConditionAmount>
+			<ConditionPricingUnit>1 </ConditionPricingUnit>
+			<ConditionUOM>CAR</ConditionUOM>
+			<TotalCondValue>30.660000000 </TotalCondValue>
+		</SalesOrderItemCondition>
+		<SalesOrderItemCondition>
+			<ItemNumber>000020</ItemNumber>
+			<ConditionStep>730</ConditionStep>
+			<ConditionType>VPRS</ConditionType>
+			<CalculationType>C</CalculationType>
+			<ConditionAmount>9090.410000000 </ConditionAmount>
+			<ConditionPricingUnit>1000 </ConditionPricingUnit>
+			<ConditionUOM>CAR</ConditionUOM>
+			<TotalCondValue>18.180000000 </TotalCondValue>
+		</SalesOrderItemCondition>
+		<SalesOrderItemCondition>
+			<ItemNumber>000020</ItemNumber>
+			<ConditionStep>734</ConditionStep>
+			<ConditionType>ZPA3</ConditionType>
+			<CalculationType>C</CalculationType>
+			<ConditionAmount>0.000000000 </ConditionAmount>
+			<ConditionPricingUnit>1 </ConditionPricingUnit>
+			<ConditionUOM>CAR</ConditionUOM>
+			<TotalCondValue>18.180000000 </TotalCondValue>
+		</SalesOrderItemCondition>
+		<SalesOrderItemCondition>
+			<ItemNumber>000020</ItemNumber>
+			<ConditionStep>840</ConditionStep>
+			<ConditionType>ZINC</ConditionType>
+			<CalculationType>C</CalculationType>
+			<ConditionAmount>0.000000000 </ConditionAmount>
+			<ConditionPricingUnit>1 </ConditionPricingUnit>
+			<ConditionUOM>CAR</ConditionUOM>
+			<TotalCondValue>0.000000000 </TotalCondValue>
+		</SalesOrderItemCondition>
+		<SalesOrderItemScheduling>
+			<ItemNumber>000020</ItemNumber>
+			<RequestedDeliveryDate>20151220</RequestedDeliveryDate>
+			<RequestedQty>2.000 </RequestedQty>
+			<ConfirmedQty>2.000 </ConfirmedQty>
+		</SalesOrderItemScheduling>
+	</SalesOrderResItem>
+</SalesOrderSimulateResponse>

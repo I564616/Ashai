@@ -1,0 +1,28 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+##******************************This file is generated - please do not edit it. It will be regenerated after every build.********************************#
+
+$contentCatalog=sgaContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$picture=media(code, $contentCV);
+$siteResource=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/sampledata/contentCatalogs/$contentCatalog
+$medias=medias(code, $contentCV);
+$mediaContainer=media(qualifier, $contentCV)[lang=$lang];
+
+
+# Language
+$lang=en
+
+# CMS Paragraph Component (Contact information)
+UPDATE CMSParagraphComponent ; $contentCV[unique=true] ; uid[unique=true]                ; content[lang=en];  
+; 							; SGACustomerServicesComponent; "<div class=""customer-service-content-heading"">Asahi Contact Centre</div><div class=""customer-service-details""><span class=""customer-service-content-subheading"">Phone:</span><span class=""customer-service-content"">1800 222 212</span><br><span class=""customer-service-content-subheading"">Email:</span><span class=""customer-service-content"">ACCConnect@asahi.com.au</span></div>"
+; 							; SGATechServicesComponent; "<div class=""customer-service-content-heading"">Equipment & Technical Services</div><div class=""customer-service-details""><span class=""customer-service-content-subheading"">Phone:</span><span class=""customer-service-content"">1300 364 246</span><br></div>"
+; 							; SGAAccountNumberComponent; "<div class="customer-service-content-heading">Details for Bank Transfer</div><div class="customer-service-details"><span class="customer-service-content-subheading">Account Name:</span><span class="customer-service-content">Asahi Beverages Pty Ltd</span><br><span class="customer-service-content-subheading">Bank:</span><span class="customer-service-content">NAB,<span class="customer-service-content-subheading"> BSB:</span><span class="customer-service-content">083-001</span><br><span class="customer-service-content-subheading">Account Number:</span><span class="customer-service-content">515-106-330</span><br> <span class="customer-service-content-subheading">Reference:</span><span class="customer-service-content">Customer/Order Number</span><br><p>Please send proof of payment to <b>EFTPaymentAdmin@asahi.com.au</b></p></div>"

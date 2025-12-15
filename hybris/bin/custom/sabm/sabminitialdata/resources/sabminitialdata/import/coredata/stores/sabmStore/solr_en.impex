@@ -1,0 +1,31 @@
+# Import the Solr configuration for the store
+#
+# Localization en
+#
+$lang=en
+
+$indexedType=sabmStoreProductType
+
+UPDATE SolrIndexedProperty;solrIndexedType(identifier)[unique=true,default=$indexedType];name[unique=true];displayName[lang=$lang]
+ ;;allPromotions;Promotion;
+# ;;brand;Brand;
+# ;;category;Category;
+ ;;code;Code;
+ ;;description;Description;
+ ;;manufacturerName;Manufacturer Name;
+ ;;name;Name;
+ ;;summary;Summary;
+ ;;sabmBrand;Brand;
+ ;;style;Style;
+ ;;categoryVariety;Category;
+ ;;container;Package;
+ ;;sabmCategory;Product Type;
+
+
+# Define the available sorts
+INSERT_UPDATE SolrSort;indexedType(identifier)[unique=true,default=$indexedType];code[unique=true];name[lang=$lang]
+;;name-asc;Product Name (A-Z);
+;;name-desc;Product Name (Z-A);
+;;relevance;Relevance;
+;;bestseller;Bestseller;
+;;popular;Popular;

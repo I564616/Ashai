@@ -1,0 +1,434 @@
+// ==========================================================================
+//   Styles for various account pages
+// ==========================================================================
+
+.page-billing {
+	.billing-options {
+		.list-inline {
+			margin-top: $spacing-small;
+		}
+		.btn {
+			margin: $spacing-x-small 0;
+		}
+	}
+	.billing-filters-well{
+			background: $light-grey;
+			padding:$spacing-small $spacing-x-small 0 $spacing-x-small;
+	}
+
+	.billing-filters {
+		@media (max-width: $mobile){
+			.input-daterange {
+				margin-top: $spacing-small;
+				.input-icon-group {
+					width: 100%;
+					& + .input-icon-group {
+						margin-top: $spacing-x-small;
+						margin-left: 0;
+					}
+				}
+			}
+		}
+	}
+	.payment-modal {
+		width: 95%;
+		background: $white;
+		margin: 0 auto;
+		padding: $spacing-medium;
+		.radio {
+			margin-bottom: 15px;
+			.offset-bottom-xsmall {
+				margin-bottom: 10px;
+			}
+		}
+		.amountToPay {
+			font-size: 18px;
+			margin-bottom: 20px;
+		}
+		.checkbox {
+			padding: 10px 0 15px;
+			label {
+				padding-left: 40px;
+				&:before {
+					top: 4px;
+				}
+			}
+		}
+		@media (min-width: 400px){
+			width: 380px;
+		}
+		@media (min-width: $desktop){
+			.checkbox {
+				label {
+					font-size: 14px;
+					padding-left: 30px;
+					line-height: 18px;
+					&:before {
+						top: 0px;
+					}
+				}
+			}
+		}
+	}
+	.pagination-bottom {
+		margin-bottom: $spacing-large;
+	}
+	@media (max-width: $desktop){
+		.footer-note {
+			margin-top: $spacing-x-small;
+		}
+	}
+}
+
+.page-orders {
+	h1 {
+		margin-bottom: 15px;
+	}
+	.numItems,
+	.numItem {
+		display: none;
+	}
+	#noDataError {
+		display: none;
+	}
+	.order-filters {
+		margin-bottom: $spacing-large;
+		.control-label {
+			line-height: 40px;
+			@media (min-width: $desktop){
+				line-height: 35px;
+			}
+		}
+	    .input-icon-group {
+	      width:100%;
+	      float: none;
+	      input[readonly] {
+	      	&:hover {
+	      		cursor: pointer;
+	      	}
+	      }
+	    }
+		@media (max-width: $mobile){
+			.input-daterange {
+				margin-top: $spacing-small;
+				.input-icon-group {
+					width: 100%;
+
+					& + .input-icon-group {
+						margin-top: $spacing-x-small;
+						margin-left: 0;
+					}
+				}
+			}
+		}
+	}
+	.sort-wrap {
+		span {
+			display: block;
+			float: left;
+			line-height: 42px;
+			width: 100%;
+			@media (min-width: $desktop){
+				width: auto;
+				display: inline-block;
+				float: left;
+				margin-right: 15px;
+				line-height: 34px;
+			}
+		}
+		.select-list {
+			width: 100%;
+		}
+	}
+	.pagination-top {
+		margin-bottom: $spacing-x-small;
+	}
+	.table > tbody > tr > td {
+		padding-top: 15px;
+		&.footable-last-column {
+			padding-top: 8px;
+		}
+	}
+}
+
+.order-detail {
+	.cart-delivery-payment {
+		margin-top: $spacing-large;
+		margin-bottom: $spacing-x-small;
+		ul {
+			list-style: none;
+			padding-left: 0;
+		}
+		.cart-delivery-payment,
+		.cart-deliverydate,
+		.cart-deliverymethod {
+			padding-bottom: $spacing-x-small;
+			hr {
+				position: relative;
+				top: $spacing-x-small;
+				margin: $spacing-small 0;
+			}
+		}
+	}
+
+	.list-invoice-link{
+		margin-right: $spacing-x-small
+	}
+	.custom-table {
+		margin-bottom: $spacing-x-large;
+	}
+}
+
+.page-createUser,
+.page-editUser {
+	#sabmCreateUserForm{
+		.form-control{
+			background: #fff; /* remove the grey background in the input field */
+		}
+	}
+	
+	#sabmEditUserForm{
+		#register_firstName,
+		#register_surname{
+			background: #fff; /* remove the grey background in firstname & lastname input field */
+		}
+	}
+
+	.btn + .error-bold {
+		margin-top: $spacing-x-small;
+	    @media(min-width: $tablet){
+	    	margin-top: 0;
+			margin-left: $spacing-x-small;
+	    }
+	}
+	
+  .error-bold {
+    padding: 10px 30px;
+    border: 1px solid $red;
+    background-color: $pink;
+    text-align: center;
+    display: inline-block;
+    color: $red;
+    width: 100%;
+    font-size: $font-x-small;
+    a {
+    	color: $red;
+    }
+    @media(min-width: $tablet){
+		line-height: 38px;
+		width: auto;
+		padding: 0px 30px;
+    }
+    &.error-bold-blue {
+      border-color: $primary-blue;
+      background-color: $baby-blue;
+      color: $primary-blue;
+    }
+  }
+  .bu-selector {
+    .disabled {
+      label {
+        opacity: 0.5;
+        &:hover {
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+  .admins-for-popup {
+  	width: 95%;
+  	margin: 0 auto;
+  	padding: $spacing-medium $spacing-medium $spacing-small $spacing-medium;
+  	background-color: $white;
+  	.h1, p {
+  		margin-bottom: $spacing-small;
+  	}
+  	li {
+  		p {
+  			display: inline;
+  		}
+  	}
+  	@media (min-width: $tablet){
+  		width: 600px;
+  	}
+  }
+}
+
+.page-editUser,
+.page-businessUnitDetail {
+	.delete-user-popup {
+		width: 95%;
+		margin: 0 auto;
+		padding: $spacing-medium $spacing-medium $spacing-large $spacing-medium;
+		background-color: $white;
+		.h1, p {
+			margin-bottom: $spacing-small;
+		}
+		li p {
+			margin-bottom: 0;
+		}
+		@media (min-width: $tablet){
+			width: 600px;
+		}
+	}
+}
+
+.page-businessUnits,
+.page-businessUnitDetail {
+	h2.h1 {
+		margin-bottom: $spacing-small;
+	}
+}
+
+/******Update Password******/
+/*make the tooltip have indent*/
+.tooltip-inner{
+	ul{
+		display:table;
+		li{
+			display:table-row;
+			&:before{
+			content: "-";
+				text-align:right;
+				display:table-cell;
+				padding-right:3px;
+			}
+		}
+	}
+	b{
+	color: $primary-blue;
+	}
+}
+
+.password-rules {
+    width: 100%;
+    background-color: $white;
+    border: 1px solid $medium-grey;
+    margin-top: 5px;
+    color: $dark-grey;
+    padding: 10px;
+    @media (min-width: $desktop) {
+      position: absolute;
+      right: -265px;
+      top: 35px;
+      max-width: 250px;
+    }
+    div {
+      padding-left: 30px;
+      position: relative;
+      margin-bottom: 5px;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    span {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      left: 0;
+      top: 3px;
+      background-size: 17px;
+      background-repeat: no-repeat;
+    }
+    .password-rules_characters {
+      span {
+        background-image: url($cross-icon-red);
+        &.pass {
+          background-image: url($tick-icon-green);
+          background-size: 20px;
+        }
+      }
+    }
+    .password-rules_numbers {
+      span {
+        background-image: url($cross-icon-red);
+        &.pass {
+          background-image: url($tick-icon-green);
+          background-size: 20px;
+        }
+      }
+    }
+}
+
+.update-password {
+  label.control-label {
+    display: block;
+    & + input {
+      display: inline-block;
+      margin-right: 20px;
+    }
+  }
+  .show-password {
+    label {
+      line-height: 32px;
+      padding-left: 30px;
+      color: $dark-grey;
+      &:before {
+        margin-top: 7px;
+      }
+    }
+  }
+
+  @media (min-width: $tablet){
+    .form-group {
+      position: relative;
+      padding-right: 180px;
+    }
+    .show-password {
+      margin-bottom: 0;
+      position: absolute;
+      right: 0;
+      top: 36px;
+    }
+  }
+  @media (min-width: $desktop){
+    .form-group {
+      padding-right: 175px;
+    }
+    .show-password {
+      top: 35px;
+    }
+  }
+}
+
+/****** Forgotten Pwd email sent ******/
+.email-sent{
+	a{
+		text-decoration:underline;
+	}
+}
+
+.page-businessUnitDetail {
+	.delete-or-deactivate {
+		width: 95%;
+		margin: 0 auto;
+		background-color: $white;
+		padding: $spacing-medium;
+		.btn-primary {
+			margin-bottom: $spacing-small;
+		}
+		.btn-secondary {
+			margin-bottom: $spacing-x-small;
+		}
+		@media (min-width: $tablet){
+			width: 500px;
+			.btn-primary {
+				margin-top: $spacing-small;
+				margin-bottom: 0;
+			}
+			.btn-secondary {
+				margin-bottom: $spacing-small;
+			}
+		}
+
+	}
+}
+
+
+
+input#start, input#end{
+	background: transparent;
+	position: relative;
+	z-index: 3;
+}

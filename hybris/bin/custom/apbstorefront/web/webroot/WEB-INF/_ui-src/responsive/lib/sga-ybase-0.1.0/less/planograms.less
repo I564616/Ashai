@@ -1,0 +1,80 @@
+.uploader.modal-body {
+    .text-input{
+        width: 100%;
+        padding: 10px;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    .btn-primary:focus,
+    .btn-vd-primary:focus {
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+    }
+}
+
+.planogram-overview-table {
+    .responsive-table {
+        button {
+            padding: 0;
+        }
+    }
+    .responsive-table-item:first-child {
+        border-top: 1px solid @border-color;
+    }
+    .responsive-table-item {
+
+        td {
+            a {
+                font-weight: 700;
+                text-decoration: underline;
+            }
+        }
+    }
+    tr.responsive-table-item {
+        &.viewing {
+            background: @graywhitebg !important;
+        }
+    }
+}
+
+.account-section-content {
+    .planogram-overview-table .responsive-table {
+        .responsive-table-head {
+
+        }
+    }
+}
+
+@media (max-width: @screen-xs-max) {
+    .planogram-overview-table {
+        .responsive-table {
+            width: 100%;
+            margin: 0;
+            border-top: 1px solid @border-color;
+            border-bottom: none
+        }
+        .responsive-table-item {
+            &:nth-child(2) {
+                border-top: 1px solid @border-color;
+            }
+            td {
+                display: flex;
+                padding: 5px 0 !important;
+                border: none;
+                width: 100%;
+                .info-label{
+                    flex: 0 0 50%;
+                    width: 50%;
+                    display: block;
+                }
+                .file-link {
+                    font-weight: 400 !important;
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,221 @@
+.sga-registration-link{
+  @media(min-width: @screen-xs) {
+    width: 30rem;
+  }
+}
+.user-register__headline {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.ax_default droplist, #customer-select {
+    width: 100%;
+    border: 1px solid @border-color;
+    border-radius: 0px;
+    height: 40px;
+}
+
+.user-register__subheadline {
+    color: @placeholder-color-secondary;
+    font-size: 14px;
+    text-transform: uppercase;
+    
+    hr {
+        margin-top: 0px;
+    }
+}
+.user-register__headline_error_message {
+    color:@input-error-text;
+}
+
+.form-group-reg {
+	 display: inline;
+}
+
+#register-chk {
+	.checkbox {
+		display: inline;
+	}
+}
+.label {
+	text-transform: lowercase;
+}
+
+#checkboxId {
+ display: inline;
+}
+
+.password-forgotten {
+    color: #0000EE;
+    text-decoration: underline;
+}
+
+#addAnother {
+    cursor:pointer;
+}
+
+#termCondOther {
+    color: @link-color;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+#termsCondition {
+	position: relative;
+}
+.label {
+	text-transform: lowercase;
+}
+
+#checkboxId {
+ display: inline;
+}
+
+.password-forgotten {
+    color: #0000EE;
+    text-decoration: underline;
+}
+
+#termsCondition {
+	position: relative;
+}
+
+#deliveryInstructions
+{
+    min-height: 98px;
+    width: 100%;
+}
+.request-file-upload {
+	margin: 4px 0px 0px 0px;
+}
+.request-btn-default {
+    border: 3px solid;
+    color: #ffffff;
+    background-color: #42515a;
+}
+.request-control-label {
+    color: #42515a;
+    font-weight:600;
+}
+
+.remove-padding-left {
+    padding-left: 0px;
+}
+
+.remove-padding-right {
+    padding-right: 0px;
+}
+.file-upload__file-name-request {
+  font-size: 16px;
+  display: inline-block;
+  white-space: nowrap;
+  max-width: 400px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: top;
+  position: relative;
+  top: 8px;
+  padding-bottom:15px;
+}
+.register-lpa{
+	margin-top:-42px;
+}
+.register-sameasinvoice{
+	position:relative;
+	top:2px;
+}
+
+#request-registration, #self-registration, #apbCompanyDetailsForm {
+    margin-bottom: 20px;
+}
+
+#addAnotherForm {
+    margin-top: -10px;
+}
+
+.termsAndConditionsLink { 
+	text-transform: none;
+}
+.term-condition-text
+{
+	text-transform: none;
+}
+#trading-account-radio-btn {
+	@media (min-width: @screen-sm) {
+		margin-left: 40px;
+	}
+	
+	@media (max-width: @screen-xs-max) {
+		display: inherit;
+		margin-top: 10px;
+	}
+}
+
+.access-type-radio {
+	margin: 5px 10px 5px 0px !important;
+}
+
+#last-radio {
+	margin-bottom: 0px;
+}
+
+.border-line(@width: 1px, @color: black) {
+    position: initial;
+    border-bottom: @width solid @color;
+    width: 100%;
+}
+
+.border-line-top {
+    .border-line();
+}
+
+.border-line-bottom {
+    .border-line();
+    clear: both;
+}
+
+.textButton {
+    border: none;
+    background: none;
+    text-decoration: underline;
+    text-transform: capitalize;
+}
+
+.fields-wrapper {
+    label {
+        display: none;
+    }
+   .form-group{
+        margin-bottom: 0px;
+       &.has-error {
+           input[type=text], select {
+               border: 2px solid #ae423c;
+           }
+       }
+   }
+}
+
+button[disabled] {
+    &.textButton {
+         color: #cccccc;
+     }
+}
+
+@media (max-width: 767px) {
+    .fields-wrapper {
+        .xs-border-line-top {
+            border-top: 2px solid #cccccc;
+            &:first-child{
+                border: none;
+            }
+        }
+        .fields-row:first-child {
+            .fields:first-child {
+                div:first-child {
+                    padding-top: 0px !important;
+                }
+            }
+
+        }
+    }
+}

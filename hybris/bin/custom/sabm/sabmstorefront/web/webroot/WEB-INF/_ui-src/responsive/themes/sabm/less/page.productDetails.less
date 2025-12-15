@@ -1,0 +1,25 @@
+@import "variables.less";
+.summary-label{
+    font-size:14px;
+    color:@darkGrayColor;
+    border-bottom:1px solid @lightGrayColor;
+}
+
+.summary-value{
+    font-size:32px;
+    font-weight:bold;
+    
+}
+
+.product-details{
+    color:@fontColor;
+    .product-price{
+      .whole-sale-price{
+         margin-bottom:20px;
+         .summary-value{
+           color:@lightGrayColor;
+         }
+      }
+    }
+}
+

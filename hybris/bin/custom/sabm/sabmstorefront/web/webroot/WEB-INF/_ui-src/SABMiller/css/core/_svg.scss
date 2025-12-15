@@ -1,0 +1,130 @@
+svg {
+ will-change: transform;
+ transition: all 100ms $easing;
+ position: relative;
+ top: -3px;
+
+* {
+  fill: currentColor;
+ }
+.disabled & {
+  opacity: 0.3;
+}
+ &.icon-cart {
+    width: 19px;
+    height: 19px;
+  }
+ &.icon-full-logo {
+   width: 160px;
+   height: 45px;
+   color: $white;
+ }
+ &.icon-small-logo {
+   width: 35px;
+   height: 35px;
+   top: 0;
+   color: $white;
+ }
+ &.icon-info {
+   width: 2px;
+   height: 15px;
+   color: $dark-grey;
+ }
+&.icon-plus {
+  width: 11px;
+  height: 11px;
+  top: -2px;
+  }
+  &.icon-minus {
+  width: 11px;
+  height: 11px;
+  top: -2px;
+  }
+ &.icon-network,
+ &.icon-business,
+ &.icon-connected {
+  width: 21px;
+  height: 22px;
+ }
+ 
+  &.icon-profile {
+  width: 18px;
+  height: 21px;
+ }
+
+ &.icon-profile01 {
+  width: 34px;
+  height: 34px;
+  top: -6px;
+  left: -5px;
+ }
+
+&.icon-invoice{
+	height: 24px;
+	width: 24px;
+	top: -2px;
+}
+ 
+ &.icon-arrow-down,
+ &.icon-dollar,
+ &.icon-templates,
+ &.icon-order-history,
+ &.icon-calendar,
+ &.icon-arrow-up,
+ &.icon-search {
+  width: 20px;
+  height: 20px;
+ }
+ &.icon-drag-drop {
+  width: 30px;
+  height: 30px;
+ }
+
+&.icon-price-info {
+  width: 14px;
+  height: 14px;
+  top: -1px;
+ }
+ &.icon-star-normal {
+  width: 10px;
+  height: 10px;
+  stroke: #002f5f;
+  color: white !important;
+ }
+ &.icon-star-add {
+   width: 10px;
+   height: 10px;
+   stroke: #002f5f;
+   color: #002f5f;
+  }
+ 
+ &.icon-livechat-contactus,
+ &.icon-email-contactus,
+ &.icon-phone-contactus,
+ &.icon-address-contactus {
+  width: 32px;
+  height: 32px;
+  color: #03305D;
+  fill: #03305D;
+}
+
+
+
+}
+
+#icon-order-history{
+	position: relative;
+	margin-right: $spacing-unit-base + 10;
+	
+	&:after{
+		content:"";
+		position: absolute;
+		top: 4px;
+		left: 0;
+	    background-image: url($order-history-icon);
+	    background-repeat: no-repeat;
+	    background-size: 100%;
+	    width: 20px;
+	    height: 20px;
+	}
+}

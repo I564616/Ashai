@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2013 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+-->
+
+<!--
+	ATTENTION: This is just an example file. You have to edit it according to your needs.
+-->
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
+
+
+	<bean class="com.sabmiller.sfmc.pojo.SFMCRequest">
+		<property name="key" type="java.lang.String"/>
+		<property name="from" type="java.lang.String"/>
+		<property name="fromName" type="java.lang.String"/>
+		<property name="initiatorEmail" type="java.lang.String"/>
+		<property name="toList" type="java.util.List&lt;com.sabmiller.sfmc.pojo.SFMCRequestTo>"/>
+
+	</bean>
+
+	<bean class="com.sabmiller.sfmc.pojo.SFMCRequestTo">
+		<property name="to" type="java.lang.String"/>
+		<property name="pk" type="java.lang.String"/>
+		<property name="dynamicData" type="java.lang.Object"/>
+		<property name="eventId" type="java.lang.String"/>
+	</bean>
+<!--
+
+	<bean class="com.sabmiller.sfmc.pojo.SFMCRequestFromData">
+		<property name="address" type="java.lang.String"/>
+		<property name="name" type="java.lang.String"/>
+	</bean>
+
+	<bean class="com.sabmiller.sfmc.pojo.SFMCRequestToData">
+		<property name="address" type="java.lang.String"/>
+		<property name="subscriberKey" type="java.lang.String"/>
+		<property name="contactAttributes" type="java.lang.String"/>
+	</bean>
+
+	<bean class="com.sabmiller.sfmc.pojo.SFMCRequestOptionsData">
+		<property name="requestType" type="java.lang.String"/>
+	</bean>-->
+
+	<!--  Composite Request Wrapper DTO -->
+	<bean class="com.sabmiller.sfmc.pojo.SFCompositeRequest">
+		<property name="allOrNone" type="java.lang.Boolean"/>
+		<property name="compositeRequest" type="java.util.List"/>
+	</bean>
+
+
+	<!-- Composite Sub-Request DTO -->
+	<bean class="com.sabmiller.sfmc.pojo.SFCompositeSubRequest">
+		<property name="method" type="String"/>
+		<property name="url" type="String"/>
+		<property name="referenceId" type="String"/>
+		<property name="body" type="java.util.Map"/>
+	</bean>
+
+
+	<!--  Composite Response Wrapper DTO -->
+	<bean class="com.sabmiller.sfmc.pojo.SFCompositeResponse">
+		<property name="status" type="String"/>
+		<property name="message" type="String"/>
+	</bean>
+
+</beans>

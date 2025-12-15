@@ -1,0 +1,12 @@
+
+# Import the CMS content for the site
+#
+$contentCatalog = sabmContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Staged])[default = $contentCatalog:Staged]
+$productCV = catalogVersion(catalog(id[default = $productCatalog]), version[default = 'Staged'])[unique = true, default = $productCatalog:Staged]
+
+INSERT_UPDATE DealHeaderComponent;$contentCV[unique=true];uid[unique=true];dealComponent(uid, $contentCV);name
+                                              ;           ;DealHeaderComponent;DealBarComponent;Deal Header Component
+											  
+INSERT_UPDATE SupportHeaderComponent;$contentCV[unique=true];uid[unique=true];supportComponent(uid, $contentCV);name
+                                              ;           ;SupportHeaderComponent;SupportComponent;Support Header Component

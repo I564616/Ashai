@@ -1,0 +1,106 @@
+// ==========================================================================
+//   Custom Checkboxes and Radio Buttons
+// ==========================================================================
+
+.checkbox,
+.radio {
+    margin-top: 0 !important;
+    margin-bottom: $spacing-x-small;
+    label {
+        display: inline-block;
+        cursor: pointer;
+        position: relative;
+        padding-left: 40px;
+        margin-right: 15px;
+    }
+
+    label:before {
+        content: "";
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        margin-right: 10px;
+        position: absolute;
+        left: 0;
+        top: -1px;
+    }
+    &.radio-small,
+    &.checkbox-small {
+        width: 14px;
+        height: 14px;
+    }
+}
+
+.checkbox {
+    input[type=checkbox] {
+        display: none;
+    }
+
+    label:before {
+        border-radius: 0;
+        border: 1px solid $medium-grey;
+        background-color: $white;
+    }
+
+    input[type=checkbox]:checked + label:before {
+        background: url($tick-icon) 50% 50% no-repeat;
+        background-size: 16px;
+    }
+    &.checkbox-inset {
+        padding-left: 55px;
+    }
+}
+
+.radio {
+    input[type=radio] {
+        display: none;
+    }
+
+    label:before {
+        border-radius: 50%;
+        background-color: $light-medium-grey;
+    }
+    input[type=radio]:checked + label:after {
+        content: "";
+        text-align: center;
+        line-height: 24px;
+        background-color: $primary-blue;
+        border-radius: 50%;
+        width: 12px;
+        height: 12px;
+        display: block;
+        position: absolute;
+        top: 5px;
+        left: 6px;
+    }
+}
+
+@media (min-width: $desktop) {
+  .checkbox,
+  .radio {
+    label:before {
+        width: 20px;
+        height: 20px;
+    }
+  }
+  .radioDeal{
+  	label:before {
+        background-color: #ffffff !important;    
+		border: 1px solid #6893be !important;
+    }
+  }
+  .radio {
+    input[type=radio]:checked + label:after {
+        width: 10px;
+        height: 10px;
+        top: 4px;
+        left: 5px;
+    }
+  }
+}
+
+
+.dependant-sub{
+  margin: 0 $spacing-large;
+
+}

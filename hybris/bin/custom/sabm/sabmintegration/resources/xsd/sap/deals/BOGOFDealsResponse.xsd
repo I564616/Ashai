@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="urn:gl.sabmiller.com:com:ecc:mastdata"
+	xmlns="urn:gl.sabmiller.com:com:ecc:mastdata" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:complexType name="PricingBOGOFDealsResponse">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="EN">Data type for Pricing
+				BOGOF Deals synchronous call response</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="PricingBOGOFDealsResponseHeader">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Customer" type="xsd:string" />
+						<xsd:element name="SalesOrganisation" type="xsd:string" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="PricingBOGOFDealsResponseItem"
+				maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="ConditionType" type="xsd:string" />
+						<xsd:element name="Material" type="xsd:string" />
+						<xsd:element name="MinimumQuantity" type="xsd:string" />
+						<xsd:element name="FreeGoodsQty" type="xsd:string" />
+						<xsd:element name="UnitOfMeasure" type="xsd:string" />
+						<xsd:element name="AdditionalQtyFreeGoods" type="xsd:string" />
+						<xsd:element name="AdditionalUnitOfMeasure" type="xsd:string" />
+						<xsd:element name="Rule" type="xsd:string" />
+						<xsd:element name="AdditionalMaterial" type="xsd:string" />
+						<xsd:element name="ValidFrom" type="xsd:dateTime" />
+						<xsd:element name="ValidTo" type="xsd:dateTime" />
+						<xsd:element name="Priority" type="xsd:string" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

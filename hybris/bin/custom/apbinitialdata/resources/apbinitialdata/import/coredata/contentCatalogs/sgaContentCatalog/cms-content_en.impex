@@ -1,0 +1,99 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#
+# Import CMS content for the SGA site
+#
+
+$contentCatalog=sgaContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+
+# Language
+$lang=en
+
+# Content Pages
+UPDATE ContentPage ; $contentCV[unique=true] ; uid[unique=true]                     ; title[lang=$lang]                  
+#                   ;                        ; account                              ; "My Account"                       
+                   ;                         ; add-edit-address                     ; "Add/Edit Address"                 
+                   ;                         ; address-book                         ; "Address Book"                     
+                   ;                         ; cartPage                             ; "Cart"               
+                   ;                         ; checkout-login                       ; "Checkout"              
+                   ;                         ; faq                                  ; "Frequently Asked Questions"       
+                   ;                         ; homepage                             ; "Homepage"                         
+                   ;                         ; importCSVSavedCartPage               ; "Import Saved Cart"                
+                   ;                         ; login                                ; "Log In"                            
+                   ;                         ; multiStepCheckoutSummaryPage         ; "Checkout"                         
+                   ;                         ; my-quotes                            ; "Quotes"                           
+                   ;                         ; my-replenishment-cancel-confirmation ; "Replenishment Cancel Confirmation"
+                   ;                         ; my-replenishment-details             ; "Replenishment Order Details"      
+                   ;                         ; my-replenishment-orders              ; "Replenishment Orders"             
+                   ;                         ; notFound                             ; "Not Found"                        
+                   ;                         ; order                                ; "Order Details"                    
+                   ;                         ; orderConfirmationPage                ; "Order Confirmation"               
+                   ;                         ; orders                               ; "Order History"
+                   ;                         ; enquiries                            ; "My Enquiries"                    
+                   ;                         ; payment-details                      ; "Payment Details"                  
+#                   ;                         ; profile                              ; "Profile"                          
+                   ;                         ; quickOrderPage                       ; "Quick Order"                      
+                   ;                         ; quoteEditPage                        ; "Quote Edit"                       
+                   ;                         ; replenishmentConfirmationPage        ; "Replenishment Confirmation"       
+                   ;                         ; saved-carts                          ; "Template Details"                  
+                   ;                         ; savedCartDetailsPage                 ; "Order Templates Details"          
+                   ;                         ; searchAdvancedEmpty                  ; "Order Forms"                      
+                   ;                         ; searchEmpty                          ; "No Results"                       
+                   ;                         ; storefinderPage                      ; "StoreFinder"                      
+                   ;                         ; termsAndConditions                   ; "Terms & Conditions"             
+                   ;                         ; update-email                         ; "Update Email"                     
+                   ;                         ; update-profile                       ; "User Details & Notifications"                   
+                   ;                         ; updatePassword                       ; "Change Password"      
+                   ;                         ; updatePasswordSuccess                ; "Change Password Success"                             
+                   ;                         ; serverErrorPage                      ; "Server Error"                     
+                   ;                         ; companyConfirmationPage              ; "Company Confirmation"                    
+                   ;                         ; kegReturnPage                        ; "Keg Return"                       
+                   ;                         ; kegReturnConfirmationPage            ; "Keg Return Confirmation"          
+                   ;                         ; termsAndLegalPage                    ; "Terms & Legal"      
+                   ;                         ; aboutUsPage                    		; "About Us"            
+                   ;                         ; checkoutPage                    		; "Checkout"            
+                   ;                         ; company		                    		; "Company"            
+#TODO NEED TO FIX
+#                   ;                         ; my-company		                    	; "Manage Profiles"            
+#                   ;                         ; organizationManagement		         ; "Manage Profiles"            
+                   ;                         ; saved-cards						         ; "Saved Cards"            
+                   ;                         ; contactusPage						      ; "Contact Us"            
+                   ;                         ; register						      		; "Register"            
+                   ;                         ; registerConfirmationPage					; "Register Confirmation"   
+                   ;									; add-card									 	; "Add Credit Card"
+                   ;									; multiAccount									; "Select an Account"  
+                   ;									; invoicedetail								; "Invoices & Credits"  
+                   ;									; directdebit									; "Direct Debit"  
+                   ;									; statement										; "Statements"  
+                   ;									; paymentHistory								; "Payment History"  
+                   ;									; paymentdetail								; "Make a Payment"  
+                   ;									; paymentConfirmation						; "Payment Confirmation"  
+                          
+
+UPDATE CMSParagraphComponent ; $contentCV[unique=true] ; uid[unique=true]                           ; content[lang=en]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+                             ;                         ; Error404NotFoundComponent                  ; "<div class=""row"">
+		<div class=""col-md-12"">
+			<h2>There's been a small problem</h2>
+		</div>
+	</div>
+	<div class=""row"">
+		<div class=""col-md-2 col-sm-2"">
+		</div>
+		<div class=""col-md-8 col-sm-8 col-xs-12"">
+			
+			<p>The page you're looking for can't be found. It's either been removed or the URL is incorrect.</p>
+			<p>Please return to the <a class=""site-anchor-link"" href=""/storefront/sga/en/AUD/"">homepage</a> or click your browser's back button. </p>
+			<p>Still can't access the site? Give our Customer Service team a call and we'll help you get this sorted.</p>
+			
+		</div>
+	</div>" 
+                   

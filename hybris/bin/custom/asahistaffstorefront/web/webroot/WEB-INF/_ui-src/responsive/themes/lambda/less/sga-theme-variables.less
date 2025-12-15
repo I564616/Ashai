@@ -1,0 +1,197 @@
+//************************************************************
+//************************************************************
+//************************************************************
+//************************************************************
+//************************************************************
+//                       COLORS PALLET
+//************************************************************
+//************************************************************
+//************************************************************
+//************************************************************
+//************************************************************
+
+
+@brand-primary: 	#42515a; // Changed to match the colour codes in the visual designs.
+@brand-secondary: 	#42515a; // Changed to match the colour codes in the wire frames.
+
+
+//*********Typography Colors*********
+@text-color:			#42515a;
+@text-color-secondary:	@brand-secondary;
+@link-color: 			@brand-primary; // FIX BREAD CRUMB Changed to make the breadcrumb become white according to Visual Design. @SM
+@headline-color:		@text-color;
+
+//== Borders
+@border-color: 			#42515a;
+@border-color-2:		#42515a;
+@border-color-3:		#42515a;
+
+//*********form colors*********
+@label-color: 			@brand-secondary;
+
+@input-color: 			@text-color;
+@input-border-color: 	@border-color-3;
+@placeholder-color: 	@brand-secondary;
+//** Border color for inputs on focus
+@input-border-focus:    @brand-primary;
+//** Border color for inputs on error
+@input-error:    #AE423C;
+//** Background color for inputs on error
+@input-error-bg:        transparent;
+//** color for error text
+@input-error-text:        #AE423C;
+
+@input-success: @border-color-3;
+@input-success-bg: transparent;
+@input-success-text: #1A8451;
+
+
+//*********Header Background*********
+@header-background-color: 	#f4f4f4;
+@nav-border-color: 			@border-color;
+
+
+//*********Secondary Navigation colors*********
+//Background color for My Account and My Company dropdowns
+@meta-nav-color: @brand-primary;
+@meta-nav-color-open: #ffffff;
+@meta-nav-hover-color: @brand-secondary;
+@meta-nav-border-color: #ffffff; // Changed this to matcht the Visual Design on the menu on mobile. @SM.
+@meta-nav-background: #ffffff; // Changed this to matcht the Visual Design on the menu on mobile. @SM.
+@meta-nav-hover-background: #ffffff; // Changed this to matcht the Visual Design on the menu on mobile. @SM.
+
+
+//*********Search*********
+@searchbar-icon-color: @text-color-primary;
+@check-box-bg: #ffffff;
+
+//********* icon navigation colors*********
+@nav-icon-color: @brand-primary;
+@nav-icon-color-secondary: #ffffff; // This colour is being used for the humburger icon.
+@nav-icon-hover-background: @border-color-2;
+
+
+//*********Header Navigation-Categories Background*********
+@nav-cat-background: #42515a; // This colour is being used as the bg for the header.
+@nav-cat-border: @nav-cat-background;
+@nav-cat-hover-background: #1e3d55;
+@nav-cat-link-color: #ffffff;
+@nav-subcat-color: @text-color;
+@nav-subcat-color-text: #ffffff;
+@nav-subcat-title-color: rgba(0,0,0,0.7);
+@nav-subcat-background: @header-background-color;
+@nav-subcat-border-color: rgba(11, 127, 128, 0.6);
+@nav-subcat-hover-background: @border-color-2;
+
+
+
+//*********Offcanvas navigation colors*********
+@offcanvas-nav-header-color: @brand-primary;
+@offcanvas-nav-header-background: #ffffff;
+@offcanvas-nav-disabled: @brand-secondary;
+@offcanvas-meta-nav-color: #42515a; // Changed this to brand color as per Visual Design for PLP on mobile. @SM.
+@offcanvas-meta-nav-border-color: @meta-nav-border-color;
+@offcanvas-meta-nav-background: #ffffff; // Changed this to brand color as per Visual Design for PLP on mobile. @SM.
+@offcanvas-meta-nav-background-open: @meta-nav-background;
+@offcanvas-meta-nav-hover-background: @meta-nav-hover-background;
+@offcanvas-nav-cat-color: @brand-primary; // Changed this to brand color as per Visual Design for PLP on mobile. @SM.
+@offcanvas-nav-cat-title-color: rgba(0,0,0,0.7);
+@offcanvas-nav-cat-background: #ffffff;
+@offcanvas-nav-cat-border-color: @border-color-2;
+@offcanvas-nav-cat-hover-background: rgba(255, 255, 255, 0.15);
+
+//*********Breadcrumbs Colors*********
+@breadcrumb-bg: #ffffff; // Changed to white to match the visual design. @SM
+
+
+//*********Footer colors*********
+@footer-background: @nav-cat-background;
+@footer-text-color: #ffffff;
+@footer-border-color: @nav-cat-hover-background;
+@copyright-background: #ffffff;
+@copyright-color: #ffffff;
+
+//*********Well colors*********
+@well-secondary-bg: lighten(@brand-primary, 60%);//#e6f0fa;
+@well-quaternary-bg: #f2f2f2;
+
+//Item colors
+@item-promo-color: #00A651;
+@item-sale-color: #ED1C24;
+@item-sale-price-color: @brand-secondary;
+
+
+
+//== Tables
+@table-2n-line-bg:				#f4f4f4;
+@table-head-bg:					@nav-cat-background;
+@table-head-color:				#42515a;
+@table-head-border-color:		#334b5c;
+@table-border-color:			@border-color-2;
+@table-expand-bg:				#e4e4e4;
+@cart-product-table-head-color:				@table-expand-bg;
+
+
+//== List
+@list-active-bg:                #e6f0fb;
+
+
+//== Pagination
+@pagination-active-color: 		#a6a6a6;
+@pagination-font-weight: 		600;
+
+@pagination-disabled-color:     @pagination-active-color;
+@pagination-hover-color:		@pagination-active-color;
+
+@pagination-prev-next-hover-bg:		@btn-primary-bg;
+@pagination-prev-next-hover-color:	@btn-primary-color;
+
+
+//*********Button Colors*********
+
+//Primary Button State
+@btn-primary-color: #ffffff;
+@btn-primary-bg: @brand-primary;
+@btn-primary-border: @brand-primary;
+@btn-primary-hover-color: #ffffff;
+@btn-primary-hover-border: rgba(66, 81, 90, 0.9);
+@btn-primary-hover-background: rgba(66, 81, 90, 0.9); 
+@btn-primary-disabled-bg: #42515a;
+
+//Secondary Button State
+@btn-default-color: #ffffff;
+@btn-default-bg: @brand-secondary;
+@btn-default-border: @brand-secondary;
+@btn-default-hover-color: #ffffff;
+@btn-default-hover-border: rgba(69, 85, 96, 0.9);
+@btn-default-hover-background: rgba(69, 85, 96, 0.9);
+@btn-default-disabled-bg: @border-color-3;
+
+//*********Accordion Colors*********
+@accordion-bg: #000000;
+
+//*********Modal Colors*********
+@modal-close-btn-color: @brand-secondary;
+
+//*********Account Colors*********
+@account-subheadline-bg: @header-background-color;
+
+//*********checkout*********
+@steps-color: @text-color;
+@steps-background: @header-background-color;
+@steps-color-active: @steps-color;
+@steps-background-active: #e4e4e4;
+@steps-border-active: @border-color-3;
+@checkout-icon: @border-color-3;
+@checkout-list-head-bg: @table-head-bg;
+@checkout-list-head-color: #ffffff;
+@checkout-list-head-border: @table-head-bg;
+
+
+//*********Coupon Colors*********
+@coupon-list-item-border: @border-color-3;
+@coupon-list-item-bg: @table-2n-line-bg;
+@coupon-list-item-remove-icon: #cdcdcd;
+
+
+@grayblue: 				#F2F4F7;

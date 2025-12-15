@@ -1,0 +1,20 @@
+$productCatalog = sabmProductCatalog
+$productCatalogName = SABMiller Product Catalog
+$catalogVersion = catalogversion(catalog(id[default = $productCatalog]), version[default = 'Online'])[unique = true, default = $productCatalog:Online]
+
+INSERT_UPDATE SabmCoreProductRange; name[unique = 'true']; &CpId;
+; Core_Product ; cp ;
+
+
+INSERT_UPDATE SABMAlcoholVariantProductEAN; code[unique = 'true']; coreProductRange(&CpId); container[default = 'can']; $catalogVersion;
+; 9320000010689 ; cp ;
+; 9320000090322 ; cp ;
+; 9320000005494 ; cp ;
+; 9320000090292 ; cp ;
+; 9320000001526 ; cp ;
+; 9320000501033 ; cp ;
+; 9320000500470 ; cp ;
+; 9320000080460 ; cp ;
+; 9320000008556 ; cp ;
+; 9320000014687 ; cp ;
+; 9320000020558 ; cp ;

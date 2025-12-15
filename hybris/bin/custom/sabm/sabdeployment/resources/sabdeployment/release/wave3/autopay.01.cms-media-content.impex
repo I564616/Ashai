@@ -1,0 +1,68 @@
+$contentCatalog = sabmContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Staged])[default = $contentCatalog:Staged]
+$productCV = catalogVersion(catalog(id[default = $productCatalog]), version[default = 'Staged'])[unique = true, default = $productCatalog:Staged]
+$siteResource = jar:com.sabmiller.initialdata.setup.InitialDataSystemSetup&/sabminitialdata/import/sampledata/contentCatalogs/$contentCatalog
+$picture = media(code, $contentCV);
+
+
+INSERT_UPDATE Media; $contentCV[unique = true]; code[unique = true]; realfilename; @media[translator = de.hybris.platform.impex.jalo.media.MediaDataTranslator]; mime[default = 'image/svg+xml']; altText; folder(qualifier)[default = 'images']
+#images for information box component start
+; ; info-icon.svg                                       ; info-icon.svg                                       ; $siteResource/images/rewards/info-icon.svg                                                  ; image/svg+xml ; ;
+; ; invoice-fee_36x36.svg                               ; invoice-fee_36x36.svg                               ; $siteResource/images/rewards/invoice-fee_36x36.svg                                          ; image/svg+xml ; ;
+; ; calendar_36x36.svg                                  ; calendar_36x36.svg                                  ; $siteResource/images/rewards/calendar_36x36.svg                                             ; image/svg+xml ; ;
+; ; receivepoints_36x36.svg                             ; receivepoints_36x36.svg                             ; $siteResource/images/rewards/receivepoints_36x36.svg                                        ; image/svg+xml ; ;
+; ; rewards-line-36x36.svg                              ; rewards-line-36x36.svg                              ; $siteResource/images/rewards/rewards-line-36x36.svg                                         ; image/svg+xml ; ;
+#image for informantion box end
+#image for hero banner start
+; ; hero-banner01-desktop-white.jpg                     ; hero-banner01-desktop-white.jpg                     ; $siteResource/images/rewards/heroBanner/hero-banner01-desktop-white.jpg                     ; image/jpg     ; ;
+; ; hero-banner01-desktop.jpg                           ; hero-banner01-desktop.jpg                           ; $siteResource/images/rewards/heroBanner/hero-banner01-desktop.jpg                           ; image/jpg     ; ;
+; ; hero-banner01-mobile-white.jpg                      ; hero-banner01-mobile-white.jpg                      ; $siteResource/images/rewards/heroBanner/hero-banner01-mobile-white.jpg                      ; image/jpg     ; ;
+; ; hero-banner01-mobile.jpg                            ; hero-banner01-mobile.jpg                            ; $siteResource/images/rewards/heroBanner/hero-banner01-mobile.jpg                            ; image/jpg     ; ;
+; ; hero-banner02-desktop-white.jpg                     ; hero-banner02-desktop-white.jpg                     ; $siteResource/images/rewards/heroBanner/hero-banner02-desktop-white.jpg                     ; image/jpg     ; ;
+; ; hero-banner02-desktop.jpg                           ; hero-banner02-desktop.jpg                           ; $siteResource/images/rewards/heroBanner/hero-banner02-desktop.jpg                           ; image/jpg     ; ;
+; ; hero-banner02-mobile-white.jpg                      ; hero-banner02-mobile-white.jpg                      ; $siteResource/images/rewards/heroBanner/hero-banner02-mobile-white.jpg                      ; image/jpg     ; ;
+; ; hero-banner02-mobile.jpg                            ; hero-banner02-mobile.jpg                            ; $siteResource/images/rewards/heroBanner/hero-banner02-mobile.jpg                            ; image/jpg     ; ;
+; ; hero-banner03-desktop-white.jpg                     ; hero-banner03-desktop-white.jpg                     ; $siteResource/images/rewards/heroBanner/hero-banner03-desktop-white.jpg                     ; image/jpg     ; ;
+; ; hero-banner03-desktop.jpg                           ; hero-banner03-desktop.jpg                           ; $siteResource/images/rewards/heroBanner/hero-banner03-desktop.jpg                           ; image/jpg     ; ;
+; ; hero-banner03-mobile-white.jpg                      ; hero-banner03-mobile-white.jpg                      ; $siteResource/images/rewards/heroBanner/hero-banner03-mobile-white.jpg                      ; image/jpg     ; ;
+; ; hero-banner03-mobile.jpg                            ; hero-banner03-mobile.jpg                            ; $siteResource/images/rewards/heroBanner/hero-banner03-mobile.jpg                            ; image/jpg     ; ;
+; ; hero-banner04-desktop-white.jpg                     ; hero-banner04-desktop-white.jpg                     ; $siteResource/images/rewards/heroBanner/hero-banner04-desktop-white.jpg                     ; image/jpg     ; ;
+; ; hero-banner04-desktop.jpg                           ; hero-banner04-desktop.jpg                           ; $siteResource/images/rewards/heroBanner/hero-banner04-desktop.jpg                           ; image/jpg     ; ;
+; ; hero-banner04-mobile-white.jpg                      ; hero-banner04-mobile-white.jpg                      ; $siteResource/images/rewards/heroBanner/hero-banner04-mobile-white.jpg                      ; image/jpg     ; ;
+; ; hero-banner04-mobile.jpg                            ; hero-banner04-mobile.jpg                            ; $siteResource/images/rewards/heroBanner/hero-banner04-mobile.jpg                            ; image/jpg     ; ;
+#image for hero banner end
+#text and image content start
+; ; step1-icon.svg                                      ; step1-icon.svg                                      ; $siteResource/images/rewards/imageTextContent/step1-icon.svg                                ; image/svg+xml ; ;
+; ; step2-icon.svg                                      ; step2-icon.svg                                      ; $siteResource/images/rewards/imageTextContent/step2-icon.svg                                ; image/svg+xml ; ;
+; ; step3-icon.svg                                      ; step3-icon.svg                                      ; $siteResource/images/rewards/imageTextContent/step3-icon.svg                                ; image/svg+xml ; ;
+#text and image content end
+#reward notification image start
+; ; rewards-application-confirmation01.svg              ; rewards-application-confirmation01.svg              ; $siteResource/images/rewards/rewards-application-confirmation01.svg                         ; image/svg+xml ; ;
+#reward notification image end
+#autopay landing page start
+; ; icon-cursor-112x112.svg                             ; icon-cursor-112x112.svg                             ; $siteResource/images/autopay/icon-cursor-112x112.svg                                        ; image/svg+xml ; ;
+; ; icon-email-112x112.svg                              ; icon-email-112x112.svg                              ; $siteResource/images/autopay/icon-email-112x112.svg                                         ; image/svg+xml ; ;
+; ; icon-letter-112x112.svg                             ; icon-letter-112x112.svg                             ; $siteResource/images/autopay/icon-letter-112x112.svg                                        ; image/svg+xml ; ;
+; ; icon-phone-112x112.svg                              ; icon-phone-112x112.svg                              ; $siteResource/images/autopay/icon-phone-112x112.svg                                         ; image/svg+xml ; ;
+; ; credit-card-60x60.svg                               ; credit-card-60x60.svg                               ; $siteResource/images/autopay/credit-card-60x60.svg                                          ; image/svg+xml ; ;
+#autopay landing page end
+#autopay landing page hero banners start
+; ; autopaypage-hero-banner01-desktop.jpg               ; autopaypage-hero-banner01-desktop.jpg               ; $siteResource/images/autopay/heroBanner/autopaypage-hero-banner01-desktop.jpg               ; image/jpg     ; ;
+; ; autopaypage-hero-banner01-mobile.jpg                ; autopaypage-hero-banner01-mobile.jpg                ; $siteResource/images/autopay/heroBanner/autopaypage-hero-banner01-mobile.jpg                ; image/jpg     ; ;
+#autopay landing page hero banners end
+#homepage desktop and mobile banner start
+; ; 01Banner-LiveChat-Desktop.jpg                       ; 01Banner-LiveChat-Desktop.jpg                       ; $siteResource/images/autopay/heroBanner/01Banner-LiveChat-Desktop.jpg                       ; image/jpg     ; ;
+; ; 01Banner-LiveChat-Mobile.jpg                        ; 01Banner-LiveChat-Mobile.jpg                        ; $siteResource/images/autopay/heroBanner/01Banner-LiveChat-Mobile.jpg                        ; image/jpg     ; ;
+; ; 02Banner-CarltonDry-Desktop.jpg                     ; 02Banner-CarltonDry-Desktop.jpg                     ; $siteResource/images/autopay/heroBanner/02Banner-CarltonDry-Desktop.jpg                     ; image/jpg     ; ;
+; ; 02Banner-CarltonDry-Mobile.jpg                      ; 02Banner-CarltonDry-Mobile.jpg                      ; $siteResource/images/autopay/heroBanner/02Banner-CarltonDry-Mobile.jpg                      ; image/jpg     ; ;
+; ; 03Banner-PureBlonde-Desktop.jpg                     ; 03Banner-PureBlonde-Desktop.jpg                     ; $siteResource/images/autopay/heroBanner/03Banner-PureBlonde-Desktop.jpg                     ; image/jpg     ; ;
+; ; 03Banner-PureBlonde-Mobile.jpg                      ; 03Banner-PureBlonde-Mobile.jpg                      ; $siteResource/images/autopay/heroBanner/03Banner-PureBlonde-Mobile.jpg                      ; image/jpg     ; ;
+; ; 04Banner-MercuryCider-Desktop.jpg                   ; 04Banner-MercuryCider-Desktop.jpg                   ; $siteResource/images/autopay/heroBanner/04Banner-MercuryCider-Desktop.jpg                   ; image/jpg     ; ;
+; ; 04Banner-MercuryCider-Mobile.jpg                    ; 04Banner-MercuryCider-Mobile.jpg                    ; $siteResource/images/autopay/heroBanner/04Banner-MercuryCider-Mobile.jpg                    ; image/jpg     ; ;
+; ; hero-banner-autopay-advantage-homepage01.jpg        ; hero-banner-autopay-advantage-homepage01.jpg        ; $siteResource/images/autopay/heroBanner/hero-banner-autopay-advantage-homepage01.jpg        ; image/jpg     ; ;
+; ; hero-banner-autopay-advantage-homepage-mobile01.jpg ; hero-banner-autopay-advantage-homepage-mobile01.jpg ; $siteResource/images/autopay/heroBanner/hero-banner-autopay-advantage-homepage-mobile01.jpg ; image/jpg     ; ;
+
+
+
+
+#homepage desktop and mobile banner end

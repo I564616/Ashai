@@ -1,0 +1,280 @@
+################################################################################################################################################################################################################################
+#																	Asahi User roles abd their permission                              																						   # 
+################################################################################################################################################################################################################################
+
+$defaultPassword=12341234
+INSERT_UPDATE UserGroup ; uid[unique=true]    ; groups(uid) ; locname[lang=en] ;  
+                        ; SuperAccountMangers ;             ;                  
+
+INSERT_UPDATE UserGroup ; uid[unique=true]                 ; groups(uid)                         ; locname[lang=en]                    ;  
+                        ; apbcustomersupportmanagergroup      ; customersupportmanagerrole,asagentsalesmanagergroup,csagentgroup,csagentmanagergroup ; Customer Support Manager Group ; The Customer Support Manager Group has access to the Customer Support Backoffice's Customer Support Manager Group and Customer Support Agent Group views AND/OR the Assisted Service Module.
+                        ; asahiCMSmanagerGroup             ; cmsmanagergroup                     ; Asahi CMS manager group             
+                        ; asahiProductManagerGroup         ; productmanagergroup,backofficeproductmanagergroup                 ; Asahi product manager               
+                        ; asahiAdminGroup                  ; productmanagergroup,cmsmanagergroup ; Asahi admin group                   
+                        ; asahiCustomerSupportManagerGroup ; apbcustomersupportmanagergroup         ; Asahi customer support manager group
+                        ; asahiSalesRepresentativeGroup    ; asagentgroup                        ; Asahi sales repesentative           
+					    ; asahireadOnlyAdminGroup; asahiCMSmanagerGroup,hac_platform_support,hac_console_flexiblesearch,hac_monitoring_threaddump,hac_monitoring_memory_limited,hac_monitoring_memory,hac_monitoring_cronjobs_limited,hac_monitoring_database,hac_monitoring_cluster,hac_monitoring_cache_limited,hac_platform_pkanalyzer,hac_platform_classpathanalyzer,hac_platform_logging,hac_platform_configuration_limited; Asahi read only Admin Group
+					    ; asahicommonAdminGroup; admingroup,asagentgroup,customersupportadministratorrole,customersupportmanagerrole; Asahi common Admin Group
+
+
+INSERT_UPDATE Employee ; UID[unique=true]    ; password[default=$defaultPassword] ; description                    ; name                           ; groups(uid)[mode=append]         ; sessionLanguage(isocode) ; sessionCurrency(isocode) ; backOfficeLoginDisabled[default=false]
+                       ; asahicmsmanager     ;                                    ; Asahi CMS manager              ; Cms manager                    ; asahiCMSmanagerGroup          ; en                       ; AUD           ;true                      
+                       ; asahiproductmanager ;                                    ; Asahi product manager          ; Asahi product manager          ; asahiProductManagerGroup          ; en                       ; AUD           ;           
+                       ; asahiadmin          ;                                    ; Asahi admin                    ; Admin                          ; asahiAdminGroup                  ; en                       ; AUD           ;          
+                       ; asahicsmanager      ;                                    ; Asahi customer support manager ; Asahi customer support manager ; asahiCustomerSupportManagerGroup ; en                       ; AUD           ;           
+                       ; asahisalesrep       ;                                    ; Asahi sales repesentative      ; Sales rep                      ; asahiSalesRepresentativeGroup    ; en                       ; AUD           ;true      
+                       ; asahireadOnlyAdmin  ;                                    ; Asahi Read only admin          ; Asahi Read Only Admin          ; asahireadOnlyAdminGroup          ; en                       ; AUD           ;           
+                       ; asahicommonuser  ;                                       ; Asahi admin with Backoffice, ASM, CS, Product Cockpit Access    ; Asahi admin with Backoffice, ASM, CS, Product Cockpit Access          ; asahicommonAdminGroup          ; en                       ; AUD           ;
+
+INSERT_UPDATE UserGroup ; uid[unique=true] ; locname[lang=en]     
+                        ; b2bcustomergroup ; Customer	General user
+                        ; b2badmingroup    ; Customer Super user  
+						                  
+
+$START_USERRIGHTS       
+Type                    ; UID              ; MemberOfGroups       ; Password; Target                            ; read; change; create; remove; change_perm
+UserGroup               ; asahiAdminGroup  ;                      ;  ;                                   ;   ;   ;   ;   ;   
+                        ;                  ;                      ;  ; Item                              ; + ; + ; + ; + ; + ;  
+                        ;                  ;                      ;  ; ExtensibleItem                    ; + ; + ; + ; + ; + ;  
+                        ;                  ;                      ;  ; InboxView                         ; + ; + ; + ; + ; + ;  
+                        ;                  ;                      ;  ; UserPriceGroup                    ; + ; + ; + ; + ; + ;  
+                        ;                  ;                      ;  ; ProductPriceGroup                 ; + ; + ; + ; + ; + ;  
+                        ;                  ;                      ;  ; ProductTaxGroup                   ; + ; + ; + ; + ; + ;  
+                        ;                  ;                      ;  ; UserTaxGroup                      ; + ; + ; + ; + ; + ;  
+                        ;                  ;                      ;  ; ProductDiscountGroup              ; + ; + ; + ; + ; + ;  
+                        ;                  ;                      ;  ; UserDiscountGroup                 ; + ; + ; + ; + ; + ;  
+                        ;                  ;                      ;  ; CockpitItemTemplate               ; - ; - ; - ; - ; - ;  
+                        ;                  ;                      ;  ; CockpitUIComponentConfiguration   ; - ; - ; - ; - ; - ;  
+                        ;                  ;                      ;  ; CockpitUIComponentAccessRight     ; - ; - ; - ; - ; - ;  
+                        ;                  ;                      ;  ; AbstractLinkEntry                 ; - ; - ; - ; - ; - ;  
+                        ;                  ;                      ;  ; DeeplinkUrl                       ; - ; - ; - ; - ; - ;  
+                        ;                  ;                      ;  ; DeeplinkUrlRule                   ; - ; - ; - ; - ; - ;  
+                        ;                  ;                      ;  ; ScriptingJob                      ; - ; - ; - ; - ; - ;  
+                        ;                  ;                      ;  ; DynamicProcessDefinition          ; - ; - ; - ; - ; - ;  
+                        ;                  ;                      ;  ; Script                            ; - ; - ; - ; - ; - ;  
+                        ;                  ;                      ;  ; CSTicket                          ; - ; - ; - ; - ; - ;  
+                        ;                  ;                      ;  ; CSTicketEventEmailConfiguration   ; - ; - ; - ; - ; - ;  
+                        ;                  ;                      ;  ; B2BPermission                     ; - ; - ; - ; - ; - ;  
+                        ;                  ;                      ;  ; CustomerOrderOverview             ; + ; + ; + ; + ; + ;  
+                        ;                  ;                      ;  ; Employee                          ; + ; + ; + ; + ; + ;  
+                        ;                  ;                      ;  ; ScriptingJob                      ; + ; + ; + ; + ; + ;  
+                        ;                  ;                      ;  ; ApbProduct                        ; + ; + ; + ;   
+                        ;                  ;                      ;  ; ApbProduct.code                   ; + ; - ; - ;   
+                        ;                  ;                      ;  ; ApbProduct.name                   ; + ; + ; - ;   
+                        ;                  ;                      ;  ; ApbProduct.minQty                 ; + ; + ; - ;   
+                        ;                  ;                      ;  ; ApbProduct.maxQty                 ; + ; + ; - ;   
+                        ;                  ;                      ;  ; ApbProduct.alcoholPercent         ; + ; - ; - ;   
+                        ;                  ;                      ;  ; ApbProduct.packageSize            ; + ; + ; - ;   
+                        ;                  ;                      ;  ; ApbProduct.unitPerCase            ; + ; - ; - ;   
+                        ;                  ;                      ;  ; ApbProduct.unitPerInner           ; + ; - ; - ;   
+                        ;                  ;                      ;  ; ApbProduct.qtyPerLayer            ; + ; - ; - ;   
+                        ;                  ;                      ;  ; ApbProduct.standardPalletQuantity ; + ; - ; - ;   
+                        ;                  ;                      ;  ; ApbProduct.unitVolume             ; + ; - ; - ;   
+                        ;                  ;                      ;  ; ApbProduct.depth                  ; + ; - ; - ;   
+                        ;                  ;                      ;  ; ApbProduct.height                 ; + ; - ; - ;   
+                        ;                  ;                      ;  ; ApbProduct.width                  ; + ; - ; - ;   
+                        ;                  ;                      ;  ; ApbProduct.currencyIso            ; + ; - ; - ;   
+                        ;                  ;                      ;  ; ApbProduct.value                  ; + ; - ; - ;   
+                        ;                  ;                      ;  ; ApbProduct.productGroup           ; + ; - ; - ;   
+                        ;                  ;                      ;  ; ApbProduct.alcoholType            ; + ; - ; - ;   
+                        ;                  ;                      ;  ; ApbProduct.packageType            ; + ; - ; - ;   
+                        ;                  ;                      ;  ; ApbProduct.flavour                ; + ; - ; - ;   
+                        ;                  ;                      ;  ; ApbProduct.brand                  ; + ; - ; - ;   
+                        ;                  ;                      ;  ; ApbProduct.itemGroup              ; + ; - ; - ;   
+                        ;                  ;                      ;  ; ProductGroup                      ; + ; - ; - ;   
+                        ;                  ;                      ;  ; AlcoholType                       ; + ; - ; - ;   
+                        ;                  ;                      ;  ; PackageType                       ; + ;   ; - ;   
+                        ;                  ;                      ;  ; Flavour                           ; + ; - ; - ;   
+                        ;                  ;                      ;  ; Brand                             ; + ; - ; - ;   
+                        ;                  ;                      ;  ; ApbItem                           ; + ; - ; - ;   
+                        ;                  ;                      ;  ; ApbItem.code                      ; + ; - ; - ;   
+                        ;                  ;                      ;  ; ApbItem.name                      ; + ; - ; - ;   
+
+
+#Catalog Management tools
+                        ;                  ;                      ;  ; catalogoverview                   ; + ; + ; + ; + ; + ;  
+                        ;                  ;                      ;  ; ModifiedCatalogItemsView          ; + ; + ; + ; + ; + ;  
+                        ;                  ;                      ;  ; DuplicateCatalogItemCodesView     ; + ; + ; + ; + ; + ;  
+                        ;                  ;                      ;  ; SynchronizeCatalogVersionWizard   ; + ; + ; + ; + ; + ;  
+                        ;                  ;                      ;  ; CompareCatalogVersionWizard       ; + ; + ; + ; + ; + ;  
+                        ;                  ;                      ;  ; catalogversion                    ; + ; + ; + ; + ; + ;  
+                        ;                  ;                      ;  ; catalog                           ; + ; + ; + ; + ; + ;  
+#Customer and Order     
+                        ;                  ;                      ;  ; B2BCustomer                       ; + ; + ; + ; - 
+                        ;                  ;                      ;  ; Customer.allGroups                ; + ; + ; - ; - 
+                        ;                  ;                      ;  ; Address                           ; + ; - ; - ; - 
+                        ;                  ;                      ;  ; AsahiB2BUnit                      ; + ; + ; + ; - 
+                        ;                  ;                      ;  ; AsahiB2BUnit.backendRecordID      ; + ; - ; - ; - 
+                        ;                  ;                      ;  ; AsahiB2BUnit.accountNum           ; + ; - ; - ; - 
+                        ;                  ;                      ;  ; AsahiB2BUnit.abnNumber            ; + ; - ; - ; - 
+                        ;                  ;                      ;  ; AsahiB2BUnit.liquorLicensenumber  ; + ; - ; - ; - 
+                        ;                  ;                      ;  ; AsahiB2BUnit.phone                ; + ; - ; - ; - 
+                        ;                  ;                      ;  ; AsahiB2BUnit.teleFax              ; + ; - ; - ; - 
+                        ;                  ;                      ;  ; AsahiB2BUnit.custGroup            ; + ; - ; - ; - 
+                        ;                  ;                      ;  ; AsahiB2BUnit.invoiceAccount       ; + ; - ; - ; - 
+                        ;                  ;                      ;  ; AsahiB2BUnit.eclAccountGroupId    ; + ; - ; - ; - 
+                        ;                  ;                      ;  ; AsahiB2BUnit.eclAccountTypeId     ; + ; - ; - ; - 
+                        ;                  ;                      ;  ; AsahiB2BUnit.eclBannerGroupid     ; + ; - ; - ; - 
+                        ;                  ;                      ;  ; AsahiB2BUnit.eclFreightAreaId     ; + ; - ; - ; - 
+                        ;                  ;                      ;  ; AsahiB2BUnit.eclSubchannelCode    ; + ; - ; - ; - 
+                        ;                  ;                      ;  ; AsahiB2BUnit.eclChannelCode       ; + ; - ; - ; - 
+                        ;                  ;                      ;  ; AsahiB2BUnit.eclLicenseTypeCode   ; + ; - ; - ; - 
+                        ;                  ;                      ;  ; AsahiB2BUnit.eclLicenseClassCode  ; + ; - ; - ; - 
+                        ;                  ;                      ;  ; AsahiB2BUnit.warehouse            ; + ; - ; - ; - 
+                        ;                  ;                      ;  ; AbstractOrder                     ; + ; - ; - ; - 
+                        ;                  ;                      ;  ; AbstractOrder.status              ; + ; + ; - ; - 
+                        ;                  ;                      ;  ; AbstractOrderEntry                ; + ; - ; - ; - 
+                        ;                  ;                      ;  ; Company                           ; + ; - ; - ; - 
+
+$END_USERRIGHTS         
+
+
+$START_USERRIGHTS
+Type;UID;MemberOfGroups;Password;Target;read;change;create;remove;change_perm
+UserGroup;asahireadOnlyAdminGroup;;;;;;;;
+;;;;Item;+;-;-;-;-;
+;;;;Category;+;-;-;-;-;
+;;;;Product;+;-;-;-;-;
+;;;;Employee;+;-;-;-;-;
+;;;;ApbProduct;+;-;-;-;-;
+                        ;                  ;                      ;  ; ExtensibleItem                    ; + ; - ; - ; - ; - ; 
+                        ;                  ;                      ;  ; CSTicket                          ; + ; - ; - ; - ; - ; 
+                        ;                  ;                      ;  ; CSTicketEventEmailConfiguration   ; + ; - ; - ; - ; - ; 
+                        ;                  ;                      ;  ; B2BPermission                     ; + ; - ; - ; - ; - ; 
+                        ;                  ;                      ;  ; CustomerOrderOverview             ; + ; - ; - ; - ; - ; 
+                        ;                  ;                      ;  ; Employee                          ; + ; - ; - ; - ; - ; 
+                        ;                  ;                      ;  ; ApbProduct                        ; + ; - ; - ;  
+                        ;                  ;                      ;  ; ApbProduct.code                   ; + ; - ; - ;  
+                        ;                  ;                      ;  ; ApbProduct.name                   ; + ; - ; - ;  
+                        ;                  ;                      ;  ; ApbProduct.minQty                 ; + ; - ; - ;  
+                        ;                  ;                      ;  ; ApbProduct.maxQty                 ; + ; - ; - ;  
+                        ;                  ;                      ;  ; ApbProduct.alcoholPercent         ; + ; - ; - ;  
+                        ;                  ;                      ;  ; ApbProduct.packageSize            ; + ; - ; - ;  
+                        ;                  ;                      ;  ; ApbProduct.unitPerCase            ; + ; - ; - ;  
+                        ;                  ;                      ;  ; ApbProduct.unitPerInner           ; + ; - ; - ;  
+                        ;                  ;                      ;  ; ApbProduct.qtyPerLayer            ; + ; - ; - ;  
+                        ;                  ;                      ;  ; ApbProduct.standardPalletQuantity ; + ; - ; - ;  
+                        ;                  ;                      ;  ; ApbProduct.unitVolume             ; + ; - ; - ;  
+                        ;                  ;                      ;  ; ApbProduct.depth                  ; + ; - ; - ;  
+                        ;                  ;                      ;  ; ApbProduct.height                 ; + ; - ; - ;  
+                        ;                  ;                      ;  ; ApbProduct.width                  ; + ; - ; - ;  
+                        ;                  ;                      ;  ; ApbProduct.currencyIso            ; + ; - ; - ;  
+                        ;                  ;                      ;  ; ApbProduct.value                  ; + ; - ; - ;  
+                        ;                  ;                      ;  ; ApbProduct.productGroup           ; + ; - ; - ;  
+                        ;                  ;                      ;  ; ApbProduct.alcoholType            ; + ; - ; - ;  
+                        ;                  ;                      ;  ; ApbProduct.packageType            ; + ; - ; - ;  
+                        ;                  ;                      ;  ; ApbProduct.flavour                ; + ; - ; - ;  
+                        ;                  ;                      ;  ; ApbProduct.brand                  ; + ; - ; - ;  
+                        ;                  ;                      ;  ; ApbProduct.itemGroup              ; + ; - ; - ;  
+                        ;                  ;                      ;  ; ProductGroup                      ; + ; - ; - ;  
+                        ;                  ;                      ;  ; AlcoholType                       ; + ; - ; - ;  
+                        ;                  ;                      ;  ; PackageType                       ; + ;   ; - ;  
+                        ;                  ;                      ;  ; Flavour                           ; + ; - ; - ;  
+                        ;                  ;                      ;  ; Brand                             ; + ; - ; - ;  
+                        ;                  ;                      ;  ; ApbItem                           ; + ; - ; - ;  
+                        ;                  ;                      ;  ; ApbItem.code                      ; + ; - ; - ;  
+                        ;                  ;                      ;  ; ApbItem.name                      ; + ; - ; - ;  
+                        ;                  ;                      ;  ; B2BCustomer                       ; + ; - ; - ; -
+                        ;                  ;                      ;  ; Customer.allGroups                ; + ; - ; - ; -
+                        ;                  ;                      ;  ; Address                           ; + ; - ; - ; -
+                        ;                  ;                      ;  ; AsahiB2BUnit                      ; + ; - ; - ; -
+                        ;                  ;                      ;  ; AsahiB2BUnit.backendRecordID      ; + ; - ; - ; -
+                        ;                  ;                      ;  ; AsahiB2BUnit.accountNum           ; + ; - ; - ; -
+                        ;                  ;                      ;  ; AsahiB2BUnit.abnNumber            ; + ; - ; - ; -
+                        ;                  ;                      ;  ; AsahiB2BUnit.liquorLicensenumber  ; + ; - ; - ; -
+                        ;                  ;                      ;  ; AsahiB2BUnit.phone                ; + ; - ; - ; -
+                        ;                  ;                      ;  ; AsahiB2BUnit.teleFax              ; + ; - ; - ; -
+                        ;                  ;                      ;  ; AsahiB2BUnit.custGroup            ; + ; - ; - ; -
+                        ;                  ;                      ;  ; AsahiB2BUnit.invoiceAccount       ; + ; - ; - ; -
+                        ;                  ;                      ;  ; AsahiB2BUnit.eclAccountGroupId    ; + ; - ; - ; -
+                        ;                  ;                      ;  ; AsahiB2BUnit.eclAccountTypeId     ; + ; - ; - ; -
+                        ;                  ;                      ;  ; AsahiB2BUnit.eclBannerGroupid     ; + ; - ; - ; -
+                        ;                  ;                      ;  ; AsahiB2BUnit.eclFreightAreaId     ; + ; - ; - ; -
+                        ;                  ;                      ;  ; AsahiB2BUnit.eclSubchannelCode    ; + ; - ; - ; -
+                        ;                  ;                      ;  ; AsahiB2BUnit.eclChannelCode       ; + ; - ; - ; -
+                        ;                  ;                      ;  ; AsahiB2BUnit.eclLicenseTypeCode   ; + ; - ; - ; -
+                        ;                  ;                      ;  ; AsahiB2BUnit.eclLicenseClassCode  ; + ; - ; - ; -
+                        ;                  ;                      ;  ; AsahiB2BUnit.warehouse            ; + ; - ; - ; -
+                        ;                  ;                      ;  ; AbstractOrder                     ; + ; - ; - ; -
+                        ;                  ;                      ;  ; AbstractOrder.status              ; + ; + ; - ; -
+                        ;                  ;                      ;  ; AbstractOrderEntry                ; + ; - ; - ; -
+                        ;                  ;                      ;  ; Company                           ; + ; - ; - ; -
+ 
+$END_USERRIGHTS
+
+$START_USERRIGHTS       ;                  ;                      ;  ;                                   ;   ;   ;   ;   ;   
+Type                    ; UID              ; MemberOfGroups       ; Password; Target                            ; read; change; create; remove; change_perm
+UserGroup               ; asahiProductManagerGroup;                      ;  ;                                   ;   ;   ;   ;   ;   
+
+# Access Rights for Products & Catalog;;;;;;;;;
+                        ;                  ;                      ;  ; ApbProduct                        ; + ; + ; - ; - 
+                        ;                  ;                      ;  ; ApbProduct.code                   ; + ; - ; - ;   
+                        ;                  ;                      ;  ; ApbProduct.name                   ; + ; + ; - ;   
+                        ;                  ;                      ;  ; ApbProduct.minQty                 ; + ; + ; - ;   
+                        ;                  ;                      ;  ; ApbProduct.maxQty                 ; + ; + ; - ;   
+                        ;                  ;                      ;  ; ApbProduct.alcoholPercent         ; + ; - ; - ;   
+                        ;                  ;                      ;  ; ApbProduct.packageSize            ; + ; + ; - ;   
+                        ;                  ;                      ;  ; ApbProduct.unitPerCase            ; + ; - ; - ;   
+                        ;                  ;                      ;  ; ApbProduct.unitPerInner           ; + ; - ; - ;   
+                        ;                  ;                      ;  ; ApbProduct.qtyPerLayer            ; + ; - ; - ;   
+                        ;                  ;                      ;  ; ApbProduct.standardPalletQuantity ; + ; - ; - ;   
+                        ;                  ;                      ;  ; ApbProduct.unitVolume             ; + ; - ; - ;   
+                        ;                  ;                      ;  ; ApbProduct.depth                  ; + ; - ; - ;   
+                        ;                  ;                      ;  ; ApbProduct.height                 ; + ; - ; - ;   
+                        ;                  ;                      ;  ; ApbProduct.width                  ; + ; - ; - ;   
+                        ;                  ;                      ;  ; ApbProduct.currencyIso            ; + ; - ; - ;   
+                        ;                  ;                      ;  ; ApbProduct.value                  ; + ; - ; - ;   
+                        ;                  ;                      ;  ; ApbProduct.productGroup           ; + ; - ; - ;   
+                        ;                  ;                      ;  ; ApbProduct.alcoholType            ; + ; - ; - ;   
+                        ;                  ;                      ;  ; ApbProduct.packageType            ; + ; - ; - ;   
+                        ;                  ;                      ;  ; ApbProduct.flavour                ; + ; - ; - ;   
+                        ;                  ;                      ;  ; ApbProduct.brand                  ; + ; - ; - ;   
+                        ;                  ;                      ;  ; ApbProduct.itemGroup              ; + ; - ; - ;   
+                        ;                  ;                      ;  ; ProductGroup                      ; + ; - ; - ; - 
+                        ;                  ;                      ;  ; AlcoholType                       ; + ; - ; - ; - 
+                        ;                  ;                      ;  ; PackageType                       ; + ;   ; - ; - 
+                        ;                  ;                      ;  ; Flavour                           ; + ; - ; - ; - 
+                        ;                  ;                      ;  ; Brand                             ; + ; - ; - ; - 
+                        ;                  ;                      ;  ; ApbItem                           ; + ; - ; - ;   
+                        ;                  ;                      ;  ; ApbItem.code                      ; + ; - ; - ;   
+                        ;                  ;                      ;  ; ApbItem.name                      ; + ; - ; - ;   
+$END_USERRIGHTS         ;                  ;                      ;  ;                                   ;   
+
+
+$START_USERRIGHTS       
+Type                    ; UID              ; MemberOfGroups       ; Password; Target                            ; read; change; create; remove; change_perm
+
+
+##                      
+## customerservicegroup access rights
+##                      
+UserGroup               ; asahiCustomerSupportManagerGroup; customersupportmanagergroup;  ;                                   ;   ;   ;   ;   ;   
+
+                        ;                  ;                      ;  ; Customer                       ; + ; + ;- ; - 
+                        ;                  ;                      ;  ; B2BCustomer                       ; + ; + ; + ; - 
+                        ;                  ;                      ;  ; Address                           ; + ; - ; - ; - 
+                        ;                  ;                      ;  ; AsahiB2BUnit                      ; + ; + ; - ; - 
+                        ;                  ;                      ;  ; AsahiB2BUnit.backendRecordID      ; + ; - ; - ; - 
+                        ;                  ;                      ;  ; AsahiB2BUnit.accountNum           ; + ; - ; - ; - 
+                        ;                  ;                      ;  ; AsahiB2BUnit.abnNumber            ; + ; - ; - ; - 
+                        ;                  ;                      ;  ; AsahiB2BUnit.liquorLicensenumber  ; + ; - ; - ; - 
+                        ;                  ;                      ;  ; AsahiB2BUnit.phone                ; + ; - ; - ; - 
+                        ;                  ;                      ;  ; AsahiB2BUnit.teleFax              ; + ; - ; - ; - 
+                        ;                  ;                      ;  ; AsahiB2BUnit.custGroup            ; + ; - ; - ; - 
+                        ;                  ;                      ;  ; AsahiB2BUnit.invoiceAccount       ; + ; - ; - ; - 
+                        ;                  ;                      ;  ; AsahiB2BUnit.eclAccountGroupId    ; + ; - ; - ; - 
+                        ;                  ;                      ;  ; AsahiB2BUnit.eclAccountTypeId     ; + ; - ; - ; - 
+                        ;                  ;                      ;  ; AsahiB2BUnit.eclBannerGroupid     ; + ; - ; - ; - 
+                        ;                  ;                      ;  ; AsahiB2BUnit.eclFreightAreaId     ; + ; - ; - ; - 
+                        ;                  ;                      ;  ; AsahiB2BUnit.eclSubchannelCode    ; + ; - ; - ; - 
+                        ;                  ;                      ;  ; AsahiB2BUnit.eclChannelCode       ; + ; - ; - ; - 
+                        ;                  ;                      ;  ; AsahiB2BUnit.eclLicenseTypeCode   ; + ; - ; - ; - 
+                        ;                  ;                      ;  ; AsahiB2BUnit.eclLicenseClassCode  ; + ; - ; - ; - 
+                        ;                  ;                      ;  ; AsahiB2BUnit.warehouse            ; + ; - ; - ; - 
+                        ;                  ;                      ;  ; AbstractOrder                     ; + ; - ; - ; - 
+                        ;                  ;                      ;  ; AbstractOrderEntry                ; + ; - ; - ; - 
+                        ;                  ;                      ;  ; Company                           ; + ; - ; - ; - 
+                        ;                  ;                      ;  ; warehouse           				 ; + ; - ; - ; - 
+$END_USERRIGHTS         ;                  ;                      ;  ;                                   ;   
+
+

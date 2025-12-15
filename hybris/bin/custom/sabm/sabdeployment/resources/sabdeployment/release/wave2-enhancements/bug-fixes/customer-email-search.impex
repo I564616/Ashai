@@ -1,0 +1,4 @@
+$solrCustomerIndexedType = sabmStoreB2bCustomerType
+
+INSERT_UPDATE SolrIndexedProperty; solrIndexedType(identifier)[unique = true]; name[unique = true]; type(code); sortableType(code); currency[default = false]; localized[default = false]; multiValue[default = true]; useForSpellchecking[default = false]; useForAutocomplete[default = false]; fieldValueProvider; valueProviderParameters(key, value)[map-delimiter = |];  valueProviderParameter; 
+; $solrCustomerIndexedType       ; customeremail                ; string         ;  ; ;      ;      ;      ; ; customerEmailProvider                 ;                        ;    ;    

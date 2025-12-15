@@ -1,0 +1,19 @@
+$lang=en
+#####################INSERT THE SPRING ID INTO SERVICE LAYER JOB#############################
+INSERT_UPDATE ServicelayerJob;code[unique=true];springId[unique=true]
+;cubStockProcessingJob;cubStockProcessingJob
+;cubStockCleanUpJob;cubStockCleanUpJob
+
+#####################ASSOCIATE THE JOB LOGIC TO CRONJOB######################################
+INSERT_UPDATE CUBStockProcessingCronJob;code[unique=true];job(code);sessionLanguage(isocode);fallbackRequired[default=false]
+;CUBStockProcessingCronJob;cubStockProcessingJob;$lang;true
+
+INSERT_UPDATE CronJob;code[unique=true];job(code);sessionLanguage(isocode)
+;CUBStockCleanUpCronJob;cubStockCleanUpJob;$lang
+
+#####################TRIGGER FOR THE CRONJOB#################################################
+
+#####################SOLR INDEXING CONFIG####################################################
+$solrIndexedType = sabmStoreProductType
+INSERT_UPDATE SolrIndexedProperty; solrIndexedType(identifier)[unique = true]; name[unique = true]; type(code); sortableType(code); currency[default = false]; localized[default = false]; multiValue[default = false]; useForSpellchecking[default = false]; useForAutocomplete[default = false]; fieldValueProvider; valueProviderParameter
+; $solrIndexedType ; cubStockInformation     ; string  ;              ; ;      ; true ;      ;      ; cubStockInformationValueProvider           ;

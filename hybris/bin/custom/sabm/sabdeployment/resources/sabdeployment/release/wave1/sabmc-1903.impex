@@ -1,0 +1,38 @@
+$lang=en
+$contentCatalog=sabmContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false']
+;;registrationRequests;Registration Requests;ContentPage3Template;/register/registration-form
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;RegistrationRequestsComponent;Registration Requests Component;../account/accountRegistrationRequestPage.jsp;;RegistrationRequestsComponent
+
+###### SABMiller Registration Requests Page
+
+# ContentSlot
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;Section2-registrationRequests;Registration Requests Form Page;true;RegistrationRequestsComponent;;;
+# ContentSlotForPage
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='registrationRequests'];contentSlot(uid,$contentCV)[unique=true];;;
+;;Section2-registrationRequests;Section2;;Section2-registrationRequests;;;
+
+
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Online])[default=$contentCatalog:Online]
+
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false']
+;;registrationRequests;Registration Requests;ContentPage3Template;/register/registration-form
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef2
+;;RegistrationRequestsComponent;Registration Requests Component;../account/accountRegistrationRequestPage.jsp;;RegistrationRequestsComponent
+
+###### SABMiller Registration Requests Page
+
+# ContentSlot
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef2);;;
+;;Section2-registrationRequests;Registration Requests Form Page;true;RegistrationRequestsComponent;;;
+# ContentSlotForPage
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='registrationRequests'];contentSlot(uid,$contentCV)[unique=true];;;
+;;Section2-registrationRequests;Section2;;Section2-registrationRequests;;;
+
+

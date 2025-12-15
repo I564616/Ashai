@@ -1,0 +1,35 @@
+#
+# Personalized Messages Import Configuration
+# 
+
+$contentCatalog=sabmContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$media=media(code, $contentCV);
+$ImportCockpitResource=jar:com.sabmiller.initialdata.setup.InitialDataSystemSetup&/sabminitialdata/import/sampledata/cockpits/importCockpit
+$lang=en
+
+#INSERT_UPDATE ImportCockpitJob;code[unique=true];sessionLanguage(isoCode)[default=en]
+#;SabmMessagesImportJob
+
+#INSERT_UPDATE ImportCockpitMapping;code[unique=true];folder(qualifier);@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='text/xml']
+#;SabmMessagesImportMapping;cronjob;$ImportCockpitResource/xml/SabmMessagesMapping.xml;
+
+#INSERT_UPDATE ImportCockpitInputMedia;code[unique=true];realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='text/csv'];fieldSeparator
+#;SabmMessagesImportCockpitMedia;SabmMessagesSource.csv;$ImportCockpitResource/csv/SabmMessagesSource.csv;;,
+
+#INSERT_UPDATE ImportCockpitCronJob; code[unique=true];job(code);inputMedia(code);mapping(code);mappingValid;sessionLanguage(isocode)
+#;SabmMessagesImportCockpitJob;SabmMessagesImportJob;SabmMessagesImportCockpitMedia;SabmMessagesImportMapping;true;$lang
+
+
+############################################
+# cmscockpit-access-rights.impex changes
+############################################
+#
+# Import Access Rights for CMS Cockpit
+# 
+
+$START_USERRIGHTS;;;;;;;;;
+Type;UID;MemberOfGroups;Password;Target;read;change;create;remove;change_perm
+UserGroup;cmsmanagergroup;cockpitgroup,employeegroup;;;;;;;
+;;;;SabmMessage;+;+;+;+;+;
+$END_USERRIGHTS;;;;;

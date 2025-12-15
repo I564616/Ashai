@@ -1,0 +1,60 @@
+#
+# Import the CMS content for the site emails
+#
+$contentCatalog=sabmContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$wideContent=CMSImageComponent,BannerComponent,CMSParagraphComponent
+$jarEmailResource=jar:com.sabmiller.core.constants.SabmCoreConstants&/sabminitialdata/import/coredata/contentCatalogs/sabmContentCatalog/emails
+
+# Import modulegen config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+$jarResourceCms=$config-jarResourceCmsValue
+$emailPackageName=$config-emailContextPackageName
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+$emailResource=$config-emailResourceValue
+
+# Language
+$lang=en
+
+### Customer profile updated notice email template ###
+# Email page Template
+INSERT_UPDATE EmailPageTemplate;$contentCV[unique=true];uid[unique=true];name;active;frontendTemplateName;subject(code);htmlTemplate(code);restrictedPageTypes(code)
+;;ProfileUpdatedNoticeTemplate;Profile Updated Notice Email Template;true;profileUpdatedNotice;sabmiller_Email_Profile_Updated_Notice_Subject;sabmiller_Email_Profile_Updated_Notice_Body;EmailPage
+
+# Templates for CMS Cockpit Page Edit
+UPDATE EmailPageTemplate;$contentCV[unique=true];uid[unique=true];velocityTemplate[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+;;ProfileUpdatedNoticeTemplate;$jarResourceCms/structure-view/structure_readyForProfileUpdatedNoticeTemplate.vm
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='ProfileUpdatedNoticeTemplate'];validComponentTypes(code);compTypeGroup(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+;Footer;;;footer
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='ProfileUpdatedNoticeTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-ProfileUpdatedNoticeEmail;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-ProfileUpdatedNoticeEmail;TopContent;;EmailTopSlot;true
+;;BottomContent-ProfileUpdatedNoticeEmail;BottomContent;;EmailBottomSlot;true
+;;Footer-ProfileUpdatedNoticeEmail;Footer;;EmailFooterSlot;true
+
+# Email Pages
+INSERT_UPDATE EmailPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);defaultPage;approvalStatus(code)[default='approved'];previewImage(code, $contentCV)
+;;ProfileUpdatedNoticeEmail;Profile Updated Notice Email;ProfileUpdatedNoticeTemplate;true;;EmailPageModel_preview
+
+# Email velocity templates
+INSERT_UPDATE RendererTemplate;code[unique=true];contextClass;rendererType(code)[default='velocity']
+;sabmiller_Email_Profile_Updated_Notice_Body;$emailPackageName.ProfileUpdatedNoticeEmailContext
+;sabmiller_Email_Profile_Updated_Notice_Subject;$emailPackageName.ProfileUpdatedNoticeEmailContext
+
+
+# Email Pages
+INSERT_UPDATE EmailPage;$contentCV[unique=true];uid[unique=true];fromEmail[lang=$lang];fromName[lang=$lang]
+;;ProfileUpdatedNoticeEmail;"no-reply-online@cub.com.au";"CUB Online No Reply"
+ 
+ # CMS components and Email velocity templates
+UPDATE RendererTemplate;code[unique=true];description[lang=$lang];templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+;sabmiller_Email_Profile_Updated_Notice_Body;"CMSBannerComponent Template";$emailResource/email-profileUpdatedBody.vm
+;sabmiller_Email_Profile_Updated_Notice_Subject;"CMSBannerComponent Template";$emailResource/email-profileUpdatedSubject.vm
+ 

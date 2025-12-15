@@ -1,0 +1,102 @@
+// ==========================================================================
+//   Order Received Page
+// ==========================================================================
+
+.order-received{
+	a.link{
+		border-bottom:1px solid $dark-grey;
+		color: $dark-grey;
+	}
+	
+	ul.list-inline{
+		margin-top:3%;
+		
+		li{
+			line-height:3em;
+			padding-right:15px;
+		}
+	}
+
+
+
+	.order-received-thank-you{
+		margin-bottom:5%;
+	}
+	
+	.track-my-delivery-panel{
+		cursor:pointer !important;
+		margin-bottom:30px;
+		max-width:500px;
+		background:rgba(3, 169, 244, 0.07);
+		height:auto;
+		overflow:hidden;
+		position:relative;
+	
+	
+		p{
+			font-size:1em !important;
+		}
+	
+		.header-text{
+			width:50%;
+			margin:5% auto;
+			
+			h2{
+				margin-bottom:10px;
+			}
+		}
+		
+		.icon{
+			background-image:url('../img/svg/track-my-delivery/active/icon-active-in-transit.svg');
+			height:65px;
+			width:65px;
+			position:absolute;
+			top:35px;
+			left:45px;
+		}
+		
+		
+		.arrowright{
+			height:40px;
+			width:10px;
+			right:35px;
+			top:60px;
+			background-image:url('../img/svg/arrow-right.svg');
+			background-repeat:no-repeat;
+			position:absolute;
+		}
+		
+		.footer-text{
+			width:85%;
+			margin:0 auto;		
+			
+			.hr-block{
+				height:1px;
+				background:rgba(8, 82, 115, 0.23);
+			}
+			
+			.icon-notification{
+				background-image:url('../img/svg/track-my-delivery/icon-notifications.svg');
+				background-repeat:no-repeat;
+				height:20px;
+				width:20px;
+				vertical-align:middle;
+			}
+			
+			p{
+				padding:10px 0;		
+			}
+		}
+			
+	}
+	
+	
+	.ammendment-cancellation-note{
+		background:rgba(61, 155, 183, 0.51);
+		padding:10px 10px 1px 10px;
+		
+		p{
+			text-align:justify;
+		}
+	}
+}

@@ -1,0 +1,7 @@
+# ==============================================================================
+# Create Media for "How to fix a mouldy keg" PDF
+# ==============================================================================
+
+INSERT_UPDATE Media; code[unique=true]; realfilename; mime; @media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator]; folder(qualifier); catalogVersion(catalog(id),version)
+; how-to-fix-a-mouldy-keg ; How-to-fix-a-mouldy-keg.pdf ; application/pdf ; sabminitialdata/import/sampledata/common/How-to-fix-a-mouldy-keg.pdf ; images ; sabmContentCatalog:Staged
+; how-to-fix-a-mouldy-keg ; How-to-fix-a-mouldy-keg.pdf ; application/pdf ; sabminitialdata/import/sampledata/common/How-to-fix-a-mouldy-keg.pdf ; images ; sabmContentCatalog:Online

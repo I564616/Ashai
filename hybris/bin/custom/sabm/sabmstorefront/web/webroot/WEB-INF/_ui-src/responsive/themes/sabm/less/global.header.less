@@ -1,0 +1,34 @@
+@import "variables.less";
+.main-header {
+    background: @headerBackgroundColor;
+    .menu-container{
+       background:@whiteBackgroundColor;
+       font-size:14px;
+       font-weight:bold;
+       border-bottom:1px solid @menuBorderColor;
+       padding-bottom:15px;
+       .main-navigation{
+         .nav{
+           > li {
+               & + li{
+                 border-left:none;
+             }
+             a{
+                 color:@menuColor;
+                 font-size:16px;
+                 font-weight:bold;
+                 text-transform:none;
+                 &.active{
+                    color:@breadCrumActiveColor;
+                 }
+                 &:hover{
+                   background-color:@grayBackgroundColor;
+                 }
+             }
+          }
+          
+        }
+      }
+    }
+}
+

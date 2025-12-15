@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2015 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:security="http://www.springframework.org/schema/security"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:util="http://www.springframework.org/schema/util"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/security
+        http://www.springframework.org/schema/security/spring-security.xsd
+        http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util.xsd">
+		
+	<context:annotation-config/>
+
+	<security:http pattern="/_ui/**" request-matcher="ant" security="none" />
+
+
+	<!--Security config for checkout - it has its own login page-->
+	<security:http disable-url-rewriting="true" pattern="/checkout/**" request-matcher="ant" use-expressions="true" use-authorization-manager="true">
+        <security:anonymous username="anonymous" granted-authority="ROLE_ANONYMOUS" />
+		<security:access-denied-handler error-page="/login"/>
+       <security:session-management session-authentication-strategy-ref="fixation" invalid-session-url="/login" />
+		<!--<security:csrf token-repository-ref="csrfTokenRepository" request-matcher-ref="csrfProtectionMatcher" />-->
+		<security:intercept-url pattern="/**" access="permitAll()" requires-channel="https" />
+
+		<security:form-login
+				login-processing-url="/checkout/j_spring_security_check"
+				login-page="/login/checkout"
+				authentication-failure-handler-ref="loginCheckoutAuthenticationFailureHandler"
+				authentication-success-handler-ref="loginCheckoutGuidAuthenticationSuccessHandler" />
+
+		<security:logout logout-url="/logout" success-handler-ref="logoutSuccessHandler" />
+
+		<security:port-mappings>
+			<security:port-mapping http="#{configurationService.configuration.getProperty('tomcat.http.port')}"
+			                       https="#{configurationService.configuration.getProperty('tomcat.ssl.port')}" />
+			<security:port-mapping http="80" https="443" />
+			<!--security:port-mapping http="#{configurationService.configuration.getProperty('proxy.http.port')}"
+				https="#{configurationService.configuration.getProperty('proxy.ssl.port')}" /-->
+		</security:port-mappings>
+
+		<security:request-cache ref="httpSessionRequestCache" />
+		<security:csrf disabled="true" />
+		
+		<security:headers>
+            <security:frame-options disabled="true"/>
+        </security:headers>
+
+	</security:http>
+
+	<!-- Ignores url(s) that match paths specified in the set -->
+	<!-- <bean id="excludeUrlRequestMatcher" class="com.sabmiller.storefront.security.ExcludeUrlRequestMatcher">
+		<property name="excludeUrlSet" ref="excludeUrlSet"/>
+		<property name="pathMatcher" ref="defaultPathMatcher"/>
+	</bean> -->
+
+	<!-- The set of url(s) to exclude from the 'Default security config'-->
+	<!-- <bean id="excludeUrlSet" class="java.util.HashSet" /> -->
+
+	<!-- Path matcher to use, AntPathMatcher is the default -->
+	<alias name="antPathMatcher" alias="defaultPathMatcher" />
+	<bean id="antPathMatcher" class="org.springframework.util.AntPathMatcher" />
+
+    <bean id="webSecurityExpressionHandler" class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" />
+
+	<!-- Default security config -->
+	<security:http disable-url-rewriting="true" request-matcher="ant" use-authorization-manager="true" use-expressions="true">
+		<security:anonymous username="anonymous" granted-authority="ROLE_ANONYMOUS" />
+		<security:access-denied-handler error-page="/login"/>
+   		<security:session-management session-authentication-strategy-ref="fixation" invalid-session-url="/login" />
+		<!--<security:csrf token-repository-ref="csrfTokenRepository" request-matcher-ref="csrfProtectionMatcher" />-->
+	
+		<!-- RememberMe -->
+		<!-- <security:remember-me key="sabmstorefront" services-ref="rememberMeServices"/> -->
+
+		<!-- SSL / AUTHENTICATED pages -->
+		<security:intercept-url pattern="/login" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_CUSTOMERGROUP')" requires-channel="https" />
+		<security:intercept-url pattern="/register/registration-form" access="hasAnyRole('ROLE_ANONYMOUS')" requires-channel="https" />
+
+		<!-- Website permission for Pay only user -->
+		<!-- FRAMEWORK_UPDATE - TODO - AntPathMatcher was replaced with PathPatternParser as the new default path parser in Spring 6. Adjust this path to the new matching rules or re-enable deprecated AntPathMatcher. Consult "Adapting to PathPatternParser new default URL Matcher" JDK21 Upgrade Step in SAP Help documentation.-->
+		<security:intercept-url pattern="/**/c/*" access="hasAnyRole('ROLE_B2BORDERCUSTOMER','ROLE_B2BADMINGROUP')" requires-channel="https" />		
+		<!-- FRAMEWORK_UPDATE - TODO - AntPathMatcher was replaced with PathPatternParser as the new default path parser in Spring 6. Adjust this path to the new matching rules or re-enable deprecated AntPathMatcher. Consult "Adapting to PathPatternParser new default URL Matcher" JDK21 Upgrade Step in SAP Help documentation.-->
+		<security:intercept-url pattern="/**/p/*" access="hasAnyRole('ROLE_B2BORDERCUSTOMER','ROLE_B2BADMINGROUP')" requires-channel="https" />		
+		<security:intercept-url pattern="/search/**" access="hasAnyRole('ROLE_B2BORDERCUSTOMER','ROLE_B2BADMINGROUP')" requires-channel="https" />
+		<security:intercept-url pattern="/cart/**" access="hasAnyRole('ROLE_B2BORDERCUSTOMER','ROLE_B2BADMINGROUP')" requires-channel="https" />
+		<security:intercept-url pattern="/checkout/**" access="hasAnyRole('ROLE_B2BORDERCUSTOMER','ROLE_B2BADMINGROUP')" requires-channel="https" />
+		<security:intercept-url pattern="/deals/**" access="hasAnyRole('ROLE_B2BORDERCUSTOMER','ROLE_B2BADMINGROUP')" requires-channel="https" />
+		<security:intercept-url pattern="/smartOrders/**" access="hasAnyRole('ROLE_B2BORDERCUSTOMER','ROLE_B2BADMINGROUP')" requires-channel="https" />
+		<security:intercept-url pattern="/your-business/order/**" access="hasAnyRole('ROLE_B2BORDERCUSTOMER','ROLE_B2BADMINGROUP')" requires-channel="https" />
+		<security:intercept-url pattern="/your-business/orders/**" access="hasAnyRole('ROLE_B2BORDERCUSTOMER','ROLE_B2BADMINGROUP')" requires-channel="https" />
+		<security:intercept-url pattern="/your-business/ordertemplates/**" access="hasAnyRole('ROLE_B2BORDERCUSTOMER','ROLE_B2BADMINGROUP')" requires-channel="https" />
+		<security:intercept-url pattern="/register/createUser/**" access="hasAnyRole('ROLE_B2BADMINGROUP','ROLE_B2BASSISTANTGROUP')" requires-channel="https" />
+		<security:intercept-url pattern="/register/getUser/**" access="hasAnyRole('ROLE_B2BADMINGROUP','ROLE_B2BASSISTANTGROUP')" requires-channel="https" />
+		<security:intercept-url pattern="/your-business/billing/**" access="hasAnyRole('ROLE_B2BADMINGROUP','ROLE_B2BINVOICECUSTOMER')" requires-channel="https" />
+		<security:intercept-url pattern="/your-business/orderTemplateDetail/**" access="hasAnyRole('ROLE_B2BORDERCUSTOMER','ROLE_B2BADMINGROUP')" requires-channel="https" />
+		<security:intercept-url pattern="/your-business/customer_active/**" access="hasAnyRole('ROLE_B2BADMINGROUP','ROLE_B2BASSISTANTGROUP')" requires-channel="https" />
+		<security:intercept-url pattern="/postback/invoicen/**" access="anonymous" requires-channel="https" />
+		<security:intercept-url pattern="/postback/checkoutn/**" access="anonymous" requires-channel="https" />
+
+		<security:intercept-url pattern="/your-business/deleteUser/**" access="hasAnyRole('ROLE_B2BADMINGROUP','ROLE_B2BASSISTANTGROUP')" requires-channel="https" />
+		<security:intercept-url pattern="/your-business/invoicediscrepancy/**" access="hasAnyRole('ROLE_B2BADMINGROUP','ROLE_B2BINVOICECUSTOMER')" requires-channel="https" />
+		<security:intercept-url pattern="/your-business/raisedinvoicediscrepancy/**" access="hasAnyRole('ROLE_B2BADMINGROUP','ROLE_B2BINVOICECUSTOMER')" requires-channel="https" />
+
+
+
+		<security:intercept-url pattern="/termsAndConditions/**" access="hasAnyRole('ROLE_CUSTOMERGROUP','ROLE_ANONYMOUS')" requires-channel="https" />
+		<security:intercept-url pattern="/login/pw/forgot/request/**" access="hasAnyRole('ROLE_CUSTOMERGROUP','ROLE_ANONYMOUS')" requires-channel="https" />
+		<security:intercept-url pattern="/login/pw/change/**" access="hasAnyRole('ROLE_CUSTOMERGROUP','ROLE_ANONYMOUS')" requires-channel="https" />
+		
+		<security:intercept-url pattern="/serviceRequest" access="hasAnyRole('ROLE_CUSTOMERGROUP','ROLE_ANONYMOUS')" requires-channel="https" />
+
+		<security:intercept-url pattern="/generic/components/**" access="hasAnyRole('ROLE_B2BADMINGROUP')"
+								requires-channel="https"/>
+
+
+		<!-- 		<security:intercept-url pattern="/**" access="hasRole('ROLE_CUSTOMERGROUP')" requires-channel="https" /> -->
+
+		<security:form-login
+				login-page="/login"
+				authentication-failure-handler-ref="loginAuthenticationFailureHandler"
+				authentication-success-handler-ref="loginGuidAuthenticationSuccessHandler"
+				username-parameter="j_username"
+				password-parameter="j_password"
+				login-processing-url="/j_spring_security_check"/>
+
+		<security:logout logout-url="/logout" success-handler-ref="logoutSuccessHandler" />
+
+		<security:port-mappings>
+			<security:port-mapping http="#{configurationService.configuration.getProperty('tomcat.http.port')}"
+			                       https="#{configurationService.configuration.getProperty('tomcat.ssl.port')}" />
+			<security:port-mapping http="80" https="443" />
+			<!--security:port-mapping http="#{configurationService.configuration.getProperty('proxy.http.port')}"
+				https="#{configurationService.configuration.getProperty('proxy.ssl.port')}" /-->
+		</security:port-mappings>
+
+		<security:request-cache ref="httpSessionRequestCache" />
+		<security:csrf disabled="true" />
+		
+		<security:headers>
+            <security:frame-options disabled="true"/>
+        </security:headers>
+
+	</security:http>
+
+	<security:authentication-manager alias="authenticationManager">
+		<security:authentication-provider ref="acceleratorAuthenticationProvider" />
+	</security:authentication-manager>
+
+	<bean id="acceleratorAuthenticationProvider" class="com.sabmiller.storefront.security.AcceleratorAuthenticationProvider">
+		<property name="bruteForceAttackCounter" ref="bruteForceAttackCounter" />
+		<property name="userService" ref="userService" />
+		<property name="modelService" ref="modelService" />
+		<property name="userDetailsService" ref="originalUidUserDetailsService" />
+		<property name="adminGroup" value="ROLE_ADMINGROUP"/>
+		<!-- add by  SAB-632   start -->
+		<property name="unlockLimitSecond" value="#{configurationService.configuration.getProperty('sabmstorefront.user.unlock.time.limitSecond')}"/>
+		<!-- add by  SAB-632   end -->
+	</bean>
+
+	<!--<security:authentication-manager id="impersonateAuthenticationManager" alias="impersonateAuthenticationManager">
+		<security:authentication-provider ref="impersonateAuthenticationProvider" />
+	</security:authentication-manager>-->
+	
+	<bean id="impersonateAuthenticationProvider" class="com.sabmiller.storefront.security.ImpersonateAuthenticationProvider">
+		<property name="userDetailsService" ref="originalUidUserDetailsService" />
+		<property name="adminGroup" value="ROLE_ADMINGROUP"/>
+	</bean>
+
+
+	<bean id="coreUserDetailsService" class="de.hybris.platform.spring.security.CoreUserDetailsService"  />
+
+	<bean id="guidCookieStrategy" class="com.sabmiller.storefront.security.impl.DefaultGUIDCookieStrategy"
+	      >
+		<property name="cookieGenerator" ref="guidCookieGenerator" />
+	</bean>
+	
+	<alias name="defaultGuestCheckoutCartCleanStrategy" alias="guestCheckoutCartCleanStrategy"/>
+	<bean id="defaultGuestCheckoutCartCleanStrategy" class="com.sabmiller.storefront.security.impl.DefaultGuestCheckoutCartCleanStrategy">
+		<property name="checkoutURLPattern" value="#{configurationService.configuration.getProperty('sabmstorefront.checkout.url.pattern')}" />
+		<property name="checkoutCustomerStrategy"  ref="checkoutCustomerStrategy" />
+		<property name="cartService" ref="cartService" />
+		<property name="sessionService" ref="sessionService"/>
+		<property name="userService" ref="userService"/>
+	</bean>
+
+	<alias name="defaultGuidCookieGenerator" alias="guidCookieGenerator"/>
+	<bean id="defaultGuidCookieGenerator" class="com.sabmiller.storefront.security.cookie.EnhancedCookieGenerator" >
+		<property name="cookieSecure" value="true" />
+		<property name="cookieName" value="acceleratorSecureGUID" />
+		<property name="httpOnly" value="true"/>
+	</bean>
+
+	<bean id="autoLoginStrategy" class="com.sabmiller.storefront.security.impl.DefaultAutoLoginStrategy" >
+		<property name="authenticationManager" ref="authenticationManager" />
+		<property name="customerFacade" ref="customerFacade" />
+		<property name="guidCookieStrategy" ref="guidCookieStrategy"/>
+		<property name="rememberMeServices" ref="rememberMeServices"/>
+	</bean>
+	
+	<bean id="impersonateUserLoginStrategy" class="com.sabmiller.storefront.security.impl.DefaultImpersonateUserLoginStrategy" />
+
+	<bean id="httpSessionRequestCache" class="com.sabmiller.storefront.security.impl.WebHttpSessionRequestCache">
+        <property name="requestMatcher" ref="excludeRedirectUrlRequestMatcher" />
+		<property name="sessionService" ref="sessionService"/>
+	</bean>
+
+	<!-- <bean id="excludeRedirectUrlRequestMatcher" class="org.springframework.security.web.util.RegexRequestMatcher">
+		<constructor-arg name="pattern" value=".*/guest/.*|.*/orderConfirmation/.*|.*/login|.*/login/checkout" />
+		<constructor-arg name="httpMethod">
+			<null />
+		</constructor-arg>
+	</bean> -->
+
+	<!-- Ignores url(s) that match paths specified in the set -->
+	<bean id="excludeRedirectUrlRequestMatcher" class="com.sabmiller.storefront.security.ExcludeUrlRequestMatcher">
+		<property name="excludeUrlSet">
+			<set>
+				<value>.*/guest/.*</value>
+				<value>.*/orderConfirmation/.*</value>
+				<value>.*/login</value>
+				<value>.*/login/checkout</value>
+				<value>.*/medias/.*</value>
+				<!-- <value>/login/pw/forgot/request</value>
+                <value>/login/pw/change</value> -->
+			</set>
+		</property>
+		<property name="pathMatcher" ref="defaultPathMatcher" />
+	</bean>
+
+	<bean id="redirectStrategy" class="org.springframework.security.web.DefaultRedirectStrategy"  />
+
+	<!-- Login Success Handlers -->
+
+	<bean id="loginGuidAuthenticationSuccessHandler" class="com.sabmiller.storefront.security.GUIDAuthenticationSuccessHandler" >
+		<property name="authenticationSuccessHandler" ref="loginAuthenticationSuccessHandler" />
+		<property name="guidCookieStrategy" ref="guidCookieStrategy" />
+	</bean>
+
+	<bean id="loginAuthenticationSuccessHandler" class="com.sabmiller.storefront.security.StorefrontAuthenticationSuccessHandler" >
+		<property name="customerFacade" ref="customerFacade" />
+		<property name="defaultTargetUrl" value="/"/> <!-- Changed for land to homepage SAB-377 -->
+		<property name="useReferer" value="true"/>
+		<property name="requestCache" ref="httpSessionRequestCache" />
+		<property name="uiExperienceService" ref="uiExperienceService"/>
+		<property name="sessionService" ref="sessionService"/>
+		<property name="cartFacade" ref="cartFacade"/>
+		<property name="targetUrlParameter" value="targetUrl"/> 
+		<property name="forceDefaultTargetForUiExperienceLevel">
+		
+			<map key-type="de.hybris.platform.commerceservices.enums.UiExperienceLevel" value-type="java.lang.Boolean">
+				<entry key="DESKTOP" value="false"/>
+				<entry key="MOBILE" value="false"/>
+			</map>
+		</property>
+        <property name="bruteForceAttackCounter" ref="bruteForceAttackCounter" />
+		<property name="restrictedPages">
+			<list>
+				<value>/login</value>
+			</list>
+		</property>
+		<property name="listRedirectUrlsForceDefaultTarget">
+			<list>
+			 	<value>/</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="loginCheckoutGuidAuthenticationSuccessHandler" class="com.sabmiller.storefront.security.GUIDAuthenticationSuccessHandler" >
+		<property name="authenticationSuccessHandler" ref="loginCheckoutAuthenticationSuccessHandler" />
+		<property name="guidCookieStrategy" ref="guidCookieStrategy" />
+	</bean>
+
+	<bean id="loginCheckoutAuthenticationSuccessHandler" class="com.sabmiller.storefront.security.StorefrontAuthenticationSuccessHandler" >
+		<property name="customerFacade" ref="customerFacade" />
+		<property name="defaultTargetUrl" value="/checkout"/>
+		<property name="uiExperienceService" ref="uiExperienceService"/>
+		<property name="sessionService" ref="sessionService"/>
+		<property name="cartFacade" ref="cartFacade"/>
+		<property name="forceDefaultTargetForUiExperienceLevel">
+			<map key-type="de.hybris.platform.commerceservices.enums.UiExperienceLevel" value-type="java.lang.Boolean">
+				<entry key="DESKTOP" value="true"/>
+				<entry key="MOBILE" value="true"/>
+			</map>
+		</property>
+		<property name="bruteForceAttackCounter" ref="bruteForceAttackCounter" />
+		<property name="redirectStrategy" ref="commerceRedirectStrategy"/>
+		<property name="restrictedPages">
+			<list>
+				<value>/login/checkout</value>
+			</list>
+		</property>
+		<property name="listRedirectUrlsForceDefaultTarget">
+			<list></list>
+		</property>
+	</bean>
+
+	<alias name="defaultCommerceRedirectStrategy" alias="commerceRedirectStrategy"/>
+	<bean name="defaultCommerceRedirectStrategy" class="com.sabmiller.storefront.security.impl.DefaultCommerceRedirectStrategy" parent="redirectStrategy">
+		<property name="checkoutFlowFacade" ref="checkoutFlowFacade"/>
+		<property name="expressTargetUrl" value="/checkout/multi/express"/>
+   </bean>
+
+	<!-- Login Failure Handlers -->
+    <!--<bean id="bruteForceAttackCounter" class="com.sabmiller.storefront.security.impl.DefaultBruteForceAttackCounter">
+        <constructor-arg name="maxFailedLogins" value="5" />
+        <constructor-arg name="cacheExpiration" value="60" />
+        <constructor-arg name="cacheSizeLimit" value="1000" />
+    </bean>-->
+
+	<bean id="loginAuthenticationFailureHandler" class="com.sabmiller.storefront.security.LoginAuthenticationFailureHandler" >
+        <property name="bruteForceAttackCounter" ref="bruteForceAttackCounter" />
+		  <property name="defaultFailureUrl" value="/login?error=true"/>
+		  <!-- add by  SAB-632   start -->
+        <property name="userService" ref="userService" />
+		  <property name="modelService" ref="modelService" />
+		  <!-- add by  SAB-632    end-->
+	</bean>
+
+	<bean id="loginCheckoutAuthenticationFailureHandler" class="com.sabmiller.storefront.security.LoginAuthenticationFailureHandler" >
+        <property name="bruteForceAttackCounter" ref="bruteForceAttackCounter" />
+		<property name="defaultFailureUrl" value="/login/checkout?error=true"/>
+	</bean>
+
+	<!-- Logout Success Handler -->
+
+	<bean id="logoutSuccessHandler" class="com.sabmiller.storefront.security.StorefrontLogoutSuccessHandler" >
+		<property name="alwaysUseDefaultTargetUrl" value="true"/>
+		<property name="defaultTargetUrl" value="/login"/>
+		<property name="guidCookieStrategy" ref="guidCookieStrategy"/>
+		<property name="useReferer" value="true"/>
+		<property name="restrictedPages">
+			<list>
+				<value>/your-business</value>
+				<value>/checkout</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- Remember Me -->
+
+	<bean id="rememberMeProcessingFilter" class="org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter" >
+		<property name="rememberMeServices" ref="rememberMeServices"/>
+		<property name="authenticationManager" ref="authenticationManager"/>
+	</bean>
+
+	
+	<alias name="defaultRememberMeServices" alias="rememberMeServices"/>
+	<bean id="defaultRememberMeServices" class="com.sabmiller.storefront.security.AcceleratorRememberMeServices" >
+		<constructor-arg name="key" value="sabmstorefront" />
+		<constructor-arg name="userDetailsService" ref="originalUidUserDetailsService" />
+		<property name="cookieName" value="sabmstorefrontRememberMe" />
+		<property name="alwaysRemember" value="false" />
+		<property name="userService" ref="userService"/>
+		<property name="useSecureCookie" value="true"/>
+		<property name="customerFacade" ref="customerFacade"/>
+		<property name="checkoutCustomerStrategy" ref="checkoutCustomerStrategy"/>
+		<property name="urlEncoderService" ref="urlEncoderService"/>
+		<property name="storeSessionFacade" ref="storeSessionFacade"/>
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="secureTokenService" ref="secureTokenService"/>
+	</bean>
+
+	<bean id="rememberMeAuthenticationProvider" class="org.springframework.security.authentication.RememberMeAuthenticationProvider" >
+		<property name="key" value="sabmstorefront"/>
+	</bean>
+
+</beans>

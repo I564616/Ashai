@@ -1,0 +1,306 @@
+{
+  "commerceSuiteVersion": "2211.44",
+  "solrVersion": "9.7",
+  "useConfig": {
+    "properties": [
+      {
+        "location": "hybris/useConfig/common/common/local.properties"
+      },
+      {
+        "location": "hybris/useConfig/common/accstorefront/local.properties",
+        "aspect" : "accstorefront"
+      },
+      {
+        "location": "hybris/useConfig/common/backoffice/local.properties",
+        "aspect" : "backoffice"
+      },
+      {
+        "location": "hybris/useConfig/common/backgroundProcessing/local.properties",
+        "aspect" : "backgroundProcessing"
+      },
+      {
+        "location": "hybris/useConfig/common/api/local.properties",
+        "aspect" : "api"
+      },
+      {
+        "location": "hybris/useConfig/development/common/local.properties",
+        "persona": "development"
+      },
+      {
+        "location": "hybris/useConfig/development/accstorefront/local.properties",
+        "persona": "development",
+        "aspect": "accstorefront"
+      },
+      {
+        "location": "hybris/useConfig/development/backoffice/local.properties",
+        "persona": "development",
+        "aspect": "backoffice"
+      },
+      {
+        "location": "hybris/useConfig/development/backgroundProcessing/local.properties",
+        "persona": "development",
+        "aspect": "backgroundProcessing"
+      },
+      {
+        "location": "hybris/useConfig/development/api/local.properties",
+        "persona": "development",
+        "aspect": "api"
+      },
+      {
+        "location": "hybris/useConfig/staging/common/local.properties",
+        "persona": "staging"
+      },
+      {
+        "location": "hybris/useConfig/staging/accstorefront/local.properties",
+        "persona": "staging",
+        "aspect": "accstorefront"
+      },
+      {
+        "location": "hybris/useConfig/staging/backoffice/local.properties",
+        "persona": "staging",
+        "aspect": "backoffice"
+      },
+      {
+        "location": "hybris/useConfig/staging/backgroundProcessing/local.properties",
+        "persona": "staging",
+        "aspect": "backgroundProcessing"
+      },
+      {
+        "location": "hybris/useConfig/staging/api/local.properties",
+        "persona": "staging",
+        "aspect": "api"
+      },
+      {
+        "location": "hybris/useConfig/production/common/local.properties",
+        "persona": "production"
+      },
+      {
+        "location": "hybris/useConfig/production/accstorefront/local.properties",
+        "persona": "production",
+        "aspect": "accstorefront"
+      },
+      {
+        "location": "hybris/useConfig/production/backoffice/local.properties",
+        "persona": "production",
+        "aspect": "backoffice"
+      },
+      {
+        "location": "hybris/useConfig/production/backgroundProcessing/local.properties",
+        "persona": "production",
+        "aspect": "backgroundProcessing"
+      },
+      {
+        "location": "hybris/useConfig/production/api/local.properties",
+        "persona": "production",
+        "aspect": "api"
+      }
+    ],
+    "extensions": {
+      "location": "hybris/useConfig/common/common/localextensions.xml"
+    }
+  },
+  "storefrontAddons": [
+		{
+			"addon": "b2bacceleratoraddon",
+			"storefront": "apbstorefront",
+			"template": "yacceleratorstorefront"
+		},
+		{
+			"addon": "apbb2baccaddon",
+			"storefront": "apbstorefront",
+			"template": "yacceleratorstorefront"
+		},
+		{
+			"addon": "commerceorgaddon",
+			"storefront": "apbstorefront",
+			"template": "yacceleratorstorefront"
+		},
+		{
+			"addon": "apbcmsaddon",
+			"storefront": "apbstorefront",
+			"template": "yacceleratorstorefront"
+		},
+		{
+			"addon": "apbcommorgaddon",
+			"storefront": "apbstorefront",
+			"template": "yacceleratorstorefront"
+		},
+		{
+			"addon": "smarteditaddon",
+			"storefronts": ["apbstorefront","sabmstorefront"],
+			"template": "yacceleratorstorefront"
+		},
+		{
+			"addon": "assistedservicestorefront",
+			"storefront": "apbstorefront",
+			"template": "yacceleratorstorefront"
+		}
+	],
+  "aspects": [
+    {
+      "name": "accstorefront",
+      "webapps": [
+        {
+          "name": "mediaweb",
+          "contextPath": "/medias"
+        },
+        {
+          "name": "sabmstorefront",
+          "contextPath": ""
+        },
+        {
+          "name": "sabmstaffstorefront",
+          "contextPath": "/staffPortal"
+        },
+		{
+			"name":"apbstorefront",
+			"contextPath":"/storefront"
+		},
+		{
+          "name": "asahistaffstorefront",
+          "contextPath": "/asahiStaffPortal"
+        },
+        {
+          "name": "sabmsinglesignon",
+          "contextPath": "/sabmsinglesignon"
+        },
+		{
+          "name": "samlsinglesignon",
+          "contextPath": "/samlsinglesignon"
+        },
+        {
+          "name":"smartedit",
+          "contextPath":"/smartedit"
+        },
+		{
+			"name":"cmssmartedit",
+			"contextPath":"/cmssmartedit"
+		},
+		{
+			"name":"cmssmarteditwebservices",
+			"contextPath":"/cmssmarteditwebservices"
+		},	
+		{
+			"name":"smarteditwebservices",
+			"contextPath":"/smarteditwebservices"
+		},	
+		{
+			"name":"previewwebservices",
+			"contextPath":"/previewwebservices"
+		},	
+		{
+			"name":"cmswebservices",
+			"contextPath":"/cmswebservices"
+		},	
+		{
+			"name":"permissionswebservices",
+			"contextPath":"/permissionswebservices"
+		},
+		{
+			"name":"oauth2",
+			"contextPath":"/authorizationserver"
+		}
+      ]
+    },
+    {
+      "name": "backoffice",
+      "webapps": [
+        {
+          "name": "hac",
+          "contextPath": "/hac"
+        },
+        {
+          "name": "mediaweb",
+          "contextPath": "/medias"
+        },
+        {
+          "name": "backoffice",
+          "contextPath": "/backoffice"
+        },
+        {
+          "name": "admincockpit",
+          "contextPath": "/admincockpit"
+        },
+        {
+          "name": "productcockpit",
+          "contextPath": "/productcockpit"
+        },
+        {
+          "name": "cmscockpit",
+          "contextPath": "/cmscockpit"
+        },
+        {
+          "name": "sabmsinglesignon",
+          "contextPath": "/sabmsinglesignon"
+        },
+        {
+          "name": "samlsinglesignon",
+          "contextPath": "/samlsinglesignon"
+        },
+		{
+          "name":"smartedit",
+          "contextPath":"/smartedit"
+        },
+		{
+			"name":"cmssmartedit",
+			"contextPath":"/cmssmartedit"
+		},
+		{
+			"name":"cmssmarteditwebservices",
+			"contextPath":"/cmssmarteditwebservices"
+		},	
+		{
+			"name":"smarteditwebservices",
+			"contextPath":"/smarteditwebservices"
+		},	
+		{
+			"name":"previewwebservices",
+			"contextPath":"/previewwebservices"
+		},	
+		{
+			"name":"cmswebservices",
+			"contextPath":"/cmswebservices"
+		},	
+		{
+			"name":"permissionswebservices",
+			"contextPath":"/permissionswebservices"
+		},
+		{
+			"name":"oauth2",
+			"contextPath":"/authorizationserver"
+		}
+      ]
+    },
+    {
+      "name": "backgroundProcessing",
+      "webapps": [
+        {
+          "name": "hac",
+          "contextPath": ""
+        }
+      ]
+    },
+    {
+      "name": "api",
+      "webapps": [
+        {
+          "name": "hac",
+          "contextPath": "/hac"
+        },
+        {
+          "name": "mediaweb",
+          "contextPath": "/medias"
+        },
+        {
+          "name": "sabmwebservices",
+          "contextPath": ""
+        },
+		{
+          "name": "commercewebservices",
+          "contextPath": "/rest"
+        }
+      ]
+    }
+  ],
+  "extensions": []
+}

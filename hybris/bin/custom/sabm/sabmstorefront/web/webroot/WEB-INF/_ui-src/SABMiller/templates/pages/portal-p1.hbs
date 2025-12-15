@@ -1,0 +1,63 @@
+---
+title: Product Detail
+bodyClass: home
+layout: templates/layouts/layout-portal.hbs
+---
+
+<div class="row">
+
+    <div class="col-lg-8">
+
+        <h1 class="h1">Login</h1>
+
+        <p>Welcome! Please sign in.</p>
+
+        <div class="row">
+
+            <form name="loginForm" class="margin-top-30">
+
+                <div class="col-lg-6">
+                    <div class="form-group" ng-class="{ 'has-error': loginForm.email.$invalid }">
+                        <label for="email">Email</label>
+                        <input type="email"
+                               class="form-control"
+                               name="email"
+                               id="email"
+                               ng-model="user.email"
+                               required>
+                    </div>
+                    <div class="form-group offset-bottom-small" ng-class="{'has-error' : loginForm.password.$error.minlength}">
+                        <label for="password">Password</label>
+                        <input type="password"
+                               class="form-control"
+                               name="password"
+                               id="password"
+                               ng-model="user.password"
+                               ng-minlength="5"
+                               autocomplete="off"
+                               required>
+                    </div>
+
+                    <div class="checkbox offset-bottom-large">
+                        <label>
+                            <input type="checkbox"> Remember me
+                        </label>
+                    </div>
+
+                    <div class="offset-bottom-large">
+                        <button type="submit" class="btn btn-primary btn-large btn-simple">Login</button>
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+        <p><a href="#" class="inline">Forgotten your password?</a></p>
+
+        <p>If you are experiencing technical difficulties please call Service Desk on 2244</p>
+
+    </div>
+
+</div>

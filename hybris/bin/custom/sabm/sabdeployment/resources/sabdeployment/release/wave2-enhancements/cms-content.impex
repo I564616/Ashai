@@ -1,0 +1,12 @@
+
+$contentCatalog=sabmContentCatalog
+$contentCatalogName=SABMiller Content Catalog
+$productCatalog=sabmProductCatalog
+$productCatalogName=SABMiller Product Catalog
+	
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$productCV=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+
+
+UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(uid,$contentCV)
+;;BottomContentSlot-OrderTemplateDetail;BottomContent Slot;true;HomePageCUBPicksComponent,StandardImageAndTextBanner-OrderTemplateDetail-Bottom

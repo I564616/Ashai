@@ -1,0 +1,98 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+##******************************This file is generated - please do not edit it. It will be regenerated after every build.********************************#
+
+$contentCatalog=apbContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$picture=media(code, $contentCV);
+$siteResource=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/sampledata/contentCatalogs/$contentCatalog
+$medias=medias(code, $contentCV);
+$mediaContainer=media(qualifier, $contentCV)[lang=$lang];
+
+
+# Language
+$lang=en
+
+# Apb Terms and Conditions Page
+
+# CMS Paragraph Component (Contact information)
+UPDATE CMSParagraphComponent ; $contentCV[unique=true] ; uid[unique=true]                ; content[lang=en];  
+; ; homePage5OurStoryTextParagraph ; "<div id=""ourStoryInfo"" class=""homepageInfoText"">
+<!--                 Tite Text 1 -->
+                    <div class=""login-page__headline"">
+                        We've changed a bit since the early days.
+                    </div>
+                    Back in 1987 we harnessed the power of a single great idea and a large can of entrepreneurial spirit. And that worked for us. The ready-to-drink brands we became known for were a roaring success and that foundation made us who we are today. But things that refuse change don't last long.
+                    
+                    
+<!--                 Main Image Desktop -->
+                    <div class=""our-story-image-desktop hidden-sm hidden-xs"">
+                        <img src=""medias/ourstory-final-desktop.png?context=bWFzdGVyfGltYWdlc3w3MzIzMjd8aW1hZ2UvcG5nfGltYWdlcy9oNDIvaGUzLzg4MjI1MzkyNTU4MzgucG5nfGMzNTYyNTQ5YTljMTA3ZGY1NTc5YjY1NDU4M2QwMmM5ZjJiYjExMzc5ZmJiNjc4OGNiMjUxZTUzOGI2NjQxYjE"" alt="""">
+                    </div>
+<!--                 Main Image Tablet -->
+                    <div class=""our-story-image-desktop hidden-xs hidden-md hidden-lg"">
+                        <img src=""medias/ourstory-final-tablet.png?context=bWFzdGVyfGltYWdlc3w0MTU3NzB8aW1hZ2UvcG5nfGltYWdlcy9oNjIvaDU0Lzg4MjI1MzkxOTAzMDIucG5nfDY2MmIzMDNjMzFiZDQ2NTBhN2MzYzU1ZDNkYTRlYWE3NGZkZTFhNjViMGNkMmY2MTkyMTkyNGFlN2E5NzQ4Mjk"" alt="""">
+                    </div>
+                    
+<!--                 Main Image Mobile -->
+                    <div class=""our-story-image-desktop hidden-sm hidden-md hidden-lg"">
+                        <img src=""medias/ourstory-final-mobile.png?context=bWFzdGVyfGltYWdlc3wyMzA4MDh8aW1hZ2UvcG5nfGltYWdlcy9oMjcvaDZhLzg4MjI1MzkxNTc1MzQucG5nfDQ2OTgyNjE4OGRmMjg3NzBkYTYxYzMwZmUyOGIxNTY5ZjkwZjgyYjY1OTcyMDE2NzRjOWJkY2RjOTMyNGJjMTY"" alt="""">
+                    </div>
+                    
+<!--                 Tite Text 2 -->
+                    <div class=""login-page__headline"">
+                        The beauty of our industry is that it evolves. And we seek to evolve with it.
+                    </div>
+                    Realising this is what <i>drives us to do more.</i> From diversifying our portfolio to developing exciting new ways to put a meaningful stamp on the drinks industry, we're not afraid to dream big, look to the future and ask with confidence and an ambitious glint in our eye, ""WHAT'S NEXT?"" <br><br>
+                    Each time we find the answer to that question we adapt, staying true to our entrepreneurial roots, so that our story evolves with us. And you.
+                </div>";
+                
+; ; homePage6OnpremiseTextParagraph ; "                    <div id=""onPremiseParteringInfo"" class=""homepageInfoText"">
+                        <div class=""login-page__headline"">
+                            Custom On-Premise Services That Elevate Your Business.
+                        </div>
+                        <div class=""row"">
+                            <div class=""col-xs-12 col-sm-4 col-md-4 col-lg-4 on-prem-gutter on-prem-mobile-text"">
+                                <span class=""homepage-subheading""><strong>Third Space</strong></span><br><br>
+                                At Asahi Premium Beverages we're invested in delivering the best guest experience in the Third Space - places where people choose to spend their precious social time. It's where they go to escape the stresses of their Second Space (work) and the responsibilities of their First (home). <br><br>
+                                <strong>A successful and relevant Third Space means understanding</strong> that there's more to On-Premise hospitality than serving great drinks. It's knowing <strong>the role your venue plays in the life of your customers and delivering on their expectations every time.</strong>
+                            </div>
+                            <div class=""col-xs-12 col-sm-4 col-md-4 col-lg-4 on-prem-gutter on-prem-mobile-text"">
+                                <span class=""homepage-subheading""><strong>Your Reality</strong><br><br></span>
+                                We're hospitality people, like you, so understand how the market becomes more competitive and evolves every year. But change is exciting! It should provide you with new ideas, opportunities and business growth. <br><br>
+                                The reality? Being effective in the Third Space isn't easy. Not only is there the introduction of new products and venues all vying for attention from the same customers, but consumers' attitudes towards what they drink, how much they drink and where they go to drink, is changing too. <br><br>
+                                Add in essential tasks - ordering stock, handling deliveries, meeting with reps, managing staff, creating a marketing strategy, pulling beers and then cleaning up at closing - and your chance to capitalise on the shifts in the market may be missed. <br>
+                            </div>
+                            <div class=""col-xs-12 col-sm-4 col-md-4 col-lg-4"">
+                                <span class=""homepage-subheading""><strong>Becoming a Third Space That Matters</strong><br><br></span>
+                                If this sounds too familiar, know that we're here to help. <br><br>
+                                Working with the Third Space Platform is <strong>a collaboration of your vision and experience with our industry expertise, helping you push your business limits and strive for more.</strong> It's about discovering how to capitalise on those market changes in a timely and relevant way. <br><br>
+                                We appreciate that every venue we work with is unique (nobody knows your customers better than you), which is why we tailor our suite of services to suit your venue, offering and guests. As a result, we'll make sure you're well-equipped to attract new customers, retain existing clientele and, ultimately, improve your bottom line. <br>
+                            </div>
+                        </div>
+                        <div class=""row"">
+                            <div class=""col-xs-12 col-sm-4 col-md-4 col-lg-4 on-prem-gutter"">
+                                <div class=""on-prem-image-desktop"">
+                                    <img src=""medias/onprem-final-TigerPistol.png?context=bWFzdGVyfGltYWdlc3w1ODE2MDR8aW1hZ2UvcG5nfGltYWdlcy9oZmYvaGMxLzg4MjI1MzkyMjMwNzAucG5nfDMxNWExZjliNTkzZGI1N2JiMjcyMmZiZTNiNTZkODM4YTFkNGEzYzU4YmZiMzUxOTA0MGQ5NzU5OGUxMmFhNTM"" alt="""">
+                                </div>
+                            </div>
+                            <div class=""col-xs-12 col-sm-4 col-md-4 col-lg-4 on-prem-gutter"">
+                                <div class=""on-prem-image-desktop"">
+                                    <img src=""medias/onprem-final-TheDrinkCabinet.png?context=bWFzdGVyfGltYWdlc3w0NDg3NzZ8aW1hZ2UvcG5nfGltYWdlcy9oMDcvaGQzLzg4MjI1MzkwOTE5OTgucG5nfDFhMDJlM2Q0NDM1MDU5NGFkNGUzOGViZmE3YWU2NWY0YTEwNDcwYmIwOWM2N2ViMzgyZDI2NmE2MWMzY2U5YWM"" alt="""">
+                                </div>
+                            </div>
+                            <div class=""col-xs-12 col-sm-4 col-md-4 col-lg-4 on-prem-gutter"">
+                                <div class=""on-prem-image-desktop"">
+                                    <img src=""medias/onprem-final-SeventhSense.png?context=bWFzdGVyfGltYWdlc3w1MTcxNTB8aW1hZ2UvcG5nfGltYWdlcy9oMDUvaDhiLzg4MjI1MzkxMjQ3NjYucG5nfGRmYjY0OGJmYzQ4MWJmY2M5MzE4MGYwNmE4N2Y3Y2RmZWM0MTUxNjA2OTQyNTk5ZTM4ZmY2YTQ1OTZkYjczYzg"" alt="""">
+                                </div>
+                            </div>
+                        </div>
+                    </div>";

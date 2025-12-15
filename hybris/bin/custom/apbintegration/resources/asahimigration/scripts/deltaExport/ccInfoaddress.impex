@@ -1,0 +1,103 @@
+INSERT_UPDATE ScriptingJob	;code[unique=true]		;scriptURI
+							;ccAddressDeltaExportScriptJob	;model://ccAddressDeltaExportScript
+							
+INSERT_UPDATE CronJob	;code[unique=true]			;job(code)				;sessionLanguage(isocode)	;sessionUser(uid)
+						;ccAddressDeltaExportScriptCronJob	;ccAddressDeltaExportScriptJob	;en		;admin
+
+
+INSERT_UPDATE Script; code[unique=true];content;active[default=true, unique=true]
+;ccAddressDeltaExportScript;"import java.io.File;
+import java.lang.Exception;
+import java.io.InputStream;
+import de.hybris.platform.util.CSVConstants;
+import java.io.IOException;
+
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.sql.Timestamp;
+import org.apache.log4j.Logger;
+import org.apache.commons.io.IOUtils;
+import de.hybris.platform.servicelayer.impex.ExportConfig;
+import de.hybris.platform.servicelayer.impex.ExportConfig.ValidationMode;
+import de.hybris.platform.servicelayer.impex.ExportResult;
+import de.hybris.platform.servicelayer.impex.ExportService;
+import de.hybris.platform.servicelayer.impex.ImpExResource;
+import de.hybris.platform.impex.model.ImpExMediaModel;
+import de.hybris.platform.impex.jalo.exp.ImpExExportMedia;
+import de.hybris.platform.servicelayer.impex.impl.StreamBasedImpExResource;
+import de.hybris.platform.impex.model.exp.ImpExExportMediaModel;
+import de.hybris.platform.core.model.user.AddressModel;
+import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
+import de.hybris.platform.servicelayer.search.SearchResult;
+import de.hybris.platform.impex.model.cronjob.ImpExExportCronJobModel;
+import com.google.common.base.Stopwatch;
+
+final Logger LOG = Logger.getLogger(""asahi"");
+
+flexibleSearchService = spring.getBean(""flexibleSearchService"");
+def exportService = spring.getBean(""exportService"");
+
+
+Calendar cal1 = Calendar.getInstance(); 
+cal1.set(Calendar.HOUR_OF_DAY, 0)
+cal1.set(Calendar.MINUTE, 0);
+cal1.set(Calendar.SECOND, 0);
+cal1.add(Calendar.DAY_OF_MONTH, -7);
+Date d = cal1.getTime();
+String oldDate = new SimpleDateFormat(""yyyy-MM-dd HH:mm:ss.SSS ZZZZ"").format(d);
+final Map<String, Object> params = new HashMap<>();
+params.put(""modifiedTime1"", oldDate);
+def modifiedTime1 = oldDate;
+
+final FlexibleSearchQuery query = new FlexibleSearchQuery(""SELECT {add.pk} FROM {Address as add JOIN CreditCardPaymentInfo as cc ON {add.owner}={cc.pk}} where {modifiedTime}>=?modifiedtime1"", params);
+
+final SearchResult<AddressModel> result1 = flexibleSearchService
+		.search(query);
+int count = result1.getCount();
+int batch = count > 25000 ? 25000 : count;
+	
+LOG.info(""Total record count ######"" +count);
+
+int i=0;
+if (count > 0) {
+
+while (i < count ){
+
+	final Stopwatch stopwatch = Stopwatch.createUnstarted();
+	stopwatch.start();
+	
+	
+	header = ""insert Address;pk;owner(CreditCardPaymentInfo.code,CreditCardPaymentInfo.user(uid));addressRecordid;addressType(code,itemtype(code));appartment;billingAddress[allownull=true];building;cellphone;changeRequestAddress;company;companyCode;contactAddress[allownull=true];country(isocode);cutOffDeliveryDates(code);dateOfBirth[dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ];defaultAddress;deliveryCalendar;department;district;duplicate;eclDeliveryInstruction;eclDeliveryTimesLotto[dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ];eclDeliveryTimeslotFrom[dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ];eclDlvModeId;email;fax;firstname;gender(code,itemtype(code));lastname;middlename;middlename2;original(pk)[forceWrite=true];phone1;phone2;pobox;postalcode;region(country(isocode),isocode);removeRequestAddress;shippingAddress[allownull=true];streetname;streetnumber;title(code);town;unloadingAddress[allownull=true];visibleInAddressBook;creationtime[forceWrite=true,dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ];modifiedtime[forceWrite=true,dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ];\n""+
+	""\""#% impex.exportItemsFlexibleSearch(\""\""SELECT {add.pk} FROM {Address as add},{CreditCardPaymentInfo as cc} where {add.owner}={cc.pk} and {modifiedTime}>='$modifiedTime1'\""\"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), false, true, ${i}, ${batch} );\""\n"";                                                   
+
+	InputStream resourceAsStream = null;
+	try {
+		resourceAsStream = new ByteArrayInputStream(header.getBytes());
+		final ImpExResource resource = new StreamBasedImpExResource(resourceAsStream, CSVConstants.DEFAULT_ENCODING);
+		final ExportConfig config = new ExportConfig();
+		config.setScript(resource);
+		config.setValidationMode(ValidationMode.WITHOUT);
+		config.setSingleFile(true);
+		char c=',';
+		config.setFieldSeparator(c);
+		config.setExportedDataCode(""11-cc-address-""+new SimpleDateFormat(""yyyyMMddHHmmssSSS"").format(new Date()));
+		final ExportResult result = exportService.exportData(config);
+		stopwatch.stop();
+		if (result.isError()){
+			LOG.error(""Exception occurred during export"");
+		}
+		LOG.info(""Time taken to export address for batch size : ""  + batch +""......"" + stopwatch.toString());
+	}
+	catch (final Exception exception) {
+			LOG.log(Level.ERROR, exception.getMessage());	
+			
+		}  
+	finally
+		{
+			resourceAsStream.close();
+		}
+	i=i+batch;
+} 
+	
+}";;
+

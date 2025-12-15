@@ -1,0 +1,388 @@
+// ==========================================================================
+//   Customized component Class
+// ==========================================================================
+
+.image-text-banner{
+	img{
+		margin-bottom:$spacing-small;
+	}
+}
+
+.brand-grid{
+	.brand-grid-item{
+		height:185px;
+		overflow:hidden;
+	}
+}
+
+
+// Dropdown List
+.select-list {
+	position: relative;
+	color: $dark-grey;
+	.select-single,
+	.select-btn {
+		border: 1px solid $medium-grey;
+		height: $btn-medium;
+		line-height: $btn-medium;
+		padding-left: $spacing-x-small;
+		position: relative;
+		padding-right: 35px;
+		overflow: hidden;
+		@media (min-width: $desktop){
+			height: $btn-x-small;
+			line-height: $btn-x-small;
+
+		}
+
+	}
+	.select-btn {
+		&:hover {
+			cursor: pointer;
+		}
+		&:after {
+			content: "";
+			width: 15px;
+			height: 8px;
+			right: $spacing-x-small;
+			position: absolute;
+			top: 20px;
+			background: svg-url('<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" viewBox="0 0 10 5.969"><path d="M9.8 1.162L5.454 5.756c-.257.27-.674.27-.93 0L.177 1.162C-.08.892-.08.45.178.178c.257-.272.674-.272.93 0l3.88 4.1L8.87.18c.258-.272.675-.272.932 0s.257.713 0 .984z" class="cls-1"/></svg>') 0 0 no-repeat;
+		}
+		@media (min-width: $desktop){
+			&:after {
+				top: 15px;
+			}
+		}
+		.billing-filters-well & {
+			background: white;
+			height: $btn-small;
+			line-height: $btn-small;
+			&:after {
+				top: 15px;
+			}
+			@media (min-width: $desktop){
+				&:after {
+					top: 15px;
+				}
+			}
+
+		}
+
+	}
+	.select-items {
+		padding: 0;
+		display: none;
+		border: 1px solid $medium-grey;
+		border-top: 0 none;
+		position: absolute;
+		width: 100%;
+		z-index: 30;
+		background-color: $white;
+		li {
+			line-height: 42px;
+			padding: 0 $spacing-x-small;
+			list-style: none;
+			&:hover {
+				background-color: $light-grey;
+				cursor: pointer;
+			}
+		}
+		@media (min-width: $desktop){
+			li {
+				line-height: 38px;
+				padding: 0 $spacing-x-small;
+				list-style: none;
+				&:hover {
+					background-color: $light-grey;
+				}
+			}
+		}
+	}
+}
+#customerArrangedDelivery {
+  .select-btn {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+// Quantity Incrementor
+.select-quantity {
+	padding: 0;
+	clear: both;
+	&.select-quantity-fixed {
+		width: 110px;
+	}
+	li {
+		float: left;
+		width: 33.3%;
+		border: 1px solid $medium-grey;
+		background: $light-grey;
+		font-size: $font-medium;
+		text-align: center;
+		list-style: none;
+		height: $btn-medium;
+		line-height: $btn-medium;
+		&:nth-child(2) {
+			border: 0 none;
+		}
+		@media (min-width: $desktop){
+			height: $btn-x-small;
+			line-height: $btn-x-small;
+		}
+		& + li {
+			border-left: 0 none;
+		}
+		&.up,
+		&.down {
+			background: $white;
+		}
+		svg {
+			width: 15px;
+			height: 20px;
+			fill: $dark-grey;
+			position: relative;
+			top: -2px;
+			pointer-events: none;
+		}
+		#icon-plus,
+		#icon-minus {
+			pointer-events: none;
+		}
+		&.disabled {
+			i {
+				opacity: 0.2;
+			}
+		}
+		.qty-input {
+			width: 100%;
+			height: 100%;
+			text-align: center;
+			border: 1px solid $medium-grey;
+			border-left: 0 none;
+			color: $dark-grey;
+			background-color: $light-grey;
+			-webkit-appearance: none;
+			display: block;
+			&:focus {
+				outline: none;
+				// border: 0 none; This causes the border to disappear completely
+			}
+			/* make the qty input host 3 numbers*/
+			padding:1px;
+			border-radius: 0 !important;
+		}
+	}
+	&.btn-height {
+		li {
+			height: 40px;
+			line-height: 40px;
+		}
+	}
+	& + span {
+		color: $dark-grey;
+		font-size: $font-x-small;
+		display: inline-block;
+		width: 100%;
+		text-align: center;
+		margin-top: 3px;
+		height: 20px;
+	}
+}
+
+// Slider Navigation
+.slider-nav {
+	padding: 0;
+	li {
+		list-style: none;
+		width: 28px;
+		height: 28px;
+		border: 1px solid $medium-grey;
+		text-align: center;
+		float: left;
+		padding-top: 2px;
+		background-color: $white;
+		&:hover {
+			cursor: pointer;
+		}
+		& + li {
+			border-left: 0 none;
+		}
+		svg {
+			width: 7px;
+			height: 12px;
+			fill: $dark-grey;
+			top: 0;
+		}
+	}
+}
+
+
+// Accordion
+// Accordion on Content template
+.contentPageSection3{
+	@media (min-width: $screen-lg){
+		float:none;
+		margin-left:0px;
+	}
+}
+#accordion.accordion-component{
+	&.panel-group{
+	    margin-bottom: 0px;
+		.panel-default{
+	    	padding-left: 5px;
+    		padding-right: 5px;
+			border-top: 3px solid $primary-blue;
+			> .panel-heading{
+				a:after{
+					height: 19px;
+				}
+				a.collapsed:after{
+				    margin-top: 10px;
+				}
+				.accordion-body{
+					.panel-body{
+					    padding-left: 0px;
+					    padding-right: 0px;
+				        padding-bottom: 5px;
+					}
+				}
+			}
+			.panel-title.h4-alt{
+				> a {
+					display:block;
+				}
+			}
+		}
+	}
+	&:last-child {
+		.panel-default{
+			border-bottom: 3px solid $primary-blue;
+		}
+	}
+
+
+}
+.panel-default {
+	box-shadow: none;
+	border: 0 none;
+	/*border-bottom: 2px solid $medium-grey;*/
+	& > .panel-heading {
+		background-color: transparent;
+		position: relative;
+		padding: 10px 0;
+		a {
+			&:after {
+				content: "";
+				width: 16px;
+				height: 11px;
+				right: $spacing-x-small;
+				position: absolute;
+				top: 5px;
+				transform: rotate(180deg);
+				background: svg-url('<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" viewBox="0 0 10 5.969"><path fill="#002f5f" d="M9.8 1.162L5.454 5.756c-.257.27-.674.27-.93 0L.177 1.162C-.08.892-.08.45.178.178c.257-.272.674-.272.93 0l3.88 4.1L8.87.18c.258-.272.675-.272.932 0s.257.713 0 .984z" class="cls-1"/></svg>') 0 0 no-repeat;
+			}
+			&.collapsed {
+          &:after {
+            transform: rotate(0deg);
+          }
+        }
+		}
+	}
+	.panel-body {
+		border: 0 none !important;
+	}
+	.panel-padding {
+		padding: 20px 0;
+	}
+	@media (min-width: $tablet){
+		border-bottom: 0 none;
+		.page-productDetails & {
+			& > .panel-heading {
+				&:after {
+					display: none;
+				}
+			}
+			.accordion-top-level.collapse {
+				display: block;
+				height: auto !important;
+			}
+		}
+	}
+}
+
+// Custom Toggle Slider
+
+.toggle-slide {
+	.toggle-head {
+		position: relative;
+		line-height: $line-height-large;
+		margin-bottom: $spacing-x-small;
+		&:hover {
+			cursor: pointer;
+		}
+		&:after {
+			content: "";
+			width: 16px;
+			height: 10px;
+			right: $spacing-x-small;
+			position: absolute;
+			top: 11px;
+			transform: rotate(0deg);
+			background: svg-url('<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" viewBox="0 0 10 5.969"><path fill="#002f5f" d="M9.8 1.162L5.454 5.756c-.257.27-.674.27-.93 0L.177 1.162C-.08.892-.08.45.178.178c.257-.272.674-.272.93 0l3.88 4.1L8.87.18c.258-.272.675-.272.932 0s.257.713 0 .984z" class="cls-1"/></svg>') 0 0 no-repeat;
+		}
+		&.open {
+			&:after {
+				transform: rotate(180deg);
+
+			}
+		}
+	}
+	.toggle-body {
+		margin-bottom: $spacing-x-small;
+		overflow: hidden;
+		padding-top: 1px; // Items with borders against the edge, 1px border disappears
+		&.ng-hide-remove, &.ng-hide-add {
+		    display: block !important;
+		    &.ng-hide-remove-active {
+		      animation:0.3s slideDown ease;
+		    }
+		    &.ng-hide-add-active {
+		    	overflow: hidden;
+		      animation:0.3s slideUp ease;
+		    }
+		}
+		&.ng-hide {
+		  max-height: 0;
+		}
+	}
+}
+
+/* Collapser head */
+
+.collapse-head{
+	.closed{
+		display: none;
+	}
+	.opened{
+		display: inline-block;
+	}
+	.collapsed{
+		.opened{
+			display: none;
+		}
+		.closed{
+			display: inline-block;
+		}
+	}
+}
+
+.collapse-heading-link{
+	display: inline-block;
+	transform: rotate(90deg);
+	&.collapsed{
+		 transform: rotate(0deg);
+	}
+}

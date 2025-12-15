@@ -1,0 +1,219 @@
+INSERT_UPDATE ScriptingJob	;code[unique=true]		;scriptURI
+							;orderExportScriptJob	;model://orderExportScript
+							
+INSERT_UPDATE CronJob	;code[unique=true]			;job(code)				;sessionLanguage(isocode)	;sessionUser(uid)
+						;orderExportScriptCronJob	;orderExportScriptJob	;en		;admin
+
+INSERT_UPDATE Script; code[unique=true];content;active[default=true, unique=true]
+;orderExportScript;"import java.io.File;
+import java.io.FileWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
+import de.hybris.platform.catalog.model.CatalogUnawareMediaModel;
+import de.hybris.platform.core.model.order.OrderModel;
+import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
+import de.hybris.platform.servicelayer.search.FlexibleSearchService;
+import de.hybris.platform.servicelayer.search.SearchResult;
+import de.hybris.platform.util.CSVWriter;
+import com.google.common.base.Stopwatch;
+
+
+final Logger LOG = Logger.getLogger(""asahi"");
+
+def exportService = spring.getBean(""exportService"");
+Calendar cal1 = Calendar.getInstance(); 
+cal1.set(2021, 7, 20)
+cal1.set(Calendar.HOUR_OF_DAY, 0)
+cal1.set(Calendar.MINUTE, 0);
+cal1.set(Calendar.SECOND, 0);
+cal1.add(Calendar.MONTH, -18);
+Date d = cal1.getTime();
+String oldDate = new SimpleDateFormat(""yyyy-MM-dd HH:mm:ss.SSS ZZZZ"").format(d);
+final Map<String, Object> params = new HashMap<>();
+params.put(""creationTime1"", oldDate);
+
+Calendar cal2 = new GregorianCalendar();
+cal2.set(2021, 7, 20)
+cal2.set(Calendar.HOUR_OF_DAY, 0)
+cal2.set(Calendar.MINUTE, 0);
+cal2.set(Calendar.SECOND, 0);
+Date d1 = cal2.getTime();
+String currentDate = new SimpleDateFormat(""yyyy-MM-dd HH:mm:ss.SSS ZZZZ"").format(d1);
+params.put(""creationTime2"", currentDate);
+
+final Stopwatch stopwatch = Stopwatch.createUnstarted();
+stopwatch.start();
+
+final FlexibleSearchQuery query = new FlexibleSearchQuery(""select {pk} from {Order as o} where {creationtime}>=?creationTime1 AND {creationtime}<=?creationTime2"", params);
+final SearchResult<Integer> result = flexibleSearchService
+		.search(query);
+int count = result.getCount();
+LOG.info(""Total record count ######"" +count+""query is"" +query.getQuery());
+
+int batch  = count > 10000 ? 10000 : count;
+int i = 0;
+ final File file =new File(""13-order-""+new SimpleDateFormat(""yyyyMMddHHmmssSSS"").format(new Date())+"".csv"");
+ FileWriter outputfile = new FileWriter(file);
+ CSVWriter writer = new CSVWriter(outputfile);	
+ char c = ',';
+ writer.setFieldseparator(c);
+ HashMap<Integer,String> line = new HashMap();
+ 
+ final String header = ""Unit(uid),backendCreatedDate[dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ],backendStatusCode,calculated,code[unique=true],companyCode,creditSurCharge,currency(isocode)[allownull=true],custOrderType,customerReference,\""date[allownull=true,dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ]\"",deferredDelivery,deliveryCost,deliveryInstruction,deliveryMode(code),deliveryRequestDate[dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ],\""deliveryStatus(code,itemtype(code))\"",deliverySurChargeGST,description,deviceType,discountsIncludeDeliveryCost[allownull=true],discountsIncludePaymentCost[allownull=true],errorMsg,expirationTime[dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ],\""exportStatus(code,itemtype(code))\"",fraudulent,freight,freightGST,guid,invoiceAmountWithGST,invoiceCreatedDate[dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ],invoiceId,isPrepaid,language(isocode),locale,minOrderFee,minicartSubTotal,name,net[allownull=true],onlineOrder,orderCDL,orderGST,orderOriginId,\""orderType(code,itemtype(code))\"",orderWET,paymentCost,\""paymentInfo(code,user(uid))\"",paymentMode(code),\""paymentStatus(code,itemtype(code))\"",\""paymentType(code,itemtype(code))\"",pickingListId,placedBy(uid),potentiallyFraudulent,previousDeliveryMode(code),priceUpdated,purchaseOrderNumber,\""salesApplication(code,itemtype(code))\"",salesOrderId,scheduleDeliveryDate[dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ],scheduleShippingDate[dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ],shippingWarehouse,site(uid),\""status(code,itemtype(code))\"",statusInfo,store(uid),subtotal,timePickListDate[dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ],totalDiscounts,totalPrice,totalTax,totalTaxValuesInternal,user(uid)[allownull=true],\""versionID[forceWrite=true,unique=true]\"",\""creationtime[forceWrite=true,dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ]\"",\""modifiedtime[forceWrite=true,dateformat=yyyy-MM-dd HH:mm:ss.SSS ZZZZ]\"""";
+ final String[] columns = header.split("",(?=([^\""]*\""[^\""]*\"")*[^\""]*\$)"");
+ for (int k =0; k < columns.length ; k++) {
+	 line.put (Integer.valueOf(k), columns[k]);
+ }
+writer.write(line);
+		while (i < count)
+		{
+			query.setStart(i);
+			query.setCount(10000);
+			final SearchResult<OrderModel> result1 = flexibleSearchService
+					.search(query);
+	
+			List<OrderModel> orders = result1.getResult();		
+	
+			if (orders.size() > 0)
+				{								
+					LOG.info(""Order code for last exported order is : ""+orders.get(orders.size()-1).getCode());
+
+					  	int j =1;
+						for(OrderModel order : orders)
+						{
+							try {
+								
+								 line.put(Integer.valueOf(0), null != order.getUnit() ? order.getUnit().getUid() : StringUtils.EMPTY);
+								 line.put(Integer.valueOf(1), null != order.getBackendCreatedDate() ? new SimpleDateFormat(""yyyy-MM-dd HH:mm:ss.SSS ZZZZ"").format(order.getBackendCreatedDate()) : StringUtils.EMPTY);
+								 line.put(Integer.valueOf(2), order.getBackendStatusCode());
+								 line.put(Integer.valueOf(3), null != order.getCalculated() ? Boolean.toString(order.getCalculated()) : ""FALSE"");
+								 line.put(Integer.valueOf(4), order.getCode());
+								 line.put(Integer.valueOf(5), order.getCompanyCode());
+								 line.put(Integer.valueOf(6), null != order.getCreditSurCharge() ? String.valueOf(order.getCreditSurCharge()) : ""0"");
+								 line.put(Integer.valueOf(7), null != order.getCurrency() ? order.getCurrency().getIsocode() : StringUtils.EMPTY);
+								 line.put(Integer.valueOf(8), order.getCustOrderType());
+								 line.put(Integer.valueOf(9), order.getCustomerReference());
+								 line.put(Integer.valueOf(10),null != order.getDate() ? new SimpleDateFormat(""yyyy-MM-dd HH:mm:ss.SSS ZZZZ"").format(order.getDate()) : StringUtils.EMPTY);
+								 line.put(Integer.valueOf(11), null != order.getDeferredDelivery() ? Boolean.toString(order.getDeferredDelivery()) : ""FALSE"");
+								 
+								 line.put(Integer.valueOf(12), null != order.getDeliveryCost() ? String.valueOf(order.getDeliveryCost()): ""0"");
+								 String deliveryInstruction=order.getDeliveryInstruction();
+								 if(null!= deliveryInstruction)
+								 {
+									 deliveryInstruction = deliveryInstruction.replace(';','||||');
+									 deliveryInstruction = deliveryInstruction.replace('\n','+++');
+									 deliveryInstruction = deliveryInstruction.replace('\r','===');
+								 }
+								 line.put(Integer.valueOf(13), deliveryInstruction);
+								 line.put(Integer.valueOf(14), null != order.getDeliveryMode() ? order.getDeliveryMode().getCode() : StringUtils.EMPTY);
+								 line.put(Integer.valueOf(15), null !=order.getDeliveryRequestDate() ? new SimpleDateFormat(""yyyy-MM-dd HH:mm:ss.SSS ZZZZ"").format(order.getDeliveryRequestDate()) : StringUtils.EMPTY);
+								 line.put(Integer.valueOf(16), null != order.getDeliveryStatus() ? order.getDeliveryStatus().getCode() + "":"" + order.getDeliveryStatus().getType() : StringUtils.EMPTY);
+								 line.put(Integer.valueOf(17), null != order.getDeliverySurChargeGST() ?  String.valueOf(order.getDeliverySurChargeGST()) : ""0"");
+								 line.put(Integer.valueOf(18), order.getDescription());
+								 line.put(Integer.valueOf(19), order.getDeviceType());
+								 line.put(Integer.valueOf(20), null != order.isDiscountsIncludeDeliveryCost() ?  Boolean.toString(order.isDiscountsIncludeDeliveryCost()) : ""FALSE"");
+								 line.put(Integer.valueOf(21), null != order.isDiscountsIncludePaymentCost() ?  Boolean.toString(order.isDiscountsIncludePaymentCost()) : ""FALSE"");
+								 line.put(Integer.valueOf(22), order.getErrorMsg());
+								 line.put(Integer.valueOf(23), null!= order.getExpirationTime() ? new SimpleDateFormat(""yyyy-MM-dd HH:mm:ss.SSS ZZZZ"").format(order.getExpirationTime()) : StringUtils.EMPTY);
+								 line.put(Integer.valueOf(24), null != order.getExportStatus() ? order.getExportStatus().getCode() + "":"" + order.getExportStatus().getType() : StringUtils.EMPTY);
+								 line.put(Integer.valueOf(25), null != order.getFraudulent() ? Boolean.toString(order.getFraudulent()) : ""FALSE"");
+								 line.put(Integer.valueOf(26), null != order.getFreight() ? String.valueOf(order.getFreight()) : ""0"");
+								 line.put(Integer.valueOf(27), null != order.getFreightGST() ? String.valueOf(order.getFreightGST()) : ""0"");
+								 line.put(Integer.valueOf(28), order.getGuid());
+								 line.put(Integer.valueOf(29), null != order.getInvoiceAmountWithGST() ? String.valueOf(order.getInvoiceAmountWithGST()) :  ""0"");
+								 line.put(Integer.valueOf(30), null != order.getInvoiceCreatedDate() ? new SimpleDateFormat(""yyyy-MM-dd HH:mm:ss.SSS ZZZZ"").format(order.getInvoiceCreatedDate()) : StringUtils.EMPTY);
+								 line.put(Integer.valueOf(31), order.getInvoiceId());
+								 line.put(Integer.valueOf(32), null != order.getIsPrepaid() ? Boolean.toString(order.getIsPrepaid()) : ""FALSE"");
+								 line.put(Integer.valueOf(33), null != order.getLanguage() ? order.getLanguage().getIsocode() : StringUtils.EMPTY);
+								 line.put(Integer.valueOf(34), order.getLocale());
+								 line.put(Integer.valueOf(35), order.getMinOrderFee());
+								 line.put(Integer.valueOf(36), null != order.getMinicartSubTotal() ? String.valueOf(order.getMinicartSubTotal()) : ""0"" );
+								 line.put(Integer.valueOf(37), order.getName());
+								 line.put(Integer.valueOf(38), null != order.getNet() ? Boolean.toString(order.getNet()) : ""FALSE"");
+								 line.put(Integer.valueOf(39), null !=  order.getOnlineOrder() ? Boolean.toString(order.getOnlineOrder()) :""FALSE"");
+								 line.put(Integer.valueOf(40), null != order.getOrderCDL() ? String.valueOf(order.getOrderCDL()) : ""0"" );
+								 line.put(Integer.valueOf(41), null != order.getOrderGST() ? String.valueOf(order.getOrderGST()) : ""0"");							 
+								 line.put(Integer.valueOf(42), order.getOrderOriginId());
+								 line.put(Integer.valueOf(43), null != order.getOrderType() ? order.getOrderType().getCode() + "":"" + order.getOrderType().getType()  : StringUtils.EMPTY );
+								 line.put(Integer.valueOf(44), null != order.getOrderWET() ? String.valueOf(order.getOrderWET()) : ""0"");
+								 
+								 line.put(Integer.valueOf(45), null != order.getPaymentCost() ? String.valueOf(order.getPaymentCost()) : ""0"") ;
+								 line.put(Integer.valueOf(46), null != order.getPaymentInfo() ? order.getPaymentInfo().getCode() + "":"" +
+								       (null != order.getPaymentInfo().getUser() ? order.getPaymentInfo().getUser().getUid() : StringUtils.EMPTY) : StringUtils.EMPTY);
+								 line.put(Integer.valueOf(47), null != order.getPaymentMode() ? order.getPaymentMode().getCode() : StringUtils.EMPTY);
+								 line.put(Integer.valueOf(48), null != order.getPaymentStatus() ? order.getPaymentStatus().getCode() + "":"" + order.getPaymentStatus().getType() : StringUtils.EMPTY);
+								 line.put(Integer.valueOf(49), null != order.getPaymentType() ? order.getPaymentType().getCode() + "":"" + order.getPaymentType().getType() : StringUtils.EMPTY);
+								 line.put(Integer.valueOf(50), order.getPickingListId());
+								 line.put(Integer.valueOf(51), null != order.getPlacedBy() ? order.getPlacedBy().getUid() : StringUtils.EMPTY);
+								 line.put(Integer.valueOf(52), null != order.getPotentiallyFraudulent() ? Boolean.toString(order.getPotentiallyFraudulent()) : ""FALSE"");
+								 line.put(Integer.valueOf(53), order.getPreviousDeliveryMode());
+								 line.put(Integer.valueOf(54), null != order.getPriceUpdated() ? Boolean.toString(order.getPriceUpdated()) : ""FALSE"");
+								 line.put(Integer.valueOf(55), order.getPurchaseOrderNumber());
+								 line.put(Integer.valueOf(56), null != order.getSalesApplication() ? order.getSalesApplication().getCode() + "":"" + order.getSalesApplication().getType() : StringUtils.EMPTY);
+								 line.put(Integer.valueOf(57), order.getSalesOrderId());
+								 line.put(Integer.valueOf(58), null != order.getScheduleDeliveryDate() ? new SimpleDateFormat(""yyyy-MM-dd HH:mm:ss.SSS ZZZZ"").format(order.getScheduleDeliveryDate()) : StringUtils.EMPTY);
+								 line.put(Integer.valueOf(59), null != order.getScheduleShippingDate() ? new SimpleDateFormat(""yyyy-MM-dd HH:mm:ss.SSS ZZZZ"").format(order.getScheduleShippingDate()) : StringUtils.EMPTY);
+								 line.put(Integer.valueOf(60), order.getShippingWarehouse());
+								 line.put(Integer.valueOf(61), null != order.getSite() ? order.getSite().getUid() : StringUtils.EMPTY);
+								 line.put(Integer.valueOf(62), null != order.getStatus() ? order.getStatus().getCode() + "":"" + order.getStatus().getType() : StringUtils.EMPTY);
+								 line.put(Integer.valueOf(63), order.getStatusInfo());
+								 line.put(Integer.valueOf(64), null != order.getStore() ? order.getStore().getUid() : StringUtils.EMPTY);
+								 line.put(Integer.valueOf(65), null != order.getSubtotal() ?  String.valueOf(order.getSubtotal()) : ""0"");
+								 line.put(Integer.valueOf(66), null != order.getTimePickListDate() ? new SimpleDateFormat(""yyyy-MM-dd HH:mm:ss.SSS ZZZZ"").format(order.getTimePickListDate()) : StringUtils.EMPTY);
+								 line.put(Integer.valueOf(67), null != order.getTotalDiscounts() ? String.valueOf(order.getTotalDiscounts()) : ""0"");
+								 line.put(Integer.valueOf(68), null != order.getTotalPrice() ?  String.valueOf(order.getTotalPrice()) : ""0"");
+								 line.put(Integer.valueOf(69), null != order.getTotalTax() ?  String.valueOf(order.getTotalTax()) : ""0"");
+								 line.put(Integer.valueOf(70), order.getTotalTaxValuesInternal());
+								 line.put(Integer.valueOf(71), null != order.getUser() ? order.getUser().getUid() : StringUtils.EMPTY);
+								 line.put(Integer.valueOf(72), order.getVersionID());
+								 line.put(Integer.valueOf(73), null != order.getCreationtime() ? new SimpleDateFormat(""yyyy-MM-dd HH:mm:ss.SSS ZZZZ"").format(order.getCreationtime()): StringUtils.EMPTY);
+								 line.put(Integer.valueOf(74), null != order.getModifiedtime() ? new SimpleDateFormat(""yyyy-MM-dd HH:mm:ss.SSS ZZZZ"").format(order.getModifiedtime()): StringUtils.EMPTY);
+								 writer.write(line);
+							}
+							 
+							  catch(final Exception exception)
+							  {
+								println (""Order export failed :"" +exception)
+                                LOG.error(""Order failed in export : ""+order.getCode() +exception.getStackTrace());
+							  }
+						    }
+						  
+							i = i+10000;
+							}
+						}
+						
+	writer.close();	
+				 
+	if (file != null  && file.length() > 0) {
+		try {
+			
+				final InputStream fileInputStream = new FileInputStream(file);
+				final CatalogUnawareMediaModel mediaModel = modelService.create(CatalogUnawareMediaModel.class);
+				LOG.info(""Media File Name is : ""+file.getName());
+				mediaModel.setCode(file.getName() + ""_"" + System.currentTimeMillis());
+				mediaModel.setRealfilename(file.getName());
+				modelService.save(mediaModel);
+				mediaService.setStreamForMedia(mediaModel, fileInputStream);
+				modelService.refresh(mediaModel);
+			}
+		        
+        catch (final Exception ex) {
+			LOG.error(""Exception while preparing file for  orders during batch set ""+ex);
+   }
+		finally {
+			   LOG.info(""Time taken to export orders : "" + stopwatch.toString());
+		   }
+ }";;
+
+
+
+
+
+

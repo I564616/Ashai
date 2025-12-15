@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:p30="urn:gl.sabmiller.com:ecc:masterdata"
+	xmlns:p8="http://sap.com/xi/APPL"
+	xmlns:p13="http://sap.com/xi/APPL/Global2">
+	<xsd:import namespace="http://sap.com/xi/APPL" schemaLocation="appl.xsd"/>
+	<xsd:import namespace="urn:gl.sabmiller.com:ecc:masterdata" schemaLocation="main.xsd"/>
+			<xsd:import namespace="http://sap.com/xi/APPL/Global2" schemaLocation="global2.xsd"/>
+	<xsd:element name="Material">
+		<xsd:complexType>
+			 <xsd:sequence>
+					<xsd:element name="InternalID" type="p13:ProductInternalID" />
+					<xsd:element name="ProductStandardID" type="p13:ProductStandardID"
+						minOccurs="0" />
+					<xsd:element name="PreviousProductInternalID" type="p13:ProductInternalID"
+						minOccurs="0" />
+					<xsd:element name="MaterialTypeCode" type="p13:MaterialTypeCode" />
+					<xsd:element name="MaterialMerchandiseTypeCode" type="p13:Code"
+						minOccurs="0" />
+					<xsd:element name="MaterialIndustrialSectorCode" type="p13:MaterialIndustrialSectorCode" />
+					<xsd:element name="DivisionCode" type="p13:DivisionCode"
+						minOccurs="0" />
+					<xsd:element name="SerialNumberProfileCode" type="p13:Code"
+						minOccurs="0" />
+					<xsd:element name="CatchWeightQuantityEntryProfileCode"
+						type="p13:CatchWeightQuantityEntryProfileCode" minOccurs="0" />
+					<xsd:element name="CatchWeightQuantityVarianceProfileCode"
+						type="p13:CatchWeightQuantityVarianceProfileCode" minOccurs="0" />
+					<xsd:element name="IndustryStandardName" type="xsd:string"
+						minOccurs="0" />
+					<xsd:element name="DeletedIndicator" type="p13:Indicator"
+						minOccurs="0" />
+					<xsd:element name="BatchManagementRequiredIndicator"
+						type="p13:Indicator" />
+					<xsd:element name="ValidityStartDate" type="p13:Date"
+						minOccurs="0" />
+					<xsd:element name="SystemAdministrativeData" type="p13:SystemAdministrativeData"
+						minOccurs="0" />
+					<xsd:element name="Description" type="p8:MatlERPRplctnReqMsgMatlDesc"
+						maxOccurs="unbounded" />
+					<xsd:element name="TextCollection" type="p13:TextCollection"
+						minOccurs="0" />
+					<xsd:element name="ProductCategory" type="p8:MatlERPRplctnReqMsgMatlProdCat"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element name="GlobalTradeItemNumber"
+						type="p8:MatlERPRplctnReqMsgMatlGlobTrdItemNo" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xsd:element name="QuantityUnit" type="p8:MatlERPRplctnReqMsgMatlQtyUnit"
+						maxOccurs="unbounded" />
+					<xsd:element name="PlantSpecification" type="p8:MatlERPRplctnReqMsgMatlPlntSpec"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element name="Sales" type="p8:MatlERPRplctnReqMsgMatlSls"
+						minOccurs="0" />
+					<xsd:element name="ForeignTradeInformation" type="p8:MatlERPRplctnReqMsgMatlFrgnTradeInf"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element name="HandlingMeans" type="p8:MatlERPRplctnReqMsgMatlHndlgMeans"
+						minOccurs="0" />
+					<xsd:element name="Storage" type="p8:MatlERPRplctnReqMsgMatlStor"
+						minOccurs="0" />
+					<xsd:element name="Packaging" type="p8:MatlERPRplctnReqMsgMatlPackgg"
+						minOccurs="0" />
+					<xsd:group ref="p30:MatlERPRplctnReqMsgMatl" />
+					<xsd:group ref="p30:MatlERPRplctnReqMsgMatl_V1" />
+				</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

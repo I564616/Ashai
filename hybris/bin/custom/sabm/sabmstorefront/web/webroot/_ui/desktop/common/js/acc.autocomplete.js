@@ -1,0 +1,134 @@
+ACC.autocomplete = {
+
+	bindAll: function ()
+	{
+		this.bindSearchAutocomplete();
+	},
+
+	bindSearchAutocomplete: function ()
+	{	
+		// extend the default autocomplete widget, to solve issue on multiple instances of the searchbox component
+		$.widget( "custom.yautocomplete", $.ui.autocomplete, {
+			_create:function(){
+				
+				// get instance specific options form the html data attr
+				var option = this.element.data("options");
+				
+				// set the options to the widget
+				this._setOptions({
+					minLength: option.minCharactersBeforeRequest,
+					displayProductImages: option.displayProductImages,
+					delay: option.waitTimeBeforeRequest,
+					autocompleteUrl: option.autocompleteUrl,
+					source: this.source
+				});
+				// call the _super()
+				$.ui.autocomplete.prototype._create.call(this);
+				
+			},
+			options:{
+				cache:{}, // init cache per instance
+				focus: function (){return false;}, // prevent textfield value replacement on item focus
+				select: function (event, ui){
+					window.location.href = ui.item.url;
+				}
+				// appendTo: this.options.appendTo,
+				// position: {of: ".top-autocomplete", at: "right-280 bottom"}
+			},
+			_renderItem : function (ul,item){
+				if (item.type == "autoSuggestion"){
+					var renderHtml = "<a href='" + item.url + "' class='clearfix'>" + item.value + "</a>";
+					if(item.value == null){
+						return $("")
+						.data("item.autocomplete", item)
+						.append(null)
+						.appendTo(ul);
+					}
+					return $("<li class='suggestions'>")
+							.data("item.autocomplete", item)
+							.append(renderHtml)
+							.appendTo(ul);
+				}
+				else if (item.type == "productResult"){
+
+					var renderHtml = "<a href='" + item.url + "' class='product clearfix'>";
+
+					if (item.image != null){
+						renderHtml += "<span class='thumb'><img src='" + item.image + "' /></span>";
+					}
+					renderHtml += 	"<span class='desc clearfix'>";
+					if(item.packConfiguration!=null){
+						renderHtml += 	"<span class='title'><p>" + item.value + "</p><p >" + item.packConfiguration +"</p></span>";		
+					}
+					else{
+						renderHtml += 	"<span class='title'>" + item.value +"</span>";	
+					}
+				
+					renderHtml += 	"</span>";
+					renderHtml += 	"</a>";
+					if(item.value == null){
+						return $("").data("item.autocomplete", item).append(null).appendTo(ul)
+					}
+					return $("<li class='product'>").data("item.autocomplete", item).append(renderHtml).appendTo(ul);
+				}
+			},
+			source: function (request, response)
+			{
+				var self=this;
+				var term = request.term.toLowerCase();
+				if (term in self.options.cache)
+				{
+					return response(self.options.cache[term]);
+				}
+
+				if(request.term.trim() !== '') {
+					$.getJSON(self.options.autocompleteUrl, {term: request.term.trim()}, function (data)
+					{
+						var autoSearchData = [];
+						if(data.suggestions != null){
+							$.each(data.suggestions, function (i, obj)
+							{
+								autoSearchData.push({
+									value: obj.term,
+									url: ACC.config.encodedContextPath + "/search?text=" + obj.term,
+									type: "autoSuggestion"
+								});
+							});
+						}
+						if(data.products != null){
+							$.each(data.products, function (i, obj)
+							{
+								autoSearchData.push({
+									value: obj.name,
+									code: obj.code,
+									desc: obj.description,
+									manufacturer: obj.manufacturer,
+									packConfiguration:obj.packConfiguration,//displayed the SAP product packConfiguration
+									url: ACC.config.encodedContextPath + obj.url,		
+									type: "productResult",
+									image: (obj.images!=null && self.options.displayProductImages) ? obj.images[0].url : null // prevent errors if obj.images = null
+								});
+							});
+						}
+						self.options.cache[term] = autoSearchData;
+						return response(autoSearchData);
+					});
+				} else {
+					return response([]);
+				}
+			}
+
+		});
+
+	
+		$search = $(".siteSearchInput");
+		if($search.length>0){
+			$search.yautocomplete()
+		}
+	}
+};
+
+$(document).ready(function ()
+{
+	ACC.autocomplete.bindAll();
+});

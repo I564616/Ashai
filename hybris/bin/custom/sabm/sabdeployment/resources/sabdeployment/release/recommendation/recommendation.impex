@@ -1,0 +1,35 @@
+#Cron Jobs
+$catalog-id = sabmProductCatalog
+$catalog-version = Online
+$catalogversion = catalogversion(catalog(id), version)[unique=true, default=$catalog-id:$catalog-version]
+INSERT_UPDATE SmartRecommendationsCronjob; code[unique = true]                ; job(code)                                 ; sessionLanguage(isocode); sendNoFileEmail; sendStatusEmail; $catalogversion
+                                         ; RetrieveRecommendationsCronjob     ; retrieveRecommendationJobPerformable      ; en                      ; true           ; true           ;
+                                         ; RetrieveRecommendationGroupCronjob ; retrieveRecommendationGroupJobPerformable ; en                      ; true           ; true           ;
+                                         ; ProductHierarchyExportCronjob      ; productHierarchyExportJobPerformable      ; en                      ; true           ; true           ;
+
+#Component
+#Support for wide only
+INSERT_UPDATE ComponentTypeGroups2ComponentType; source(code)[unique = true]; target(code)[unique = true]
+                                               ; wide                       ; SmartRecommendationsComponent
+                                               ; narrow                     ; SmartRecommendationsComponent
+
+$contentCatalog = sabmContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]), CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged][unique=true]
+INSERT_UPDATE SmartRecommendationsComponent; uid[unique = true]   ; name                             ; title                 ; model1Title     ; model2Title          ; model3Title     ; $contentCV; &componentRef
+                                           ; smartRecommendations ; "Smart Recommendation Component" ; "Recommended for you" ; "CUB spotlight" ; "Others also bought" ; "Hot right now" ;           ; smartRecommendations
+
+INSERT_UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]                      ; cmsComponents(&componentRef)[mode = append]
+                         ;                          ; Section2BSlot-Homepage                  ; smartRecommendations
+                         ;                          ; BottomContentSlot-RecommendationCusPage ; smartRecommendations
+                         ;                          ; BottomContentSlot-RecommendationRepPage ; smartRecommendations
+
+INSERT_UPDATE Trigger; cronJob(code)[unique = true]       ; cronExpression   ; relative; active; maxAcceptableDelay
+                     ; RetrieveRecommendationsCronjob     ; 0 0 14 ? * * *   ; false   ; true  ; -1
+                     ; RetrieveRecommendationGroupCronjob ; 0 30 14 ? * * *  ; false   ; true  ; -1
+                     ; ProductHierarchyExportCronjob      ; 0 0 16 ? * THU * ; false   ; true  ; -1
+
+$START_USERRIGHTS;;;;;;;;;
+Type;UID;MemberOfGroups;Password;Target;read;change;create;remove;change_perm
+UserGroup;cmsmanagergroup;cockpitgroup,employeegroup;;;;;;;
+;;;;CMSSmartRecommendationGroupRestriction;+;+;+;+;+;
+$END_USERRIGHTS;;;;;

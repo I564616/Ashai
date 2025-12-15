@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
+    <title>icons/line/business</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="icons/line/business" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M9,3 L9,28 L21,28 L21,3 L9,3 Z M23,1 L23,30 L7,30 L7,1 L23,1 Z M13,22 L17,22 L17,28 L13,28 L13,22 Z M10.9807976,7.5 L10.9807976,5.5 L19.0207312,5.5 L19.0207312,7.5 L10.9807976,7.5 Z M10.9807976,12.5 L10.9807976,10.5 L19.0207312,10.5 L19.0207312,12.5 L10.9807976,12.5 Z M10.9807976,17.5 L10.9807976,15.5 L19.0207312,15.5 L19.0207312,17.5 L10.9807976,17.5 Z M23,11 L23,28 L28,28 L28,11 L23,11 Z M30,9 L30,30 L21,30 L21,9 L30,9 Z M2,11 L2,28 L7,28 L7,11 L2,11 Z M9,9 L9,30 L0,30 L0,9 L9,9 Z" id="Rectangle-12" fill="#002F5F" fill-rule="nonzero"></path>
+    </g>
+</svg>

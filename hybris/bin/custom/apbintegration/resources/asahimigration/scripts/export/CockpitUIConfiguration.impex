@@ -1,0 +1,7 @@
+insert CockpitUIConfigurationMedia;code[unique=true,allownull=true];creationtime[forceWrite=true,dateformat=dd.MM.yyyy hh:mm:ss];description;folder(qualifier);internalURL;mediaFormat(qualifier);mime;realFileName;removable[allownull=true];size;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator]
+"#% impex.exportItems( ""CockpitUIConfigurationMedia"" , false );"
+
+
+"#% impex.setTargetFile( ""CockpitUIComponentConfiguration.csv"" );"
+insert CockpitUIComponentConfiguration;code[allownull=true,unique=true];creationtime[forceWrite=true,dateformat=dd.MM.yyyy hh:mm:ss];factoryBean[allownull=true];media(code)[allownull=true];objectTemplateCode[allownull=true,unique=true];principal(uid)[unique=true]
+"#% impex.exportItems( ""CockpitUIComponentConfiguration"" , false );"

@@ -1,0 +1,69 @@
+// ==========================================================================
+//   Product Deals Classes
+// ==========================================================================
+.product-deals{
+	background:#f6f6f6;
+	margin-bottom: $spacing-x-large;
+	padding: $spacing-large 0;
+	.product-deals-title{
+		margin-bottom: $spacing-large;
+	}
+}
+
+.product-deal{
+	background:#fff;
+	padding:$spacing-medium $spacing-small;
+	border:1px solid $medium-lite-grey;
+
+	@media (min-width: $tablet){
+		border-bottom:0;
+		&:nth-child(2n+1){
+			border-left:1px solid $medium-lite-grey;
+		}
+		&:nth-last-child(-n+2){
+			border-top:1px solid $medium-lite-grey;
+		}
+	}
+}
+
+.product-deal-title{
+	font-size:$font-medium;
+	margin-bottom: 0;
+}
+
+.product-deal-description-wrapper{
+	flex:1;
+}
+
+.product-deal-description{
+	margin-bottom: $spacing-x-large;
+}
+
+.product-deal-selectors{
+	margin-bottom: $spacing-x-small;
+	@media (min-width: $tablet){
+		width:100%;
+		align-self: flex-start;
+	}
+}
+
+.product-deal-link{
+	border-bottom: 1px solid $dark-grey;
+	&:hover{
+		border-bottom: 0 none;
+	}
+}
+
+.product-deal-container{
+	margin-bottom: $spacing-medium;
+}
+
+.deal-filter .facet_block li .facet-check {
+  z-index: 2;
+  margin-left: 0;
+  opacity: 0;
+  display: block;
+  &:hover{
+  		cursor: pointer;
+  }
+}

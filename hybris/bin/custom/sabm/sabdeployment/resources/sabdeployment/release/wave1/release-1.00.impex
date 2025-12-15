@@ -1,0 +1,108 @@
+#
+# Import the CMS content for the site
+#
+$contentCatalog=sabmContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$productCV=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$catalogVersions = catalogVersions(catalog(id), version);
+$picture=media(code, $contentCV);
+$image=image(code, $contentCV);
+$media=media(code, $contentCV);
+$page=page(uid, $contentCV);
+$contentPage=contentPage(uid, $contentCV);
+$product=product(code, $productCV)
+$category=category(code, $productCV)
+$siteResource=jar:com.sabmiller.initialdata.setup.InitialDataSystemSetup&/sabminitialdata/import/sampledata/contentCatalogs/$contentCatalog
+$productResource=jar:com.sabmiller.initialdata.setup.InitialDataSystemSetup&/sabminitialdata/import/sampledata/productCatalogs/$productCatalog
+$jarResourceCms=jar:com.sabmiller.initialdata.setup.InitialDataSystemSetup&/sabminitialdata/import/sampledata/cockpits/cmscockpit
+$addonExtensionName=b2bacceleratoraddon
+$yourBusinessContent=Stay on top of your account and manage your personal information, business users, payments and order templates online. View your order history and get access to our online support too.
+$billingAndPaymentContent=Conveniently view, pay, and manage your invoices online.
+$multiStepCheckoutSummaryPageTextContent = Your order is valid for 5 minutes, if you exceed this time you will go back to the Cart Page to refresh your order.
+$wideContent=CMSImageComponent,BannerComponent,CMSParagraphComponent
+
+$b2bassistantgroup=b2bassistantgroup
+
+#######145
+$solrCustomerIndexedType = sabmStoreB2bCustomerType
+$searchConfigName = sabmStorePageSize
+$facetSearchConfigName = sabmStoreIndex
+$facetSearchConfigDescription = SAB Miller Solr Index
+$searchIndexNamePrefix = sabmStore
+$solrIndexedType = sabmStoreProductType
+$indexCurrencies = USD
+$serverConfigName = sabmStoreSolrServerConfig
+$productCatalog = sabmProductCatalog
+$catalogVersions = catalogVersions(catalog(id), version);
+
+
+# Import modulegen config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+$jarResourceCms=$config-jarResourceCmsValue
+
+$defaultLanguage=en
+$lang=en
+$jarEmailResource=jar:com.sabmiller.initialdata.setup.InitialDataSystemSetup&/sabminitialdata/import/coredata/contentCatalogs/sabmContentCatalog/emails
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+$emailResource=$config-emailResourceValue
+
+#### Update order templates footer links ####
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];name;url;&linkRef;&componentRef;target(code)[default='sameWindow']
+;;TemplateOrdersLink;Template Orders Link;/your-business/ordertemplates;TemplateOrdersLink;TemplateOrdersLink
+
+
+# Import order confirmation email velocity templates
+UPDATE RendererTemplate;code[unique=true];description[lang=$lang];templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+;sabmStore_Email_Order_Confirmation_Body;"Order Confirmation Email Body";$emailResource/email-orderConfirmationBody.vm
+;sabmStore-FooterComponent-template;"CMSBannerComponent Template";$emailResource/email-cmsFooterComponentTemplate.vm
+;sabmiller_Email_Confirm_Deals_Body;"CMSBannerComponent Template";$emailResource/email-confirmEnabledDealBody.vm
+;sabmiller_Email_Confirm_Deals_Subject;"CMSBannerComponent Template";$emailResource/email-confirmEnabledDealSubject.vm
+
+####################SABMC-145
+
+# Define the available sorts
+INSERT_UPDATE SolrSort; &sortRefID; indexedType(identifier)[unique = true]; code[unique = true]; useBoost
+; sortRef5 ; $solrCustomerIndexedType ; customername-asc ; true
+
+# Define the sort fields
+INSERT_UPDATE SolrSortField; sort(indexedType(identifier), code)[unique = true]; fieldName[unique = true]; ascending[unique = true]
+; $solrCustomerIndexedType:customername-asc ; customername ; true
+
+# Declare the indexed type B2BUnit
+INSERT_UPDATE SolrIndexedType; identifier[unique = true]; type(code); variant; sorts(&sortRefID)
+;$solrCustomerIndexedType;B2BUnit;false;sortRef5
+
+INSERT_UPDATE SolrFacetSearchConfig; name[unique = true]; description; indexNamePrefix; languages(isocode); currencies(isocode); solrServerConfig(name); solrSearchConfig(description); solrIndexConfig(name); solrIndexedTypes(identifier); enabledLanguageFallbackMechanism; $catalogVersions
+; $facetSearchConfigName ; $facetSearchConfigDescription ; $searchIndexNamePrefix ; $defaultLanguage ; $indexCurrencies ; $serverConfigName ; $searchConfigName ; $indexConfigName ; $solrIndexedType,$solrCustomerIndexedType; true ; $productCatalog:Online, $productCatalog:Staged
+
+
+# Create the queries that will be used to extract data for Solr
+INSERT_UPDATE SolrIndexerQuery; solrIndexedType(identifier)[unique = true]; identifier[unique = true]; type(code); injectCurrentDate[default = true]; injectCurrentTime[default = true]; injectLastIndexTime[default = true]; query; user(uid)
+; $solrCustomerIndexedType ; $searchIndexNamePrefix-customerFullQuery   ; full   ; ; ; false ; "SELECT DISTINCT{q:PK} as pk FROM {B2BUnit as q}  WHERE {q:UID} is not NULL " ; anonymous
+; $solrCustomerIndexedType ; $searchIndexNamePrefix-customerUpdateQuery ; update ; ; ;       ; "
+		SELECT DISTINCT {k:PK} AS lpk
+		FROM {B2BUnit AS k }
+		WHERE {k:modifiedtime} >= ?lastIndexTime
+"                                                                                                                          ; anonymous
+
+# Create the solr indexer configuration
+INSERT_UPDATE SolrIndexConfig; name[unique = true]; batchSize; numberOfThreads; indexMode(code);
+; $indexConfigName ; 100 ; 1 ; TWO_PHASE ;
+
+# Customer fields
+INSERT_UPDATE SolrIndexedProperty; solrIndexedType(identifier)[unique = true]; name[unique = true]; type(code); sortableType(code); currency[default = false]; localized[default = false]; multiValue[default = false]; useForSpellchecking[default = false]; useForAutocomplete[default = false]; fieldValueProvider; valueProviderParameters(key, value)[map-delimiter = |];  valueProviderParameter; 
+; $solrCustomerIndexedType       ; customername               ; sortabletext    ;  ; ;      ;      ;      ; ; customerNameProvider                ;                        ;    ; 
+; $solrCustomerIndexedType       ; customerID                 ; string          ;  ; ;      ;      ;      ; ; customerIDProvider                  ;                        ;    ; 
+; $solrCustomerIndexedType       ; addressStreetName          ; sortabletext    ;  ; ;      ;      ;      ; ; customerAddressProvider             ; attribute->line1       ;    ;    
+; $solrCustomerIndexedType       ; addressSuburb              ; sortabletext    ;  ; ;      ;      ;      ; ; customerAddressProvider             ; attribute->town        ;    ;
+; $solrCustomerIndexedType       ; addressPostCode            ; string          ;  ; ;      ;      ;      ; ; customerAddressProvider             ; attribute->postalcode  ;    ; 
+; $solrCustomerIndexedType       ; addressIsocodeShort        ; string          ;  ; ;      ;      ;      ; ; customerAddressRegionProvider       ;                        ;    ; 
+; $solrCustomerIndexedType       ; accountPayerNumber         ; string          ;  ; ;      ;      ;      ; ; customerAccountPayerNumberProvider  ;                        ;    ; 
+
+INSERT_UPDATE Usergroup;uid[unique=true];groups(uid);locname[lang=en];
+;$b2bassistantgroup;b2bgroup;B2B Personal Assistant Group;
+
+UPDATE SearchRestriction;code[unique=true];active
+;employee_restriction;false

@@ -1,0 +1,68 @@
+// ==========================================================================
+//   Custom Personal assistance styles
+// ==========================================================================
+
+.search-result {
+
+  .section-title {
+    h3 {
+      span {
+        a {
+          color: $primary-blue;
+          &:focus, &:hover {
+            color: $primary-blue;
+          }
+        }
+      }
+    }
+  }
+	
+  .search-result-item {
+     border-top: 1px solid $medium-grey;
+     
+     line-height: $line-height-medium;
+     padding: 15px 0;
+     margin-left: 0 ;
+     margin-right: 0;
+	 &:last-child{
+	 	 border-bottom: 1px solid $medium-grey;
+	 }
+	 
+	 &.inactive{
+	   	color: $text-inactive;
+	 }
+	 &.primary{
+	 	color: $primary-blue;
+	 }
+  	.status {
+  		
+     	line-height: $line-height-large;
+   		width: 8px;
+   		height: 8px;
+   		
+  		/*@media (max-width: $tablet) {
+	  		position: absolute;
+	  		top: 6px;
+	  		left: 0;
+  		}
+	    */
+  		&.status-primary {
+  			background-color: $parimary;
+  		}
+  		
+  		&.status-inactive {
+  			background-color: $inactive;
+  		}
+  	}
+    
+    a{
+    	text-decoration: none;
+    	&.item-title{
+	    	padding-left: 65px;
+	    	display: inline-block;
+	    	position: relative;
+	    }
+	  
+    }
+  }
+}

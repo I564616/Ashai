@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2013 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+ 	   xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/security https://www.springframework.org/schema/security/spring-security.xsd">
+    
+    <bean name="sabmContextRedirectStrategy" class="com.sabmiller.staff.singlesignon.webutils.SABMContextRedirectStrategy">
+        <property name="context" value="/staffPortal"/>
+        <property name="asahiContext" value="/asahiStaffPortal" />
+    </bean>
+
+	 <!-- Logout handler terminating local session -->
+    <bean id="sabmlogoutHandler"
+          class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler">
+        <property name="invalidateHttpSession" value="true"/>
+    </bean>
+
+    <bean id="failureRedirectHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+        <property name="defaultFailureUrl" value="/ssoError"/>
+        <property name="redirectStrategy" ref="sabmContextRedirectStrategy"/>
+    </bean>
+
+    <!-- Handler for successful logout -->
+    <bean id="successLogoutHandler" class="org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler">
+        <property name="defaultTargetUrl" value="/logout"/>
+        <property name="redirectStrategy" ref="sabmContextRedirectStrategy"/>
+    </bean>
+
+    <alias name="defaultSabmLoginSamlService" alias="samlLoginService"/>
+    <bean id="defaultSabmLoginSamlService" class="com.sabmiller.staff.singlesignon.webutils.DefaultSABMSamlLoginService" parent="defaultLoginSamlService"/>
+
+
+	<alias name="defaultAsahiRedirectionControllerBase" alias="redirectionControllerBase"/>
+    <bean id="defaultAsahiRedirectionControllerBase" class="com.sabmiller.staff.singlesignon.AsahiRedirectionControllerBase" />
+    
+	<alias name ="asahiSaml2UserFilter"  alias="saml2UserFilter"/>
+    <bean id="asahiSaml2UserFilter" class="com.sabmiller.staff.singlesignon.AsahiSaml2UserFilter">
+    	<constructor-arg ref="samlService"/>
+        <constructor-arg ref="ssoUserService"/>
+        <constructor-arg ref="commonI18NService"/>
+        <constructor-arg ref="samlLoginService"/>
+    </bean> 
+
+    <alias name="asahiSuccessRedirectHandler" alias="successRedirectHandler"/>
+    <bean id="asahiSuccessRedirectHandler"
+          class="com.sabmiller.staff.singlesignon.AsahiSAMLRelayStateSuccessHandler">
+        <property name="defaultTargetUrl" value="/"/>
+        <property name="configurationService" ref="configurationService"/>
+    </bean>
+	
+	<alias name = "asahiSaml2RequestFilter" alias="saml2RequestFilter"/>
+      <bean id="asahiSaml2RequestFilter"   class="com.sabmiller.staff.singlesignon.AsahiSaml2WebSsoAuthenticationRequestFilter">
+      	<property name="configurationService" ref="configurationService"/>
+<!--        <constructor-arg name="authenticationRequestContextResolver" ref="authenticationRequestContextResolver"/>-->
+<!--        <constructor-arg name="authenticationRequestFactory" ref="authenticationRequestFactory"/>-->
+    </bean>
+ 
+ <!--    <alias name="asahiAuthenticationRequestFactory"  alias="authenticationRequestFactory" />
+       <bean id="asahiAuthenticationRequestFactory"
+          class="com.sabmiller.staff.singlesignon.AsahiOpenSaml4AuthenticationRequestFactory">
+    </bean> -->
+
+</beans>

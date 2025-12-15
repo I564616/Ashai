@@ -1,0 +1,36 @@
+#
+# Import the CMS content for the site
+#
+$contentCatalog=sabmContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$lang=en
+$jarEmailResource=jar:com.sabmiller.initialdata.setup.InitialDataSystemSetup&/sabminitialdata/import/coredata/contentCatalogs/sabmContentCatalog/emails
+$serviceRequestDescription=Do you need service support on a recent delivery or want to update your account details? Simply raise an enquiry using our online enquiry form and we will contact you directly.
+$contactUsDescription=Find information on how to get in contact with CUB.
+$faqsDescription=Find answers to our most Frequently Asked Questions.
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+$emailResource=$config-emailResourceValue
+
+# Import order confirmation email velocity templates
+UPDATE RendererTemplate;code[unique=true];templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+;sabmStore_Email_Forgotten_Password_Body;$emailResource/email-forgottenPasswordBody.vm
+
+
+######  SABMiller Your Business Overview Page Need a Hand Section ######
+
+INSERT_UPDATE LinkParagraphComponent;$contentCV[unique=true];uid[unique=true];name;title;content;linkText;url;icon;&componentRef
+;;ServiceRequest;Service request;;$serviceRequestDescription;Support;/serviceRequest;;ServiceRequest
+;;ContactUs;Contact us;;$contactUsDescription;Contact us;/serviceRequest;;ContactUs
+;;FAQs;FAQs;;$faqsDescription;FAQs;/faqs;;FAQs
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;Section3Slot-YourBusinessOverview;Section3;true;ServiceRequest,ContactUs,FAQs
+
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;
+;;Section3Slot-YourBusinessOverview;Section3;true;
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='your-business-overview'];contentSlot(uid,$contentCV)[unique=true]
+;;Section3-YourBusinessOverview;Section3;;Section3Slot-YourBusinessOverview

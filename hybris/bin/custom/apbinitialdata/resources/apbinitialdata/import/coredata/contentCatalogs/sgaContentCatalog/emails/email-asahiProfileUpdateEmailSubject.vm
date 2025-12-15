@@ -1,0 +1,2 @@
+## messageSource=classpath:/sabmcore/messages/email-profileUpdated_$lang.properties
+${ctx.messages.sgaEmailSubject}

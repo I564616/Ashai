@@ -1,0 +1,11 @@
+INSERT_UPDATE SearchRestriction;code[unique=true];restrictedType(code)[unique=true];active
+                               ;Frontend_Deals_SAPCallInProgress;Deal;false;
+
+INSERT_UPDATE ServicelayerJob; code[unique = true]         ; springId                    ;
+                             ; complexDealNormalisationJob ; complexDealNormalisationJob ;
+
+INSERT_UPDATE CronJob; code[unique = true]         ; active[default = true]; job(code)                   ; sessionLanguage(isocode)[default = 'en']; sessionUser(uid)[default = 'integrationAdmin']
+                     ; complexDealNormalisationJob ;                       ; complexDealNormalisationJob ;                                         ; ;
+
+INSERT_UPDATE Trigger; cronJob(code)[unique = true]; cronExpression   ; relative; active; maxAcceptableDelay
+                     ; complexDealNormalisationJob ; 0 0/30 * 1/1 * ? * ; false   ; true  ; -1

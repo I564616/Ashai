@@ -1,0 +1,84 @@
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+              <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingOne">
+                  <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion1" href="#deals" aria-expanded="true" aria-controls="deals">
+                      Deals
+                    </a>
+                  </h4>
+                </div>
+                <div id="deals" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                  <div class="panel-body">
+                    
+                  	{{> deals}}
+
+                  </div>
+                </div>
+              </div>
+              <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingTwo">
+                  <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" href="#otherPack" aria-expanded="false" aria-controls="otherPack">
+                      Other Pack Options
+                    </a>
+                  </h4>
+                </div>
+                <div id="otherPack" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                  <div class="panel-body">
+                    
+                  {{!-- {{> product-other-packages}} --}}
+
+                  </div>
+                </div>
+              </div>
+              <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingThree">
+                  <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" href="#about" aria-expanded="false" aria-controls="about">
+                      About
+                    </a>
+                  </h4>
+                </div>
+                <div id="about" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                  <div class="panel-body">
+                    
+                  {{!-- {{> product-about-mobile}} --}}
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingTwo">
+                  <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" href="#packConfig" aria-expanded="false" aria-controls="packConfig">
+                      Pack Configuration
+                    </a>
+                  </h4>
+                </div>
+                <div id="packConfig" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                  <div class="panel-body">
+                    
+                  {{!-- {{> product-configuration}} --}}
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingTwo">
+                  <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" href="#related" aria-expanded="false" aria-controls="related">
+                      Related Products
+                    </a>
+                  </h4>
+                </div>
+                <div id="related" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                  <div class="panel-body">
+                    
+                  {{!-- {{> product-related}} --}}
+
+                  </div>
+                </div>
+              </div>
+            </div>

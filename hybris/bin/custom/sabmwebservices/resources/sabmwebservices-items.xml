@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2013 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+
+  
+-->
+<!--
+	ATTENTION: This is just an example file. You have to edit it according to your needs.
+-->
+
+<items 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+			xsi:noNamespaceSchemaLocation="items.xsd">
+
+	<collectiontypes>
+		<collectiontype code="MasterImportList" elementtype="MasterImport" autocreate="true" generate="true" type="list"/>
+	</collectiontypes>
+
+	<enumtypes>
+		<enumtype generate="true" code="EntityTypeEnum" autocreate="true" dynamic="false">
+			<value code="CUSTOMER"/>
+			<value code="PRODUCT"/>
+			<value code="CUP"/>
+			<value code="DEAL"/>
+			<value code="PRICING_DISCOUNT"/>
+			<value code="PRODUCT_EXCLUSION"/>
+			<value code="DELIVERY_INFO"/>
+			<value code="DELIVERY_DISPATCH"/>
+			<value code="SALES_ORDER_UPDATE"/>
+			<value code="CONSIGNMENT_UPDATE_RETRIEVER"/>
+			<value code="CREDIT_ADJUSTMENT_STATUS_UPDATE"/>
+		</enumtype>
+		<enumtype generate="true" code="DataImportStatusEnum" autocreate="true" dynamic="false">
+			<value code="NEW"/>
+			<value code="PROCESSING"/>
+			<value code="SUCCESS"/>
+			<value code="ERROR"/>
+			<value code="SUCCESS_WITH_WARNING"/>
+			<value code="VALIDATION_ERROR"/>
+			<value code="XSD_VALIDATION_ERROR"/>
+			<value code="FAKE_SAP_REQUEST"/>
+		</enumtype>
+		<enumtype generate="true" code="OperationEnum" autocreate="true" dynamic="false">
+			<value code="CREATE"/>
+			<value code="UPDATE"/>
+			<value code="DELETE"/>
+		</enumtype>
+	</enumtypes>
+
+
+	<itemtypes>
+		<itemtype code="MasterImport" autocreate="true" generate="true">	
+			<description>Main import entity.A record will be created for each webservice request entity</description>
+			<deployment table="ImportEntity" typecode="26000"/>
+			<attributes>
+				<attribute qualifier="payloadId" type="java.lang.String">
+					<description>The unique payload Id for the request</description>
+					<modifiers/>
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="referenceId" type="java.lang.String">
+					<description>The reference Id for the batch request</description>
+					<modifiers/>
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="entity" type="EntityTypeEnum">
+					<description>The type of Import. Example : Customer, Product</description>
+					<modifiers/>
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="status" type="DataImportStatusEnum">
+					<description>This represents the plant id of the default customer plant</description>
+					<modifiers unique="false" optional="true"/>
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="file" type="Media">
+					<description>The cutoff time for the plant. If customer orders after the cutoff time, the delivery date would change</description>
+					<modifiers/>
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="recordCount" type="java.lang.Integer">
+					<description>The cutoff time for the plant. If customer orders after the cutoff time, the delivery date would change</description>
+					<modifiers/>
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="payload" type="java.lang.String">
+					<description>The cutoff time for the plant. If customer orders after the cutoff time, the delivery date would change</description>
+					<modifiers/>
+					<persistence type="property">
+				         <columntype database="hsqldb">
+				             <value>LONGVARCHAR</value>
+				         </columntype>
+				         
+				         <columntype database="oracle">
+				             <value>CLOB</value>
+				         </columntype>
+				         <columntype database="mysql">
+				             <value>LONGTEXT</value>
+				         </columntype>
+				         <columntype database="sqlserver">
+				             <value>nvarchar(max)</value>
+				         </columntype>
+				         <columntype>
+				             <value>HYBRIS.LONG_STRING</value>
+				         </columntype>
+				     </persistence>
+				</attribute>
+				<attribute qualifier="error" type="java.lang.String">
+					<description>Any error that occured at the high level even before splitting the entities</description>
+					<modifiers/>
+					<persistence type="property">
+						<columntype database="oracle">
+				             <value>CLOB</value>
+				         </columntype>
+				         <columntype database="mysql">
+				             <value>LONGTEXT</value>
+				         </columntype>
+				         <columntype database="sqlserver">
+				             <value>nvarchar(max)</value>
+				         </columntype>
+				         <columntype>
+				             <value>HYBRIS.LONG_STRING</value>
+				         </columntype>
+					</persistence>
+				</attribute>
+			</attributes>
+			<!-- Indexing payloadId for improving the performance of site -->
+			<indexes>
+      			<index name="MasterImportPLIDX">
+         				<key attribute="payloadId"/>
+     		    </index>
+			</indexes>
+		</itemtype>
+		
+		<itemtype code="ImportRecord" autocreate="true" generate="true">	
+			<description>Group for B2BUnit as injected from SAP</description>
+			<deployment table="ImportEntityRecord" typecode="26001"/>
+			<attributes>
+				<attribute qualifier="operation" type="OperationEnum">
+					<description>This represents the plant id of the default customer plant</description>
+					<modifiers unique="false" optional="true"/>
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="status" type="DataImportStatusEnum">
+					<description>The cutoff time for the plant. If customer orders after the cutoff time, the delivery date would change</description>
+					<modifiers/>
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="masterRecord" type="MasterImport">
+					<description>The cutoff time for the plant. If customer orders after the cutoff time, the delivery date would change</description>
+					<modifiers partof="true"/>
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="error" type="java.lang.String">
+					<description>The cutoff time for the plant. If customer orders after the cutoff time, the delivery date would change</description>
+					<modifiers/>
+					<persistence type="property">
+						<columntype database="oracle">
+				             <value>CLOB</value>
+				         </columntype>
+				         <columntype database="mysql">
+				             <value>LONGTEXT</value>
+				         </columntype>
+				         <columntype database="sqlserver">
+				             <value>nvarchar(max)</value>
+				         </columntype>
+				         <columntype>
+				             <value>HYBRIS.LONG_STRING</value>
+				         </columntype>
+					</persistence>
+				</attribute>
+			</attributes>
+		</itemtype>
+		
+		<itemtype code="CustomerImportRecord" extends="ImportRecord" autocreate="true" generate="true">	
+			<description>Group for B2BUnit as injected from SAP</description>
+			<attributes>
+				<attribute qualifier="customerId" type="java.lang.String">
+					<description>This represents the plant id of the default customer plant</description>
+					<modifiers unique="false" optional="true"/>
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="customerType" type="java.lang.String">
+					<description>This represents the plant id of the default customer plant</description>
+					<modifiers unique="false" optional="true"/>
+					<persistence type="property"/>
+				</attribute>
+			</attributes>
+		</itemtype>
+		<itemtype code="ProductImportRecord" extends="ImportRecord" autocreate="true" generate="true">	
+			<description>Group for B2BUnit as injected from SAP</description>
+			<attributes>
+				<attribute qualifier="material" type="java.lang.String">
+					<description>This represents the plant id of the default customer plant</description>
+					<modifiers unique="false" optional="true"/>
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="hierarchy" type="java.lang.String">
+					<description>This represents the plant id of the default customer plant</description>
+					<modifiers unique="false" optional="true"/>
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="hybrisCategory" type="java.lang.String">
+					<description>This represents the plant id of the default customer plant</description>
+					<modifiers unique="false" optional="true"/>
+					<persistence type="property"/>
+				</attribute>
+			</attributes>
+		</itemtype>
+		<itemtype code="ProductExclusionImportRecord" extends="ImportRecord" autocreate="true" generate="true">	
+			<description>Group for Product Exclusion as injected from SAP</description>
+			<attributes>
+				<attribute qualifier="customerId" type="java.lang.String">
+					<description>This represents the customer id of the product exclusion</description>
+					<modifiers unique="false" optional="true"/>
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="product" type="java.lang.String">
+					<description>This represents the material of the product to exclude</description>
+					<modifiers unique="false" optional="true"/>
+					<persistence type="property"/>
+				</attribute>
+			</attributes>
+		</itemtype>
+		<itemtype code="DeliveryInfoImportRecord" extends="ImportRecord" autocreate="true" generate="true">	
+			<description>Group for B2BUnit as injected from SAP</description>
+			<attributes>
+				<attribute qualifier="salesOrderNumber" type="java.lang.String">
+					<description>This represents the plant id of the default customer plant</description>
+					<modifiers unique="false" optional="true"/>
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="deliveryNumber" type="java.lang.String">
+					<description>This represents the plant id of the default customer plant</description>
+					<modifiers unique="false" optional="true"/>
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="deliveryActionCode" type="java.lang.String">
+					<description>This represents the plant id of the default customer plant</description>
+					<modifiers unique="false" optional="true"/>
+					<persistence type="property"/>
+				</attribute>
+			</attributes>
+		</itemtype>
+		<itemtype code="DispatchInfoImportRecord" extends="ImportRecord" autocreate="true" generate="true">	
+			<description>Group for B2BUnit as injected from SAP</description>
+			<attributes>
+				<attribute qualifier="salesOrderNumber" type="java.lang.String">
+					<description>This represents the plant id of the default customer plant</description>
+					<modifiers unique="false" optional="true"/>
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="deliveryNumber" type="java.lang.String">
+					<description>This represents the plant id of the default customer plant</description>
+					<modifiers unique="false" optional="true"/>
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="deliveryActionCode" type="java.lang.String">
+					<description>This represents the plant id of the default customer plant</description>
+					<modifiers unique="false" optional="true"/>
+					<persistence type="property"/>
+				</attribute>
+			</attributes>
+		</itemtype>
+		<itemtype code="SalesOrderImportRecord" extends="ImportRecord" autocreate="true" generate="true">	
+			<description>Group for B2BUnit as injected from SAP</description>
+			<attributes>
+				<attribute qualifier="orderId" type="java.lang.String">
+					<description>This represents the plant id of the default customer plant</description>
+					<modifiers unique="false" optional="true"/>
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="salesOrderNumber" type="java.lang.String">
+					<description>This represents the plant id of the default customer plant</description>
+					<modifiers unique="false" optional="true"/>
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="customerId" type="java.lang.String">
+					<description>This represents the plant id of the default customer plant</description>
+					<modifiers unique="false" optional="true"/>
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="source" type="java.lang.String">
+					<description>This represents the plant id of the default customer plant</description>
+					<modifiers unique="false" optional="true"/>
+					<persistence type="property"/>
+				</attribute>
+			</attributes>
+		</itemtype>
+		<itemtype code="ComplexDealImportRecord" extends="ImportRecord" autocreate="true" generate="true">	
+			<description>Group for B2BUnit as injected from SAP</description>
+			<attributes>
+				<attribute qualifier="code" type="java.lang.String">
+					<description>This represents the plant id of the default customer plant</description>
+					<modifiers unique="false" optional="true"/>
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="description" type="java.lang.String">
+					<description>This represents the plant id of the default customer plant</description>
+					<modifiers unique="false" optional="true"/>
+					<persistence type="property"/>
+				</attribute>
+			</attributes>
+		</itemtype>
+		<itemtype code="TrackOrderImportRecord" extends="ImportRecord" autocreate="true" generate="true">	
+			<description>Group for B2BUnit as injected from SAP</description>
+			<attributes>
+				<attribute qualifier="messageType" type="java.lang.String">
+					<description>This represents the message type ETA etc</description>
+					<modifiers unique="false" optional="true"/>
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="SAPDeliveryNumber" type="java.lang.String">
+					<description>This represents the SAP Delivery Number</description>
+					<modifiers unique="false" optional="true"/>
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="NextInQueueIndicator" type="java.lang.String">
+					<description>This represents the Next InQueue Indicator 1 or 0</description>
+					<modifiers unique="false" optional="true"/>
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="DateTime" type="java.lang.String">
+					<description>This represents the Date Time in UTC</description>
+					<modifiers unique="false" optional="true"/>
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="NotDeliveredReason" type="java.lang.String">
+					<description>This represents non-delivery reason</description>
+					<modifiers unique="false" optional="true"/>
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="TimeZoneCode" type="java.lang.String">
+					<description>This represents the UTC Time Zone</description>
+					<modifiers unique="false" optional="true"/>
+					<persistence type="property"/>
+				</attribute>
+			</attributes>
+		</itemtype>
+
+		<itemtype code="CreditAdjustmentImportRecord" extends="ImportRecord" autocreate="true" generate="true">
+			<description>Invoice status updates injected from SAP</description>
+			<attributes>
+				<attribute qualifier="invoiceNumber" type="java.lang.String">
+					<description></description>
+					<modifiers unique="false" optional="true"/>
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="purchaseOrderNumber" type="java.lang.String">
+					<description></description>
+					<modifiers unique="false" optional="true"/>
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="amount" type="java.lang.String">
+					<description>the amount which credit team decide to credit back to Customer</description>
+					<modifiers unique="false" optional="true"/>
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="creditAdjustmentStatus" type="java.lang.String">
+					<description>status will always be "Approved" at first stage</description>
+					<modifiers unique="false" optional="true"/>
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="type" type="java.lang.String">
+					<description>status will always be "Credit Adjustment" at first stage</description>
+					<modifiers unique="false" optional="true"/>
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="soldTo" type="java.lang.String">
+					<description>b2bUnit code</description>
+					<modifiers unique="false" optional="true"/>
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="paymentDate" type="java.lang.String">
+					<description>the data which this credit adjustment bill has been paid</description>
+					<modifiers unique="false" optional="true"/>
+					<persistence type="property"/>
+				</attribute>
+				<attribute qualifier="dueDate" type="java.lang.String">
+					<description></description>
+					<modifiers unique="false" optional="true"/>
+					<persistence type="property"/>
+				</attribute>
+			</attributes>
+		</itemtype>
+
+
+		<itemtype code="ImportCleanupJob" autocreate="true" generate="true" extends="CronJob">
+			<description>Cronjob to cleanup the import logs</description>
+			<attributes>
+				<attribute qualifier="xDaysOld" type="int">
+                    <modifiers read="true" write="true" optional="false"/>
+                    <defaultvalue>Integer.valueOf(14)</defaultvalue>
+                    <description>The Import Records greater than this value in days will be removed
+                    </description>
+                    <persistence type="property"/>
+                </attribute>
+			</attributes>
+		</itemtype>
+		
+		<itemtype code="CustomerImportCleanupJob" autocreate="true" generate="true" extends="ImportCleanupJob">
+			<description>Cronjob to cleanup the import records</description>
+			<attributes>
+			</attributes>
+		</itemtype>
+		
+		<itemtype code="ProductImportCleanupJob" autocreate="true" generate="true" extends="ImportCleanupJob">
+			<description>Cronjob to cleanup the product import records</description>
+			<attributes>
+			</attributes>
+		</itemtype>
+		
+		<itemtype code="ProductExclusionImportCleanupJob" autocreate="true" generate="true" extends="ImportCleanupJob">
+			<description>Cronjob to cleanup the product exclusion import records</description>
+			<attributes>
+			</attributes>
+		</itemtype>
+		
+		<itemtype code="ImportRetryJob" autocreate="true" generate="true" extends="CronJob">
+			<description>Retry the entity imports</description>
+			<attributes>
+				<attribute qualifier="importList" type="MasterImportList">
+                    <modifiers read="true" write="true" optional="false"/>
+                    <description>The list of master records that needs to be rerun
+                    </description>
+                    <persistence type="property"/>
+                </attribute>
+			</attributes>
+		</itemtype>
+			
+	</itemtypes>
+</items>

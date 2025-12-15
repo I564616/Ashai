@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">
+           
+    <context:annotation-config/> 
+    
+    <context:component-scan base-package="com.apb.occ.v2.async.configuration" />
+	<bean id="apboccaddonCoreDataImportedEventListener" parent="abstractCoreDataImportedEventListener">
+		<property name="supportedChannels">
+			<list value-type="de.hybris.platform.commerceservices.enums.SiteChannel">
+				<value>B2B</value>
+			</list>
+		</property>
+		<property name="addonExtensionMetadata">
+			<bean class="de.hybris.platform.addonsupport.data.AddonExtensionMetadata">
+				<property name="suffixChannel" value="false"/>
+				<property name="baseExtensionName" value="apboccaddon"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="apboccaddonSampleDataEventListener" parent="abstractGenericAddOnSampleDataEventListener"  >
+		<property name="extensionName" value="apboccaddon" />
+	</bean>
+	
+	<bean id="apbProductWsDTOValidator"
+	      class="com.apb.occ.v2.validators.ApbProductWsDTOValidator">
+	</bean>
+	<bean id="apbB2BUnitWsDTOValidator"
+	      class="com.apb.occ.v2.validators.ApbB2BUnitWsDTOValidator">
+	</bean>
+	<bean id="apbAddressWsDTOValidator"
+	      class="com.apb.occ.v2.validators.ApbAddressWsDTOValidator">
+	</bean>
+	<bean id="apbCategoryWsDTOValidator"
+	      class="com.apb.occ.v2.validators.ApbCategoryWsDTOValidator">
+	</bean>
+	<bean id="asahiOrderWsDTOValidator"
+	      class="com.apb.occ.v2.validators.AsahiOrderWsDTOValidator">
+	</bean>
+	<bean id="asahiSAMStatementWsDTOValidator"
+	      class="com.apb.occ.v2.validators.AsahiSAMStatementWsDTOValidator">
+	</bean>
+	<bean id="asahiSAMInvoiceWsDTOValidator"
+	      class="com.apb.occ.v2.validators.AsahiSAMInvoiceWsDTOValidator">
+	</bean>
+	
+
+    <bean id="asahiAsyncService" class="com.apb.occ.v2.async.service.AsahiAsyncService" />
+</beans>

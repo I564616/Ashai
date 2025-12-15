@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="urn:gl.sabmiller.com:com:ecc:transdata" xmlns="urn:gl.sabmiller.com:com:ecc:transdata" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:element name="CustomerBillingDataResponse" type="CustomerBillingDataResponse"/>
+	<xsd:complexType name="CustomerBillingDataResponse">
+		<xsd:sequence>
+			<xsd:element maxOccurs="unbounded" minOccurs="0" name="Invoice">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element minOccurs="0" name="CompanyCode" type="xsd:string"/>
+						<xsd:element minOccurs="0" name="SalesOrganisation" type="xsd:string"/>
+						<xsd:element minOccurs="0" name="Payer" type="xsd:string"/>
+						<xsd:element minOccurs="0" name="BillTo" type="xsd:string"/>
+						<xsd:element minOccurs="0" name="SoldTo" type="xsd:string"/>
+						<xsd:element minOccurs="0" name="BaselineDate" type="xsd:string"/>
+						<xsd:element minOccurs="0" name="DocumentDate" type="xsd:string"/>
+						<xsd:element minOccurs="0" name="PaymentDate" type="xsd:string"/>
+						<xsd:element minOccurs="0" name="InvoiceNumber" type="xsd:string"/>
+						<xsd:element minOccurs="0" name="InvoiceType" type="xsd:string"/>
+						<xsd:element minOccurs="0" name="SalesOrderNumber" type="xsd:string"/>
+						<xsd:element minOccurs="0" name="PurchaseOrderNumber" type="xsd:string"/>
+						<xsd:element minOccurs="0" name="ValueLocalCurrency" type="xsd:string"/>
+						<xsd:element minOccurs="0" name="LocalCurrency" type="xsd:string"/>
+						<xsd:element minOccurs="0" name="DueDate" type="xsd:string"/>
+						<xsd:element minOccurs="0" name="Status" type="xsd:string"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

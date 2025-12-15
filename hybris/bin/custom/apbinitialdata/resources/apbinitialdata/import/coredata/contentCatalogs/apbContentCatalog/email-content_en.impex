@@ -1,0 +1,120 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#
+# Import the CMS content for the Apb site emails
+#
+$contentCatalog=apbContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/coredata/contentCatalogs/apbContentCatalog/emails
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$emailResource=$config-emailResourceValue                                                                  
+
+# Language                                                                                                 
+$lang=en                                                                                                   
+
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]               ; fromEmail[lang=$lang]                ; fromName[lang=$lang]            
+                 ;                         ; CustomerRegistrationEmail      ; "CustomerSupport@asahidirect.com.au" ; "Customer Services Team"        
+                 ;                         ; CustomerSuperRegistrationEmail ; "CustomerSupport@asahidirect.com.au" ; "Customer Services Team"        
+                 ;                         ; RequestRegistrationEmail       ; "auar@asahipb.com"                   ; "Request Registration"          
+                 ;                         ; ApbCompanyDetailsEmail         ; "Enquiries@asahidirect.com.au"       ; "Company Details Change Request"
+                 ;                         ; ApbContactUsEmail              ; "customersupport@asahidirect.com.au" ; "Contact Us"                    
+                 ;                         ; ApbKegReturnEmail              ; "CustomerSupport@asahidirect.com.au" ; "Keg Return"                    
+                                                                                                 
+
+# CMS components and Email velocity templates                                                              
+UPDATE RendererTemplate ; code[unique=true]                                 ; description[lang=$lang]                            ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                        ; apb-BannerComponent-template                      ; "CMSBannerComponent Template"                      ; $jarEmailResource/email-bannerComponentTemplate.vm                                                               
+                        ; apb-CMSImageComponent-template                    ; "CMSImageComponent Template"                       ; $jarEmailResource/email-cmsImageComponentTemplate.vm                                                             
+                        ; apb-CMSLinkComponent-template                     ; "CMSLinkComponent Template"                        ; $jarEmailResource/email-cmsLinkComponentTemplate.vm                                                              
+                        ; apb-CMSParagraphComponent-template                ; "CMSParagraphComponent Template"                   ; $jarEmailResource/email-cmsParagraphComponentTemplate.vm                                                         
+                        ; apb-SimpleBannerComponent-template                ; "CMSSimpleBannerComponent Template"                ; $jarEmailResource/email-bannerComponentTemplate.vm                                                               
+                        ; apb_Email_Customer_Registration_Body              ; "Customer Registration Email Body"                 ; $jarEmailResource/email-customerRegistrationBody.vm                                                              
+                        ; apb_Email_Customer_Registration_Subject           ; "Customer Registration Email Subject"              ; $jarEmailResource/email-customerRegistrationSubject.vm                                                           
+                        ; apb_Email_Customer_Super_Registration_Body        ; "Customer Super Registration Email Body"           ; $jarEmailResource/email-customerSuperRegistrationBody.vm                                                         
+                        ; apb_Email_Customer_Super_Registration_Subject     ; "Customer Super Registration Email Subject"        ; $jarEmailResource/email-customerSuperRegistrationSubject.vm                                                      
+                        ; apb_Email_Apb_Company_Details_Body                ; "Company Details Registration Email Body"          ; $jarEmailResource/email-companyDetailsBody.vm                                                                    
+                        ; apb_Email_Apb_Company_Details_Subject             ; "Company Details Email Subject"                    ; $jarEmailResource/email-companyDetailsSubject.vm                                                                 
+                        ; apb_Email_Apb_Contact_Us_Body                     ; "Contact Us Email Body"                            ; $jarEmailResource/email-contactUsBody.vm                                                                         
+                        ; apb_Email_Apb_Contact_Us_Subject                  ; "Contact Us Email Subject"                         ; $jarEmailResource/email-contactUsSubject.vm                                                                      
+                     	; apb_Email_Apb_Keg_Return_Body                     ; "Keg Return Email Body"                            ; $jarEmailResource/email-kegReturnBody.vm                                                                         
+                        ; apb_Email_Apb_Keg_Return_Subject                  ; "Keg ReturnEmail Subject"                          ; $jarEmailResource/email-kegReturnSubject.vm                                                                      
+                        ; apb_Email_Request_Registration_Body               ; "Request Registration Email Body"                  ; $jarEmailResource/email-requestRegistrationBody.vm                                                               
+                        ; apb_Email_Request_Registration_Subject            ; "Request Registration Email Subject"               ; $jarEmailResource/email-requestRegistrationSubject.vm                                                            
+                        ; apb_Email_Delivery_Sent_Body                      ; "Delivery Sent Email Body"                         ; $jarEmailResource/email-deliverySentBody.vm                                                                      
+                        ; apb_Email_Delivery_Sent_Subject                   ; "Delivery Sent Email Subject"                      ; $jarEmailResource/email-deliverySentSubject.vm                                                                   
+                        ; apb_Email_Forgotten_Password_Body                 ; "Forgotten Password Email Body"                    ; $jarEmailResource/email-forgottenPasswordBody.vm                                                                 
+                        ; apb_Email_Forgotten_Password_Subject              ; "Forgotten Password Email Subject"                 ; $jarEmailResource/email-forgottenPasswordSubject.vm                                                              
+                        ; apb_Email_NotPickedUpConsignment_Canceled_Body    ; "Not Picked Up Consignment Canceled Email Body"    ; $jarEmailResource/email-notPickedUpConsignmentCanceledBody.vm                                                    
+                        ; apb_Email_NotPickedUpConsignment_Canceled_Subject ; "Not Picked Up Consignment Canceled Email Subject" ; $jarEmailResource/email-notPickedUpConsignmentCanceledSubject.vm                                                 
+                        ; apb_Email_Order_Cancelled_Body                    ; "Order Cancelled Email Body"                       ; $jarEmailResource/email-orderCancelledBody.vm                                                                    
+                        ; apb_Email_Order_Cancelled_Subject                 ; "Order Cancelled Email Subject"                    ; $jarEmailResource/email-orderCancelledSubject.vm                                                                 
+                        ; apb_Email_Order_Collection_Reminder_Body          ; "Order Collection Reminder Body"                   ; $jarEmailResource/email-orderCollectionReminderBody.vm                                                           
+                        ; apb_Email_Order_Collection_Reminder_Subject       ; "Order Collection Reminder Subject"                ; $jarEmailResource/email-orderCollectionReminderSubject.vm                                                        
+                        ; apb_Email_Order_Confirmation_Body                 ; "Order Confirmation Email Body"                    ; $jarEmailResource/email-orderConfirmationBody.vm                                                                 
+                        ; apb_Email_Order_Confirmation_Subject              ; "Order Confirmation Email Subject"                 ; $jarEmailResource/email-orderConfirmationSubject.vm                                                              
+                        ; apb_Email_Order_Move_To_CS_Body                   ; "Order Move To CS Body"                            ; $jarEmailResource/email-orderMoveToCsBody.vm                                                                     
+                        ; apb_Email_Order_Move_To_CS_Subject                ; "Order Move To CS Subject"                         ; $jarEmailResource/email-orderMoveToCsSubject.vm                                                                  
+                        ; apb_Email_Order_Partially_Canceled_Body           ; "Order Partially Canceled Email Body"              ; $jarEmailResource/email-orderPartiallyCanceledBody.vm                                                            
+                        ; apb_Email_Order_Partially_Canceled_Subject        ; "Order Partially Canceled Email Subject"           ; $jarEmailResource/email-orderPartiallyCanceledSubject.vm                                                         
+                        ; apb_Email_Order_Partially_Refunded_Body           ; "Order Partially Refunded Email Body"              ; $jarEmailResource/email-orderPartiallyRefundedBody.vm                                                            
+                        ; apb_Email_Order_Partially_Refunded_Subject        ; "Order Partially Refunded Email Subject"           ; $jarEmailResource/email-orderPartiallyRefundedSubject.vm                                                         
+                        ; apb_Email_Order_Refund_Body                       ; "Order Refund Email Body"                          ; $jarEmailResource/email-orderRefundBody.vm                                                                       
+                        ; apb_Email_Order_Refund_Subject                    ; "Order Refund Email Subject"                       ; $jarEmailResource/email-orderRefundSubject.vm                                                                    
+                        ; apb_Email_Quote_Buyer_Cancellation_Body           ; "Quote Buyer Cancellation Email Body"              ; $jarEmailResource/email-quoteBuyerCancellationBody.vm                                                            
+                        ; apb_Email_Quote_Buyer_Cancellation_Subject        ; "Quote Buyer Cancellation Email Subject"           ; $jarEmailResource/email-quoteBuyerCancellationSubject.vm                                                         
+                        ; apb_Email_Quote_Buyer_Submission_Body             ; "Quote Buyer Submission Email Body"                ; $jarEmailResource/email-quoteBuyerSubmissionBody.vm                                                              
+                        ; apb_Email_Quote_Buyer_Submission_Subject          ; "Quote Buyer Submission Email Subject"             ; $jarEmailResource/email-quoteBuyerSubmissionSubject.vm                                                           
+                        ; apb_Email_Quote_Expired_Body                      ; "Quote Expired Body"                               ; $jarEmailResource/email-quoteExpiredBody.vm                                                                      
+                        ; apb_Email_Quote_Expired_Subject                   ; "Quote Expired Subject"                            ; $jarEmailResource/email-quoteExpiredSubject.vm                                                                   
+                        ; apb_Email_Quote_To_Expire_Soon_Body               ; "Quote To Expire Soon Body"                        ; $jarEmailResource/email-quoteToExpireSoonBody.vm                                                                 
+                        ; apb_Email_Quote_To_Expire_Soon_Subject            ; "Quote To Expire Soon Subject"                     ; $jarEmailResource/email-quoteToExpireSoonSubject.vm                                                              
+                        ; apb_Email_Ready_For_Pickup_Body                   ; "Ready For Pickup Email Body"                      ; $jarEmailResource/email-readyForPickupBody.vm                                                                    
+                        ; apb_Email_Ready_For_Pickup_Subject                ; "Ready For Pickup Email Subject"                   ; $jarEmailResource/email-readyForPickupSubject.vm                                                                 
+
+# CMS components and Email velocity templates
+UPDATE RendererTemplate ; code[unique=true]                                  ; description[lang=$lang]                  ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                        ; apb_Email_Order_ApprovalRejection_Body             ; "Buyer Approval Rejection Email Body"    ; $jarEmailResource/email-orderApprovalRejectionBody.vm                                                         
+                        ; apb_Email_Order_ApprovalRejection_Subject          ; "Order Approval Rejection Email Subject" ; $jarEmailResource/email-orderApprovalRejectionSubject.vm                                                      
+                        ; apb_Email_Order_PendingApproval_Body               ; "Order Pending Approval Email Body"      ; $jarEmailResource/email-orderPendingApprovalBody.vm                                                           
+                        ; apb_Email_Order_PendingApproval_Subject            ; "Order Pending Approval Email Subject"   ; $jarEmailResource/email-orderPendingApprovalSubject.vm                                                        
+                        ; apb_Email_Replenishment_Order_Confirmation_Body    ; ""                                       ; $jarEmailResource/email-replenishmentOrderConfirmationBody.vm                                                 
+                        ; apb_Email_Replenishment_Order_Confirmation_Subject ; "Order Confirmation Email Subject"       ; $jarEmailResource/email-replenishmentOrderConfirmationSubject.vm                                              
+                        ; apb_Email_Replenishment_Order_Placed_Body          ; "Order Confirmation Email Subject"       ; $jarEmailResource/email-replenishmentOrderPlacedBody.vm                                                       
+                        ; apb_Email_Replenishment_Order_Placed_Subject       ; "Order Confirmation Email Subject"       ; $jarEmailResource/email-replenishmentOrderPlacedSubject.vm                                                    
+
+# Email Pages           
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]                    ; fromEmail[lang=$lang]                ; fromName[lang=$lang]            
+                 ;                         ; CustomerRegistrationEmail           ; "CustomerSupport@asahidirect.com.au" ; "Customer Services Team"        
+                 ;                         ; CustomerSuperRegistrationEmail      ; "CustomerSupport@asahidirect.com.au" ; "Customer Services Team"        
+                 ;                         ; RequestRegistrationEmail            ; "auar@asahipb.com"                   ; "Request Registration"          
+                 ;                         ; ApbCompanyDetailsEmail              ; "Enquiries@asahidirect.com.au"       ; "Company Details Change Request"
+                 ;                         ; ApbContactUsEmail                   ; "enquiries@asahidirect.com.au"       ; "Contact Us"                    
+                 ;                         ; ApbKegReturnEmail                   ; "CustomerSupport@asahidirect.com.au" ; "Keg Return"                    
+                 ;                         ; DeliverySentEmail                   ; "CustomerSupport@asahidirect.com.au" ; "Customer Services Team"        
+                 ;                         ; ForgottenPasswordEmail              ; "CustomerSupport@asahidirect.com.au" ; "Customer Services Team"        
+                 ;                         ; OrderApprovalRejectionEmail         ; "CustomerSupport@asahidirect.com.au" ; "Customer Services Team"        
+                 ;                         ; OrderCancelledEmail                 ; "CustomerSupport@asahidirect.com.au" ; "Customer Services Team"        
+                 ;                         ; OrderCollectionReminderEmail        ; "CustomerSupport@asahidirect.com.au" ; "Customer Services Team"        
+                 ;                         ; OrderConfirmationEmail              ; "CustomerSupport@asahidirect.com.au" ; "Customer Services Team"        
+                 ;                         ; OrderMoveToCsEmail                  ; "CustomerSupport@asahidirect.com.au" ; "Customer Services Team"        
+                 ;                         ; OrderPartiallyCanceledEmail         ; "CustomerSupport@asahidirect.com.au" ; "Customer Services Team"        
+                 ;                         ; OrderPartiallyRefundedEmail         ; "CustomerSupport@asahidirect.com.au" ; "Customer Services Team"        
+                 ;                         ; OrderPendingApprovalEmail           ; "CustomerSupport@asahidirect.com.au" ; "Customer Services Team"        
+                 ;                         ; OrderRefundEmail                    ; "CustomerSupport@asahidirect.com.au" ; "Customer Services Team"        
+                 ;                         ; QuoteBuyerCancellationEmail         ; "CustomerSupport@asahidirect.com.au" ; "Customer Services Team"        
+                 ;                         ; QuoteBuyerSubmissionEmail           ; "CustomerSupport@asahidirect.com.au" ; "Customer Services Team"        
+                 ;                         ; QuoteExpiredEmail                   ; "CustomerSupport@asahidirect.com.au" ; "Customer Services Team"        
+                 ;                         ; QuoteToExpireSoonEmail              ; "CustomerSupport@asahidirect.com.au" ; "Customer Services Team"        
+                 ;                         ; ReadyForPickupEmail                 ; "CustomerSupport@asahidirect.com.au" ; "Customer Services Team"        
+                 ;                         ; ReplenishmentOrderConfirmationEmail ; "CustomerSupport@asahidirect.com.au" ; "Customer Services Team"        
+                 ;                         ; ReplenishmentOrderPlacedEmail       ; "CustomerSupport@asahidirect.com.au" ; "Customer Services Team"        

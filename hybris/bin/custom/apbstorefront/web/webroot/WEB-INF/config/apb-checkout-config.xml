@@ -1,0 +1,94 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util.xsd">
+		
+	<context:annotation-config/>
+
+	<context:component-scan  base-package="com.apb.storefront.controllers.pages.checkout" scope-resolver="de.hybris.platform.spring.IgnoreTenantScopeMetadataResolver" />
+
+
+
+
+	<!---Default Responsive checkout group START-->
+
+	<alias name="defaultApbCheckoutGroup" alias="apbCheckoutGroup" />
+	<bean id="defaultApbCheckoutGroup"  class="de.hybris.platform.acceleratorstorefrontcommons.checkout.steps.CheckoutGroup">
+		<property name="groupId"  value="apbCheckoutGroup"/>
+		<property name="checkoutStepMap">
+			<map merge="true">
+				<entry key="cart-check" value-ref="cartCheckCheckout"/>
+				<entry key="singleStepCheckout" value-ref="defaultSingleStepCheckout"/>
+			</map>
+		</property>
+		<property name="validationResultsMap">
+			<map merge="true">
+				<entry key="FAILED" value-ref="REDIRECT_TO_CART"/>
+				<entry key="REDIRECT_TO_SINGLE_CHECKOUT" value-ref="REDIRECT_TO_SINGLE_CHECKOUT"/>
+				<entry key="REDIRECT_TO_CART" value-ref="REDIRECT_TO_CART"/>
+				<entry key="REDIRECT_TO_PICKUP_LOCATION" value-ref="REDIRECT_TO_SINGLE_CHECKOUT"/>
+			</map>
+		</property>
+		<property name="checkoutProgressBar">
+			<map merge="true">
+				<entry key="1" value-ref="defaultSingleStepCheckout"/>
+			</map>
+		</property>
+	</bean>
+	
+	<alias name="defaultCartCheckCheckout" alias="cartCheckCheckout" />
+	<bean id="defaultCartCheckCheckout" parent="checkoutStep">
+		<property name="checkoutGroup" ref="apbCheckoutGroup"/>
+		<property name="checkoutStepValidator" ref="defaulSingleStepCheckoutValidator"/>
+		<property name="transitions">
+			<map>
+				<entry key="previous" value-ref="REDIRECT_TO_CART"/>
+				<entry key="current" value-ref="REDIRECT_MULTI_STEP_CHECKOUT"/>
+				<entry key="next" value-ref="REDIRECT_TO_SINGLE_CHECKOUT"/>
+			</map>
+		</property>
+		<property name="progressBarId" value="cart-check"/>
+	</bean>
+	
+	<alias name="defaultSingleStepCheckout" alias="singleStepCheckout" />
+	<bean id="defaultSingleStepCheckout" parent="checkoutStep">
+		<property name="checkoutGroup" ref="apbCheckoutGroup"/>
+		<property name="checkoutStepValidator" ref="defaulSingleStepCheckoutValidator"/>
+		<property name="transitions">
+			<map>
+				<entry key="previous" value-ref="REDIRECT_TO_CART"/>
+				<entry key="current" value-ref="REDIRECT_TO_SINGLE_CHECKOUT"/>
+				<entry key="next" value-ref="REDIRECT_ORDER_CONFIRMATION"/>
+			</map>
+		</property>
+		<property name="progressBarId" value="singleStepCheckout"/>
+	</bean>
+	
+	<bean id="REDIRECT_TO_CART" class="java.lang.String">
+		<constructor-arg value="redirect:/cart"/>
+	</bean>
+
+	<bean id="REDIRECT_TO_SINGLE_CHECKOUT" class="java.lang.String">
+		<constructor-arg value="redirect:/checkout/single"/>
+	</bean>
+	
+	<bean id="REDIRECT_MULTI_STEP_CHECKOUT" class="java.lang.String">
+		<constructor-arg value="redirect:/checkout/multi"/>
+	</bean>
+	
+	<bean id="REDIRECT_ORDER_CONFIRMATION" class="java.lang.String">
+		<constructor-arg value="redirect:/checkout/orderConfirmation/"/>
+	</bean>
+	
+	<bean id="defaulSingleStepCheckoutValidator" class="com.apb.storefront.checkout.steps.validation.impl.ApbSingleStepCheckoutStepValidator" parent="abstractCheckoutStepValidator" />
+	
+	<util:map id="checkoutFlowGroupMap" >
+		<entry key="apbCheckoutGroup" value-ref="apbCheckoutGroup" />
+	</util:map>
+</beans>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Mapping>
+    <baseTypeCode>SABMAlcoholVariantProductMaterial</baseTypeCode>
+    <catalogVersionCode>sabmProductCatalog:Staged</catalogVersionCode>
+    <catalogVersionOption>false</catalogVersionOption>
+    <entries>
+        <allowNull>false</allowNull>
+        <className>de.hybris.platform.importcockpit.model.mappingview.mappingline.impl.AtomicTypeMapping</className>
+        <multivalue>false</multivalue>
+        <propertyDescriptorQualifier>Product.code</propertyDescriptorQualifier>
+        <selected>true</selected>
+        <sourceColumnP>
+            <id>0</id>
+            <label>SKU</label>
+        </sourceColumnP>
+    </entries>
+    <entries>
+        <allowNull>false</allowNull>
+        <className>de.hybris.platform.importcockpit.model.mappingview.mappingline.impl.AtomicTypeMapping</className>
+        <formatPattern xsi:type="importNumberFormat" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <locale>en_US</locale>
+            <pattern>###,###.##</pattern>
+            <decimalSeparator>44</decimalSeparator>
+            <displayFormat>###.###,##</displayFormat>
+            <groupSeparator>46</groupSeparator>
+            <maxFractionDigits>8</maxFractionDigits>
+            <minFractionDigits>0</minFractionDigits>
+        </formatPattern>
+        <multivalue>false</multivalue>
+        <propertyDescriptorQualifier>Product.maxOrderQuantity</propertyDescriptorQualifier>
+        <selected>false</selected>
+        <sourceColumnP>
+            <id>1</id>
+            <label>MaxOrderQuantity</label>
+        </sourceColumnP>
+    </entries>
+    <manualUniqueOption>false</manualUniqueOption>
+    <mode>INSERT_UPDATE</mode>
+</Mapping>

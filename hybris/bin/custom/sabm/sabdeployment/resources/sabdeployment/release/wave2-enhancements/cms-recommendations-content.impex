@@ -1,0 +1,125 @@
+$contentCatalog=sabmContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$productCV=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+
+# Import modulegen config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+$jarResourceCms=$config-jarResourceCmsValue
+
+
+### CUB RECOMMENDATIONS TEMPLATE AND PAGES (FOR SALES REP AND CUSTOMER) ###
+
+# STEP 1 - Create a new page template
+# Create PageTemplates
+# These define the layout for pages
+# "FrontendTemplateName" is used to define the JSP that should be used to render the page for pages with multiple possible layouts.
+# "RestrictedPageTypes" is used to restrict templates to page types
+INSERT_UPDATE PageTemplate;$contentCV[unique=true];uid[unique=true];name;frontendTemplateName;restrictedPageTypes(code);active[default=true]
+;;RecommendationPageTemplate;Recommendation Page Template;recommendation/recommendationPage;ContentPage
+
+
+# STEP 2 - Create new pages
+# Functional Content Pages
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false'];previewImage(code, $contentCV)[default='ContentPageModel__function_preview']
+;;recommendationRepPage;Recommendation Page for Sales Rep;RecommendationPageTemplate;recommendationrep
+;;recommendationCusPage;Recommendation Page for Customers;RecommendationPageTemplate;recommendationcus
+
+
+# STEP 3 - Create content slot names required for the template
+# Recommendation Page Template
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='RecommendationPageTemplate'];validComponentTypes(code);compTypeGroup(code)
+;SiteLogo;;;logo
+;HeaderLinks;;;headerlinks
+;SearchBox;;;searchbox
+;MiniCart;;;minicart
+;NavigationBar;;;navigation
+;TopContentSlot;;;wide
+;BottomContentSlot;;;wide
+;Footer;;;footer
+;TopHeaderSlot;;;wide
+;BottomHeaderSlot;;;wide
+;PlaceholderContentSlot;;;;
+
+
+# STEP 4 - Create the components required for the pages
+### Jsp Include Component ###
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;RecommendationRepComponent;Recommendation JSP for Sales Rep component;recommendationRepPage.jsp;;RecommendationRepComponent
+;;RecommendationCusComponent;Recommendation JSP for Customer component;recommendationCusPage.jsp;;RecommendationCusComponent
+
+
+# STEP 5 - Create content slots for the pages
+# ContentSlot for RecommendationRepPage and RecommendationCusPage
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;TopContentSlot-RecommendationRepPage;TopContentSlot for Recommendation Page for Sales Rep;true;
+;;BottomContentSlot-RecommendationRepPage;BottomContentSlot for Recommendation Page for Sales Rep;true;RecommendationRepComponent
+;;TopContentSlot-RecommendationCusPage;TopContentSlot for Recommendation Page for Customers;true;
+;;BottomContentSlot-RecommendationCusPage;BottomContentSlot for Recommendation Page for Customers;true;RecommendationCusComponent
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='recommendationRepPage'];contentSlot(uid,$contentCV)[unique=true]
+;;TopContentSlot-RecommendationRepPage;TopContentSlot;;TopContentSlot-RecommendationRepPage
+;;BottomContentSlot-RecommendationRepPage;BottomContentSlot;;BottomContentSlot-RecommendationRepPage
+;;TopContentSlot-RecommendationCusPage;TopContentSlot;recommendationCusPage;TopContentSlot-RecommendationCusPage
+;;BottomContentSlot-RecommendationCusPage;BottomContentSlot;recommendationCusPage;BottomContentSlot-RecommendationCusPage
+
+
+# STEP 6 - Link the content slots for the Recommendation Page Template
+# Content slot for Recommendation Page Template
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='RecommendationPageTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-RecommendationPageTemplate;SiteLogo;;SiteLogoSlot;true
+;;HomepageLink-RecommendationPageTemplate;HomepageNavLink;;HomepageNavLinkSlot;true
+;;DeliveryDatepickerSlot-RecommendationPageTemplate;DeliveryDatepickerBar;;DeliveryDatepickerSlot;true
+;;MiniCart-RecommendationPageTemplate;MiniCart;;MiniCartSlot;true
+;;NavigationBar-RecommendationPageTemplate;NavigationBar;;NavigationBarSlot;true
+;;BreadcrumbSlot-RecommendationPageTemplate;BreadcrumbBar;;BreadcrumbSlot;true
+;;Footer-RecommendationPageTemplate;Footer;;FooterSlot;true
+;;HeaderLinks-RecommendationPageTemplate;HeaderLinks;;HeaderLinksSlot;true
+;;SearchBox-RecommendationPageTemplate;SearchBox;;SearchBoxSlot;true
+;;TopHeaderSlot-RecommendationPageTemplate;TopHeaderSlot;;TopHeaderSlot;true
+;;BottomHeaderSlot-RecommendationPageTemplate;BottomHeaderSlot;;BottomHeaderSlot;true
+;;TopContentSlot-RecommendationPageTemplate;TopContentSlot;;TopContentSlot;true
+;;BottomContentSlot-RecommendationPageTemplate;BottomContentSlot;;BottomContentSlot;true
+;;PlaceholderContentSlot-RecommendationPageTemplate;PlaceholderContentSlot;;PlaceholderContentSlot;true
+
+
+# STEP 7 - Create CUB Recommendations link
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];name;url;linkName[lang=en];category(code, $productCV);target(code)[default='sameWindow'];;
+;;RecommendationsLink;Recommendations Link;/recommendation;"CUB Recommendations";;;;
+
+
+# LAST STEP - Displaying the new template in CMS Cockpit
+# Add Velocity templates that are in the CMS Cockpit. These give a better layout for editing pages
+# The FileLoaderValueTranslator loads a File into a String property. The templates could also be inserted in-line in this file.
+UPDATE PageTemplate;$contentCV[unique=true];uid[unique=true];velocityTemplate[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+;;RecommendationPageTemplate;$jarResourceCms/structure-view/structure_recommendationPageTemplate.vm
+
+
+
+### ADD A RECOMMENDATIONS COMPONENT IN CART PAGE ###
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='CartPageTemplate'];validComponentTypes(code);compTypeGroup(code)
+;RecommendationContentSlot;;;wide
+
+INSERT_UPDATE ComponentTypeGroups2ComponentType;source(code)[unique=true];target(code)[unique=true]
+;wide;RecommendationsComponent
+;wide;RecommendationsHeaderComponent
+
+INSERT_UPDATE RecommendationsComponent;$contentCV[unique=true];uid[unique=true];name;scroll(code);popup;searchQuery;categoryCode;&componentRef
+;;RecommendationsComponent;Recommendations Product Carousel;allVisible;false;;;RecommendationsComponent
+
+INSERT_UPDATE RecommendationsHeaderComponent;$contentCV[unique=true];uid[unique=true];name
+;;RecommendationsHeaderComponent;Recommendations header component
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;RecommendationContentSlot-cartPage;Recommendation Slot for Cart Page;true;RecommendationsComponent
+#;;RecommendationContentSlot-cartPage;Recommendation Slot for Cart Page;true;BestsellerComponent
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='cartPage'];contentSlot(uid,$contentCV)[unique=true]
+;;RecommendationContentSlotForCartPage;RecommendationContentSlot;;RecommendationContentSlot-cartPage
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='CartPageTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;RecommendationContentSlot-CartPage;RecommendationContentSlot;;RecommendationContentSlot-cartPage;true
+
+UPDATE PageTemplate;$contentCV[unique=true];uid[unique=true];velocityTemplate[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+;;CartPageTemplate 		    ;$jarResourceCms/structure-view/structure_cartPageTemplate.vm
+

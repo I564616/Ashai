@@ -1,0 +1,23 @@
+# ImpEx for Importing Category Media
+
+# Macros / Replacement Parameter definitions
+$productCatalog=sabmProductCatalog
+$productCatalogName=SABMiller Product Catalog
+
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$thumbnail=thumbnail(code, $catalogVersion)
+$normal=normal(code, $catalogVersion)
+$siteResource=jar:com.sabmiller.initialdata.setup.InitialDataSystemSetup&/sabminitialdata/import/sampledata/productCatalogs/$productCatalog
+
+
+# Import Category Media
+INSERT_UPDATE Media;code[unique=true];mediaFormat(qualifier);realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='image/jpeg'];$catalogVersion
+						 ;/cat/BeerBannerDesktop.jpg;desktop;beer_cat.jpg;$siteResource/images/category/beer_cat.jpg;
+						 ;/cat/CiderBannerDesktop.jpg;desktop;cider_cat.jpg;$siteResource/images/category/cider_cat.jpg;
+						 ;/cat/BeerBannerMobile.jpg;mobile;beer_cat-mob.jpg;$siteResource/images/category/beer_cat-mob.jpg;
+						 ;/cat/CiderBannerMobile.jpg;mobile;cider_cat-mob.jpg;$siteResource/images/category/cider_cat-mob.jpg;
+
+
+UPDATE Category;code[unique=true];$normal;allowedPrincipals(uid)[default='customergroup'];$catalogVersion
+;10;/cat/BeerBannerDesktop.jpg,/cat/BeerBannerMobile.jpg
+;11;/cat/CiderBannerDesktop.jpg,/cat/CiderBannerMobile.jpg

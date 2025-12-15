@@ -1,0 +1,101 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# Import essential data for the Accelerator
+#
+# Localization en
+# 
+
+$lang=en
+
+# Languages
+UPDATE Language ; isocode[unique=true] ; name[lang=$lang]
+                ; en                   ; English         
+
+
+# Currencies    
+UPDATE Currency ; isocode[unique=true] ; name[lang=$lang]
+                ; AUD                  ; AUD             
+
+
+# Credit / Debit Cards
+UPDATE CreditCardType ; code[unique=true]   ; name[lang=$lang]    
+                      ; amex                ; American Express    ;  
+                      ; diners              ; Diner's Club        ;  
+                      ; maestro             ; Maestro             ;  
+                      ; master              ; Mastercard          ;  
+                      ; mastercard_eurocard ; Mastercard/Eurocard ;  
+                      ; switch              ; Switch              ;  
+                      ; visa                ; Visa                ;  
+
+# DistanceUnits for Storelocator 
+UPDATE DistanceUnit ; code[unique=true] ; name[lang=$lang]
+                    ; km                ; km              ;  
+                    ; miles             ; miles           ;  
+
+# Media Formats     
+UPDATE MediaFormat ; qualifier[unique=true] ; name[lang=$lang] ;  
+                   ; 1200Wx1200H            ; 1200Wx1200H      ;  
+                   ; 300Wx300H              ; 300Wx300H        ;  
+                   ; 30Wx30H                ; 30Wx30H          ;  
+                   ; 365Wx246H              ; 365Wx246H        ;  
+                   ; 515Wx515H              ; 515Wx515H        ;  
+                   ; 65Wx65H                ; 65Wx65H          ;  
+                   ; 96Wx96H                ; 96Wx96H          ;  
+                   
+UPDATE ConversionMediaFormat; qualifier[unique = true]; name[lang = en]; 
+; SABMOriginalFormat  ; Working Format as base for other Conversion Media Formats ;            
+; SABMZoomFormat      ; Zoom Format                                               ; 
+; SABMHeroFormat      ; Hero Format                                               ; 
+; SABMNormalFormat    ; Normal Format                                             ; 
+; SABMThumbnailFormat ; Thumbnail Format                                          ; 
+; SABMCartFormat      ; Cart Format                                               ; 
+; SABMWatchFormat     ; Watch Format                                              ; 
+                   
+
+# Tax & Tax Groups 
+UPDATE UserTaxGroup ; code[unique=true] ; name[lang=$lang]
+                    ; au-taxes          ; AU Taxes        
+
+UPDATE Tax ; code[unique=true] ; name[lang=$lang]
+           ; au-sales-tax-full ; Sales Tax       
+
+UPDATE ProductTaxGroup ; code[unique=true] ; name[lang=$lang]
+                       ; au-sales-tax-full ; AU Sales Tax    
+					                  
+# Consginment statuses 
+UPDATE ConsignmentStatus ; code[unique=true] ; name[lang=$lang]  
+                         ; CANCELLED         ; "Cancelled"       
+                         ; PICKPACK          ; "Pickpack"        
+                         ; PICKUP_COMPLETE   ; "Pickup complete" 
+                         ; READY             ; "Ready"           
+                         ; READY_FOR_PICKUP  ; "Ready for pickup"
+                         ; SHIPPED           ; "Shipped"         
+                         ; WAITING           ; "Waiting"         
+
+#Commenting the impex as it can lead to incorrect sequencing duirng system update
+#Order Status Mapping adding here for it to be part of system Update Process.
+#INSERT_UPDATE OrderStatusMapping 	; statusCode[unique=true] ; dynamicsStatusCode[unique=true] ; DisplayStatus ;
+#		; ASSIGNED_TO_ADMIN				;01								;Order Placed;
+#		; CREATED						;01								;Order Placed;
+#		; IN_PROGRESS					;10								;In Progress
+#		; IN_PROGRESS					;20								;In Progress
+#		; PAYMENT_CAPTURED				;01								; Order Placed
+#		; PAYMENT_APPROVED				;01								; Order Placed
+#		; PAYMENT_NOT_CAPTURED			;01								; Order Placed
+#		; PAYMENT_AUTHORIZED			;01								; Order Placed
+#		; SENT_TO_BACKEND_FAILED		;01								; In Progress
+#		; PROCESSING_ERROR				;10								; In Progress
+#		; SENT_TO_BACKEND				;20								; In Progress
+#		; PICKLIST_GENERATED			;30								; In Progress
+#		; CANCELLED						;40								; Cancelled
+#		; COMPLETED						;50								; Completed
+#		; ORDER_SENT_TO_BACKEND			;60								; In Progress
+#		; ORDER_SENT_TO_BACKEND_FAILED	;70								; In Progress

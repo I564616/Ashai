@@ -1,0 +1,200 @@
+// ==========================================================================
+//   Minicart class
+// ==========================================================================
+.miniCartPopup {
+    display: none;
+    position: absolute;
+    right: 0;
+    background: #fff;
+    width: 100%;
+    border-bottom: 1px solid $medium-grey;
+    border-top: 1px solid $medium-grey;
+    padding: 15px;
+    top: 54px;
+    font-size: $font-x-small;
+    .impersonation-mode & {
+        top: 85px;
+    }
+    &:after, &:before {
+    	bottom: 100%;
+    	right: 43px;
+    	border: solid transparent;
+    	content: " ";
+    	height: 0;
+    	width: 0;
+    	position: absolute;
+    	pointer-events: none;
+    }
+
+    &:after {
+    	border-color: rgba(255, 255, 255, 0);
+    	border-bottom-color: #fff;
+    	border-width: 10px;
+    	margin-left: -10px;
+    }
+    &:before {
+    	border-color: rgba(214, 214, 214, 0);
+    	border-bottom-color: #d6d6d6;
+    	border-width: 11px;
+    	margin-left: -11px;
+    }
+    .close {
+        display: none;
+    }
+    .btn {
+        display: none;
+    }
+    .highlight-link {
+        padding-top: 15px;
+    }
+    @media (min-width: $tablet){
+    	top: 85px;
+    	right: 15px;
+    	width: 320px !important;
+    	border: 1px solid $medium-grey;
+    	&:after, &:before {
+    		right: 25px;
+    	}
+
+        .close {
+            display: block;
+            .icon-cross {
+                width: 15px;
+                height: 15px;
+                position: absolute;
+                top: 18px;
+                right: 15px;
+            }
+        }
+        .btn {
+            display: block;
+        }
+    }
+    @media (min-width: $desktop){
+        right: 0;
+    	&:after, &:before {
+    		right: 15px;
+    	}
+
+    }
+    .itemList {
+        padding-left: 0;
+        li {
+            list-style: none;
+            display: none;
+            &:nth-child(1),
+            &:nth-child(2),
+            &:nth-child(3) {
+                display: block;
+            }
+        }
+        @media (min-width: $tablet){
+            overflow-y: auto;
+            overflow-x: hidden;
+            max-height: 500px;
+            margin-bottom: $spacing-x-small;
+            li {
+                display: block;
+            }
+        }
+    }
+    .legend {
+    	padding-bottom: 15px;
+    	@media (min-width: $tablet){
+            height: 35px;
+            span {
+                display: none;
+            }
+        }
+    }
+    .popupCartItem {
+    	padding: 15px 0;
+    	border-top: 1px solid $medium-grey;
+    	// &:last-child {
+    	// 	border-bottom: 1px solid $medium-grey;
+    	// }
+    }
+    .itemThumb {
+    	width: 20%;
+    	float: left;
+    	img {
+    		max-width: 90%;
+    	}
+        @media (min-width: $tablet){
+            max-height: 52px;
+            overflow: hidden;
+        }
+    }
+    .itemDesc {
+    	width: 80%;
+    	float: left;
+    	display: inline-block;
+    	padding-left: $spacing-x-small;
+    	a.itemName {
+			width: 70%;
+			float: left;
+			line-height: $line-height-x-small; 
+			h5 {
+				margin-bottom: 0;
+			}
+			span {
+				color: $dark-grey;
+				font-size: $font-x-small;
+				vertical-align: top;
+			}
+    	}
+    	.itemQuantity {
+    		width: 30%;
+    		float: left;
+    		color: $dark-grey;
+
+    		line-height: $line-height-x-small;
+    		vertical-align: top;
+    		padding-left: $spacing-x-small;
+    	}
+    }
+}
+
+.page-cartPage #addToCartLayer.addToCartPopup {
+    display: none !important;
+}
+
+.itemsAddedToOrder{
+        display: none;
+        position: absolute;
+        right: 0;
+        background: #fff;
+        border-bottom: 1px solid $medium-grey;
+        border-top: 1px solid $medium-grey;
+        padding: 5px;
+        top: 58px;
+        font-size: $font-x-small;
+        color: #002E5F;
+        font-weight: bold;      
+
+
+    &:after, &:before {
+    	bottom: 100%;
+    	right: 3em;
+    	border: solid transparent;
+    	content: " ";
+    	height: 0;
+    	width: 0;
+    	position: absolute;
+    	pointer-events: none;
+    }
+
+    &:after {
+    	border-color: rgba(255, 255, 255, 0);
+    	border-bottom-color: #fff;
+    	border-width: 10px;
+    	margin-left: -10px;
+    }
+    &:before {
+    	border-color: rgba(214, 214, 214, 0);
+    	border-bottom-color: #d6d6d6;
+    	border-width: 11px;
+    	margin-left: -11px;
+    }
+    
+}

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2015 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+-->
+
+
+<!--
+. WARNING: This is the CUSTOM Spring WEB configuration file used for cmscockpit 
+. web application.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+	default-autowire="byName">
+
+	<!-- Define the synchronized relation for CUBPicksComponent.products -->
+	<alias alias="synchronizationService" name="defaultCMSSynchronizationService" />
+	<bean id="defaultCMSSynchronizationService" class="de.hybris.platform.cmscockpit.sync.CMSSynchronizationService" scope="tenant" autowire="byName">
+		<property name="relatedReferencesTypesMap">
+			<map>
+				<entry key="AbstractPage">
+					<list>
+						<value>AbstractPage.restrictions</value>
+						<value>AbstractPage.contentSlots</value>
+						<value>ContentSlotForPage.contentSlot</value>
+						<value>ContentSlot.cmsComponents</value>
+						<value>AbstractCMSComponentContainer.simpleCMSComponents</value>
+						<value>AbstractCMSComponentContainer.currentCMSComponents</value>
+						<value>RotatingImagesComponent.banners</value>
+						<value>CUBPicksComponent.products</value>
+						<value>BrandGridComponent.brands</value>	
+						<value>BrandGridComponent.brandLink</value>
+						<value>AbstractCMSComponent.restrictions</value>
+                        <value>abstractMediaContainerComponent.media</value>
+						<value>SabmGenericTabItemListComponent.components</value>
+						<value>HeroBannerRotatingImagesComponent.heroBanners</value>
+						<value>SABMTextImageBannerComponent.textAndImages</value>
+						<value>SABMGenericCarouselItemsComponent.carouselImageItems</value>
+						<value>SABMVideoListComponent.videoList</value>
+                        <value>SABMVideoListComponent.frameVisible</value>
+						<value>SABMHeroBannerComponent.textList</value>
+						<value>SABMHeroBannerComponent.ctaLinks</value>
+						<value>SABMInformationBoxComponent.ctaLinks</value>
+						<value>SABMInformationBoxComponent.textList</value>
+						<value>FAQComponent.categories</value>
+						<value>FAQComponent.sendQuestionCTA</value>
+                        <value>FAQComponent.frameVisible</value>
+					</list>
+				</entry>
+				<entry key="AbstractCMSComponent">
+					<list>
+						<value>AbstractCMSComponentContainer.simpleCMSComponents</value>
+						<value>AbstractCMSComponentContainer.currentCMSComponents</value>
+						<value>RotatingImagesComponent.banners</value>
+						<value>CUBPicksComponent.products</value>
+						<value>BrandGridComponent.brands</value>		
+						<value>BrandGridComponent.brandLink</value>
+						<value>AbstractCMSComponent.restrictions</value>
+                        <value>abstractMediaContainerComponent.media</value>
+                        <value>MediaContainer.medias</value>
+                        <value>NavigationBarCollectionComponent.components</value>
+                        <value>NavigationBarComponent.navigationNode</value>
+                        <value>NavigationBarComponent.link</value>
+						<value>SabmGenericTabItemListComponent.components</value>
+						<value>HeroBannerRotatingImagesComponent.heroBanners</value>
+						<value>SABMTextImageBannerComponent.textAndImages</value>
+						<value>SABMGenericCarouselItemsComponent.carouselImageItems</value>
+						<value>SABMVideoListComponent.videoList</value>
+                        <value>SABMVideoListComponent.frameVisible</value>
+						<value>SABMHeroBannerComponent.textList</value>
+						<value>SABMHeroBannerComponent.ctaLinks</value>
+						<value>SABMHeroBannerComponent.boundary</value>
+						<value>SABMHeroBannerComponent.boundaryType</value>
+						<value>SABMHeroBannerComponent.fit</value>
+						<value>SABMHeroBannerComponent.ctaAlignment</value>
+						<value>SABMInformationBoxComponent.ctaLinks</value>
+						<value>SABMInformationBoxComponent.textList</value>
+						<value>FAQComponent.categories</value>
+						<value>FAQComponent.sendQuestionCTA</value>
+                        <value>FAQComponent.frameVisible</value>
+					</list>
+				</entry>
+				<entry key="CMSNavigationNode">
+					<list>
+						<value>CMSNavigationNode.children</value>
+						<value>CMSNavigationNode.entries</value>
+						<value>CMSNavigationNode.links</value>
+						<value>CMSNavigationEntry.item</value>
+						<value>CMSLinkComponent</value>
+					</list>
+				</entry>
+                <entry key="ContentSlot">
+                    <list>
+                        <value>ContentSlot.cmsComponents</value>
+                        <value>abstractMediaContainerComponent.media</value>
+                        <value>NavigationBarCollectionComponent.components</value>
+                        <value>NavigationBarComponent.navigationNode</value>
+                        <value>NavigationBarComponent.link</value>
+                    </list>
+                </entry>
+                <entry key="MediaContainer">
+                    <list>
+                        <value>MediaContainer.medias</value>
+                    </list>
+                </entry>
+			</map>
+		</property>
+		<property name="searchRestrictionsDisabled" value="true"/>
+	</bean>
+
+
+
+	<alias name="accBrowserFilterFactory" alias="browserFilterFactory" />
+	<bean id="accBrowserFilterFactory" class="de.hybris.platform.cockpit.session.BrowserFilterFactory"
+		>
+		<property name="browserFilters">
+			<map>
+				<entry key="AbstractPage">
+					<list>
+						<ref bean="desktopUiExperienceBrowserFilter" />
+						<ref bean="mobileUiExperienceBrowserFilter" />
+					</list>
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="abstractUiExperienceBrowserFilter" abstract="true" class="com.sabmiller.cockpits.cmscockpit.browser.filters.AbstractUiExperienceFilter" >
+		<property name="typeService" ref="cockpitTypeService"/>
+	</bean>
+	<bean id="mobileUiExperienceBrowserFilter" parent="abstractUiExperienceBrowserFilter" class="com.sabmiller.cockpits.cmscockpit.browser.filters.MobileUiExperienceBrowserFilter" />
+	<bean id="desktopUiExperienceBrowserFilter" parent="abstractUiExperienceBrowserFilter" class="com.sabmiller.cockpits.cmscockpit.browser.filters.DesktopUiExperienceBrowserFilter" />
+
+	<alias alias="cmsSearchProvider" name="uiExperienceCmsSearchProvider" />
+	<bean id="uiExperienceCmsSearchProvider"  class="com.sabmiller.cockpits.cmscockpit.services.impl.UiExperienceCmsSearchProvider" />
+
+
+    <alias name="DefaultCmsPageBrowserModel" alias="cmsPageBrowserModel"/>
+    <bean id="DefaultCmsPageBrowserModel" class="com.sabmiller.cockpits.cmscockpit.session.impl.DefaultCmsPageBrowserModel" scope="prototype">
+        <constructor-arg ref="cmsAdminSiteService"/>
+        <constructor-arg ref="cmsCockpitService"/>
+        <constructor-arg ref="modelService"/>
+        <constructor-arg ref="cmsAdminComponentService"/>
+        <constructor-arg ref="cmsAdminContentSlotService"/>
+    </bean>
+
+	<alias alias="loginService" name="defaultLoginService" />
+	<bean id="defaultLoginService" class="com.sabmiller.cockpits.cmscockpit.services.impl.LoginServiceImpl" scope="tenant">
+		<property name="loginTokenDeleteService" ref="loginTokenDeleteService" />
+	</bean>
+</beans>

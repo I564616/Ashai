@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2013 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<!--
+	The hybris platform provides one single Spring application context for beans located at the jalo layer.
+	Each extension can add beans to this context by specifying them at this configuration file.
+	 
+	You can use and/or redefine beans defined at configuration files of other extensions as well as
+	adding new one.
+		
+	If you want to locate this file at a different location or want to use several files for better,
+	structuring, please use the '<yourextension>.application-context' property at your project.properties file.
+	There you can specify a comma separated list of files where first is tried to find a file per classpath and
+	then per file system.
+
+	
+	If you want to configure beans for your web module please have a look at
+	your web/webroot/WEB-INF/<extname>-web-spring.xml.
+	-->
+	
+	<!--  Example how to override a manager -->
+	<!--
+	<bean id="core.productManager"   class="com.sabmiller.merchantsuiteservices.jalo.MerchantsuiteservicesProductManager" 	init-method="init"	destroy-method="destroy" />
+	-->
+	
+	
+ 	<!--  Example how to configure the class to use for jalo session creation -->
+	<!--
+	<bean id="jalosession"   class="de.hybris.platform.jalo.JaloSessionFactory">
+		<property name="targetClassName" value="com.sabmiller.merchantsuiteservices.jalo.MerchantsuiteservicesJaloSession"/>
+	</bean>
+	-->
+
+	
+	<!--  Example how to override an item  -->
+	<!-- 
+	<bean id="de.hybris.platform.jalo.product.Product" class="com.sabmiller.merchantsuiteservices.jalo.MerchantsuiteservicesProduct" scope="prototype" />		
+ 	-->
+
+	<!--  
+	 Example how to register and use an AOP aspect 
+     Also see http://static.springframework.org/spring/docs/2.5.x/reference/aop.html	
+     -->
+	
+	<!-- 
+	<bean id="merchantsuiteservicesProfBean" class="com.sabmiller.merchantsuiteservices.aop.MerchantsuiteservicesProfilingAspect"/>
+	<aop:config proxy-target-class="true">
+  		<aop:aspect id="merchantsuiteservicesProfAspect" ref="merchantsuiteservicesProfBean" >
+    	  <aop:pointcut id="profiledMethods" 
+	      	expression="execution(* getModificationTime(..))" />  	            
+	   		<aop:around pointcut-ref="profiledMethods" method="profile" />
+  		</aop:aspect>
+	</aop:config>
+	 -->
+
+	
+	<!-- some other examples of a pointcut that matches everything:
+
+    	  <aop:pointcut id="profiledMethods" 
+	      	expression="bean(de.hybris.platform.jalo.user.Customer) &amp;&amp; 
+	      	            !execution(* getPK(..))" />  	            
+	       <aop:pointcut id="profiledMethods" expression="execution(* *(..))" />	
+	  -->
+
+	<bean id="sabmDefaultMerchantSuiteTokenStrategy" class="com.sabmiller.merchantsuiteservices.strategy.impl.SABMDefaultMerchantSuiteStrategy">
+
+	</bean>
+	<bean id="sabmBankAccountMerchantSuiteStrategy"
+		  class="com.sabmiller.merchantsuiteservices.strategy.impl.SABMBankAccountMerchantSuiteStrategy">
+		<property name="successCode" value="0"/>
+		<property name="invalidAccountNumberErrorCode" value="124"/>
+		<property name="invalidBSBErrorCode" value="125"/>
+	</bean>
+
+	<bean id="sabmCreditCardMerchantSuiteStrategy"
+		  class="com.sabmiller.merchantsuiteservices.strategy.impl.SABMCreditCardMerchantSuiteStrategy">
+	</bean>
+
+	<bean id="sabmMerchantSuiteService"
+		  class="com.sabmiller.merchantsuiteservices.service.impl.SABMMerchantSuiteServiceImpl">
+		<property name="strategyMap">
+			<map>
+				<entry key="#{T(de.hybris.platform.b2b.enums.CheckoutPaymentType).ACCOUNT}" value-ref="sabmBankAccountMerchantSuiteStrategy" />
+				<entry key="#{T(de.hybris.platform.b2b.enums.CheckoutPaymentType).CARD}" value-ref="sabmCreditCardMerchantSuiteStrategy" />
+			</map>
+		</property>
+	</bean>
+
+	<bean id="sabmMerchantSuitePaymentService"
+		  class="com.sabmiller.merchantsuiteservices.service.impl.SABMMerchantSuitePaymentServiceImpl">
+		<property name="strategyMap">
+			<map>
+				<entry key="creditCard" value-ref="merchantSuiteCreditCardPersistenceStategy"/>
+				<entry key="EFT" value-ref="merchantSuiteEFTPersistenceStategy"/>
+
+			</map>
+		</property>
+	</bean>
+
+
+	<bean name="merchantSuiteEFTPersistenceStategy" class="com.sabmiller.merchantsuiteservices.strategy.impl.SABMMerchantSuiteEFTPersistenceStategyImpl"/>
+	<!--<bean name="westpacEFTPersistenceStategy" class="com.sabmiller.westpac.strategy.impl.WestpacEFTPersistenceStategyImpl"/>-->
+
+	<bean name="merchantSuiteCreditCardPersistenceStategy" class="com.sabmiller.merchantsuiteservices.strategy.impl.SABMMerchantSuiteCreditCardPersistenceStategyImpl"/>
+
+
+	<bean id="sabmMerchantSuitePaymentFacade"
+		  class="com.sabmiller.merchantsuiteservices.facade.impl.SABMMerchantSuitePaymentFacadeImpl">
+		<property name="invoicePaymentConverter" ref="invoicePaymentConverter"/>
+
+	</bean>
+
+	<bean id="sabmMerchantSuitePaymentFacadeHelper"
+		  class="com.sabmiller.merchantsuiteservices.facade.impl.SABMMerchantSuitePaymentFacadeHelper">
+		<property name="declinedErrorCodes" value="${merchant.suite.payment.declined.error.response.code}"/>
+		<property name="gatewayErrorCodes" value="${merchant.suite.gateway.error.response.code}"/>
+		<property name="invalidCardErrorCode" value="PT_V4"/>
+		<property name="invalidCardErrorBankResponseCode" value="14"/>
+		<property name="expiredCardErrorCode" value="33,54"/>
+		<property name="insufficientFundsErrorCode" value="51"/>
+		<property name="invalidExpiryErrorCode" value="PT_V5"/>
+		<property name="strategyMap">
+			<map>
+				<entry key="creditCard" value-ref="merchantSuiteCreditCardPersistenceStategy"/>
+				<entry key="EFT" value-ref="merchantSuiteEFTPersistenceStategy"/>
+
+			</map>
+		</property>
+	</bean>
+
+
+	<bean id="merchantSuitePaymentReferenceIdGenerator"
+		  class="de.hybris.platform.servicelayer.keygenerator.impl.PersistentKeyGenerator">
+		<property name="key" value="INV"/>
+		<property name="digits" value="10"/>
+		<property name="start" value="00300000"/>
+		<property name="type" value="numeric"/>
+	</bean>
+
+	<bean id="sabminvoicePaymentDao" class="com.sabmiller.merchantsuiteservices.dao.InvoicePaymentDao"/>
+
+	<bean id="invoicePaymentConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.sabmiller.merchantsuiteservices.data.InvoicePaymentData"/>
+		<property name="populators">
+			<list>
+				<ref bean="invoicePaymentPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="invoicePaymentPopulator" class="com.sabmiller.merchantsuiteservices.populator.InvoicePaymentPopulator">
+		<property name="infoDataPopulator" ref="creditCardPaymentInfoPopulator"/>
+		<property name="debitPaymentInfoPopulator" ref="debitPaymentInfoPopulator"/>
+	</bean>
+
+	<bean name="debitPaymentInfoPopulator" class="com.sabmiller.merchantsuiteservices.populator.DebitPaymentInfoPopulator"/>
+
+
+</beans>

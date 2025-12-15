@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="urn:gl.sabmiller.com:com:3rdp:transdata" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="urn:gl.sabmiller.com:com:3rdp:transdata">
+    <xsd:complexType name="InvoiceItemData_Response">
+        <xsd:sequence>
+            <xsd:element name="Invoice">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="SoldTo" type="xsd:string" minOccurs="0" />
+                        <xsd:element name="InvoiceNumber" type="xsd:string" minOccurs="0" />
+                        <xsd:element name="InvoiceDate" type="xsd:string" minOccurs="0" />
+                        <xsd:element name="Item" maxOccurs="unbounded">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:element name="ItemID" type="xsd:string" minOccurs="0" />
+                                    <xsd:element name="ItemDescription" type="xsd:string" minOccurs="0" />
+                                    <xsd:element name="Material" type="xsd:string" minOccurs="0" />
+                                    <xsd:element name="Ean" type="xsd:string" minOccurs="0" />
+                                    <xsd:element name="Quantity" type="xsd:string" minOccurs="0" />
+                                    <xsd:element name="UoM" type="xsd:string" minOccurs="0" />
+                                    <xsd:element name="UnitPrice" type="xsd:string" minOccurs="0" />
+                                    <xsd:element name="Discount" type="xsd:string" minOccurs="0" />
+                                    <xsd:element name="Amount" type="xsd:string" minOccurs="0" />
+                                    <xsd:element name="ContainerDeposit" type="xsd:string" minOccurs="0" />
+                                    <xsd:element name="Wet" type="xsd:string" minOccurs="0" />
+                                    <xsd:element name="LocalFreight" type="xsd:string" minOccurs="0" />
+                                    <xsd:element name="GST" type="xsd:string" minOccurs="0" />
+                                    <xsd:element name="TotalExGST" type="xsd:string" minOccurs="0" />
+                                    <xsd:element name="LUCExGST" type="xsd:string" minOccurs="0" />
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

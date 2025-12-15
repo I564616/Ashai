@@ -1,0 +1,2 @@
+#uid,  name,companyCode,backendRecordID,accountNum,abnNumber,liquorLicensenumber,phone,cellularPhone,purposeCode,salesRepCode,salesRepName,salesRepEmailID,teleFax,eclAccountGroupId,eclAccountTypeId,eclBannerGroupid,eclSubchannelCode,eclChannelCode,eclLicenseTypeCode,eclLicenseClassCode,warehouse(code)
+AsahiSampleTest1,Asahi Sample Test,apb0001,123781221,3333,121251,9717098383,9717098383,2322324,2322324,Asahi,test@mail.com,12332320,45454545,,,,,,,,

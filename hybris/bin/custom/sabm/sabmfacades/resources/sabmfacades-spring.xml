@@ -1,0 +1,2495 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2015 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+		  http://www.springframework.org/schema/util
+		 http://www.springframework.org/schema/util/spring-util.xsd">
+
+		
+	<context:annotation-config/> 
+<!-- verified -->
+	<bean id="sabmDealsSearchFacade" class="com.sabmiller.facades.deal.impl.SABMDealsSearchFacadeImpl" parent="sabmDealsFacade"/>
+
+	<alias alias="simpleSuggestionFacade" name="defaultSimpleSuggestionFacade"/>
+	<bean id="defaultSimpleSuggestionFacade" class="com.sabmiller.facades.suggestion.impl.DefaultSimpleSuggestionFacade" >
+		<property name="simpleSuggestionService" ref="simpleSuggestionService"/>
+		<property name="userService" ref="userService"/>
+		<property name="categoryService" ref="categoryService"/>
+		<property name="productService" ref="productService"/>
+		<property name="productConverter" ref="carouselProductConverter"/>
+		<property name="cartService" ref="cartService"/>
+	</bean>
+	
+	<bean id="dealJson" class="com.sabmiller.facades.deal.data.DealJson" scope="prototype" />
+	
+	<bean id="dealJsonConverter" parent="abstractPopulatingConverter">
+		<lookup-method name="createTarget" bean="dealJson"/>
+		<property name="populators">
+			<list>
+				<ref bean="dealJsonPopulator"/>
+				<ref bean="dealProductPopulator"/>
+				<ref bean="dealTitlePopulator"/>				
+			</list>
+		</property>
+	</bean>
+			<!-- verified -->
+	<alias name="sabmDealJsonPopulator" alias="dealJsonPopulator"/>
+	<bean id="sabmDealJsonPopulator" class="com.sabmiller.facades.populators.SABMDealJsonPopulator" />
+		<!-- verified -->
+	<alias name="sabmRecommendationDealJsonPopulator" alias="recommendationDealJsonPopulator"/>
+	<bean id="sabmRecommendationDealJsonPopulator" class="com.sabmiller.facades.populators.SABMRecommendationDealJsonPopulator" />
+		<!-- verified -->
+	<alias name="sabmDealProductPopulator" alias="dealProductPopulator"/>
+	<bean id="sabmDealProductPopulator" class="com.sabmiller.facades.populators.SABMDealProductPopulator" />
+		<!-- verified -->
+	 <alias name="sabmDealTitlePopulator" alias="dealTitlePopulator"/>
+	<bean id="sabmDealTitlePopulator" class="com.sabmiller.facades.populators.SABMDealTitlePopulator" />
+		<!-- verified -->
+	<alias name="sabmPartialDealTitlePopulator" alias="partialDealTitlePopulator"/>
+	<bean id="sabmPartialDealTitlePopulator" class="com.sabmiller.facades.populators.SABMPartialDealTitlePopulator" />
+	
+	
+	<bean id="dealFreeProductJson" class="com.sabmiller.facades.deal.data.DealFreeProductJson" scope="prototype" />
+	
+	<bean id="dealFreeProductJsonConverter" parent="abstractPopulatingConverter">
+		<lookup-method name="createTarget" bean="dealFreeProductJson"/>
+		<property name="populators">
+			<list>
+				<ref bean="dealProductJsonPopulator"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="dealBaseProductJson" class="com.sabmiller.facades.deal.data.DealBaseProductJson" scope="prototype" />
+	
+	<bean id="dealBaseProductJsonConverter" parent="abstractPopulatingConverter">
+		<lookup-method name="createTarget" bean="dealBaseProductJson"/>
+		<property name="populators">
+			<list>
+				<ref bean="dealProductJsonPopulator"/>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- added for gtm - start -->
+	<alias name="sabmDealProductJsonConverter" alias="dealProductJsonConverter"/>
+   	<bean id="sabmDealProductJsonConverter" parent="defaultProductConverter" >
+		<property name="populators">
+			<list merge="true">
+				<ref bean="sabmAlcoholProductPopulator"/>
+				<ref bean="productCategoriesPopulator"/>
+				<ref bean="sabmProductPricePopulator"/>
+			</list>
+		</property>
+	</bean>
+	<!-- added for gtm - end -->
+		<!-- verified -->
+	<alias name="sabmDealProductJsonPopulator" alias="dealProductJsonPopulator"/>
+	<bean id="sabmDealProductJsonPopulator" class="com.sabmiller.facades.populators.SABMDealProductJsonPopulator" />
+	
+	<bean id="carouselProductConverter" parent="defaultProductConverter">
+		<property name="populators">
+			<list merge="true">
+				<ref bean="productPricePopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="acceleratorVariantOptionDataConverter" alias="variantOptionDataConverter"/> 
+	<bean id="acceleratorVariantOptionDataConverter" parent="abstractPopulatingConverter">
+		<lookup-method name="createTarget" bean="variantOptionData"/>
+		<property name="populators">
+			<list>
+				<ref bean="acceleratorVariantOptionDataPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="defaultAcceleratorVariantOptionDataPopulator" alias="acceleratorVariantOptionDataPopulator"/>
+	<bean id="defaultAcceleratorVariantOptionDataPopulator"  class="com.sabmiller.facades.populators.AcceleratorVariantOptionDataPopulator"
+	      parent="variantOptionDataPopulator" >
+		<property name="mediaService" ref="mediaService"/>
+		<property name="mediaContainerService" ref="mediaContainerService"/>
+		<property name="typeService" ref="typeService"/>
+		<property name="imageFormatMapping" ref="imageFormatMapping"/>
+		<property name="variantAttributeMapping">
+		  <map>
+				<!-- <entry key="ApparelStyleVariantProduct.style" value="styleSwatch"/>  -->
+			</map>
+		</property> 
+		<property name="productGalleryImagesPopulator" ref="productGalleryImagesPopulator"/>
+		<property name="productUOMPopulator" ref="productUOMPopulator"/>
+	</bean>
+
+
+	<alias name="acceleratorGenderConverter" alias="genderConverter"/> 
+	<bean id="acceleratorGenderConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.sabmiller.facades.product.data.GenderData"/>
+			<property name="populators">
+				<list>
+					<ref bean="genderDataPopulator"/>
+				</list>
+			</property>
+	</bean>
+
+	<alias name="defaultGenderDataPopulator" alias="genderDataPopulator"/>
+	<bean id="defaultGenderDataPopulator" class="com.sabmiller.facades.populators.GenderDataPopulator" >
+		<property name="typeService" ref="typeService"/>
+	</bean>
+	
+	
+	<!-- ALB Code Start -->
+	<bean id="apparelProductPopulator" class="com.apb.facades.populators.ApparelProductPopulator" >
+		<property name="genderConverter" ref="genderConverter"/>
+	</bean>
+
+	<!-- Add the apparelProductPopulator to the productConverter -->
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="productConverter"/>
+		<property name="add" ref="apparelProductPopulator"/>
+	</bean>
+	
+	<!-- TO BE WORKED UPON
+	<alias name="acceleratorImageFormatMapping" alias="imageFormatMapping"/>
+	<bean id="acceleratorImageFormatMapping" parent="defaultImageFormatMapping">
+		<property name="mapping">
+			<map>
+				<entry key="superZoom" value="1200Wx1200H"/>
+				<entry key="zoom" value="515Wx515H"/>
+				<entry key="store" value="365Wx246H"/>
+				<entry key="product" value="300Wx300H"/>
+				<entry key="thumbnail" value="96Wx96H"/>
+				<entry key="cartIcon" value="65Wx65H"/>
+				<entry key="styleSwatch" value="30Wx30H"/>
+			</map>
+		</property>
+	</bean>
+	-->
+	<bean id="apbCustomerEmailContext" class="com.apb.facades.process.email.context.ApbCustomerEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="customerConverter" ref="customerConverter"/>
+	</bean>
+	
+	<bean id="asahiPaymentConfirmationEmailContext" class="com.apb.facades.process.email.context.AsahiPaymentConfirmationEmailContext" parent="abstractEmailContext" scope="prototype" >
+	</bean>
+	
+	<bean id="asahiCustomerNotifyEmailContext" class="com.apb.facades.process.email.context.AsahiCustomerNotifyEmailContext" parent="abstractEmailContext" scope="prototype" >
+	</bean>
+
+	<bean id="apbSuperCustomerEmailContext" class="com.apb.facades.process.email.context.ApbSuperCustomerEmailContext" parent="abstractEmailContext" scope="prototype" >
+	<!-- 	<property name="customerConverter" ref="customerConverter"/> -->
+	</bean>
+	
+	<bean id="requestRegistrationEmailContext" class="com.apb.facades.process.email.context.RequestRegistrationEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="requestRegistrationConverter" ref="requestRegistrationConverter"/>
+	</bean>
+	
+	<bean id="apbCompanyDetailsEmailContext" class="com.apb.facades.process.email.context.ApbCompanyDetailsEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="companyDetailsEmailConverter" ref="companyDetailsEmailConverter"/>
+	</bean>
+	
+	<bean id="apbContactUsEmailContext" class="com.apb.facades.process.email.context.ApbContactUsEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="contactUsEmailConverter" ref="contactUsEmailConverter"/>
+	</bean>
+	<bean id="apbKegReturnEmailContext" class="com.apb.facades.process.email.context.ApbKegReturnEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="kegReturnEmailConverter" ref="kegReturnEmailConverter"/>
+	</bean>
+	
+	
+	<bean id="asahiOrderNotificationEmailContext" class="com.apb.facades.process.email.context.APBOrderNotificationEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="orderConverter" ref="orderConverter"/>
+	</bean>
+
+	<bean id="quoteNotificationEmailContext" class="com.apb.facades.process.email.context.QuoteNotificationEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="quoteService" ref="quoteService"/>
+		<property name="quoteConverter" ref="quoteConverter"/>
+	</bean>
+	
+	
+	<!-- Not required already present in CUB
+	
+	<bean id="deliverySentEmailContext" class="com.apb.facades.process.email.context.DeliverySentEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="consignmentConverter" ref="consignmentConverter"/>
+	</bean> -->
+	
+	<!-- <bean id="readyForPickupEmailContext" class="com.apb.facades.process.email.context.ReadyForPickupEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="consignmentConverter" ref="consignmentConverter"/>
+	</bean>
+	
+	<bean id="orderCancelledEmailContext" class="com.apb.facades.process.email.context.OrderCancelledEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="orderConverter" ref="orderConverter"/>
+	</bean>
+	
+	<bean id="orderRefundEmailContext" class="com.apb.facades.process.email.context.OrderRefundEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="orderConverter" ref="orderConverter"/>
+	</bean>
+	<bean id="consignmentCollectionReminderEmailContext" class="com.apb.facades.process.email.context.ConsignmentCollectionReminderEmailContext" parent="abstractEmailContext" scope="prototype">
+        <property name="consignmentConverter" ref="consignmentConverter"/>
+        <property name="formatFactory" ref="formatFactory"/>
+        <property name="customerServiceUncollectedConsignmentStrategy" ref="customerServiceUncollectedConsignmentStrategy" />
+        <property name="orderConverter" ref="orderConverter"/>
+    </bean>
+
+	<bean id="orderPartiallyModifiedEmailContext" class="com.apb.facades.process.email.context.OrderPartiallyModifiedEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="orderConverter" ref="orderConverter"/>
+		<property name="orderEntryConverter" ref="orderEntryConverter"/>
+		<property name="priceDataFactory" ref="priceDataFactory"/>		
+	</bean> 
+
+	<bean id="orderPartiallyCanceledEmailContext" class="com.apb.facades.process.email.context.OrderPartiallyCanceledEmailContext" parent="orderPartiallyModifiedEmailContext" scope="prototype" >
+	</bean>
+
+	<bean id="orderPartiallyRefundedEmailContext" class="com.apb.facades.process.email.context.OrderPartiallyRefundedEmailContext" parent="orderPartiallyModifiedEmailContext" scope="prototype" >
+	</bean>
+
+	<bean id="notPickedUpConsignmentCanceledEmailContext" class="com.apb.facades.process.email.context.NotPickedUpConsignmentCanceledEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="consignmentConverter" ref="consignmentConverter"/>
+		<property name="priceDataFactory" ref="priceDataFactory"/>
+	</bean>-->
+	 <!-- verified -->
+	<bean id="apbPriceUpdateFacade" class="com.apb.facades.price.impl.ApbPriceUpdateFacadeImpl" />
+	 <!-- verified -->
+	<bean id="apbProductBasicPopulator" class="com.apb.facades.populators.ApbProductBasicPopulator" >
+		<property name="apbBrandConverter" ref="apbBrandConverter" />
+		<property name="apbFlavourConverter" ref="apbFlavourConverter" />
+	</bean>
+		
+	<bean id="apbBrandPopulator" class="com.apb.facades.populators.ApbBrandPopulator" >
+		<property name="commerceCommonI18NService" ref="commerceCommonI18NService" />
+	</bean>
+	
+	<bean id="apbBrandConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.apb.facades.product.data.BrandData"/>
+			<property name="populators">
+				<list>
+					<ref bean="apbBrandPopulator"/>
+				</list>
+			</property>
+	</bean>
+	
+ <!-- verified -->
+	<bean id="apbFlavourPopulator" class="com.apb.facades.populators.ApbFlavourPopulator" >
+			<property name="commerceCommonI18NService" ref="commerceCommonI18NService" />
+	</bean>
+	 <!-- verified -->
+	<bean id="apbFlavourConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.apb.facades.product.data.FlavourData"/>
+			<property name="populators">
+				<list>
+					<ref bean="apbFlavourPopulator"/>
+				</list>
+			</property>
+	</bean>
+	 <!-- verified -->
+	<bean id="apbPackageTypePopulator" class="com.apb.facades.populators.ApbPackageTypePopulator" >
+			<property name="commerceCommonI18NService" ref="commerceCommonI18NService" />
+	</bean>
+	 <!-- verified -->
+	<bean id="apbPackageTypeConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.apb.facades.product.data.PackageTypeData"/>
+			<property name="populators">
+				<list>
+					<ref bean="apbPackageTypePopulator"/>
+				</list>
+			</property>
+	</bean>
+
+	 <!-- verified -->
+	<alias name="apbAlcoholTypePopulator" alias="productAlcoholTypePopulator"/>
+	<bean id="apbAlcoholTypePopulator" class="com.apb.facades.populators.ApbAlcoholTypePopulator" >
+			<property name="commerceCommonI18NService" ref="commerceCommonI18NService" />
+	</bean>
+	 <!-- verified -->
+	<bean id="apbAlcoholTypeConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.apb.facades.product.data.AlcoholTypeData"/>
+			<property name="populators">
+				<list>
+					<ref bean="apbAlcoholTypePopulator"/>
+				</list>
+			</property>
+	</bean>
+	 <!-- verified -->
+	<alias name="apbProductGroupPopulator" alias="productGroupPopulator"/>
+	<bean id="apbProductGroupPopulator" class="com.apb.facades.populators.ApbProductGroupPopulator" >
+			<property name="commerceCommonI18NService" ref="commerceCommonI18NService" />
+	</bean>
+	 <!-- verified -->
+	<bean id="apbProductGroupConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.apb.facades.product.data.ProductGroupData"/>
+			<property name="populators">
+				<list>
+					<ref bean="apbProductGroupPopulator"/>
+				</list>
+			</property>
+	</bean>
+ 	<!-- verified -->
+	<alias name="apbProductStandardPopulator" alias="productStandardPopulator"/>	
+	<bean id="apbProductStandardPopulator" class="com.apb.facades.populators.ApbProductStandardPopulator" >
+		<property name="apbPackageTypeConverter" ref="apbPackageTypeConverter" />
+		<property name="apbProductGroupConverter" ref="apbProductGroupConverter" />
+	</bean>	
+ 	<!-- verified -->
+	<alias name="apbProductAlcoholPopulator" alias="productALocholPopulator"/>
+	<bean id="apbProductAlcoholPopulator" class="com.apb.facades.populators.ApbProductAlcoholPopulator" >
+		<property name="apbAlcoholTypeConverter" ref="apbAlcoholTypeConverter" />
+	</bean>
+
+	
+ <!-- verified -->
+	<alias name="apbProductDimensionPopulator" alias="productDimesionPopulator"/> 	
+ 	<bean id="apbProductDimensionPopulator" class="com.apb.facades.populators.ApbProductDimensionPopulator" >
+	</bean>	
+	 <!-- verified -->
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="productConverter"/>
+		<property name="add" ref="apbProductBasicPopulator"/>
+		
+	</bean>
+	 <!-- verified -->
+		<bean parent="modifyPopulatorList">
+		<property name="list" ref="productBasicPopulatorList"/>
+		<property name="add" ref="apbProductBasicPopulator"/>
+	</bean>
+	
+<!-- 
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="productBasicPopulatorList"/>
+		<property name="add" ref="apbProductDealPopulator"/>
+	</bean> -->
+	
+	 <!-- verified -->
+	<alias name="apbProductStandardPopulatorList" alias="productStandardPopulatorList"/>
+	<bean id="apbProductStandardPopulatorList" parent="abstractPopulatorList">
+		<property name="populators">
+			<list>
+				<ref bean="apbProductStandardPopulator"/>
+			</list>
+		</property>
+	</bean>
+	
+	 <!-- verified -->
+	<alias name="apbProductAlcoholPopulatorList" alias="productAlcoholPopulatorList"/>
+	<bean id="apbProductAlcoholPopulatorList" parent="abstractPopulatorList">
+		<property name="populators">
+			<list>
+				<ref bean="apbProductAlcoholPopulator"/>
+			</list>
+		</property>
+	</bean>
+	 <!-- verified -->
+	<alias name="apbProductPackagingPopulatorList" alias="productDimensionPopulatorList"/>
+	<bean id="apbProductPackagingPopulatorList" parent="abstractPopulatorList">
+		<property name="populators">
+			<list>
+				<ref bean="apbProductPackagingPopulator"/>
+			</list>
+		</property>
+	</bean>	
+ <!-- verified -->
+	<alias name="apbProductDimensionPopulatorList" alias="productDimensionPopulatorList"/>
+	<bean id="apbProductDimensionPopulatorList" parent="abstractPopulatorList">
+		<property name="populators">
+			<list>
+				<ref bean="apbProductDimensionPopulator"/>
+			</list>
+		</property>
+	</bean>		
+	
+	
+	 <!-- verified -->
+	<alias name="apbProductConfiguredPopulator" alias="productConfiguredPopulator" />
+	<bean id="apbProductConfiguredPopulator"  parent="defaultProductConfiguredPopulator">
+		<property name="populators">
+			<map key-type="de.hybris.platform.commercefacades.product.ProductOption" merge="true">
+				<entry key="STANDARD" value-ref="productStandardPopulatorList" />	
+				<entry key="ALCOHOL" value-ref="productAlcoholPopulatorList" />			
+				<entry key="DIMENSION" value-ref="productDimensionPopulatorList" />		
+
+			</map>
+		</property>
+	</bean>
+	<!-- verified -->
+	<alias name="apbStockPopulator" alias="stockPopulator"/>
+	<bean id="apbStockPopulator" parent="defaultStockPopulator" class="com.apb.facades.populators.ApbStockPopulator" >
+		<property name="commerceStockService" ref="commerceStockService"/>
+		<property name="baseStoreService" ref="baseStoreService"/>
+	</bean>
+	
+	<alias name="apbProductDealPopulator" alias="apbProductDealPopulator"/>
+	<bean id="apbProductDealPopulator" class="com.apb.facades.populators.ApbProductDealPopulator" />
+	
+
+<!-- Not Required as already in CUB
+	<bean id="defaultCommerceSearchResultProductPopulator"
+			class="de.hybris.platform.commercefacades.search.converters.populator.SearchResultProductPopulator">
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="imageFormatMapping" ref="imageFormatMapping"/>
+		<property name="priceDataFactory" ref="priceDataFactory"/>
+		<property name="productDataUrlResolver" ref="productDataUrlResolver"/>
+		<property name="productFeatureListPopulator" ref="productFeatureListPopulator"/>
+		<property name="productService" ref="productService"/>
+		<property name="stockConverter" ref="stockConverter"/>
+		<property name="stockLevelStatusConverter" ref="stockLevelStatusConverter"/>
+	</bean>
+	 -->
+
+	<!--Not Required as Combined with CUB 
+	<alias name="apbCommerceSearchResultProductPopulator" alias="commerceSearchResultProductPopulator"/>
+   <bean id="apbCommerceSearchResultProductPopulator"
+          class="com.apb.facades.search.converters.populator.ApbSearchResultProductPopulator"
+          parent="defaultCommerceSearchResultProductPopulator">
+    </bean> -->
+    
+    
+  <!--  <alias name="apbProductPopulator" alias="productPopulator"/>
+	<bean id="apbProductPopulator" class="com.apb.facades.populators.ApbProductPopulator"
+			parent="defaultProductPopulator">
+		<property name="apbPackageTypeConverter" ref="apbPackageTypeConverter"/>
+		<property name="apbPackageSizeConverter" ref="apbPackageSizeConverter"/>
+		<property name="asahiProductUnitVolumeConverter" ref="asahiProductUnitVolumeConverter"/>
+	</bean> -->
+	 <!-- verified -->
+	<alias name="apbB2bAddressPopulator" alias="b2bAddressPopulator"/>
+	<bean id="apbB2bAddressPopulator" class="com.apb.facades.populators.ApbB2BAddressPopulator" >
+		<property name="cartService" ref="b2bCartService"/>
+	</bean>
+	
+	<bean id="apbB2bAddressConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.platform.commercefacades.user.data.AddressData"/>
+			<property name="populators">
+				<list>
+					<ref bean="apbB2bAddressPopulator"/>
+				</list>
+			</property>
+	</bean>
+	
+	
+	 <!-- verified -->
+	<alias name="apbProductFacadeImpl" alias="apbProductFacade"/>
+  	<bean id="apbProductFacadeImpl" class="com.apb.facades.product.impl.ApbProductFacadeImpl" parent="defaultProductFacade">
+  		<property name="apbProductBasicReverseConverter" ref="apbProductBasicReverseConverter"/>
+    </bean>
+    
+     <!-- verified -->
+    <alias name="apbB2BUnitFacadeImpl" alias="apbB2BUnitFacade"/>
+  	<bean id="apbB2BUnitFacadeImpl" class="com.apb.facades.b2bunit.impl.ApbB2BUnitFacadeImpl">
+  		<property name="apbB2BUnitConverter" ref="apbB2BUnitConverter"/>
+  		<property name="apbAddressReverseConverter" ref="apbAddressReverseConverter"/>
+  	</bean>
+  	 <!-- verified -->
+  	<!--  Creating populator for Product API-->
+    <bean id="apbProductBasicReversePopulator" class="com.apb.facades.populators.ApbProductBasicReversePopulator" />
+	<bean id="apbProductBasicReverseConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.apb.core.model.ApbProductModel"/>
+			<property name="populators">
+				<list>
+					<ref bean="apbProductBasicReversePopulator"/>
+				</list>
+			</property>
+	</bean>
+	
+	<!--  Creating populator for B2BUnit API-->
+	 <!-- verified -->
+	<bean id="apbB2BUnitPopulator" class="com.apb.facades.populators.ApbB2BUnitPopulator">
+		<property name="apbAddressReverseConverter" ref="apbAddressReverseConverter"/>
+	</bean>
+	<bean id="apbB2BUnitConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.sabmiller.core.model.AsahiB2BUnitModel"/>
+			<property name="populators">
+				<list>
+					<ref bean="apbB2BUnitPopulator"/>
+				</list>
+			</property>
+	</bean>
+	 <!-- verified -->
+	<bean id="custImportFailedPopulator" class="com.apb.facades.populators.CustImportFailedPopulator"/>
+	
+	<bean id="custImportFailedConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.sabmiller.core.model.CustImpFailedRecordsModel"/>
+			<property name="populators">
+				<list>
+					<ref bean="custImportFailedPopulator"/>
+				</list>
+			</property>
+	</bean>
+	
+	
+	
+	<!--  Creating populator for Address API-->
+	<!--  Not required merged in CUB
+	<alias name="apbAddressReversePopulator" alias="addressReversePopulator"/>
+	<bean id="apbAddressReversePopulator" class="com.apb.facades.populators.ApbAddressReversePopulator" parent="defaultAddressReversePopulator" />
+	
+	<alias name="apbAddressReversePopulator" alias="addressReversePopulator"/>
+	-->
+	<bean id="apbAddressReverseConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.platform.core.model.user.AddressModel"/>
+			<property name="populators">
+				<list>
+					<ref bean="defaultSabmAddressReversePopulator"/>
+				</list>
+			</property>
+	</bean>
+	<!-- Not required merge in CUB 
+	<alias name="apbCustomerFacadeImpl" alias="b2bCustomerFacade" />
+	<bean id="apbCustomerFacadeImpl" class="com.apb.facades.customer.impl.ApbCustomerFacadeImpl" parent="defaultB2BCustomerFacade" >
+		<property name="asahiB2BUnitConverter" ref="asahiB2BUnitConverter"/>
+	</bean>
+-->
+	 <!-- verified -->
+	<alias name="apbUserFacadeImpl" alias="apbUserFacade" />
+	<bean id="apbUserFacadeImpl" class="com.apb.facades.user.impl.ApbUserFacadeImpl" parent="defaultUserFacade">
+		<property name="apbB2bAddressConverter" ref="apbB2bAddressConverter"/>
+		<property name="kegSizeConverter" ref="kegSizeConverter"/>
+		<property name="planogramConverter" ref="planogramConverter"/>
+		
+	</bean> 
+	 <!-- verified -->
+	<alias alias="apbCheckoutFacade" name="apbCheckoutFacade"/>
+	<bean id="apbCheckoutFacade" class="com.apb.facades.checkout.impl.ApbCheckoutFacadeImpl" parent="defaultB2BCheckoutFacade" >
+		<property name="apbCheckoutService" ref="apbCheckoutService"/>
+		<property name="deliveryService" ref="deliveryService" />
+		<property name="cartFacade" ref="commerceCheckoutCartFacade"/>
+		<property name="commerceCheckoutService" ref="commerceCheckoutService"/>
+		<property name="cartService" ref="cartService"/>
+	</bean>
+	
+	<!-- Overriding populators for facet display start -->
+		<!-- verified -->
+	<alias name="apbCommerceSearchResponseFacetsPopulator" alias="commerceSearchResponseFacetsPopulator" />
+	<bean id="apbCommerceSearchResponseFacetsPopulator" class="com.apb.facades.populators.ApbSearchResponseFacetsPopulator">
+		<property name="configurationService" ref="configurationService"/>
+	</bean>
+	
+	<!-- Overriding populators for facet display end -->
+	 <!-- verified -->
+	<alias name="apbRequestRegistrationConverter" alias="requestRegistrationConverter"/>
+	<bean id="apbRequestRegistrationConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.apb.facades.register.data.ApbRequestRegisterData"/>
+		<property name="populators">
+			<list>
+				<ref bean="requestRegistrationPopulator"/>
+			</list>
+		</property>
+	</bean>
+	 <!-- verified -->
+	<alias name="apbRequestRegistrationPopulator" alias="requestRegistrationPopulator"/>
+	<bean id="apbRequestRegistrationPopulator" class="com.apb.facades.populators.ApbRequestRegistrationPopulator">
+		<!-- <property name="currencyConverter" ref="currencyConverter"/>
+		<property name="languageConverter" ref="languageConverter"/> -->
+	</bean>
+	<!--  Adding customer populator -->
+	<!-- Not Required as Merged with CUB
+	<alias name="apbCustomerPopulator" alias="customerPopulator"/>
+	<bean id="apbCustomerPopulator" class="com.apb.facades.user.converters.populator.ApbCustomerPopulator" parent="defaultCustomerPopulator" /> -->
+	 <!-- verified -->
+	<bean id="apbCategoryFacade" class="com.apb.facades.category.impl.ApbCategoryFacadeImpl" />
+	 <!-- verified -->
+	<bean id="asahiProductRefernceFacade" class="com.apb.facades.product.impl.AsahiProductRefernceFacadeImpl" />
+	 <!-- verified -->
+	<bean id="asahiB2BUnitReferenceFacade" class="com.apb.facades.b2bunit.impl.AsahiB2BUnitReferenceFacadeImpl" />
+	
+	<alias name="apbProductGalleryImagesPopulator" alias="productGalleryImagesPopulator" />
+	<bean id="apbProductGalleryImagesPopulator" class="com.apb.facades.populators.ApbProductGalleryImagesPopulator" parent="defaultProductGalleryImagesPopulator">
+		<property name="imageFormats">
+			<list>
+				<value>superZoom</value>
+				<value>zoom</value>
+				<value>product</value>
+				<value>thumbnail</value>
+			</list>
+		</property>
+	</bean>	
+	<!--Not Required as Merged with CUB
+	
+	 <alias alias="cartFacade" name="apbCartFacade"/>
+	<bean id="apbCartFacade" class="com.apb.facades.cart.impl.APBCartFacadeImpl" parent="defaultCartFacade" > 
+		
+	</bean>-->
+	
+	<bean id="apbPackageSizeConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.apb.facades.product.data.PackageSizeData"/>
+			<property name="populators">
+				<list>
+					<ref bean="productPackagingPopulator"/>
+				</list>
+			</property>
+	</bean>
+	
+	<alias name="apbProductPackagingPopulator" alias="productPackagingPopulator"/>	
+	<bean id="apbProductPackagingPopulator" class="com.apb.facades.populators.ApbProductPackagingPopulator" >
+			<property name="commerceCommonI18NService" ref="commerceCommonI18NService" />
+	</bean>	
+	
+	<!-- <alias name="asahiOrderFacade" alias="b2bOrderFacade"/>
+	<bean name="asahiOrderFacade" class="com.apb.facades.order.impl.AsahiOrderFacadeImpl" parent="defaultB2BOrderFacade">
+		<property name="asahiOrderReverseConverter" ref="asahiOrderReverseConverter"/>
+	 	<property name="asahiQuickOrderConverter" ref="asahiQuickOrderConverter"/>
+	 </bean> -->
+	
+	<!--  Creating populator for Order API-->
+	<!-- verified -->
+    <bean id="asahiOrderReversePopulator" class="com.apb.facades.populators.AsahiOrderReversePopulator">
+    	<property name="apbAddressReverseConverter" ref="apbAddressReverseConverter"/>
+    	<property name="asahiOrderEntryReverseConverter" ref="asahiOrderEntryReverseConverter"/>
+    	<property name="asahiOrderEntryBasicReverseConverter" ref="asahiOrderEntryBasicReverseConverter" />
+    </bean>
+	<bean id="asahiOrderReverseConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.platform.core.model.order.OrderModel"/>
+			<property name="populators">
+				<list>
+					<ref bean="asahiOrderReversePopulator"/>
+				</list>
+			</property>
+	</bean>
+ <!-- verified -->
+	<alias name="apbCompanyDetailsConverter" alias="companyDetailsConverter"/>
+	<bean id="apbCompanyDetailsConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.apb.facades.user.data.ApbCompanyData" />
+		<property name="populators">
+			<list>
+				<ref bean="companyDetailsPopulator" />
+			</list>
+		</property>
+	</bean>
+	 <!-- verified -->
+	<alias name="apbCompanyDetailsPopulator" alias="companyDetailsPopulator"/>
+	<bean id="apbCompanyDetailsPopulator" class="com.apb.facades.populators.ApbCompanyDetailsPopulator" />
+	 <!-- verified -->
+	<bean id="asahiOrderEntryReversePopulator" class="com.apb.facades.populators.AsahiOrderEntryReversePopulator" />
+	<bean id="asahiOrderEntryReverseConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.platform.core.model.order.AbstractOrderEntryModel"/>
+			<property name="populators">
+				<list>
+					<ref bean="asahiOrderEntryReversePopulator"/>
+				</list>
+			</property>
+	</bean>
+	 <!-- verified -->
+	<bean id="asahiOrderEntryBasicReversePopulator" class="com.apb.facades.populators.AsahiOrderEntryBasicReversePopulator" />
+	<bean id="asahiOrderEntryBasicReverseConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.platform.core.model.order.AbstractOrderEntryModel"/>
+			<property name="populators">
+				<list>
+					<ref bean="asahiOrderEntryBasicReversePopulator"/>
+				</list>
+			</property>
+	</bean>
+	 <!-- verified -->
+	<bean id="asahiProductUnitVolumePopulator" class="com.apb.facades.populators.AsahiProductUnitVolumePopulator" />
+	<bean id="asahiProductUnitVolumeConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.apb.facades.product.data.UnitVolumeData"/>
+			<property name="populators">
+				<list>
+					<ref bean="asahiProductUnitVolumePopulator"/>
+				</list>
+			</property>
+	</bean>
+	<!--Not Required as Merged with CUB
+	<alias name="apbCartPopulator" alias="cartPopulator"/>
+	<bean id="apbCartPopulator" class="com.apb.facades.order.converters.populator.ApbCartPopulator"
+			parent="defaultCartPopulator" />
+			
+
+	<alias name="apbOrderPopulator" alias="orderPopulator"/>
+	<bean id="apbOrderPopulator"
+			class="com.apb.facades.order.converters.populator.ApbOrderPopulator"
+			parent="defaultOrderPopulator"/>
+			-->
+	<!-- verified -->
+	<alias name="apbProductVariantFacade" alias="productVariantFacade" />
+	<bean id="apbProductVariantFacade" class="com.apb.facades.product.impl.ApbProductVariantFacadeImpl" parent="apbProductFacade" />
+	
+	 <!-- verified -->
+	<alias name="asahiSaveCartFacade" alias="saveCartFacade" />
+	<bean id="asahiSaveCartFacade" class="com.apb.facades.cart.impl.AsahiSaveCartFacadeImpl" parent="defaultSaveCartFacade">
+		<property name="asahiOrderTemplateConverter" ref="asahiOrderTemplateConverter"/>
+	</bean>
+	
+	<!-- verified -->
+	<bean id="apbCreditCheckFacade" class="com.apb.facades.credit.check.impl.ApbCreditCheckFacadeImpl" />
+	<!-- verified -->
+	<alias name="apbCompanyDetailsEmailConverter" alias="companyDetailsEmailConverter"/>
+	<bean id="apbCompanyDetailsEmailConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.apb.facades.user.data.ApbCompanyData" />
+		<property name="populators">
+			<list>
+				<ref bean="companyDetailsEmailPopulator" />
+			</list>
+		</property>
+	</bean>
+	<!-- verified -->
+	<alias name="apbCompanyDetailsEmailPopulator" alias="companyDetailsEmailPopulator"/> 
+	<bean id="apbCompanyDetailsEmailPopulator" class="com.apb.facades.populators.ApbCompanyDetailsEmailPopulator">
+	</bean>
+	
+	<bean id="entryNumberKeyGenerator"
+              class="de.hybris.platform.servicelayer.keygenerator.impl.PersistentKeyGenerator"
+              init-method="init">
+         <property name="key" value="rule_uid" />
+         <property name="digits" value="4" />
+         <property name="start" value="1111" />
+         <property name="numeric" value="true" />
+    </bean>
+
+    <!-- verified -->
+	<alias name="apbOrderHistoryPopulator" alias="orderHistoryPopulator"/>
+	<bean id="apbOrderHistoryPopulator"
+			class="com.apb.facades.order.converters.populator.ApbOrderHistoryPopulator" parent="defaultOrderHistoryPopulator">
+
+	</bean>
+	<!-- verified -->
+	<bean id="asahiRoleConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.apb.facades.product.data.AsahiRoleData"/>
+			<property name="populators">
+				<list>
+					<ref bean="asahiRolePopulator"/>
+				</list>
+			</property>
+	</bean>
+	
+	<bean id="asahiRolePopulator" class="com.apb.facades.populators.AsahiRolePopulator" >
+	</bean>
+	 <!-- verified -->
+	<alias name="apbAddressPopulator" alias="addressPopulator"/>
+	<bean id="apbAddressPopulator"
+			class="com.apb.facades.order.converters.populator.ApbAddressPopulator" parent ="defaultAddressPopulator" />
+	<!-- verified -->		
+	<bean id="asahiOrderTemplatePopulator" class="com.apb.facades.populators.AsahiOrderTemplatePopulator">
+		<property name="productConverter" ref="productConverter"/>
+	</bean>
+	<bean id="asahiOrderTemplateConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.platform.commercefacades.order.data.OrderTemplateData"/>
+			<property name="populators">
+				<list>
+					<ref bean="asahiOrderTemplatePopulator"/>
+				</list>
+			</property>
+	</bean>
+	<!--  Removed as merged in CUB
+	<alias name="apbOrderEntryPopulator" alias="orderEntryPopulator"/>
+	<bean id="apbOrderEntryPopulator"
+			class="com.apb.facades.order.converters.populator.ApbOrderEntryPopulator"
+			parent="defaultOrderEntryPopulator"/>
+	-->		
+	 <!-- verified -->
+	<alias name="asahiCustomerReversePopulator" alias="b2BCustomerReversePopulator"/>
+	<bean id="asahiCustomerReversePopulator" class="com.apb.facades.populators.AsahiCustomerReversePopulator" parent="defaultB2BCustomerReversePopulator" />
+
+	 <!-- verified -->
+	<alias name="apbContactUsEmailConverter" alias="contactUsEmailConverter"/>
+	<bean id="apbContactUsEmailConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.apb.facades.contactust.data.ApbContactUsData" />
+		<property name="populators">
+			<list>
+				<ref bean="contactUsEmailPopulator" />
+			</list>
+		</property>
+	</bean>
+	 <!-- verified -->
+	<alias name="apbContactUsEmailPopulator" alias="contactUsEmailPopulator"/> 
+	<bean id="apbContactUsEmailPopulator" class="com.apb.facades.populators.ApbContactUsEmailPopulator">
+	</bean>
+	 <!-- verified -->
+	<alias name="asahiContactUsSalesRepPopulator" alias="asahiContactUsSalesRepPopulator"/>
+		<bean id="asahiContactUsSalesRepPopulator" class="com.apb.facades.populators.AsahiContactUsSalesRepPopulator">
+	</bean>
+	 <!-- verified -->
+	<alias name="asahiContactUsSalesRepConverter" alias="asahiContactUsSalesRepConverter"/>
+	<bean id="asahiContactUsSalesRepConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.apb.facades.contactust.data.AsahiContactUsSaleRepData"/>
+		<property name="populators">
+			<list>
+				<ref bean="asahiContactUsSalesRepPopulator"/>
+			</list>
+		</property>
+	</bean>
+	 <!-- verified -->
+	<alias name="asahiContactUsSalesRepDataPopulator" alias="asahiContactUsSalesRepDataPopulator"/>
+	<bean id="asahiContactUsSalesRepDataPopulator" class="com.apb.facades.populators.AsahiContactUsSalesRepDataPopulator">
+	</bean>
+	 <!-- verified -->
+	<alias name="asahiContactUsSalesRepDataConverter" alias="asahiContactUsSalesRepDataConverter"/>
+	<bean id="asahiContactUsSalesRepDataConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.apb.facades.contactust.data.ApbContactUsData"/>
+		<property name="populators">
+			<list>
+				<ref bean="asahiContactUsSalesRepDataPopulator"/>
+			</list>
+		</property>
+	</bean>
+	 <!-- verified -->
+	<bean id="apbStockOnHandFacade" class="com.apb.facades.stock.check.impl.ApbStockOnHandFacadeImpl"  />
+	 <!-- verified -->
+	<alias name="apbKegReturnEmailConverter" alias="kegReturnEmailConverter"/>
+	<bean id="apbKegReturnEmailConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.apb.facades.kegreturn.data.ApbKegReturnData" />
+		<property name="populators">
+			<list>
+				<ref bean="kegReturnEmailPopulator" />
+			</list>
+		</property>
+	</bean>
+	 <!-- verified -->
+	<alias name="apbKegReturnEmailPopulator" alias="kegReturnEmailPopulator"/> 
+		<bean id="apbKegReturnEmailPopulator" class="com.apb.facades.populators.ApbKegReturnEmailPopulator">
+	</bean>
+	
+	<!-- <alias name="apbKegReturnPopulator" alias="kegReturnPopulator"/>
+		<bean id="apbKegReturnPopulator" class="com.apb.facades.kegreturn.data.ApbKegReturnData">
+	</bean>
+	<alias name="apbKegReturnConverter" alias="kegReturnConverter"/>
+	<bean id="apbKegReturnConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.apb.facades.kegreturn.data.ApbKegReturnData"/>
+		<property name="populators">
+			<list>
+				<ref bean="apbKegReturnPopulator"/>
+			</list>
+		</property>
+	</bean> -->
+	 <!-- verified -->
+	<alias name="apbKegSizePopulator" alias="kegSizePopulator"/>
+		<bean id="apbKegSizePopulator" class="com.apb.facades.populators.ApbKegSizePopulator">
+	</bean>
+	 <!-- verified -->
+	<alias name="apbKegSizeConverter" alias="kegSizeConverter"/>
+	<bean id="apbKegSizeConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.apb.facades.kegreturn.data.KegSizeData"/>
+		<property name="populators">
+			<list>
+				<ref bean="kegSizePopulator"/>
+			</list>
+		</property>
+	</bean>
+	<!-- <bean id="asahiCreditCardPaymentFacade" class="com.apb.facades.card.payment.impl.AsahiCreditCardPaymentFacadeImpl"  /> -->
+	
+	 <!-- verified -->
+	<alias name="asahiPaymentTransactionReverseConverter" alias="asahiPaymentTransactionReverseConverter"/>
+	<bean id="asahiPaymentTransactionReverseConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.apb.core.model.AsahiPaymentTransactionModel"/>
+		<property name="populators">
+			<list>
+				<ref bean="asahiPaymentTransactionReversePopulator"/>
+			</list>
+		</property>
+	</bean>
+ <!-- verified -->
+	<alias name="asahiPaymentTransactionReversePopulator" alias="asahiPaymentTransactionReversePopulator"/>
+	<bean id="asahiPaymentTransactionReversePopulator"
+		  class="com.apb.facades.populators.AsahiPaymentTransactionReversePopulator">
+		<property name="commonI18NService" ref="commonI18NService" />
+		<property name="paymentTransactionEntryReverseConverter" ref="asahiPaymentTransactionEntryReverseConverter"/>
+		<property name="modelService" ref="modelService"/>
+	</bean>
+ <!-- verified -->
+	<alias name="asahiPaymentTransactionEntryReverseConverter" alias="asahiPaymentTransactionEntryReverseConverter"/>
+	<bean id="asahiPaymentTransactionEntryReverseConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.apb.core.model.AsahiPaymentTransactionEntryModel"/>
+		<property name="populators">
+			<list>
+				<ref bean="asahiPaymentTransactionEntryReversePopulator"/>
+			</list>
+		</property>
+	</bean>
+ <!-- verified -->
+	<alias name="asahiPaymentTransactionEntryReversePopulator" alias="asahiPaymentTransactionEntryReversePopulator"/>
+	<bean id="asahiPaymentTransactionEntryReversePopulator"
+		  class="com.apb.facades.populators.AsahiPaymentTransactionEntryReversePopulator">
+		<property name="commonI18NService" ref="commonI18NService"/>
+	</bean>
+	<!-- verified -->
+	<bean id="asahiQuickOrderConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.apb.facades.order.data.AsahiQuickOrderData"/>
+			<property name="populators">
+				<list>
+					<ref bean="asahiQuickOrderPopulator"/>
+				</list>
+			</property>
+	</bean>
+	<bean id="asahiQuickOrderPopulator"
+		  class="com.apb.facades.populators.AsahiQuickOrderPopulator">
+		  <property name="apbPackageSizeConverter" ref="apbPackageSizeConverter"/>
+		  <property name="imageConverter" ref="imageConverter" />
+		  <property name="productModelUrlResolver" ref="productModelUrlResolver"/>
+	 </bean> 
+	  <!-- verified -->
+	<alias name="asahiB2BUserFacadeImpl" alias="b2bUserFacade"/>
+	<bean id="asahiB2BUserFacadeImpl" class="com.apb.facades.company.impl.AsahiB2BUserFacadeImpl" parent="defaultB2BUserFacade">
+		<property name="companyB2BCommerceService" ref="companyB2BCommerceService"/>
+		<property name="b2BCustomerReversePopulator" ref="b2BCustomerReversePopulator"/>
+	</bean>
+	
+	<!-- verified -->
+	<alias name="asahiAssistedServiceFacade" alias="assistedServiceFacade"/>
+	<bean id="asahiAssistedServiceFacade" class="com.apb.facades.assistedservice.impl.AsahiAssistedServiceFacadeImpl" parent="defaultAssistedServiceFacade">
+	</bean>
+	 <!-- verified -->
+	<!--  SGA-SAM Facade bean configurations -->
+	<bean id="asahiSAMInvoiceFacade"
+		  class="com.apb.facades.sam.invoice.impl.AsahiSAMInvoiceFacadeImpl">
+		  <property name="asahiSAMInvoiceReverseConverter" ref="asahiSAMInvoiceReverseConverter"/>
+		  <property name="asahiSAMInvoiceConverter" ref="asahiSAMInvoiceConverter"/>
+	</bean>
+	 <!-- verified -->
+	<bean id="asahiSAMStatementFacade"
+		  class="com.apb.facades.sam.statement.impl.AsahiSAMStatementFacadeImpl">
+		  <property name="asahiSAMStatementsReverseConverter" ref="asahiSAMStatementsReverseConverter"/>
+		  <property name="asahiSAMStatementsConverter" ref="asahiSAMStatementsConverter"/>
+          <property name="asahiConfigurationService" ref="asahiConfigurationService" />
+	</bean>
+	 <!-- verified -->
+	<bean id="asahiSAMPaymentHistoryFacade"
+		  class="com.apb.facades.sam.payment.history.impl.AsahiSAMPaymentHistoryFacadeImpl">
+		  <property name="asahiSAMPaymentHistReverseConverter" ref="asahiSAMPaymentHistReverseConverter"/>
+		  <property name="asahiSAMPaymentHistoryConverter" ref="asahiSAMPaymentHistoryConverter"/>
+		  <property name="asahiSAMInvoiceReverseConverter" ref="asahiSAMInvoiceReverseConverter"/>
+		  <property name="asahiDirectDebitConverter" ref="asahiDirectDebitConverter"/>
+	</bean>
+		  
+	<!--  populator for SAG-SAM Invoice API-->
+	 <!-- verified -->
+	<bean id="asahiSAMInvoiceReversePopulator" class="com.apb.facades.populators.AsahiSAMInvoiceReversePopulator">
+	</bean>
+	<bean id="asahiSAMInvoiceReverseConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.sabmiller.core.model.AsahiSAMInvoiceModel"/>
+			<property name="populators">
+				<list>
+					<ref bean="asahiSAMInvoiceReversePopulator"/>
+				</list>
+			</property>
+	</bean>
+	 <!-- verified -->
+	<bean id="asahiSAMInvoicePopulator" class="com.apb.facades.populators.AsahiSAMInvoicePopulator"/>
+	<bean id="asahiSAMInvoiceConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.apb.facades.sam.data.AsahiSAMInvoiceData"/>
+			<property name="populators">
+				<list>
+					<ref bean="asahiSAMInvoicePopulator"/>
+				</list>
+			</property>
+	</bean>
+ 	<!-- verified -->
+    <bean id="sipFailedPaymentPopulator" class="com.apb.facades.populators.SIPFailedPaymentPopulator" />
+	<bean id="sipFailedPaymentConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.apb.facades.sam.data.AsahiSAMPaymentData"/>
+        <property name="populators">
+            <list>
+                <ref bean="sipFailedPaymentPopulator"/>
+            </list>
+        </property>
+    </bean>
+	<!-- verified -->
+    <bean id="sipFailedPaymentReversePopulator" class="com.apb.facades.populators.SIPFailedPaymentReversePopulator" />
+    <bean id="sipFailedPaymentReverseConverter" parent="abstractPopulatingConverter">
+        <property name="targetClass" value="com.sabmiller.core.model.SIPFailedPaymentModel"/>
+        <property name="populators">
+            <list>
+                <ref bean="sipFailedPaymentReversePopulator"/>
+            </list>
+        </property>
+    </bean>
+	<!--  populator for SAG-SAM Statements API-->
+	 <!-- verified -->
+	<bean id="asahiSAMStatementsReversePopulator" class="com.apb.facades.populators.AsahiSAMStatementsReversePopulator">
+		<property name="asahiSAMInvoiceReverseConverter" ref="asahiSAMInvoiceReverseConverter"/>
+	</bean>
+	<bean id="asahiSAMStatementsReverseConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.sabmiller.core.model.AsahiSAMStatementsModel"/>
+			<property name="populators">
+				<list>
+					<ref bean="asahiSAMStatementsReversePopulator"/>
+				</list>
+			</property>
+	</bean>
+ 	<!-- verified -->
+	<bean id="asahiSAMStatementsPopulator" class="com.apb.facades.populators.AsahiSAMStatementsPopulator">
+	</bean>
+	<bean id="asahiSAMStatementsConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.apb.facades.sam.data.AsahiSAMStatementData"/>
+			<property name="populators">
+				<list>
+					<ref bean="asahiSAMStatementsPopulator"/>
+				</list>
+			</property>
+	</bean>
+	
+	<!--  populator for SAG-SAM Payment History API-->
+	<!-- verified -->
+	<bean id="asahiSAMPaymentHistReversePopulator" class="com.apb.facades.populators.AsahiSAMPaymentHistReversePopulator">
+	</bean>
+	 <!-- verified -->
+	<bean id="asahiSAMPaymentHistoryPopulator" class="com.apb.facades.populators.AsahiSAMPaymentHistoryPopulator">
+		<property name="asahiSAMInvoiceConverter" ref="asahiSAMInvoiceConverter"/>
+	</bean>
+	<!-- verified -->
+	<bean id="asahiSAMPaymentHistReverseConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.sabmiller.core.model.AsahiSAMPaymentModel"/>
+			<property name="populators">
+				<list>
+					<ref bean="asahiSAMPaymentHistReversePopulator"/>
+				</list>
+			</property>
+	</bean>
+	 <!-- verified -->
+	<bean id="asahiSAMPaymentHistoryConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.apb.facades.sam.data.AsahiSAMPaymentData"/>
+			<property name="populators">
+				<list>
+					<ref bean="asahiSAMPaymentHistoryPopulator"/>
+				</list>
+			</property>
+	</bean>
+	
+	<!--  Creating populator for B2BUnit API-->
+	 <!-- verified -->
+	<alias name="asahiB2BUnitPopulator" alias="b2bUnitPopulator"/>
+	<bean id="asahiB2BUnitPopulator" class="com.apb.facades.populators.AsahiB2BUnitPopulator" parent="defaultB2BUnitPopulator" />
+	<!-- verified -->
+	<bean id="asahiB2BUnitConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.platform.b2bcommercefacades.company.data.B2BUnitData"/>
+			<property name="populators">
+				<list>
+					<ref bean="asahiB2BUnitPopulator"/>
+				</list>
+			</property>
+	</bean>
+	 <!-- verified -->
+	<bean id="asahiDirectDebitPopulator" class="com.apb.facades.populators.AsahiDirectDebitPopulator"/>
+	<bean id="asahiDirectDebitConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.apb.facades.sam.data.AsahiDirectDebitData"/>
+			<property name="populators">
+				<list>
+					<ref bean="asahiDirectDebitPopulator"/>
+				</list>
+			</property>
+	</bean>
+
+	 <!-- verified -->
+    <alias name="asahiAssistedServiceCartRecalculator" alias="assistedServiceCartRecalculator" />
+    <bean id="asahiAssistedServiceCartRecalculator" class="com.apb.facades.assistedservice.event.AsahiAssistedServiceCartRecalculator" parent="abstractEventListener">
+        <property name="commerceCartService" ref="commerceCartService"/>
+        <property name="cartService" ref="cartService"/>
+        <property name="configurationService" ref="configurationService" />
+    </bean>
+     <!-- verified -->
+    <alias name="defaultAsahiSearchProductConverter" alias="asahiSearchProductConverter"/>
+	<bean id="defaultAsahiSearchProductConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.platform.commercefacades.product.data.AsahiSearchProductData"/>
+		<property name="populators">
+			<list>
+				<ref bean="asahiSearchProductPopulator"/>
+			</list>
+		</property>
+	</bean>
+ <!-- verified -->
+	<alias name="defaultAsahiSearchProductPopulator" alias="asahiSearchProductPopulator"/>
+	<bean id="defaultAsahiSearchProductPopulator" class="com.apb.facades.populators.AsahiSearchProductPopulator">
+	</bean>
+	 <!-- verified -->
+	<bean id="apbContactUsFacade" class="com.apb.facades.contactus.impl.ApbContactUsFacadeImpl" >
+		<property name="apbContactUsQueryTypeConverter" ref="apbContactUsQueryTypeConverter" />
+	</bean>
+	<!-- verified -->
+	<alias name="apbContactUsQueryTypePopulator" alias="contactUsQueryTypePopulator"/>
+	<bean id="apbContactUsQueryTypePopulator" class="com.apb.facades.populators.ApbContactUsQueryTypePopulator" >
+			<property name="commerceCommonI18NService" ref="commerceCommonI18NService" />
+	</bean>
+	<!-- verified -->
+	<bean id="apbContactUsQueryTypeConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.apb.facades.contactust.data.ContactUsQueryTypeData"/>
+			<property name="populators">
+				<list>
+					<ref bean="apbContactUsQueryTypePopulator"/>
+				</list>
+			</property>
+	</bean>
+	 <!-- verified -->
+	<alias name="apbContactUsPopulator" alias="contactUsPopulator"/>
+		<bean id="apbContactUsPopulator" class="com.apb.facades.populators.ApbContactUsPopulator">
+	</bean>
+	 <!-- verified -->
+	<alias name="apbContactUsConverter" alias="contactUsConverter"/>
+	<bean id="apbContactUsConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.apb.facades.contactust.data.ApbContactUsData"/>
+		<property name="populators">
+			<list>
+				<ref bean="apbContactUsPopulator"/>
+			</list>
+		</property>
+	</bean>
+	<!-- Not Required merged in CUB -->
+	<!-- <alias name="apbCreditCardPaymentInfoPopulator" alias="creditCardPaymentInfoPopulator"/>
+	<bean id="apbCreditCardPaymentInfoPopulator"
+			class="com.apb.facades.credit.card.converters.populator.ApbCreditCardPaymentInfoPopulator"
+			parent = "defaultCreditCardPaymentInfoPopulator">
+	</bean> -->
+	
+	<!--  Not Required As code merge in CUB
+	<alias name="apbB2BAcceleratorCheckoutFacade" alias="acceleratorCheckoutFacade"/>
+	<bean id="apbB2BAcceleratorCheckoutFacade" class="com.apb.facades.checkout.impl.ApbB2BAcceleratorCheckoutFacadeImpl" parent="defaultB2BAcceleratorCheckoutFacade">
+	</bean>-->
+	
+	<bean id="asahiPayerAccessEmailContext" class="com.apb.facades.process.email.context.AsahiPayerAccessEmailContext" parent="abstractEmailContext" scope="prototype" >
+	</bean>
+	 <!-- verified -->
+	<bean class="com.apb.facades.populators.ApbAdminUnitReversePopulator" id="adminUnitReversePopulator" />
+
+    <bean parent="modifyPopulatorList">
+        <property name="list" ref="b2BCustomerReverseConverter" />
+        <property name="add" ref="adminUnitReversePopulator" />
+    </bean>
+	
+	<!-- ALB Code End -->
+
+	<!-- accelerator Image Format Mappings -->
+	<alias name="acceleratorImageFormatMapping" alias="imageFormatMapping"/>
+	<bean id="acceleratorImageFormatMapping" parent="defaultImageFormatMapping">
+		<property name="mapping">
+			<map>
+				<entry key="superZoom" value="SABMZoomFormat"/>
+				<entry key="zoom" value="SABMHeroFormat"/>
+				<entry key="store" value="365Wx246H"/>
+				<entry key="product" value="SABMNormalFormat"/>
+				<entry key="thumbnail" value="SABMThumbnailFormat"/>
+				<entry key="cartIcon" value="SABMCartFormat"/>
+				<entry key="styleSwatch" value="SABMWatchFormat"/>
+			</map>
+		</property>
+	</bean>
+
+	<alias name="acceleratorProductPrimaryImagePopulator" alias="productPrimaryImagePopulator" />
+	<bean id="acceleratorProductPrimaryImagePopulator" parent="defaultProductPrimaryImagePopulator">
+		<property name="imageFormats">
+			<list>
+				<value>zoom</value>
+				<value>product</value>
+				<value>thumbnail</value>
+				<value>cartIcon</value>
+			</list>
+		</property>
+	</bean>
+<!-- OOB not needed as already extend in ALB -->
+	<!-- <alias name="acceleratorProductGalleryImagesPopulator" alias="productGalleryImagesPopulator" />
+	<bean id="acceleratorProductGalleryImagesPopulator" parent="defaultProductGalleryImagesPopulator">
+		<property name="imageFormats">
+			<list>
+				<value>superZoom</value>
+				<value>zoom</value>
+				<value>product</value>
+				<value>thumbnail</value>
+			</list>
+		</property>
+	</bean> -->
+	
+	<!--   Add product to cart - convert layers/pallets to cases  -->
+	
+    <alias name="sabmCartFacade" alias="cartFacade"/>
+    <bean id="sabmCartFacade" class="com.sabmiller.facades.cart.impl.DefaultSABMCartFacade" parent="defaultCartFacade" />
+		<!-- verified -->
+   <util:list id="commerceAddToCartMethodHooks" value-type="de.hybris.platform.commerceservices.order.hook.CommerceAddToCartMethodHook">
+		<ref bean="sabmAddToCartHook" /><!-- add by SAB-574 -->	
+   </util:list>  	
+   <!-- verified -->
+	<bean id="sabmCommerceAddToCartConvert" class="com.sabmiller.facades.convert.SABMCommerceAddToCartConvert" />
+	<!--  add by SAB-574 -->
+	<bean id="sabmAddToCartHook" class="com.sabmiller.facades.order.hook.impl.SABMAddToCartHook">
+		<property name="modelService" ref="modelService"/>
+	</bean>		
+	<bean id="sabmUpdateCartEntryHook" class="com.sabmiller.facades.order.hook.impl.SABMUpdateCartEntryHook">
+		<property name="modelService" ref="modelService"/>
+	</bean>
+	<!-- end by SAB-574 -->
+		<!-- verified -->
+	<bean id="productUOMMappingPopulator" class="com.sabmiller.facades.populators.ProductUOMMappingPopulator" />
+	
+      <bean id="sabProductUOMPConverter" parent="abstractPopulatingConverter">
+			<property name="targetClass" value="de.hybris.platform.commercefacades.product.data.ProductData"/>
+			<property name="populators">
+				<list>
+					<ref bean="productUOMPopulator"/>
+				</list>
+			</property>
+	  </bean>
+	<bean id="productUOMPopulator" class="com.sabmiller.facades.populators.ProductUOMPopulator" />
+	<!-- verified -->
+	<bean id="productDealPopulator" class="com.sabmiller.facades.populators.ProductDealPopulator" />
+
+	<bean id="customerEmailContext" class="com.sabmiller.facades.process.email.context.CustomerEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="customerConverter" ref="customerConverter"/>
+	</bean>
+	
+	<bean id="customerWelcomeEmailContext" class="com.sabmiller.facades.process.email.context.CustomerWelcomeEmailContext" parent="customerEmailContext" scope="prototype" >
+		
+	</bean>
+
+	<bean id="forgottenPasswordEmailContext" class="com.sabmiller.facades.process.email.context.ForgottenPasswordEmailContext" parent="customerEmailContext" scope="prototype" >
+		<property name="customerConverter" ref="customerConverter"/>
+	</bean>
+	
+	<bean id="businessEnquiryEmailContext" class="com.sabmiller.facades.process.email.context.BusinessEnquiryEmailContext" parent="customerEmailContext" scope="prototype" >
+		<property name="customerConverter" ref="customerConverter"/>
+	</bean>
+	
+	<bean id="orderNotificationEmailContext" class="com.sabmiller.facades.process.email.context.OrderNotificationEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="orderConverter" ref="orderConverter"/>
+	</bean>
+	
+	<!-- wave2-ref24: start -->
+	<bean id="orderCutoffNotificationEmailContext" class="com.sabmiller.facades.process.email.context.OrderCutoffNotificationEmailContext" parent="abstractEmailContext" scope="prototype" >
+	</bean>
+	<bean id="dealNotificationEmailContext" class="com.sabmiller.facades.process.email.context.DealNotificationEmailContext" parent="abstractEmailContext" scope="prototype" >
+	</bean>
+
+	<bean id="orderDispatchNotificationEmailContext" class="com.sabmiller.facades.process.email.context.OrderDispatchNotificationEmailContext" parent="abstractEmailContext" scope="prototype" >
+	<property name="consignmentConverter" ref="consignmentConverter"/>
+	</bean>
+	<!-- wave2-ref24: end -->
+	
+	<bean id="orderDeliveredNotificationEmailContext" class="com.sabmiller.facades.process.email.context.OrderDeliveredNotificationEmailContext" parent="abstractEmailContext" scope="prototype" >
+	</bean>
+	<bean id="orderUnableToDeliverNotificationEmailContext" class="com.sabmiller.facades.process.email.context.OrderUnableToDeliverNotificationEmailContext" parent="abstractEmailContext" scope="prototype" >
+	</bean>
+	
+	<bean id="orderNextInQueueDeliveryNotificationEmailContext" class="com.sabmiller.facades.process.email.context.OrderNextInQueueDeliveryNotificationEmailContext" parent="abstractEmailContext" scope="prototype" >
+	</bean>
+	
+	<bean id="trackOrderTimePassesETANotificationEmailContext" class="com.sabmiller.facades.process.email.context.TrackOrderTimePassesETANotificationEmailContext" parent="abstractEmailContext" scope="prototype" >
+	</bean>
+	
+	<bean id="trackOrderETAChangesNotificationEmailContext" class="com.sabmiller.facades.process.email.context.TrackOrderETAChangesNotificationEmailContext" parent="abstractEmailContext" scope="prototype" >
+	</bean>
+
+
+	<bean id="trackOrderETANotificationEmailContext" class="com.sabmiller.facades.process.email.context.TrackOrderETANotificationEmailContext" parent="abstractEmailContext" scope="prototype" >
+	</bean>
+	<bean id="deliverySentEmailContext" class="com.sabmiller.facades.process.email.context.DeliverySentEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="consignmentConverter" ref="consignmentConverter"/>
+	</bean>
+	
+	<bean id="readyForPickupEmailContext" class="com.sabmiller.facades.process.email.context.ReadyForPickupEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="consignmentConverter" ref="consignmentConverter"/>
+	</bean>
+	
+	<bean id="orderCancelledEmailContext" class="com.sabmiller.facades.process.email.context.OrderCancelledEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="orderConverter" ref="orderConverter"/>
+	</bean>
+	
+	<bean id="orderRefundEmailContext" class="com.sabmiller.facades.process.email.context.OrderRefundEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="orderConverter" ref="orderConverter"/>
+	</bean>
+	<bean id="consignmentCollectionReminderEmailContext" class="com.sabmiller.facades.process.email.context.ConsignmentCollectionReminderEmailContext" parent="abstractEmailContext" scope="prototype">
+        <property name="consignmentConverter" ref="consignmentConverter"/>
+        <property name="formatFactory" ref="formatFactory"/>
+        <property name="customerServiceUncollectedConsignmentStrategy" ref="customerServiceUncollectedConsignmentStrategy" />
+        <property name="orderConverter" ref="orderConverter"/>
+    </bean>
+
+	<bean id="orderPartiallyModifiedEmailContext" class="com.sabmiller.facades.process.email.context.OrderPartiallyModifiedEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="orderConverter" ref="orderConverter"/>
+		<property name="orderEntryConverter" ref="orderEntryConverter"/>
+		<property name="priceDataFactory" ref="priceDataFactory"/>		
+	</bean>
+
+	<bean id="orderPartiallyCanceledEmailContext" class="com.sabmiller.facades.process.email.context.OrderPartiallyCanceledEmailContext" parent="orderPartiallyModifiedEmailContext" scope="prototype" >
+	</bean>
+
+	<bean id="orderPartiallyRefundedEmailContext" class="com.sabmiller.facades.process.email.context.OrderPartiallyRefundedEmailContext" parent="orderPartiallyModifiedEmailContext" scope="prototype" >
+	</bean>
+
+	<bean id="notPickedUpConsignmentCanceledEmailContext" class="com.sabmiller.facades.process.email.context.NotPickedUpConsignmentCanceledEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="consignmentConverter" ref="consignmentConverter"/>
+		<property name="priceDataFactory" ref="priceDataFactory"/>
+	</bean>
+
+	<alias name="yacceleratorSearchPagePointOfServiceDistancePopulator" alias="searchPagePointOfServiceDistancePopulator" />
+	<bean id="yacceleratorSearchPagePointOfServiceDistancePopulator" class="com.sabmiller.facades.storefinder.populators.SearchPagePointOfServiceDistancePopulator" >
+		<property name="pointOfServiceDistanceConverter" ref="pointOfServiceDistanceConverter"/>
+	</bean>
+
+	<bean id="genderData" class="com.sabmiller.facades.product.data.GenderData" scope="prototype"/>
+	
+	<!--  Custom starts here  -->
+	
+	<alias name="defaultSABMCategoryPopulator" alias="categoryPopulator"/>
+	<bean id="defaultSABMCategoryPopulator" class="com.sabmiller.facades.populators.SABMCategoryPopulator" parent="defaultCategoryPopulator">
+	</bean>
+	<!-- verified -->
+	<alias name="sabmAlcoholProductPopulator" alias="productPopulator" />
+	<bean id="sabmAlcoholProductPopulator" class="com.sabmiller.facades.populators.SABMAlcoholProductPopulator" parent="defaultProductPopulator">
+		<property name="apbPackageTypeConverter" ref="apbPackageTypeConverter"/>
+		<property name="apbPackageSizeConverter" ref="apbPackageSizeConverter"/>
+		<property name="asahiProductUnitVolumeConverter" ref="asahiProductUnitVolumeConverter"/>
+	</bean>
+<!-- verified -->
+	<bean id="sabmAlcoholVariantProductEANPopulator" class="com.sabmiller.facades.populators.SABMAlcoholVariantProductEANPopulator" />
+	
+	<!-- SAB-560, add by xue.zeng start -->
+	<alias name="sabmSearchResultProductPopulator" alias="commerceSearchResultProductPopulator"/>
+	<bean id="sabmSearchResultProductPopulator" class="com.sabmiller.facades.search.converters.populator.SABMSearchResultProductPopulator" parent="defaultCommerceSearchResultProductPopulator">
+		<property name="priceRowService" ref="priceRowService"/>
+	</bean>
+	<!-- end -->
+	<!-- verified -->
+	<alias name="sabmDeviceDetectionFacade" alias="deviceDetectionFacade"/>
+	<bean id="sabmDeviceDetectionFacade" class="com.sabmiller.facades.device.impl.SABMDeviceDetectionFacadeImpl" parent="defaultDeviceDetectionFacade" />
+		<!-- verified -->
+	<bean id="productUomReverseConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.sabmiller.core.model.ProductUOMMappingModel"/>
+		<property name="populators">
+			<list>
+				<ref bean="productUomMappingsReversePopulator"/>
+			</list>
+		</property>
+	</bean>
+	<bean id="productUomMappingsReversePopulator" class="com.sabmiller.facades.product.converters.populator.ProductUomMappingsReversePopulator"></bean>
+	 <!-- verified -->
+	<alias name="defaultSabmB2BUnitFacade" alias="b2bCommerceUnitFacade"/>
+	<bean id="defaultSabmB2BUnitFacade" class="com.sabmiller.facades.b2bunit.DefaultSabmB2BUnitFacade" parent="defaultB2BCommerceUnitFacade">
+		<property name="b2BCustomerConverter" ref="customerConverter" />
+	</bean>
+ <!-- verified -->
+	<alias name="defaultSabmProductFacade" alias="productFacade"/>
+	<bean id="defaultSabmProductFacade" class="com.sabmiller.facades.product.DefaultSabmProductFacade" parent="defaultProductFacade">
+		<property name="productConfiguredPopulator" ref="accProductConfiguredPopulator"/>
+	</bean>
+	
+	<bean id="categoryReverseConverter" class="com.sabmiller.facades.product.converters.CategoryReverseConverter"></bean>
+	
+	<bean id="productReverseConverter" class="com.sabmiller.facades.product.converters.ProductReverseConverter"></bean>
+	<bean id="productEanReverseConverter" class="com.sabmiller.facades.product.converters.ProductEanReverseConverter"></bean>
+	<bean id="productMaterialReverseConverter" class="com.sabmiller.facades.product.converters.ProductMaterialReverseConverter"></bean>
+	<!-- verified -->
+	<bean id="complexDealReverseConverter" class="com.sabmiller.facades.deal.converters.ComplexDealReverseConverter"></bean>
+	<!-- verified -->
+	<alias name="sabmInvoiceFacade" alias="invoiceFacade" />
+	<bean id="sabmInvoiceFacade" class="com.sabmiller.facades.customer.impl.DefaultSABMInvoiceFacade">
+		<property name="salesforceEventMap" ref="salesforceEventMap"/>
+	</bean>
+	 <!-- verified -->
+	<alias name="sabmCustomerFacade" alias="b2bCustomerFacade" />
+	<alias name="sabmCustomerFacade" alias="customerFacade" /><!--  add by SAB-574 -->
+	<bean id="sabmCustomerFacade" parent="defaultB2BCustomerFacade" class="com.sabmiller.facades.customer.impl.DefaultSABMCustomerFacade">
+		<property name="customerConverter" ref="customerConverter"/>
+		<property name="sabmDeliveryDateCutOffService" ref="sabmDeliveryDateCutOffService"/>
+		<property name="dealsService" ref="dealsService"/>
+		<property name="userService" ref="userService"/>
+		<property name="asahiB2BUnitConverter" ref="asahiB2BUnitConverter"/>
+		<property name="tokenValiditySeconds" value="#{configurationService.configuration.getProperty('bdeviewonly.changeImpersonation.tokenValiditySecond')}"/>
+	</bean>
+
+		<!-- verified -->
+	<alias name="sabmProductExclusionReversePopulator" alias="productExclusionReversePopulator" />
+	<bean id="sabmProductExclusionReversePopulator" class="com.sabmiller.facades.populators.SABMProductExclusionReversePopulator"/>
+	
+
+	<!-- Add spring to sabmOrderEntryUnitSwitchPopulator start SAB-572 -->
+	<bean id="sabmOrderEntryUnitSwitchPopulator" class="com.sabmiller.facades.populators.SABMOrderEntryUnitSwitchPopulator" />
+		<!-- verified -->
+	<util:list id="commerceUpdateCartEntryMethodHooks" value-type="de.hybris.platform.commerceservices.order.hook.CommerceUpdateCartEntryHook">
+    	<ref bean="sabmUpdateCartEntryHook"/>
+    </util:list>  	
+	<!-- Add spring to sabmOrderEntryUnitSwitchPopulator end SAB-572 -->
+		<!-- verified -->
+	<!-- SAB-1039 start -->
+	<alias name="sabmProductPricePopulator" alias="productPricePopulator"/>
+		<bean id="sabmProductPricePopulator" class="com.sabmiller.facades.populators.SABMProductPricePopulator" parent="defaultProductPricePopulator">
+			<property name="priceRowService" ref="priceRowService"/>
+		   <property name="userService" ref="userService"/>
+			<property name="priceDataFactory" ref="priceDataFactory"/>
+		</bean>
+   <!-- SAB-1039 end -->
+   
+<!-- verified -->
+   <!-- SAB-525 start -->
+   <alias name="sabmCartPopulator" alias="cartPopulator"/>
+   <bean id="sabmCartPopulator" class="com.sabmiller.facades.populators.SABMCartPopulator" parent="defaultCartPopulator" />
+
+	<alias name="sabmCartconverter" alias="cartConverter"/>
+   	<bean id="sabmCartconverter" parent="defaultCartConverter" >
+		<property name="populators">
+			<list>
+				<ref bean="sabmCartPopulator"/>
+				<ref bean="abstractOrderPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="sabmProductconverter" alias="productConverter"/>
+   	<bean id="sabmProductconverter" parent="defaultProductConverter" >
+		<property name="populators">
+			<list merge="true">
+				<ref bean="productUOMPopulator"/>
+				<ref bean="sabmAlcoholVariantProductEANPopulator"/>
+				<ref bean="sabmProductPricePopulator"/>
+				<ref bean="apbProductDealPopulator" />
+			</list>
+		</property>
+	</bean>
+	<!-- verified -->
+	<alias name="sabmRecommendationPopulator" alias="recommendationPopulator"/>
+	<bean id="sabmRecommendationPopulator" class="com.sabmiller.facades.populators.SabmRecommendationPopulator">
+	    <property name="sabmRecommendationDealJsonPopulator" ref="sabmRecommendationDealJsonPopulator"/>
+        <property name="dealsService" ref="dealsService"/>
+	</bean>
+	<!-- verified -->
+	
+	<alias name="sabmNotificationPopulator" alias="notificationPopulator"/>
+	<bean id="sabmNotificationPopulator" class="com.sabmiller.facades.populators.SabmNotificationPopulator">
+		<property name="configurationService" ref="configurationService"/>
+	</bean>
+
+
+	<!--
+	WAVE 3 GENERIC COMPONENTNS POPULATORS START
+	-->
+
+	<!--FAQ POPULATOR-->
+	<!-- verified -->
+	<alias name="sabmFAQPopulator" alias="faqPopulator"/>
+	<bean id="sabmFAQPopulator" class="com.sabmiller.facades.populators.SABMFAQPopulator">
+
+	</bean>
+	<!-- verified -->
+	<!--FAQ CONVERTER-->
+	<bean id="sabmFAQConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.sabmiller.facades.generic.data.FAQData"/>
+		<property name="populators">
+			<list>
+				<ref bean="sabmFAQPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+
+	<!--FAQ CATEGORIES POPULATOR-->
+	<!-- verified -->
+	<alias name="sabmFAQCategoryItemPopulator" alias="faqCategoryItemPopulator"/>
+	<bean id="sabmFAQCategoryItemPopulator" class="com.sabmiller.facades.populators.SABMFAQCategoryItemPopulator">
+	</bean>
+
+	<bean id="sabmFAQCategoryItemConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.sabmiller.facades.generic.data.FAQCategoryItemData"/>
+		<property name="populators">
+			<list>
+				<ref bean="sabmFAQCategoryItemPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<!-- verified -->
+	<!--FAQ CATEGORIES QA POPULATOR-->
+	<alias name="sabmGenericTextContentItemPopulator" alias="genericTextContentItemPopulator"/>
+	<bean id="sabmGenericTextContentItemPopulator"
+		  class="com.sabmiller.facades.populators.SABMGenericTextContentItemPopulator">
+	</bean>
+	<!-- verified -->
+	<bean id="sabmGenericTextContentItemConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.sabmiller.facades.generic.data.GenericTextContentItemData"/>
+		<property name="populators">
+			<list>
+				<ref bean="sabmGenericTextContentItemPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<!-- verified -->
+	<alias alias="genericComponentsFacade" name="sabmGenericComponentsFacade"/>
+	<bean id="sabmGenericComponentsFacade"
+		  class="com.sabmiller.facades.generic.components.impl.SABMGenericComponentsImpl">
+		<property name="sabmFAQConverter" ref="sabmFAQConverter"/>
+	</bean>
+
+	<!--
+	WAVE 3 GENERIC COMPONENTNS POPULATORS END
+	-->
+
+	<alias name="sabmB2BCustomerConverter" alias="b2BCustomerConverter"/>
+	<bean id="sabmB2BCustomerConverter" parent="defaultCustomerConverter" >
+		<property name="populators">
+			<list merge="true">
+				<ref bean="customerPopulator"/>
+				<ref bean="b2bCustomerPopulator"/>
+				<ref bean="principalPopulator"/>
+				<ref bean="sabmB2BCustomerPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="sabmCustomerConverter" alias="customerConverter"/>
+   	<bean id="sabmCustomerConverter" parent="defaultCustomerConverter" >
+		<property name="populators">
+			<list merge="true">
+				<ref bean="b2bCustomerPopulator"/>
+				<ref bean="principalPopulator"/>
+				<ref bean="sabmB2BCustomerPopulator"/>
+			</list>
+		</property>
+	</bean>
+	
+	<alias name="defaultSABMB2bCustomerPopulator" alias="b2bCustomerPopulator"/>
+	<bean id="defaultSABMB2bCustomerPopulator" class="com.sabmiller.facades.populators.DefaultSABMB2BCustomerPopulator">
+		<property name="b2bUnitService" ref="b2bUnitService"/>
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="currencyConverter" ref="currencyConverter"/>
+		<property name="b2BUserGroupsLookUpStrategy" ref="b2bUserGroupsLookUpStrategy"/>
+	</bean>
+
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="b2BCustomerConverter"/>
+		<property name="remove" ref="b2BUserGroupEditPermissionsPopulator"/>
+	</bean>
+
+	
+	<alias name="sabmOrderEntryConverter" alias="orderEntryConverter"/>
+   	<bean id="sabmOrderEntryConverter" parent="defaultOrderEntryConverter" >
+		<property name="populators">
+			<list merge="true">
+				<ref bean="sabmOrderEntryUnitSwitchPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="orderEntryConverter"/>
+		<property name="remove" ref="cartEntryActionPopulator"/>
+	</bean>
+	
+	<alias name="sabmOrderEntryProductConverter" alias="orderEntryProductConverter"/>
+	<bean id="sabmOrderEntryProductConverter" parent="defaultOrderEntryProductConverter">
+		<property name="populators">
+			<list merge="true">
+				<ref bean="productUOMPopulator"/>
+				<!-- Added by marc.f.l.bautista for GTM - start -->
+				<ref bean="productDealPopulator"/>
+				<!-- Added by marc.f.l.bautista for GTM - end -->
+
+			</list>
+		</property>
+	</bean>
+	
+	<alias name="sabmExtendedCartConverter" alias="extendedCartConverter"/>
+	<bean id="sabmExtendedCartConverter" parent="defaultExtendedCartConverter">
+		<property name="populators">
+			<list merge="true">
+				<ref bean="abstractOrderPopulator"/>
+				<ref bean="sabmCartPopulator"/>
+			</list>
+		</property>
+	</bean>
+	
+	<alias name="sabmOrderConverter" alias="orderConverter"/>
+	<bean id="sabmOrderConverter" parent="defaultOrderConverter">
+		<property name="populators">
+			<list merge="true">
+				<ref bean="b2bOrderPopulator"/>
+				<ref bean="groupOrderEntryPopulator"/>
+				<ref bean="orderConsignmentPopulator"/>
+				<ref bean="abstractOrderPopulator"/>
+				<ref bean="sabmOrderStatusPopulator"/>
+			</list>
+		</property>
+	</bean>
+	<!-- verified -->
+   <alias name="sabmConsignmentPopulator" alias="consignmentPopulator"/>
+   <bean id="sabmConsignmentPopulator" class="com.sabmiller.facades.populators.SABMConsignmentPopulator" parent="accConsignmentPopulator"/>
+	<!-- verified -->
+   <alias name="sabmOrderEntryPopulator" alias="orderEntryPopulator"/>
+   <bean id="sabmOrderEntryPopulator" class="com.sabmiller.facades.populators.SABMOrderEntryPopulator" parent="defaultOrderEntryPopulator" >
+   <property name="entryOfferInfoConverter" ref="sabmOrderEntryOfferInfoConverter"/>
+   </bean>
+<!-- verified -->
+   <bean id="sabmOrderEntryOfferInfoPopulator" class="com.sabmiller.facades.populators.SABMAbstractEntryOfferInfoPopulator">
+   <property name="productConverter" ref="productConverter"/>
+   <property name="priceDataFactory" ref="priceDataFactory"/>
+   </bean>
+<!-- verified -->
+   <bean id="sabmOrderEntryOfferInfoConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.platform.commercefacades.order.data.EntryOfferInfoData"/>
+		<property name="populators">
+			<list>
+				<ref bean="sabmOrderEntryOfferInfoPopulator"/>
+	</list>
+		</property>
+	</bean>
+
+
+   <!-- SAB-525 end -->
+<!-- verified -->
+	<alias name="sabmAbstractOrderPopulator" alias="abstractOrderPopulator"/>
+	<bean id="sabmAbstractOrderPopulator" class="com.sabmiller.facades.populators.SABMAbstractOrderPopulator" >
+		<property name="b2BUnitConverter" ref="sabmBasicB2BUnitConverter"/>
+		<property name="priceDataFactory" ref="priceDataFactory"/>
+	</bean>
+		<!-- verified -->
+	<alias name="sabmOrderPopulator" alias="orderPopulator"/>
+	<bean id="sabmOrderPopulator" class="com.sabmiller.facades.populators.SABMOrderPopulator" parent="defaultOrderPopulator" />
+
+	<alias name="sabmOrderStatusPopulator" alias="sabmOrderStatusPopulator"/>
+	<bean id="sabmOrderStatusPopulator" class="com.sabmiller.facades.populators.SABMOrderDataStatusPopulator" />
+
+	 <!-- verified -->
+	<alias name="sabmB2BUnitConverter" alias="b2bUnitConverter"/>
+	<bean id="sabmB2BUnitConverter" parent="defaultB2BUnitConverter" >
+		<property name="populators">
+			<list merge="true">
+					<ref bean="sabmB2BUnitPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="sabmBasicB2BUnitConverter" parent="defaultB2BUnitConverter" >
+		<property name="populators">
+			<list merge="false">
+				<ref bean="sabmB2BUnitPopulator"/>
+			</list>
+		</property>
+	</bean>
+	
+		<bean id="sabmB2BUnitPopulator" class="com.sabmiller.facades.populators.SABMB2BUnitPopulator">
+		<property name="addressConverter" ref="addressConverter"/>
+		<property name="salesDataConverter" ref="salesDataConverter"/>
+		<property name="unloadingPointConverter" ref="unloadingPointConverter"/>
+	</bean>
+<!-- verified -->
+	<alias name="sabmCheckoutFacade" alias="acceleratorCheckoutFacade"/>
+	<bean id="sabmCheckoutFacade" class="com.sabmiller.facades.order.impl.DefaultSABMCheckoutFacade" parent="defaultAcceleratorCheckoutFacade" >
+		<property name="sabmSalesOrderCreateService" ref="sabmSalesOrderCreateService" />
+		<property name="userService" ref="userService"/>
+        <property name="cartService" ref="defaultSABMCartService"/>
+		<property name="commerceCartService" ref="sabmCommerceCartService"/>
+		<property name="sabmDeliveryDateCutOffService" ref="sabmDeliveryDateCutOffService"/>
+		<property name="sabmCommerceCheckoutService" ref="sabmCommerceCheckoutService"/>
+		<property name="systemEmailService" ref="sabmSystemEmailService"/>
+        <property name="commerceCheckoutService" ref="sabmCommerceCheckoutService"/>
+	</bean>
+
+
+
+	<alias name="sabmPasswordPattern" alias="passwordPattern"/>
+	<bean id="sabmPasswordPattern" class="java.lang.String">
+		<constructor-arg value="${validatePassword.format.regx}" />
+	</bean>
+   <!-- add by yuxiao.wang for SAB-1108 end -->	
+   
+   
+	<bean id="orderTemplateConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.sabmiller.facades.order.data.OrderTemplateData"/>
+		<property name="populators">
+			<list>
+				<ref bean="orderTemplatePopulator"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="orderTemplateEntryConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.sabmiller.facades.order.data.OrderTemplateData"/>
+		<property name="populators">
+			<list>
+				<ref bean="orderTemplateEntryPopulator"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="orderTemplatePopulator" class="com.sabmiller.facades.order.populators.OrderTemplatePopulator" />
+	
+	<bean id="orderTemplateEntryPopulator" class="com.sabmiller.facades.order.populators.OrderTemplateEntryPopulator" />
+   <!-- verified -->
+   	<bean id="invoiceRestConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.sabmiller.facades.invoice.SABMInvoiceData"/>
+		<property name="populators">
+			<list>
+				<ref bean="invoiceRestPopulator"/>
+			</list>
+		</property>
+	</bean>
+<!-- verified -->
+	<bean id="invoiceRestPopulator" class="com.sabmiller.facades.customer.converters.populators.InvoiceRestPopulator" />
+
+<!-- verified -->
+	<bean id="invoicePDFRestConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.sabmiller.facades.invoice.SABMInvoicePDFData"/>
+		<property name="populators">
+			<list>
+				<ref bean="invoicePdfRestPopulator"/>
+			</list>
+		</property>
+	</bean>
+<!-- verified -->
+	<bean id="invoicePdfRestPopulator" class="com.sabmiller.facades.customer.converters.populators.InvoicePdfRestPopulator" />
+ <!-- verified -->
+	<bean id="invoiceListRestConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.sabmiller.facades.invoice.SABMInvoiceList"/>
+		<property name="populators">
+			<list>
+				<ref bean="invoiceListRestPopulator"/>
+			</list>
+		</property>
+	</bean>
+ <!-- verified -->
+	<bean id="invoiceListRestPopulator" class="com.sabmiller.facades.customer.converters.populators.InvoiceListRestPopulator" />
+
+
+ 	<!-- verified -->
+	<bean id="invoiceItemDataRestConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.sabmiller.facades.invoice.SABMInvoiceDiscrepancyData"/>
+		<property name="populators">
+			<list>
+				<ref bean="invoiceItemDataRestPopulator"/>
+			</list>
+		</property>
+	</bean>
+ <!-- verified -->
+	<bean id="invoiceItemDataRestPopulator" class="com.sabmiller.facades.customer.converters.populators.InvoiceItemDataRestPopulator" />
+
+<!-- verified -->
+	<bean id="invoiceValidationRestConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.sabmiller.facades.invoice.SABMInvoiceDiscrepancyData"/>
+		<property name="populators">
+			<list>
+				<ref bean="invoiceValidationRestPopulator"/>
+			</list>
+		</property>
+	</bean>
+<!-- verified -->
+	<bean id="invoiceValidationRestPopulator" class="com.sabmiller.facades.customer.converters.populators.InvoiceValidationRestPopulator" />
+
+ 	<!-- verified -->
+	<alias name="defaultSABMOrderFacade" alias="orderFacade" />
+	<alias name="defaultSABMOrderFacade" alias="b2bOrderFacade" />
+	<bean id="defaultSABMOrderFacade" class="com.sabmiller.facades.order.impl.DefaultSABMOrderFacade" parent="defaultB2BOrderFacade">
+	<property name="asahiOrderReverseConverter" ref="asahiOrderReverseConverter"/>
+	 <property name="asahiQuickOrderConverter" ref="asahiQuickOrderConverter"/>
+	 </bean>
+<!-- verified -->
+	<bean id="orderHistoryJsonConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.sabmiller.facades.order.json.OrderHistoryJson"/>
+		<property name="populators">
+			<list>
+				<ref bean="orderHistoryJsonPopulator"/>
+			</list>
+		</property>
+	</bean>
+<!-- verified -->
+	<bean id="orderHistoryJsonPopulator" class="com.sabmiller.facades.order.populators.OrderHistoryJsonPopulator" />
+
+ <alias name="defaultSabmAddressReversePopulator" alias="addressReversePopulator"/>
+	<bean id="defaultSabmAddressReversePopulator"
+			class="com.sabmiller.facades.user.converter.populator.SabmAddressReversePopulator"  parent="defaultAddressReversePopulator">
+	</bean>
+<!-- verified -->
+	<alias name="sabmDealPopulator" alias="dealPopulator" />
+	<bean id="sabmDealPopulator" class="com.sabmiller.facades.populators.SABMDealPopulator">
+		<property name="productService" ref="productService"/>
+		<property name="sabmAlcoholProductPopulator" ref="sabmAlcoholProductPopulator"/>
+        <property name="productFacade" ref="productFacade"/>
+	</bean>
+	<!-- verified -->
+	<alias name="sabmDealConverter" alias="dealConverter"/> 
+	<bean id="sabmDealConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.sabmiller.facades.deal.data.DealData"/>
+		<property name="populators">
+            <list>
+                <ref bean="dealPopulator"/>
+            </list>
+        </property>
+	</bean>
+	<!-- verified -->
+	<alias alias="dealsFacade" name="sabmDealsFacade"/>
+	<bean id="sabmDealsFacade" class="com.sabmiller.facades.deal.impl.SABMDealsFacadeImpl">
+		<property name="dealsService" ref="dealsService"/>
+		<property name="dealConditionService" ref="dealConditionService"/>
+		<property name="userService" ref="userService"/>
+		<property name="dealConverter" ref="dealConverter"/>
+		<property name="b2bUnitService" ref="b2bUnitService"/>
+		<property name="cartService" ref="cartService"></property>
+		<property name="sabmDealTitlePopulator" ref="dealTitlePopulator"></property>
+		<property name="entryOfferInfoConverter" ref="sabmOrderEntryOfferInfoConverter"/>
+		<property name="orderEntryConverter" ref="orderEntryConverter"/>
+		<property name="complexDealReverseConverter" ref="complexDealReverseConverter" />
+		<property name="modelService" ref="modelService" />
+	</bean>
+	<!-- verified -->
+	<alias alias="sabConsignmentFacade" name="defaultConsignmentFacade"/>
+	<bean id="defaultConsignmentFacade" class="com.sabmiller.facades.ordersplitting.DefaultConsignmentFacade"/>
+
+	<alias name="defaultSABMPrincipalPopulator" alias="principalPopulator"/>
+	<bean id="defaultSABMPrincipalPopulator"
+			class="com.sabmiller.facades.populators.SABMPrincipalPopulator" parent="defaultPrincipalPopulator"/>
+<!-- verified -->
+	<bean id="sabmB2BCustomerPopulator" class="com.sabmiller.facades.populators.SABMB2BCustomerPopulator">
+		<property name="b2bUnitService" ref="b2bUnitService"/>
+		<property name="sabmB2BUnitPopulator" ref="sabmB2BUnitPopulator"/>
+		<property name="customerConverter" ref="customerConverter"/>
+	</bean>
+
+	<alias name="defaultSABMProductBasicPopulator" alias="productBasicPopulator"/>
+	<bean id="defaultSABMProductBasicPopulator" parent="baseProductPopulator"
+			class="com.sabmiller.facades.populators.SABMProductBasicPopulator">
+		<property name="productConfigurableChecker" ref="productConfigurableChecker" />
+	</bean>
+		<!-- verified -->
+	<bean id="sabmOrderReverseConverter" class="com.sabmiller.facades.order.converters.OrderReverseConverter"/>
+	<!-- verified -->
+	<bean id="orderEntryReversePopulator" class="com.sabmiller.facades.order.populators.OrderEntryReversePopulator" />
+	<!-- verified -->
+	<bean id="orderBasicReversePopulator" class="com.sabmiller.facades.order.populators.OrderBasicReversePopulator" />
+
+	<alias alias="emailFacade" name="sabmEmailFacade"/>
+	<bean id="sabmEmailFacade" class="com.sabmiller.facades.email.impl.SABMEmailFacadeImpl">
+		<property name="emailService" ref="emailService"/>
+		<property name="userService" ref="userService"/>
+		<property name="emailConfig" ref="emailConfig"/>
+		<property name="configurationService" ref="configurationService"/>
+		<property name="b2bUnitService" ref="b2bUnitService"/>
+	</bean>
+	<!-- verified -->
+
+	<bean id="sabmAddressPopulator" class="com.sabmiller.facades.populators.SABMAddressPopulator"  parent="addressPopulator"/>
+<!-- verified -->
+	<alias name="defaultSABMAddressConverter" alias="addressConverter"/>
+	<bean id="defaultSABMAddressConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.platform.commercefacades.user.data.AddressData"/>
+		<property name="populators">
+			<list>
+			    <ref bean="addressPopulator"/>
+				<ref bean="sabmAddressPopulator"/>
+			</list>
+		</property>
+	</bean>
+	
+	<alias name="sabmProductUrlPopulator" alias="productUrlPopulator"/>
+	<bean id="sabmProductUrlPopulator" class="com.sabmiller.facades.populators.SABMProductUrlPopulator" parent="defaultProductUrlPopulator" />
+
+	<alias name="sabmUserAccessHistoryPopulator" alias="userAccessHistoryPopulator" />
+	<bean id="sabmUserAccessHistoryPopulator" class="com.sabmiller.facades.populators.SABMUserAccessHistoryPopulator"/>
+	<!-- verified -->
+	<alias name="sabmCreditCardPaymentInfoPopulator" alias="creditCardPaymentInfoPopulator"/>
+   <bean id="sabmCreditCardPaymentInfoPopulator" class="com.sabmiller.facades.populators.SABMCreditCardPaymentInfoPopulator" parent="defaultCreditCardPaymentInfoPopulator" />
+
+	<util:list id="printableBillingTypeInvoice" value-type="java.lang.String">
+		<value>YSCM</value>
+		<value>YSCR</value>
+		<value>YSDM</value>
+		<value>YSDR</value>
+		<value>YSER</value>
+		<value>YSFO</value>
+		<value>YSFR</value>
+		<value>YSIC</value>
+		<value>YSOR</value>
+		<value>YSRE</value>
+		<value>YSS1</value>
+		<value>YSS2</value>
+		<value>YSSS</value>
+		<value>DD</value>
+		<value>DG</value>
+		<value>DH</value>
+		<value>DR</value>
+		<value>ID</value>
+		<value>YSRT</value>
+	</util:list>
+	
+	<bean id="confirmEnabledDealEmailContext" class="com.sabmiller.facades.process.email.context.ConfirmEnabledDealEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="employeeConverter" ref="employeeConverter"/>
+		<property name="dealJsonConverter" ref="dealJsonConverter"/>
+		<property name="dealsService" ref="dealsService"/>
+	</bean>
+
+	<!-- customer search Populator -->
+		<alias name="defaultSABMCustomerSearchPageConverter" alias="sabmcustomerSearchPageConverter"/>
+	<bean id="defaultSABMCustomerSearchPageConverter" parent="abstractPopulatingConverter">
+   <property name="targetClass" value="com.sabmiller.facades.search.data.CustomerSearchPageData"/>
+		<property name="populators">
+			<list>
+				<ref bean="customerSearchPagePopulator"/>
+			</list>
+		</property>
+	</bean>
+		<alias name="defaultSABMCustomerSearchPagePopulator" alias="customerSearchPagePopulator"/>
+	  <bean id="defaultSABMCustomerSearchPagePopulator"
+			class="com.sabmiller.facades.search.converters.populator.SABMCustomerSearchPagePopulator">
+		<property name="breadcrumbConverter" ref="breadcrumbConverter"/>
+		<property name="facetConverter" ref="facetConverter"/>
+		<property name="searchResultCustomerConverter" ref="searchResultCustomerConverter"/>
+		<property name="searchStateConverter" ref="solrSearchStateConverter"/>
+	</bean>
+		<!-- verified -->
+		<alias name="defaultSABMSearchResultCustomerConverter" alias="searchResultCustomerConverter"/>
+	<bean id="defaultSABMSearchResultCustomerConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.platform.commercefacades.user.data.CustomerData"/>
+		<property name="populators">
+			<list>
+				<ref bean="sabmSearchResultCustomerPopulator"/>
+			</list>
+		</property>
+	</bean>
+	<!-- verified -->
+	<bean id="sabmSearchResultCustomerPopulator"
+			class="com.sabmiller.facades.search.converters.populator.SABMSearchResultCustomerPopulator">
+		<property name="commonI18NService" ref="commonI18NService"/>
+	</bean>
+	
+
+
+	<bean id="sabmSearchQueryPageableConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.platform.commerceservices.search.solrfacetsearch.data.SolrSearchRequest" />
+		<property name="populators">
+			<list>
+				<ref bean="sabmSearchSolrQueryPopulator" />
+				<ref bean="commerceSearchPagePopulator" />
+				<ref bean="commerceSearchSortPopulator" />
+				<ref bean="commerceSearchTextPopulator" />
+				<ref bean="sabmSearchFiltersPopulator" />
+			</list>
+		</property>
+	</bean>
+
+
+	
+  <bean id="sabmSearchFiltersPopulator" class="com.sabmiller.facades.search.converters.populator.SABMSearchFiltersPopulator" >
+	
+    </bean>	
+	
+	<bean id="sabmSearchSolrQueryPopulator" class="com.sabmiller.facades.search.converters.populator.SABMSearchSolrQueryPopulator" parent="defaultCommerceSearchSolrQueryPopulator" />
+
+   <bean id="sabmSearchProductSolrQueryPopulator" class="com.sabmiller.facades.search.converters.populator.SABMSearchProductSolrQueryPopulator" parent="defaultCommerceSearchSolrQueryPopulator" />
+
+		<alias name="defaultSABMCustomerSearchFacade" alias="sabmCustomerSearchFacade"/>
+	<bean id="defaultSABMCustomerSearchFacade"
+			class="com.sabmiller.facades.search.solrfacetsearch.impl.DefaultSABMCustomerSearchFacade">
+		<property name="customerSearchService" ref="sabmCustomerSearchService"/>
+		<property name="customerSearchPageConverter" ref="sabmcustomerSearchPageConverter"/>
+		<property name="solrSearchQueryDecoder" ref="solrSearchQueryDecoder"/>
+		<property name="threadContextService" ref="threadContextService"/>
+			
+	</bean>
+	<!-- verified -->
+	<bean id="sabmRepDrivenDealConditionStatusFacade" class="com.sabmiller.facades.deal.impl.SABMRepDrivenDealConditionStatusFacadeImpl"/>
+
+		<!-- verified -->
+	<alias name="defaultSABMProductCategoriesPopulator" alias="productCategoriesPopulator"/>
+	<bean id="defaultSABMProductCategoriesPopulator" parent="defaultProductCategoriesPopulator"
+			class="com.sabmiller.facades.populators.SABMProductCategoriesPopulator"/>
+	
+	<alias name="defaultSabmCustomerPopulator" alias="customerPopulator"/>
+	<bean id="defaultSabmCustomerPopulator"
+			class="com.sabmiller.facades.populators.SABMCustomerPopulator" parent="defaultCustomerPopulator">
+	</bean>
+	
+	<!-- employee converter -->
+	
+	<alias name="defaultEmployeeConverter" alias="employeeConverter"/>
+	<bean id="defaultEmployeeConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.sabmiller.facades.user.EmployeeData"/>
+		<property name="populators">
+			<list>
+				<ref bean="employeePopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="defaultEmployeePopulator" alias="employeePopulator"/>
+	<bean id="defaultEmployeePopulator" class="com.sabmiller.facades.user.converter.populator.EmployeePopulator"/>
+	
+	<alias name="defaultEmployeeFacade" alias="employeeFacade"/>
+	<bean id="defaultEmployeeFacade" class="com.sabmiller.facades.user.impl.EmployeeFacadeImpl">
+		<property name="userService" ref="userService"/>
+		<property name="employeeConverter" ref="employeeConverter"/>
+	</bean>
+	
+	<!-- end of employee converter -->
+	
+	
+	<bean id="customerJson" class="com.sabmiller.facades.customer.CustomerJson" scope="prototype" />
+	
+		<!-- verified -->
+	<bean id="customerJsonConverter" parent="abstractPopulatingConverter">
+		<lookup-method name="createTarget" bean="customerJson"/>
+		<property name="populators">
+			<list>
+				<ref bean="sabmCustomerJsonPopulator"/>
+				<ref bean="sabmCustomerStatesPopulator"/>
+				<ref bean="sabmCustomerCurrentB2BUnitPopulator"/>
+			</list>
+		</property>
+	</bean>
+		<!-- verified -->
+	<bean id="sabmCustomerJsonPopulator" class="com.sabmiller.facades.populators.SABMCustomerJsonPopulator"/>
+	<bean id="sabmCustomerStatesPopulator" class="com.sabmiller.facades.populators.SABMCustomerStatesPopulator"/>
+	<bean id="sabmCustomerCurrentB2BUnitPopulator" class="com.sabmiller.facades.populators.SABMCustomerCurrentB2BUnitPopulator"/>
+
+	<!-- Partially Qualified Converter / Populator Classes-->
+<!-- verified -->
+	<bean id="partiallyQualifiedDealProductPopulator" class="com.sabmiller.facades.populators.SABMPartiallyQualifiedDealProductPopulator" />
+<!-- verified -->
+	<bean id="partiallyQualifiedDealsJsonConverter" class="com.sabmiller.facades.deal.converters.PartiallyQualifiedDealConverter" />
+
+	<!-- END OF Partially Qualified Converter / Populator Classes-->
+	
+	<bean id="conflictDealJsonConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.sabmiller.facades.deal.data.ConflictDealJson"/>
+		<property name="populators">
+			<list>
+				<ref bean="conflictDealJsonPopulator"/>
+			</list>
+		</property>
+	</bean>
+		<!-- verified -->
+	<alias name="sabmConflictDealJsonPopulator" alias="conflictDealJsonPopulator"/>
+	<bean id="sabmConflictDealJsonPopulator" class="com.sabmiller.facades.populators.SABMConflictDealJsonPopulator" />
+	
+	 <!-- verified -->
+	<!-- business enquiry facades -->
+	<alias name="sabmBusinessEnquiryFacadeImpl" alias="sabmBusinessEnquiryFacade"/>
+	<bean id="sabmBusinessEnquiryFacadeImpl" class="com.sabmiller.facades.businessenquiry.impl.SabmBusinessEnquiryFacadeImpl">
+		<property name="businessEnquiryService" ref="businessEnquiryService"/>
+		<property name="sabmDeliveryEnquiryDataConverter" ref="sabmDeliveryEnquiryDataConverter"/>
+		<property name="sabmKegPickupConverter" ref="sabmKegPickupConverter"/>
+		<property name="sabmMyDetailsAndDeliverOptionsConverter" ref="sabmMyDetailsAndDeliverOptionsConverter"/>
+		<property name="sabmEmptyPalletPickupConverter" ref="sabmEmptyPalletPickupConverter"/>
+		<property name="sabmWebsiteErrorsConverter" ref="sabmWebsiteErrorsConverter"/>
+		<property name="sabmGeneralInquiryConverter" ref="sabmGeneralInquiryConverter"/>
+		<property name="sabmWebsiteInquiryFeedbackConverter" ref="sabmWebsiteInquiryFeedbackConverter"/>
+		<property name="sabmProductReturnConverter" ref="sabmProductReturnConverter"/>
+		<property name="sabmKegIssueConverter" ref="sabmKegIssueConverter"/>
+		<property name="sabmDeliveryIssueConverter" ref="sabmDeliveryIssueConverter"/>
+		<property name="sabmProductEnquiryConverter" ref="sabmProductEnquiryConverter"/>
+		<property name="sabmPriceEnquiryConverter" ref="sabmPriceEnquiryConverter"/>
+		<property name="sabmAutopayInquiryConverter" ref="sabmAutopayInquiryConverter"/>
+		<property name="sabmOrderEnquiryConverter" ref="sabmOrderEnquiryConverter"/>
+		<property name="sabmUpdateExistingEnquiryConverter" ref="sabmUpdateExistingEnquiryConverter"/>
+	</bean>
+
+    <util:map id="enquiryTypeToSubTypeMap" key-type="com.sabmiller.core.enums.SABMEnquiryType" value-type="java.util.List">
+        <entry key="#{T(com.sabmiller.core.enums.SABMEnquiryType).DELIVERY}" value-ref="deliverySubTypes" />
+        <entry key="#{T(com.sabmiller.core.enums.SABMEnquiryType).KEG}" value-ref="KegSubTypes" />
+        <entry key="#{T(com.sabmiller.core.enums.SABMEnquiryType).PRODUCT}" value-ref="productSubTypes" />
+        <entry key="#{T(com.sabmiller.core.enums.SABMEnquiryType).GENERAL}" value-ref="generalSubTypes" />
+    </util:map>
+
+    <util:list id="deliverySubTypes" value-type="com.sabmiller.core.enums.SABMEnquirySubType">
+		<value>DELIVERY_ENQUIRY</value>
+		<value>DELIVERY_ISSUE</value>
+    </util:list>
+
+    <util:list id="KegSubTypes" value-type="com.sabmiller.core.enums.SABMEnquirySubType">
+        <value>KEG_ISSUE</value>
+        <value>KEG_PICKUP</value>
+    </util:list>
+
+    <util:list id="productSubTypes" value-type="com.sabmiller.core.enums.SABMEnquirySubType">
+        <value>EMPTY_PALLET_PICKUP</value>
+		<value>PRICE_ENQUIRY</value>
+		<value>PRODUCT_ENQUIRY</value>
+        <value>PRODUCT_RETURN</value>
+    </util:list>
+
+    <util:list id="generalSubTypes" value-type="com.sabmiller.core.enums.SABMEnquirySubType">
+        <value>UPDATE_DETAILS_DELIVERY_OPTIONS</value>
+        <value>WEBSITE_ERRORS</value>
+        <value>GENERAL_ENQUIRY</value>
+        <value>WEBSITE_FEEDBACK</value>
+        <value>ORDER_ENQUIRY</value>
+ 		<value>UPDATE_EXISTING_ENQUIRY</value>
+    </util:list>
+
+    <!-- end of business enquiry facades -->
+	
+	<bean id="paymentConfirmationEmailContext" class="com.sabmiller.facades.process.email.context.PaymentConfirmationEmailContext" parent="abstractEmailContext" >
+	<property name="customerConverter" ref="customerConverter"/>
+	<property name="invoicePaymentConverter" ref="invoicePaymentConverter"/>
+	</bean>
+		<!-- verified -->	
+	<util:list id="commerceCartCalculationMethodHooks" value-type="de.hybris.platform.commerceservices.order.hook.CommerceCartCalculationMethodHook">
+		<ref bean="sabmCommerceCartCalculationMethodHook" />
+	</util:list>
+		<!-- verified -->	
+	<bean id="sabmCommerceCartCalculationMethodHook" class="com.sabmiller.facades.order.hook.impl.SABMCommerceCartCalculationMethodHook"/>
+	
+	<bean id="dealAppliedTimesHelper"
+          class="com.sabmiller.facades.cart.impl.DealAppliedTimesHelper"/>
+   	<!-- verified -->       
+   <alias name="personalAssistanceSearchFacadeImpl" alias="personalAssistanceSearchFacade"/>
+	<bean id="personalAssistanceSearchFacadeImpl" class="com.sabmiller.facades.pa.search.impl.PersonalAssistanceSearchFacadeImpl" >
+		<property name="b2bUnitService" ref="b2bUnitService" />
+		<property name="b2bUnitConverter" ref="b2bUnitConverter" />
+		<property name="b2bCustomerConverter" ref="customerConverter" />
+		<property name="b2bCustomerService" ref="sabmB2BCustomerService" />		
+	</bean>
+
+	<!--<alias name="sabmCommerceSearchSortPopulator" alias="commerceSearchSortPopulator" />
+	<bean id="sabmCommerceSearchSortPopulator" class="com.sabmiller.facades.search.converters.populator.SABMSearchSortPopulator">
+		<property name="handlers">
+			<map>
+				<entry key="bestseller" value-ref="sabmBestsellerSolrSortHandler"/>
+				<entry key="popular" value-ref="sabmPopularSolrSortHandler"/>
+			</map>
+		</property>
+	</bean>-->
+
+	<!--<bean id="sabmBestsellerSolrSortHandler" class="com.sabmiller.facades.search.handler.SABMBestsellerSOLRSortHandler">
+		<property name="b2bUnitService" ref="b2bUnitService" />
+	</bean>
+
+	<bean id="sabmPopularSolrSortHandler" class="com.sabmiller.facades.search.handler.SABMPopularSOLRSortHandler">
+		<property name="b2bUnitService" ref="b2bUnitService" />
+	</bean>-->
+
+	<alias name="sabmFacetSearchQuerySortsPopulator" alias="facetSearchQuerySortsPopulator" />
+	<bean id="sabmFacetSearchQuerySortsPopulator" class="com.sabmiller.facades.search.converters.populator.SABMFacetSearchQuerySortsPopulator">
+		<property name="fieldNameTranslator" ref="fieldNameTranslator" />
+		<property name="solrSortFieldnameTranslatorMap" ref="solrSortFieldnameTranslatorMap" />
+	</bean>
+
+	<util:map id="solrSortFieldnameTranslatorMap" key-type="java.lang.String" value-type="com.sabmiller.facades.search.translator.sort.SABMSolrSortFieldnameTranslator" >
+		<entry key="bestseller" value-ref="sabmBestSellerSolrSortFieldnameTranslator" />
+		<entry key="popular" value-ref="sabmPopularSolrSortFieldnameTranslator"/>
+	</util:map>
+
+	<bean id="sabmAbstractSolrSortFieldnameTranslator" class="com.sabmiller.facades.search.translator.sort.SABMAbstractSolrSortFieldnameTranslator" abstract="true" >
+		<property name="b2bUnitService" ref="b2bUnitService" />
+	</bean>
+
+	<bean id="sabmBestSellerSolrSortFieldnameTranslator" class="com.sabmiller.facades.search.translator.sort.impl.SABMBestSellerSolrSortFieldnameTranslator" parent="sabmAbstractSolrSortFieldnameTranslator" />
+	<bean id="sabmPopularSolrSortFieldnameTranslator" class="com.sabmiller.facades.search.translator.sort.impl.SABMPopularSolrSortFieldnameTranslator" parent="sabmAbstractSolrSortFieldnameTranslator" />
+
+	<alias name="sabmSolrSearchRequestResponsePopulator" alias="solrSearchRequestResponsePopulator" />
+	<bean id="sabmSolrSearchRequestResponsePopulator" class="com.sabmiller.facades.search.converters.populator.SABMSolrSearchRequestResponsePopulator">
+		<property name="solrFacetSearchService" ref="solrFacetSearchService" />
+		<property name="solrKeywordRedirectService" ref="solrKeywordRedirectService" />
+	</bean>
+	<!-- verified -->
+	<alias name="customCommerceSearchResponseSortsPopulator" alias="commerceSearchResponseSortsPopulator" />
+	<bean id="customCommerceSearchResponseSortsPopulator" class="com.sabmiller.facades.search.converters.populator.SABMSearchResponseSortsPopulator" />
+	
+	<bean id="profileUpdatedNoticeEmailContext" class="com.sabmiller.facades.process.email.context.ProfileUpdatedNoticeEmailContext" parent="abstractEmailContext" scope="prototype" />
+	
+	<bean id="sgaProfileUpdatedNoticeEmailContext" class="com.apb.facades.process.email.context.SgaProfileUpdatedNoticeEmailContext" parent="abstractEmailContext" scope="prototype" />
+
+	<alias alias="recommendationFacade" name="sabmRecommendationFacade"/>
+	<bean id="sabmRecommendationFacade" class="com.sabmiller.facades.recommendation.impl.SABMRecommendationFacadeImpl">
+	</bean>
+	
+	<alias alias="notificationFacade" name="sabmNotificationFacade"/>
+	<bean id="sabmNotificationFacade" class="com.sabmiller.facades.notification.impl.SABMNotificationFacadeImpl">
+	</bean>
+	<bean id="cubStockInformationPopulator" parent="abstractPopulatingConverter"
+			class="com.sabmiller.facades.stock.populators.CUBStockInformationPopulator"/>
+	<alias name="sabmBusinessUnitPopulator" alias="businessUnitPopulator" />
+	<bean id="sabmBusinessUnitPopulator" class="com.sabmiller.facades.populators.SABMBusinessB2BUnitPopulator"/>
+	
+	<!-- INC0534163: ALH customers cannot get to the business units page -->
+	<alias name="sabmBusinessUnitConverter" alias="businessUnitConverter"/>
+   	<bean id="sabmBusinessUnitConverter" parent="abstractPopulatingConverter" >
+		<property name="targetClass" value="de.hybris.platform.b2bacceleratorfacades.order.data.B2BUnitData"/>
+		<property name="populators">
+			<list merge="true">
+				<ref bean="businessUnitPopulator"/>
+			</list>
+		</property>
+	</bean>		
+
+	<!--  B2BCUB3-250 trackOrder populator-->
+	<alias name="sabmTrackOrderPopulator" alias="trackOrderPopulator"/>
+	<bean id="sabmTrackOrderPopulator" class="com.sabmiller.facades.populators.SabmTrackOrderPopulator">
+		<property name="consignmentStatusDisplayMapping" ref="consignmentStatusDisplayMapping"/>
+		<property name="consignmentStatusIdMapping" ref="consignmentStatusIdMapping"/>
+		<property name="consignmentConverter" ref="consignmentConverter"/>
+
+	</bean>
+
+	<alias name="sabmTrackOrderBasicPopulatorImpl" alias="sabmTrackOrderBasicPopulator"/>
+	<bean id="sabmTrackOrderBasicPopulatorImpl" class="com.sabmiller.facades.populators.SabmTrackOrderBasicPopulator" parent="sabmTrackOrderPopulator" />
+
+	<bean id="sabmDefaultSFMCRequestContextPopulator"
+		  class="com.sabmiller.facades.sfmc.polulators.SABMDefaultSFMCRequestContextPopulator">
+	</bean>
+
+	<bean id="sabmEmailSFMCRequestContextPopulator"
+		  class="com.sabmiller.facades.sfmc.polulators.SABMEmailSFMCRequestContextPopulator">
+	</bean>
+
+	<bean id="sabmSmsSFMCRequestContextPopulator"
+		  class="com.sabmiller.facades.sfmc.polulators.SABMSmsSFMCRequestContextPopulator">
+	</bean>
+
+	<bean id="sabmCreditRecievedEmailContextDataPopulator"
+		  class="com.sabmiller.facades.sfmc.polulators.credit.SABMCreditRecievedEmailContextDataPopulator">
+	</bean>
+
+	<bean id="sabmCreditApprovedEmailContextDataPopulator"
+		  class="com.sabmiller.facades.sfmc.polulators.credit.SABMCreditApprovedEmailContextDataPopulator">
+	</bean>
+
+	<bean id="sabmCreditApprovedSMSContextDataPopulator"
+		  class="com.sabmiller.facades.sfmc.polulators.credit.SABMCreditApprovedSMSContextDataPopulator">
+	</bean>
+
+	<bean id="sabmOrderCutOffSMSContextDataPopulator"
+		  class="com.sabmiller.facades.sfmc.polulators.order.SABMOrderCutOffSMSContextDataPopulator">
+	</bean>
+
+	<bean id="sabmOrderDispatchedSMSContextDataPopulator"
+		  class="com.sabmiller.facades.sfmc.polulators.order.SABMOrderDispatchedSMSContextDataPopulator">
+	</bean>
+
+	<bean id="sabmTmdDeliveredSMSContextDataPopulator"
+		  class="com.sabmiller.facades.sfmc.polulators.order.SABMTmdDeliveredSMSContextDataPopulator">
+	</bean>
+
+	<bean id="sabmTmdInTransitSMSContextDataPopulator"
+		  class="com.sabmiller.facades.sfmc.polulators.order.SABMTmdInTransitSMSContextDataPopulator">
+	</bean>
+
+	<bean id="sabmTmdNextInQueueSMSContextDataPopulator"
+		  class="com.sabmiller.facades.sfmc.polulators.order.SABMTmdNextInQueueSMSContextDataPopulator">
+	</bean>
+
+	<bean id="sabmTmdPassETASMSContextDataPopulator"
+		  class="com.sabmiller.facades.sfmc.polulators.order.SABMTmdPassETASMSContextDataPopulator">
+	</bean>
+
+	<bean id="sabmTmdExceedETASMSContextDataPopulator"
+		  class="com.sabmiller.facades.sfmc.polulators.order.SABMTmdExceedETASMSContextDataPopulator">
+	</bean>
+
+	<alias name="sabmCreditApprovedSMSRequestConverter" alias="sabmCreditApprovedSMSRequestConverter"/>
+	<bean id="sabmCreditApprovedSMSRequestConverter" parent="abstractPopulatingConverter" >
+		<property name="targetClass" value="com.sabmiller.facades.sfmc.context.SABMCreditApprovedSMSContextData"/>
+		<property name="populators">
+			<list>
+				<!--Inject more populators if populating a new context object extending from AbstractContext-->
+				<ref bean="sabmDefaultSFMCRequestContextPopulator"/>
+				<ref bean="sabmSmsSFMCRequestContextPopulator"/>
+				<ref bean="sabmCreditApprovedSMSContextDataPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="sabmCreditApprovedEmailRequestConverter" alias="sabmCreditApprovedEmailRequestConverter"/>
+	<bean id="sabmCreditApprovedEmailRequestConverter" parent="abstractPopulatingConverter" >
+		<property name="targetClass" value="com.sabmiller.facades.sfmc.context.SABMCreditApprovedEmailContextData"/>
+		<property name="populators">
+			<list>
+				<!--Inject more populators if populating a new context object extending from AbstractContext-->
+				<ref bean="sabmDefaultSFMCRequestContextPopulator"/>
+				<ref bean="sabmEmailSFMCRequestContextPopulator"/>
+				<ref bean="sabmCreditApprovedEmailContextDataPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+
+	<alias name="sabmCreditRecievedEmailRequestConverter" alias="sabmCreditRecievedEmailRequestConverter"/>
+	<bean id="sabmCreditRecievedEmailRequestConverter" parent="abstractPopulatingConverter" >
+		<property name="targetClass" value="com.sabmiller.facades.sfmc.context.SABMCreditRecievedEmailContextData"/>
+		<property name="populators">
+			<list>
+				<!--Inject more populators if populating a new context object extending from AbstractContext-->
+				<ref bean="sabmDefaultSFMCRequestContextPopulator"/>
+				<ref bean="sabmEmailSFMCRequestContextPopulator"/>
+				<ref bean="sabmCreditRecievedEmailContextDataPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="sabmOrderCutOffSMSRequestConverter" alias="sabmOrderCutOffSMSRequestConverter"/>
+	<bean id="sabmOrderCutOffSMSRequestConverter" parent="abstractPopulatingConverter" >
+		<property name="targetClass" value="com.sabmiller.facades.sfmc.context.SABMOrderCutOffSMSContextData"/>
+		<property name="populators">
+			<list>
+				<!--Inject more populators if populating a new context object extending from AbstractContext-->
+				<ref bean="sabmDefaultSFMCRequestContextPopulator"/>
+				<ref bean="sabmSmsSFMCRequestContextPopulator"/>
+				<ref bean="sabmOrderCutOffSMSContextDataPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="sabmOrderDispatchedSMSRequestConverter" alias="sabmOrderDispatchedSMSRequestConverter"/>
+	<bean id="sabmOrderDispatchedSMSRequestConverter" parent="abstractPopulatingConverter" >
+		<property name="targetClass" value="com.sabmiller.facades.sfmc.context.SABMOrderDispatchedSMSContextData"/>
+		<property name="populators">
+			<list>
+				<!--Inject more populators if populating a new context object extending from AbstractContext-->
+				<ref bean="sabmDefaultSFMCRequestContextPopulator"/>
+				<ref bean="sabmSmsSFMCRequestContextPopulator"/>
+				<ref bean="sabmOrderDispatchedSMSContextDataPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="sabmTmdDeliveredSMSRequestConverter" alias="sabmTmdDeliveredSMSRequestConverter"/>
+	<bean id="sabmTmdDeliveredSMSRequestConverter" parent="abstractPopulatingConverter" >
+		<property name="targetClass" value="com.sabmiller.facades.sfmc.context.SABMTmdDeliveredSMSContextData"/>
+		<property name="populators">
+			<list>
+				<!--Inject more populators if populating a new context object extending from AbstractContext-->
+				<ref bean="sabmDefaultSFMCRequestContextPopulator"/>
+				<ref bean="sabmSmsSFMCRequestContextPopulator"/>
+				<ref bean="sabmTmdDeliveredSMSContextDataPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="sabmTmdInTransitSMSRequestConverter" alias="sabmTmdInTransitSMSRequestConverter"/>
+	<bean id="sabmTmdInTransitSMSRequestConverter" parent="abstractPopulatingConverter" >
+		<property name="targetClass" value="com.sabmiller.facades.sfmc.context.SABMTmdInTransitSMSContextData"/>
+		<property name="populators">
+			<list>
+				<!--Inject more populators if populating a new context object extending from AbstractContext-->
+				<ref bean="sabmDefaultSFMCRequestContextPopulator"/>
+				<ref bean="sabmSmsSFMCRequestContextPopulator"/>
+				<ref bean="sabmTmdInTransitSMSContextDataPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="sabmTmdNextInQueueSMSRequestConverter" alias="sabmTmdNextInQueueSMSRequestConverter"/>
+	<bean id="sabmTmdNextInQueueSMSRequestConverter" parent="abstractPopulatingConverter" >
+		<property name="targetClass" value="com.sabmiller.facades.sfmc.context.SABMTmdNextInQueueSMSContextData"/>
+		<property name="populators">
+			<list>
+				<!--Inject more populators if populating a new context object extending from AbstractContext-->
+				<ref bean="sabmDefaultSFMCRequestContextPopulator"/>
+				<ref bean="sabmSmsSFMCRequestContextPopulator"/>
+				<ref bean="sabmTmdNextInQueueSMSContextDataPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="sabmTmdPassETASMSRequestConverter" alias="sabmTmdPassETASMSRequestConverter"/>
+	<bean id="sabmTmdPassETASMSRequestConverter" parent="abstractPopulatingConverter" >
+		<property name="targetClass" value="com.sabmiller.facades.sfmc.context.SABMTmdPassETASMSContextData"/>
+		<property name="populators">
+			<list>
+				<!--Inject more populators if populating a new context object extending from AbstractContext-->
+				<ref bean="sabmDefaultSFMCRequestContextPopulator"/>
+				<ref bean="sabmSmsSFMCRequestContextPopulator"/>
+				<ref bean="sabmTmdPassETASMSContextDataPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="sabmTmdExceedETASMSRequestConverter" alias="sabmTmdExceedETASMSRequestConverter"/>
+	<bean id="sabmTmdExceedETASMSRequestConverter" parent="abstractPopulatingConverter" >
+		<property name="targetClass" value="com.sabmiller.facades.sfmc.context.SABMTmdExceedETASMSContextData"/>
+		<property name="populators">
+			<list>
+				<!--Inject more populators if populating a new context object extending from AbstractContext-->
+				<ref bean="sabmDefaultSFMCRequestContextPopulator"/>
+				<ref bean="sabmSmsSFMCRequestContextPopulator"/>
+				<ref bean="sabmTmdExceedETASMSContextDataPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<!-- new spring definitions for upgrade-->
+	<!--<alias name="defaultB2BCommerceUnitFacade" alias="b2bCommerceUnitFacade" />
+	<bean id="defaultB2BCommerceUnitFacade"
+		  class="de.hybris.platform.b2bacceleratorfacades.company.impl.DefaultB2BCommerceUnitFacade"
+		  parent="b2bCommerceFacade">
+	</bean>-->
+<!-- verified -->
+	<bean id="abstractConfigurableConverter" class="com.sabmiller.facades.util.AbstractConfigurableConverter" abstract="true" />
+<!-- verified -->
+	<alias name="sabmOrderTemplateConfiguredConverterImpl" alias="sabmOrderTemplateConfiguredConverter" />
+	<bean id="sabmOrderTemplateConfiguredConverterImpl" parent="abstractConfigurableConverter" >
+		<property name="targetClass" value="com.sabmiller.facades.order.data.OrderTemplateData" />
+		<property name="configurablePopulator" ref="sabmOrderTemplateConfiguredPopulator" />
+	</bean>
+<!-- verified -->
+	<alias name="orderTemplateBasicPopulatorImpl" alias="orderTemplateBasicPopulator" />
+	<bean id="orderTemplateBasicPopulatorImpl" class="com.sabmiller.facades.order.populators.OrderTemplateBasicPopulator" />
+<!-- verified -->
+	<alias name="sabmOrderTemplateExtendedPopulatorImpl" alias="sabmOrderTemplateExtendedPopulator" />
+	<bean id="sabmOrderTemplateExtendedPopulatorImpl" class="com.sabmiller.facades.order.populators.OrderTemplateExtendedPopulator" >
+		<property name="orderEntryConverter" ref="orderEntryConverter" />
+	</bean>
+<!-- verified -->
+	<alias name="sabmOrderTemplateConfiguredPopulatorImpl" alias="sabmOrderTemplateConfiguredPopulator" />
+	<bean id="sabmOrderTemplateConfiguredPopulatorImpl" class="de.hybris.platform.commercefacades.converter.impl.DefaultConfigurablePopulator" >
+		<property name="populators">
+			<map key-type="com.sabmiller.facades.order.OrderTemplatePopulationOption">
+				<entry key="BASIC" value-ref="orderTemplateBasicPopulator"/>
+				<entry key="EXTENDED" value-ref="sabmOrderTemplateExtendedPopulator" />
+			</map>
+		</property>
+	</bean>
+	
+	<bean id="apbForgottenPasswordEmailContext" class="com.apb.facades.process.email.context.ForgottenPasswordEmailContext" parent="customerEmailContext" scope="prototype" >
+		<property name="customerConverter" ref="customerConverter"/>
+	</bean>
+	
+	<bean id="asahiCustomerWelcomeEmailContext" class="com.apb.facades.process.email.context.AsahiCustomerWelcomeEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="customerConverter" ref="customerConverter"/>
+	</bean>
+	
+	
+
+	<bean id="asahiEnquiryPopulator" class="com.apb.facades.populators.AsahiEnquiryPopulator" />
+
+	<bean id="asahiEnquiryConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.apb.facades.contactust.data.ApbContactUsData"/>
+		<property name="populators">
+			<list>
+				<ref bean="asahiEnquiryPopulator"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="asahiNotificationFacade" class="com.asahi.facades.notification.impl.AsahiNotificationFacadeImpl">
+	</bean>
+		
+	<alias name="asahiNotificationPopulator" alias="asahiNotificationPopulator"/>
+	<bean id="asahiNotificationPopulator" class="com.apb.facades.populators.AsahiNotificationPopulator">
+	</bean>
+	
+	<bean id ="asahiRecommendationFacade" class="com.apb.facades.product.AsahiRecommendationFacadeImpl">
+	</bean>
+	
+	<bean id="planogramConverter" parent="abstractPopulatingConverter">
+	<property name="targetClass" value="com.asahi.facades.planograms.PlanogramData"/>
+		<property name="populators">
+			<list>
+				<ref bean="planogramPopulator"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="planogramPopulator" class="com.apb.facades.populators.PlanogramPopulator" />
+	
+	<bean id="asahiDealData" class="com.apb.facades.deal.data.AsahiDealData" scope="prototype" />
+	<bean id="asahiDealDataConverter" parent="abstractPopulatingConverter">
+		<lookup-method name="createTarget" bean="asahiDealData"/>
+		<property name="populators">
+			<list>
+				<ref bean="asahiDealDataPopulator"/>
+				<ref bean="asahiDealProductPopulator"/>			
+			</list>
+		</property>
+	</bean>
+
+	<alias name="asahiDealDataPopulator" alias="asahiDealDataPopulator"/>
+	<bean id="asahiDealDataPopulator" class="com.apb.facades.populators.AsahiDealDataPopulator" />
+	
+	<alias name="asahiDealProductPopulator" alias="asahiDealProductPopulator"/>
+	<bean id="asahiDealProductPopulator" class="com.apb.facades.populators.AsahiDealProductDataPopulator" />
+	
+	<bean id="asahiDealsChangeNoticeEmailContext" class="com.apb.facades.process.email.context.AsahiDealsChangeNotificationEmailContext" parent="abstractEmailContext" scope="prototype" />
+</beans>

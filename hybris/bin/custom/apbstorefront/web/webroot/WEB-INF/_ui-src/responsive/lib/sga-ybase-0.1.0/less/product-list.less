@@ -1,0 +1,549 @@
+.pageType-CategoryPage .map {
+	img {
+	  min-width: 100%;
+	}
+}
+
+.product__list--wrapper {
+  @media (min-width: @screen-md-min) {
+	padding: 0;
+	margin: 0 0 0 -20px;
+    padding-left: 20px;
+  }
+
+  .pagination-wrap {
+	@media (min-width: @screen-sm) {
+	  padding-right: 0;
+	}
+  }
+}
+
+.searchSpellingSuggestionPrompt {
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size:16px;
+    @media (max-width: @screen-sm-max){
+        padding-left: 0;
+        
+    }
+}
+
+.pagination-bar {
+  @media (max-width: @screen-sm) {
+	.sort-refine-bar {
+	  button {
+		padding-left: 20px;
+		padding-right: 20px;
+	  }
+	}
+  
+}
+}
+@media (max-width:@screen-sm-max) and (min-width: @screen-sm-min)  {
+    .details{
+        padding:0 10px;
+    }
+    
+}
+
+.results {
+  h1 {
+    .page-headline();
+    font-size:20px;
+    margin-top: @grid-gutter-width;
+    padding-left: @grid-gutter-width;
+    padding-bottom: 0;
+      padding-top:0;
+      line-height:26px;
+       @media (max-width: @screen-sm-max){
+        padding-left: 0;
+        
+    }
+  }
+   
+}
+
+.product__listing {
+  .list-unstyled;
+	.product__listing--promo {
+	  .text-success;
+	  margin-bottom: (@grid-gutter-width/2);
+	  @media (min-width: @screen-md) {
+		padding-right: 20px;
+		margin: 0 -10px;
+	  }
+	}
+
+	.product__list--price-panel {
+	  text-align: right;
+	}
+
+	.product__list--name {
+	  display: block;
+	  text-transform: uppercase;
+	  font-weight: bold;
+	  margin: 0 0 (@grid-gutter-width/2) 106px;
+	  color: inherit;
+
+	}
+
+	.product__listing--description {
+	  .hidden-xs;
+	  margin: 0 210px 0 106px;
+	}
+    
+
+	.addtocart {
+	  clear: both;
+	  padding: (@grid-gutter-width/2) 0 0 0;
+
+	  button {
+		margin-bottom: (@grid-gutter-width/4);
+	  }
+
+	  @media (min-width: @screen-md-min) {
+		.pickup-in-store-available {
+		  .ProductGridComponent-ListPickUpInStoreAction,
+		  .ProductGridComponent-ListAddToCartAction,
+		  .SearchResultsList-ListPickUpInStoreAction,
+		  .SearchResultsList-ListAddToCartAction,
+		  .SearchResultsGrid-ListPickUpInStoreAction,
+		  .SearchResultsGrid-ListAddToCartAction {
+			width: 49%;
+			display: inline-block;
+			float: left;
+		  }
+		}
+	  }
+
+	  @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+
+		.pickup-in-store-available {
+		  margin: 0 -(@grid-gutter-width/5);
+
+		  .ProductGridComponent-ListPickUpInStoreAction,
+		  .ProductGridComponent-ListAddToCartAction,
+		  .SearchResultsList-ListPickUpInStoreAction,
+		  .SearchResultsList-ListAddToCartAction,
+		  .SearchResultsGrid-ListPickUpInStoreAction,
+		  .SearchResultsGrid-ListAddToCartAction {
+			padding: 0 (@grid-gutter-width/6);
+		  }
+		}
+	  }
+	}
+    .addtocart-component {
+        .input-group {
+            margin-left: 0px
+        }
+    }
+
+	&.product__list {
+	  .product__list--item {
+		padding: @grid-gutter-width 30px;
+		border-top: 1px solid @border-color;
+
+		&:nth-of-type(2n) {
+		  background-color: @table-2n-line-bg;
+		}
+
+		@media (max-width: @screen-md) {
+		  padding-left: 20px;
+		  padding-right: 20px;
+		}
+	  }
+
+	  .product__list--thumb {
+		float: left;
+		margin-right: (@grid-gutter-width/2);
+		display: block;
+	  }
+
+	  .product__list--price-panel {
+		float: right;
+		width: 200px;
+	  }
+
+	  .ProductListComponent-ListPickUpInStoreAction,
+	  .ProductListComponent-ListAddToCartAction,
+	  .SearchResultsList-ListPickUpInStoreAction,
+	  .SearchResultsList-ListAddToCartAction {
+		.make-xs-column(6);
+		.make-sm-column(4);
+		.make-sm-column-push(4);
+	  }
+
+	  .ProductListComponent-ListOrderFormAction,
+	  .SearchResultsList-ListOrderFormAction {
+		.make-xs-column(6);
+		.make-xs-column-push(6);
+		.make-sm-column(4);
+		.make-sm-column-push(0);
+	  }
+
+	  @media (max-width: @screen-xs-max) {
+		.product__list--price-panel {
+		  text-align: left;
+		  float: none;
+		  margin-left: 106px;
+		  width: auto;
+		}
+	  }
+	}
+
+	&.product__grid {
+	  .flex-display(flex);
+	  .flex-wrap(wrap);
+       margin-left:-20px;
+        margin-right: -20px;
+	  .product-item {
+				// Changes the column width of the product to 100% on desktop.
+		.make-sm-column(4);			// Changes the column width of the product to 33.3% on tablet.
+		.make-md-column(3);			// Changes the column width of the product to 25% on mobile.
+		.make-lg-column(3);
+
+		padding: @grid-gutter-width;
+		.flex-display(flex);
+		.flex-direction(column);
+
+		// fix for Safari
+		&:first-child {
+		  margin-left: -1px;
+		}
+          .addtocart-component{
+              margin-top:0;
+          }
+	  }
+
+	  .thumb {
+		display: block;
+		text-align: center;
+		height: 180px;
+		overflow: hidden;
+		margin: auto;	// Fix for
+		margin-bottom: (@grid-gutter-width/2); // deals sticker
+		max-width: 235px; // on SGA PLP
+
+
+		img {
+		  width: auto;
+		  height: auto;
+		  max-width: 140px;
+            max-height:140px;
+            @media (max-width: @screen-xs-max) {
+		      max-width:100px;
+			  margin-left: 10px;
+		  }
+		}
+
+	  }
+
+	  .details {
+		text-align: left;
+        width:235px;
+		margin: 0 auto;
+		.flex(1 0 auto);
+
+		.name {
+		  margin: 0;
+		  
+		  font-size: 16px;
+		  padding: 0 12px;
+		  height: 65px;     // Has been increased for SGA.
+		  overflow: hidden;
+		  color: @headline-color;
+            display: inline-block;
+            
+		}
+
+		.price {
+		  font-size: 16px;
+            font-weight: bold;
+            height:23px;
+            padding:0 12px;
+		}
+		.stockStatusName {
+			color:@low-in-stock-text-color;
+		  }
+
+		.promo {
+		  color: @item-promo-color;
+		  font-size: 14px;
+		  font-weight: bold;
+		}
+          .volume{
+              padding:2px 0;
+              font-size: 16px;
+          }
+          .pack_size{
+              padding:3px 12px;
+              font-size: 14px;
+              height:28px;
+              .product-unit-volume{
+                  max-width:70%;
+              }
+          }
+          
+	  }
+
+       @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+        .name {		 
+		      padding: 0;
+		 	}
+
+		.price {
+		      padding:0px;
+            }
+
+          .pack_size{
+              padding:3px 0px;         
+          }
+        }
+        @media (max-width: @screen-sm-max) and (max-width: @screen-sm-min){
+            .details{
+                width:250px;
+            }
+        }
+        @media (max-width: @screen-xs-max) and (max-width: @screen-xs-min){
+            margin-left:0;
+        margin-right: 0;
+            .product-item {
+		// fix for Safari
+                padding:20px 0;
+                width:100%;
+		      
+                .thumb {
+                    height:100px;
+
+            }
+                .container{
+                    text-align: left;
+                    margin-left: 60px;
+                }
+	      }
+            
+            .details{
+                width:92%;
+                .flex(2);
+                .name{
+                    padding:0;
+                }
+                .price{
+                    padding:0;
+                    .pull-right{
+                        float:right !important;
+                    }
+					.pull-right.plp_price_display {
+						float: left !important;
+					}
+                 }
+                .pack_size{
+                    padding:3px 0px;
+                 }
+            }
+            
+            .packSize-5{
+                float:none !important;
+                display:block;
+            }
+            .addtocart-component {
+            .input-group {
+                margin-left: -66px
+                }
+            }
+        }
+	}
+  }
+
+
+
+.search-empty {
+  margin-bottom: 20px;
+
+  .headline {
+	margin-bottom: 20px;
+      
+      .search-result-text {
+          font-weight: bold;
+      }
+  }
+
+
+  .search-suggestions {
+	margin-bottom: 20px;
+  }
+}
+
+//Product Category Page styling
+
+.product-category-page{
+    .product-categories{
+        .refine-bar{
+            padding-bottom:(@grid-gutter-width/2);
+            padding-top:(@grid-gutter-width/2);
+        }
+      	.pcp-prod,
+      	.pcp-banner{
+          	padding-left: 0;
+          	padding-right: 0;
+      	}
+
+        .pcp-banner .simple-responsive-banner-component,
+		.pcp-banner .banner__component--responsive {
+            margin-right: -20px;
+        }
+
+      	.pcp-banner{
+          	padding-top:(@grid-gutter-width/2);
+      	}
+    }
+}
+
+@media (min-width: @screen-md) {
+		.search-list-page-right-result-list-slot{
+				margin-left: -20px;
+				margin-top: -20px;
+		}
+
+		.search-list-page-right-result-list-component{
+				padding-left: 20px;
+		}
+
+		.product-list-right-slot{
+				margin-left: -20px;
+		}
+
+		.product-list-right-component{
+				margin-left: 0;
+				padding-top: 20px;
+		}
+
+		.product-list-right-component .pagination-bar{
+				margin-top: 0;
+		}
+}
+
+
+#search-result-header-PLP {
+    font-weight: normal;
+    margin-bottom: 20px;
+    padding: 0px;
+}
+
+@media (min-width: 768px) {
+  .product__listing.product__grid .product-item {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+.addtocart-component{
+    .qty-selector{
+	    .addToCartButtonPLP {
+	        display: inline;
+	        margin-left: 10px;
+	        width: 65px;
+	    }
+   	}
+}
+
+
+.searchEmptyPageMiddle-component{
+	ul{
+		margin-left: 20px;
+	}
+}
+#showPLPSpinner, #pageLoadingSpinner{
+	position:absolute; 
+	top:40%; 
+	left:50%;
+	z-index:999;
+    width: 100%;
+    height: 100%;
+    @media (max-width: @screen-sm-max){
+        left:45%;
+        
+    }
+    @media (max-width: @screen-xs-max){
+        left:40%;
+        
+    }
+}
+
+.product-loaded-message{
+    text-align: center;
+    padding:30px;
+    font-size:16px;
+    font-weight: bold;
+    color:@border-brand-secondary; // Different for SGA.
+}
+
+.price_strike {
+	text-decoration: line-through; // Needed for SGA.
+}
+.plp_low_stock_status_name {
+	font-size: 16px;
+	font-weight: bold;
+	height: 23px;
+	color: #f99d32;
+  }
+  .plp_no_stock_status_name {
+	font-size: 16px;
+	font-weight: bold;
+	height: 23px;
+	color: @sga-error-text;
+  }
+  @media (max-width: 767px) {
+	.plp_low_stock_status_name, .plp_no_stock_status_name {
+	  margin-bottom: -1em;
+	}
+  }
+  @media (max-width: 767px){
+  .mobile_stock_price_display{
+	  display:inline-block;
+	  margin-top:.5em;
+	  margin-bottom:1em;
+  }
+}
+  .plp_price_display{
+	float:right !important;
+
+}
+  @media (max-width: 767px){
+  .plp_price_display{
+	  display:inline-block;
+	  margin-bottom: 2em;
+	  margin-top:1em;
+	  float:left !important;
+  }
+}
+
+.mobile-stock-margin{
+	margin-top:1.5em;
+}
+
+body.page-productGrid .ui-tooltip {// Fix for SGA PLP Deals sticker tooltip
+	max-width: 18%;
+  }
+
+/*** BONUS Product ***/
+.bonus-stock-plp {
+    .btn-vd-primary {
+        width: 215px;
+        height: 40px !important;
+        @media (max-width: @screen-sm-max) {
+            width: 205px;
+        }
+
+        @media (max-width: @screen-xs-max) {
+            margin-left: -65px;
+        }
+    }
+}
+
+.add_to_cart_form {
+     .qty-selector {
+        input.form-control {
+            width: 56px;
+        }
+     }
+}

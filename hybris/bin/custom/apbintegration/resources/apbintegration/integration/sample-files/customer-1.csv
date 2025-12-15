@@ -1,0 +1,5 @@
+#EmailID,FirstName,LastName,Account Number,b2bcustomergroup,Password
+#EmailID,FirstName,LastName,Account Number,b2bcustomergroup,Password
+
+testuser00@in.ey.com,test,test,106342|testPriceB2bUnit|b2bcustomergroup,testPriceB2bUnit,Test@123
+testuser99@in.ey.com,test,test,testPriceB2bUnit|b2bcustomergroup,testPriceB2bUnit,Test@123

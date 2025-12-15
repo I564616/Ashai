@@ -1,0 +1,36 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+##******************************This file is generated - please do not edit it. It will be regenerated after every build.********************************#
+
+$contentCatalog=sgaContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Online])[default=$contentCatalog:Online]
+$picture=media(code, $contentCV);
+$wideContent=CMSImageComponent,BannerComponent
+$jarResource=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import
+$siteResource=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/sampledata/contentCatalogs/$contentCatalog
+
+# Language
+$lang=en
+
+
+# Language
+# Media
+INSERT_UPDATE Media ; $contentCV[unique=true] ; code[unique=true]              ; realfilename     ; @media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator] ; mime[default='image/jpeg'] ; folder(qualifier)[default='images']
+                    ;                         ; /images/theme/email-logo.jpg   ; email-logo-sga.png   ; $siteResource/images/theme/email-logo.jpg                                  ;                            ;                                    
+                    ;                         ; /images/theme/email-header.png     ; email-header.png     ; $siteResource/images/theme/email-header.png                                 
+                    ;                         ; /images/theme/email-footer.png     ; email-footer.png     ; $siteResource/images/theme/email-footer.png                                
+# CMS Image Components
+UPDATE CMSImageComponent ; $contentCV[unique=true] ; uid[unique=true] ; $picture[lang=$lang]           
+                         ;                         ; EmailHeaderImage   ; /images/theme/email-header.png    
+ 	                      ;                         ;EmailFooterImage   ; /images/theme/email-footer.png 
+ 	                      ;                         ;EmailSiteLogoImage ; /images/theme/email-logo.jpg
+                         
+ 

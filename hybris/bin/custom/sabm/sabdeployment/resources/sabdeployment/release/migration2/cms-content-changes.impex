@@ -1,0 +1,29 @@
+$contentCatalog=sabmContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$lang=en
+
+
+##Url update for banner and link components to download autopay advantage pdf form on Autopay Landing Page 
+UPDATE SABMHeroBannerComponent; $contentCV[unique = true]; uid[unique = true]; urlLink;
+; ; AutopayPageSABMHeroBannerComponent1 ; https://pqn1gatrrrpzy5g23nr1dqt.blob.core.windows.net/media/autopay-advantage_application-form_2018.pdf
+; ; comp_00001VWI ; https://pqn1gatrrrpzy5g23nr1dqt.blob.core.windows.net/media/autopay-advantage_application-form_2018.pdf
+;;comp_00003KV8;https://pqn1gatrrrpzy5g23nr1dqt.blob.core.windows.net/media/autopay-advantage_application-form_2018.pdf
+
+UPDATE CMSLinkEnhancedComponent; $contentCV[unique = true]; uid[unique = true]; url;
+; ; JoinAutopayCMSLinkEnhancedComponent ;https://pqn1gatrrrpzy5g23nr1dqt.blob.core.windows.net/media/autopay-advantage_application-form_2018.pdf
+; ; AutoPay-Advantage_Download-Now-Button_Link; https://pqn1gatrrrpzy5g23nr1dqt.blob.core.windows.net/media/autopay-advantage_application-form_2018.pdf
+
+$contentCatalog=sabmContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Online])[default=$contentCatalog:Online]
+$lang=en
+
+##Url update for banner and link components to download autopay advantage pdf form on Autopay Landing Page 
+UPDATE SABMHeroBannerComponent; $contentCV[unique = true]; uid[unique = true]; urlLink;
+; ; AutopayPageSABMHeroBannerComponent1 ; https://pqn1gatrrrpzy5g23nr1dqt.blob.core.windows.net/media/autopay-advantage_application-form_2018.pdf
+; ; comp_00001VWI ; https://pqn1gatrrrpzy5g23nr1dqt.blob.core.windows.net/media/autopay-advantage_application-form_2018.pdf
+	
+	
+UPDATE CMSLinkEnhancedComponent; $contentCV[unique = true]; uid[unique = true]; url;
+; ; JoinAutopayCMSLinkEnhancedComponent ;https://pqn1gatrrrpzy5g23nr1dqt.blob.core.windows.net/media/autopay-advantage_application-form_2018.pdf
+; ; AutoPay-Advantage_Download-Now-Button_Link; https://pqn1gatrrrpzy5g23nr1dqt.blob.core.windows.net/media/autopay-advantage_application-form_2018.pdf
+;;comp_00003KV8;https://pqn1gatrrrpzy5g23nr1dqt.blob.core.windows.net/media/autopay-advantage_application-form_2018.pdf

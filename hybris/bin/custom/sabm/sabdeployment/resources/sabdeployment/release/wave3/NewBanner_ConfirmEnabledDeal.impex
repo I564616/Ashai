@@ -1,0 +1,16 @@
+$contentCatalog = sabmContentCatalog
+$contentCatalogName = SABMiller Content Catalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Staged])[default = $contentCatalog:Staged]
+INSERT_UPDATE Media; $contentCV[unique = true]; code[unique = true]; realfilename; mime[default = 'image/jpeg']; folder(qualifier)[default = 'images']
+;;Confirm_Enabled_Deal_Img.png;cub-deal-trade-banner-600x220.jpg; image/png; images
+
+#BannerComponent
+INSERT_UPDATE BannerComponent; $contentCV[unique = true]; uid[unique = true]; name; &componentRef;Media(code)
+; ; Confirm_Enabled_Deals_TopContent ; BannerComponent ; Confirm_Enabled_Deals_TopContent;Confirm_Enabled_Deal_Img.png
+
+#ContentSlot
+INSERT_UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]; name; active;cmsComponents(uid, $contentCV)
+; ; DealsEmailTopSlot ; DealsEmailTopSlot ; true;Confirm_Enabled_Deals_TopContent
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='ConfirmEnabledDealEmailTemplate'];contentSlot(uid,$contentCV);allowOverwrite
+;;TopContent-ConfirmEnabledDealEmail;TopContent;;DealsEmailTopSlot;true

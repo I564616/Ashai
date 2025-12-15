@@ -1,0 +1,31 @@
+diff a/hybris/bin/custom/sabm/sabminitialdata/resources/sabminitialdata/import/coredata/contentCatalogs/sabmContentCatalog/cms-content.impex b/hybris/bin/custom/sabm/sabminitialdata/resources/sabminitialdata/import/coredata/contentCatalogs/sabmContentCatalog/cms-content.impex	(rejected hunks)
+@@ -730,6 +730,29 @@
+ ;;PlaceholderContentSlot-CartPage;PlaceholderContentSlot;;PlaceholderContentSlot;true
+ 
+ 
++# Content slot for Empty Cart Template
++INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='CartPageTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
++;;SiteLogo-CartPage;SiteLogo;;SiteLogoSlot;true
++;;HomepageLink-CartPage;HomepageNavLink;;HomepageNavLinkSlot;true
++;;NavigationBar-CartPage;NavigationBar;;NavigationBarSlot;true
++;;MiniCart-CartPage;MiniCart;;MiniCartSlot;true
++;;Footer-CartPage;Footer;;FooterSlot;true
++;;HeaderLinks-CartPage;HeaderLinks;;HeaderLinksSlot;true
++;;SearchBox-CartPage;SearchBox;;SearchBoxSlot;true
++;;TopHeaderSlot-CartPage;TopHeaderSlot;;TopHeaderSlot;true
++;;BottomHeaderSlot-CartPage;BottomHeaderSlot;;BottomHeaderSlot;true
++;;BottomContentSlot-CartPage;BottomContentSlot;;BottomContentSlot;true
++;;CenterRightContentSlot-CartPage;CenterRightContentSlot;;CenterRightContentSlot;true
++;;CenterLeftContentSlot-CartPage;CenterLeftContentSlot;;CenterLeftContentSlot;true
++;;EmptyCartMiddleContent-CartPage;EmptyCartMiddleContent;;EmptyCartMiddleContent;true
++;;PlaceholderContentSlot-CartPage;PlaceholderContentSlot;;PlaceholderContentSlot;true
++
++
++
++
++
++
++
+ INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='LoginPageTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+ ;;SiteLogo-LoginPage;SiteLogo;;SiteLogoSlot;true
+ ;;HomepageLink-LoginPage;HomepageNavLink;;HomepageNavLinkSlot;true

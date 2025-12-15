@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:p8="http://sap.com/xi/APPL/Global">
+	<xsd:element name="Delivery">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="DeliveryNumber" type="xsd:string" />
+				<xsd:element name="RequestedDeliveryDate">
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="xsd:dateTime">
+								<xsd:attribute name="timeZoneCode" type="xsd:token" />
+								<xsd:attribute name="daylightSavingTimeIndicator"
+									type="xsd:token" />
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="DeliveryType" type="xsd:string" />
+				<xsd:element name="Item" maxOccurs="unbounded">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="DeliveryItemNumber" type="xsd:string"
+								minOccurs="0" />
+							<xsd:element name="CompletedIndicator" type="xsd:boolean"
+										minOccurs="0" />
+							<xsd:element name="SalesOrderReference" minOccurs="0">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="SalesOrderNumber" type="xsd:string" />
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="SalesOrderItemNumber" type="xsd:string"
+								minOccurs="0" />
+							<xsd:element name="Product" minOccurs="0">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="MaterialNumber" minOccurs="0">
+											<xsd:complexType>
+												<xsd:simpleContent>
+													<xsd:extension base="xsd:string">
+														<xsd:attribute name="schemaID" type="xsd:token" />
+														<xsd:attribute name="schemaAgencyID" type="xsd:token" />
+													</xsd:extension>
+												</xsd:simpleContent>
+											</xsd:complexType>
+										</xsd:element>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="ConfirmedQuantity">
+								<xsd:complexType>
+									<xsd:simpleContent>
+										<xsd:extension base="xsd:decimal">
+											<xsd:attribute name="unitCode" type="xsd:token" />
+										</xsd:extension>
+									</xsd:simpleContent>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="Batch" minOccurs="0">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="InternalID" type="xsd:string"
+											minOccurs="0" />
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+			<xsd:attribute name="DeliveryActionCode" type="xsd:string"
+				use="required" />
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

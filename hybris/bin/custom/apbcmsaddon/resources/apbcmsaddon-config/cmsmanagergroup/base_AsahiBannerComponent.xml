@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<base>
+	<search>
+		<search-properties>
+			<property qualifier="AsahiBannerComponent.name"/>
+		</search-properties>
+		<sort-properties>
+			<property qualifier="AsahiBannerComponent.name"/>
+			<property qualifier="AsahiBannerComponent.uid"/>
+		</sort-properties>
+	</search>
+	<label>
+		<property qualifier="AsahiBannerComponent.name"/>
+		<property qualifier="AsahiBannerComponent.catalogVersion.mnemonic"/>
+	</label>
+</base>

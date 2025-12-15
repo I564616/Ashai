@@ -1,0 +1,54 @@
+/* ==========================================================================
+   FAQ Page specific styling
+   ========================================================================== */
+
+.faq-video-popup {
+    display: none;
+    width:100%;
+    height: auto;
+    position: relative;
+    margin: $spacing-medium 0 0 0;
+
+    img{
+        width:100%;
+    }
+
+    .icon-play-button {
+        width: 88px;
+        height: 88px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -44px 0 0 -44px;
+        color: #fff;
+        opacity: .8;
+        will-change: opacity;
+        transition: opacity .12s ease-in;
+    }
+
+    &:hover .icon-play-button {
+        opacity: .9;
+    }
+
+    @media(min-width: $tablet) {
+        width:272px;
+        height:154px;
+        display: inline-block;
+    }
+}
+
+.faq-video-mobile {
+    display: block;
+    iframe{
+        width: 100%;
+    }
+    
+
+    &:hover .icon-play-button {
+        opacity: .9;
+    }
+
+    @media(min-width: $tablet) {
+        display: none;
+    }
+}

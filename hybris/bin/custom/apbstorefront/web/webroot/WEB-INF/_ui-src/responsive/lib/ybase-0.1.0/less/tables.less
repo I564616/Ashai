@@ -1,0 +1,162 @@
+table {
+
+  width: 100%;
+
+  th {
+	  font-size: 13px;
+	  font-weight: 400;
+	  text-transform: uppercase;
+	  background-color: @table-heading-bg;
+	  color: @table-head-color;
+	  padding: 8px 10px;
+      vertical-align: top;
+
+    &:last-child {
+      text-align: right;
+    }
+  }
+
+  tr.entry-group-header {
+    a {
+      color: lightgrey;
+      &:hover {
+        color: black;
+      }
+    }
+    .error {
+      background-color: PaleVioletRed;
+    }
+  }
+
+  .entry-group-error-message {
+    text-transform: none;
+  }
+
+  div.left-align {
+    text-align: left;
+  }
+
+  td {
+    padding: @grid-gutter-width 0px;  // Changing the left and right padding for Account Pages. (Order History.. )
+    vertical-align: middle;
+    padding-left: 10px;
+  }
+}
+
+.responsive-table {
+  th {
+    &:first-child {
+
+      padding-left: 0px;
+
+      @media (max-width: @screen-md) {
+        padding-left: 0px;
+      }
+    }
+
+    &:last-child {
+      text-align: right;
+      padding-right: 0px;
+
+      @media (max-width: @screen-md) {
+        padding-right: 0px;
+      }
+    }
+  }
+
+  td {
+
+    &:nth-child(2){
+
+      @media (min-width: @screen-sm) {
+        padding-left: 0px;
+      }
+
+      @media (min-width: @screen-md) {
+        padding-left: 0px;
+      }
+    }
+
+    &:last-child {
+      text-align: right;
+      padding-right: 0px;
+
+      @media (max-width: @screen-sm-min) {
+        padding-right: 0px;
+      }
+    }
+  }
+}
+
+.responsive-table-item {
+
+  padding: (@grid-gutter-width/2);
+  border-bottom: 1px solid @border-color-4;
+    
+    &:first-child {
+        border-top: 1px solid @border-color;
+    }
+    
+    &:last-child {
+        border-bottom: 1px solid @border-color;
+    }
+
+  @media (max-width: @screen-sm-min) {
+    padding: 10px 0px;
+  }
+
+  &:nth-child(even) {
+    background-color: @table-2n-line-bg;
+  }
+
+  a {
+    &.responsive-table-link {
+      color: @link-color;
+    }
+
+    &:hover, &:focus{
+      color: @link-hover-color;
+    }
+  }
+
+  td {
+
+    &:last-child {
+      text-align: right;
+    }
+
+  }
+
+  @media (max-width: @screen-xs-max) {
+
+    display: block;
+
+    .status strong{
+      display: block;
+    }
+
+    td {
+
+      display: inline-block;
+      width: 40%;
+      padding: 0px;
+
+      &:last-child {
+
+        text-align: left;
+
+      }
+
+      &.responsive-table-cell {
+        width: 55%;
+
+        &-bold {
+          font-weight: 600;
+        }
+      }
+
+    }
+
+  }
+
+}

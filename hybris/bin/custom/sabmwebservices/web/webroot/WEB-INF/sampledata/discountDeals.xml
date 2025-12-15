@@ -1,0 +1,20 @@
+<n0:PricingDiscountConditionsResponse xmlns:n0="urn:gl.sabmiller.com:com:ecc:mastdata">
+	<PricingDiscountConditionsHeader>
+		<Customer>1234</Customer>
+		<SalesOrganisation>123</SalesOrganisation>
+	</PricingDiscountConditionsHeader>
+
+	<PricingDiscountConditionsItem>
+		<Material>DYNJ089202</Material>
+		<ConditionType>DD00</ConditionType>
+		<Amount>20</Amount>
+		<Unit>%</Unit>
+		<SaleUnit>1</SaleUnit>
+		<UnitOfMeasure>CS</UnitOfMeasure>
+		<MinimunQuantity>3</MinimunQuantity>
+		<UnitOfMeasure2>CS</UnitOfMeasure2>
+		<ValidFrom>2015-08-02</ValidFrom>
+		<ValidTo>2015-09-09</ValidTo>
+		<CalcType>CT</CalcType>
+	</PricingDiscountConditionsItem>
+</n0:PricingDiscountConditionsResponse>

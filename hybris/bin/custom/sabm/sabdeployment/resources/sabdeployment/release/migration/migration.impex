@@ -1,0 +1,94 @@
+## update mediaformat to use java2D media Conversion
+UPDATE ConversionMediaFormat; qualifier[unique = true]; conversionStrategy[default = 'java2DMediaConversionStrategy'];
+                            ; SABMOriginalFormat      ;
+                            ; SABMZoomFormat          ;
+                            ; SABMHeroFormat          ;
+                            ; SABMNormalFormat        ;
+                            ; SABMThumbnailFormat     ;
+                            ; SABMCartFormat          ;
+                            ; SABMWatchFormat         ;
+
+#CronJob remove 'admin' nodeGroup
+UPDATE CronJob; code[unique = true]                                         ; nodeGroup;
+              ; btgResultCleaningCronJob                                    ;
+              ; imageImportCronJob                                          ;
+              ; cleanUpFraudOrderCronJob                                    ;
+              ; sendCustomerWelcomeEmailCronJob                             ;
+              ; exportCustomerCronJob                                       ;
+              ; oldSABMUserAccessHistoryRemovalCronJob                      ;
+              ; systemEmailCronJob                                          ;
+              ; full-sabmStoreIndex-cronJob                                 ;
+              ; update-sabmStoreIndex-cronJob                               ;
+              ; oldPaymentSubscriptionResultRemovalCronJob                  ;
+              ; productExpressUpdateCleanerCronJob                          ;
+              ; oldCartRemovalCronJob                                       ;
+              ; sabmStore-CartRemovalJob                                    ;
+              ; sabmImportLogCleanUpCronJob                                 ;
+              ; oldSABMPriceRowRemovalCronJob                               ;
+              ; oldLastUpdateTimeEntityRemovalCronJob                       ;
+              ; oldWebServiceLogRemovalCronJob                              ;
+              ; dailyMonitoringCronJob                                      ;
+              ; SalesForceReportExportJob_WelcomeEmai                       ;
+              ; orderCutOffNotificationCronjob                              ;
+              ; salesForceExportReportCronjob_Transactions                  ;
+              ; trackOrderTimePassesETANotificationsCronJob                 ;
+              ; sabmTrackOrderReportExportJob                               ;
+              ; fetchCustomerCUPJob                                         ;
+              ; SalesForceReportExportCronJob_Products                      ;
+              ; deliveryNotificationCronjob                                 ;
+              ; ExportBDEOrderCronJob                                       ;
+              ; dealNotificationCronjob                                     ;
+              ; salesForceExportReportCronjob_Users_Customers_Notifications ;
+
+UPDATE CronJob; code[unique = true]        ; active;
+              ; OldSABMDealsRemovalCronJob ; true  ;
+              ; fetchCustomerCUPJob        ; false ;
+
+INSERT_UPDATE Script;code[unique=true];content;
+;sabmFetchCustomerCUPJob;"dummy"
+
+INSERT_UPDATE ScriptingJob;code[unique=true];scriptURI;
+;sabmFetchCustomerCUPJob;"model://sabmFetchCustomerCUPJob"
+
+INSERT_UPDATE CronJob;code[unique=true];active[default=true];job(code);sessionLanguage(isocode)[default='en']
+;sabmFetchCustomerCUPJob;;sabmFetchCustomerCUPJob;
+
+INSERT_UPDATE Trigger; cronJob(code)[unique = true]; cronExpression   ; relative; active; maxAcceptableDelay
+                     ; OldSABMDealsRemovalCronJob  ; 0 0 15 ? * FRI * ; false   ; true  ; -1
+                     ; sabmFetchCustomerCUPJob     ; 0 0 16 ? * 1     ; false   ; true  ; -1
+
+# TODO set indexing to use Default configuration and use DIRECT instead of TWO_PHASE
+
+$backofficeSFCName = Solr Config for Backoffice;
+$facetSearchConfigName = sabmStoreIndex
+
+UPDATE SolrFacetSearchConfig; name[unique = true]    ; solrServerConfig(name)[default = 'Default']
+                            ; $backofficeSFCName     ;
+                            ; $facetSearchConfigName ;
+
+UPDATE SolrIndexConfig; name[unique = true]    ; batchSize; indexMode(code); numberOfThreads
+                      ; indexConfig-Backoffice ; 500      ; DIRECT         ; 4
+                      ; "$indexConfigName"     ; 500      ; DIRECT         ; 4
+
+
+# trackorder email fixes
+$lang = en
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor = de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor]; pk[unique = true]
+$emailResource = $config-emailResourceValue
+
+
+# Just rerunning to reimport the templates
+UPDATE RendererTemplate; code[unique = true]                                            ; templateScript[lang = $lang, translator = de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                       ; sabmStore_Email_Order_Confirmation_Body                        ; $emailResource/email-orderConfirmationBody.vm
+                       ; sabmStore_Email_Order_Next_In_Queue_Delivery_Notification_Body ; $emailResource/email-orderNextInQueueDeliveryNotificationBody.vm
+                       ; sabmStore_Email_Track_Order_ETA_Changes_Notification_Body      ; $emailResource/email-trackOrderETAChangesNotificationBody.vm
+                       ; sabmStore_Email_Track_Order_ETA_Notification_Body              ; $emailResource/email-trackOrderETANotificationBody.vm
+                       ; sabmStore_Email_Track_Order_Time_Passes_ETA_Notification_Body  ; $emailResource/email-trackOrderTimePassesETANotificationBody.vm
+
+
+
+
+
+

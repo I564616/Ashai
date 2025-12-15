@@ -1,0 +1,17 @@
+#####recommendation expire job impex###
+
+
+INSERT_UPDATE Script;code[unique=true]	;scriptType(code)	;content;
+					;BulkRecommendationExpireScript	;GROOVY;"import de.hybris.platform.cronjob.enums.CronJobResult; import de.hybris.platform.cronjob.enums.CronJobStatus; import de.hybris.platform.servicelayer.cronjob.PerformResult; jdbcTemplate = spring.getBean""jdbcTemplate""; println jdbcTemplate.execute(""Update sabmrecommendation  set sabmrecommendation.p_status=8799065735259 from sabmrecommendation inner join stagedrecommendation  on (sabmrecommendation.p_recommendedby=stagedrecommendation.p_recommendedby and sabmrecommendation.p_b2bunit=stagedrecommendation.p_b2bunit and sabmrecommendation.p_recommendationtype=stagedrecommendation.p_recommendationtype and sabmrecommendation.p_productcode=stagedrecommendation.p_productcode and sabmrecommendation.p_qty=stagedrecommendation.p_qty and sabmrecommendation.p_status=8799065636955 and sabmrecommendation.createdTS <=getDate()-28)""); return new PerformResult(CronJobResult.SUCCESS, CronJobStatus.FINISHED);";
+					
+					
+INSERT_UPDATE ScriptingJob	;code[unique=true]		;scriptURI
+							;BulkRecommendationExpireScriptJob	;model://BulkRecommendationExpireScript
+							
+
+INSERT_UPDATE CronJob	;code[unique=true]			;job(code)				;sessionLanguage(isocode)	;sessionUser(uid)
+						;BulkRecommendationExpireScriptCronJob	;BulkRecommendationExpireScriptJob	;en	;admin
+						
+
+INSERT_UPDATE Trigger;cronjob(code)[unique=true];active;cronExpression
+;BulkRecommendationExpireScriptCronJob;true;0 0 17 ? * * *

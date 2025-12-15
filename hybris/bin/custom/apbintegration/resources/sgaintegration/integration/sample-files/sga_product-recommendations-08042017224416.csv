@@ -1,0 +1,15 @@
+#source Product , target Product        , referenceType(code) , active , preselected
+asahi_super_dry                           , peroni                                           , SIMILAR             , true   , false      
+asahi_super_dry                           , peroni_legerra                                   , SIMILAR             , true   , false      
+asahi_super_dry                           , estrella_damn                                    , SIMILAR             , true   , false      
+asahi_super_dry                           , kingfisher-lager                                 , SIMILAR             , true   , false      
+beer_asahi_super_dry                      , beer_peroni                                      , SIMILAR             , true   , false      
+beer_asahi_super_dry                      , beer_peroni_legerra                              , SIMILAR             , true   , false      
+beer_asahi_super_dry                      , estrella_inedit                                  , SIMILAR             , true   , false      
+beer_asahi_super_dry                      , nz_pure_lager                                    , SIMILAR             , true   , false      
+beer_asahi_super_dry                      , nz_pure_summer                                   , SIMILAR             , true   , false      
+beer_asahi_super_dry                      , peroni_330ml_bottles                             , SIMILAR             , true   , false      
+vodka_cruiser_berry_275ml_bottles         , vodka_cruiser_lemon_n_passionfruit_275ml_bottles , SIMILAR             , true   , false      
+vodka_cruiser_berry_275ml_bottles         , vodka_cruiser_pineapple_275ml_bottle             , SIMILAR             , true   , false      
+vodka_cruiser_berry_275ml_bottles         , vodka_cruiser_strawberry_275ml_bottle            , SIMILAR             , true   , false      
+vodka_cruiser_berry_275ml_bottles         , vodka_o_apple_ginger_spice_330ml_bottle          , SIMILAR             , true   , false      

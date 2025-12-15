@@ -1,0 +1,160 @@
+﻿
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:p6="http://sap.com/xi/APPL/SE/Global"
+ targetNamespace="urn:gl.sabmiller.com:com:3rdp:mastdata" xmlns="urn:gl.sabmiller.com:com:3rdp:mastdata">
+   <xsd:import namespace="http://sap.com/xi/APPL/SE/Global" schemaLocation="ExportXMLSchema1.xsd" />
+   	<xsd:element name="DealConditions" type="DealConditions" />
+   <xsd:complexType name="DealConditions">
+      <xsd:sequence>
+         <xsd:element name="MessageHeader" type="p6:BusinessDocumentMessageHeader" />
+         <xsd:element name="DealCondition" maxOccurs="unbounded">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="ConditionNumber" type="xsd:string">
+                     <xsd:annotation>
+                        <xsd:documentation>
+                        Products Exclusion Condition Type in SAP
+                        </xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="DealType" type="xsd:string">
+                     <xsd:annotation>
+                        <xsd:documentation>
+                        Sales Organisation the data belongs to
+                        </xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="Status" type="xsd:string">
+                     <xsd:annotation>
+                        <xsd:documentation>
+                        Customer Number
+                        </xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="Mandatory" type="xsd:boolean" minOccurs="0">
+                     <xsd:annotation>
+                        <xsd:documentation>
+                        General Material  Data
+                        </xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="ValidFrom" type="xsd:date">
+                     <xsd:annotation>
+                        <xsd:documentation>
+                        Start Date Range
+                        </xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="ValidTo" type="xsd:date">
+                     <xsd:annotation>
+                        <xsd:documentation>
+                        End Date Range
+                        </xsd:documentation>
+                     </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element name="InStore" type="xsd:boolean" />
+                  <xsd:element name="CustomerPOType" type="xsd:string" />
+                  <xsd:element name="Assignments" minOccurs="0" maxOccurs="unbounded">
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="SequenceNumber" type="xsd:string" />
+                           <xsd:element name="SalesOrganization" type="xsd:string" minOccurs="0" />
+                           <xsd:element name="DistributionChannel" type="xsd:string" minOccurs="0" />
+                           <xsd:element name="Division" type="xsd:string" minOccurs="0" />
+                           <xsd:element name="Plant" type="xsd:string" minOccurs="0" />
+                           <xsd:element name="Customer" type="xsd:string" />
+                           <xsd:element name="CustomerGroup" type="xsd:string" />
+                           <xsd:element name="SalesGroup" type="xsd:string" />
+                           <xsd:element name="SubChannel" type="xsd:string" minOccurs="0" />
+                           <xsd:element name="SalesOffice" type="xsd:string" minOccurs="0" />
+                           <xsd:element name="Banner" type="xsd:string" minOccurs="0" />
+                           <xsd:element name="PrimaryBanner" type="xsd:string" minOccurs="0" />
+                           <xsd:element name="SubBanner" type="xsd:string" minOccurs="0" />
+                           <xsd:element name="PriceGroup" type="xsd:string" minOccurs="0" />
+                           <xsd:element name="Exclusion" type="xsd:boolean" minOccurs="0" />
+                        </xsd:sequence>
+                     </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="PreConditions" minOccurs="0">
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="PreCoditionScale" minOccurs="0" maxOccurs="unbounded">
+                              <xsd:complexType>
+                                 <xsd:sequence>
+                                    <xsd:element name="Scale" type="xsd:string" />
+                                    <xsd:element name="QuantityFrom" type="xsd:string" />
+                                    <xsd:element name="QuantityTo" type="xsd:string" />
+                                 </xsd:sequence>
+                              </xsd:complexType>
+                           </xsd:element>
+                           <xsd:element name="PreCondition" minOccurs="0" maxOccurs="unbounded">
+                              <xsd:complexType>
+                                 <xsd:sequence>
+                                    <xsd:element name="SequenceNumber" type="xsd:string" />
+                                    <xsd:element name="Material" type="xsd:string" />
+                                    <xsd:element name="Line" type="xsd:string" />
+                                    <xsd:element name="Brand" type="xsd:string" />
+                                    <xsd:element name="Variety" type="xsd:string" />
+                                    <xsd:element name="Empties" type="xsd:string" />
+                                    <xsd:element name="EmptyType" type="xsd:string" />
+                                    <xsd:element name="Present" type="xsd:string" />
+                                    <xsd:element name="TargetQty" type="xsd:string" />
+                                    <xsd:element name="UnitOfMeasure" type="xsd:string" />
+                                    <xsd:element name="Mandatory" type="xsd:boolean" minOccurs="0" />
+                                    <xsd:element name="Exclusion" type="xsd:boolean" minOccurs="0" />
+                                 </xsd:sequence>
+                              </xsd:complexType>
+                           </xsd:element>
+                        </xsd:sequence>
+                     </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="PercentageAndAmount" minOccurs="0" maxOccurs="unbounded">
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="Amounts" type="xsd:boolean" minOccurs="0" />
+                           <xsd:element name="FreeGoodsFlag" type="xsd:boolean" minOccurs="0" />
+                           <xsd:element name="SequenceNumber" type="xsd:string" minOccurs="0" />
+                           <xsd:element name="Scale" type="xsd:string" />
+                           <xsd:element name="ConditionRate" type="xsd:string" />
+                           <xsd:element name="Unit" type="xsd:string" />
+                           <xsd:element name="HeaderResult" type="xsd:string" minOccurs="0" />
+                        </xsd:sequence>
+                     </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="FreeGoods" minOccurs="0" maxOccurs="unbounded">
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="Amounts" type="xsd:boolean" minOccurs="0" />
+                           <xsd:element name="FreeGoodsFlag" type="xsd:boolean" minOccurs="0" />
+                           <xsd:element name="SequenceNumber" type="xsd:string" minOccurs="0" />
+                           <xsd:element name="Scale" type="xsd:string" minOccurs="0" />
+                           <xsd:element name="Material" type="xsd:string" minOccurs="0" />
+                           <xsd:element name="TargetQty" type="xsd:string" minOccurs="0" />
+                           <xsd:element name="UnitOfMeasure" type="xsd:string" minOccurs="0" />
+                        </xsd:sequence>
+                     </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="Descriptions" minOccurs="0" maxOccurs="unbounded">
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="Language" type="xsd:string" />
+                           <xsd:element name="DealConditionsDescription" type="xsd:string" />
+                           <xsd:element name="DealConditionsLongDescription" type="xsd:string" minOccurs="0" />
+                        </xsd:sequence>
+                     </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="Adminstration" minOccurs="0">
+                     <xsd:complexType>
+                        <xsd:sequence>
+                           <xsd:element name="CreatedOn" type="xsd:date" minOccurs="0" />
+                           <xsd:element name="CreatedTime" type="xsd:time" minOccurs="0" />
+                           <xsd:element name="ChangedOn" type="xsd:date" minOccurs="0" />
+                           <xsd:element name="ChangedTime" type="xsd:time" minOccurs="0" />
+                        </xsd:sequence>
+                     </xsd:complexType>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+</xsd:schema>

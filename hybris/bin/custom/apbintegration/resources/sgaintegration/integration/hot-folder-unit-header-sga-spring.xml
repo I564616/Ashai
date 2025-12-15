@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:file="http://www.springframework.org/schema/integration/file"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/integration
+		http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/integration/file
+		http://www.springframework.org/schema/integration/file/spring-integration-file.xsd
+		http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+		
+    <context:annotation-config/>
+
+	<!-- Macro header for sga-->
+	<bean id="sga_defaultImpexProductHeader" class="java.lang.String">
+		<constructor-arg>
+			<value># ImpEx for importing data into sgaProductCatalog
+				$catalogVersion=catalogversion(catalog(id[default=sgaProductCatalog]),version[default='Staged'])[unique=true]
+				$approved=approvalstatus(code)[default='approved']
+				$supercategories=supercategories(code,$catalogVersion)
+				$lang=$LANGUAGE$</value>
+		</constructor-arg>
+	</bean>
+	
+	
+	<!-- SGA Specific B2BUnit converters mapping start -->
+	
+	<bean id="batchSgaB2BUnitConverterMapping" 
+		  class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.mapping.impl.DefaultConverterMapping" 
+		  p:mapping="sga_b2bunit"
+		  p:converter-ref="batchSgaB2BUnitConverter"/>	  
+		  
+	<!-- SGA Specific B2BUnit converters mapping end --> 
+		  
+	<!-- SGA specific B2BUnit converts start -->
+	
+	<bean id="batchSgaB2BUnitConverter" class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.impl.DefaultImpexConverter">
+		<property name="header">
+			<value>#{sga_defaultImpexProductHeader}
+				# Insert B2BUnit
+				INSERT_UPDATE AsahiB2BUnit ;uid[unique=true] ;locname;companyCode;backendRecordID;accountNum;abnNumber;phone;cellularPhone;purposeCode;salesRepCode;salesRepName;salesRepEmailID;teleFax;warehouse(code);custOrderType;salesOrg;distributionChannel;division;creditControlArea;tier;paymentTerm;catalogHierarchy[collection-delimiter=|]
+			</value>
+		</property>
+		<property name="impexRow">
+			<value>;{+3};{0};{1};{2};{+3};{+4};{5};{6};{7};{8};{9};{10};{11};{12};{13};{14};{15};{16};{17};{18};{19};{20}</value>
+		</property>
+	</bean>
+	
+	<!-- SGA specific B2BUnit converts End -->
+	
+	<!-- SGA Specific address converters mapping start -->
+	
+	<bean id="batchSgaB2BUnitAddressConverterMapping" 
+		  class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.mapping.impl.DefaultConverterMapping" 
+		  p:mapping="sga_b2bunitAddress"
+		  p:converter-ref="batchSgaB2BUnitAddressConverter"/>	  
+		  
+	<!-- SGA Specific address Converter mapping end --> 
+	
+	<!-- SGA Specific cutOffDelivery converters mapping start -->
+	
+	<bean id="batchSgaCutOffDeliveryDatesConverterMapping" 
+		  class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.mapping.impl.DefaultConverterMapping" 
+		  p:mapping="sga_cutOffDeliveryDates"
+		  p:converter-ref="batchSgaCutOffDeliveryDatesConverter"/>	  
+		  
+	<!-- SGA Specific cutOffDelivery Converter mapping end --> 
+		  
+		  
+	<!-- SGA specific address Converter start -->
+	
+	<bean id="batchSgaB2BUnitAddressConverter" class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.impl.DefaultImpexConverter">
+		<property name="header">
+			<value>#{sga_defaultImpexProductHeader}
+				# Insert Address
+				INSERT_UPDATE Address;owner(B2BUnit.uid)[unique=true];streetname[unique=true];streetnumber[unique=true];postalcode[unique=true];town;country(isocode);region(isocode);firstname;lastname;email;companyCode;addressRecordid;phone1;eclDeliveryInstruction;shippingAddress[default=false];billingAddress[default=false];defaultAddress[default=false];addressType(code,itemtype(code));visibleInAddressBook[default=true];eclDeliveryTimesLotFrom[translator=com.apb.core.translators.AsahiDeliveryTimeSlotTranslator];eclDeliveryTimesLotTo[translator=com.apb.core.translators.AsahiDeliveryTimeSlotTranslator];cutOffDeliveryDates[translator=com.apb.core.translators.AsahiCutOffDeliveryDateTranslator]
+			</value>
+		</property>
+		<property name="impexRow">
+			<value>;{+0};{1};{2};{3};{4};{5};{6};{7};{8};{9};{10};{11};{12};{13};{14};{15};{16};{17};{18};{19};{20};{21};{22}</value>
+		</property>
+	</bean>
+	
+	<!-- SGA specific address Converter End -->
+	
+	<!-- SGA specific CutOff Converter start -->
+	
+	<bean id="batchSgaCutOffDeliveryDatesConverter" class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.impl.DefaultImpexConverter">
+		<property name="header">
+			<value>#{sga_defaultImpexProductHeader}
+				# Insert CutOffDeliveryDate
+				INSERT_UPDATE CutOffDeliveryDate ; code[unique=true] ; cutOffDate[dateformat=dd-MM-yyyy] ; deliveryDate[dateformat=dd-MM-yyyy]   
+			</value>
+		</property>
+		<property name="impexRow">
+			<value>;{+0};{+1};{+2}</value>
+		</property>
+	</bean>
+	
+	<!-- SGA specific CutOff Converter End -->
+	
+</beans>

@@ -1,0 +1,52 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+##******************************This file is generated - please do not edit it. It will be regenerated after every build.********************************#
+
+$contentCatalog=sgaContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$picture=media(code, $contentCV);
+$siteResource=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/sampledata/contentCatalogs/$contentCatalog
+$medias=medias(code, $contentCV);
+$mediaContainer=media(qualifier, $contentCV)[lang=$lang];
+
+
+# Language
+$lang=en
+
+# SGA About Us Page
+
+# CMS Paragraph Component (Contact information)
+UPDATE CMSParagraphComponent ; $contentCV[unique=true] ; uid[unique=true]                ; content[lang=en];  
+; ; sgaAboutUsTextParagraph ; "<div>Welcome to ALB Connect!<br><br></div>
+			
+			<div>ALB stands for Asahi Lifestyle Beverages, formally known as Schweppes Australia. We&apos;ve changed our name to better reflect the breadth of our beverage portfolio, which includes much more than the Schweppes brand.<br><br></div>
+			
+			<div>At Asahi Lifestyle Beverages our brands are at the heart of our business and inspire us to deliver high-quality products to our customers and consumers every day.<br><br></div>
+			
+			<div>We&apos;re proud to manufacture, sell and distribute some of the country&apos;s most iconic beverage brands and boast a diverse portfolio of beverages that includes Schweppes, Cool Ridge, Solo, Spring Valley, Real Iced Tea Co, Pop Tops and Cottee&apos;s cordial. We also manufacture and distribute Sunkist, Pepsi and Gatorade under licence and we distribute VOSS under licence.<br><br></div>
+			                    
+<!--                 Main Image Desktop -->
+			<div class=""our-story-image-desktop hidden-sm hidden-xs"">
+				<img src=""medias/sga-aboutus-final-desktop.jpg?context=bWFzdGVyfHJvb3R8MTM1ODA3fGltYWdlL2pwZWd8aDFlL2hmZC84ODA3MTU0NzEyNjA2LmpwZ3xkYTRjNzFlZDRiYTBjN2JiN2Y0OGRmNzJlNTAxOTEwYThkNjM1ODBiNGUzOTdhMzYyN2U0MzQzZTJlYjFjNmEx"" alt=""Brand Banner"">
+			</div>
+<!--                 Main Image Tablet -->
+			<div class=""our-story-image-desktop hidden-xs hidden-md hidden-lg"">
+				<img src=""medias/sga-aboutus-final-tablet.jpg?context=bWFzdGVyfHJvb3R8NjU1OTl8aW1hZ2UvanBlZ3xoYzYvaDg5Lzg4MDcxNTQ2MTQzMDIuanBnfDliZGRmMzJjMDMyNTlkZDFhZjdhNDJlYjViOTcxZDY5YTkzNzkyM2Y1ZTA2MDdjYzY0MzUyMzVjZDBhM2E3NTQ"" alt=""Brand Banner"">
+			</div>
+
+<!--                 Main Image Mobile -->
+			<div class=""our-story-image-desktop hidden-sm hidden-md hidden-lg"">
+				<img src=""medias/sga-aboutus-final-mobile.jpg?context=bWFzdGVyfHJvb3R8NDU1MjN8aW1hZ2UvanBlZ3xoNTIvaDg2Lzg4MDcxNTQ4MTA5MTAuanBnfGE0MTc4MjMzMTBkYTA5Yzk0YWM2OTljMzA3YjExY2QzMzcwN2FmOTFmYzMyMWFjOWY0YWE1NThlODQyOTJjMjM"" alt=""Brand Banner"">
+			</div>
+			
+			<div><br><br><br>Asahi Lifestyle Beverages is part of Asahi Beverages Australia and New Zealand, a company formed in 2014, which also includes Asahi Premium Beverages, Independent Liquor in New Zealand, The Better Drinks Co, a juice and organic soft drink company, and Australian craft brewer Mountain Goat.<br><br></div>
+			
+			<div><b>To learn more about becoming an Asahi Lifestyle Beverages customer, click <a class=""site-anchor-link"" href=""https://albconnect.com.au/storefront/sga/en/AUD/contactus/?register=no"" target=""_blank"">here.</a></b><br><br></div>";

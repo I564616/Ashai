@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2013 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<alias name="defaultSystemEmailDao" alias="systemEmailDao" />
+	<bean id="defaultSystemEmailDao" class="com.sabmiller.commons.email.dao.impl.SystemEmailDaoImpl" />
+
+	<alias alias="emailService" name="sabmSystemEmailService"/>
+	<bean id="sabmSystemEmailService" class="com.sabmiller.commons.email.service.impl.SystemEmailServiceImpl" parent="defaultEmailService">
+		<property name="systemEmailDao" ref="systemEmailDao"/>
+	</bean>
+
+	<bean id="systemEmailJob" class="com.sabmiller.commons.jobs.SystemEmailJob">
+		<property name="flexibleSearchService" ref="flexibleSearchService" />
+		<property name="modelService" ref="modelService" />
+		<property name="sessionService" ref="sessionService" />
+		<property name="systemEmailService" ref="sabmSystemEmailService" />
+	</bean>
+
+	<alias alias="emailGenerationService" name="sabmEmailGenerationService"/>
+	<bean id="sabmEmailGenerationService"
+	      class="com.sabmiller.commons.email.service.impl.SabmEmailGenerationService"
+	      parent="defaultEmailGenerationService">
+		<property name="emailService" ref="emailService"/>
+		<property name="rendererService" ref="rendererService"/>
+		<property name="emailContextFactory" ref="emailContextFactory"/>
+	</bean>
+	
+	<bean id="sabmSFTPService" class="com.sabmiller.commons.email.service.impl.SabmSFTPServiceImpl">
+		<property name="configurationService" ref="configurationService"/>
+	</bean>
+
+	<bean id="sabmTimeZoneUtils" class="com.sabmiller.commons.utils.SabmTimeZoneUtils">
+	</bean>
+
+
+
+</beans>

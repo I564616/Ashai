@@ -1,0 +1,58 @@
+---
+title: Form Styles
+bodyClass: page-productList
+---
+
+<div class="row">
+
+<div class="col-sm-12">
+        
+        <h1>Your Confirmed Order</h1>
+
+        <div class="form-inline">
+          <div class="form-group">
+                <label for="filter">Search:</label>
+                <input type="text" class="form-control" id="filter" placeholder="Enter search term">
+                <a href="#clear" class="clear-filter" title="clear filter">[clear]</a>
+            </div>
+        </div>
+
+       <table id="seller-table" class="table sortable sortable-json" data-filter="#filter" data-page-size="20">
+          
+          <!-- Table head start -->
+          <thead>
+              <tr>
+                  <th data-toggle="true" >SKU</th>
+                  <th data-toggle="true">EAN</th>
+                  <th data-toggle="true">Pack size</th>
+                  <th data-toggle="true" data-hide="phone">Pack Type</th>
+                  <th data-toggle="true" data-hide="phone">ABV</th>
+                  <th data-toggle="true" data-hide="phone">Sub Category</th>
+                  <th data-toggle="true" data-hide="phone">Style</th>
+                  <th data-toggle="true" data-hide="phone">Pack Configuration</th>
+              </tr>
+          </thead>
+          <!-- Table head end -->
+
+          <!-- Table body is filled in via js/json --> 
+          <tbody>    
+          </tbody>
+          <!-- End table body -->
+
+          <!-- Table foot -->
+          <tfoot>
+            <tr>
+              <td colspan="8">
+                <ul class="pagination pagination-centered hide-if-no-paging"></ul>
+              </td>
+            </tr>
+          </tfoot>
+          <!-- Table foot end -->
+
+      </table>
+
+
+      </div>
+
+</div>
+

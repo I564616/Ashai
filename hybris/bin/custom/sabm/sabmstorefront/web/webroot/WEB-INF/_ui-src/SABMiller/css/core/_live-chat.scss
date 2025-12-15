@@ -1,0 +1,50 @@
+// ==========================================================================
+//   live chat Class
+// ==========================================================================
+
+
+.live-chat-contactus {
+  height: 14px;
+  font-family: Helvetica;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  color: #ffffff;
+  padding: 8px 15px;
+}
+.live-chat-contactus-online{
+	background-color: #002f5f;
+}
+
+
+.live-chat-contactus-offline {
+  background-color: $gray-light;
+}
+
+
+
+#live-chat.affix{
+  position:fixed;
+		
+}
+
+#live-chat.well-sm{
+  z-index:100;
+   border: 0 none;
+  padding: 0;
+ 
+}
+
+#live-chat{
+  position:fixed; 
+  top:60%; 
+  right:0%;
+}
+
+
+#live-chat:hover{
+  position:fixed; 
+  top:60%; 
+  right:0%;
+    box-shadow:-3px -2px 5px 5px lightgray;
+}

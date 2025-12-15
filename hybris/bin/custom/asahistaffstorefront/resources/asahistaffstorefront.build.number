@@ -1,0 +1,11 @@
+#Ant properties
+#Fri May 07 12:49:15 CEST 2021
+version.api=2011
+vendor=hybris
+group.id=de.hybris.platform
+name=asahistaffstorefront
+description=asahistaffstorefront
+builddate=20210507 1245
+releasedate=20201119 1630
+version=2011.7
+module.name=platform-module

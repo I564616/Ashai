@@ -1,0 +1,21 @@
+#
+# Watermark and other needed media
+#
+
+#
+# Some Default ConversionMediaFormats
+#
+INSERT_UPDATE ConversionMediaFormat; qualifier[unique = true]; name[lang = en]; conversionStrategy; conversion; inputFormat(qualifier); mimeType
+; SABMOriginalFormat  ; Working Format as base for other Conversion Media Formats ; imageMagickMediaConversionStrategy ;                   ;                    ; image/jpeg ;
+; SABMZoomFormat      ; Zoom Format                                               ; imageMagickMediaConversionStrategy ; -resize 1200x1200 ; SABMOriginalFormat ; image/jpeg
+; SABMHeroFormat      ; Hero Format                                               ; imageMagickMediaConversionStrategy ; -resize 515x515   ; SABMOriginalFormat ; image/jpeg
+; SABMNormalFormat    ; Normal Format                                             ; imageMagickMediaConversionStrategy ; -resize 300x300   ; SABMOriginalFormat ; image/jpeg
+; SABMThumbnailFormat ; Thumbnail Format                                          ; imageMagickMediaConversionStrategy ; -resize 96x96     ; SABMOriginalFormat ; image/jpeg
+; SABMCartFormat      ; Cart Format                                               ; imageMagickMediaConversionStrategy ; -resize 65x65     ; SABMOriginalFormat ; image/jpeg
+; SABMWatchFormat     ; Watch Format                                              ; imageMagickMediaConversionStrategy ; -resize 30x30     ; SABMOriginalFormat ; image/jpeg
+
+#
+# Default ConversionGroup
+#
+INSERT_UPDATE ConversionGroup; code[unique = true]; name[lang = en]; supportedFormats(qualifier);
+; SABMConversionGroup ; Default SABM conversion group ; SABMOriginalFormat, SABMZoomFormat, SABMHeroFormat, SABMNormalFormat, SABMThumbnailFormat, SABMCartFormat, SABMWatchFormat

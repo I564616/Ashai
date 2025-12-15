@@ -1,0 +1,2258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="CustomerERPReplicationBulkRequest_In_V2"
+	targetNamespace="urn:gl.sabmiller.com:3rdp:masterdata" xmlns:p1="urn:gl.sabmiller.com:3rdp:masterdata"
+	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+	xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+	<wsdl:documentation />
+	<wsp:UsingPolicy wsdl:required="true" />
+	<ifw:properties xmlns:ifw="urn:com-sap:ifr:v2:wsdl">
+		<ifw:category>ifmmessif</ifw:category>
+		<ifw:VersionID>a20bf702878611e4b6a400000045bdb6</ifw:VersionID>
+		<ifw:lifeCycleInfo>
+			<objectState />
+			<objectstatus value="A" />
+			<personresponsible value="dhotwani" />
+			<changed on="1418997304200" by="dhotwani" />
+		</ifw:lifeCycleInfo>
+		<ifw:runtimeVersion uri="urn:sap-com:soap:application:esr:server:710" />
+		<ifw:communicationProfile uri="prf_dt_if_com_stateless" />
+		<ifw:securityProfile uri="prf_dt_if_sec_low" />
+		<ifw:interfacePattern p2p="false">L
+		</ifw:interfacePattern>
+		<ifw:isSensitiveData>false</ifw:isSensitiveData>
+		<ifw:classifications>
+			<ifw:classification uddikey="uddi:uddi.sap.com:categorization:object-type"
+				name="ObjectType" namespace="http://uddi.sap.com/classification"
+				valueCode="ifmmessif" />
+			<ifw:classification uddikey="uddi:uddi.sap.com:categorization:object-id"
+				name="ObjectID" namespace="http://uddi.sap.com/classification"
+				valueCode="a75fe9b51b7130d69401792667f4ac2d" />
+		</ifw:classifications>
+		<ifw:additionalAttributes />
+		<ifw:methods>
+			<ifw:method name="CustomerERPReplicationBulkRequest_In_V2">
+				<ifw:isSynchron>false</ifw:isSynchron>
+				<ifw:isIdempotent>false</ifw:isIdempotent>
+				<ifw:isInbound>true</ifw:isInbound>
+				<ifw:interfaceCategory>inbound</ifw:interfaceCategory>
+				<ifw:communicationProfile uri="prf_dt_op_com_async" />
+				<ifw:lifeCycleInfo>
+					<objectState />
+				</ifw:lifeCycleInfo>
+				<ifw:contextobjects />
+			</ifw:method>
+		</ifw:methods>
+		<ifw:messages>
+			<ifw:message name="CustomerERPReplicationBulkRequest_V1">
+				<ifw:messType>ifmmessage</ifw:messType>
+				<ifw:keyElements>
+					<ifw:elem id="NAME">CustomerERPReplicationBulkRequest_V1
+					</ifw:elem>
+					<ifw:elem id="NAMESPACE">urn:gl.sabmiller.com:3rdp:masterdata
+					</ifw:elem>
+				</ifw:keyElements>
+				<ifw:technicalNamespace>urn:gl.sabmiller.com:3rdp:masterdata
+				</ifw:technicalNamespace>
+				<ifw:VersionID>6413cbed877611e48a8500000045bdb8</ifw:VersionID>
+				<ifw:xmlNamespace>urn:gl.sabmiller.com:3rdp:masterdata
+				</ifw:xmlNamespace>
+				<ifw:dataType
+					uri="name=CustomerERPReplicationRequestMessage_V1~namespace=urn:gl.sabmiller.com:3rdp:masterdata~swcvId=deb446c0337d11e0b51ff3b70a1b6f72"
+					name="CustomerERPReplicationRequestMessage_V1" namespace="urn:gl.sabmiller.com:3rdp:masterdata"
+					swcvId="deb446c0337d11e0b51ff3b70a1b6f72" />
+			</ifw:message>
+		</ifw:messages>
+		<ifw:matchingInterfaces />
+		<ifw:genericProperties>
+			<ifw:swcvinfo>
+				<ifw:guid>deb446c0337d11e0b51ff3b70a1b6f72</ifw:guid>
+				<ifw:name>SAB_MASTERDATA_3RD_PARTY 1.0 of sabmiller.com</ifw:name>
+			</ifw:swcvinfo>
+			<ifw:languages>
+				<ifw:language internalCode="EN" original="true" />
+			</ifw:languages>
+			<ifw:documentation type="I">
+				<name>_ID_a75fe9b51b7130d69401792667f4ac2d_ifmmessif</name>
+				<namespace>urn:gl.sabmiller.com:3rdp:masterdata</namespace>
+			</ifw:documentation>
+		</ifw:genericProperties>
+	</ifw:properties>
+	<wsp:Policy wsu:Id="OP_CustomerERPReplicationBulkRequest_In_V2" />
+	<wsdl:types>
+		<xsd:schema targetNamespace="urn:gl.sabmiller.com:3rdp:masterdata"
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:gl.sabmiller.com:3rdp:masterdata"
+			xmlns:p6="http://sap.com/xi/APPL">
+			<xsd:import namespace="http://sap.com/xi/APPL" />
+			<xsd:element name="CustomerERPReplicationBulkRequest_V1"
+				type="CustomerERPReplicationRequestMessage_V1" />
+			<xsd:complexType name="CustomerERPReplicationRequestMessage_V1">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="EN">Customer is a
+						business partner to whom materials or services are offered or made
+						available</xsd:documentation>
+				</xsd:annotation>
+				<xsd:sequence>
+					<xsd:element name="MessageHeader" type="p6:BusinessDocumentMessageHeader" />
+					<xsd:element name="Customer" maxOccurs="unbounded">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="ID" minOccurs="0" type="xsd:string" />
+								<xsd:element name="OriginalBusinessSystemCustomerID"
+									minOccurs="0">
+									<xsd:complexType>
+										<xsd:simpleContent>
+											<xsd:extension base="xsd:string">
+												<xsd:attribute name="schemeID" type="xsd:string" />
+												<xsd:attribute name="schemeAgencyID" type="xsd:string" />
+												<xsd:attribute name="schemeAgencySchemeID"
+													type="xsd:string" />
+												<xsd:attribute name="schemeAgencySchemeAgencyID"
+													type="xsd:string" />
+											</xsd:extension>
+										</xsd:simpleContent>
+									</xsd:complexType>
+								</xsd:element>
+								<xsd:element name="OriginalBusinessSystemID" type="xsd:string"
+									minOccurs="0" />
+								<xsd:element name="CustomerBlockingReasonCode" type="xsd:string"
+									minOccurs="0" />
+								<xsd:element name="CustomerBlockingReasonName" type="xsd:string"
+									minOccurs="0"/>
+								<xsd:element name="InvoicingBlockingReasonCode"
+									type="xsd:string" minOccurs="0" />
+								<xsd:element name="InvoicingBlockingReasonName"
+									minOccurs="0">
+									<xsd:complexType>
+										<xsd:simpleContent>
+											<xsd:extension base="xsd:string">
+												<xsd:attribute name="languageCode" type="xsd:string" />
+											</xsd:extension>
+										</xsd:simpleContent>
+									</xsd:complexType>
+								</xsd:element>
+								<xsd:element name="Common" minOccurs="0">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="NielsenIDText" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="Name" minOccurs="0">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element name="FormOfAddressCode"
+															minOccurs="0">
+															<xsd:complexType>
+																<xsd:simpleContent>
+																	<xsd:extension base="xsd:string">
+																		<xsd:attribute name="listID" type="xsd:string" />
+																		<xsd:attribute name="listVersionID"
+																			type="xsd:string" />
+																		<xsd:attribute name="listAgencyID" type="xsd:string" />
+																		<xsd:attribute name="listAgencySchemeID"
+																			type="xsd:string" />
+																		<xsd:attribute name="listAgencySchemeAgencyID"
+																			type="xsd:string" />
+																	</xsd:extension>
+																</xsd:simpleContent>
+															</xsd:complexType>
+														</xsd:element>
+														<xsd:element name="FirstLineName" type="xsd:string"
+															minOccurs="0" />
+														<xsd:element name="SecondLineName" type="xsd:string"
+															minOccurs="0" />
+														<xsd:element name="ThirdLineName" type="xsd:string"
+															minOccurs="0" />
+														<xsd:element name="FourthLineName" type="xsd:string"
+															minOccurs="0" />
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+											<xsd:element name="SupplierID" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="LocationStandardID" minOccurs="0">
+												<xsd:complexType>
+													<xsd:simpleContent>
+														<xsd:extension base="xsd:string">
+															<xsd:attribute name="schemeAgencyID" type="xsd:string" />
+														</xsd:extension>
+													</xsd:simpleContent>
+												</xsd:complexType>
+											</xsd:element>
+											<xsd:element name="TransportationZoneID"
+												minOccurs="0">
+												<xsd:complexType>
+													<xsd:simpleContent>
+														<xsd:extension base="xsd:string">
+															<xsd:attribute name="schemeID" type="xsd:string" />
+															<xsd:attribute name="schemeAgencyID" type="xsd:string" />
+														</xsd:extension>
+													</xsd:simpleContent>
+												</xsd:complexType>
+											</xsd:element>
+											<xsd:element name="TransportationZoneName"
+												minOccurs="0">
+												<xsd:complexType>
+													<xsd:simpleContent>
+														<xsd:extension base="xsd:string">
+															<xsd:attribute name="languageCode" type="xsd:string" />
+														</xsd:extension>
+													</xsd:simpleContent>
+												</xsd:complexType>
+											</xsd:element>
+											<xsd:element name="NaturalPersonIndicator" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="CustERPRplctnReqCom"
+												minOccurs="0">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element name="Title" type="xsd:string"
+															minOccurs="0" />
+														<xsd:element name="CentralOrderBlock" type="xsd:string"
+															minOccurs="0" />
+														<xsd:element name="SearchTerm" type="xsd:string"
+															minOccurs="0" />
+														<xsd:element name="HouseNumber" type="xsd:string"
+															minOccurs="0" />
+														<xsd:element name="CityCode" type="xsd:string"
+															minOccurs="0" />
+														<xsd:element name="City" type="xsd:string"
+															minOccurs="0" />
+														<xsd:element name="CountryCode" type="xsd:string"
+															minOccurs="0" />
+														<xsd:element name="CountryKey" type="xsd:string"
+															minOccurs="0" />
+														<xsd:element name="LanguageKey" type="xsd:string"
+															minOccurs="0" />
+														<xsd:element name="Telephone" type="xsd:string"
+															minOccurs="0" />
+														<xsd:element name="MobilePhone" type="xsd:string"
+															minOccurs="0" />
+														<xsd:element name="Email" type="xsd:string"
+															minOccurs="0" />
+														<xsd:element name="Fax" type="xsd:string"
+															minOccurs="0" />
+														<xsd:element name="ExternalCustID" type="xsd:string"
+															minOccurs="0" />
+														<xsd:element name="TransportationZone" type="xsd:string"
+															minOccurs="0" />
+														<xsd:element name="TaxNumber1" type="xsd:string"
+															minOccurs="0" />
+														<xsd:element name="TaxNumber3" type="xsd:string"
+															minOccurs="0" />
+														<xsd:element name="TaxNumberType" type="xsd:string"
+															minOccurs="0" />
+														<xsd:element name="VATNumber" type="xsd:string"
+															minOccurs="0" />
+														<xsd:element name="NielsenID" type="xsd:string"
+															minOccurs="0" />
+														<xsd:element name="CustomerClassificationCode"
+															type="xsd:string" minOccurs="0" />
+														<xsd:element name="MEDA1" type="xsd:string"
+															minOccurs="0" />
+														<xsd:element name="MEDA2" type="xsd:string"
+															minOccurs="0" />
+														<xsd:element name="SalesVolume" type="xsd:string"
+															minOccurs="0" />
+														<xsd:element name="CustomerType" type="xsd:string"
+															minOccurs="0" />
+														<xsd:element name="SCPDPCustomerGroup" type="xsd:string"
+															minOccurs="0" />
+														<xsd:element name="Location" type="xsd:string"
+															minOccurs="0" />
+														<xsd:element name="LocalSubChannel" type="xsd:string"
+															minOccurs="0" />
+														<xsd:element name="GlobalSubChannel" type="xsd:string"
+															minOccurs="0" />
+														<xsd:element name="InternationalLocationNumber1"
+															type="xsd:string" minOccurs="0" />
+														<xsd:element name="InternationalLocationNumber2"
+															type="xsd:string" minOccurs="0" />
+														<xsd:element name="CheckDigitInternationalLocationNumber"
+															type="xsd:string" minOccurs="0" />
+														<xsd:element name="PrimaryGroupKey"
+															type="xsd:string" minOccurs="0" />
+														<xsd:element name="PrimaryGroupDescription"
+															type="xsd:string" minOccurs="0" />
+														<xsd:element name="SubGroupKey"
+															type="xsd:string" minOccurs="0" />
+														<xsd:element name="SubGroupDescription"
+															type="xsd:string" minOccurs="0" />
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+								<xsd:element name="AddressInformation" minOccurs="0">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="Address" minOccurs="0">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element name="PhysicalAddress" minOccurs="0">
+															<xsd:complexType>
+																<xsd:sequence>
+																	<xsd:element name="CountryCode" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="CountryName" minOccurs="0">
+																		<xsd:complexType>
+																			<xsd:simpleContent>
+																				<xsd:extension base="xsd:string">
+																					<xsd:attribute name="languageCode"
+																						type="xsd:string" />
+																				</xsd:extension>
+																			</xsd:simpleContent>
+																		</xsd:complexType>
+																	</xsd:element>
+																	<xsd:element name="RegionCode" minOccurs="0">
+																		<xsd:complexType>
+																			<xsd:simpleContent>
+																				<xsd:extension base="xsd:string">
+																					<xsd:attribute name="listID" type="xsd:string" />
+																					<xsd:attribute name="listVersionID"
+																						type="xsd:string" />
+																					<xsd:attribute name="listAgencyID"
+																						type="xsd:string" />
+																					<xsd:attribute name="listAgencySchemeID"
+																						type="xsd:string" />
+																					<xsd:attribute name="listAgencySchemeAgencyID"
+																						type="xsd:string" />
+																				</xsd:extension>
+																			</xsd:simpleContent>
+																		</xsd:complexType>
+																	</xsd:element>
+																	<xsd:element name="RegionName" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="StreetPostalCode" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="PoBoxPostalCode" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="CompanyPostalCode" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="CityName" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="AdditionalCityName"
+																		type="xsd:string" minOccurs="0" />
+																	<xsd:element name="DistrictName" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="PoBoxID" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="PoBoxIndicator" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="PoBoxCountryCode" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="PoBoxCountryName"
+																		minOccurs="0">
+																		<xsd:complexType>
+																			<xsd:simpleContent>
+																				<xsd:extension base="xsd:string">
+																					<xsd:attribute name="languageCode"
+																						type="xsd:string" />
+																				</xsd:extension>
+																			</xsd:simpleContent>
+																		</xsd:complexType>
+																	</xsd:element>
+																	<xsd:element name="PoBoxRegionCode"
+																		minOccurs="0">
+																		<xsd:complexType>
+																			<xsd:simpleContent>
+																				<xsd:extension base="xsd:string">
+																					<xsd:attribute name="listID" type="xsd:string" />
+																					<xsd:attribute name="listVersionID"
+																						type="xsd:string" />
+																					<xsd:attribute name="listAgencyID"
+																						type="xsd:string" />
+																					<xsd:attribute name="listAgencySchemeID"
+																						type="xsd:string" />
+																					<xsd:attribute name="listAgencySchemeAgencyID"
+																						type="xsd:string" />
+																				</xsd:extension>
+																			</xsd:simpleContent>
+																		</xsd:complexType>
+																	</xsd:element>
+																	<xsd:element name="PoBoxRegionName" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="PoBoxCityName" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="StreetName" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="StreetPrefixName" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="StreetSuffixName" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="HouseID" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="AdditionalHouseID" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="BuildingID" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="FloorID" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="RoomID" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="CareOfName" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="Description" minOccurs="0"
+																		maxOccurs="unbounded">
+																		<xsd:complexType>
+																			<xsd:simpleContent>
+																				<xsd:extension base="xsd:string">
+																					<xsd:attribute name="languageCode"
+																						type="xsd:string" />
+																				</xsd:extension>
+																			</xsd:simpleContent>
+																		</xsd:complexType>
+																	</xsd:element>
+																</xsd:sequence>
+															</xsd:complexType>
+														</xsd:element>
+														<xsd:element name="TaxJurisdictionCode" type="xsd:string"
+															minOccurs="0" />
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+								<xsd:element name="CommunicationData" minOccurs="0">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="Address" minOccurs="0">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element name="CommunicationList" minOccurs="0">
+															<xsd:complexType>
+																<xsd:sequence>
+																	<xsd:element name="Communication"
+																		minOccurs="0">
+																		<xsd:complexType>
+																			<xsd:sequence>
+																				<xsd:element name="CorrespondenceLanguageCode"
+																					type="xsd:string" minOccurs="0" />
+																				<xsd:element name="CorrespondenceLanguageName"
+																					minOccurs="0">
+																					<xsd:complexType>
+																						<xsd:simpleContent>
+																							<xsd:extension base="xsd:string">
+																								<xsd:attribute name="languageCode"
+																									type="xsd:string" />
+																							</xsd:extension>
+																						</xsd:simpleContent>
+																					</xsd:complexType>
+																				</xsd:element>
+																				<xsd:element name="Telephone" minOccurs="0"
+																					maxOccurs="unbounded">
+																					<xsd:complexType>
+																						<xsd:sequence>
+																							<xsd:element name="Number" minOccurs="0">
+																								<xsd:complexType>
+																									<xsd:sequence>
+																										<xsd:element name="AreaID" type="xsd:string"
+																											minOccurs="0" />
+																										<xsd:element name="SubscriberID"
+																											type="xsd:string" minOccurs="0" />
+																										<xsd:element name="ExtensionID"
+																											type="xsd:string" minOccurs="0" />
+																										<xsd:element name="CountryCode"
+																											type="xsd:string" minOccurs="0" />
+																										<xsd:element name="CountryDialingCode"
+																											type="xsd:string" minOccurs="0" />
+																										<xsd:element name="CountryName"
+																											minOccurs="0">
+																											<xsd:complexType>
+																												<xsd:simpleContent>
+																													<xsd:extension base="xsd:string">
+																														<xsd:attribute name="languageCode"
+																															type="xsd:string" />
+																													</xsd:extension>
+																												</xsd:simpleContent>
+																											</xsd:complexType>
+																										</xsd:element>
+																									</xsd:sequence>
+																								</xsd:complexType>
+																							</xsd:element>
+																							<xsd:element name="SMSEnabledIndicator"
+																								type="xsd:string" minOccurs="0" />
+																							<xsd:element name="NumberDefaultIndicator"
+																								type="xsd:string" minOccurs="0" />
+																							<xsd:element name="NumberDescription"
+																								minOccurs="0" maxOccurs="unbounded">
+																								<xsd:complexType>
+																									<xsd:simpleContent>
+																										<xsd:extension base="xsd:string">
+																											<xsd:attribute name="languageCode"
+																												type="xsd:string" />
+																										</xsd:extension>
+																									</xsd:simpleContent>
+																								</xsd:complexType>
+																							</xsd:element>
+																							<xsd:element name="NumberUsageDenialIndicator"
+																								type="xsd:string" minOccurs="0" />
+																						</xsd:sequence>
+																					</xsd:complexType>
+																				</xsd:element>
+																				<xsd:element name="MobilePhone"
+																					minOccurs="0" maxOccurs="unbounded">
+																					<xsd:complexType>
+																						<xsd:sequence>
+																							<xsd:element name="Number" minOccurs="0">
+																								<xsd:complexType>
+																									<xsd:sequence>
+																										<xsd:element name="AreaID" type="xsd:string"
+																											minOccurs="0" />
+																										<xsd:element name="SubscriberID"
+																											type="xsd:string" minOccurs="0" />
+																										<xsd:element name="ExtensionID"
+																											type="xsd:string" minOccurs="0" />
+																										<xsd:element name="CountryCode"
+																											type="xsd:string" minOccurs="0" />
+																										<xsd:element name="CountryDialingCode"
+																											type="xsd:string" minOccurs="0" />
+																										<xsd:element name="CountryName"
+																											minOccurs="0">
+																											<xsd:complexType>
+																												<xsd:simpleContent>
+																													<xsd:extension base="xsd:string">
+																														<xsd:attribute name="languageCode"
+																															type="xsd:string" />
+																													</xsd:extension>
+																												</xsd:simpleContent>
+																											</xsd:complexType>
+																										</xsd:element>
+																									</xsd:sequence>
+																								</xsd:complexType>
+																							</xsd:element>
+																							<xsd:element name="SMSEnabledIndicator"
+																								type="xsd:string" minOccurs="0" />
+																							<xsd:element name="NumberDefaultIndicator"
+																								type="xsd:string" minOccurs="0" />
+																							<xsd:element name="NumberDescription"
+																								minOccurs="0" maxOccurs="unbounded">
+																								<xsd:complexType>
+																									<xsd:simpleContent>
+																										<xsd:extension base="xsd:string">
+																											<xsd:attribute name="languageCode"
+																												type="xsd:string" />
+																										</xsd:extension>
+																									</xsd:simpleContent>
+																								</xsd:complexType>
+																							</xsd:element>
+																							<xsd:element name="NumberUsageDenialIndicator"
+																								type="xsd:string" minOccurs="0" />
+																						</xsd:sequence>
+																					</xsd:complexType>
+																				</xsd:element>
+																				<xsd:element name="Fascsimile"
+																					minOccurs="0" maxOccurs="unbounded">
+																					<xsd:complexType>
+																						<xsd:sequence>
+																							<xsd:element name="Number" minOccurs="0">
+																								<xsd:complexType>
+																									<xsd:sequence>
+																										<xsd:element name="AreaID" type="xsd:string"
+																											minOccurs="0" />
+																										<xsd:element name="SubscriberID"
+																											type="xsd:string" minOccurs="0" />
+																										<xsd:element name="ExtensionID"
+																											type="xsd:string" minOccurs="0" />
+																										<xsd:element name="CountryCode"
+																											type="xsd:string" minOccurs="0" />
+																										<xsd:element name="CountryDialingCode"
+																											type="xsd:string" minOccurs="0" />
+																										<xsd:element name="CountryName"
+																											minOccurs="0">
+																											<xsd:complexType>
+																												<xsd:simpleContent>
+																													<xsd:extension base="xsd:string">
+																														<xsd:attribute name="languageCode"
+																															type="xsd:string" />
+																													</xsd:extension>
+																												</xsd:simpleContent>
+																											</xsd:complexType>
+																										</xsd:element>
+																									</xsd:sequence>
+																								</xsd:complexType>
+																							</xsd:element>
+																							<xsd:element name="NumberDefaultIndicator"
+																								type="xsd:string" minOccurs="0" />
+																							<xsd:element name="NumberDescription"
+																								minOccurs="0" maxOccurs="unbounded">
+																								<xsd:complexType>
+																									<xsd:simpleContent>
+																										<xsd:extension base="xsd:string">
+																											<xsd:attribute name="languageCode"
+																												type="xsd:string" />
+																										</xsd:extension>
+																									</xsd:simpleContent>
+																								</xsd:complexType>
+																							</xsd:element>
+																							<xsd:element name="NumberUsageDenialIndicator"
+																								type="xsd:string" minOccurs="0" />
+																						</xsd:sequence>
+																					</xsd:complexType>
+																				</xsd:element>
+																				<xsd:element name="Email" minOccurs="0"
+																					maxOccurs="unbounded">
+																					<xsd:complexType>
+																						<xsd:sequence>
+																							<xsd:element name="URI" minOccurs="0">
+																								<xsd:complexType>
+																									<xsd:simpleContent>
+																										<xsd:extension base="xsd:string">
+																											<xsd:attribute name="schemeID"
+																												type="xsd:string" />
+																										</xsd:extension>
+																									</xsd:simpleContent>
+																								</xsd:complexType>
+																							</xsd:element>
+																							<xsd:element name="URIDefaultIndicator"
+																								type="xsd:string" minOccurs="0" />
+																							<xsd:element name="URIDescription"
+																								minOccurs="0" maxOccurs="unbounded">
+																								<xsd:complexType>
+																									<xsd:simpleContent>
+																										<xsd:extension base="xsd:string">
+																											<xsd:attribute name="languageCode"
+																												type="xsd:string" />
+																										</xsd:extension>
+																									</xsd:simpleContent>
+																								</xsd:complexType>
+																							</xsd:element>
+																							<xsd:element name="URIUsageDenialIndicator"
+																								type="xsd:string" minOccurs="0" />
+																						</xsd:sequence>
+																					</xsd:complexType>
+																				</xsd:element>
+																				<xsd:element name="Web" minOccurs="0"
+																					maxOccurs="unbounded">
+																					<xsd:complexType>
+																						<xsd:sequence>
+																							<xsd:element name="URI" type="xsd:string"
+																								minOccurs="0" />
+																							<xsd:element name="URIDefaultIndicator"
+																								type="xsd:string" minOccurs="0" />
+																							<xsd:element name="URIDescription"
+																								minOccurs="0" maxOccurs="unbounded">
+																								<xsd:complexType>
+																									<xsd:simpleContent>
+																										<xsd:extension base="xsd:string">
+																											<xsd:attribute name="languageCode"
+																												type="xsd:string" />
+																										</xsd:extension>
+																									</xsd:simpleContent>
+																								</xsd:complexType>
+																							</xsd:element>
+																						</xsd:sequence>
+																					</xsd:complexType>
+																				</xsd:element>
+																			</xsd:sequence>
+																		</xsd:complexType>
+																	</xsd:element>
+																	<xsd:element name="Teletex" minOccurs="0"
+																		maxOccurs="unbounded">
+																		<xsd:complexType>
+																			<xsd:sequence>
+																				<xsd:element name="ID" type="xsd:string"
+																					minOccurs="0" />
+																				<xsd:element name="DefaultIndicator"
+																					type="xsd:string" minOccurs="0" />
+																				<xsd:element name="Description"
+																					minOccurs="0" maxOccurs="unbounded">
+																					<xsd:complexType>
+																						<xsd:simpleContent>
+																							<xsd:extension base="xsd:string">
+																								<xsd:attribute name="languageCode"
+																									type="xsd:string" />
+																							</xsd:extension>
+																						</xsd:simpleContent>
+																					</xsd:complexType>
+																				</xsd:element>
+																				<xsd:element name="UsageDenialIndicator"
+																					type="xsd:string" minOccurs="0" />
+																			</xsd:sequence>
+																		</xsd:complexType>
+																	</xsd:element>
+																	<xsd:element name="Telex" minOccurs="0"
+																		maxOccurs="unbounded">
+																		<xsd:complexType>
+																			<xsd:sequence>
+																				<xsd:element name="ID" type="xsd:string"
+																					minOccurs="0" />
+																				<xsd:element name="DefaultIndicator"
+																					type="xsd:string" minOccurs="0" />
+																				<xsd:element name="Description"
+																					minOccurs="0" maxOccurs="unbounded">
+																					<xsd:complexType>
+																						<xsd:simpleContent>
+																							<xsd:extension base="xsd:string">
+																								<xsd:attribute name="languageCode"
+																									type="xsd:string" />
+																							</xsd:extension>
+																						</xsd:simpleContent>
+																					</xsd:complexType>
+																				</xsd:element>
+																				<xsd:element name="UsageDenialIndicator"
+																					type="xsd:string" minOccurs="0" />
+																			</xsd:sequence>
+																		</xsd:complexType>
+																	</xsd:element>
+																</xsd:sequence>
+															</xsd:complexType>
+														</xsd:element>
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+								<xsd:element name="IndustrySector" minOccurs="0">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="IndustrialSectorCode"
+												minOccurs="0">
+												<xsd:complexType>
+													<xsd:simpleContent>
+														<xsd:extension base="xsd:string">
+															<xsd:attribute name="listID" type="xsd:string" />
+															<xsd:attribute name="listAgencyID" type="xsd:string" />
+															<xsd:attribute name="listVersionID" type="xsd:string" />
+															<xsd:attribute name="listAgencySchemeID"
+																type="xsd:string" />
+															<xsd:attribute name="listAgencySchemeAgencyID"
+																type="xsd:string" />
+														</xsd:extension>
+													</xsd:simpleContent>
+												</xsd:complexType>
+											</xsd:element>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+								<xsd:element name="TaxNumber" minOccurs="0"
+									maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="PartyTaxID" minOccurs="0">
+												<xsd:complexType>
+													<xsd:simpleContent>
+														<xsd:extension base="xsd:string">
+															<xsd:attribute name="SchemeID" type="xsd:string" />
+														</xsd:extension>
+													</xsd:simpleContent>
+												</xsd:complexType>
+											</xsd:element>
+											<xsd:element name="CountryCode" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="TaxIdentificationNumberTypeCode"
+												minOccurs="0">
+												<xsd:complexType>
+													<xsd:simpleContent>
+														<xsd:extension base="xsd:string">
+															<xsd:attribute name="listID" type="xsd:string" />
+															<xsd:attribute name="listAgencyID" type="xsd:string" />
+														</xsd:extension>
+													</xsd:simpleContent>
+												</xsd:complexType>
+											</xsd:element>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+								<xsd:element name="MarketingAttributes" minOccurs="0">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="CustomerGroupCode" minOccurs="0">
+												<xsd:complexType>
+													<xsd:simpleContent>
+														<xsd:extension base="xsd:string">
+															<xsd:attribute name="listID" type="xsd:string" />
+															<xsd:attribute name="listAgencyID" type="xsd:string" />
+															<xsd:attribute name="listVersionID" type="xsd:string" />
+															<xsd:attribute name="listAgencySchemeID"
+																type="xsd:string" />
+															<xsd:attribute name="listAgencySchemeAgencyID"
+																type="xsd:string" />
+														</xsd:extension>
+													</xsd:simpleContent>
+												</xsd:complexType>
+											</xsd:element>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+								<xsd:element name="AccountGroup" type="xsd:string"
+									minOccurs="0" />
+								<xsd:element name="ContactPersons" minOccurs="0"
+									maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="InternalID" minOccurs="0">
+												<xsd:complexType>
+													<xsd:simpleContent>
+														<xsd:extension base="xsd:string">
+															<xsd:attribute name="schemeID" type="xsd:string" />
+															<xsd:attribute name="schemeAgencyID" type="xsd:string" />
+														</xsd:extension>
+													</xsd:simpleContent>
+												</xsd:complexType>
+											</xsd:element>
+											<xsd:element name="BuyerID" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="SellerID" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="ProductRecipientID" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="VendorID" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="BillToID" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="BillFromID" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="BidderID" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="AddressReference" minOccurs="0">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element name="AddressHostUUID" minOccurs="0">
+															<xsd:complexType>
+																<xsd:simpleContent>
+																	<xsd:extension base="xsd:string">
+																		<xsd:attribute name="SchemeID" type="xsd:string" />
+																		<xsd:attribute name="SchemeAgencyID"
+																			type="xsd:string" />
+																	</xsd:extension>
+																</xsd:simpleContent>
+															</xsd:complexType>
+														</xsd:element>
+														<xsd:element name="AddressHostTypeCode" type="xsd:string"
+															minOccurs="0" />
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+											<xsd:element name="Address" minOccurs="0">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element name="OrganizationFormOfAddress"
+															minOccurs="0">
+															<xsd:complexType>
+																<xsd:sequence>
+																	<xsd:element name="Code" minOccurs="0">
+																		<xsd:complexType>
+																			<xsd:simpleContent>
+																				<xsd:extension base="xsd:string">
+																					<xsd:attribute name="listID" type="xsd:string" />
+																					<xsd:attribute name="listVersionID"
+																						type="xsd:string" />
+																					<xsd:attribute name="listAgencyID"
+																						type="xsd:string" />
+																					<xsd:attribute name="listAgencySchemeID"
+																						type="xsd:string" />
+																					<xsd:attribute name="listAgencySchemeAgencyID"
+																						type="xsd:string" />
+																				</xsd:extension>
+																			</xsd:simpleContent>
+																		</xsd:complexType>
+																	</xsd:element>
+																	<xsd:element name="Name" minOccurs="0">
+																		<xsd:complexType>
+																			<xsd:simpleContent>
+																				<xsd:extension base="xsd:string">
+																					<xsd:attribute name="languageCode"
+																						type="xsd:string" />
+																				</xsd:extension>
+																			</xsd:simpleContent>
+																		</xsd:complexType>
+																	</xsd:element>
+																</xsd:sequence>
+															</xsd:complexType>
+														</xsd:element>
+														<xsd:element name="OrganizationFormattedName"
+															type="xsd:string" minOccurs="0" />
+														<xsd:element name="PersonName" minOccurs="0">
+															<xsd:complexType>
+																<xsd:sequence>
+																	<xsd:element name="FormOfAddressCode"
+																		minOccurs="0">
+																		<xsd:complexType>
+																			<xsd:simpleContent>
+																				<xsd:extension base="xsd:string">
+																					<xsd:attribute name="listID" type="xsd:string" />
+																					<xsd:attribute name="listVersionID"
+																						type="xsd:string" />
+																					<xsd:attribute name="listAgencyID"
+																						type="xsd:string" />
+																					<xsd:attribute name="listAgencySchemeID"
+																						type="xsd:string" />
+																					<xsd:attribute name="listAgencySchemeAgencyID"
+																						type="xsd:string" />
+																				</xsd:extension>
+																			</xsd:simpleContent>
+																		</xsd:complexType>
+																	</xsd:element>
+																	<xsd:element name="FormOfAddressName" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="GivenName" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="MiddleName" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="FamilyName" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="AdditionalFamilyName"
+																		type="xsd:string" minOccurs="0" />
+																	<xsd:element name="BirthName" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="NickName" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="InitialsName" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="AcademicTitleCode"
+																		minOccurs="0">
+																		<xsd:complexType>
+																			<xsd:simpleContent>
+																				<xsd:extension base="xsd:string">
+																					<xsd:attribute name="listID" type="xsd:string" />
+																					<xsd:attribute name="listVersionID"
+																						type="xsd:string" />
+																					<xsd:attribute name="listAgencyID"
+																						type="xsd:string" />
+																					<xsd:attribute name="listAgencySchemeID"
+																						type="xsd:string" />
+																					<xsd:attribute name="listAgencySchemeAgencyID"
+																						type="xsd:string" />
+																				</xsd:extension>
+																			</xsd:simpleContent>
+																		</xsd:complexType>
+																	</xsd:element>
+																	<xsd:element name="AcademicTitleName" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="AdditionalAcademicTitleCode"
+																		minOccurs="0">
+																		<xsd:complexType>
+																			<xsd:simpleContent>
+																				<xsd:extension base="xsd:string">
+																					<xsd:attribute name="listID" type="xsd:string" />
+																					<xsd:attribute name="listVersionID"
+																						type="xsd:string" />
+																					<xsd:attribute name="listAgencyID"
+																						type="xsd:string" />
+																					<xsd:attribute name="listAgencySchemeID"
+																						type="xsd:string" />
+																					<xsd:attribute name="listAgencySchemeAgencyID"
+																						type="xsd:string" />
+																				</xsd:extension>
+																			</xsd:simpleContent>
+																		</xsd:complexType>
+																	</xsd:element>
+																	<xsd:element name="AdditionalAcademicTitleName"
+																		type="xsd:string" minOccurs="0" />
+																	<xsd:element name="NamePrefixCode"
+																		minOccurs="0">
+																		<xsd:complexType>
+																			<xsd:simpleContent>
+																				<xsd:extension base="xsd:string">
+																					<xsd:attribute name="listID" type="xsd:string" />
+																					<xsd:attribute name="listVersionID"
+																						type="xsd:string" />
+																					<xsd:attribute name="listAgencyID"
+																						type="xsd:string" />
+																					<xsd:attribute name="listAgencySchemeID"
+																						type="xsd:string" />
+																					<xsd:attribute name="listAgencySchemeAgencyID"
+																						type="xsd:string" />
+																				</xsd:extension>
+																			</xsd:simpleContent>
+																		</xsd:complexType>
+																	</xsd:element>
+																	<xsd:element name="NamePrefixName" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="AdditionalNamePrefixCode"
+																		minOccurs="0">
+																		<xsd:complexType>
+																			<xsd:simpleContent>
+																				<xsd:extension base="xsd:string">
+																					<xsd:attribute name="listID" type="xsd:string" />
+																					<xsd:attribute name="listVersionID"
+																						type="xsd:string" />
+																					<xsd:attribute name="listAgencyID"
+																						type="xsd:string" />
+																					<xsd:attribute name="listAgencySchemeID"
+																						type="xsd:string" />
+																					<xsd:attribute name="listAgencySchemeAgencyID"
+																						type="xsd:string" />
+																				</xsd:extension>
+																			</xsd:simpleContent>
+																		</xsd:complexType>
+																	</xsd:element>
+																	<xsd:element name="AdditionalNamePrefixName"
+																		type="xsd:string" minOccurs="0" />
+																	<xsd:element name="NameSupplementCode"
+																		minOccurs="0">
+																		<xsd:complexType>
+																			<xsd:simpleContent>
+																				<xsd:extension base="xsd:string">
+																					<xsd:attribute name="listID" type="xsd:string" />
+																					<xsd:attribute name="listVersionID"
+																						type="xsd:string" />
+																					<xsd:attribute name="listAgencyID"
+																						type="xsd:string" />
+																					<xsd:attribute name="listAgencySchemeID"
+																						type="xsd:string" />
+																					<xsd:attribute name="listAgencySchemeAgencyID"
+																						type="xsd:string" />
+																				</xsd:extension>
+																			</xsd:simpleContent>
+																		</xsd:complexType>
+																	</xsd:element>
+																	<xsd:element name="NameSupplementName"
+																		type="xsd:string" minOccurs="0" />
+																	<xsd:element name="DeviatingFullName" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="NameFormatCountryCode"
+																		type="xsd:string" minOccurs="0" />
+																	<xsd:element name="NameFormatCode"
+																		minOccurs="0">
+																		<xsd:complexType>
+																			<xsd:simpleContent>
+																				<xsd:extension base="xsd:string">
+																					<xsd:attribute name="listID" type="xsd:string" />
+																					<xsd:attribute name="listVersionID"
+																						type="xsd:string" />
+																					<xsd:attribute name="listAgencyID"
+																						type="xsd:string" />
+																					<xsd:attribute name="listAgencySchemeID"
+																						type="xsd:string" />
+																					<xsd:attribute name="listAgencySchemeAgencyID"
+																						type="xsd:string" />
+																				</xsd:extension>
+																			</xsd:simpleContent>
+																		</xsd:complexType>
+																	</xsd:element>
+																</xsd:sequence>
+															</xsd:complexType>
+														</xsd:element>
+														<xsd:element name="FunctionalTitleName" type="xsd:string"
+															minOccurs="0" />
+														<xsd:element name="DepartmentName" type="xsd:string"
+															minOccurs="0" />
+														<xsd:element name="Office" minOccurs="0">
+															<xsd:complexType>
+																<xsd:sequence>
+																	<xsd:element name="BuildingID" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="FloorID" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="RoomID" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="InhouseMailID" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="CorrespondenceShortName"
+																		type="xsd:string" minOccurs="0" />
+																</xsd:sequence>
+															</xsd:complexType>
+														</xsd:element>
+														<xsd:element name="PhysicalAddress" minOccurs="0">
+															<xsd:complexType>
+																<xsd:sequence>
+																	<xsd:element name="CountryCode" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="CountryName" minOccurs="0">
+																		<xsd:complexType>
+																			<xsd:simpleContent>
+																				<xsd:extension base="xsd:string">
+																					<xsd:attribute name="languageCode"
+																						type="xsd:string" />
+																				</xsd:extension>
+																			</xsd:simpleContent>
+																		</xsd:complexType>
+																	</xsd:element>
+																	<xsd:element name="RegionCode" minOccurs="0">
+																		<xsd:complexType>
+																			<xsd:simpleContent>
+																				<xsd:extension base="xsd:string">
+																					<xsd:attribute name="listID" type="xsd:string" />
+																					<xsd:attribute name="listVersionID"
+																						type="xsd:string" />
+																					<xsd:attribute name="listAgencyID"
+																						type="xsd:string" />
+																					<xsd:attribute name="listAgencySchemeID"
+																						type="xsd:string" />
+																					<xsd:attribute name="listAgencySchemeAgencyID"
+																						type="xsd:string" />
+																				</xsd:extension>
+																			</xsd:simpleContent>
+																		</xsd:complexType>
+																	</xsd:element>
+																	<xsd:element name="RegionName" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="StreetPostalCode" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="PoBoxPostalCode" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="CountryPostalCode" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="CityName" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="AdditionalCityName"
+																		type="xsd:string" minOccurs="0" />
+																	<xsd:element name="DirectName" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="POBoxID" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="POBoxIndicator" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="POBoxCountryCode" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="POBoxCountryName"
+																		minOccurs="0">
+																		<xsd:complexType>
+																			<xsd:simpleContent>
+																				<xsd:extension base="xsd:string">
+																					<xsd:attribute name="languageCode"
+																						type="xsd:string" />
+																				</xsd:extension>
+																			</xsd:simpleContent>
+																		</xsd:complexType>
+																	</xsd:element>
+																	<xsd:element name="POBoxRegionCode"
+																		minOccurs="0">
+																		<xsd:complexType>
+																			<xsd:simpleContent>
+																				<xsd:extension base="xsd:string">
+																					<xsd:attribute name="listID" type="xsd:string" />
+																					<xsd:attribute name="listVersionID"
+																						type="xsd:string" />
+																					<xsd:attribute name="listAgencyID"
+																						type="xsd:string" />
+																					<xsd:attribute name="listAgencySchemeID"
+																						type="xsd:string" />
+																					<xsd:attribute name="listAgencySchemeAgencyID"
+																						type="xsd:string" />
+																				</xsd:extension>
+																			</xsd:simpleContent>
+																		</xsd:complexType>
+																	</xsd:element>
+																	<xsd:element name="POBoxRegionName" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="POBoxCityName" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="StreetName" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="StreetPrefixName" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="StreetSuffixName" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="HouseID" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="AdditionalHouseID" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="BuildingID" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="FloorID" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="RoomID" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="CareOfName" type="xsd:string"
+																		minOccurs="0" />
+																	<xsd:element name="Description" minOccurs="0"
+																		maxOccurs="unbounded">
+																		<xsd:complexType>
+																			<xsd:simpleContent>
+																				<xsd:extension base="xsd:string">
+																					<xsd:attribute name="languageCode"
+																						type="xsd:string" />
+																				</xsd:extension>
+																			</xsd:simpleContent>
+																		</xsd:complexType>
+																	</xsd:element>
+																</xsd:sequence>
+															</xsd:complexType>
+														</xsd:element>
+														<xsd:element name="TaxJurisdictionCode"
+															minOccurs="0">
+															<xsd:complexType>
+																<xsd:simpleContent>
+																	<xsd:extension base="xsd:string">
+																		<xsd:attribute name="listID" type="xsd:string" />
+																		<xsd:attribute name="listVersionID"
+																			type="xsd:string" />
+																		<xsd:attribute name="listAgencyID" type="xsd:string" />
+																		<xsd:attribute name="listAgencySchemeID"
+																			type="xsd:string" />
+																		<xsd:attribute name="listAgencySchemeAgencyID"
+																			type="xsd:string" />
+																	</xsd:extension>
+																</xsd:simpleContent>
+															</xsd:complexType>
+														</xsd:element>
+														<xsd:element name="TimeZoneDifferenceValue"
+															type="xsd:string" minOccurs="0" />
+														<xsd:element name="GeoCoordinates" minOccurs="0">
+															<xsd:complexType>
+																<xsd:sequence>
+																	<xsd:element name="LatitudeMeasure"
+																		minOccurs="0">
+																		<xsd:complexType>
+																			<xsd:simpleContent>
+																				<xsd:extension base="xsd:string">
+																					<xsd:attribute name="unitCode" type="xsd:string" />
+																				</xsd:extension>
+																			</xsd:simpleContent>
+																		</xsd:complexType>
+																	</xsd:element>
+																	<xsd:element name="LongitudeMeasure"
+																		minOccurs="0">
+																		<xsd:complexType>
+																			<xsd:simpleContent>
+																				<xsd:extension base="xsd:string">
+																					<xsd:attribute name="unitCode" type="xsd:string" />
+																				</xsd:extension>
+																			</xsd:simpleContent>
+																		</xsd:complexType>
+																	</xsd:element>
+																	<xsd:element name="AltitudeMeasure"
+																		minOccurs="0">
+																		<xsd:complexType>
+																			<xsd:simpleContent>
+																				<xsd:extension base="xsd:string">
+																					<xsd:attribute name="unitCode" type="xsd:string" />
+																				</xsd:extension>
+																			</xsd:simpleContent>
+																		</xsd:complexType>
+																	</xsd:element>
+																</xsd:sequence>
+															</xsd:complexType>
+														</xsd:element>
+														<xsd:element name="Communication" minOccurs="0">
+															<xsd:complexType>
+																<xsd:sequence>
+																	<xsd:element name="CorrespondenceLanguageCode"
+																		type="xsd:string" minOccurs="0" />
+																	<xsd:element name="CorrespondenceLanguageName"
+																		minOccurs="0">
+																		<xsd:complexType>
+																			<xsd:simpleContent>
+																				<xsd:extension base="xsd:string">
+																					<xsd:attribute name="languageCode"
+																						type="xsd:string" />
+																				</xsd:extension>
+																			</xsd:simpleContent>
+																		</xsd:complexType>
+																	</xsd:element>
+																	<xsd:element name="Telephone" minOccurs="0"
+																		maxOccurs="unbounded">
+																		<xsd:complexType>
+																			<xsd:sequence>
+																				<xsd:element name="Number" minOccurs="0">
+																					<xsd:complexType>
+																						<xsd:sequence>
+																							<xsd:element name="AreaID" type="xsd:string"
+																								minOccurs="0" />
+																							<xsd:element name="SubscriberID"
+																								type="xsd:string" minOccurs="0" />
+																							<xsd:element name="ExtensionID" type="xsd:string"
+																								minOccurs="0" />
+																							<xsd:element name="CountryCode" type="xsd:string"
+																								minOccurs="0" />
+																							<xsd:element name="CountryDialingCode"
+																								type="xsd:string" minOccurs="0" />
+																							<xsd:element name="CountryName"
+																								minOccurs="0">
+																								<xsd:complexType>
+																									<xsd:simpleContent>
+																										<xsd:extension base="xsd:string">
+																											<xsd:attribute name="languageCode"
+																												type="xsd:string" />
+																										</xsd:extension>
+																									</xsd:simpleContent>
+																								</xsd:complexType>
+																							</xsd:element>
+																						</xsd:sequence>
+																					</xsd:complexType>
+																				</xsd:element>
+																				<xsd:element name="SMSEnabledIndicator"
+																					type="xsd:string" minOccurs="0" />
+																				<xsd:element name="NumberDefaultIndicator"
+																					type="xsd:string" minOccurs="0" />
+																				<xsd:element name="NumberDescription"
+																					minOccurs="0" maxOccurs="unbounded">
+																					<xsd:complexType>
+																						<xsd:simpleContent>
+																							<xsd:extension base="xsd:string">
+																								<xsd:attribute name="languageCode"
+																									type="xsd:string" />
+																							</xsd:extension>
+																						</xsd:simpleContent>
+																					</xsd:complexType>
+																				</xsd:element>
+																				<xsd:element name="NumberUsageDenialIndicator"
+																					type="xsd:string" minOccurs="0" />
+																			</xsd:sequence>
+																		</xsd:complexType>
+																	</xsd:element>
+																	<xsd:element name="MobilePhone" minOccurs="0"
+																		maxOccurs="unbounded">
+																		<xsd:complexType>
+																			<xsd:sequence>
+																				<xsd:element name="Number" minOccurs="0">
+																					<xsd:complexType>
+																						<xsd:sequence>
+																							<xsd:element name="AreaID" type="xsd:string"
+																								minOccurs="0" />
+																							<xsd:element name="SubscriberID"
+																								type="xsd:string" minOccurs="0" />
+																							<xsd:element name="ExtensionID" type="xsd:string"
+																								minOccurs="0" />
+																							<xsd:element name="CountryCode" type="xsd:string"
+																								minOccurs="0" />
+																							<xsd:element name="CountryDialingCode"
+																								type="xsd:string" minOccurs="0" />
+																							<xsd:element name="CountryName"
+																								minOccurs="0">
+																								<xsd:complexType>
+																									<xsd:simpleContent>
+																										<xsd:extension base="xsd:string">
+																											<xsd:attribute name="languageCode"
+																												type="xsd:string" />
+																										</xsd:extension>
+																									</xsd:simpleContent>
+																								</xsd:complexType>
+																							</xsd:element>
+																						</xsd:sequence>
+																					</xsd:complexType>
+																				</xsd:element>
+																				<xsd:element name="SMSEnabledIndicator"
+																					type="xsd:string" minOccurs="0" />
+																				<xsd:element name="NumberDefaultIndicator"
+																					type="xsd:string" minOccurs="0" />
+																				<xsd:element name="NumberDescription"
+																					minOccurs="0" maxOccurs="unbounded">
+																					<xsd:complexType>
+																						<xsd:simpleContent>
+																							<xsd:extension base="xsd:string">
+																								<xsd:attribute name="languageCode"
+																									type="xsd:string" />
+																							</xsd:extension>
+																						</xsd:simpleContent>
+																					</xsd:complexType>
+																				</xsd:element>
+																				<xsd:element name="NumberUsageDenialIndicator"
+																					type="xsd:string" minOccurs="0" />
+																			</xsd:sequence>
+																		</xsd:complexType>
+																	</xsd:element>
+																	<xsd:element name="Fascsimile" minOccurs="0"
+																		maxOccurs="unbounded">
+																		<xsd:complexType>
+																			<xsd:sequence>
+																				<xsd:element name="Number" minOccurs="0">
+																					<xsd:complexType>
+																						<xsd:sequence>
+																							<xsd:element name="AreaID" type="xsd:string"
+																								minOccurs="0" />
+																							<xsd:element name="SubscriberID"
+																								type="xsd:string" minOccurs="0" />
+																							<xsd:element name="ExtensionID" type="xsd:string"
+																								minOccurs="0" />
+																							<xsd:element name="CountryCode" type="xsd:string"
+																								minOccurs="0" />
+																							<xsd:element name="CountryDialingCode"
+																								type="xsd:string" minOccurs="0" />
+																							<xsd:element name="CountryName"
+																								minOccurs="0">
+																								<xsd:complexType>
+																									<xsd:simpleContent>
+																										<xsd:extension base="xsd:string">
+																											<xsd:attribute name="languageCode"
+																												type="xsd:string" />
+																										</xsd:extension>
+																									</xsd:simpleContent>
+																								</xsd:complexType>
+																							</xsd:element>
+																						</xsd:sequence>
+																					</xsd:complexType>
+																				</xsd:element>
+																				<xsd:element name="NumberDefaultIndicator"
+																					type="xsd:string" minOccurs="0" />
+																				<xsd:element name="NumberDescription"
+																					minOccurs="0" maxOccurs="unbounded">
+																					<xsd:complexType>
+																						<xsd:simpleContent>
+																							<xsd:extension base="xsd:string">
+																								<xsd:attribute name="languageCode"
+																									type="xsd:string" />
+																							</xsd:extension>
+																						</xsd:simpleContent>
+																					</xsd:complexType>
+																				</xsd:element>
+																				<xsd:element name="NumberUsageDenialIndicator"
+																					type="xsd:string" minOccurs="0" />
+																			</xsd:sequence>
+																		</xsd:complexType>
+																	</xsd:element>
+																	<xsd:element name="Email" minOccurs="0"
+																		maxOccurs="unbounded">
+																		<xsd:complexType>
+																			<xsd:sequence>
+																				<xsd:element name="URI" minOccurs="0">
+																					<xsd:complexType>
+																						<xsd:simpleContent>
+																							<xsd:extension base="xsd:string">
+																								<xsd:attribute name="schemeID"
+																									type="xsd:string" />
+																							</xsd:extension>
+																						</xsd:simpleContent>
+																					</xsd:complexType>
+																				</xsd:element>
+																				<xsd:element name="URIDefaultIndicator"
+																					type="xsd:string" minOccurs="0" />
+																				<xsd:element name="URIDescription"
+																					minOccurs="0" maxOccurs="unbounded">
+																					<xsd:complexType>
+																						<xsd:simpleContent>
+																							<xsd:extension base="xsd:string">
+																								<xsd:attribute name="languageCode"
+																									type="xsd:string" />
+																							</xsd:extension>
+																						</xsd:simpleContent>
+																					</xsd:complexType>
+																				</xsd:element>
+																				<xsd:element name="URIUsageDenialIndicator"
+																					type="xsd:string" minOccurs="0" />
+																			</xsd:sequence>
+																		</xsd:complexType>
+																	</xsd:element>
+																	<xsd:element name="Web" minOccurs="0"
+																		maxOccurs="unbounded">
+																		<xsd:complexType>
+																			<xsd:sequence>
+																				<xsd:element name="URI" type="xsd:string"
+																					minOccurs="0" />
+																				<xsd:element name="URIDefaultIndicator"
+																					type="xsd:string" minOccurs="0" />
+																				<xsd:element name="URIDescription"
+																					minOccurs="0" maxOccurs="unbounded">
+																					<xsd:complexType>
+																						<xsd:simpleContent>
+																							<xsd:extension base="xsd:string">
+																								<xsd:attribute name="languageCode"
+																									type="xsd:string" />
+																							</xsd:extension>
+																						</xsd:simpleContent>
+																					</xsd:complexType>
+																				</xsd:element>
+																			</xsd:sequence>
+																		</xsd:complexType>
+																	</xsd:element>
+																</xsd:sequence>
+															</xsd:complexType>
+														</xsd:element>
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+								<xsd:element name="CustomerRelationship" minOccurs="0"
+									maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="PartnerFunction" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="PartnerNumber" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="Name" minOccurs="0">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element name="FormOfAddressCode"
+															minOccurs="0">
+															<xsd:complexType>
+																<xsd:simpleContent>
+																	<xsd:extension base="xsd:string">
+																		<xsd:attribute name="listID" type="xsd:string" />
+																		<xsd:attribute name="listVersionID"
+																			type="xsd:string" />
+																		<xsd:attribute name="listAgencyID" type="xsd:string" />
+																		<xsd:attribute name="listAgencySchemeID"
+																			type="xsd:string" />
+																		<xsd:attribute name="listAgencySchemeAgencyID"
+																			type="xsd:string" />
+																	</xsd:extension>
+																</xsd:simpleContent>
+															</xsd:complexType>
+														</xsd:element>
+														<xsd:element name="FirstLineName" type="xsd:string"
+															minOccurs="0" />
+														<xsd:element name="SecondLineName" type="xsd:string"
+															minOccurs="0" />
+														<xsd:element name="ThirdLineName" type="xsd:string"
+															minOccurs="0" />
+														<xsd:element name="FourthLineName" type="xsd:string"
+															minOccurs="0" />
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+											<xsd:element name="AccountGroupKey" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="DefaultPartner" type="xsd:string"
+												minOccurs="0" />
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+								<xsd:element name="UnloadingPointWsData" minOccurs="0"
+									maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="UnldingPoint" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="GoodsReceiveHrsMonAm1" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="GoodsReceiveHrsMonAm2" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="GoodsReceiveHrsMonPm1" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="GoodsReceiveHrsMonPm2" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="GoodsReceiveHrsTuesAm1" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="GoodsReceiveHrsTuesAm2" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="GoodsReceiveHrsTuesPm1" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="GoodsReceiveHrsTuesPm2" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="GoodsReceiveHrsWedAm1" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="GoodsReceiveHrsWedAm2" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="GoodsReceiveHrsWedPm1" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="GoodsReceiveHrsWedPm2" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="GoodsReceiveHrsThursAm1" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="GoodsReceiveHrsThursAm2" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="GoodsReceiveHrsThursPm1" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="GoodsReceiveHrsThursPm2" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="GoodsReceiveHrsFriAm1" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="GoodsReceiveHrsFriAm2" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="GoodsReceiveHrsFriPm1" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="GoodsReceiveHrsFriPm2" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="GoodsReceiveHrsSatAm1" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="GoodsReceiveHrsSatAm2" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="GoodsReceiveHrsSatPm1" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="GoodsReceiveHrsSatPm2" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="GoodsReceiveHrsSunAm1" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="GoodsReceiveHrsSunAm2" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="GoodsReceiveHrsSunPm1" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="GoodsReceiveHrsSunPm2" type="xsd:string"
+												minOccurs="0" />
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+								<xsd:element name="AccountingData" minOccurs="0">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="CreditAccountID" minOccurs="0">
+												<xsd:complexType>
+													<xsd:simpleContent>
+														<xsd:extension base="xsd:string">
+															<xsd:attribute name="schemeID" type="xsd:string" />
+															<xsd:attribute name="schemeAgencyID" type="xsd:string" />
+															<xsd:attribute name="schemeAgencySchemeID"
+																type="xsd:string" />
+															<xsd:attribute name="schemeAgencySchemeAgencyID"
+																type="xsd:string" />
+														</xsd:extension>
+													</xsd:simpleContent>
+												</xsd:complexType>
+											</xsd:element>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+								<xsd:element name="SalesWsData" minOccurs="0"
+									maxOccurs="1">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="SalesOrganisation" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="DistributionChannel"
+												minOccurs="0">
+												<xsd:complexType>
+													<xsd:simpleContent>
+														<xsd:extension base="xsd:string">
+															<xsd:attribute name="listID" type="xsd:string" />
+															<xsd:attribute name="listVersionID" type="xsd:string" />
+															<xsd:attribute name="listAgencyID" type="xsd:string" />
+															<xsd:attribute name="listAgencySchemeID"
+																type="xsd:string" />
+															<xsd:attribute name="listAgencySchemeAgencyID"
+																type="xsd:string" />
+														</xsd:extension>
+													</xsd:simpleContent>
+												</xsd:complexType>
+											</xsd:element>
+											<xsd:element name="Division" minOccurs="0">
+												<xsd:complexType>
+													<xsd:simpleContent>
+														<xsd:extension base="xsd:string">
+															<xsd:attribute name="listID" type="xsd:string" />
+															<xsd:attribute name="listVersionID" type="xsd:string" />
+															<xsd:attribute name="listAgencyID" type="xsd:string" />
+															<xsd:attribute name="listAgencySchemeID"
+																type="xsd:string" />
+															<xsd:attribute name="listAgencySchemeAgencyID"
+																type="xsd:string" />
+														</xsd:extension>
+													</xsd:simpleContent>
+												</xsd:complexType>
+											</xsd:element>
+											<xsd:element name="DeletionIndicator" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="DefaultDeliveryPlant" type="xsd:string"
+												minOccurs="0"/>
+											<xsd:element name="SalesText" minOccurs="0"
+												maxOccurs="unbounded">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element name="ID" type="xsd:string"
+															minOccurs="0" />
+														<xsd:element name="Text" type="xsd:string"
+															minOccurs="0" />
+													</xsd:sequence>
+													<xsd:attribute name="language" type="xsd:string" />
+												</xsd:complexType>
+											</xsd:element>
+											<xsd:element name="ProductAttributes" minOccurs="0">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element name="ProdAttr1" type="xsd:string"
+															minOccurs="0" />
+														<xsd:element name="ProdAttr2" type="xsd:string"
+															minOccurs="0" />
+														<xsd:element name="ProdAttr3" type="xsd:string"
+															minOccurs="0" />
+														<xsd:element name="ProdAttr4" type="xsd:string"
+															minOccurs="0" />
+														<xsd:element name="ProdAttr5" type="xsd:string"
+															minOccurs="0" />
+														<xsd:element name="ProdAttr6" type="xsd:string"
+															minOccurs="0" />
+														<xsd:element name="ProdAttr7" type="xsd:string"
+															minOccurs="0" />
+														<xsd:element name="ProdAttr8" type="xsd:string"
+															minOccurs="0" />
+														<xsd:element name="ProdAttr9" type="xsd:string"
+															minOccurs="0" />
+														<xsd:element name="ProdAttr10" type="xsd:string"
+															minOccurs="0" />
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+								<xsd:element name="OnetimeCustomer" type="xsd:string"
+									minOccurs="0" />
+								<xsd:element name="SalesOrgWsData" minOccurs="0"
+									maxOccurs="1">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="SalesGroup" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="SalesOfficeCodeText" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="SalesDistrictCodeText" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="SalesOfficeCode" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="SalesDistrictCode" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="SalesCentralOrderBlock" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="SalesCustomerDeleteFlag" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="CustomerStatisticsGroup" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="CustomerPricingProcedure"
+												type="xsd:string" minOccurs="0" />
+											<xsd:element name="CustomerGroup" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="DeliveryPriority" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="ShippingConditions" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="IncoTerms1" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="IncoTerms2" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="PriceListType" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="PriceGroup" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="AccountAssigmentGroupCode"
+												type="xsd:string" minOccurs="0" />
+											<xsd:element name="TermsOfPaymentKey" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="Currency" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="DepartureCountry" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="TaxCategory" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="TaxClassification" type="xsd:string"
+												minOccurs="0" />
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+								<xsd:element name="OrgData" minOccurs="0" maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="CompanyCode" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="AuthorizationGroup" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="ReconciliationAccount" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="CustomerAccountNumber" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="PostingBlockForCompanyCode"
+												type="xsd:string" minOccurs="0" />
+											<xsd:element name="CompanyCodeCustomerDeletionFlag"
+												type="xsd:string" minOccurs="0" />
+											<xsd:element name="PreviousMaterRecordNumber"
+												type="xsd:string" minOccurs="0" />
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+								<xsd:element name="BankData" minOccurs="0"
+									maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="BankCountryKey" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="BankAccountNumber" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="SwiftCode" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="CreditControlArea" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="RiskCategory" type="xsd:string"
+												minOccurs="0" />
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+								<xsd:element name="UnloadingData" minOccurs="0"
+									maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="DefaultUnloadingPoint" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="NoOfContactPerson" type="xsd:string"
+												minOccurs="0" />
+											<xsd:element name="Telephone" type="xsd:string"
+												minOccurs="0" />
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+								<xsd:element name="ClassificationData" minOccurs="0"
+									maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="CharacteristicValue" type="xsd:string"
+												minOccurs="0" />
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+								<xsd:element name="AddressData" minOccurs="0"
+									maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="CountyName" type="xsd:string"
+												minOccurs="0" />
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+		</xsd:schema>
+		<xsd:schema targetNamespace="http://sap.com/xi/APPL"
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://sap.com/xi/APPL">
+			<xsd:simpleType name="PartyInternalID.Content">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="EN">Proprietary
+						identifier for a party</xsd:documentation>
+				</xsd:annotation>
+				<xsd:restriction base="xsd:token">
+					<xsd:minLength value="1" />
+					<xsd:maxLength value="32" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="LANGUAGEINDEPENDENT_MEDIUM_Name">
+				<xsd:restriction base="xsd:string">
+					<xsd:minLength value="0" />
+					<xsd:maxLength value="40" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="BusinessScopeTypeCode.Content">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="EN">Coded representation
+						of the type of a BusinessScope</xsd:documentation>
+				</xsd:annotation>
+				<xsd:restriction base="xsd:token">
+					<xsd:minLength value="1" />
+					<xsd:maxLength value="4" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="BusinessScopeID.Content">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="EN">Identifier of a
+						BusinessScope</xsd:documentation>
+				</xsd:annotation>
+				<xsd:restriction base="xsd:token">
+					<xsd:minLength value="1" />
+					<xsd:maxLength value="36" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="BusinessScopeInstanceID.Content">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="EN">Identifier for the
+						instance of a BusinessScope</xsd:documentation>
+				</xsd:annotation>
+				<xsd:restriction base="xsd:token">
+					<xsd:minLength value="1" />
+					<xsd:maxLength value="36" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="MEDIUM_Name.Content">
+				<xsd:restriction base="xsd:string">
+					<xsd:minLength value="1" />
+					<xsd:maxLength value="40" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="PhoneNumberExtensionID">
+				<xsd:restriction base="xsd:token">
+					<xsd:minLength value="1" />
+					<xsd:maxLength value="10" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="PhoneNumberAreaID">
+				<xsd:restriction base="xsd:token">
+					<xsd:minLength value="1" />
+					<xsd:maxLength value="10" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="AgencyIdentificationCode">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="EN">An
+						AgencyIdentificationCode is a code representation of the agency
+						responsible for a code list or identifier scheme, respectively
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:restriction base="xsd:token">
+					<xsd:minLength value="1" />
+					<xsd:maxLength value="3" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="LANGUAGEINDEPENDENT_LONG_Name">
+				<xsd:restriction base="xsd:string">
+					<xsd:minLength value="0" />
+					<xsd:maxLength value="80" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="CountryDiallingCode">
+				<xsd:restriction base="xsd:token">
+					<xsd:minLength value="1" />
+					<xsd:maxLength value="10" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="BusinessSystemID">
+				<xsd:restriction base="xsd:token">
+					<xsd:minLength value="1" />
+					<xsd:maxLength value="60" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="ContactPersonInternalID.Content">
+				<xsd:restriction base="xsd:token">
+					<xsd:minLength value="1" />
+					<xsd:maxLength value="32" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="PartyStandardID.Content">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="EN">Standardized
+						identifier for a party, and the identification scheme used is
+						controlled by an agency from the code list DE 3055
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:restriction base="xsd:token">
+					<xsd:minLength value="1" />
+					<xsd:maxLength value="13" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="PhoneNumberSubscriberID">
+				<xsd:restriction base="xsd:token">
+					<xsd:minLength value="1" />
+					<xsd:maxLength value="30" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="Indicator">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="EN">Indicator is the
+						representation of a situation that has exactly two mutually
+						exclusive Boolean values.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:restriction base="xsd:boolean" />
+			</xsd:simpleType>
+			<xsd:simpleType name="LanguageCode">
+				<xsd:restriction base="xsd:language">
+					<xsd:minLength value="2" />
+					<xsd:maxLength value="9" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="CountryCode">
+				<xsd:restriction base="xsd:token">
+					<xsd:minLength value="2" />
+					<xsd:maxLength value="3" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="GLOBAL_DateTime">
+				<xsd:restriction base="xsd:dateTime">
+					<xsd:pattern
+						value="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(.[0-9]*)?(Z)" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="BusinessDocumentMessageIDContent">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="35" />
+					<xsd:minLength value="1" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:complexType name="ContactPersonInternalID">
+				<xsd:simpleContent>
+					<xsd:extension base="ContactPersonInternalID.Content">
+						<xsd:attribute name="schemeID">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:token">
+									<xsd:minLength value="1" />
+									<xsd:maxLength value="60" />
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:attribute>
+						<xsd:attribute name="schemeAgencyID">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:token">
+									<xsd:minLength value="1" />
+									<xsd:maxLength value="60" />
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:attribute>
+					</xsd:extension>
+				</xsd:simpleContent>
+			</xsd:complexType>
+			<xsd:complexType name="BusinessDocumentMessageHeaderParty">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="EN">General information
+						about a party that is responsible for sending or receiving a
+						BusinessDocument at business application level</xsd:documentation>
+				</xsd:annotation>
+				<xsd:sequence>
+					<xsd:element name="InternalID" type="PartyInternalID"
+						minOccurs="0" />
+					<xsd:element name="StandardID" type="PartyStandardID"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element name="ContactPerson"
+						type="BusinessDocumentMessageHeaderPartyContactPerson" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="BusinessScope">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="EN">Environment from
+						which a message is sent</xsd:documentation>
+				</xsd:annotation>
+				<xsd:sequence>
+					<xsd:element name="TypeCode" type="BusinessScopeTypeCode" />
+					<xsd:element name="InstanceID" type="BusinessScopeInstanceID"
+						minOccurs="0" />
+					<xsd:element name="ID" type="BusinessScopeID"
+						minOccurs="0" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="BusinessDocumentMessageHeaderPartyContactPerson">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="EN">Contact person of a
+						party that is responsible for sending or receiving a
+						BusinessDocument</xsd:documentation>
+				</xsd:annotation>
+				<xsd:sequence>
+					<xsd:element name="InternalID" type="ContactPersonInternalID"
+						minOccurs="0" />
+					<xsd:element name="OrganisationFormattedName" type="LANGUAGEINDEPENDENT_MEDIUM_Name"
+						minOccurs="0" maxOccurs="4" />
+					<xsd:element name="PersonFormattedName" type="LANGUAGEINDEPENDENT_LONG_Name"
+						minOccurs="0" maxOccurs="4" />
+					<xsd:element name="PhoneNumber" type="PhoneNumber"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element name="FaxNumber" type="PhoneNumber"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element name="EmailURI" type="EmailURI" minOccurs="0"
+						maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="BusinessScopeID">
+				<xsd:simpleContent>
+					<xsd:extension base="BusinessScopeID.Content">
+						<xsd:attribute name="schemeID">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:token">
+									<xsd:minLength value="1" />
+									<xsd:maxLength value="60" />
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:attribute>
+						<xsd:attribute name="schemeAgencyID">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:token">
+									<xsd:minLength value="1" />
+									<xsd:maxLength value="60" />
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:attribute>
+					</xsd:extension>
+				</xsd:simpleContent>
+			</xsd:complexType>
+			<xsd:complexType name="PartyInternalID">
+				<xsd:simpleContent>
+					<xsd:extension base="PartyInternalID.Content">
+						<xsd:attribute name="schemeID">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:token">
+									<xsd:minLength value="1" />
+									<xsd:maxLength value="60" />
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:attribute>
+						<xsd:attribute name="schemeAgencyID">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:token">
+									<xsd:minLength value="1" />
+									<xsd:maxLength value="60" />
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:attribute>
+					</xsd:extension>
+				</xsd:simpleContent>
+			</xsd:complexType>
+			<xsd:complexType name="BusinessScopeTypeCode">
+				<xsd:simpleContent>
+					<xsd:extension base="BusinessScopeTypeCode.Content">
+						<xsd:attribute name="listID">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:token">
+									<xsd:minLength value="1" />
+									<xsd:maxLength value="60" />
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:attribute>
+						<xsd:attribute name="listVersionID">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:token">
+									<xsd:minLength value="1" />
+									<xsd:maxLength value="15" />
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:attribute>
+						<xsd:attribute name="listAgencyID">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:token">
+									<xsd:minLength value="1" />
+									<xsd:maxLength value="60" />
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:attribute>
+						<xsd:attribute name="listAgencySchemeID">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:token">
+									<xsd:minLength value="1" />
+									<xsd:maxLength value="60" />
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:attribute>
+						<xsd:attribute name="listAgencySchemeAgencyID" type="AgencyIdentificationCode" />
+					</xsd:extension>
+				</xsd:simpleContent>
+			</xsd:complexType>
+			<xsd:complexType name="MEDIUM_Name">
+				<xsd:simpleContent>
+					<xsd:extension base="MEDIUM_Name.Content">
+						<xsd:attribute name="languageCode" type="LanguageCode" />
+					</xsd:extension>
+				</xsd:simpleContent>
+			</xsd:complexType>
+			<xsd:complexType name="EmailURI">
+				<xsd:simpleContent>
+					<xsd:extension base="xsd:anyURI">
+						<xsd:attribute name="schemeID">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:token">
+									<xsd:minLength value="1" />
+									<xsd:maxLength value="60" />
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:attribute>
+					</xsd:extension>
+				</xsd:simpleContent>
+			</xsd:complexType>
+			<xsd:complexType name="PhoneNumber">
+				<xsd:sequence>
+					<xsd:element name="AreaID" type="PhoneNumberAreaID"
+						minOccurs="0" />
+					<xsd:element name="SubscriberID" type="PhoneNumberSubscriberID"
+						minOccurs="0" />
+					<xsd:element name="ExtensionID" type="PhoneNumberExtensionID"
+						minOccurs="0" />
+					<xsd:element name="CountryCode" type="CountryCode"
+						minOccurs="0" />
+					<xsd:element name="CountryDiallingCode" type="CountryDiallingCode"
+						minOccurs="0" />
+					<xsd:element name="CountryName" type="MEDIUM_Name"
+						minOccurs="0" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="PartyStandardID">
+				<xsd:simpleContent>
+					<xsd:extension base="PartyStandardID.Content">
+						<xsd:attribute name="schemeAgencyID" use="required">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:token">
+									<xsd:minLength value="1" />
+									<xsd:maxLength value="3" />
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:attribute>
+					</xsd:extension>
+				</xsd:simpleContent>
+			</xsd:complexType>
+			<xsd:complexType name="BusinessDocumentMessageID">
+				<xsd:simpleContent>
+					<xsd:extension base="BusinessDocumentMessageIDContent">
+						<xsd:attribute name="schemeID">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:token">
+									<xsd:maxLength value="60" />
+									<xsd:minLength value="1" />
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:attribute>
+						<xsd:attribute name="schemeAgencyID">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:token">
+									<xsd:maxLength value="60" />
+									<xsd:minLength value="1" />
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:attribute>
+						<xsd:attribute name="schemeAgencySchemeAgencyID">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:token">
+									<xsd:maxLength value="3" />
+									<xsd:minLength value="1" />
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:attribute>
+					</xsd:extension>
+				</xsd:simpleContent>
+			</xsd:complexType>
+			<xsd:complexType name="BusinessDocumentMessageHeader">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="EN">Business information
+						from the perspective of the sender application for identifying a
+						business document (instance) within a (technical) message
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:sequence>
+					<xsd:element name="ID" type="BusinessDocumentMessageID" />
+					<xsd:element name="ReferenceID" type="BusinessDocumentMessageID"
+						minOccurs="0" />
+					<xsd:element name="CreationDateTime" type="GLOBAL_DateTime" />
+					<xsd:element name="TestDataIndicator" type="Indicator"
+						minOccurs="0" />
+					<xsd:element name="ReconciliationIndicator" type="Indicator"
+						minOccurs="0" />
+					<xsd:element name="SenderBusinessSystemID" type="BusinessSystemID"
+						minOccurs="0" />
+					<xsd:element name="RecipientBusinessSystemID" type="BusinessSystemID"
+						minOccurs="0" />
+					<xsd:element name="SenderParty" type="BusinessDocumentMessageHeaderParty"
+						minOccurs="0" />
+					<xsd:element name="RecipientParty" type="BusinessDocumentMessageHeaderParty"
+						minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element name="BusinessScope" type="BusinessScope"
+						minOccurs="0" maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="BusinessScopeInstanceID">
+				<xsd:simpleContent>
+					<xsd:extension base="BusinessScopeInstanceID.Content">
+						<xsd:attribute name="schemeID">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:token">
+									<xsd:minLength value="1" />
+									<xsd:maxLength value="60" />
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:attribute>
+						<xsd:attribute name="schemeAgencyID">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:token">
+									<xsd:minLength value="1" />
+									<xsd:maxLength value="60" />
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:attribute>
+					</xsd:extension>
+				</xsd:simpleContent>
+			</xsd:complexType>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="CustomerERPReplicationBulkRequest_V1">
+		<wsdl:documentation />
+		<wsdl:part name="CustomerERPReplicationBulkRequest_V1"
+			element="p1:CustomerERPReplicationBulkRequest_V1" />
+	</wsdl:message>
+	<wsdl:portType name="CustomerERPReplicationBulkRequest_In_V2">
+		<wsdl:documentation />
+		<wsdl:operation name="CustomerERPReplicationBulkRequest_In_V2">
+			<wsdl:documentation />
+			<wsp:Policy>
+				<wsp:PolicyReference URI="#OP_CustomerERPReplicationBulkRequest_In_V2" />
+			</wsp:Policy>
+			<wsdl:input message="p1:CustomerERPReplicationBulkRequest_V1" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="CustomerERPReplicationBulkRequest_In_V2Binding"
+		type="p1:CustomerERPReplicationBulkRequest_In_V2">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+		<wsdl:operation name="CustomerERPReplicationBulkRequest_In_V2">
+			<soap:operation soapAction="http://sap.com/xi/WebService/soap1.1"
+				xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+			<wsdl:input>
+				<soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
+</wsdl:definitions>

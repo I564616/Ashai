@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="urn:gl.sabmiller.com:com:ecc:transdata" xmlns="urn:gl.sabmiller.com:com:ecc:transdata" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:element name="InvoiceDataRequest">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element maxOccurs="unbounded" minOccurs="0" name="InvoiceDetails">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="DocumentNumber" type="xsd:string"/>
+							<xsd:element minOccurs="0" name="ProcessFlag" type="xsd:string"/>
+							<xsd:element minOccurs="0" name="Email" type="xsd:string"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

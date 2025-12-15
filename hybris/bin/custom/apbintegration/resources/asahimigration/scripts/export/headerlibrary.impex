@@ -1,0 +1,2 @@
+INSERT_UPDATE ImpexMedia;code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime;fieldSeparator;quoteCharacter;commentCharacter;encoding(code,itemType(code));linesToSkip;removeOnSuccess
+;InitialSetup_header;InitialSetup_header;text/x-comma-separated-values;";";"""";#;UTF-8:EncodingEnum;0;false

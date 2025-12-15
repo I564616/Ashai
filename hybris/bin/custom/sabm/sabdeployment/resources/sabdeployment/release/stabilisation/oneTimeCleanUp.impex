@@ -1,0 +1,25 @@
+# Assumption: you don't have any Impex jobs that you explicitly configure / schedule
+# -> you can delete everything related to impex
+REMOVE ImpexMedia;pk[unique=true]
+"#% impex.exportItemsFlexibleSearch(""select {pk} from {ImpexMedia!}"");"
+REMOVE ImpExExportMedia;pk[unique=true]
+"#% impex.exportItemsFlexibleSearch(""select {pk} from {ImpExExportMedia!}"");"
+REMOVE ImpExImportCronJob;pk[unique=true]
+"#% impex.exportItemsFlexibleSearch(""select {pk} from {ImpExImportCronJob!}"");"
+REMOVE ImpExExportCronJob;pk[unique=true]
+"#% impex.exportItemsFlexibleSearch(""select {pk} from {ImpExExportCronJob!}"");"
+# unscheduled catalog syncs, with an auto-generated code
+REMOVE CatalogVersionSyncCronJob;pk[unique=true];;
+"#% impex.exportItemsFlexibleSearch(""select {pk} from {CatalogVersionSyncCronJob! as cj left join trigger as t on {t:cronJob} = {cj:pk} } where {cj:code} like '0000____%' and {t:pk} is null"");"
+# solr index cronjobs
+REMOVE SolrIndexerCronJob;pk[unique=true]
+"#% impex.exportItemsFlexibleSearch(""select {cj:pk} from {SolrIndexerCronJob! as cj left join trigger as t on {t:cronJob} = {cj:pk} } where {cj:code} like '0000____%' and {t:pk} is null"");"
+# solr hot update jobs
+REMOVE SolrIndexerHotUpdateCronJob;pk[unique=true]
+"#% impex.exportItemsFlexibleSearch(""select {pk} from {SolrIndexerHotUpdateCronJob!}"");"
+# solr index jobs
+REMOVE ServicelayerJob;pk[unique=true]
+"#% impex.exportItemsFlexibleSearch(""select {pk},{code} from {ServicelayerJob! as j left join trigger as t on {t:job} = {j:pk} } where ( {j:code} like 'solrIndexerJob_full_%' or {j:code} like 'solrIndexerJob_update_%') and {t:pk} is null"");"
+# left-over job logs
+REMOVE JobLog; pk[unique=true]
+"#% impex.exportItemsFlexibleSearch(""select {pk} from {JobLog} where {cronjob} is null"");"

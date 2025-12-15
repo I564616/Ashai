@@ -1,0 +1,9 @@
+<%@ tag body-content="empty" trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="cms" uri="http://hybris.com/tld/cmstags" %>
+
+
+	<cms:pageSlot position="BreadcrumbBar" var="component">
+		<cms:component component="${component}"/>
+	</cms:pageSlot>
+

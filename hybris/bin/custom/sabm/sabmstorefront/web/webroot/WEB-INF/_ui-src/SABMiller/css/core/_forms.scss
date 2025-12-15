@@ -1,0 +1,900 @@
+// ==========================================================================
+//   Form Styles
+// ==========================================================================
+.form-group {
+  margin-bottom: $spacing-small;
+  label {
+    position: relative;
+    font-weight: bold;
+    color: $primary-blue;
+    line-height: $spacing-medium;
+    .required {
+      font-size: 14px;
+      display: inline;
+      position: absolute;
+      top: -1px;
+      right: -6px;
+      @media (min-width: $tablet){
+        font-size: 14px;
+      }
+    }
+    span{
+      font-weight:bold;
+      display: block;
+      margin-bottom: $spacing-small;
+      &.mandatory {
+        display: none; // Currently no * in designs
+        img {
+          vertical-align: top;
+        }
+      }
+
+    }
+  }
+  input[type="text"],
+  input[type="email"],
+  input[type="phone"],
+  input[type="password"],
+  select {
+    height: 40px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    box-shadow: none !important;
+  }
+  
+  input[type=number]::-webkit-inner-spin-button, 
+  input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none; 
+  }
+
+  input[readonly]{
+      color: $medium-dark-grey;
+      &:hover {
+        cursor: not-allowed;
+      }
+  }
+
+
+
+  textarea {
+    overflow: hidden;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+
+  .form-control {
+    border-radius: 0;
+    border: 1px solid $medium-grey;
+    background-color: $light-grey;
+    box-shadow: none;
+    font-size: inherit;
+    padding: 6px 12px;
+    &:focus,
+    &:hover {
+      outline: 0 none;
+      box-shadow: none;
+    }
+  }
+
+  .message{
+  	display: none;
+  	word-wrap: break-word;
+  	width: 334px;
+  }
+}
+
+.error {
+  color: $red;
+  margin-top: 6px;
+  display: block;
+  font-size: $font-x-small;
+  line-height: $line-height-x-small;
+  a {
+    color: $red;
+    border-bottom: 1px solid $red;
+    &:hover,
+    &:focus {
+      border-bottom: 0 none;
+    }
+  }
+}
+
+.error-input{
+  color: $red;
+  border: 1px $red solid;
+}
+
+.tooltip {
+  width: 250px;
+  .tooltip-inner {
+    max-width: 250px;
+    background-color: $white;
+    border: 1px solid $medium-grey;
+    color: $dark-grey;
+    opacity: 1;
+    text-align: left;
+    padding: 10px;
+    border-radius: 0;
+    .deal-title {
+      color: $red;
+      font-weight: bold;
+    }
+  }
+  &.in {
+    opacity: 1;
+  }
+  .tooltip-arrow {
+    opacity: 0;
+  }
+  &.top {
+    margin-top: -10px;
+    .tooltip-arrow {
+        border-top-color: transparent;
+        bottom: 6px;
+        border-width: 0;
+        opacity: 1;
+        &:after, &:before {
+          top: 100%;
+          left: 50%;
+          border: solid transparent;
+          content: " ";
+          height: 0;
+          width: 0;
+          position: absolute;
+          pointer-events: none;
+        }
+
+        &:after {
+          border-color: rgba(255, 255, 255, 0);
+          border-top-color: #fff;
+          border-width: 10px;
+          margin-left: -10px;
+        }
+        &:before {
+          border-color: rgba(214, 214, 214, 0);
+          border-top-color: #d6d6d6;
+          border-width: 11px;
+          margin-left: -11px;
+        }
+      }
+  }
+
+}
+
+.input-tooltip {
+  position: relative;
+  .form-control {
+    padding-right: 40px;
+  }
+}
+
+.input-icon-group {
+  position: relative;
+  display: block;
+  .form-control {
+    padding-right: 40px;
+    text-align: left;
+  }
+  svg,
+  button {
+    position: absolute;
+    right: 10px;
+    top: 8px;
+    z-index: 2;
+    &.icon-calendar {
+      width: 17px;
+      height: 17px;
+      top: 9px;
+    }
+    &.icon-calendar-primary{
+      color: $primary-blue;
+    }
+  }
+
+   span{
+      width: 20px;
+      height: 20px;
+      right: 8px;
+      &.info {
+        position: absolute;
+        background-color: $white;
+        border: 1px solid $medium-grey;
+        background-size: 2px 22px;
+        background-position: 50%;
+        top: 0;
+        right: 0;
+        border-radius: 0;
+        padding: 0 15px;
+        height: 40px;
+        svg {
+          right: 13px;
+          top: 10px;
+        }
+        @media (min-width: $desktop) {
+          height: 35px;
+        }
+      }
+    }
+    .pstrength-info {
+      span {
+        position: static;
+      }
+    }
+    .pstrength-bar {
+      margin-top: 4px !important;
+    }
+}
+
+
+.form-input-reset{
+  box-shadow: none;
+  height:35px;
+}
+
+// Date Picker
+.datepicker {
+  background-color: $white;
+  color: $primary-blue;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: 0px 2px 14px -5px #666;
+  border: none;
+  min-width: 230px;
+  
+  .icon-cross{
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    width: 15px;
+    height: 15px;
+    
+    @media (min-width: $tablet){
+    	display: none;
+    }
+  }
+  .delivery-modes {
+    color: $dark-grey;
+    background: #e8e8e8;
+    padding: 10px;
+    display: none;
+    
+    &.active {
+      display: block;
+    }
+    p {
+      color: $primary-blue;
+      margin-bottom: 5px;
+      &.error-msg {
+        color: $red;
+        font-size: $font-small;
+        display: none;
+        max-width: 221px;
+      }
+      span {
+        cursor: pointer;
+        font-weight: bold;
+        color: $red;
+        text-decoration: underline;
+      }
+    }
+    ul {
+      margin-bottom: 5px;
+      li {
+        position: relative;
+        margin-bottom: 5px;
+        display: none;
+        &.active {
+          display: block;
+        }
+        input[type='radio'] {
+          visibility: hidden;
+          position: absolute;
+        }
+        label {
+          display: block;
+          position: relative;
+          cursor: pointer;
+          padding-left: $spacing-small-plus;
+          z-index: 10;
+        }
+        input[type='radio']:checked ~ .radio-button:before {
+          background-color: $marine-blue;
+        }
+        .radio-button {
+          background: #f3f3f3;
+          width: 18px;
+          height: 18px;
+          display: block;
+          border: 1px solid #b7b7b7;
+          position: absolute;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          margin: auto;
+          border-radius: 100%;
+          z-index: 5;
+          &:before {
+            content: '';
+            width: 10px;
+            height: 10px;
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            margin: auto;
+            border-radius: 100%;
+          }
+        }
+      }
+    }
+    .select-list.customer-carriers {
+      margin-left: 10%;
+      max-width: 90%;
+      display: none;
+      &.active {
+        display: block;
+      }
+      .single-carrier{
+      	border-style: solid;
+      	border-width: thin;
+      }
+      .select-btn {
+        color: $dark-grey;
+        padding: 5px 20px 5px 5px;
+        border: 2px solid #e2e2e2;
+        background-color: $light-medium-datepicker;
+        font-size: 13px;
+        line-height: $line-height-small;
+        max-width: 215px;
+        min-height: 30px;
+        margin: 0;
+        @media (min-width: $screen-xs-min) {
+          max-width: 200px;
+        }
+        &.active {
+          background-color: $white;
+          &:hover, &:focus {
+            background-color: transparent;
+          }
+        }
+        &.disabled {
+          background-color: $light-medium-datepicker;
+        }
+        &:after {
+          background:url($arrow-down-grey) no-repeat;
+          _top: 12px;
+          right: 5px;
+        }
+      }
+      ul.select-items {
+        width: 100%;
+        border: none;
+        display: none;
+        position: absolute;
+        max-height: 300px;
+        border: 1px solid $black-5;
+        padding-left: 0;
+        &.active {
+          border-top: 1px solid $black-5;
+        }
+        &.disabled {
+          display: none!important;
+        }
+        &:hover ~ .select-btn, &:focus ~ .select-btn {
+          background-color: transparent;
+        }
+        li {
+          padding: 7px 5px;
+          font-size: 13px;
+          display: block;
+          margin-bottom: 0;
+          line-height: $line-height-small;
+          &:hover {
+            background-color: $baby-blue;
+          }
+        }
+      }
+    }
+  }
+  p.heading {
+  	margin: 0;
+  }
+  table{
+  	tr{
+  		td, th{
+  			border-radius: 0;
+  		}
+  	}
+  }
+ 
+  .datepicker-days{
+  	.table-condensed{
+  	 	margin: 10px;
+  	  	border-spacing: 0 .5em;
+  	  	border-collapse: separate;
+		border: 1px solid $primary-blue;
+		  	
+  		th{
+  			padding: 0;
+  		}
+  	
+  		td.day{  			
+  			position: relative;
+  			height: 24px;
+  			color: $primary-blue;
+  			font-weight: 500;
+  			
+  			&.new{
+  				display: none;
+  			}
+  			
+  			&.old{
+  				visibility: hidden;
+  			}
+  			
+  			&.range{
+  				background: none;
+  			}
+  			
+  			p{
+  				position: absolute;
+  				top: 0;
+  				left: 0;
+  				right: 0;
+  				margin: 0 auto;
+  				border: 3px solid transparent;
+				border-radius: 100%;
+				height: 28px;
+				width: 28px;
+				line-height: 22px;
+				top: -2px;
+  			}
+
+			&.active, &:hover{
+				p{
+					background: $primary-blue;
+					color:  $white;
+				}
+			}
+  		}
+  	}
+  }
+ 
+  table tr td span.month.active,
+  table tr td span.year.active {
+    background-color: $primary-blue;
+    border-radius: 0;
+  }
+  th.datepicker-switch, th.dow, th.next, th.prev {
+    background-color: $white;
+  }
+  table tr td span.month, table tr td span.year {
+    &.active {
+      background-color: $primary-blue;
+      border-radius: 0;
+    }
+  }
+  .pack-type {
+    display: block;
+    padding: 10px 5px;
+    margin-top: 7px;
+    background: #f3f3f3;
+    line-height: 2em;
+    text-align: left;
+    
+    div {
+      display: none;
+      width: 33.33%;
+      font-size: 10px;
+      &.active {
+        display: inline-block;
+      }
+      span {
+        width: 14px;
+        height: 14px;
+        display: inline-block;
+        margin-right: 3px;
+        vertical-align: middle;
+        border-radius: 100%;
+      	border: 1px solid transparent;
+      }
+      
+      &:not(.PUBLIC_HOLIDAY){
+		text-align: left;
+		padding-left: 2px;
+      }
+      
+      &.PUBLIC_HOLIDAY {
+      	  width: 100%;
+		  padding-left: 2px;
+		  display: none;
+      	  
+	      span {
+			border: 1px solid #b6b6b6;
+		  }
+      }
+      &.PACK_KEG span {
+        background-color: #7bb6f1;
+      }
+      &.PACK span {
+        background-color: #6bc5b7;
+      }
+      &.KEG span {
+        background-color: #fea356;
+      }
+      p {
+        font-size: 10px;
+        color: $dark-grey;
+        vertical-align: middle;
+        margin: 0;
+        display: inline-block;
+      }
+    }
+  }
+}
+
+.billing-range,
+.page-orders {
+    .datepicker {
+      td.day.new {
+        background-color: $white;
+      }
+    }
+    .form-control {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    .orderdate-start, .orderdate-end{
+    	color: $dark-grey;
+    	cursor:pointer;
+    }
+}
+
+.global-header, .mobile-calendar-container {
+  .datepicker {
+    .heading {
+      display: block!important;
+      padding: 10px 0;
+      text-align: center;
+      color: #777777;
+      background: #f3f3f3;
+    }
+  }
+}
+
+.page-billing, .page-orders, .page-smartOrders, .page-raisedInvoiceDiscrepancyPage {
+  .datepicker {
+    .heading {
+      display: none;
+    }
+    .footer-message {
+      display: none;
+    }
+	.close{
+	display:none !important;
+	}
+  }
+  header, .navbar {
+    .datepicker {
+      .footer-message {
+        display: block;
+      }
+    }
+  }
+}
+
+
+.page-orders {
+  .input-daterange {
+    .input-icon-group {
+      width: 47.5%;
+      float: left;
+      & + .input-icon-group {
+        margin-left: 5%;
+      }
+    }
+  }
+}
+
+.page-deals {
+  .input-daterange {
+    position: relative;
+  }
+}
+
+.billing-filters-well{
+  .input-daterange{
+    input{
+      height:$btn-small;
+    }
+    .icon-calendar{
+      top: 12px;
+    }
+  }
+}
+
+.input-daterange {
+  input {
+    &:first-child,
+    &:last-child {
+      border-radius: 0;
+    }
+  }
+}
+
+.input-calendar-container{
+  position: relative;
+  .input-calendar-icon{
+    position: absolute;
+    top:0;
+    bottom: 0;
+    right:$spacing-x-small;
+    margin: auto;
+    max-width: 10px;
+    z-index: -1;
+  }
+  .footer-message{
+    display:none;
+  }
+  .datepicker {
+    table{
+      tr{
+        td{
+          padding:0;
+        }
+      }
+    }
+  }
+}
+.input-calendar{
+  background: transparent;
+  border-radius: 0;
+  border: 1px solid $light-lighter-grey;
+  box-shadow: none;
+  font-size: inherit;
+  padding: 6px 12px;
+  display: block;
+  font-size: $font-x-small;
+  width:100%;
+  line-height: 34px;
+  @media (min-width: $desktop) {
+    line-height: 20px;
+  }
+  /* klunge to remove hard coded message in calendar */
+  .footer-message{
+    display: none;
+  }
+}
+
+
+//add for SAB-386
+.control-group .help-inline {
+  display: inline-block;
+  *display: inline;
+  /* IE7 inline-block hack */
+  *zoom: 1;
+  vertical-align: middle;
+  color: $red;
+  padding-left: 0px ;
+}
+
+@media (min-width: $desktop) {
+  .form-group {
+    input[type="text"],
+    input[type="email"],
+    input[type="phone"],
+    input[type="password"],
+    select {
+      height: 35px;
+    }
+  }
+
+  .input-tooltip {
+    .icon-profile {
+      height: 35px;
+      width: 35px;
+    }
+  }
+}
+
+.add-on{
+  input[type='text']{
+    background-color:$light-grey;
+    border-color: $medium-grey;
+  }
+}
+/* Addons that allow buttons to sit inside the inputs */
+.add-on .input-group-btn > .btn {
+  border-left-width:0;
+  left:0px;
+  background-color:$light-grey;
+  border:1px solid $medium-grey;
+  padding:6px 10px;
+  border-left-width:0;
+  .glyphicon{
+    color:#333;
+  }
+
+  &:hover{
+    .glyphicon{
+      color:#000;
+    }
+  }
+
+}
+/* stop the glowing blue shadow */
+.add-on .form-control:focus {
+ box-shadow:none;
+ -webkit-box-shadow:none;
+ outline: none;
+}
+
+.dependant-form-area{
+    margin:$spacing-small $spacing-medium $spacing-medium $spacing-large;
+
+}
+
+
+label {
+  font-weight:normal;
+  span{
+    font-weight:bold;
+    display: block;
+    margin-bottom: $spacing-small;
+    &.n-text{
+      font-weight:normal;
+      display: block;
+      margin-bottom: 0;
+    }
+  }
+}
+
+.label-standarized{
+  height: $btn-small;
+  line-height: $btn-small;
+  margin-bottom: 0;
+}
+
+.list-radio{
+  margin-top: 10px;
+  padding-left:0;
+  list-style:none;
+  li{
+    margin-bottom: 20px;
+  }
+}
+
+.list-checkbox{
+  margin-top: 10px;
+  padding-left:0;
+  list-style:none;
+  li{
+    margin-bottom: 20px;
+  }
+  .dependant-sub &{
+    li{
+      margin-bottom: $spacing-x-small;
+    }
+  }
+}
+
+.list-radio{
+  margin-top: 10px;
+  padding-left:0;
+  list-style:none;
+  li{
+    margin-bottom: 10px;
+  }
+}
+
+.list-v-standard{
+  margin-top: 10px;
+  padding-left:0;
+  list-style:none;
+  li{
+    margin-bottom: $spacing-x-small;
+    &:last-child{
+      margin-bottom: 0;
+    }
+  }
+
+}
+
+
+
+
+
+.list-button{
+  list-style: none;
+  padding-left:0;
+  > li{
+    clear:both;
+    @media (min-width: $mobile) {
+      display: inline-block;
+      & + li {
+        padding-left: 10px;
+      }
+    }
+  }
+}
+
+
+
+.static-label{
+  line-height:40px;
+  margin-top: 1px;
+  display: block;
+  text-align:right;
+  @media (min-width: $tablet) {
+    line-height:$line-height-x-large;
+  }
+}
+
+/* Custom Checkbox */
+.custom-checkbox {
+    display: inline-block;
+    position: relative;
+    padding-left: 25px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+	font-size: inherit;
+	margin: 0;
+
+	span{
+		font-weight: inherit;
+		margin-bottom: 0;
+	}
+
+	/* create a custom checkbox */
+	.check-mask {
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	    bottom: 0;
+	    margin: auto;
+	    height: 20px;
+	    width: 20px;
+	    background-color: $white;
+	    border: 1px solid $medium-grey;
+	    border-radius: 5px;
+	    
+
+		/* create the indicator (hidden when not checked) */
+	    &:after{
+		    content: "";
+		    position: absolute;
+		    display: none;
+		    left: 5px;
+		    top: 0;
+		    width: 8px;
+		    height: 15px;
+		    border: solid $white;
+		    border-width: 0 3px 3px 0;
+		    -webkit-transform: rotate(45deg);
+		    -ms-transform: rotate(45deg);
+		    transform: rotate(45deg);
+	    }
+	}
+
+	/* Hide the browser's default checkbox */
+	input[type="checkbox"] { 
+	    position: absolute;
+	    opacity: 0;
+	    cursor: pointer;
+	    
+	    /* when the checkbox is checked, add a background color */
+	    &:checked ~ .check-mask {
+		    background-color: $medium-grey;
+		    
+		    /* Show the indicator when checked */
+		    &:after{
+		    	display: block;
+		    }
+	    }
+	}
+}

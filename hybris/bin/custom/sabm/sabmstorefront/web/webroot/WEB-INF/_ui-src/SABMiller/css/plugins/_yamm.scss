@@ -1,0 +1,194 @@
+//-----------------------------
+//  Megamenu Styles
+//-----------------------------
+
+.megamenu {
+
+  @media(max-width: $tablet){
+      position: fixed;
+      right: 0;
+      left: 0;
+      z-index: 1030;
+  }
+
+  // Content with padding
+  .megamenu-content {
+    padding: $spacing-small 0;
+    background-color:$medium-lighter-grey;
+    @media(min-width: $tablet){
+      background-color:white;
+      padding: $spacing-large 0;
+    }
+  }
+
+  .navbar-collapse{
+    padding-left:0;
+    padding-right:0;
+  }
+
+  .navbar-header{
+    background-color:$primary-blue; 
+    position: relative;
+  }
+
+  .navbar-toggle{
+    float: left;
+    margin-left: 15px;
+    color:white;
+    border:0;
+    text-transform: uppercase;
+  }
+
+  .navbar-close{
+    position: absolute;
+    right: 20px;
+    top: 5px;
+    color: white;
+    width: 14px;
+    height: 14px;
+    text-indent: -999em;
+    &:after{
+      content:'';
+      display: block;
+      position:absolute;
+      top:15px;
+      left:10px;
+      background-image:url($close-white-icon);
+      background-repeat:no-repeat;
+      width:14px;
+      height:14px;
+    }
+  }
+
+  // reset positions
+  .nav, .collapse, .dropup, .dropdown {
+    position: static;
+  }
+
+  .collapse{
+    height: 100vh;
+  }
+
+  .dropdown{
+    clear: both;
+    @media(min-width: $tablet){
+      clear: none;
+    } 
+  }
+
+  .navbar-nav{
+    margin-top:0;
+    margin-bottom:0;
+    width: 100%;
+  }
+  // by default aligns menu to left
+  .dropdown-menu {
+    left: auto;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+  .dropdown-link{
+    font-family: $helvetica;
+    font-size: 18px;
+    color: $primary-blue!important;
+    @media(min-width: $tablet){
+      font-weight: bold;
+      display: block;
+      float:left;
+      width:auto;
+      padding-left:0;
+      padding-right:60px;
+      line-height: $line-height-large;
+    }
+  }
+  .dropdown-toggle{
+    display:block;
+    float:right;
+    position: relative;
+    text-indent: -999em;
+    &:after{
+      content:'';
+      display: block;
+      position:absolute;
+      top:15px;
+      left:$spacing-x-small;
+      background-image:url($arrow-down);
+      background-repeat:no-repeat;
+      width:$spacing-x-small;
+      height:$spacing-x-small;
+    }
+  }
+  .dropdown-menu-list{
+    list-style:none;
+    margin-bottom: 20px;
+    font-size: 18px;
+    padding-left:15px;
+    @media(min-width: $tablet){
+      color:$primary-blue;
+      font-size: $font-small;
+      padding-left:0;
+      font-weight:bold;   
+    }
+  }
+  .dropdown-menu-sublist{
+    list-style:none;
+    margin-top:$spacing-x-small;
+    padding-left:$spacing-small;
+    color:$dark-grey;
+    font-size: 18px;
+    font-weight:normal;
+    @media(min-width: $tablet){
+      font-size: $font-small;
+      padding-left:0;
+      font-weight:normal;   
+    }
+
+    a{
+      text-decoration:none;
+      line-height: $line-height-x-large;
+      @media(min-width: $tablet){
+        line-height: normal;
+      }
+
+      &:hover{
+        text-decoration:underline;
+      }
+    }
+  }
+  // Fullwidth menu
+  .dropdown.yamm-fw .dropdown-menu {
+    left: 0; 
+    right: 0;
+  }
+
+  .dropdown{
+      &:hover > ul.dropdown-menu {
+        @media(min-width: $tablet){
+          display: block;    
+        }
+      }
+
+      > a{
+          display: inline-block;
+        }
+
+      &.open{
+        .dropdown-toggle{
+          transform: rotate(180deg);
+        }
+      }
+     .dropdown-toggle{
+      // display: inline-block;
+      @media(min-width: $tablet){
+        display: none;
+      }
+    }
+  }
+
+  &.navbar-default .navbar-nav > .open > a{
+    background-color:transparent;
+  }
+
+}
+
+

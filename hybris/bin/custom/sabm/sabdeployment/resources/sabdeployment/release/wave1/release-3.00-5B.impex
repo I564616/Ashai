@@ -1,0 +1,186 @@
+#####################################################################
+#                 Release Impex for Sprint 5B                       #
+#   !!!WARNING!!! Please test that this impex is never broken       #
+#     !!!HINT!!!    Test it in the HAC impex loader                 #
+#####################################################################
+
+$lang=en
+$productCatalog=sabmProductCatalog
+$contentCatalog=sabmContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+
+####################### start of SABMC-897 ########################
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false']
+;;personalAssistanceSearch;Search;Portal-ContentPage3Template;/paSearch
+
+# ContentSlotForPage
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='personalAssistanceSearch'];contentSlot(uid,$contentCV)[unique=true];;;
+;;Section2-personalAssistanceSearch;Section2;;Section2-personalAssistanceSearch;;;
+
+##### Jsp Include Component ####
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;personalAssistanceSearchComponent;Personal Assistance Search Page Component;../personalassistance/paSearchPage.jsp;;personalAssistanceSearchComponent
+#
+## ContentSlot
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;Section2-personalAssistanceSearch;Personal Assistance Search;true;personalAssistanceSearchComponent;;;
+#
+######################## end of SABMC-897 ########################
+
+
+####################### start of SABMC-973 ########################
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false']
+;;personalAssistanceSearchResult;Search Result;Portal-ContentPage3Template;/paSearchResult
+
+# ContentSlotForPage
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='personalAssistanceSearchResult'];contentSlot(uid,$contentCV)[unique=true];;;
+;;Section2-personalAssistanceSearchResult;Section2;;Section2-personalAssistanceSearchResult;;;
+
+#### Jsp Include Component ####
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;personalAssistanceSearchResultComponent;Personal Assistance Search Result Page Component;../personalassistance/paSearchResultsPage.jsp;;personalAssistanceSearchResultComponent
+
+# ContentSlot
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;Section2-personalAssistanceSearchResult;Personal Assistance Search Result;true;personalAssistanceSearchResultComponent;;;
+
+####################### end of SABMC-973 ########################
+
+#########################
+#      SABMC-902        #
+#       Start           #
+#########################
+INSERT_UPDATE Usergroup;uid[unique=true];groups(uid);locname[lang=en];
+;bdeviewonlygroup;b2bcustomergroup,b2bordercustomer,b2binvoicecustomer,b2badmingroup;BDE View Only Group
+;pagroup;employeegroup;Personal Assiatance Group
+
+#########################
+#      SABMC-902        #
+#         End           #
+#########################
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+$emailResource=$config-emailResourceValue
+
+# Import order confirmation email velocity templates
+UPDATE RendererTemplate;code[unique=true];description[lang=$lang];templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+;sabmStore_Email_Order_Confirmation_Body;"Order Confirmation Email Body";$emailResource/email-orderConfirmationBody.vm
+
+
+
+#########################
+#      SABMC-923        #
+#        START          #
+#########################
+
+####################
+# solr.impex changes
+####################
+$solrIndexedType = sabmStoreProductType
+
+# Define the available sorts
+INSERT_UPDATE SolrSort; &sortRefID; indexedType(identifier)[unique = true]; code[unique = true]; useBoost; visible
+; relevanceSort ; $solrIndexedType ; relevance ; true ; false
+; bestsellerSort ; $solrIndexedType ; bestseller; false ; true
+; popularSort ; $solrIndexedType ; popular; false ; true
+; sortRef3 ; $solrIndexedType ; name-asc  ; false ; true
+; sortRef4 ; $solrIndexedType ; name-desc ; false ; true
+# Define the sort fields
+INSERT_UPDATE SolrSortField; sort(indexedType(identifier), code)[unique = true]; fieldName[unique = true]; ascending[unique = true]
+; $solrIndexedType:relevance ; score ; false
+; $solrIndexedType:bestseller; bestseller ; false
+; $solrIndexedType:popular; popular ; true
+; $solrIndexedType:name-asc  ; name  ; true
+; $solrIndexedType:name-desc ; name  ; false
+
+# Declare the indexed type Product
+INSERT_UPDATE SolrIndexedType; identifier[unique = true]; type(code); variant; sorts(&sortRefID)
+; $solrIndexedType ; Product ; false ; bestsellerSort, popularSort, sortRef3, sortRef4, relevanceSort
+
+# Non-facet properties
+INSERT_UPDATE SolrIndexedProperty; solrIndexedType(identifier)[unique = true]; name[unique = true]; type(code); sortableType(code); currency[default = false]; localized[default = false]; multiValue[default = false]; useForSpellchecking[default = false]; useForAutocomplete[default = false]; fieldValueProvider; valueProviderParameter
+# SAP bestseller resolvers by sub-channels (Venue types)
+; $solrIndexedType ; au_bestseller_AA1       ; int     ;              ; ;      ;      ;      ;      ; sabmProductBestsellerResolver              ;
+; $solrIndexedType ; au_bestseller_AA2       ; int     ;              ; ;      ;      ;      ;      ; sabmProductBestsellerResolver              ;
+; $solrIndexedType ; au_bestseller_AA3       ; int     ;              ; ;      ;      ;      ;      ; sabmProductBestsellerResolver              ;
+; $solrIndexedType ; au_bestseller_AA4       ; int     ;              ; ;      ;      ;      ;      ; sabmProductBestsellerResolver              ;
+; $solrIndexedType ; au_bestseller_AA5       ; int     ;              ; ;      ;      ;      ;      ; sabmProductBestsellerResolver              ;
+; $solrIndexedType ; au_bestseller_AA6       ; int     ;              ; ;      ;      ;      ;      ; sabmProductBestsellerResolver              ;
+; $solrIndexedType ; au_bestseller_AA7       ; int     ;              ; ;      ;      ;      ;      ; sabmProductBestsellerResolver              ;
+; $solrIndexedType ; au_bestseller_AA8       ; int     ;              ; ;      ;      ;      ;      ; sabmProductBestsellerResolver              ;
+; $solrIndexedType ; au_bestseller_AA9       ; int     ;              ; ;      ;      ;      ;      ; sabmProductBestsellerResolver              ;
+; $solrIndexedType ; au_bestseller_AAA       ; int     ;              ; ;      ;      ;      ;      ; sabmProductBestsellerResolver              ;
+; $solrIndexedType ; au_bestseller_AAB       ; int     ;              ; ;      ;      ;      ;      ; sabmProductBestsellerResolver              ;
+; $solrIndexedType ; au_bestseller_AAC       ; int     ;              ; ;      ;      ;      ;      ; sabmProductBestsellerResolver              ;
+; $solrIndexedType ; au_bestseller_AAD       ; int     ;              ; ;      ;      ;      ;      ; sabmProductBestsellerResolver              ;
+; $solrIndexedType ; au_bestseller_AAE       ; int     ;              ; ;      ;      ;      ;      ; sabmProductBestsellerResolver              ;
+; $solrIndexedType ; au_bestseller_AAF       ; int     ;              ; ;      ;      ;      ;      ; sabmProductBestsellerResolver              ;
+; $solrIndexedType ; au_bestseller_AAG       ; int     ;              ; ;      ;      ;      ;      ; sabmProductBestsellerResolver              ;
+; $solrIndexedType ; au_bestseller_AAH       ; int     ;              ; ;      ;      ;      ;      ; sabmProductBestsellerResolver              ;
+; $solrIndexedType ; au_bestseller_AAI       ; int     ;              ; ;      ;      ;      ;      ; sabmProductBestsellerResolver              ;
+; $solrIndexedType ; au_bestseller_AAJ       ; int     ;              ; ;      ;      ;      ;      ; sabmProductBestsellerResolver              ;
+; $solrIndexedType ; au_bestseller_AAK       ; int     ;              ; ;      ;      ;      ;      ; sabmProductBestsellerResolver              ;
+; $solrIndexedType ; au_bestseller_AAL       ; int     ;              ; ;      ;      ;      ;      ; sabmProductBestsellerResolver              ;
+; $solrIndexedType ; au_bestseller_AAM       ; int     ;              ; ;      ;      ;      ;      ; sabmProductBestsellerResolver              ;
+; $solrIndexedType ; au_bestseller_AAN       ; int     ;              ; ;      ;      ;      ;      ; sabmProductBestsellerResolver              ;
+# SAP popularity ranking resolvers by sub-channels (Venue types)
+; $solrIndexedType ; au_popular-rank_AA1     ; int     ;              ; ;      ;      ;      ;      ; sabmProductPopularityRankingResolver       ;
+; $solrIndexedType ; au_popular-rank_AA2     ; int     ;              ; ;      ;      ;      ;      ; sabmProductPopularityRankingResolver       ;
+; $solrIndexedType ; au_popular-rank_AA3     ; int     ;              ; ;      ;      ;      ;      ; sabmProductPopularityRankingResolver       ;
+; $solrIndexedType ; au_popular-rank_AA4     ; int     ;              ; ;      ;      ;      ;      ; sabmProductPopularityRankingResolver       ;
+; $solrIndexedType ; au_popular-rank_AA5     ; int     ;              ; ;      ;      ;      ;      ; sabmProductPopularityRankingResolver       ;
+; $solrIndexedType ; au_popular-rank_AA6     ; int     ;              ; ;      ;      ;      ;      ; sabmProductPopularityRankingResolver       ;
+; $solrIndexedType ; au_popular-rank_AA7     ; int     ;              ; ;      ;      ;      ;      ; sabmProductPopularityRankingResolver       ;
+; $solrIndexedType ; au_popular-rank_AA8     ; int     ;              ; ;      ;      ;      ;      ; sabmProductPopularityRankingResolver       ;
+; $solrIndexedType ; au_popular-rank_AA9     ; int     ;              ; ;      ;      ;      ;      ; sabmProductPopularityRankingResolver       ;
+; $solrIndexedType ; au_popular-rank_AAA     ; int     ;              ; ;      ;      ;      ;      ; sabmProductPopularityRankingResolver       ;
+; $solrIndexedType ; au_popular-rank_AAB     ; int     ;              ; ;      ;      ;      ;      ; sabmProductPopularityRankingResolver       ;
+; $solrIndexedType ; au_popular-rank_AAC     ; int     ;              ; ;      ;      ;      ;      ; sabmProductPopularityRankingResolver       ;
+; $solrIndexedType ; au_popular-rank_AAD     ; int     ;              ; ;      ;      ;      ;      ; sabmProductPopularityRankingResolver       ;
+; $solrIndexedType ; au_popular-rank_AAE     ; int     ;              ; ;      ;      ;      ;      ; sabmProductPopularityRankingResolver       ;
+; $solrIndexedType ; au_popular-rank_AAF     ; int     ;              ; ;      ;      ;      ;      ; sabmProductPopularityRankingResolver       ;
+; $solrIndexedType ; au_popular-rank_AAG     ; int     ;              ; ;      ;      ;      ;      ; sabmProductPopularityRankingResolver       ;
+; $solrIndexedType ; au_popular-rank_AAH     ; int     ;              ; ;      ;      ;      ;      ; sabmProductPopularityRankingResolver       ;
+; $solrIndexedType ; au_popular-rank_AAI     ; int     ;              ; ;      ;      ;      ;      ; sabmProductPopularityRankingResolver       ;
+; $solrIndexedType ; au_popular-rank_AAJ     ; int     ;              ; ;      ;      ;      ;      ; sabmProductPopularityRankingResolver       ;
+; $solrIndexedType ; au_popular-rank_AAK     ; int     ;              ; ;      ;      ;      ;      ; sabmProductPopularityRankingResolver       ;
+; $solrIndexedType ; au_popular-rank_AAL     ; int     ;              ; ;      ;      ;      ;      ; sabmProductPopularityRankingResolver       ;
+; $solrIndexedType ; au_popular-rank_AAM     ; int     ;              ; ;      ;      ;      ;      ; sabmProductPopularityRankingResolver       ;
+; $solrIndexedType ; au_popular-rank_AAN     ; int     ;              ; ;      ;      ;      ;      ; sabmProductPopularityRankingResolver       ;
+
+#######################
+# solr_en.impex changes
+#######################
+
+$lang=en
+$indexedType=sabmStoreProductType
+
+# Define the available sorts
+UPDATE SolrSort;indexedType(identifier)[unique=true,default=$indexedType];code[unique=true];name[lang=$lang]
+;;bestseller;Bestseller;
+;;popular;Popular;
+
+############################################
+# productcockpit-access-rights.impex changes
+############################################
+#
+# Import Access Rights for Product Cockpit
+#
+
+$START_USERRIGHTS;;;;;;;;;
+Type;UID;MemberOfGroups;Password;Target;read;change;create;remove;change_perm
+UserGroup;productmanagergroup;cockpitgroup;;;;;;;
+;;;;ProductSubchannelPopularityMapping;+;+;+;+;-;
+;;;;SABMAlcoholVariantProductEAN.subchannelRankingMappings;+;+;+;+;-;
+$END_USERRIGHTS;;;;;
+
+
+# adding itemtypes to the root types of the sabmProductCatalog Sync Job
+UPDATE CatalogVersionSyncJob;code[unique=true];roottypes(code)[mode=append];
+;sync $productCatalog:Staged->Online;ProductSubchannelPopularityMapping;
+
+#########################
+#      SABMC-923        #
+#        END            #
+#########################

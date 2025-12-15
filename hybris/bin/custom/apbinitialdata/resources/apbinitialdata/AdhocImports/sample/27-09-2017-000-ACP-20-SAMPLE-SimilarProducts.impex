@@ -1,0 +1,47 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# ImpEx for Importing Products
+
+# Macros / Replacement Parameter definitions
+$productCatalog=apbProductCatalog
+$productCatalogName=Apb Product Catalog
+
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$supercategories=supercategories(code, $catalogVersion)
+$baseProduct=baseProduct(code,$catalogVersion)
+$approved=approvalstatus(code)[default='approved']
+$lang=en
+
+
+
+INSERT_UPDATE UnitVolume; code[unique=true] ; name[lang=$lang]
+; samlpleUnitVol1; 330 ml bottles
+
+INSERT_UPDATE PackageSize; code[unique=true] ; name[lang=$lang]
+; samlplePackageSize1; 24 (6 x 4)
+
+
+INSERT_UPDATE ApbProduct ; code[unique=true] ; $catalogVersion ; portalUnitVolume(code); packageSize(code)
+; peroni  ;  ; samlpleUnitVol1; samlplePackageSize1
+; peroni_legerra  ;  ; samlpleUnitVol1; samlplePackageSize1
+; estrella_damn  ;  ; samlpleUnitVol1; samlplePackageSize1
+; kingfisher-lager  ;  ; samlpleUnitVol1; samlplePackageSize1
+; beer_peroni  ;  ; samlpleUnitVol1; samlplePackageSize1
+; beer_peroni_legerra  ;  ; samlpleUnitVol1; samlplePackageSize1
+; estrella_inedit  ;  ; samlpleUnitVol1; samlplePackageSize1
+; nz_pure_lager  ;  ; samlpleUnitVol1; samlplePackageSize1
+; nz_pure_summer  ;  ; samlpleUnitVol1; samlplePackageSize1
+; peroni_330ml_bottles  ;  ; samlpleUnitVol1; samlplePackageSize1
+; vodka_cruiser_lemon_n_passionfruit_275ml_bottles  ;  ; samlpleUnitVol1; samlplePackageSize1
+; vodka_cruiser_pineapple_275ml_bottle  ;  ; samlpleUnitVol1; samlplePackageSize1
+; vodka_cruiser_strawberry_275ml_bottle  ;  ; samlpleUnitVol1; samlplePackageSize1
+; vodka_o_apple_ginger_spice_330ml_bottle  ;  ; samlpleUnitVol1; samlplePackageSize1
+

@@ -1,0 +1,560 @@
+//Home Page
+//********************************************************************
+
+a.btn.homepage-info-btn[aria-expanded="true"] {
+    background: @btn-homepage-hover;
+    width: 100%;
+    padding: 22px 0px;
+    font-size: 18px;
+    border: 0px;  
+    
+//    @media (min-width: @screen-md) {
+//        margin-top: calc(~"100vh - 320px");
+//    }
+    
+}
+
+a.btn.homepage-info-btn.collapsed {
+    background: @btn-homepage-color; 
+    
+    @media (max-width: @screen-sm-max) {
+        margin-bottom: 10px;
+    }
+    
+}
+
+a.btn.homepage-info-btn{
+    background: @btn-homepage-color;
+    width: 100%;
+    padding: 22px 0px;
+    font-size: 18px;
+    border: 0px;  
+    
+//    @media (min-width: @screen-md) {
+//        margin-top: calc(~"100vh - 320px");
+//    }
+    
+    &::after {
+        content: "";
+        display: block;
+        margin: 0 auto;
+        width: 9%;
+        padding-top: 5px;
+        border-bottom: 3px solid @brand-tertiary;
+    }
+    
+    &:hover {
+        background: @btn-homepage-hover;
+		color: @text-color-sga;
+    }
+}
+
+.homepageInfoText {
+    color: @text-color;
+    
+    @media (max-width: @screen-sm-max) {
+        margin-top: 0px;
+    }
+}
+
+//#our-story-btn-mobile-tablet {
+//    @media (max-width: @screen-sm-max) {
+//        margin-top: calc(~"100vh - 420px");
+//    }
+//}
+
+#on-premise-btn-mobile-tablet {
+     @media (max-width: @screen-sm-max) {
+        margin-top: 10px;
+    }
+}
+
+
+.remove-row-margin {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.triangle-element-left {
+    height: 10px;
+    
+    &::before {
+            position: absolute;
+            content: "";
+            width: 0;
+            height: 0;
+            border-right: 10px solid rgba(0, 0, 0, 0);
+            border-left: 10px solid rgba(0, 0, 0, 0);
+            border-bottom: 10px solid #EBEBEB;
+            display: block;
+            left: 25.5%;
+            margin: 0 0 0 -10px;
+            z-index: 1001;
+        
+        @media(max-width: @screen-sm-max) {
+            left: 50%;
+        }
+    }
+}
+
+.triangle-element-right {
+   .triangle-element-left();
+    
+    &::before {
+        left: 75%;
+        
+        @media(max-width: @screen-sm-max) {
+            left: 50%;
+        }
+    }
+}
+
+.mobile-tablet-margin {
+    @media(max-width: @screen-sm-max) {
+            margin-bottom: -5px;
+        }
+}
+
+
+#homepage-info-buttons-desktop {
+    margin-bottom: 25px;
+	
+	 @media (min-width: @screen-md) {
+        margin-left: -10px;
+		margin-right: -10px;
+    }
+}
+
+.white_space {
+    margin-top: 70px;
+	
+    @media (min-width: @screen-sm) {
+        margin-top: 95px;
+    }
+}
+
+.white_space_credit {
+    height: 40px;
+}
+
+.homepage-subheading {
+    font-size: 16px;
+}
+
+.our-story-image-desktop img {
+    width: 100%;
+    height: 100%;
+    margin: 20px 5px 5px 0px;
+}
+
+.on-prem-image-desktop img {
+    width: 100%;
+    height: 100%;
+    margin: 30px 0px 20px 0px;
+}
+
+.on-prem-gutter {
+    padding-right: 20px;
+    
+    @media (max-width: @screen-sm-max) {
+        padding: 0px 10px;
+    }   
+}
+
+.on-prem-mobile-text {
+    @media (max-width: @screen-sm-max) {
+        padding-bottom: 40px; 
+    } 
+}
+/* 
+## logged in User
+********************************************************************/
+.homepage-loggedin-btn {
+    width: 100%;
+    margin: 10px 0px;
+    height: 75px;
+    background: none;
+    border: 1px solid @border-color-4;
+    height: 75px;
+    font-weight: bold;
+    color: @text-color-primary;
+    font-size: 18px;
+    padding-top: 24px;
+    
+    @media(min-width: @screen-sm) and (max-width: @screen-sm-max) {
+            margin-left: 24%;
+        }
+}
+
+#logged-in-user-row {
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: calc(~"100vh - 400px"); //460
+    width: 100%;
+    
+    @media (min-width: @screen-sm) and (max-width: @screen-sm-max) {
+        margin-top: calc(~"100vh - 670px");
+    }
+	
+	@media (max-width: @screen-xs-max) {
+        margin-top: calc(~"100vh - 500px");
+    }
+}
+
+.logged-in-user-options {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+a.btn.homepage-loggedin-btn {
+    &:hover {
+        background: @btn-homepage-hover;
+    }
+}
+
+.homepage-content-accordians {
+    background: @body-content-background-secondary;
+    padding: 20px 20px;
+}
+
+.promo-slots-content {
+    margin: 60px 0px;
+}
+
+.promo-slot-image {
+    img {
+        width: 100%;
+    }
+}
+
+.cs-padding {
+	position: absolute;
+}
+
+.slot-margin {
+    margin: 0px -15px;
+	padding: 30px 30px;
+    
+    &:empty {
+        display: none;
+    }
+}
+.promo-slot-image {
+	.content {
+		margin: 10px 5px;
+	}
+}
+/*
+## landingLayout2Page
+********************************************************************/
+
+.section1 {
+  margin:10px 0;
+}
+
+.zoneA {
+
+  .disp-img {
+    height:108px;
+    margin:10px 0 0 0;
+    border-bottom:1px dotted #A5A5A5;
+    position:relative;
+
+    &:first-child {
+      margin:0;
+    }
+
+    a {
+      display:block;
+
+    }
+
+    .title {
+      display:block;
+      margin-left:106px;
+      border-bottom:1px dotted #A5A5A5;
+      margin-bottom:10px;
+    }
+
+    .thumb {
+      position:absolute;
+      top:0;
+    }
+
+    .details {
+      width:124px;
+      height:96px;
+      margin-left:106px;
+      display:block;
+    }
+  }
+
+  .action {
+    display:none;
+  }
+
+}
+
+.zoneB {
+  .simple_disp-img {
+    &:first-child {
+      margin:0 0 10px 0;
+    }
+  }
+}
+
+#homepage_slider {
+
+  &.stripViewer {
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+
+    ul {
+      margin: 0;
+      padding: 0;
+      position: relative;
+      left: 0;
+      top: 0;
+      width: 1%;
+      list-style-type: none;
+
+      li {
+        float: left;
+      }
+    }
+  }
+
+  .svw {
+    width: 50px;
+    height: 20px;
+    background-color: #ffffff;
+
+    ul {
+      position: relative;
+      left: -999em;
+    }
+  }
+
+  .tooltip {
+    padding: 0.5em;
+    background-color: #ffffff;
+    color: #000000;
+    border: 5px solid #dedede;
+  }
+
+}
+
+.stripTransmitter {
+  overflow: auto;
+  padding: 0 15px ;
+  width: 438px !important;
+  height:51px;
+  border-bottom:1px dotted #A5A5A5;
+  background-color: #eee;
+
+  ul {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    list-style-type: none;
+
+    li {
+      width: 30px;
+      float: left;
+    }
+  }
+
+  a {
+    line-height: 47px;
+    display: block;
+    padding: 0 0 0 0;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1.4em;
+
+    &:hover,
+    &.current {
+      font-weight: bold;
+    }
+  }
+}
+
+.tooltip {
+  padding: 0.5em;
+  background-color: #ffffff;
+  color: #000000;
+  border-bottom:1px dotted #A5A5A5;
+}
+
+.section4 {
+
+  .disp-img {
+    margin:0 0 15px 0;
+
+    .title {
+      border-bottom:1px solid #a5a5a5;
+      height:30px;
+      line-height:30px;
+      text-transform:uppercase;
+      font-weight:bold;
+      font-size:1em;
+      white-space: nowrap;
+      display:block;
+      margin:0 0 10px 0;
+    }
+
+    .thumb {
+      margin:0 0 5px 0;
+      display:block;
+    }
+
+    .action{
+      display:none;
+    }
+  }
+}
+
+
+
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+//////////// 	   SGA Homepage		////////////
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+
+
+.sga-homepage-info-btns {
+	margin: 0px 30px;
+	
+	@media (min-width: @screen-sm) and (max-width: @screen-sm-max) {
+		margin-left: 140px;
+		margin-right: 140px;
+	}
+	
+	@media (max-width: @screen-xs-max) {
+		margin: 0px 10px;
+	}
+	
+	a.btn.homepage-info-btn, #sgaHomepageRegisterLink {
+		font-size: 24px;
+		
+		&:hover, &:active, &:visited {
+			color: @text-color-sga;
+		}
+		
+	}
+}
+
+#sgaHomepageRegisterLink {
+	margin-top: 25px;
+}
+
+.sga-logged-in-user-options {
+    margin-left: 10px;
+    margin-right: -11px;
+	
+	@media (min-width: @screen-sm) and (max-width: @screen-sm-max) {
+		margin-left: 140px;
+		margin-right: 140px;
+	}
+	
+	@media (max-width: @screen-xs-max) {
+		margin-left: 20px;
+		margin-right: 20px;
+	}
+}
+
+.sga-homepage-loggedin-btn {
+	width: 100%;
+    margin: 10px 0px;
+    background: rgba(255, 255, 255, 0.85);
+    height: 80px;
+    font-size: 24px;
+    padding: 0px 50px;
+	line-height: 80px;
+	text-align: left;
+	
+	&::before {
+        content: ">";
+		font-weight: bold;
+		display: inline-block;
+		margin: 0 5px 0px -20px;
+		font-size: 20px;
+		color: @brand-tertiary; 
+    }
+	
+	&:hover, &:active, &:visited {
+		color: @text-color-sga;
+		background: rgba(255, 255, 255, 0.95);
+	}
+}
+
+#sga-homepage-top-link {
+	margin-top: 90px;
+	
+	@media (max-width: @screen-xs-max) {
+		margin-top: 55px;
+	}
+}
+
+.homepage-transition-message {
+	padding: 25px;
+	background-color: @transition-bg;
+	color: @text-color-primary;
+	text-align: center;
+	
+	@media(max-width: @screen-xs-max) {
+		margin-top: -50px;
+		padding: 15px;
+	}
+	
+	.transition-message-heading {
+		font-size: 18px;
+		font-weight: 700;
+	}
+	
+	.transition-link {
+		font-weight: bold;
+		color: @text-color-primary;
+		text-decoration: underline;
+		
+		&:hover {
+			color: @transition-link-hover;
+			text-decoration: none;
+		}
+	}
+}
+
+////////////////////////////////////////////////
+//////////   SGA Invoice & Payments		////////
+////////////////////////////////////////////////
+
+.homepage-inovices-payments-link {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	text-align: left;
+	
+	.transition-message-heading {
+		margin-bottom: 10px;
+	}
+}
+
+////////////////////////////////////////////////
+//////////   SGA Homepage Deals Component		////////
+////////////////////////////////////////////////
+
+#homepage-deals-component {
+	background: rgba(255, 255, 255, 0.85);
+    padding-top: 20px;
+
+    .deal-title {
+      margin: auto;
+      width: 80%; // fit deal title within view deal button width as per designs
+      margin-bottom: 20px;
+    }
+
+    .view-deal button {
+      width: 80%
+    }
+}

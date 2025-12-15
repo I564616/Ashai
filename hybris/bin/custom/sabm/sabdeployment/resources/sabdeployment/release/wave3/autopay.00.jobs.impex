@@ -1,0 +1,16 @@
+$defaultLanguage=en
+
+############################ CUB AutoPay Advantage | Credit Card Payment File ############################
+
+### Insert the Spring id extractAutoPayCreditCardOrdersJob into the Service Layer job ###
+INSERT_UPDATE ServicelayerJob;code[unique=true];springId[unique=true]
+;extractAutoPayCreditCardOrdersJob;extractAutoPayCreditCardOrdersJob
+
+### Define the extractAutoPayCreditCardOrdersCronjob ###
+INSERT_UPDATE CronJob;code[unique=true];job(code);sessionLanguage(isocode)
+;extractAutoPayCreditCardOrdersCronjob;extractAutoPayCreditCardOrdersJob;$defaultLanguage
+
+### Define the trigger for extractAutoPayCreditCardOrdersCronjob ###
+INSERT_UPDATE Trigger;cronjob(code)[unique=true];active;cronExpression
+# triggers at 2 PM every day
+;extractAutoPayCreditCardOrdersCronjob;true;0 0 14 ? * *

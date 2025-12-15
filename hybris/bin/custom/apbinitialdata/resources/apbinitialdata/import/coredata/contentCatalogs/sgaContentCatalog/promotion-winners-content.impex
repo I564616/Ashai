@@ -1,0 +1,53 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#
+# Import the CMS content for the SGA site
+#
+#$contentCatalog=sgaContentCatalog
+#$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+#$picture=media(code, $contentCV);
+#$siteResource=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/sampledata/contentCatalogs/$contentCatalog
+#
+#INSERT_UPDATE CMSParagraphComponent ; $contentCV[unique=true] ; uid[unique=true]                            ; name                                             ; &componentRef                 ; content[lang=en];
+#                                    ;                         ; promotionWinnersComponent ; Promotion Winners Component ; promotionWinnersComponent ; "<div class=""row""><div class=""col-md-12 col-sm-12""><img border=""0"" align=""middle"" /></div></div> <div class=""row""></div> <div class=""row""><div class=""col-md-8 col-sm-8 col-xs-12""><p>Thank you to everyone that participates in our promotions.</p> <p><b>PROMOTION:</b>&nbspZero Your Bill National Business Incentive</p>
+<p><b>WINNERS:</b></p>
+<p><b>Belgravia Leisure:</b>&nbspTobruk Memorial Pool Bl QLD, Copper Coast Sport & Leisure Ctr Bl SA, Devonport Aquatic Centre Bl TAS</p>
+<p><b>Concept Eight:</b>&nbspNoodle Box Warrnambool VIC, Pattysmiths Rockhampton QLD, Wokinabox Kilburn SA</p>
+<p><b>Emirates Leisure: </b>&nbspHudsons Coffee Greenslopes QLD, Hudsons Coffee Northshore Private Hospital NSW, Hudsons Coffee Virgin Arrivals VIC</p>
+<p><b>Wendy’s: </b>&nbspWendys Murray Bridge SA, Wendys Eastland VIC, Wendys Wollongong NSW</p>
+<p><b>Motio Play: </b>&nbspBrisbane West Indoor Sports QLD, Cairns Indoor Sports QLD, Revolution Sports WA</p>
+<p><b>Sandwich Chefs:</b>&nbspSandwich Chefs South Yarra VIC, Sandwich Chefs Pran Central VIC, Sandwich Chefs Traralgon VIC</p>
+<p><b>YMCA:</b>&nbspThe Valleys SA, YMCA St Clair Recreation Centre SA, YMCA St Clair Recreation Centre SA</p>
+<p><b>Lord of the Fries: </b>&nbspLord of the Fries Swan Street VIC, Lord of the Fries South Yarra VIC</p>
+<p><b>Mrs Fields: </b>&nbspMrs Fields Sydney Domestic T2 NSW, Mrs Fields Sydney Domestic T2 NSW</p>
+<p><b>Spud Bar:  </b>&nbspSpud Bar Werribee Plaza VIC, Spud Bar Westfield Geelong VIC</p>
+</div></div>"
+
+#INSERT_UPDATE Media ; $contentCV[unique=true] ; code[unique=true]                              ; @media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator]       ; mime[default='image/jpeg'] ; &imageRef                                      ; folder(qualifier)[default='images'] ;
+#                    ;                         ; Promotional-Updates-Asahi.png ; $siteResource/images/banners/homepage/responsive/Promotional-Updates-Asahi.png ;                            ; Promotional-Updates-Asahi.png ;
+
+#INSERT_UPDATE SimpleBannerComponent ; $contentCV[unique=true] ; uid[unique=true]         ; name                       ; &componentRef            ;
+#                                    ;                         ; PromotionalUpdatesLogoComponent        ; Promotion Updates Component        ; PromotionalUpdatesLogoComponent        ;
+
+#INSERT_UPDATE ContentSlot; $contentCV; name; uid[unique = true]; active[default=true];cmsComponents(&componentRef)
+#                         ;;promotionLogoSlot; promotionLogoSlot;;PromotionalUpdatesLogoComponent
+
+#INSERT_UPDATE ContentSlotForPage; $contentCV; uid[unique = true]; position[unique=true]; page(uid,$contentCV)[unique = true][default='promotionWinnersPage']; contentSlot(uid, $contentCV)[unique = true]
+#                                ;;Toplogo - PromotionWinnersSlot;Toplogo;;promotionLogoSlot
+
+#INSERT_UPDATE ContentSlot; $contentCV; name; uid[unique = true]; active[default=true];cmsComponents(&componentRef)
+#;;promotionWinnersSlot; promotionWinnersSlot;;promotionWinnersComponent
+
+#INSERT_UPDATE ContentSlotForPage; $contentCV; uid[unique = true]; position[unique=true]; page(uid,$contentCV)[unique = true][default='promotionWinnersPage']; contentSlot(uid, $contentCV)[unique = true]
+#;;Section1 - PromotionWinnersSlot;Section1;;promotionWinnersSlot
+
+#INSERT_UPDATE ContentPage; $contentCV; name; uid[unique = true]; masterTemplate(uid,$contentCV); label
+#;;Promotion Winners Page; promotionWinnersPage; ContentPage1Template; promotionWinners

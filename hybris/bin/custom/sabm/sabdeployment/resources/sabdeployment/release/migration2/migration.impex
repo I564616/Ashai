@@ -1,0 +1,105 @@
+$oneDay = 86400
+$twoDays = 172800
+$oneWeek = 604800
+$fifteenDays = 1296000
+$zeroDay = 0
+$twoWeeks=1209600 
+
+###################Define retention time for Cart Removal (sabmStore-CartRemovalJob and OldCartRemovalCronJob)####
+
+UPDATE BaseSite;uid[unique=true];cartRemovalAge;
+;sabmStore;$twoWeeks;
+
+UPDATE OldCartRemovalCronJob;code[unique=true];cartRemovalAge
+			  ;oldCartRemovalCronJob;$twoWeeks;
+
+##################Existing Retention Rules/Cronjobs#####################
+
+UPDATE FlexibleSearchRetentionRule;code[unique=true];searchQuery;retentionTimeSeconds; 
+;businessProcessRule;"SELECT {p:pk}, {p:itemtype}
+   FROM {BusinessProcess AS p JOIN ProcessState AS s ON {p:state} = {s:pk} }
+   WHERE
+   {s:code} in ('SUCCEEDED')"; $oneWeek;
+   
+   
+UPDATE FlexibleSearchRetentionRule;code[unique=true];retentionTimeSeconds;
+                                         ; cronjobCleanupRule; $oneWeek;  
+                                         
+UPDATE FlexibleSearchRetentionRule;code[unique=true];retentionTimeSeconds;
+                                         ;impexMediaCleanupRule; $twoDays
+
+UPDATE CronJob[batchmode=true];active[unique=true];logsDaysOld;filesDaysOld      
+                     ;true;2;2
+					 ;false;2;2
+
+UPDATE OldWebServiceLogRemovalCronJob; code[unique = true];age; 
+; oldWebServiceLogRemovalCronJob ;3; 
+
+
+############################Additional Clean Up Jobs #######################################
+
+## Error Event Cleanup
+INSERT_UPDATE FlexibleSearchRetentionRule;code[unique=true];searchQuery;retentionTimeSeconds;actionReference;
+                                         ;errorEventCleanupRule;"select {e:pk}, {e:itemtype}
+   from {ErrorEvent as e} where 
+   {e:creationtime} < ?CALC_RETIREMENT_TIME"; $fifteenDays; basicRemoveCleanupAction;
+INSERT_UPDATE RetentionJob;code[unique=true];retentionRule(code);batchSize
+                          ; errorEventRemovalJob; errorEventCleanupRule; 1000						  						 						  
+INSERT_UPDATE CronJob;code[unique=true];job(code);sessionLanguage(isoCode)[default=en];active[default=false]
+                     ; errorEventRemovalCronJob; errorEventRemovalJob;	
+
+## ImportRecord Cleanup
+INSERT_UPDATE FlexibleSearchRetentionRule;code[unique=true];searchQuery;retentionTimeSeconds;actionReference;
+                                         ;importRecordCleanupRule;"select {i:pk}, {i:itemtype}
+   from {ImportRecord as i}
+   where
+   {i:modifiedTime} < ?CALC_RETIREMENT_TIME"; $oneWeek; basicRemoveCleanupAction;
+INSERT_UPDATE RetentionJob;code[unique=true];retentionRule(code);batchSize
+                          ; importRecordCleanupJob; importRecordCleanupRule; 1000						  						 						  
+INSERT_UPDATE CronJob;code[unique=true];job(code);sessionLanguage(isoCode)[default=en];active[default=false]
+                     ; importRecordCleanupCronJob; importRecordCleanupJob;	
+ 
+# SabmUserMessagesStatus Cleanup
+INSERT_UPDATE FlexibleSearchRetentionRule;code[unique=true];searchQuery;retentionTimeSeconds;actionReference;
+;sabmUserMessagesStatusCleanupRule;"SELECT {e:pk}, {e:itemtype} FROM {SabmUserMessagesStatus AS e} WHERE {e:modifiedTime} < ?CALC_RETIREMENT_TIME"; $fifteenDays; basicRemoveCleanupAction;
+										 
+INSERT_UPDATE RetentionJob;code[unique=true];retentionRule(code);batchSize
+                          ; sabmUserMessagesStatusCleanupJob; sabmUserMessagesStatusCleanupRule; 1000
+INSERT_UPDATE CronJob;code[unique=true];job(code);sessionLanguage(isoCode)[default=en];active[default=false]
+                     ; sabmUserMessagesStatusCleanupCronJob; sabmUserMessagesStatusCleanupJob;
+
+					 
+# SystemEmailMessage Cleanup
+INSERT_UPDATE FlexibleSearchRetentionRule;code[unique=true];searchQuery;retentionTimeSeconds;actionReference;
+;systemEmailMessageCleanupRule;"SELECT {e:pk}, {e:itemtype} FROM {SystemEmailMessage AS e} WHERE {e:sent}=1 AND {e:modifiedTime} < ?CALC_RETIREMENT_TIME"; $zeroDay; basicRemoveCleanupAction;
+										 
+INSERT_UPDATE RetentionJob;code[unique=true];retentionRule(code);batchSize
+                          ; systemEmailMessageCleanupJob; systemEmailMessageCleanupRule; 1000
+INSERT_UPDATE CronJob;code[unique=true];job(code);sessionLanguage(isoCode)[default=en];active[default=false]
+                     ;systemEmailMessageCleanupCronJob; systemEmailMessageCleanupJob;
+				 
+					 
+#Saved values cleanup
+INSERT_UPDATE FlexibleSearchRetentionRule;code[unique=true];searchQuery;retentionTimeSeconds;actionReference;
+;savedValuesCleanupRule;"SELECT {e:pk}, {e:itemtype} FROM {savedvalues AS e} WHERE {e:modifiedTime} < ?CALC_RETIREMENT_TIME"; $zeroDay; basicRemoveCleanupAction;
+										 
+INSERT_UPDATE RetentionJob;code[unique=true];retentionRule(code);batchSize
+                          ; savedValuesCleanupJob; savedValuesCleanupRule; 1000
+INSERT_UPDATE CronJob;code[unique=true];job(code);sessionLanguage(isoCode)[default=en];active[default=false]
+                     ;savedValuesCleanupCronJob; savedValuesCleanupJob;
+
+
+#Saved valueentry cleanup
+INSERT_UPDATE FlexibleSearchRetentionRule;code[unique=true];searchQuery;retentionTimeSeconds;actionReference;
+;savedvalueentryCleanupRule;"SELECT {e:pk}, {e:itemtype} FROM {savedvalueentry AS e} WHERE {e:modifiedTime} < ?CALC_RETIREMENT_TIME"; $zeroDay; basicRemoveCleanupAction;
+										 
+INSERT_UPDATE RetentionJob;code[unique=true];retentionRule(code);batchSize
+                          ; savedvalueentryCleanupJob; savedvalueentryCleanupRule; 1000
+INSERT_UPDATE CronJob;code[unique=true];job(code);sessionLanguage(isoCode)[default=en];active[default=false]
+                     ;savedvalueentryCleanupCronJob; savedvalueentryCleanupJob;
+                      
+                     
+                    			 
+
+
+

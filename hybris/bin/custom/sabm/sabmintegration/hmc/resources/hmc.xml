@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2015 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+-->
+<configuration xmlns="hybris.de/schemas/hmc/generic"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="hybris.de/schemas/hmc/generic hmc.xsd">
+
+
+    <explorertree mode="append">
+        <group name="group.sabm.system.services" description="group.sabm.system.services.description">
+            <typeref type="WebServiceLog" description="WebServiceLog.description"/>
+            <typeref type="ErrorEvent" />
+        </group>
+    </explorertree>
+
+    <type name="ErrorEvent" mode="append">
+        <organizer>
+            <search mode="replace">
+                <condition attribute="code"/>
+                <condition attribute="integration"/>
+                <condition attribute="errorType"/>
+            </search>
+            <result defaultview="list">
+                <listview mode="replace">
+                    <itemlayout>
+                        <attribute name="code" width="160"/>
+                        <attribute name="integration" width="360"/>
+                        <attribute name="errorType" width="80"/>
+                    </itemlayout>
+                </listview>
+            </result>
+            <editor>
+                <essentials>
+                    <listlayout>
+                        <attribute name="code" width="300" editable="false"/>
+                        <attribute name="integration" width="200" editable="false"/>
+                        <attribute name="errorType" width="450" editable="false"/>
+                    </listlayout>
+                </essentials>
+                <tab name="more.details" id="tab_xmldef" position="1">
+                    <section name="definition">
+                        <listlayout>
+                            <attribute name="requestData" editable="false"/>
+
+                            <attribute name="rootCause" width="600" editable="false">
+                                <textareaeditor expanded="true" wrap="false" rows="25"/>
+                            </attribute>
+                            <attribute name="additionalDetails" width="600" editable="false">
+                                <textareaeditor expanded="true" wrap="false" rows="25"/>
+                            </attribute>
+                        </listlayout>
+                    </section>
+                </tab>
+            </editor>
+        </organizer>
+    </type>
+
+    <type name="WebServiceLog" mode="append">
+        <organizer>
+            <search mode="replace">
+                <condition attribute="userId"/>
+                <condition attribute="url"/>
+                <condition attribute="requestDate"/>
+            </search>
+            <result defaultview="list">
+                <listview mode="replace">
+                    <itemlayout>
+                        <attribute name="userId" width="160"/>
+                        <attribute name="url" width="360"/>
+                        <attribute name="responseStatus" width="80"/>
+                        <attribute name="requestDate" width="120"/>
+                        <attribute name="totalTimeTaken" width="100"/>
+                        <attribute name="sessionId" width="100"/>
+                    </itemlayout>
+                </listview>
+            </result>
+            <editor>
+                <essentials>
+                    <listlayout>
+                        <attribute name="userId" width="300" editable="false"/>
+                        <attribute name="sessionId" width="200" editable="false"/>
+                        <attribute name="url" width="450" editable="false"/>
+                        <attribute name="requestDate" width="210" editable="false"/>
+                        <attribute name="responseDate" width="200" editable="false"/>
+                        <attribute name="totalTimeTaken" width="100" editable="false"/>
+                    </listlayout>
+                </essentials>
+                <tab name="webservice.details" id="tab_xmldef" position="1">
+                    <section name="definition">
+                        <listlayout>
+                            <attribute name="responseStatus" width="100" editable="false"/>
+
+                            <attribute name="request" width="600" editable="false">
+                                <textareaeditor expanded="true" wrap="false" rows="25"/>
+                            </attribute>
+                            <attribute name="response" width="600" editable="false">
+                                <textareaeditor expanded="true" wrap="false" rows="25"/>
+                            </attribute>
+                        </listlayout>
+                    </section>
+                </tab>
+            </editor>
+        </organizer>
+    </type>
+    <!-- end of web service log -->
+
+</configuration>

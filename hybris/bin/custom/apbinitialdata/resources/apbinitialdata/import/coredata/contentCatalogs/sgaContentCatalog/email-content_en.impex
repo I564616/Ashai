@@ -1,0 +1,152 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#
+# Import the CMS content for the SGA site emails
+#
+$contentCatalog=sgaContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/coredata/contentCatalogs/sgaContentCatalog/emails
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$emailResource=$config-emailResourceValue                                                                  
+
+# Language                                                                                                 
+$lang=en                                                                                                   
+
+
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]               ; fromEmail[lang=$lang]                ; fromName[lang=$lang]            
+                 ;                         ; CustomerRegistrationEmail      ; "ACCConnect@oc.globalasahi.com"   ; "Customer Services Team"        
+                 ;                         ; CustomerSuperRegistrationEmail ; "ACCConnect@oc.globalasahi.com"   ; "Customer Services Team"        
+                 ;                         ; RequestRegistrationEmail       ; "ACCConnect@oc.globalasahi.com"                   ; "Request Registration"          
+                 ;                         ; ApbCompanyDetailsEmail         ; "ACCConnect@oc.globalasahi.com"       ; "Company Details Change Request"
+                 ;                         ; ApbContactUsEmail              ; "ACCConnect@oc.globalasahi.com"              ; "Contact Us"                    
+                 ;                         ; ApbKegReturnEmail              ; "ACCConnect@oc.globalasahi.com" ; "Keg Return"        
+                 ;                         ; OrderConfirmationEmail      	 ; "ACCConnect@oc.globalasahi.com"  ; "Customer Services Team"        
+                 ;                         ; AsahiPaymentConfirmationEmail    ; "ACCConnect@asahi.com.au"   ; "Customer Services Team"        
+                 ;                         ; AsahiNoDeliveryEmail      ; "ACCConnect@oc.globalasahi.com"   ; "Customer Services Team"        
+                 ;                         ; AsahiAlternateCallDayEmail      ; "ACCConnect@oc.globalasahi.com"   ; "Customer Services Team"        
+                 ;                         ; AsahiAlternateDeliveryDateEmail      ; "ACCConnect@oc.globalasahi.com"   ; "Customer Services Team"        
+                                                                                                 
+UPDATE RendererTemplate ; code[unique=true]                                 ; description[lang=$lang]                            ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                        ; asahi_Email_PaymentConfirmation__Body        ; "Asahi Payment Confirmation Email Body"           ; $jarEmailResource/email-asahiPaymentConfirmationBody.vm                                                                 
+                        ; asahi_Email_PaymentConfirmation__Subject     ; "Asahi Payment Confirmation Email Subject"        ; $jarEmailResource/email-asahiPaymentConfirmationSubject.vm                                                              
+                        ; asahi_Email_NoDelivery__Body        ; "Asahi No Delivery Email Body"           ; $jarEmailResource/email-asahiNoDeliveryBody.vm                                                                 
+                        ; asahi_Email_NoDelivery__Subject     ; "Asahi No Delivery Email Subject"        ; $jarEmailResource/email-asahiNoDeliverySubject.vm                                                              
+						; asahi_Email_AlternateCallDay__Body        ; "Asahi Alternate Call Day Email Body"           ; $jarEmailResource/email-asahiAlternateCallDayBody.vm                                                                 
+                        ; asahi_Email_AlternateCallDay__Subject     ; "Asahi Alternate Call Day Email Subject"        ; $jarEmailResource/email-asahiAlternateCallDaySubject.vm                                                              
+						; asahi_Email_AlternateDeliveryDate__Body        ; "Asahi Alternate Delivery Date Email Body"           ; $jarEmailResource/email-asahiAlternateDeliveryDateBody.vm                                                                 
+                        ; asahi_Email_AlternateDeliveryDate__Subject     ; "Asahi Alternate Delivery Date Email Subject"        ; $jarEmailResource/email-asahiAlternateDeliveryDateSubject.vm                                                              
+
+
+# CMS components and Email velocity templates                                                              
+UPDATE RendererTemplate ; code[unique=true]                                 ; description[lang=$lang]                            ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                        ; sga-BannerComponent-template                      ; "CMSBannerComponent Template"                      ; $jarEmailResource/email-bannerComponentTemplate.vm                                                               
+                        ; sga-CMSImageComponent-template                    ; "CMSImageComponent Template"                       ; $jarEmailResource/email-cmsImageComponentTemplate.vm                                                             
+                        ; sga-CMSLinkComponent-template                     ; "CMSLinkComponent Template"                        ; $jarEmailResource/email-cmsLinkComponentTemplate.vm                                                              
+                        ; sga-CMSParagraphComponent-template                ; "CMSParagraphComponent Template"                   ; $jarEmailResource/email-cmsParagraphComponentTemplate.vm                                                         
+                        ; sga-SimpleBannerComponent-template                ; "CMSSimpleBannerComponent Template"                ; $jarEmailResource/email-bannerComponentTemplate.vm                                                               
+                        ; sga_Email_Apb_Company_Details_Body                ; "Company Details Registration Email Body"          ; $jarEmailResource/email-companyDetailsBody.vm                                                                    
+                        ; sga_Email_Apb_Company_Details_Subject             ; "Company Details Email Subject"                    ; $jarEmailResource/email-companyDetailsSubject.vm                                                                 
+                        ; sga_Email_Contact_Us_Body                     	; "Contact Us Email Body"                            ; $jarEmailResource/email-contactUsBody.vm                                                                         
+                        ; sga_Email_Contact_Us_Subject                  	; "Contact Us Email Subject"                         ; $jarEmailResource/email-contactUsSubject.vm                                                                      
+                     	; sga_Email_Apb_Keg_Return_Body                     ; "Keg Return Email Body"                            ; $jarEmailResource/email-kegReturnBody.vm                                                                         
+                        ; sga_Email_Apb_Keg_Return_Subject                  ; "Keg ReturnEmail Subject"                          ; $jarEmailResource/email-kegReturnSubject.vm                                                                      
+                        ; sga_Email_Request_Registration_Body               ; "Request Registration Email Body"                  ; $jarEmailResource/email-requestRegistrationBody.vm                                                               
+                        ; sga_Email_Request_Registration_Subject            ; "Request Registration Email Subject"               ; $jarEmailResource/email-requestRegistrationSubject.vm                                                            
+                        ; sga_Email_Delivery_Sent_Body                      ; "Delivery Sent Email Body"                         ; $jarEmailResource/email-deliverySentBody.vm                                                                      
+                        ; sga_Email_Delivery_Sent_Subject                   ; "Delivery Sent Email Subject"                      ; $jarEmailResource/email-deliverySentSubject.vm                                                                   
+                        ; sga_Email_Forgotten_Password_Body                 ; "Forgotten Password Email Body"                    ; $jarEmailResource/email-portalForgottenPasswordBody.vm                                                                 
+                        ; sga_Email_Forgotten_Password_Subject              ; "Forgotten Password Email Subject"                 ; $jarEmailResource/email-portalForgottenPasswordSubject.vm                                                              
+                        ; sga_Email_NotPickedUpConsignment_Canceled_Body    ; "Not Picked Up Consignment Canceled Email Body"    ; $jarEmailResource/email-notPickedUpConsignmentCanceledBody.vm                                                    
+                        ; sga_Email_NotPickedUpConsignment_Canceled_Subject ; "Not Picked Up Consignment Canceled Email Subject" ; $jarEmailResource/email-notPickedUpConsignmentCanceledSubject.vm                                                 
+                        ; sga_Email_Order_Cancelled_Body                    ; "Order Cancelled Email Body"                       ; $jarEmailResource/email-orderCancelledBody.vm                                                                    
+                        ; sga_Email_Order_Cancelled_Subject                 ; "Order Cancelled Email Subject"                    ; $jarEmailResource/email-orderCancelledSubject.vm                                                                 
+                        ; sga_Email_Order_Collection_Reminder_Body          ; "Order Collection Reminder Body"                   ; $jarEmailResource/email-orderCollectionReminderBody.vm                                                           
+                        ; sga_Email_Order_Collection_Reminder_Subject       ; "Order Collection Reminder Subject"                ; $jarEmailResource/email-orderCollectionReminderSubject.vm                                                        
+                        ; sga_Email_Order_Move_To_CS_Body                   ; "Order Move To CS Body"                            ; $jarEmailResource/email-orderMoveToCsBody.vm                                                                     
+                        ; sga_Email_Order_Move_To_CS_Subject                ; "Order Move To CS Subject"                         ; $jarEmailResource/email-orderMoveToCsSubject.vm                                                                  
+                        ; sga_Email_Order_Partially_Canceled_Body           ; "Order Partially Canceled Email Body"              ; $jarEmailResource/email-orderPartiallyCanceledBody.vm                                                            
+                        ; sga_Email_Order_Partially_Canceled_Subject        ; "Order Partially Canceled Email Subject"           ; $jarEmailResource/email-orderPartiallyCanceledSubject.vm                                                         
+                        ; sga_Email_Order_Partially_Refunded_Body           ; "Order Partially Refunded Email Body"              ; $jarEmailResource/email-orderPartiallyRefundedBody.vm                                                            
+                        ; sga_Email_Order_Partially_Refunded_Subject        ; "Order Partially Refunded Email Subject"           ; $jarEmailResource/email-orderPartiallyRefundedSubject.vm                                                         
+                        ; sga_Email_Order_Refund_Body                       ; "Order Refund Email Body"                          ; $jarEmailResource/email-orderRefundBody.vm                                                                       
+                        ; sga_Email_Order_Refund_Subject                    ; "Order Refund Email Subject"                       ; $jarEmailResource/email-orderRefundSubject.vm                                                                    
+                        ; sga_Email_Quote_Buyer_Cancellation_Body           ; "Quote Buyer Cancellation Email Body"              ; $jarEmailResource/email-quoteBuyerCancellationBody.vm                                                            
+                        ; sga_Email_Quote_Buyer_Cancellation_Subject        ; "Quote Buyer Cancellation Email Subject"           ; $jarEmailResource/email-quoteBuyerCancellationSubject.vm                                                         
+                        ; sga_Email_Quote_Buyer_Submission_Body             ; "Quote Buyer Submission Email Body"                ; $jarEmailResource/email-quoteBuyerSubmissionBody.vm                                                              
+                        ; sga_Email_Quote_Buyer_Submission_Subject          ; "Quote Buyer Submission Email Subject"             ; $jarEmailResource/email-quoteBuyerSubmissionSubject.vm                                                           
+                        ; sga_Email_Quote_Expired_Body                      ; "Quote Expired Body"                               ; $jarEmailResource/email-quoteExpiredBody.vm                                                                      
+                        ; sga_Email_Quote_Expired_Subject                   ; "Quote Expired Subject"                            ; $jarEmailResource/email-quoteExpiredSubject.vm                                                                   
+                        ; sga_Email_Quote_To_Expire_Soon_Body               ; "Quote To Expire Soon Body"                        ; $jarEmailResource/email-quoteToExpireSoonBody.vm                                                                 
+                        ; sga_Email_Quote_To_Expire_Soon_Subject            ; "Quote To Expire Soon Subject"                     ; $jarEmailResource/email-quoteToExpireSoonSubject.vm                                                              
+                        ; sga_Email_Ready_For_Pickup_Body                   ; "Ready For Pickup Email Body"                      ; $jarEmailResource/email-readyForPickupBody.vm                                                                    
+                        ; sga_Email_Ready_For_Pickup_Subject                ; "Ready For Pickup Email Subject"                   ; $jarEmailResource/email-readyForPickupSubject.vm                                                                 
+                        ; sga_Email_Assisted_Forgotten_Password_Body        ; "Assisted Forgotten Password Email Body"           ; $jarEmailResource/email-forgottenPasswordBody.vm                                                                 
+                        ; sga_Email_Assisted_Forgotten_Password_Subject     ; "Assisted Forgotten Password Email Subject"        ; $jarEmailResource/email-forgottenPasswordSubject.vm                                                              
+
+
+# CMS components and Email velocity templates
+UPDATE RendererTemplate ; code[unique=true]                                  ; description[lang=$lang]                           ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                        ; sga_Email_Order_ApprovalRejection_Body             ; "Buyer Approval Rejection Email Body"    		 ; $jarEmailResource/email-orderApprovalRejectionBody.vm                                                         
+                        ; sga_Email_Order_ApprovalRejection_Subject          ; "Order Approval Rejection Email Subject" 		 ; $jarEmailResource/email-orderApprovalRejectionSubject.vm                                                      
+                        ; sga_Email_Order_PendingApproval_Body               ; "Order Pending Approval Email Body"      		 ; $jarEmailResource/email-orderPendingApprovalBody.vm                                                           
+                        ; sga_Email_Order_PendingApproval_Subject            ; "Order Pending Approval Email Subject"   		 ; $jarEmailResource/email-orderPendingApprovalSubject.vm                                                        
+                        ; sga_Email_Replenishment_Order_Confirmation_Body    ; ""                                       		 ; $jarEmailResource/email-replenishmentOrderConfirmationBody.vm                                                 
+                        ; sga_Email_Replenishment_Order_Confirmation_Subject ; "Order Confirmation Email Subject"       		 ; $jarEmailResource/email-replenishmentOrderConfirmationSubject.vm                                              
+                        ; sga_Email_Replenishment_Order_Placed_Body          ; "Order Confirmation Email Subject"       		 ; $jarEmailResource/email-replenishmentOrderPlacedBody.vm                                                       
+                        ; sga_Email_Replenishment_Order_Placed_Subject       ; "Order Confirmation Email Subject"       		 ; $jarEmailResource/email-replenishmentOrderPlacedSubject.vm   
+						; sga_Email_Customer_Registration_Body               ; "Customer Registration Email Body"                ; $jarEmailResource/email-customerRegistrationBody.vm                                                              
+                        ; sga_Email_Customer_Registration_Subject            ; "Customer Registration Email Subject"             ; $jarEmailResource/email-customerRegistrationSubject.vm                                                           
+                        ; sga_Email_Customer_Super_Registration_Body         ; "Customer Super Registration Email Body"          ; $jarEmailResource/email-customerSuperRegistrationBody.vm                                                         
+                        ; sga_Email_Customer_Super_Registration_Subject      ; "Customer Super Registration Email Subject"       ; $jarEmailResource/email-customerSuperRegistrationSubject.vm       
+                        ; sga_Email_Order_Confirmation_Body                  ; "Order Confirmation Email Body"                   ; $jarEmailResource/email-orderConfirmationBody.vm                                                                 
+                        ; sga_Email_Order_Confirmation_Subject               ; "Order Confirmation Email Subject"                ; $jarEmailResource/email-orderConfirmationSubject.vm                                                
+                                                                         
+                        ; sga_Email_Request_Payer_Access_Body                  ; "Payer Access Email Body"                   ; $jarEmailResource/email-requestPayerAccessBody.vm                                                                 
+                        ; sga_Email_Request_Payer_Access_Subject               ; "Payer Access Email Subject"                ; $jarEmailResource/email-requestPayerAccessSubject.vm                                                
+                        ; sga_Email_Approve_Payer_Access_Body                  ; "Payer Access Email Body"                   ; $jarEmailResource/email-approvePayerAccessBody.vm                                                                 
+                        ; sga_Email_Approve_Payer_Access_Subject               ; "Payer Access Email Subject"                ; $jarEmailResource/email-approvePayerAccessSubject.vm                                                
+                        ; sga_Email_Reject_Payer_Access_Body                  ; "Payer Access Email Body"                    ; $jarEmailResource/email-rejectPayerAccessBody.vm                                                                 
+                        ; sga_Email_Reject_Payer_Access_Subject               ; "Payer Access Email Subject"                 ; $jarEmailResource/email-rejectPayerAccessSubject.vm                                                
+
+# Email Pages           
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]                    ; fromEmail[lang=$lang]                ; fromName[lang=$lang]            
+                 ;                         ; CustomerRegistrationEmail           ; "ACCConnect@oc.globalasahi.com" 	; "Customer Services Team"        
+                 ;                         ; CustomerSuperRegistrationEmail      ; "ACCConnect@oc.globalasahi.com" 	; "Customer Services Team"        
+                 ;                         ; RequestRegistrationEmail            ; "ACCConnect@oc.globalasahi.com"                   ; "Request Registration"          
+                 ;                         ; ApbCompanyDetailsEmail              ; "ACCConnect@oc.globalasahi.com"       ; "Company Details Change Request"
+                 ;                         ; ApbContactUsEmail                   ; "ACCConnect@oc.globalasahi.com"   ; "Contact Us"                    
+                 ;                         ; ApbKegReturnEmail                   ; "ACCConnect@oc.globalasahi.com" ; "Keg Return"                    
+                 ;                         ; DeliverySentEmail                   ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"        
+                 ;                         ; ForgottenPasswordEmail              ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"        
+                 ;                         ; OrderApprovalRejectionEmail         ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"        
+                 ;                         ; OrderCancelledEmail                 ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"        
+                 ;                         ; OrderCollectionReminderEmail        ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"        
+                 ;                         ; OrderConfirmationEmail              ; "ACCConnect@oc.globalasahi.com" 	; "Customer Services Team"       
+                 ;                         ; OrderMoveToCsEmail                  ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"        
+                 ;                         ; OrderPartiallyCanceledEmail         ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"        
+                 ;                         ; OrderPartiallyRefundedEmail         ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"        
+                 ;                         ; OrderPendingApprovalEmail           ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"        
+                 ;                         ; OrderRefundEmail                    ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"        
+                 ;                         ; QuoteBuyerCancellationEmail         ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"        
+                 ;                         ; QuoteBuyerSubmissionEmail           ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"        
+                 ;                         ; QuoteExpiredEmail                   ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"        
+                 ;                         ; QuoteToExpireSoonEmail              ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"        
+                 ;                         ; ReadyForPickupEmail                 ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"        
+                 ;                         ; ReplenishmentOrderConfirmationEmail ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"        
+                 ;                         ; ReplenishmentOrderPlacedEmail       ; "ACCConnect@oc.globalasahi.com" ; "Customer Services Team"        
+                 ;                         ; AssistedForgottenPasswordEmail      ; "ACCConnect@oc.globalasahi.com"   ; "Customer Services Team"        
+                 
+                 ;                         ; RequestPayerAccessEmail      			; "ACCConnect@oc.globalasahi.com"   ; "Customer Services Team"        
+                 ;                         ; ApprovePayerAccessEmail      			; "ACCConnect@oc.globalasahi.com"   ; "Customer Services Team"        
+                 ;                         ; RejectPayerAccessEmail      			; "ACCConnect@oc.globalasahi.com"   ; "Customer Services Team"        
+                 

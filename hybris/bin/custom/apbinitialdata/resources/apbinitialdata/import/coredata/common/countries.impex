@@ -1,0 +1,26 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#
+# Import Countries
+# Full country list conforming to ISO 3166-1 alpha-2
+#
+INSERT_UPDATE Country ; isocode[unique=true] ; name[lang=en]                                 ; active[default=true]                            
+                      ; AU                   ; "Australia"
+
+INSERT_UPDATE Region ; country(isocode) ; isocode[unique=true] ; businessCode 	; isocodeShort 	  ; name[lang=en]                  ; active[default=true] ; cutOffTime   ;cutOffTimeSga  
+                     ; AU               ; AU-ACT               ; asahi			; AU-ACT          ; "Australian Capital Territory" ;                      ; "11:24 AM AEST";"06:00 PM AEST"
+                     ; AU               ; AU-NSW               ; asahi			; AU-NSW          ; "New South Wales"              ;                      ; "11:24 AM AEST";"06:00 PM AEST"
+                     ; AU               ; AU-NT                ; asahi			; AU-NT           ; "Northern Territory"           ;                      ; "11:24 AM AEST";"06:00 PM ACST"
+                     ; AU               ; AU-QLD               ; asahi			; AU-QLD          ; "Queensland"                   ;                      ; "11:24 AM AEST";"07:00 PM AEST"
+                     ; AU               ; AU-SA                ; asahi			; AU-SA           ; "South Australia"              ;                      ; "11:24 AM AEST";"06:00 PM ACST"
+                     ; AU               ; AU-TAS               ; asahi			; AU-TAS          ; "Tasmania"                     ;                      ; "11:24 AM AEST";"06:00 PM AEST"
+                     ; AU               ; AU-VIC               ; asahi			; AU-VIC          ; "Victoria"                     ;                      ; "11:24 AM AEST";"06:00 PM AEST"
+                     ; AU               ; AU-WA                ; asahi			; AU-WA           ; "Western Australia"            ;					  ; 			   ;"06:00 PM AWST"

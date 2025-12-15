@@ -1,0 +1,570 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="urn:gl.sabmiller.com:ecc:masterdata"
+	xmlns="urn:gl.sabmiller.com:ecc:masterdata" xmlns:p8="urn:gl.sabmiller.com:masterdata:ecc:commonobjects"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:p7="http://sap.com/xi/APPL/Global2">
+	<xsd:import namespace="urn:gl.sabmiller.com:masterdata:ecc:commonobjects"
+		schemaLocation="commonObject.xsd" />
+	<xsd:import namespace="http://sap.com/xi/APPL/Global2" />
+	<xsd:import namespace="urn:gl.sabmiller.com:masterdata:ecc:commonobjects" />
+	<xsd:attributeGroup name="MatlERPRplctnReqMsgMatlSls">
+		<xsd:annotation>
+			<xsd:appinfo source="http://sap.com/xi/VersionID">4ae61932b0ed11e4a43e00000045bdb8
+			</xsd:appinfo>
+		</xsd:annotation>
+	</xsd:attributeGroup>
+	<xsd:attributeGroup name="MatlERPRplctnReqMsgMatl">
+		<xsd:annotation>
+			<xsd:appinfo source="http://sap.com/xi/VersionID">1e34161e7bad11e4c9df00000045bdb7
+			</xsd:appinfo>
+		</xsd:annotation>
+	</xsd:attributeGroup>
+	<xsd:attributeGroup name="MatlERPRplctnReqMsgMatl_V1">
+		<xsd:annotation>
+			<xsd:appinfo source="http://sap.com/xi/VersionID">23bc29b7168211e5906f00000045bdb7
+			</xsd:appinfo>
+		</xsd:annotation>
+	</xsd:attributeGroup>
+	<xsd:attributeGroup name="MatlERPRplctnReqMsgMatlPlntSpec">
+		<xsd:annotation>
+			<xsd:appinfo source="http://sap.com/xi/VersionID">3075a10e926211e3b9cc0000006fa7ca
+			</xsd:appinfo>
+		</xsd:annotation>
+	</xsd:attributeGroup>
+	<xsd:group name="MatlERPRplctnReqMsgMatlPlntSpec">
+		<xsd:annotation>
+			<xsd:appinfo source="http://sap.com/xi/VersionID">3075a10e926211e3b9cc0000006fa7ca
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="PlantMaterialStatus" type="p8:MaterialStatus"
+				minOccurs="0" form="qualified">
+				<xsd:annotation>
+					<xsd:appinfo source="http://sap.com/xi/TextID">7f9b604887ba11e3be73b8ca3a780a7d
+					</xsd:appinfo>
+					<xsd:documentation></xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="LoadingMaterialGroupCode" type="p7:LoadingMaterialGroupCode"
+				minOccurs="0" form="qualified" />
+		</xsd:sequence>
+	</xsd:group>
+	<xsd:group name="MatlERPRplctnReqMsgMatl">
+		<xsd:annotation>
+			<xsd:appinfo source="http://sap.com/xi/VersionID">1e34161e7bad11e4c9df00000045bdb7
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="BaseUnit" type="p8:BaseUnit"
+				minOccurs="0" form="qualified">
+				<xsd:annotation>
+					<xsd:appinfo source="http://sap.com/xi/TextID">1cd222527bad11e4cd390050568319bc
+					</xsd:appinfo>
+					<xsd:documentation></xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BaseUniturn2unitCode" type="xsd:string"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>BaseUnit urn2unitCode</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CrossPlantMaterialStatus" type="p8:MaterialStatus"
+				minOccurs="0" form="qualified">
+				<xsd:annotation>
+					<xsd:appinfo source="http://sap.com/xi/TextID">7b0cf719817511e3bd04b8ca3a780a7d
+					</xsd:appinfo>
+					<xsd:documentation></xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:group>
+	<xsd:group name="MatlERPRplctnReqMsgMatlSls">
+		<xsd:annotation>
+			<xsd:appinfo source="http://sap.com/xi/VersionID">4ae61932b0ed11e4a43e00000045bdb8
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="SalesDescriptionTextID" type="xsd:string"
+				minOccurs="0" form="qualified">
+				<xsd:annotation>
+					<xsd:appinfo source="http://sap.com/xi/TextID">4a9c4f4bb0ed11e48ae7005056920561
+					</xsd:appinfo>
+					<xsd:documentation></xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SalesDescriptionTextILanguageKey"
+				type="xsd:string" minOccurs="0" form="qualified">
+				<xsd:annotation>
+					<xsd:appinfo source="http://sap.com/xi/TextID">4a9c4f4cb0ed11e4c645005056920561
+					</xsd:appinfo>
+					<xsd:documentation></xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SalesDescriptionText" type="xsd:string"
+				minOccurs="0" form="qualified">
+				<xsd:annotation>
+					<xsd:appinfo source="http://sap.com/xi/TextID">4a9c4f4db0ed11e4b8b8005056920561
+					</xsd:appinfo>
+					<xsd:documentation></xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SalesOrganization" type="xsd:string"
+				minOccurs="0" form="qualified">
+				<xsd:annotation>
+					<xsd:appinfo source="http://sap.com/xi/TextID">4a9c4f4eb0ed11e4be39005056920561
+					</xsd:appinfo>
+					<xsd:documentation></xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="DistributionChannel" type="xsd:string"
+				minOccurs="0" form="qualified">
+				<xsd:annotation>
+					<xsd:appinfo source="http://sap.com/xi/TextID">4a9c4f4fb0ed11e4b495005056920561
+					</xsd:appinfo>
+					<xsd:documentation></xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ItemCategoryGroup" type="xsd:string"
+				minOccurs="0" form="qualified">
+				<xsd:annotation>
+					<xsd:appinfo source="http://sap.com/xi/TextID">4a9c4f50b0ed11e4801a005056920561
+					</xsd:appinfo>
+					<xsd:documentation></xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PricingReferenceMaterial" type="xsd:string"
+				minOccurs="0" form="qualified">
+				<xsd:annotation>
+					<xsd:appinfo source="http://sap.com/xi/TextID">4a9c4f51b0ed11e4b93f005056920561
+					</xsd:appinfo>
+					<xsd:documentation></xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MaterialPricingGroup" type="xsd:string"
+				minOccurs="0" form="qualified">
+				<xsd:annotation>
+					<xsd:appinfo source="http://sap.com/xi/TextID">4a9c4f52b0ed11e487ad005056920561
+					</xsd:appinfo>
+					<xsd:documentation></xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AccountAssignmentGroup" type="xsd:string"
+				minOccurs="0" form="qualified">
+				<xsd:annotation>
+					<xsd:appinfo source="http://sap.com/xi/TextID">4a9c4f53b0ed11e48475005056920561
+					</xsd:appinfo>
+					<xsd:documentation></xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SalesUnit" type="xsd:string"
+				minOccurs="0" form="qualified" />
+		</xsd:sequence>
+	</xsd:group>
+	<xsd:group name="MatlERPRplctnReqMsgMatl_V1">
+		<xsd:annotation>
+			<xsd:appinfo source="http://sap.com/xi/VersionID">23bc29b7168211e5906f00000045bdb7
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="EAN11" type="xsd:string" minOccurs="0"
+				form="qualified">
+				<xsd:annotation>
+					<xsd:appinfo source="http://sap.com/xi/TextID">c95e978be25211e38e8500ffe0794504
+					</xsd:appinfo>
+					<xsd:documentation>International Article Number (EAN/UPC)
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="InspStock" type="xsd:string"
+				minOccurs="0" form="qualified">
+				<xsd:annotation>
+					<xsd:appinfo source="http://sap.com/xi/TextID">c95e978ce25211e3c59600ffe0794504
+					</xsd:appinfo>
+					<xsd:documentation>Post to Inspection Stock</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="GeneralData" minOccurs="0" maxOccurs="unbounded"
+				form="qualified">
+				<xsd:annotation>
+					<xsd:appinfo source="http://sap.com/xi/TextID">bf3a402cf2cc11e3957600ff10709e07
+					</xsd:appinfo>
+					<xsd:documentation></xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="OldMaterialNumber" type="xsd:string"
+							minOccurs="0">
+							<xsd:annotation>
+								<xsd:appinfo source="http://sap.com/xi/TextID">bf3a4023f2cc11e38db500ff10709e07
+								</xsd:appinfo>
+								<xsd:documentation></xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="GrossWeight" type="xsd:string"
+							minOccurs="0">
+							<xsd:annotation>
+								<xsd:appinfo source="http://sap.com/xi/TextID">bf3a4024f2cc11e3c99600ff10709e07
+								</xsd:appinfo>
+								<xsd:documentation></xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="NetWeight" type="xsd:string"
+							minOccurs="0">
+							<xsd:annotation>
+								<xsd:appinfo source="http://sap.com/xi/TextID">bf3a4025f2cc11e3943000ff10709e07
+								</xsd:appinfo>
+								<xsd:documentation></xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="WeightUnit" type="xsd:string"
+							minOccurs="0">
+							<xsd:annotation>
+								<xsd:appinfo source="http://sap.com/xi/TextID">bf3a4026f2cc11e3b99100ff10709e07
+								</xsd:appinfo>
+								<xsd:documentation></xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="Volume" type="xsd:string"
+							minOccurs="0">
+							<xsd:annotation>
+								<xsd:appinfo source="http://sap.com/xi/TextID">bf3a4027f2cc11e3893600ff10709e07
+								</xsd:appinfo>
+								<xsd:documentation></xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="VolumeUnit" type="xsd:string"
+							minOccurs="0">
+							<xsd:annotation>
+								<xsd:appinfo source="http://sap.com/xi/TextID">bf3a4028f2cc11e39c6300ff10709e07
+								</xsd:appinfo>
+								<xsd:documentation></xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="MaterialGroup" type="xsd:string"
+							minOccurs="0">
+							<xsd:annotation>
+								<xsd:appinfo source="http://sap.com/xi/TextID">bf3a4029f2cc11e3b25400ff10709e07
+								</xsd:appinfo>
+								<xsd:documentation></xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="Dimensions" type="xsd:string"
+							minOccurs="0">
+							<xsd:annotation>
+								<xsd:appinfo source="http://sap.com/xi/TextID">ddd3b89a0b5511e59a95005056920561
+								</xsd:appinfo>
+								<xsd:documentation></xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="BaseUnitOfMeasureEAN" type="xsd:string"
+							minOccurs="0">
+							<xsd:annotation>
+								<xsd:appinfo source="http://sap.com/xi/TextID">bf3a402af2cc11e3ae9400ff10709e07
+								</xsd:appinfo>
+								<xsd:documentation></xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="GenericItemCatGroup" type="xsd:string"
+							minOccurs="0">
+							<xsd:annotation>
+								<xsd:appinfo source="http://sap.com/xi/TextID">bf3a402bf2cc11e3839300ff10709e07
+								</xsd:appinfo>
+								<xsd:documentation></xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="ProductHierarchy" type="xsd:string"
+							minOccurs="0">
+							<xsd:annotation>
+								<xsd:appinfo source="http://sap.com/xi/TextID">9682d1f60b7211e59e85005056925603
+								</xsd:appinfo>
+								<xsd:documentation></xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="PurchasingUnit" type="xsd:string"
+							minOccurs="0">
+							<xsd:annotation>
+								<xsd:appinfo source="http://sap.com/xi/TextID">9682d1f70b7211e5828e005056925603
+								</xsd:appinfo>
+								<xsd:documentation></xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="ProductHierarchyLevels" minOccurs="0"
+							maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:appinfo source="http://sap.com/xi/TextID">ef4f45840da811e5a65c005056927165
+								</xsd:appinfo>
+								<xsd:documentation></xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="Level" type="xsd:string"
+										minOccurs="0">
+										<xsd:annotation>
+											<xsd:appinfo source="http://sap.com/xi/TextID">081977bc0dac11e5bd7c005056927165
+											</xsd:appinfo>
+											<xsd:documentation></xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="HierarchyDescFull" type="xsd:string"
+										minOccurs="0">
+										<xsd:annotation>
+											<xsd:appinfo source="http://sap.com/xi/TextID">ef4f45820da811e5b215005056927165
+											</xsd:appinfo>
+											<xsd:documentation></xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="HierarchyDescExt" type="xsd:string"
+										minOccurs="0">
+										<xsd:annotation>
+											<xsd:appinfo source="http://sap.com/xi/TextID">ef4f45830da811e599a6005056927165
+											</xsd:appinfo>
+											<xsd:documentation></xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="TaxClassification" minOccurs="0"
+				maxOccurs="unbounded" form="qualified">
+				<xsd:annotation>
+					<xsd:appinfo source="http://sap.com/xi/TextID">bf3a4030f2cc11e3b31c00ff10709e07
+					</xsd:appinfo>
+					<xsd:documentation></xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="DepartureCountry" type="xsd:string"
+							minOccurs="0">
+							<xsd:annotation>
+								<xsd:appinfo source="http://sap.com/xi/TextID">bf3a402df2cc11e3ced400ff10709e07
+								</xsd:appinfo>
+								<xsd:documentation></xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="TaxCategory" type="xsd:string"
+							minOccurs="0">
+							<xsd:annotation>
+								<xsd:appinfo source="http://sap.com/xi/TextID">bf3a402ef2cc11e3b2b000ff10709e07
+								</xsd:appinfo>
+								<xsd:documentation></xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="TaxClassificationMaterial" type="xsd:string"
+							minOccurs="0">
+							<xsd:annotation>
+								<xsd:appinfo source="http://sap.com/xi/TextID">bf3a402ff2cc11e3918000ff10709e07
+								</xsd:appinfo>
+								<xsd:documentation></xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="UOMData" minOccurs="0" maxOccurs="unbounded"
+				form="qualified">
+				<xsd:annotation>
+					<xsd:appinfo source="http://sap.com/xi/TextID">bf3a4036f2cc11e3c37a00ff10709e07
+					</xsd:appinfo>
+					<xsd:documentation></xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="EAN" type="xsd:string" minOccurs="0">
+							<xsd:annotation>
+								<xsd:appinfo source="http://sap.com/xi/TextID">bf3a4031f2cc11e3a04200ff10709e07
+								</xsd:appinfo>
+								<xsd:documentation></xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="Length" type="xsd:string"
+							minOccurs="0">
+							<xsd:annotation>
+								<xsd:appinfo source="http://sap.com/xi/TextID">bf3a4032f2cc11e3cf6d00ff10709e07
+								</xsd:appinfo>
+								<xsd:documentation></xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="Width" type="xsd:string" minOccurs="0">
+							<xsd:annotation>
+								<xsd:appinfo source="http://sap.com/xi/TextID">bf3a4033f2cc11e3c16200ff10709e07
+								</xsd:appinfo>
+								<xsd:documentation></xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="Height" type="xsd:string"
+							minOccurs="0">
+							<xsd:annotation>
+								<xsd:appinfo source="http://sap.com/xi/TextID">bf3a4034f2cc11e3c86300ff10709e07
+								</xsd:appinfo>
+								<xsd:documentation></xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="UnitOfdimension" type="xsd:string"
+							minOccurs="0">
+							<xsd:annotation>
+								<xsd:appinfo source="http://sap.com/xi/TextID">bf3a4035f2cc11e3ac3a00ff10709e07
+								</xsd:appinfo>
+								<xsd:documentation></xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="ClassificationData" minOccurs="0"
+				maxOccurs="unbounded" form="qualified">
+				<xsd:annotation>
+					<xsd:appinfo source="http://sap.com/xi/TextID">9682d1fd0b7211e594cc005056925603
+					</xsd:appinfo>
+					<xsd:documentation></xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="ClassType"
+							type="p7:LANGUAGEINDEPENDENT_MEDIUM_Description" minOccurs="0">
+							<xsd:annotation>
+								<xsd:appinfo source="http://sap.com/xi/TextID">9682d1f90b7211e597fd005056925603
+								</xsd:appinfo>
+								<xsd:documentation></xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="InternalCharacteristic" type="p7:NumberValue"
+							minOccurs="0">
+							<xsd:annotation>
+								<xsd:appinfo source="http://sap.com/xi/TextID">9682d1f80b7211e5c7d7005056925603
+								</xsd:appinfo>
+								<xsd:documentation></xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="CharacteristicDescription"
+							type="p7:LANGUAGEINDEPENDENT_MEDIUM_Description" minOccurs="0">
+							<xsd:annotation>
+								<xsd:appinfo source="http://sap.com/xi/TextID">9682d1fc0b7211e58a68005056925603
+								</xsd:appinfo>
+								<xsd:documentation></xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="CharacteristicValue"
+							type="p7:LANGUAGEINDEPENDENT_MEDIUM_Description" minOccurs="0">
+							<xsd:annotation>
+								<xsd:appinfo source="http://sap.com/xi/TextID">9682d1fa0b7211e5b21d005056925603
+								</xsd:appinfo>
+								<xsd:documentation></xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="CharacteristicValueDescription"
+							type="p7:LANGUAGEINDEPENDENT_MEDIUM_Description" minOccurs="0">
+							<xsd:annotation>
+								<xsd:appinfo source="http://sap.com/xi/TextID">9682d1fb0b7211e5ab82005056925603
+								</xsd:appinfo>
+								<xsd:documentation></xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="AlternativeUoM" minOccurs="0"
+				maxOccurs="unbounded" form="qualified">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="AlternativeUoM" type="xsd:string"
+							minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Alternative UoM</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="Numerator" type="xsd:string"
+							minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Numerator</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="Denominator" type="xsd:string"
+							minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Denominator</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="EAN" type="xsd:string" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>EAN</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="Length" type="xsd:string"
+							minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Length</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="Width" type="xsd:string" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Width</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="Height" type="xsd:string"
+							minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Height</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="LWHUnitofDimension" type="xsd:string"
+							minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>LWH Unit of Dimension</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="Volume" type="xsd:string"
+							minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Volume</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="VolumeUnit" type="xsd:string"
+							minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Volume Unit</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="GrossWeight" type="xsd:string"
+							minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Gross Weight</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="WeightUnit" type="xsd:string"
+							minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Weight Unit</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="Valuation" minOccurs="0" maxOccurs="unbounded"
+				form="qualified">
+				<xsd:annotation>
+					<xsd:appinfo source="http://sap.com/xi/TextID">234ce5b1168211e5bb87005056920561
+					</xsd:appinfo>
+					<xsd:documentation></xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="CostPrice" type="xsd:string"
+							minOccurs="0">
+							<xsd:annotation>
+								<xsd:appinfo source="http://sap.com/xi/TextID">234ce5b0168211e58205005056920561
+								</xsd:appinfo>
+								<xsd:documentation></xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:group>
+</xsd:schema>
+		
+		

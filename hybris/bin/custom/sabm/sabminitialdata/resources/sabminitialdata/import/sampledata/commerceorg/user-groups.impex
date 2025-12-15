@@ -1,0 +1,119 @@
+#
+# Import Sample B2B Organizations
+#
+
+$passwordEncoding=md5
+$defaultPassword=A12341234a
+$setPassword=@password[translator=de.hybris.platform.impex.jalo.translators.ConvertPlaintextToEncodedUserPasswordTranslator][default='$passwordEncoding:$defaultPassword']
+
+$defaultPasswordAdmin=accenture
+$setPasswordAdmin=@password[translator=de.hybris.platform.impex.jalo.translators.ConvertPlaintextToEncodedUserPasswordTranslator][default='$passwordEncoding:$defaultPasswordAdmin']
+
+INSERT_UPDATE Usergroup;uid[unique=true];groups(uid);locname[lang=en];
+;bdegroup;employeegroup;bdegroup
+;bdeviewonlygroup;b2bcustomergroup,b2bordercustomer,b2binvoicecustomer,b2badmingroup;BDE View Only Group
+;pagroup;employeegroup;Personal Assiatance Group
+
+INSERT_UPDATE Employee;uid[unique=true];$setPasswordAdmin;groups(uid)
+;sabm.acc;;admingroup,bdegroup
+
+###############################
+# Test Sample B2B ORGANIZATION (Hierarchy)
+
+
+INSERT_UPDATE ShippingCarrier;carrierCode[unique=true]
+;0006000001
+
+INSERT_UPDATE UnloadingPoint;code[unique=true]
+;BULK-MTWTHF-2
+
+INSERT_UPDATE B2BUnit;description;uid[unique=true];name;locName[lang=en];groups(uid);accountGroup;payerId;soldTo;salesData(&salesOrgId);defaultUnloadingPoint(code);defaultCarrier(carrierCode)
+;Test Sample B2B Admin;Test Sample B2B;Test Sample B2B;Test Sample B2B;;ZADP;DMPAYER;0000842292;7001;BULK-MTWTHF-2;0006000001
+;Test Sample B2B Melbourne Branch;0000842292;Test Sample B2B Melbourne;Test Sample B2B Melbourne;Test Sample B2B;ZALB;DMPAYER;0000842292;7001;BULK-MTWTHF-2;0006000001
+;Test Sample B2B Sydney Branch;Test Sample B2B Sydney;Test Sample B2B Sydney;Test Sample B2B Sydney;Test Sample B2B;ZALB;DMPAYER;0000842292;7001;BULK-MTWTHF-2;0006000001
+;Test Sample B2B Brisbane Branch;Test Sample B2B Brisbane;Test Sample B2B Brisbane;Test Sample B2B Brisbane;Test Sample B2B;ZALB;DMPAYER;0000842292;7001;BULK-MTWTHF-2;0006000001
+;Test Sample B2B Perth Branch;Test Sample B2B Perth;Test Sample B2B Perth;Test Sample B2B Perth;Test Sample B2B;ZALB;DMPAYER;0000842292;7001;BULK-MTWTHF-2;0006000001
+
+INSERT_UPDATE SalesData;&salesOrgId;salesOrgId[unique=true];distributionChannel[unique=true];division[unique=true];deletionIndicator;defaultDeliveryPlant;productAttributes
+;7001;7001;00;00
+
+
+###############################
+# Linking Test Sample B2B B2BUnit to Addresses
+INSERT_UPDATE B2BUnit;uid[unique=true];addresses(&addId);defaultShipTo(&addId);&B2BUnitID;
+;Test Sample B2B;DMAdminAddr;DMAdminAddr;DMAdmin;
+;0000842292;DMMelAddr;DMMelAddr;DMMel;
+;Test Sample B2B Sydney;DMSydAddr;DMSydAddr;DMSyd;
+;Test Sample B2B Brisbane;DMBrisAddr;DMBrisAddr;DMBris;
+;Test Sample B2B Perth;DMPerthAddr;DMPerthAddr;DMPerth;
+
+############### ADDRESSES ################
+# Test Sample B2B Addresses
+
+INSERT_UPDATE Address;streetname[unique=true];postalcode[unique=true];partnerNumber;town;country(isocode);billingAddress;contactAddress;shippingAddress;unloadingAddress;firstname;lastname;email;title(code);&addId;owner(&B2BUnitID)[unique=true];
+;Nepean Hwy;3187;0000842292;Brighton East;AU;TRUE;TRUE;TRUE;TRUE;Ricky;Ponting;ricky.ponting@testsample123.com;mr;DMAdminAddr;DMAdmin;
+;Nepean Hwy;3187;0000842292;Brighton East;AU;TRUE;TRUE;TRUE;TRUE;Adam;Gilchrist;adam.gilchrist@testsample123.com;mr;DMMelAddr;DMMel;
+;1 Kiaora Rd;2028;0000842292;Double Bay;AU;TRUE;TRUE;TRUE;TRUE;Damien;Martin;damien.martin@testsample123.com;ms;DMSydAddr;DMSyd;
+;867 Stanley Street;4102;0000842292;Queensland;AU;TRUE;TRUE;TRUE;TRUE;Shane;Warne;shane.warne@testsample123.com;mr;DMBrisAddr;DMBris;
+;Cnr Bulwer and Fitzgerald Streets ;6005;0000842292;West Perth;AU;TRUE;TRUE;TRUE;TRUE;Carla;Torres;carla.torres@testsample123.com;ms;DMPerthAddr;DMPerth;
+
+
+
+############ USERS ############################
+
+#Test Sample B2B Admin User
+INSERT_UPDATE B2BCustomer;description;uid[unique=true];email;name;title(code);groups(uid);defaultB2BUnit(uid);permissionGroups(uid);sessionCurrency(isocode)[default='AUD'];$setPassword;primaryAdmin
+;Admin A;ricky.ponting@testsample123.com;ricky.ponting@testsample123.com;Ricky Ponting;mr;Test Sample B2B, b2badmingroup;Test Sample B2B;;;;true
+
+#Test Sample B2B Melbourne users
+INSERT_UPDATE B2BCustomer;description;uid[unique=true];email;name;title(code);groups(uid);defaultB2BUnit(uid);permissionGroups(uid);sessionCurrency(isocode)[default='AUD'];$setPassword;createdBy(uid)
+;Approver A;adam.gilchrist@testsample123.com;adam.gilchrist@testsample123.com;Adam Gilchrist;mr;0000842292, b2bapprovergroup, b2badmingroup;0000842292;;;;ricky.ponting@testsample123.com
+;Customer A;mark.rivers@testsample123.com;mark.rivers@testsample123.com;Mark Rivers;mr;0000842292, b2bcustomergroup, b2bordercustomer;0000842292;
+;Customer B;mingmei.wang@testsample123.com;mingmei.wang@testsample123.com;Mingmei Wang;ms;0000842292, b2bcustomergroup, b2bordercustomer;0000842292;
+
+
+#Test Sample B2B Sydney users
+INSERT_UPDATE B2BCustomer;description;uid[unique=true];email;name;title(code);groups(uid);defaultB2BUnit(uid);permissionGroups(uid);sessionCurrency(isocode)[default='AUD'];$setPassword
+;Approver A;mark.waugh@testsample123.com;mark.waugh@testsample123.com;Mark Waugh;mr;Test Sample B2B Sydney, b2bapprovergroup, b2bordercustomer;Test Sample B2B Sydney;
+;Customer A;damien.martin@testsample123.com;damien.martin@testsample123.com;Damien Martin;mr;Test Sample B2B Sydney, b2bcustomergroup, b2bordercustomer;Test Sample B2B Sydney;
+;Customer B;jayden.keane@testsample123.com;jayden.keane@testsample123.com;Jayden Keane;ms;Test Sample B2B Sydney, b2bcustomergroup, b2bordercustomer;Test Sample B2B Sydney;
+
+#Test Sample B2B Brisbane users
+INSERT_UPDATE B2BCustomer;description;uid[unique=true];email;name;title(code);groups(uid);defaultB2BUnit(uid);permissionGroups(uid);sessionCurrency(isocode)[default='AUD'];$setPassword
+;Approver A;shane.warne@testsample123.com;shane.warne@testsample123.com;Shane Warne;mr;Test Sample B2B Brisbane, b2bapprovergroup, b2bordercustomer;Test Sample B2B Brisbane;
+;Customer A;frank.lampard@testsample123.com;frank.lampard@testsample123.com;Frank Lampard;mr;Test Sample B2B Brisbane, b2bcustomergroup, b2bordercustomer;Test Sample B2B Brisbane;
+;Customer B;jayden.keane@testsample123.com;jayden.keane@testsample123.com;Jayden Keane;ms;Test Sample B2B Brisbane, b2bcustomergroup, b2bordercustomer;Test Sample B2B Brisbane;
+
+#Test Sample B2B Perth users
+INSERT_UPDATE B2BCustomer;description;uid[unique=true];email;name;title(code);groups(uid);defaultB2BUnit(uid);permissionGroups(uid);sessionCurrency(isocode)[default='AUD'];$setPassword
+;Approver A;carla.torres@testsample123.com;carla.torres@testsample123.com;Carla Torres;mr;Test Sample B2B Perth, b2bapprovergroup, b2bordercustomer;Test Sample B2B Perth;
+;Manager A;akiro.nakamura@testsample123.com;akiro.nakamura@testsample123.com;Akiro Nakamura;mr;Test Sample B2B Perth, b2bmanagergroup, b2bordercustomer;Test Sample B2B Perth;
+
+#Test Sample B2B Users belonging to multiple branches
+INSERT_UPDATE B2BCustomer;description;uid[unique=true];email;name;title(code);groups(uid);defaultB2BUnit(uid);permissionGroups(uid);sessionCurrency(isocode)[default='AUD'];$setPassword
+;Manager A;akiro.nakamura@testsample123.com;akiro.nakamura@testsample123.com;Akiro Nakamura;mr;0000842292, Test Sample B2B Sydney, Test Sample B2B Brisbane, b2bmanagergroup, b2bordercustomer;0000842292;
+
+
+
+############## UNLOADING POINTS########################
+#Test Sample B2B Melbourne Unloading Points
+INSERT_UPDATE UnloadingPoint;code[unique=true];b2bUnit(&B2BUnitID)[unique=true];
+;1;DMMel;
+;2;DMMel;
+;3;DMMel;
+
+
+#Test Sample B2B Sydney Unloading Points
+INSERT_UPDATE UnloadingPoint;code[unique=true];b2bUnit(&B2BUnitID)[unique=true];
+;4;DMSyd;
+;5;DMSyd;
+
+
+#Test Sample B2B Brisbane Unloading Points
+INSERT_UPDATE UnloadingPoint;code[unique=true];b2bUnit(&B2BUnitID)[unique=true];
+;6;DMBris;
+;7;DMBris;
+
+#Test Sample B2B Perth Unloading Points
+INSERT_UPDATE UnloadingPoint;code[unique=true];b2bUnit(&B2BUnitID)[unique=true];
+;8;DMPerth;

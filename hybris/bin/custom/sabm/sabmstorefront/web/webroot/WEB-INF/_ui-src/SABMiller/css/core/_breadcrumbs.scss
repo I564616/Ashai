@@ -1,0 +1,80 @@
+// ==========================================================================
+//   Breadcrumb class
+// ==========================================================================
+.breadcrumb {
+  padding: 20px 0;
+  margin-bottom: 0;
+  background: transparent;
+  & > li {
+    & + li {
+      &:before {
+        content: "/";
+        padding: 0 10px;
+        color: $dark-grey;
+        font-size: $font-x-small;
+        @media(max-width: $mobile-max) {
+          content: '<';
+          font-size: $font-small;
+          padding: 0;
+        }
+      }
+    }
+    a {
+      color: $dark-grey;
+      text-decoration: none;
+      &:hover {
+        color: $secondary-blue;
+      }
+    }
+    &.active {
+      color: $primary-blue;
+      a {
+        color: inherit;
+      }
+    }
+    a.last, span.last {
+      color: $primary-blue;
+    }
+  }
+  &.inactive {
+    position: relative;
+    &:after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      content: "";
+      display: block;
+      background-color: rgba(255, 255, 255, 0.7);
+    }
+  }
+}
+
+@media(max-width: $mobile-max) {
+  .page-personalAssistanceSearchResult {
+    .breadcrumb {
+      li:first-child:before {
+        content: '<';
+        font-size: $font-small;
+        padding: 0;
+      }
+    }
+  }
+}
+
+.bd-portal.page-customerSearch {
+  .container-breadcrumbs {
+    // padding-bottom: $spacing-small;
+  }
+}
+@media(max-width: $mobile-max) {
+  .bd-portal.page-customerSearch {
+    .container-breadcrumbs {
+      padding-bottom: $spacing-small;
+      .breadcrumb {
+        display: none !important;
+      }
+    }
+  }
+}

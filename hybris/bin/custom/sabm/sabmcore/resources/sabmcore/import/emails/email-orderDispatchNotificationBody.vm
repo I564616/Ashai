@@ -1,0 +1,257 @@
+## messageSource=classpath:/sabmcore/messages/email-orderDispatchNotification_$lang.properties
+#macro(genHtmlLinkStartTag $url)
+<a href="$url"><font color="#666666">
+#end
+#macro(genHtmlLinkEndTag)
+</font></a>
+#end
+#macro(genHtmlLink $url $textColor $bodyContent)
+<a href="$url"><font color="$textColor">$bodyContent</font></a>
+#end
+
+<html>
+	<head>
+		<style type="text/css">
+			.badge {
+				position: absolute;
+				top: 10px;
+				right: 0;
+				width: 30px;
+				height: 30px;
+				border-radius: 100%;
+				text-align: center;
+			}
+			.badge-green {
+				background-color: #01b04f;
+			}
+			.badge-red {
+				background-color: #f0242d;
+			}
+		</style>
+	</head>
+	<body bgcolor="#ffffff">
+		<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#ffffff">
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td align="center" valign="top">
+					<table width="610" border="0" align="center" cellpadding="0" cellspacing="0" bordercolor="#ffffff">
+						<tr>
+							<td align="center" valign="top" bgcolor="#ffffff">
+								<table width="570" cellpadding="0" cellspacing="0" border="0" align="center">
+									<tr>
+										<td colspan="3" valign="middle">&nbsp;</td>
+									</tr>
+									<tr>
+										<td colspan="3" valign="middle" bgcolor="#002f5f" height="92" style="padding-left: 10px;">${ctx.cmsSlotContents.SiteLogo}</td>
+									</tr>
+									<tr>
+										<td colspan="3" valign="middle">&nbsp;</td>
+									</tr>
+									<tr>
+										<td colspan="3">&nbsp;</td>
+									</tr>
+									<tr>
+										<td colspan="3" align="left" valign="top">
+											<p>
+												<b><font color="#002f5f" size="5" face="Arial, Helvetica, sans-serif">
+												#if($ctx.orderData.statusDisplay == 'beingdispatched')
+													${ctx.messages.getMessage('emailMessageTitle', ${ctx.messages.getMessage('beingdispatchedGrammerword')})}
+												#else
+													${ctx.messages.getMessage('emailMessageTitle', ${ctx.messages.getMessage('dispatchedGrammerword')})}
+												#end</font></b>
+											</p>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="3">&nbsp;</td>
+									</tr>
+									<tr>
+										<td colspan="3" align="left" valign="top">
+											<p style="margin-bottom: 10px;">
+												<font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.getMessage('salutation', ${ctx.customerData.firstName})}</font>
+											</p>
+										</td>
+									</tr>
+									
+									<tr>
+										<td colspan="3" align="left" valign="top">
+											<p style="margin-top: 0px; margin-bottom: 10px;">
+												<font color="#666666" size="2" face="Arial, Helvetica, sans-serif">
+												#if($ctx.orderData.statusDisplay == 'beingdispatched')
+													${ctx.messages.getMessage('emailMessageParagraph1', ${ctx.messages.getMessage('beingdispatchedGrammerword')}, ${ctx.requestedDeliveryDate})}
+												#else
+													${ctx.messages.getMessage('emailMessageParagraph1', ${ctx.messages.getMessage('dispatchedGrammerword')}, ${ctx.requestedDeliveryDate})}
+												#end</font>
+											</p>
+										</td>
+									</tr>
+		                            <tr>
+                                        <td colspan="3">
+   											<p>
+												<b><font color="#002f5f" size="4" face="Arial, Helvetica, sans-serif">${ctx.messages.orderDetailTitle}</font></b>
+											</p>
+                                        </td>
+                                    </tr>
+									<tr>
+										<td colspan="3">&nbsp;</td>
+									</tr>
+                                	<tr>
+                                		<td align="left" colspan="3" style="padding: 2px 0">
+                                			<p style="margin: 0;"><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><b>${ctx.messages.orderNumber}</b> ${ctx.orderData.sapSalesOrderNumber}</font></p>
+                                			<p style="margin: 0;"><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><b>${ctx.messages.status}</b> ${ctx.messages.getMessage(${ctx.orderData.statusDisplay})}</font></p>
+                                			<p style="margin: 0;"><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><b>${ctx.messages.placedBy}</b> ${ctx.orderData.userDisplayName}</font></p>
+                                			<p style="margin: 0;"><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><b>${ctx.messages.customerNumber}</b> ${ctx.orderData.b2bUnit.uid}</font></p>
+                                			<p style="margin: 0;"><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><b>${ctx.messages.payerNumber}</b> ${ctx.orderData.b2bUnit.payerId}</font></p>
+                                			<p style="margin: 0;">
+			                        			<font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><b>${ctx.messages.orderedChannel}</b> 
+                                				#if(${ctx.orderData.salesApplication} == "SAP")
+                                				  Offline
+                                				#else
+												  Online
+												#end</font>
+                                			</p>
+                            			</td>
+                        			</tr>
+                                	<tr><td colspan="3">&nbsp;</td></tr>
+                                	<tr><td colspan="3">&nbsp;</td></tr>
+									<tr bgcolor="#f6f6f6">
+										<th width="57%" align="left" style="padding: 10px 0"><font color="#666666" size="3" face="Arial, Helvetica, sans-serif" style="font-weight: normal;">&nbsp;&nbsp;Item</font></th>
+										<th width="20%" align="left" style="padding: 10px 0"><font color="#666666" size="3" face="Arial, Helvetica, sans-serif" style="font-weight: normal;">Quantity Ordered</font></th>
+										<th width="23%" align="left" style="padding: 10px 0"><font color="#666666" size="3" face="Arial, Helvetica, sans-serif" style="font-weight: normal;">Quantity ${ctx.messages.getMessage(${ctx.orderData.statusDisplay})}</font></th></tr>
+									#foreach($consignment in ${ctx.orderData.consignments})
+										#if($consignment.status.code == 'SHIPPED' && $consignment.dispatchNotifEmailSent != true)
+										##if($consignment.status.code == 'CREATED') ## ONLY FOR TESTING
+                                        	#foreach($entry in $consignment.entries)
+												<tr>
+													<td width="57%" style="padding: 10px 0 5px">
+														<table>
+														 <tr>
+														  <td style="position: relative;">&nbsp;&nbsp;
+														    #set ($foundPrimaryImg = false)
+														  	#set ($badgeCss = "badge-small")
+														  	#foreach($image in $entry.orderEntry.product.images)
+																#if($image.imageType == "PRIMARY" && $image.format == "thumbnail")
+																    #set ($foundPrimaryImg = true)
+																    <input type="hidden" name="code" value="$entry.orderEntry.product.code" />
+																    <input type="hidden" name="altText" value="$image.altText" />
+    																<input type="hidden" name="dealsFlag" value="$entry.orderEntry.product.dealsFlag" />
+    																<input type="hidden" name="newProductFlag" value="$entry.orderEntry.product.newProductFlag" />
+																	#if($image.altText != $null && $image.altText != '')
+																		<img src="${ctx.mediaBaseUrl}$image.url" width="75" height="75" alt="$ctx.escTool.xml($image.altText)" title="$ctx.escTool.xml($image.altText)"/>
+																		#if($entry.orderEntry.product.dealsFlag == true)
+																			<div id="dealBadge" class="badge $badgeCss badge-postion badge-red" data-toggle="tooltip" data-container="body">
+																				<p style="margin-top: 9px;"><font color="#ffffff" size="1" face="Arial, Helvetica, sans-serif">${ctx.messages.textProductTitleDeal}</font></p>
+											                                </div>
+																		#elseif($entry.orderEntry.product.newProductFlag == true)
+																			<div class="badge $badgeCss badge-postion badge-green"><p style="margin-top: 9px;"><font color="#ffffff" size="1" face="Arial, Helvetica, sans-serif">${ctx.messages.textProductTitleNew}</font></p></div>
+																		#end
+																	#else
+																		<img src="${ctx.mediaBaseUrl}$image.url" width="75" height="75" alt="$ctx.escTool.xml($entry.orderEntry.product.name)" title="$ctx.escTool.xml($entry.orderEntry.product.name)"/>
+																	#end
+																#end
+															#end
+															#if($foundPrimaryImg == false)
+																<img src="${ctx.messages.imgMissingProductImageThumbnail}" width="75" height="75" alt="$ctx.escTool.xml($entry.orderEntry.product.name)" title="$ctx.escTool.xml($entry.orderEntry.product.name)"/>
+															#end
+															&nbsp;&nbsp;					  
+														  </td>
+														  <td align="left">
+														  	#if($entry.orderEntry.product.dealsFlag == true)
+														  	 	#foreach($deal in $entry.orderEntry.product.dealsTitle)
+											                        <p>$deal</p>
+											                    #end
+											                #else
+																<p style="margin-top:1pt;margin-bottom:1pt;"><b><font color="#002f5f" size="2" face="Arial, Helvetica, sans-serif">$entry.orderEntry.product.name</font></b></p>
+																<p style="margin-top:1pt;margin-bottom:1pt;"><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">#if($entry.orderEntry.product.packConfiguration && $entry.orderEntry.product.packConfiguration != '')$entry.orderEntry.product.packConfiguration#end</font></p>
+														  	#end
+														  </td>
+														 </tr>
+														</table>
+													</td>
+													<td align="center" width="20%" style="padding: 15px 0 10px">
+														<font color="#666666" size="2" face="Arial, Helvetica, sans-serif">$entry.quantity</font>
+													</td>
+													<td align="center" width="23%" style="padding: 15px 0 10px">
+														<font color="#666666" size="2" face="Arial, Helvetica, sans-serif">$entry.shippedQuantity</font>
+													</td>
+												</tr>
+												<tr>
+												<td colspan="3">
+		                                            	<hr/>
+													</td>
+												</tr>
+											#end
+                                        #end
+									#end
+									<tr>
+										<td colspan="3" align="right" valign="middle" height="40">
+											<a href="${ctx.secureBaseUrl}/your-business/order/${ctx.orderData.code}" style="text-decoration: underline; font-weight:bold; padding-right: 5px"><font color="#002f5f" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.goToCubOnline}</font></a>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="3" align="left" valign="top">
+											<p style="margin-top: 0px;">
+												<font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.emailMessageParagraph4Part1}</font>
+											</p>
+											<p style="margin-top: 0px;">
+												<font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.emailMessageParagraph4Part2}</font>
+											</p>
+											<p style="margin-top: 0px;">
+												<font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.getMessage('emailMessageParagraph4Part3', ${ctx.messages.getMessage(${ctx.orderData.statusDisplay})})}</font>
+											</p>
+											<p style="margin-top: 0px;">
+												<font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.messages.emailMessageParagraph4Part4}</font>
+											</p>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="3">&nbsp;</td>
+									</tr>
+									<tr>
+										<td colspan="3"><hr/></td>
+									</tr>
+									<tr>
+										<td colspan="3">&nbsp;</td>
+									</tr>
+									<tr>
+										<td><b><font color="#002f5f" size="3" face="Arial, Helvetica, sans-serif">${ctx.messages.manageNotificationsLink}</font></b></td>
+									</tr>
+									<tr><td>&nbsp;</td></tr>
+									<tr>
+										<td align="left" colspan="3">
+											<font color="#666666" size="2" face="Arial, Helvetica, sans-serif">
+											${ctx.messages.manageNotificationsFooterParagraph1}
+											<a href="${ctx.secureBaseUrl}/your-notifications" style="text-decoration: underline; color: #002f5f">
+												${ctx.messages.manageNotificationsLink}
+											</a>
+											${ctx.messages.manageNotificationsFooterParagraph2}
+											</font>
+										</td>
+									</tr>
+									<tr><td colspan="3">&nbsp;</td></tr>
+									<tr><td colspan="3">
+											<font color="#666666" size="2" face="Arial, Helvetica, sans-serif">
+											${ctx.messages.needHelp} 											
+											<a href="${ctx.secureBaseUrl}/serviceRequest" style="text-decoration: underline; color: #002f5f">
+												${ctx.messages.getInTouch}
+											</a>
+											</font>
+									</td></tr>
+									<tr><td colspan="3">&nbsp;</td></tr>
+									<tr><td colspan="3">&nbsp;</td></tr>
+									<tr>
+										<td colspan="3" align="left" valign="middle" bgcolor="#f5f5f5" height="52" style="font-family: Helvetica Neue, Helvetica, Arial, sans-serif; color: #666666; font-weight: bold; font-size: 12px; padding-left: 15px;">
+											&copy; Carlton &amp; United Breweries
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>

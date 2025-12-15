@@ -1,0 +1,5 @@
+"#% impex.setTargetFile( ""b2bUnits.csv"", true, 1, -1 );"
+
+
+insert_update B2BUnit;uid[unique=true];locname; customerFlag;blockReason;payerId;soldto;salesOrgId;accountGroup
+"#% impex.exportItems( ""B2BUnit"" , true );"

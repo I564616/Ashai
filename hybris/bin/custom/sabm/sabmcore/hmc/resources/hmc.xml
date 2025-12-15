@@ -1,0 +1,1768 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2015 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+-->
+<configuration xmlns="hybris.de/schemas/hmc/generic"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="hybris.de/schemas/hmc/generic hmc.xsd">
+
+
+	<!-- Configuration for extension sabmcore -->
+
+	<explorertree>
+		<group name="group.b2b.import" description="group.b2b.import.description">
+			<typeref type="MasterImport" description="b2bcommercegroup.units.master.import" />
+			<typeref type="CustomerImportRecord" description="b2bcommercegroup.units.record.import" />
+			<typeref type="ProductImportRecord" description="b2bcommercegroup.product.record.import" />
+			<typeref type="SalesOrderImportRecord" description="b2bcommercegroup.sales.order.record.import" />
+			<typeref type="ProductExclusionImportRecord" description="b2bcommercegroup.sales.product.exclusion.record.import" />
+			<typeref type="DeliveryInfoImportRecord" description="b2bcommercegroup.delivery.info.import" />
+			<typeref type="DispatchInfoImportRecord" description="b2bcommercegroup.delivery.dispatch.import" />
+			<typeref type="ComplexDealImportRecord" description="b2bcommercegroup.complex.deals.import" />
+			<typeref type="TrackOrderImportRecord" description="b2bcommercegroup.trackorder.import" />
+			<typeref type="CreditAdjustmentImportRecord" description="b2bcommercegroup.creditadjustment.import" />
+		</group>
+		
+		<group name="group.sabm.custom" description="group.sabm.custom.description">
+			<typeref type="sabmMessage" description="group.sabm.custom.messages" />
+			<typeref type="sabmUserMessagesStatus" description="group.sabm.custom.user.messages" />
+			<typeref type="Deal" description="group.sabm.custom.deal" />
+			<typeref type="InvoiceType" description="group.sabm.custom.invoice.type" />
+			<typeref type="SabmCoreProductRange" description="group.sabm.custom.core.product.range" />
+			<typeref type="Plant" description="group.sabm.custom.plant" />
+			<typeref type="PlantCutOff" description="group.sabm.custom.plant.cutoff" />
+			<typeref type="PlantHolidayCalendar" description="group.sabm.custom.public.holiday.calendar" />
+			<typeref type="PlantDeliveryDay" description="group.sabm.custom.plant.delivery.day" />
+			<typeref type="AdditionalDeliveryDay" description="group.sabm.custom.additional.delivery.day" />
+			<typeref type="SABMUserAccessHistory" description="group.sabm.custom.user.access.history" />
+			<typeref type="RepDrivenDealConditionStatus" description="group.sabm.custom.repdriven.deal.condition.status" />
+			<typeref type="SabmConfiguration" description="group.sabm.custom.configuration" />
+			<typeref type="RegistrationRequest" description="group.sabm.custom.registration.request" />
+			<typeref type="SABMRecommendation" description="group.sabm.custom.sabmrecommendation" />
+			<typeref type="SABMNotification" description="group.sabm.custom.sabmnotification" />
+			<typeref type="sabmDeliveryModeMapping" description="group.sabm.custom.sabmDeliveryModeMapping" />
+			<typeref type="CUBStockInformation" description="group.sabm.custom.cubstockinformation" />
+			<typeref type="SabmCartRule" description="group.sabm.custom.SabmCartRule" />
+			<typeref type="LiveChatComponent" description="group.sabm.custom.livechat" mode="append" />
+			<typeref type="SabmPilotCondition" description="group.sabm.custom.sabmPilotCondition" mode="append" />
+			<typeref type="InvoiceDiscrepancyRequest" description="group.sabm.custom.invoiceDiscrepancyRequest" mode="append" />
+		</group>
+		
+		<group name="c2l" description="group.c2l.description" mode="append">
+			<typeref type="PublicHoliday" description="group.sabm.custom.public.holiday" /> 
+			<typeref type="TimeZone" description="group.sabm.custom.timezone" /> 
+		</group>
+	</explorertree>
+	
+	<type name="MasterImport" mode="append">
+		<organizer>
+			<search mode="replace">
+				<condition attribute="payloadId"/>
+				<condition attribute="entity"/>
+				<condition attribute="status"/>
+			</search>
+			<result defaultview="list">
+				<listview mode="replace">
+					<itemlayout>
+						<attribute name="payloadId" width="200"/>
+						<attribute name="entity" width="150"/>
+						<attribute name="status" width="100"/>
+						<attribute name="error" width="100"/>
+						<attribute name="creationtime" width="200"/>
+						<attribute name="modifiedtime" width="200"/>
+					</itemlayout>
+				</listview>
+			</result>
+		</organizer>
+	</type>
+	<type name="WebServiceLog" mode="append" >
+      <organizer>
+         <search mode="replace" >
+      		<condition attribute="userId" operator="contains"/>
+      		<condition attribute="url" operator="contains" />
+			 <condition attribute="requestDate" />
+		   </search>
+         <result defaultview="list">
+            <listview mode="replace"  >
+               <itemlayout>
+                 <attribute name="userId" width="160" />
+                 <attribute name="url" width="360"/>
+						<attribute name="responseStatus" width="80"/>
+						<attribute name="requestDate" width="120" />
+						<attribute name="totalTimeTaken" width="100"/>
+						<attribute name="sessionId" width="100"/>
+					</itemlayout>
+            </listview>
+          </result>
+         <editor>
+            <essentials>
+               <listlayout>
+                 <attribute name="userId" width="300" editable="false"/>
+               	<attribute name="sessionId" width="200" editable="false"/>
+				     <attribute name="url" width="450" editable="false"/>
+						<attribute name="requestDate" width="210" editable="false"/>
+						<attribute name="responseDate" width="200" editable="false"/>
+						<attribute name="totalTimeTaken" width="100" editable="false"/>
+					</listlayout>
+            </essentials>
+            <tab name="webservice.details" id="tab_xmldef" position="1">
+               <section name="definition">
+                  <listlayout>
+                  	<attribute name="responseStatus" width="100" editable="false"/>
+					
+                     <attribute name="request" width="600" editable="false">
+                        <textareaeditor expanded="true" wrap="false" rows="25"/>
+                     </attribute>
+                     <attribute name="response" width="600" editable="false">
+                        <textareaeditor expanded="true" wrap="false" rows="25"/>
+                     </attribute>
+                  </listlayout>
+               </section>
+            </tab>
+         </editor>
+      </organizer>
+   </type>
+	<!-- end of web service log -->
+	
+	<type name="CustomerImportRecord" mode="append">
+		<organizer>
+			<search mode="replace">
+				<condition attribute="customerId"/>
+				<condition attribute="customerType"/>
+				<condition attribute="status"/>
+			</search>
+			<result defaultview="list">
+				<listview mode="replace">
+					<itemlayout>
+						<attribute name="customerId" width="200"/>
+						<attribute name="customerType" width="80"/>
+						<attribute name="operation" width="100"/>
+						<attribute name="status" width="100"/>
+						<attribute name="masterRecord" width="150"/>
+						<attribute name="creationtime" width="200"/>
+						<attribute name="modifiedtime" width="200"/>
+					</itemlayout>
+				</listview>
+			</result>
+		</organizer>
+	</type>
+	
+
+	<type name="ProductImportRecord" mode="append">
+		<organizer>
+			<search mode="replace">
+				<condition attribute="material"/>
+				<condition attribute="hierarchy"/>
+				<condition attribute="hybrisCategory"/>
+			</search>
+			<result defaultview="list">
+				<listview mode="replace">
+					<itemlayout>
+						<attribute name="material" width="200"/>
+						<attribute name="hierarchy" width="200"/>
+						<attribute name="operation" width="200"/>
+						<attribute name="status" width="200"/>
+						<attribute name="hybrisCategory" width="200"/>
+						<attribute name="masterRecord" width="200"/>
+					</itemlayout>
+				</listview>
+			</result>
+		</organizer>
+	</type>
+	
+	<type name="SalesOrderImportRecord" mode="append">
+		<organizer>
+			<search mode="replace">
+				<condition attribute="orderId"/>
+				<condition attribute="salesOrderNumber"/>
+				<condition attribute="customerId"/>
+			</search>
+			<result defaultview="list">
+				<listview mode="replace">
+					<itemlayout>
+						<attribute name="salesOrderNumber" width="120"/>
+						<attribute name="orderId" width="100"/>
+						<attribute name="operation" width="120"/>
+						<attribute name="source" width="100"/>
+						<attribute name="customerId" width="120"/>
+						<attribute name="status" width="100"/>
+						<attribute name="masterRecord" width="200"/>
+					</itemlayout>
+				</listview>
+			</result>
+		</organizer>
+	</type>
+	
+	
+	<type name="ProductExclusionImportRecord" mode="append">
+		<organizer>
+			<search mode="replace">
+				<condition attribute="customerId"/>
+				<condition attribute="creationtime"/>
+				<condition attribute="status"/>
+			</search>
+			<result defaultview="list">
+				<listview mode="replace">
+					<itemlayout>
+						<attribute name="customerId" width="200"/>
+						<attribute name="status" width="100"/>
+						<attribute name="masterRecord" width="150"/>
+						<attribute name="creationtime" width="200"/>
+						<attribute name="modifiedtime" width="200"/>
+					</itemlayout>
+				</listview>
+			</result>
+		</organizer>
+	</type>
+	
+	
+	<type name="DeliveryInfoImportRecord" mode="append">
+		<organizer>
+			<search mode="replace">
+				<condition attribute="customerId"/>
+				<condition attribute="salesOrderNumber"/>
+				<condition attribute="deliveryNumber"/>
+			</search>
+			<result defaultview="list">
+				<listview mode="replace">
+					<itemlayout>
+						<attribute name="deliveryNumber" width="200"/>
+						<attribute name="deliveryActionCode" width="80"/>
+						<attribute name="salesOrderNumber" width="100"/>
+						<attribute name="customerId" width="150"/>
+						<attribute name="status" width="100"/>
+						<attribute name="operation" width="120"/>
+						<attribute name="creationtime" width="200"/>
+					</itemlayout>
+				</listview>
+			</result>
+		</organizer>
+	</type>
+	
+	<type name="DispatchInfoImportRecord" mode="append">
+		<organizer>
+			<search mode="replace">
+				<condition attribute="customerId"/>
+				<condition attribute="salesOrderNumber"/>
+				<condition attribute="deliveryNumber"/>
+			</search>
+			<result defaultview="list">
+				<listview mode="replace">
+					<itemlayout>
+						<attribute name="deliveryNumber" width="200"/>
+						<attribute name="deliveryActionCode" width="80"/>
+						<attribute name="salesOrderNumber" width="100"/>
+						<attribute name="customerId" width="150"/>
+						<attribute name="status" width="100"/>
+						<attribute name="operation" width="120"/>
+						<attribute name="creationtime" width="200"/>
+					</itemlayout>
+				</listview>
+			</result>
+		</organizer>
+	</type>
+	
+	
+	<type name="CustomerImportRecord" mode="append">
+		<organizer>
+			<search mode="replace">
+				<condition attribute="customerId"/>
+				<condition attribute="customerType"/>
+				<condition attribute="status"/>
+			</search>
+			<result defaultview="list">
+				<listview mode="replace">
+					<itemlayout>
+						<attribute name="customerId" width="200"/>
+						<attribute name="customerType" width="80"/>
+						<attribute name="operation" width="100"/>
+						<attribute name="status" width="100"/>
+						<attribute name="masterRecord" width="150"/>
+						<attribute name="creationtime" width="200"/>
+						<attribute name="modifiedtime" width="200"/>
+					</itemlayout>
+				</listview>
+			</result>
+		</organizer>
+	</type>
+	
+	<type name="TrackOrderImportRecord" mode="append">
+		<organizer>
+			<search mode="replace">
+				<condition attribute="SAPDeliveryNumber"/>
+				<condition attribute="messageType"/>
+				<condition attribute="DateTime"/>
+				<condition attribute="NextInQueueIndicator"/>
+			</search>
+			<result defaultview="list">
+				<listview mode="replace">
+					<itemlayout>
+						<attribute name="SAPDeliveryNumber" width="150"/>
+						<attribute name="messageType" width="100"/>
+						<attribute name="DateTime" width="150"/>
+						<attribute name="NextInQueueIndicator" width="100"/>
+						<attribute name="TimeZoneCode" width="100"/>
+						<attribute name="NotDeliveredReason" width="200"/>
+						<attribute name="creationtime" width="150"/>
+					</itemlayout>
+				</listview>
+			</result>
+		</organizer>
+	</type>
+	<type name="ComplexDealImportRecord" mode="append">
+		<organizer>
+			<search mode="replace">
+				<condition attribute="code"/>
+				<condition attribute="status"/>
+			</search>
+			<result defaultview="list">
+				<listview mode="replace">
+					<itemlayout>
+						<attribute name="code" width="200"/>
+						<attribute name="status" width="100"/>
+						<attribute name="operation" width="120"/>
+						<attribute name="creationtime" width="200"/>
+						<attribute name="masterRecord" width="150"/>
+					</itemlayout>
+				</listview>
+			</result>
+		</organizer>
+	</type>
+
+
+	<type name="Consignment" mode="append">
+		<organizer>
+			<search mode="append" autoperform="true">
+				<condition attribute="code" />
+			</search>
+			<editor mode="append">
+				<tab name="properties" position="0" mode="append">
+					<section name="consignment.details">
+
+						<listlayout mode="append">
+							  <attribute name="pk" />
+							  <attribute name="dispatchNotifEmailSent" />
+							  <attribute name="dispatchNotifSmsSent" />
+							  <attribute name="estimatedArrivedTime" />
+							  <attribute name="inTransitNextInQueue" />
+							  <attribute name="inTransitArrived" />
+							  <attribute name="consignmentBeingPickedDate" />
+							  <attribute name="consignmentDispatchedDate" />
+							<attribute name="consignmentInTransitDate" />
+							<attribute name="consignmentConfirmedDate" />
+							  <attribute name="consignmentDeliveredDate" />
+							  <attribute name="signature"/>
+							<attribute name="notDeliveredReason" />
+
+							 <action type="item" classname="com.sabmiller.core.hmc.PickupConfirmationHMCAction" name="btn.consignment.confirm.pickup"/>
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+	
+	<type name="SABMAlcoholProduct" mode="append">
+		<organizer>
+			<editor mode="append">
+				<tab name="tab.sabmiller.custom" position="2" mode="append">
+					<section name="section.sabmiller.attributes">
+						<listlayout mode="append">
+							<attribute name="ean" />
+							<attribute name="sapAvailabilityStatus" />
+							<attribute name="abv" />
+							<attribute name="categoryAttribute" />
+							<attribute name="style" />
+							<attribute name="categoryVariety" />
+							<attribute name="brand" />
+							<attribute name="subBrand" />
+							<attribute name="sellingName" />
+							<attribute name="findOutMore" />
+							<attribute name="foodMatch" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+	
+	<type name="SABMAlcoholVariantProductEAN" mode="append">
+		<organizer>
+		
+			<editor mode="append">
+				<tab name="tab.sabmiller.custom" position="2" mode="append">
+					<section name="section.sabmiller.attributes">
+						<listlayout mode="append">
+							<attribute name="container" />
+							<attribute name="capacity" />
+							<attribute name="presentation" />
+							<attribute name="weight" />
+							<attribute name="length" />
+							<attribute name="width" />
+							<attribute name="height" />
+							<attribute name="uomMappings">
+								<referencecollectioneditor presetattribute="product">
+									<itemlayout mode="append">
+										<attribute name="fromUnit"></attribute>
+										<attribute name="toUnit"></attribute>
+										<attribute name="qtyConversion"></attribute>
+									</itemlayout>
+								</referencecollectioneditor>
+							</attribute>
+							<attribute name="lifecycleStatus" />
+							<attribute name="leadSku" />
+							<attribute name="subchannelRankingMappings">
+								<referencecollectioneditor presetattribute="product">
+									<itemlayout mode="append">
+										<attribute name="subChannel"></attribute>
+										<attribute name="ranking"></attribute>
+									</itemlayout>
+								</referencecollectioneditor>
+							</attribute>
+						</listlayout>
+					</section>
+				</tab>
+	         <tab name="tab.product.prices" id="tab_europe1_prices" mode="append" position="4">
+               <section name="section.product.pricesdiscounts" mode="replace">
+                  <listlayout mode="append">
+                     <attribute name="europe1Prices">
+                        <referencecollectioneditor editable="true" externalcreate="false" resortable="false" remove="true" create="true">
+                        	<preset targetattribute="product"/>
+                        	<preset targetattribute="catalogVersion" sourceattribute="catalogVersion"/>
+                           <itemlayout mode="replace">
+                              <attribute name="user" width="100"/>
+                              <attribute name="ug" width="120"/>
+                              <attribute name="unit" width="90"/>
+                              <attribute name="minqtd" width="45"/>
+                              <attribute name="price" width="60"/>
+                              <attribute name="currency" width="60"/>
+                              <attribute name="channel" width="100"/>
+                              <attribute name="startTime" width="100"/>
+                           </itemlayout>
+                        </referencecollectioneditor>
+                     </attribute>
+                     <text name="text.product.pg" width="720"/>
+                     <attribute name="Europe1PriceFactory_PPG"/>
+                     <attribute name="europe1Discounts">
+                        <referencecollectioneditor editable="true" externalcreate="false" resortable="false" remove="true" create="true">
+                        	<preset targetattribute="product"/>
+                        	<preset targetattribute="catalogVersion" sourceattribute="catalogVersion"/>
+                           <itemeditorlayout>
+                              <attribute name="user" width="100"/>
+                              <attribute name="ug" width="153"/>
+                              <attribute name="discountstring" width="80"/>
+                              <attribute name="discount" width="60"/>
+                              <attribute name="daterange" width="200">
+                                 <editor classname="de.hybris.platform.hmc.attribute.DateOnlyDateRangeEditorChip">
+                                    <parameter key="wrapvalues" value="false"/>
+                                    <parameter key="showpattern" value="false"/>
+                                 </editor>
+                              </attribute>
+                           </itemeditorlayout>
+                        </referencecollectioneditor>
+                      </attribute>
+                     <text name="text.product.dg" width="720"/>
+                     <attribute name="Europe1PriceFactory_PDG"/>
+                     <attribute name="Europe1PriceFactory_PTG"/>
+                  </listlayout>
+               </section>
+            </tab>
+        
+				
+			</editor>
+		</organizer>
+	</type>
+	
+	<type name="B2BUnit" mode="append">
+		<organizer>
+			<editor mode="append">
+				<tab name="tab.sabmiller.custom" position="3" mode="append">
+					<section name="section.sabmiller.b2bunit">
+						<listlayout mode="append">
+							<attribute name="soldto"></attribute>
+							<attribute name="payerId"></attribute>
+							<attribute name="defaultShipTo"></attribute>
+							<attribute name="salesOrgId"></attribute>
+							<attribute name="externalCustomerId"></attribute>
+							<attribute name="blockType"></attribute>
+							<attribute name="customerFlag"></attribute>
+							<attribute name="blockReason"></attribute>
+							<attribute name="paymentRequired"></attribute>
+							<attribute name="plant"></attribute>
+							<attribute name="defaultCarrier"></attribute>
+							<attribute name="defaultUnloadingPoint"></attribute>
+							<attribute name="shippingCarriers"></attribute>
+							<attribute name="unloadingPoints">
+								<referencecollectioneditor presetattribute="b2bUnit">
+									<itemlayout mode="append">
+										<attribute name="code"></attribute>
+									</itemlayout>
+								</referencecollectioneditor>
+							</attribute>
+							<attribute name="accountGroup"></attribute>
+							<attribute name="priceGroup"></attribute>
+							<attribute name="salesData"></attribute>
+							<attribute name="salesOrgData"></attribute>
+							<attribute name="sapGroup"></attribute>
+							<attribute name="bogofCallStatus"></attribute>
+							<attribute name="discountCallStatus"></attribute>
+							<attribute name="cupCallStatus"></attribute>
+							<attribute name="productExclCallStatus"></attribute>
+							<attribute name="additionalDeliveryDates">
+								<referencecollectioneditor add="true" create="true">
+									<itemlayout mode="append">
+										<attribute name="calendarDay" />
+									</itemlayout>
+								</referencecollectioneditor>
+							</attribute>
+						</listlayout>
+					</section>
+				</tab>
+				<tab name="tab.sabmiller.custom.lastupdateentities" position="3" mode="append">
+					<section name="section.sabmiller.b2bunit">
+						<listlayout mode="append">
+						<attribute name="lastUpdateTimeEntities">
+							<referencecollectioneditor add="true" create="true">
+								<itemlayout mode="append">
+									<attribute name="entityType" />
+									<attribute name="deliveryDate" />
+									<attribute name="lastUpdateTime" />
+								</itemlayout>
+							</referencecollectioneditor>
+						</attribute>
+
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+	
+	<explorertree mode="append">
+      <group name="catalog" expand="false" description="group.catalog.description">
+         <typeref type="ProductExclusion" description="typeref.productexclusion.description" position="6"/>
+      </group>
+   </explorertree>
+   
+   <type name="ProductExclusion" mode="append">
+		<organizer>
+			<search mode="replace" autoperform="true">
+				<condition attribute="customer" />
+				<condition attribute="product" />
+				<condition attribute="validFrom" />
+				<condition attribute="validTo" />
+			</search>
+			<result mode="replace">
+				<listview>
+					<itemlayout>
+						<attribute name="customer" />
+						<attribute name="product" />
+						<attribute name="validFrom" />
+						<attribute name="validTo" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="tab.sabmiller.custom" position="1" mode="append">
+					<section name="section.sabmiller.attributes">
+						<listlayout mode="append">
+							<attribute name="customer"/>
+							<attribute name="salesOrg"/>
+							<attribute name="product"/>
+							<attribute name="validFrom"/>
+							<attribute name="validTo"/>
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+	
+	<type name="PriceRow" mode="append">
+      <organizer>
+         <result>
+            <listview mode="append">
+               <itemlayout mode="append">
+                  <attribute name="basePrice"/>
+               </itemlayout>
+            </listview>
+         </result>
+      </organizer>
+   </type>
+	
+	
+	<type name="Deal" mode="append">
+		<organizer>
+			<search mode="replace">
+				<condition attribute="b2bUnit"/>
+				<condition attribute="code"/>
+				<condition attribute="description"/>
+				<condition attribute="validFrom"/>
+				<condition attribute="dealType"/>
+			</search>
+			<result defaultview="list">
+				<listview mode="replace">
+					<itemlayout>
+						<attribute name="b2bUnit" width="200"/>
+						<attribute name="code" width="200"/>
+						<attribute name="dealType" width="150"/>
+						<attribute name="validFrom" width="100"/>
+						<attribute name="validTo" width="100"/>
+						<attribute name="conditionGroup" width="200"/>
+					</itemlayout>
+				</listview>
+			</result>
+		</organizer>
+	</type>
+	
+	<type name="Plant" mode="append">
+
+		<organizer>
+			<search mode="replace">
+				<condition attribute="plantId"/>
+				<condition attribute="salesOrg"/>
+			</search>
+
+			<result defaultview="list">
+				<listview mode="replace">
+					<itemlayout>
+						<attribute name="plantId" width="200"/>
+						<attribute name="description" width="150"/>
+						<attribute name="salesOrg" width="100"/>
+						<attribute name="creationtime" width="200"/>
+					</itemlayout>
+				</listview>
+
+			</result>
+
+		</organizer>
+	</type>
+	
+	<type name="PublicHoliday" mode="append">
+		<organizer>
+			<search mode="replace">
+				<condition attribute="name"/>
+				<condition attribute="description"/>
+				<condition attribute="holidayDate"/>
+			</search>
+			<result defaultview="list">
+				<listview mode="replace">
+					<itemlayout>
+						<attribute name="name" width="200"/>
+						<attribute name="description" width="150"/>
+						<attribute name="holidayDate" width="100"/>
+					</itemlayout>
+				</listview>
+			</result>
+		</organizer>
+	</type>
+	
+	<type name="PlantCutOff" mode="append">
+		<organizer>
+			<search mode="replace">
+				<condition attribute="plantCode"/>
+				<condition attribute="shippingCondition"/>
+				<condition attribute="cutOffTime"/>
+			</search>
+			<result defaultview="list">
+				<listview mode="replace">
+					<itemlayout>
+						<attribute name="plantCutOffCode" width="200"/>
+						<attribute name="shippingCondition" width="150"/>
+						<attribute name="cutOffTime" width="100"/>
+						<attribute name="leadTime" width="100"/>
+						<attribute name="dayOfWeek" width="100"/>
+					</itemlayout>
+				</listview>
+			</result>
+		</organizer>
+	</type>
+	
+	<type name="PlantHolidayCalendar" mode="append">
+		<organizer>
+			<search mode="replace">
+				<condition attribute="code"/>
+				<condition attribute="name"/>
+			</search>
+			<result defaultview="list">
+				<listview mode="replace">
+					<itemlayout>
+						<attribute name="code"/>
+						<attribute name="name" />
+					</itemlayout>
+				</listview>
+			</result>
+		</organizer>
+	</type>
+	
+	<type name="PlantDeliveryDay" mode="append">
+		<organizer>
+			<search mode="replace">
+				<condition attribute="dayOfWeek"/>
+				<condition attribute="name"/>
+			</search>
+			<result defaultview="list">
+				<listview mode="replace">
+					<itemlayout>
+						<attribute name="dayOfWeek"/>
+						<attribute name="name" />
+					</itemlayout>
+				</listview>
+			</result>
+		</organizer>
+	</type>
+	
+	
+	
+	<type name="ShippingCarrier" mode="append">
+           <organizer>
+                <search mode="replace">
+                     <condition attribute="carrierCode"/>
+                     <condition attribute="b2bUnit"/>
+                </search>
+                <result defaultview="list" mode="replace">
+                     <listview mode="replace">
+                           <itemlayout>
+                                <attribute name="carrierCode" width="200"/>
+                                <attribute name="b2bUnit" width="100"/>
+                           </itemlayout>
+                     </listview>
+                </result>
+           </organizer>
+     </type>
+  
+     <type name="AbstractOrder" mode="append">
+      <organizer>
+         <editor>
+            <tab name="payment_and_delivery" position="2">
+               <section name="deliveryShippingCarrier">
+                  <listlayout>
+                     <attribute name="deliveryShippingCarrier">
+                     </attribute>
+                  </listlayout>
+               </section>
+            </tab>
+         </editor>
+      </organizer>
+   </type>
+   
+   <type name="InvoiceType" mode="append">
+           <organizer>
+                <search mode="replace">
+                     <condition attribute="accountingType"/>
+                     <condition attribute="description"/>
+                </search>
+                <result defaultview="list" mode="replace">
+                     <listview mode="replace">
+                           <itemlayout>
+                                <attribute name="accountingType" />
+                                <attribute name="description" />
+                                <attribute name="displayText" />
+                           </itemlayout>
+                     </listview>
+                </result>
+           </organizer>
+     </type>
+   
+   
+   <!--
+##############################################################################################
+## Order                                                                                    ##
+##############################################################################################
+-->
+
+   <type name="AbstractOrder" icon="images/icons/e_order.gif" mode="append">
+      <organizer>
+         <search mode="replace">
+            <condition attribute="code" operator="contains"/>
+            <condition attribute="date" operator="&gt;">
+               <editor classname="de.hybris.platform.hmc.attribute.DateEditorChip"/>
+            </condition>
+            <condition attribute="user"/>
+			 <condition attribute="unit"/>
+			 <condition attribute="sapSalesOrderNumber"/>
+         </search>
+         <result>
+            <listview mode="replace">
+               <itemlayout>
+                  <attribute name="sapSalesOrderNumber" width="150"/>
+                  <attribute name="unit" width="200"/>
+                  <attribute name="date" width="180"/>
+                  <attribute name="totalPrice" width="100">
+							<display classname="de.hybris.platform.hmc.attribute.DoubleDisplayChip">
+								<parameter key="align" value="right"/>
+							</display>
+						</attribute>
+                  <attribute name="user" width="150"/>
+                  <attribute name="bdeOrder" width="100"/>
+                  <attribute name="bdeOrderUserEmails" width="200"/>
+                  <attribute name="bdeOrderCustomerEmails" width="200"/>
+                  <attribute name="bdeOrderEmailText" width="200"/>
+                  
+                  
+               </itemlayout>
+            </listview>
+            <editview mode="replace">
+               <itemlayout>
+                  <attribute name="code" width="200"/>
+                  <attribute name="date" width="300"/>
+                  <attribute name="user" width="200"/>
+               </itemlayout>
+            </editview>
+            <treeview mode="replace">
+               <itemlayout>
+                  <attribute name="code"/>
+                  <attribute name="user"/>
+               </itemlayout>
+               <explorable>
+                  <attribute name="entries" suppressroot="true"/>
+               </explorable>
+            </treeview>
+         </result>
+         <editor>
+            <essentials>
+               <columnlayout>
+                  <row>
+                     <attribute name="user"/>
+                     <attribute name="code" labelwidth="60" width="264"/>
+                  </row>
+               </columnlayout>
+            </essentials>
+            <tab name="positions_and_prices" id="tab_order_positions_and_prices" position="0" mode="replace">
+               <section name="common" mode="replace">
+                  <columnlayout>
+                     <row>
+                        <attribute name="currency"/>
+                        <attribute name="requestedDeliveryDate" labelwidth="60" width="264"/>
+                     </row>
+                     <row>
+                        <attribute name="net" labelwidth="110">
+                           <advancedbooleaneditor truename="order.net.true" falsename="order.net.false"/>
+                        </attribute>
+                     </row>
+                     <row>
+                      <attribute name="date" labelwidth="60" width="264"/>
+                       </row>
+                  </columnlayout>
+               </section>
+               <section name="positions" mode="replace">
+                  <listlayout>
+                        <attribute name="entries" width="595">
+                           <referencecollectioneditor editable="true" externalcreate="false" presetattribute="order" remove="true" create="true" autosave="true">
+                              <itemeditorlayout>
+                                 <attribute name="product" width="230"/>
+                                 <attribute name="quantity" width="50"/>
+                                 <attribute name="unit" width="90"/>
+                                 <attribute name="basePrice" width="77">
+									<editor classname="de.hybris.platform.hmc.attribute.DoubleEditorChip">
+										<parameter key="align" value="right"/>
+									</editor>
+								</attribute>
+		                  		<attribute name="totalPrice" width="80">
+									<editor classname="de.hybris.platform.hmc.attribute.DoubleEditorChip">
+										<parameter key="align" value="right"/>
+									</editor>
+								</attribute>
+                              </itemeditorlayout>
+                           </referencecollectioneditor>
+                        </attribute>
+                       
+                        <attribute name="simulationMessages">
+                        <collectioneditor resortable="false" addremove="true" title="simulationMessages"/>
+                     </attribute>
+                        <attribute name="totalTaxValues" labelwidth="441" width="250">
+									<collectioneditor resortable="false" editable="false" addremove="true" title="totaltaxvalues"/>
+								</attribute>
+                        <attribute name="netAmount"  descriptionattribute="currency" labelwidth="530" width="124">
+                        	<doubleeditor>
+										<parameter key="align" value="right"/>
+                        	</doubleeditor>
+                        </attribute>
+                        <attribute name="actualDeliveryCost" descriptionattribute="currency" labelwidth="530" width="124">
+                        	<doubleeditor>
+										<parameter key="align" value="right"/>
+                        	</doubleeditor>
+                        </attribute>
+                        <attribute name="freightLimit" descriptionattribute="currency" labelwidth="530" width="124">
+                        	<doubleeditor>
+										<parameter key="align" value="right"/>
+                        	</doubleeditor>
+                        </attribute>
+                        <attribute name="deliveryCost" descriptionattribute="currency" labelwidth="530" width="124">
+                        	<doubleeditor>
+										<parameter key="align" value="right"/>
+                        	</doubleeditor>
+                        </attribute>
+                        <attribute name="deposit" descriptionattribute="currency" labelwidth="530" width="124">
+                        	<doubleeditor>
+										<parameter key="align" value="right"/>
+                        	</doubleeditor>
+                        </attribute>
+                     
+                       <attribute name="loyaltyFee" descriptionattribute="currency" labelwidth="530" width="124">
+                        	<doubleeditor>
+										<parameter key="align" value="right"/>
+                        	</doubleeditor>
+                        </attribute>
+					  <attribute name="autoPayAdvantageDiscount" descriptionattribute="currency" labelwidth="530" width="124">
+						  <doubleeditor>
+							  <parameter key="align" value="right"/>
+						  </doubleeditor>
+					  </attribute>
+					  <attribute name="autoPayAdvantageDiscount" descriptionattribute="currency" labelwidth="530" width="124">
+						  <doubleeditor>
+							  <parameter key="align" value="right"/>
+						  </doubleeditor>
+					  </attribute>
+					  <attribute name="autoPayAdvantagePlusDiscount" descriptionattribute="currency" labelwidth="530" width="124">
+						  <doubleeditor>
+							  <parameter key="align" value="right"/>
+						  </doubleeditor>
+					  </attribute>
+                        <attribute name="subTotal" descriptionattribute="currency" labelwidth="530" width="124">
+                        	<doubleeditor>
+										<parameter key="align" value="right"/>
+                        	</doubleeditor>
+                        </attribute>
+                        <attribute name="totalPrice" descriptionattribute="currency" labelwidth="530" width="124">
+                        	<doubleeditor>
+										<parameter key="align" value="right"/>
+                        	</doubleeditor>
+                        </attribute>
+                        <attribute name="totalDiscounts" descriptionattribute="currency" labelwidth="530" width="124">
+                        	<doubleeditor>
+										<parameter key="align" value="right"/>
+                        	</doubleeditor>
+                        </attribute>
+                        
+                  </listlayout>
+               </section>
+            </tab>
+            <tab name="payment_and_delivery" position="2">
+               <section name="status">
+                  <listlayout>
+                     <attribute name="status"/>
+                     <attribute name="exportStatus"/>
+                     <attribute name="statusInfo"/>
+                  </listlayout>
+               </section>
+               <section name="payment">
+                  <listlayout>
+                     <attribute name="paymentAddress">
+                     	<referenceeditor autoperform="true">
+	                     	<preset targetattribute="owner" sourceattribute="user"/>
+	                     	<restriction attribute="owner" sourceattribute="user"/>
+                     	</referenceeditor>
+                     </attribute>
+                     <attribute name="paymentMode"/>
+                     <attribute name="paymentStatus"/>
+                     <attribute name="paymentInfo"/>
+                  </listlayout>
+               </section>
+               <section name="deliveryadministration">
+                  <listlayout>
+                     <attribute name="deliveryAddress">
+                     	<referenceeditor autoperform="true">
+	                     	<preset targetattribute="owner" sourceattribute="user"/>
+	                     	<restriction attribute="owner" sourceattribute="user"/>
+	                     </referenceeditor>
+                     </attribute>
+                     <attribute name="deliveryMode"/>
+                     <attribute name="deliveryStatus"/>
+                  </listlayout>
+                  <table>
+                     <tr>
+                        <td width="16px">
+                        </td>
+                        <td>
+                           <action type="item"
+                                   classname="de.hybris.platform.hmc.util.action.OrderCalculationAction" 
+                                   name="action.ordercalculation"
+                                   toolbaricon="order_calculate"
+                                   icon="images/icons/order_calculate_main.gif"
+                                   autosave="true"
+                                   showtoolbarlabel="true"
+                                   hidebutton="true"
+                                 />
+                        </td>
+                        <td>
+                           <action type="item" 
+                                   classname="de.hybris.platform.hmc.util.action.OrderTotalsCalculationAction" 
+                                   name="action.ordertotalscalculation"
+                                   toolbaricon="order_totals"
+                                   icon="images/icons/order_totals_main.gif"
+                                   autosave="true"
+                                   showtoolbarlabel="true"
+                                   hidebutton="true"
+                                 />
+                        </td>
+                     </tr>
+                  </table>
+               </section>
+            </tab>
+         </editor>
+      </organizer>
+      <defaultreference mode="replace">
+         <itemlayout>
+            <attribute name="code"/>
+            <attribute name="user"/>
+         </itemlayout>
+      </defaultreference>
+   </type>
+   
+   <type name="EntryOfferInfo" icon="images/icons/e_orderentry.gif" mode="append">
+      <organizer>
+         <result>
+            <listview mode="replace">
+               <itemlayout>
+                  <attribute name="offerType" width="150"/>
+                  <attribute name="scaleAmount" width="150"/>
+                  <attribute name="scaleUnit" width="120"/>
+					   <attribute name="scaleQuantity" width="120"/>
+					   <attribute name="freeGoodProduct" width="120"/>
+					   <attribute name="freeGoodQuantity" width="120"/>
+					   <attribute name="scaleAmountType" width="120"/>
+               </itemlayout>
+            </listview>
+          </result>
+      </organizer>
+  </type>
+  
+  <type name="OrderMessage" icon="images/icons/e_orderentry.gif" mode="replace">
+      <organizer>
+         <result>
+            <listview mode="replace">
+               <itemlayout>
+                  <attribute name="code" width="250"/>
+                  <attribute name="arugments" width="250"/>
+               </itemlayout>
+            </listview>
+          </result>
+      </organizer>
+  </type>
+  
+   <type name="AbstractOrderEntry" icon="images/icons/e_orderentry.gif" mode="append">
+      <organizer>
+         <search mode="replace">
+            <condition attribute="product"/>
+         </search>
+         <result>
+            <listview mode="replace">
+               <itemlayout>
+                  <attribute name="product" width="200"/>
+                  <attribute name="quantity" width="70"/>
+                  
+                 <attribute name="basePrice" width="70">
+							<display classname="de.hybris.platform.hmc.attribute.DoubleDisplayChip">
+								<parameter key="align" value="right"/>
+							</display>
+						</attribute>
+						
+						<attribute name="discountedBasePrice" width="70">
+							<display classname="de.hybris.platform.hmc.attribute.DoubleDisplayChip">
+								<parameter key="align" value="right"/>
+							</display>
+						</attribute>
+                  <attribute name="totalPrice" width="70">
+							<display classname="de.hybris.platform.hmc.attribute.DoubleDisplayChip">
+								<parameter key="align" value="right"/>
+							</display>
+						</attribute>
+						<attribute name="deliveryCost" width="70">
+							<display classname="de.hybris.platform.hmc.attribute.DoubleDisplayChip">
+								<parameter key="align" value="right"/>
+							</display>
+						</attribute>
+               </itemlayout>
+            </listview>
+            <editview mode="replace">
+               <itemlayout>
+                  <attribute name="product" width="100"/>
+                  <attribute name="quantity" width="70"/>
+                  <attribute name="basePrice" width="100"/>
+                  <attribute name="totalPrice"/>
+               </itemlayout>
+            </editview>
+            <treeview mode="replace">
+               <itemlayout>
+                  <attribute name="product"/>
+                  <attribute name="quantity"/>
+               </itemlayout>
+            </treeview>
+         </result>
+         <editor>
+            <essentials>
+               <columnlayout>
+                  <row>
+                     <attribute name="product"/>
+                     <attribute name="order"/>
+                  </row>
+               </columnlayout>
+            </essentials>
+            <tab name="common" position="0">
+               <section name="orderentries">
+                  <columnlayout>
+                     <row>
+                        <attribute name="quantity"/>
+                        <attribute name="unit"/>
+                     </row>
+                  </columnlayout>
+               </section>
+               <section name="orderentries.subtotal">
+                  <columnlayout>
+                     <row>
+                        <attribute name="orderSimulationStatus"/>
+                     </row>
+                     <row>
+                        <attribute name="basePrice"/>
+                        <attribute name="totalPrice"/>
+                     </row>
+                      <row>
+                        <attribute name="totalEntryDiscount"/>
+                        <attribute name="deliveryCost"/>
+                     </row>
+                     <row>
+                        <attribute name="deposit"/>
+                        <attribute name="loyaltyFee"/>
+
+
+                     </row>
+                      <row>
+                        <attribute name="freightLimit"/>
+                     </row>
+                  </columnlayout>
+                  <listlayout>
+                     <attribute name="taxValues">
+                        <collectioneditor resortable="false" addremove="true" title="taxvalues"/>
+                     </attribute>
+                     <attribute name="offerInfo">
+                        <collectioneditor resortable="false" addremove="true" title="offerInfo"/>
+                     </attribute>
+                 </listlayout>
+               </section>
+            </tab>
+            <tab name="info" position="1">
+               <section name="info">
+                  <listlayout>
+                     <attribute name="info">
+                        <textareaeditor expanded="true"/>
+                     </attribute>
+                     <attribute name="entryNumber"/>
+                  </listlayout>
+                  <table>
+                     <tr>
+                        <td width="16px">
+                        </td>
+                        <td>
+                           <action type="item"
+                                   classname="de.hybris.platform.hmc.util.action.OrderEntryCalculationAction" 
+                                   name="action.orderentrycalculation"
+                                   toolbaricon="order_calculate"
+                                   icon="images/icons/order_calculate_main.gif"
+                                   showtoolbarlabel="true"
+                                   hidebutton="true"
+                                 />
+                        </td>
+                        <td>
+                           <action type="item" 
+                                   classname="de.hybris.platform.hmc.util.action.OrderEntryTotalsCalculationAction" 
+                                   name="action.orderentrytotalscalculation"
+                                   toolbaricon="order_totals"
+                                   icon="images/icons/order_totals_main.gif"
+                                   showtoolbarlabel="true"
+                                   hidebutton="true"
+                                 />
+                        </td>
+                     </tr>
+                  </table>
+               </section>
+            </tab>
+         </editor>
+      </organizer>
+      <defaultreference mode="replace">
+         <itemlayout>
+            <attribute name="product"/>
+            <attribute name="quantity"/>
+         </itemlayout>
+      </defaultreference>
+   </type>
+
+   <type name="CartEntry" icon="images/icons/e_cartentry.gif" mode="append"/>
+   
+   	<explorertree mode="append">
+      <group name="order" mode="append">
+         <typeref type="SABMOrderTemplate" description="typeref.SABMOrderTemplate.description" position="1"/>
+      </group>
+   </explorertree>
+   
+   <type name="SABMOrderTemplate" mode="append">
+      <organizer>
+         <result>
+            <listview mode="append">
+            	<itemlayout>
+            		<attribute name="name" />
+            	</itemlayout>
+            </listview>
+         </result>
+         <editor>
+         	<essentials mode="append">
+               <columnlayout>
+                  <row>
+                     <attribute name="unit"/>
+            		<attribute name="name" />
+                  </row>
+                  <row>
+                     <attribute name="sequence"/>
+                  </row>
+               </columnlayout>
+            </essentials>
+         </editor>
+      </organizer>
+   </type>
+   
+   <type name="SabmCoreProductRange" mode="append">
+		<organizer>
+			<search mode="replace">
+				<condition attribute="name"/>
+			</search>
+			<result defaultview="list">
+				<listview mode="replace">
+					<itemlayout>
+						<attribute name="name" width="200"/>
+						<attribute name="eans" width="150"/>
+					</itemlayout>
+				</listview>
+			</result>
+		</organizer>
+	</type>
+	
+	<type name="SABMUserAccessHistory" mode="append">
+		<organizer>
+			<search mode="replace">
+				<condition attribute="uid"/>
+				<condition attribute="publicIPAddress"/>
+				<condition attribute="rememberMeEnabled"/>
+				<condition attribute="userAgent"/>
+			</search>
+			<result defaultview="list">
+				<listview mode="replace">
+					<itemlayout>
+						<attribute name="uid" width="250"/>
+						<attribute name="publicIPAddress" width="120"/>
+						<attribute name="rememberMeEnabled" width="130"/>
+						<attribute name="userAgent"/>
+					</itemlayout>
+				</listview>
+			</result>
+		</organizer>
+	</type>
+	
+	<type name="RepDrivenDealConditionStatus" mode="append">
+		<organizer>
+			<search mode="replace">
+				<condition attribute="dealConditionNumber"/>
+				<condition attribute="assignedTo"/>
+				<condition attribute="status"/>
+				<condition attribute="changedBy"/>
+				<condition attribute="date"/>
+			</search>
+			<result defaultview="list">
+				<listview mode="replace">
+					<itemlayout>
+						<attribute name="dealConditionNumber" width="250"/>
+						<attribute name="assignedTo" width="250"/>
+						<attribute name="status" width="130"/>
+						<attribute name="changedBy" width="200"/>
+						<attribute name="date" width="150"/>
+					</itemlayout>
+				</listview>
+			</result>
+		</organizer>
+	</type>
+   
+   <type name="TimeZone" mode="append">
+		<organizer>
+			<search mode="replace" autoperform="true">
+				<condition attribute="code" />
+			</search>
+			<result mode="replace">
+				<listview>
+					<itemlayout>
+						<attribute name="code" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="tab.sabmiller.custom" position="1" mode="append">
+					<section name="section.sabmiller.attributes">
+						<listlayout mode="append">
+							<attribute name="code"/>
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+   
+   <type name="AdditionalDeliveryDay" mode="append">
+		<organizer>
+			<search mode="replace" autoperform="true">
+				<condition attribute="calendarDay" />
+				<condition attribute="description" />
+			</search>
+			<result mode="replace">
+				<listview>
+					<itemlayout>
+						<attribute name="calendarDay" />
+						<attribute name="description" />
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="tab.sabmiller.custom" position="1" mode="append">
+					<section name="section.sabmiller.attributes">
+						<listlayout mode="append">
+							<attribute name="calendarDay" />
+							<attribute name="description" />
+							<attribute name="b2bUnits">
+								<referencecollectioneditor add="true" create="false">
+									<itemlayout mode="append">
+										<attribute name="uid" />
+										<attribute name="locName" />
+									</itemlayout>
+								</referencecollectioneditor>
+							</attribute>
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+
+
+	
+	<type name="RegistrationRequest" mode="append">
+		<organizer>
+			<search mode="replace" autoperform="true">
+				<condition attribute="email" />
+				<condition attribute="accountName" />
+				<condition attribute="workPhoneNum" />
+			</search>
+			<result mode="replace">
+				<listview>
+					<itemlayout>
+						<attribute name="email" width="300"/>
+						<attribute name="accountName" width="300"/>
+						<attribute name="workPhoneNum" width="300"/>
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="tab.sabmiller.custom" position="1" mode="append">
+					<section name="section.sabmiller.attributes">
+						<listlayout mode="append">
+							<attribute name="firstName" />
+							<attribute name="lastName" />
+							<attribute name="email" />
+							<attribute name="cubAccount" />
+							<attribute name="accountName" />
+							<attribute name="workPhoneNum" />
+							<attribute name="mobilePhoneNum" />
+							<attribute name="accountType" />
+							<attribute name="accessRequired" />
+							<attribute name="haveMoreAccount" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+ 
+   <type name="SabmMessage" mode="append" >
+      <organizer>
+         <search mode="replace" >
+        	<condition attribute="code" />
+      	 	<condition attribute="type" />
+      		<condition attribute="text"/>
+			<condition attribute="expiry"/>
+			<condition attribute="b2bUnit" />
+			<condition attribute="restrictions"/>
+		   </search>
+         <result defaultview="list">
+            <listview mode="replace"  >
+               <itemlayout>
+                 <attribute name="code" width="100" />
+                 <attribute name="type" width="160" />
+                 <attribute name="text" width="500"/>
+				 <attribute name="expiry" width="160"/>
+				 <attribute name="b2bUnit" width="100"/>
+				 <attribute name="restrictions" width="160"/>
+				 <attribute name="lastUpdateTime"/>
+				</itemlayout>
+            </listview>
+          </result>
+         <editor>
+            <essentials>
+               <listlayout>
+                     <attribute name="code" width="100" />
+                     <attribute name="type" width="160" />
+            	     <attribute name="text" width="500"/>
+					 <attribute name="expiry" width="160"/>
+				</listlayout>
+            </essentials>
+            <tab name="message.details" id="tab_xmldef" position="1">
+				<section name="definition">
+					<listlayout>
+						<attribute name="code" width="100" />
+						<attribute name="type" width="160" />
+						<attribute name="text" width="700" />
+						<attribute name="expiry" width="160" />
+						<attribute name="b2bUnit" width="100"/>
+						<attribute name="restrictions">
+							<referencecollectioneditor create="true" add="true" remove="true" editable="true" resortable="true">
+								<itemeditorlayout>
+									<attribute name="uid" width="50" />
+									<attribute name="name" width="300" />
+									<attribute name="type" width="200" />
+								</itemeditorlayout>
+							</referencecollectioneditor>
+						</attribute>
+					</listlayout>
+				</section>
+			</tab>
+         </editor>
+      </organizer>
+   </type>
+   
+   <type name="SABMRecommendation" mode="append">
+		<organizer>
+			<search mode="append" autoperform="true">
+				<condition attribute="b2bUnit" />
+				<condition attribute="recommendedBy" />
+				<condition attribute="status" />
+				
+			</search>
+		 <result defaultview="list">
+            <listview mode="replace"  >
+        
+					<itemlayout>
+						<attribute name="b2bUnit" width="100"/>
+						<attribute name="recommendedBy" width="200"/>
+						<attribute name="status" width="100"/>
+						<attribute name="recommendationType" width="150"/>
+						<attribute name="recommendedDate" width="150" />
+						<attribute name="customerActionDate" width="150"/>
+						<attribute name="dealExpiryDate" width="150"/>
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="tab.sabmiller.custom" position="1" mode="append">
+					<section name="section.sabmiller.attributes">
+						<listlayout mode="append">
+							<attribute name="b2bUnit" />
+							<attribute name="recommendedBy" />
+							<attribute name="status" />
+							<attribute name="recommendationType" />
+							<attribute name="recommendedDate" />
+							<attribute name="customerActionDate" />
+							<attribute name="productCode" />
+							<attribute name="qty" />
+							<attribute name="unit" />
+							<attribute name="dealCode" />
+							<attribute name="dealProducts" />
+							<attribute name="dealExpiryDate" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+ 
+    <type name="sabmDeliveryModeMapping" mode="append">
+		<organizer>
+			<search mode="append" autoperform="true">
+				<condition attribute="mode" />
+				<condition attribute="method" />
+				<condition attribute="description" />
+				
+			</search>
+		 <result defaultview="list">
+            <listview mode="replace"  >
+        
+					<itemlayout>
+						<attribute name="mode" width="100"/>
+						<attribute name="method" width="200"/>
+						<attribute name="description" width="100"/>
+						
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="tab.sabmiller.custom" position="1" mode="append">
+					<section name="section.sabmiller.attributes">
+						<listlayout mode="append">
+							<attribute name="mode" />
+							<attribute name="method" />
+							<attribute name="description" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+   
+   <type name="SABMNotification" mode="append">
+		<organizer>
+			<search mode="append" autoperform="true">
+				<condition attribute="user" />
+				<condition attribute="b2bUnit" />
+				<condition attribute="orderCutOffPrefString" />
+				<condition attribute="orderCutOffPrefDetailsString" />
+				<condition attribute="orderDispatchPrefString" />
+				<condition attribute="dealPrefString" />
+				<condition attribute="dealPrefDetailsString" />
+                <condition attribute="isTypeTransitPref" />
+                <condition attribute="isTypeNextInQueuePref" />
+                <condition attribute="isTypeUpdateForETAPref" />
+                <condition attribute="isTypeDeliveredPref" />
+				<condition attribute="isTypeInvoiceDiscrepancyRequestPref" />
+
+				
+			</search>
+		 <result defaultview="list">
+            <listview mode="replace"  >
+					<itemlayout>
+						<attribute name="user" width="150"/>
+						<attribute name="b2bUnit" width="80"/>
+						<attribute name="orderCutOffPrefString" width="80"/>
+						<attribute name="orderCutOffPrefDetailsString" width="100"/>
+						<attribute name="orderDispatchPrefString" width="90"/>
+						<attribute name="dealPrefString" width="50"/>
+						<attribute name="dealPrefDetailsString" width="100"/>
+						<attribute name="isTypeTransitPref" width="75"/>
+                        <attribute name="isTypeNextInQueuePref" width="80"/>
+                        <attribute name="isTypeUpdateForETAPref" width="80"/>
+                        <attribute name="isTypeDeliveredPref" width="80"/>
+						<attribute name="isTypeInvoiceDiscrepancyRequestPref" width="150"/>
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="tab.sabmiller.custom" position="1" mode="append">
+					<section name="section.sabmiller.attributes">
+						<listlayout mode="append">
+							<attribute name="user" />
+							<attribute name="b2bUnit" />
+							<attribute name="orderCutOffPrefString" />
+							<attribute name="orderCutOffPrefDetailsString" />
+							<attribute name="orderDispatchPrefString" />
+							<attribute name="dealPrefString" />
+							<attribute name="dealPrefDetailsString" />
+							<attribute name="notificationPreferences" />
+							<attribute name="isTypeTransitPref" />
+                            <attribute name="isTypeNextInQueuePref" />
+                            <attribute name="isTypeUpdateForETAPref" />
+                            <attribute name="isTypeDeliveredPref" />
+							<attribute name="isTypeInvoiceDiscrepancyRequestPref" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+	<type name="SABMNotificationPref" mode="append">
+		<organizer>
+			<search mode="append" autoperform="true">
+				<condition attribute="notificationType" />
+				<condition attribute="notificationTypeEnabled" />
+				<condition attribute="emailEnabled" />
+				<condition attribute="emailOptedTime" />
+				<condition attribute="emailOptedTimeUnit" />
+				<condition attribute="emailOptedDay" />
+				<condition attribute="emailLastSendDate" />
+				<condition attribute="smsEnabled" />
+				<condition attribute="mobileNumber" />
+				<condition attribute="smsOptedTime" />
+				<condition attribute="smsOptedTimeUnit" />
+				<condition attribute="smsOptedDay" />
+				<condition attribute="smsLastSendDate" />
+
+			</search>
+			<result defaultview="list">
+				<listview mode="replace"  >
+					<itemlayout>
+						<attribute name="notificationType" width="100"/>
+						<attribute name="emailEnabled" width="80"/>
+						<attribute name="emailOptedTime" width="100"/>
+						<attribute name="emailOptedTimeUnit" width="100"/>
+						<attribute name="smsEnabled" width="80"/>
+						<attribute name="smsOptedTime" width="100"/>
+						<attribute name="smsOptedTimeUnit" width="100"/>
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+			</editor>
+		</organizer>
+	</type>
+
+
+
+	<type name="LiveChatComponent" mode="append">
+		<organizer mode="append">
+				<editor mode="append">
+				<tab name="properties" position="0" mode="append">
+					<section name="section.cmscomponent.opertatingdays">
+						<listlayout >
+							<attribute name="daysOfWeek" />
+				   </listlayout>
+			   	</section>
+			   	<section name="section.cmscomponent.opertatingtimings">
+						<columnlayout width="100" >
+
+							<row>
+							<attribute name="fromHour" width="40" labelwidth="80"/>
+							<attribute name="fromMinute" width="40" labelwidth="80" />
+							</row>
+							<row>
+							<attribute name="toHour" width="40" labelwidth="80" />
+							<attribute name="toMinute" width="40" labelwidth="80" />
+							</row>
+
+				   </columnlayout>
+			   	</section>
+				</tab>
+				</editor>
+		</organizer>
+	</type>
+
+
+ <type name="SabmCartRule" mode="append">
+		<organizer>
+		 <result defaultview="list">
+            <listview mode="replace"  >
+
+					<itemlayout>
+						<attribute name="code" width="100"/>
+						<attribute name="minCases" width="100"/>
+						<attribute name="minKegs" width="100"/>
+						<attribute name="errorMessage" width="150"/>
+						<attribute name="status" width="150"/>
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="tab.sabmiller.custom" position="1" mode="append">
+					<section name="section.sabmiller.attributes">
+						<listlayout mode="append">
+						<attribute name="code"/>
+						<attribute name="minCases"/>
+						<attribute name="minKegs"/>
+						<attribute name="deliveryDates"/>
+						<attribute name="errorMessage"/>
+						<attribute name="status"/>
+				</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+	
+		<type name="SalesForceExportCronjob" mode="append">
+		<organizer mode="append">
+			<editor mode="append">
+				<tab name="tab.common" position="0" mode="append">
+					<section name="section.salesforceexportjob">
+						<listlayout>
+							<attribute name="customers"/>
+							<attribute name="venues"/>
+							<attribute name="products"/>
+							<attribute name="notifications"/>
+							<attribute name="orders"/>
+							<attribute name="welcomeEmailCustomers"/>
+							<attribute name="UserToVenueData"/>
+						</listlayout>
+						<listlayout>
+							<attribute name="batchSize"/>
+							<attribute name="deltaHours"/>
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+
+    <type name="SabmPilotCondition" mode="append">
+        <organizer>
+        </organizer>
+        <defaultreference searchattribute="plantId"
+                          mode="replace" sortattribute="plantId">
+            <itemlayout>
+                <attribute name="plantId" />
+            </itemlayout>
+        </defaultreference>
+    </type>
+
+	<type name="InvoiceDiscrepancyRequest" mode="append">
+		<organizer>
+			<search mode="append" autoperform="true">
+				<condition attribute="raisedBy" />
+				<condition attribute="raisedDate" />
+				<condition attribute="raisedFrom" />
+				<condition attribute="type" />
+				<condition attribute="invoiceNumber" />
+				<condition attribute="processResult" />
+
+			</search>
+			<result defaultview="list">
+				<listview mode="replace"  >
+					<itemlayout>
+						<attribute name="invoiceNumber" width="100"/>
+						<attribute name="b2bUnit" width="100"/>
+						<attribute name="type" width="60"/>
+						<attribute name="processResult" width="60"/>
+						<attribute name="raisedDate" width="150"/>
+						<attribute name="raisedBy" width="100"/>
+						<attribute name="raisedByBDE" width="50"/>
+					</itemlayout>
+				</listview>
+			</result>
+			<editor mode="append">
+				<tab name="tab.sabmiller.custom" position="1" mode="append">
+					<section name="section.sabmiller.attributes">
+						<listlayout mode="append">
+							<attribute name="raisedDate" />
+							<attribute name="b2bUnit" />
+							<attribute name="raisedBy" />
+							<attribute name="raisedByBDE" />
+							<attribute name="invoiceNumber" />
+							<attribute name="type" />
+							<attribute name="processResult" />
+							<attribute name="description" />
+
+							<attribute name="totalDiscountExpected" />
+
+							<attribute name="totalAmountToCredit" />
+							<attribute name="totalFreightAmountToCredit" />
+
+							<attribute name="confirmationEmailList" />
+							<attribute name="items" />
+						</listlayout>
+					</section>
+				</tab>
+			</editor>
+		</organizer>
+	</type>
+	
+</configuration>

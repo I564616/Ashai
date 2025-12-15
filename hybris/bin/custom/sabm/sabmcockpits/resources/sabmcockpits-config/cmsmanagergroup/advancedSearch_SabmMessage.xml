@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<advanced-search>
+	<group name="root" type="SabmMessage">
+		<property qualifier="SabmMessage.code" sort-enabled="true" visible="true"/>
+		<property qualifier="SabmMessage.type" sort-enabled="true" visible="true"/>
+		<property qualifier="SabmMessage.text" sort-enabled="true" visible="true"/>		
+		<property qualifier="SabmMessage.expiry" sort-enabled="true" visible="true"/>
+		<property qualifier="SabmMessage.b2bUnit" sort-enabled="true" visible="true"/>
+		<property qualifier="SabmMessage.restrictions" sort-enabled="true" visible="true"/>	
+	</group>		
+</advanced-search>

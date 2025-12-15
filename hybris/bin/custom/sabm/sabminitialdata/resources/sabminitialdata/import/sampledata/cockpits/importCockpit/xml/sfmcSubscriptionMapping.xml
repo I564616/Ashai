@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Mapping>
+    <baseTypeCode>Customer</baseTypeCode>
+    <catalogVersionOption>true</catalogVersionOption>
+
+    <entries>
+        <allowNull>false</allowNull>
+        <className>de.hybris.platform.importcockpit.model.mappingview.mappingline.impl.AtomicTypeMapping</className>
+        <multivalue>false</multivalue>
+        <propertyDescriptorQualifier>Customer.PK</propertyDescriptorQualifier>
+        <selected>true</selected>
+        <sourceColumnP>
+            <id>0</id>
+            <label>pk</label>
+        </sourceColumnP>
+        <typeCode>java.lang.Long</typeCode>
+    </entries>
+
+
+    <entries>
+        <allowNull>false</allowNull>
+        <className>de.hybris.platform.importcockpit.model.mappingview.mappingline.impl.AtomicTypeMapping</className>
+        <multivalue>false</multivalue>
+        <propertyDescriptorQualifier>Customer.receiveUpdates</propertyDescriptorQualifier>
+        <selected>false</selected>
+        <sourceColumnP>
+            <id>1</id>
+            <label>receiveUpdates</label>
+        </sourceColumnP>
+        <typeCode>java.lang.Boolean</typeCode>
+    </entries>
+    <entries>
+        <allowNull>false</allowNull>
+        <className>de.hybris.platform.importcockpit.model.mappingview.mappingline.impl.AtomicTypeMapping</className>
+        <multivalue>false</multivalue>
+        <propertyDescriptorQualifier>Customer.receiveUpdatesForSms</propertyDescriptorQualifier>
+        <selected>false</selected>
+        <sourceColumnP>
+            <id>2</id>
+            <label>receiveUpdatesForSms</label>
+        </sourceColumnP>
+        <typeCode>java.lang.Boolean</typeCode>
+    </entries>
+    <manualUniqueOption>false</manualUniqueOption>
+    <mode>UPDATE</mode>
+</Mapping>

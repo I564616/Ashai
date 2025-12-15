@@ -1,0 +1,232 @@
+#
+# Import the Solr configuration for the store
+#
+$productCatalog = sabmProductCatalog
+$catalogVersions = catalogVersions(catalog(id), version);
+$serverConfigName = sabmStoreSolrServerConfig
+$indexConfigName = sabmStoreSolrIndexConfig
+$searchConfigName = sabmStorePageSize
+$facetSearchConfigName = sabmStoreIndex
+$facetSearchConfigDescription = SAB Miller Solr Index
+$searchIndexNamePrefix = sabmStore
+$solrIndexedType = sabmStoreProductType
+$indexBaseSite = sabmStore
+$indexLanguages = en
+$indexCurrencies = USD
+
+$solrCustomerIndexedType = sabmStoreB2bCustomerType
+
+#
+# Setup the Solr server, indexer, and search configs
+#
+
+# Create the solr server configuration
+INSERT_UPDATE SolrServerConfig; name[unique = true]; mode(code);username   ; password  ; indexingUsername   ; indexingPassword
+; $serverConfigName ; standalone ; solrclient ; client123 ; solrindexingclient ; indexingclient123
+
+INSERT_UPDATE SolrEndpointUrl; solrServerConfig(name)[unique = true]; url[unique = true]; master[unique = true, default = false]
+; $serverConfigName ; https://localhost:8983/solr ; true
+
+# Create the solr indexer configuration
+INSERT_UPDATE SolrIndexConfig; name[unique = true]; batchSize; numberOfThreads; indexMode(code);
+; $indexConfigName ; 100 ; 1 ; TWO_PHASE ;
+
+# Create the faceted search configuration
+INSERT_UPDATE SolrSearchConfig; description[unique = true]; pageSize; legacyMode
+; $searchConfigName ; 21 ; false
+
+
+
+#
+# Setup the indexed types, their properties, and the update queries
+#
+
+# Define the available sorts
+INSERT_UPDATE SolrSort; &sortRefID; indexedType(identifier)[unique = true]; code[unique = true]; useBoost; visible
+; relevanceSort  ; $solrIndexedType         ; relevance        ; true  ; false
+; bestsellerSort ; $solrIndexedType         ; bestseller       ; false ; true
+; popularSort    ; $solrIndexedType         ; popular          ; false ; true
+; sortRef3       ; $solrIndexedType         ; name-asc         ; false ; true
+; sortRef4       ; $solrIndexedType         ; name-desc        ; false ; true
+; sortRef5       ; $solrCustomerIndexedType ; customername-asc ; true  ; true
+# Define the sort fields
+INSERT_UPDATE SolrSortField; sort(indexedType(identifier), code)[unique = true]; fieldName[unique = true]; ascending[unique = true]
+; $solrIndexedType:relevance                ; score        ; false
+; $solrIndexedType:bestseller               ; bestseller   ; false
+; $solrIndexedType:popular                  ; popular      ; true
+; $solrIndexedType:name-asc                 ; name         ; true
+; $solrIndexedType:name-desc                ; name         ; false
+; $solrCustomerIndexedType:customername-asc ; customername ; true
+
+# Declare the indexed type Product
+INSERT_UPDATE SolrIndexedType; identifier[unique = true]; type(code); variant; sorts(&sortRefID)
+; $solrIndexedType         ; Product ; false ; bestsellerSort, popularSort, sortRef3, sortRef4
+; $solrCustomerIndexedType ; B2BUnit ; false ; sortRef5
+INSERT_UPDATE SolrFacetSearchConfig; name[unique = true]; description; indexNamePrefix; languages(isocode); currencies(isocode); solrServerConfig(name); solrSearchConfig(description); solrIndexConfig(name); solrIndexedTypes(identifier); enabledLanguageFallbackMechanism; $catalogVersions
+; $facetSearchConfigName ; $facetSearchConfigDescription ; $searchIndexNamePrefix ; $indexLanguages ; $indexCurrencies ; $serverConfigName ; $searchConfigName ; $indexConfigName ; $solrIndexedType, $solrCustomerIndexedType  ; true ; $productCatalog:Online, $productCatalog:Staged
+
+UPDATE BaseSite; uid[unique = true]; solrFacetSearchConfiguration(name)
+; $indexBaseSite ; $facetSearchConfigName
+
+# Non-facet properties
+INSERT_UPDATE SolrIndexedProperty; solrIndexedType(identifier)[unique = true]; name[unique = true]; type(code); sortableType(code); currency[default = false]; localized[default = false]; multiValue[default = false]; useForSpellchecking[default = false]; useForAutocomplete[default = false]; fieldValueProvider; valueProviderParameter
+; $solrIndexedType ; itemtype                ; string  ;              ; ;      ;      ;      ;      ;
+; $solrIndexedType ; code                    ; string  ;              ; ;      ;      ;      ;      ; springELValueProvider                      ; code
+; $solrIndexedType ; description             ; text    ;              ; ; true ;      ;      ;      ;                                            ;
+; $solrIndexedType ; summary                 ; text    ;              ; ; true ;      ;      ;      ;                                            ;
+; $solrIndexedType ; manufacturerName        ; text    ;              ; ;      ;      ;      ;      ;                                            ;
+; $solrIndexedType ; manufacturerAID         ; string  ;              ; ;      ;      ;      ;      ;                                            ;
+#; $solrIndexedType ; priceValue              ; double  ;              ; true ;      ;      ;      ;      ; volumeAwareProductPriceValueProvider
+#; $solrIndexedType ; volumePrices            ; boolean ;              ; true ;      ;      ;      ;      ; productVolumePricesProvider                ;
+; $solrIndexedType ; keywords                ; text    ;              ; ; true ;      ; true ; true ; productKeywordsValueProvider               ;
+; $solrIndexedType ; reviewAvgRating         ; double  ;              ; ; true ;      ;      ;      ; productReviewAverageRatingValueProvider    ;
+; $solrIndexedType ; img-SABMHeroFormat      ; string  ;              ; ;      ;      ;      ;      ; imageHeroValueProvider                     ;
+; $solrIndexedType ; img-SABMNormalFormat    ; string  ;              ; ;      ;      ;      ;      ; imageNormalValueProvider                   ;
+; $solrIndexedType ; img-SABMThumbnailFormat ; string  ;              ; ;      ;      ;      ;      ; imageThumbnailValueProvider                ;
+; $solrIndexedType ; img-SABMCartFormat      ; string  ;              ; ;      ;      ;      ;      ; imageCartValueProvider                     ;
+; $solrIndexedType ; img-SABMWatchFormat     ; string  ;              ; ;      ;      ;      ;      ; imageWatchValueProvider                    ;
+; $solrIndexedType ; url                     ; string  ;              ; ; true ;      ;      ;      ; productUrlValueProvider                    ;
+; $solrIndexedType ; primaryPromotionCode    ; string  ;              ; ;      ;      ;      ;      ; promotionCodeValueProvider                 ;
+; $solrIndexedType ; primaryPromotionBanner  ; string  ;              ; ;      ;      ;      ;      ; promotionImageValueProvider                ;
+#; $solrIndexedType ; stockLevelStatus        ; string  ;              ;      ;      ;      ;      ;      ; productStockLevelStatusValueProvider       ;
+#; $solrIndexedType ; inStockFlag             ; boolean ;              ;      ;      ;      ;      ;      ; productInStockFlagValueProvider            ;
+; $solrIndexedType ; multidimensional        ; boolean ;              ; ;      ;      ;      ;      ; multidimentionalProductFlagValueProvider   ;
+#; $solrIndexedType ; priceRange              ; string  ;              ;      ;      ;      ;      ;      ; productPriceRangeValueProvider             ;
+; $solrIndexedType ; firstVariantUrl         ; string  ;              ; ;      ;      ;      ;      ; firstGenericVariantProductUrlValueProvider ;
+; $solrIndexedType ; firstCategoryNameList   ; string  ;              ; ;      ;      ;      ;      ; firstVariantCategoryNameListValueProvider  ;
+; $solrIndexedType ; uoms                    ; string  ;              ; ;      ; true ;      ;      ; productUOMProvider                         ;
+; $solrIndexedType ; cubStockInformation     ; string  ;              ; ;      ; true ;      ;      ; cubStockInformationValueProvider           ;
+; $solrIndexedType ; sellingName             ; string  ; sortabletext ; ; true ;      ; true ; true ; springELValueProvider                      ; getSellingName(#lang)
+; $solrIndexedType ; packConfiguration       ; string  ; sortabletext ; ; true ;      ;      ;      ; springELValueProvider                      ; getPackConfiguration(#lang)
+; $solrIndexedType ; searchable              ; boolean ;              ; ;      ;      ;      ;      ;                                            ;
+; $solrIndexedType ; purchasable             ; boolean ;              ; ;      ;      ;      ;      ;                                            ;
+; $solrIndexedType ; visible                 ; boolean ;              ; ;      ;      ;      ;      ;                                            ;
+; $solrIndexedType ; isNewProduct            ; boolean ;              ; ;      ;      ;      ;      ;                                            ;
+# SAP bestseller resolvers by sub-channels (Venue types)
+; $solrIndexedType ; au_bestseller_AA1       ; int     ;              ; ;      ;      ;      ;      ; sabmProductBestsellerResolver              ;
+; $solrIndexedType ; au_bestseller_AA2       ; int     ;              ; ;      ;      ;      ;      ; sabmProductBestsellerResolver              ;
+; $solrIndexedType ; au_bestseller_AA3       ; int     ;              ; ;      ;      ;      ;      ; sabmProductBestsellerResolver              ;
+; $solrIndexedType ; au_bestseller_AA4       ; int     ;              ; ;      ;      ;      ;      ; sabmProductBestsellerResolver              ;
+; $solrIndexedType ; au_bestseller_AA5       ; int     ;              ; ;      ;      ;      ;      ; sabmProductBestsellerResolver              ;
+; $solrIndexedType ; au_bestseller_AA6       ; int     ;              ; ;      ;      ;      ;      ; sabmProductBestsellerResolver              ;
+; $solrIndexedType ; au_bestseller_AA7       ; int     ;              ; ;      ;      ;      ;      ; sabmProductBestsellerResolver              ;
+; $solrIndexedType ; au_bestseller_AA8       ; int     ;              ; ;      ;      ;      ;      ; sabmProductBestsellerResolver              ;
+; $solrIndexedType ; au_bestseller_AA9       ; int     ;              ; ;      ;      ;      ;      ; sabmProductBestsellerResolver              ;
+; $solrIndexedType ; au_bestseller_AAA       ; int     ;              ; ;      ;      ;      ;      ; sabmProductBestsellerResolver              ;
+; $solrIndexedType ; au_bestseller_AAB       ; int     ;              ; ;      ;      ;      ;      ; sabmProductBestsellerResolver              ;
+; $solrIndexedType ; au_bestseller_AAC       ; int     ;              ; ;      ;      ;      ;      ; sabmProductBestsellerResolver              ;
+; $solrIndexedType ; au_bestseller_AAD       ; int     ;              ; ;      ;      ;      ;      ; sabmProductBestsellerResolver              ;
+; $solrIndexedType ; au_bestseller_AAE       ; int     ;              ; ;      ;      ;      ;      ; sabmProductBestsellerResolver              ;
+; $solrIndexedType ; au_bestseller_AAF       ; int     ;              ; ;      ;      ;      ;      ; sabmProductBestsellerResolver              ;
+; $solrIndexedType ; au_bestseller_AAG       ; int     ;              ; ;      ;      ;      ;      ; sabmProductBestsellerResolver              ;
+; $solrIndexedType ; au_bestseller_AAH       ; int     ;              ; ;      ;      ;      ;      ; sabmProductBestsellerResolver              ;
+; $solrIndexedType ; au_bestseller_AAI       ; int     ;              ; ;      ;      ;      ;      ; sabmProductBestsellerResolver              ;
+; $solrIndexedType ; au_bestseller_AAJ       ; int     ;              ; ;      ;      ;      ;      ; sabmProductBestsellerResolver              ;
+; $solrIndexedType ; au_bestseller_AAK       ; int     ;              ; ;      ;      ;      ;      ; sabmProductBestsellerResolver              ;
+; $solrIndexedType ; au_bestseller_AAL       ; int     ;              ; ;      ;      ;      ;      ; sabmProductBestsellerResolver              ;
+; $solrIndexedType ; au_bestseller_AAM       ; int     ;              ; ;      ;      ;      ;      ; sabmProductBestsellerResolver              ;
+; $solrIndexedType ; au_bestseller_AAN       ; int     ;              ; ;      ;      ;      ;      ; sabmProductBestsellerResolver              ;
+# SAP popularity ranking resolvers by sub-channels (Venue types)
+; $solrIndexedType ; au_popular-rank_AA1     ; int     ;              ; ;      ;      ;      ;      ; sabmProductPopularityRankingResolver       ;
+; $solrIndexedType ; au_popular-rank_AA2     ; int     ;              ; ;      ;      ;      ;      ; sabmProductPopularityRankingResolver       ;
+; $solrIndexedType ; au_popular-rank_AA3     ; int     ;              ; ;      ;      ;      ;      ; sabmProductPopularityRankingResolver       ;
+; $solrIndexedType ; au_popular-rank_AA4     ; int     ;              ; ;      ;      ;      ;      ; sabmProductPopularityRankingResolver       ;
+; $solrIndexedType ; au_popular-rank_AA5     ; int     ;              ; ;      ;      ;      ;      ; sabmProductPopularityRankingResolver       ;
+; $solrIndexedType ; au_popular-rank_AA6     ; int     ;              ; ;      ;      ;      ;      ; sabmProductPopularityRankingResolver       ;
+; $solrIndexedType ; au_popular-rank_AA7     ; int     ;              ; ;      ;      ;      ;      ; sabmProductPopularityRankingResolver       ;
+; $solrIndexedType ; au_popular-rank_AA8     ; int     ;              ; ;      ;      ;      ;      ; sabmProductPopularityRankingResolver       ;
+; $solrIndexedType ; au_popular-rank_AA9     ; int     ;              ; ;      ;      ;      ;      ; sabmProductPopularityRankingResolver       ;
+; $solrIndexedType ; au_popular-rank_AAA     ; int     ;              ; ;      ;      ;      ;      ; sabmProductPopularityRankingResolver       ;
+; $solrIndexedType ; au_popular-rank_AAB     ; int     ;              ; ;      ;      ;      ;      ; sabmProductPopularityRankingResolver       ;
+; $solrIndexedType ; au_popular-rank_AAC     ; int     ;              ; ;      ;      ;      ;      ; sabmProductPopularityRankingResolver       ;
+; $solrIndexedType ; au_popular-rank_AAD     ; int     ;              ; ;      ;      ;      ;      ; sabmProductPopularityRankingResolver       ;
+; $solrIndexedType ; au_popular-rank_AAE     ; int     ;              ; ;      ;      ;      ;      ; sabmProductPopularityRankingResolver       ;
+; $solrIndexedType ; au_popular-rank_AAF     ; int     ;              ; ;      ;      ;      ;      ; sabmProductPopularityRankingResolver       ;
+; $solrIndexedType ; au_popular-rank_AAG     ; int     ;              ; ;      ;      ;      ;      ; sabmProductPopularityRankingResolver       ;
+; $solrIndexedType ; au_popular-rank_AAH     ; int     ;              ; ;      ;      ;      ;      ; sabmProductPopularityRankingResolver       ;
+; $solrIndexedType ; au_popular-rank_AAI     ; int     ;              ; ;      ;      ;      ;      ; sabmProductPopularityRankingResolver       ;
+; $solrIndexedType ; au_popular-rank_AAJ     ; int     ;              ; ;      ;      ;      ;      ; sabmProductPopularityRankingResolver       ;
+; $solrIndexedType ; au_popular-rank_AAK     ; int     ;              ; ;      ;      ;      ;      ; sabmProductPopularityRankingResolver       ;
+; $solrIndexedType ; au_popular-rank_AAL     ; int     ;              ; ;      ;      ;      ;      ; sabmProductPopularityRankingResolver       ;
+; $solrIndexedType ; au_popular-rank_AAM     ; int     ;              ; ;      ;      ;      ;      ; sabmProductPopularityRankingResolver       ;
+; $solrIndexedType ; au_popular-rank_AAN     ; int     ;              ; ;      ;      ;      ;      ; sabmProductPopularityRankingResolver       ;
+
+#free text query
+INSERT_UPDATE SolrIndexedProperty; solrIndexedType(identifier)[unique = true]; name[unique = true]; type(code); sortableType(code); currency[default = false]; localized[default = false]; multiValue[default = false]; useForSpellchecking[default = false]; useForAutocomplete[default = false]; fieldValueProvider; valueProviderParameter; ftsQuery[default = false]; ftsQueryBoost
+; $solrIndexedType ; ean      ; text   ;              ; ;      ;      ;      ; true ; productAttributesValueResolver ; ; true ; 200
+; $solrIndexedType ; name     ; text   ; sortabletext ; ; true ;      ; true ; true ; productNameProvider            ; ; true ; 100
+; $solrIndexedType ; brand    ; string ;              ; ;      ;      ; true ; true ; productAttributesValueResolver ; ; true ; 50
+; $solrIndexedType ; category ; string ;              ; ;      ; true ; true ; true ; categoryNameValueProvider      ; ; true ; 50
+; $solrIndexedType ; skuCode  ; text   ;              ; ;      ;      ;      ; true ; productSkuCodeProvider         ; ; true ; 100
+
+
+# Category fields
+INSERT_UPDATE SolrIndexedProperty; solrIndexedType(identifier)[unique = true]; name[unique = true]; type(code); localized[default = false]; multiValue[default = true]; categoryField[default = true]; useForSpellchecking[default = false]; useForAutocomplete[default = false]; fieldValueProvider
+#;$solrIndexedType; categoryName     ;text   ;true;;;true;true;powertoolsCategoryNameValueProvider
+#;$solrIndexedType; brandName        ;text   ;true;;;    ;    ;powertoolsBrandCategoryNameValueProvider
+
+# Category facets
+INSERT_UPDATE SolrIndexedProperty; solrIndexedType(identifier)[unique = true]; name[unique = true]; type(code); multiValue[default = true]; facet[default = true]; facetType(code); facetSort(code); priority; visible; categoryField[default = true]; fieldValueProvider; facetDisplayNameProvider; topValuesProvider
+; $solrIndexedType ; allCategories ; string  ;       ; ; Refine ; Alpha ; -9999 ; false ;       ; categoryCodeValueProvider ;
+; $solrIndexedType ; categoryPath  ; string  ;       ; ; Refine ; Alpha ; -9999 ; false ; false ; categoryPathValueProvider ;
+; $solrIndexedType ; searchable    ; boolean ; false ; ; Refine ;       ; -9999 ; false ; false ;                           ;
+; $solrIndexedType ; purchasable   ; boolean ; false ; ; Refine ;       ; -9999 ; false ; false ;                           ;
+; $solrIndexedType ; visible       ; boolean ; false ; ; Refine ;       ; -9999 ; false ; false ;                           ;
+#;$solrIndexedType; category      ;string;;;Refine;Alpha; 6000;true;;powertoolsCategoryCodeValueProvider;categoryFacetDisplayNameProvider;defaultTopValuesProvider
+
+# Other facet properties
+INSERT_UPDATE SolrIndexedProperty; solrIndexedType(identifier)[unique = true]; name[unique = true]; type(code); sortableType(code); currency[default = false]; localized[default = false]; multiValue[default = false]; facet[default = true]; facetType(code); facetSort(code); priority; visible; useForSpellchecking[default = false]; useForAutocomplete[default = false]; fieldValueProvider; facetDisplayNameProvider; customFacetSortProvider; topValuesProvider; rangeSets(name)
+; $solrIndexedType ; allPromotions     ; string ; ; ; ; true ; ; MultiSelectOr ; Alpha  ; 0     ; false ; ; ; promotionCodeValueProvider     ; promotionFacetDisplayNameProvider                 ;
+; $solrIndexedType ; availableInStores ; string ; ; ; ; true ; ; MultiSelectOr ; Custom ; 10000 ; true  ; ; ; productStoreStockValueProvider ; electronicsPointOfServiceFacetDisplayNameProvider ; distanceAttributeSortProvider
+
+#faced properties for sabmiller
+INSERT_UPDATE SolrIndexedProperty; solrIndexedType(identifier)[unique = true]; name[unique = true]; type(code); sortableType(code); currency[default = false]; localized[default = false]; multiValue[default = true]; facet[default = true]; facetType(code); facetSort(code); priority; visible; useForSpellchecking[default = false]; useForAutocomplete[default = false]; fieldValueProvider; valueProviderParameters(key, value)[map-delimiter = |]; facetDisplayNameProvider; customFacetSortProvider; topValuesProvider; rangeSets(name)
+; $solrIndexedType ; sabmCategory    ; string ; ; ; ; true ; ; MultiSelectOr ; Count ; 1000 ; true ; ; ; categoryCodeValueProvider      ;                  ; categoryFacetDisplayNameProvider ; ; defaultTopValuesProvider ;
+; $solrIndexedType ; sabmBrand       ; string ; ; ; ; true ; ; MultiSelectOr ; Count ; 900  ; true ; ; ; productAttributesValueResolver ; attribute->brand ;                                  ; ; defaultTopValuesProvider ;
+; $solrIndexedType ; categoryVariety ; string ; ; ; ; true ; ; MultiSelectOr ; Count ; 800  ; true ; ; ; productAttributesValueResolver ;                  ;                                  ; ; defaultTopValuesProvider ;
+; $solrIndexedType ; style           ; string ; ; ; ; true ; ; MultiSelectOr ; Count ; 700  ; true ; ; ; productAttributesValueResolver ;                  ;                                  ; ; defaultTopValuesProvider ;
+; $solrIndexedType ; container       ; string ; ; ; ; true ; ; MultiSelectOr ; Count ; 600  ; true ; ; ; productAttributesValueResolver ;                  ;                                  ; ; defaultTopValuesProvider ;
+
+
+
+INSERT_UPDATE SolrIndexedProperty; solrIndexedType(identifier)[unique = true]; name[unique = true]; type(code); facet[default = true]; facetType(code); facetSort(code); priority; visible
+; $solrIndexedType ; -code ; string ; ; Refine ; Alpha ; -9999 ; false
+
+
+# Create the queries that will be used to extract data for Solr
+INSERT_UPDATE SolrIndexerQuery; solrIndexedType(identifier)[unique = true]; identifier[unique = true]; type(code); injectCurrentDate[default = true]; injectCurrentTime[default = true]; injectLastIndexTime[default = true]; query; user(uid)
+; $solrIndexedType ; $searchIndexNamePrefix-fullQuery   ; full   ; ; ; false ; "SELECT {PK} FROM {SABMAlcoholVariantProductEAN!} WHERE {code} NOT IN(   {{ SELECT {code} FROM {GenericVariantProduct} }})" ; anonymous
+; $solrIndexedType ; $searchIndexNamePrefix-updateQuery ; update ; ; ;       ; "
+		SELECT DISTINCT {p:PK} AS pk, {p:code} AS code
+		FROM {SABMAlcoholVariantProductEAN! AS p }
+		WHERE {p:modifiedtime} >= ?lastIndexTime
+"                                                                                                                           ; anonymous
+
+#free text query
+INSERT_UPDATE SolrIndexedProperty; solrIndexedType(identifier)[unique = true]; name[unique = true]; type(code); sortableType(code); currency[default = false]; localized[default = false]; multiValue[default = false]; useForSpellchecking[default = false]; useForAutocomplete[default = false]; fieldValueProvider; valueProviderParameter; ftsQuery[default = false]; ftsQueryBoost
+; $solrIndexedType ; sellingName       ; string ; sortabletext ; ; true ; ; true ; true ; springELValueProvider ; ; true ; 100
+; $solrIndexedType ; packConfiguration ; string ; sortabletext ; ; true ; ; true ; true ; springELValueProvider ; ; true ; 100
+
+
+# Create the queries that will be used to extract data for Solr
+INSERT_UPDATE SolrIndexerQuery; solrIndexedType(identifier)[unique = true]; identifier[unique = true]; type(code); injectCurrentDate[default = true]; injectCurrentTime[default = true]; injectLastIndexTime[default = true]; query; user(uid)
+; $solrCustomerIndexedType ; $searchIndexNamePrefix-customerFullQuery   ; full   ; ; ; false ; "SELECT DISTINCT{q:PK} as pk FROM {B2BUnit as q}  WHERE {q:accountGroup}='ZALB' AND {q:UID} is not NULL" ; anonymous
+; $solrCustomerIndexedType ; $searchIndexNamePrefix-customerUpdateQuery ; update ; ; ;       ; "
+		SELECT DISTINCT {k:PK} AS lpk
+		FROM {B2BUnit AS k }
+		WHERE {k:accountGroup}='ZALB' AND {k:modifiedtime} >= ?lastIndexTime
+"                                                                                                         ; anonymous
+
+# Customer fields
+INSERT_UPDATE SolrIndexedProperty; solrIndexedType(identifier)[unique = true]; name[unique = true]; type(code); sortableType(code); currency[default = false]; localized[default = false]; multiValue[default = false]; useForSpellchecking[default = false]; useForAutocomplete[default = false]; fieldValueProvider; valueProviderParameters(key, value)[map-delimiter = |]; valueProviderParameter;
+; $solrCustomerIndexedType ; customername         ; sortabletext ; ; ; ; ; ; ; customerNameProvider                ;                       ; ;
+; $solrCustomerIndexedType ; dealsExists          ; boolean      ; ; ; ; ; ; ; dealsExistsProvider                 ;                       ; ;
+; $solrCustomerIndexedType ; customerID           ; string       ; ; ; ; ; ; ; customerIDProvider                  ;                       ; ;
+; $solrCustomerIndexedType ; addressStreetName    ; sortabletext ; ; ; ; ; ; ; customerAddressProvider             ; attribute->line1      ; ;
+; $solrCustomerIndexedType ; addressSuburb        ; sortabletext ; ; ; ; ; ; ; customerAddressProvider             ; attribute->town       ; ;
+; $solrCustomerIndexedType ; addressPostCode      ; string       ; ; ; ; ; ; ; customerAddressProvider             ; attribute->postalcode ; ;
+; $solrCustomerIndexedType ; addressIsocodeShort  ; string       ; ; ; ; ; ; ; customerAddressRegionProvider       ;                       ; ;
+; $solrCustomerIndexedType ; accountPayerNumber   ; string       ; ; ; ; ; ; ; customerAccountPayerNumberProvider  ;                       ; ;
+; $solrCustomerIndexedType ; accountOrPayerNumber ; string       ; ; ; ; ; ; ; b2bUnitAccountOrPayerNumberProvider ;                       ; ;
+
+

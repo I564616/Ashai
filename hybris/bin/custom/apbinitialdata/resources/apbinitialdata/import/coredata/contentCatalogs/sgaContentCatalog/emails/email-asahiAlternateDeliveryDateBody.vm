@@ -1,0 +1,100 @@
+## messageSource=classpath:/sabmcore/messages/email-asahiCustomerNotify_$lang.properties
+#macro(genHtmlLinkStartTag $url)
+<a href="$url"><font color="#666666">
+#end
+#macro(genHtmlLinkEndTag)
+</font></a>
+#end
+#macro(genHtmlLink $url $textColor $bodyContent)
+<a href="$url"><font color="$textColor">$bodyContent</font></a>
+#end
+
+<html lang="en">
+    <head>
+        <title>{ctx.messages.asahialtdeldatetitle}</title>
+    </head>
+    <body style="margin: -3px -3px 0 -3px;">
+        <div class="tg-wrap" style="
+            font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+            font-size: 16px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;">
+            <table class="tg" style="
+                undefined;table-layout: fixed;
+                width: 100%;
+                display:block;
+                width: auto !important;">
+                <colgroup>
+                <col style="width: 25%">
+                <col style="width: 75%">
+                </colgroup>
+                <tr>
+                    <td class="tg-yw43" colspan="2">
+                        <a href="${ctx.baseUrl}" style="padding: 0px 0px 0px 0px;display:inline-block;margin:0 auto;">
+							${ctx.cmsSlotContents.TopContent}
+						</a>
+                    </td>
+                </tr>
+                <tr>
+                    <table style="margin: 30px 20px 0px 20px;">
+                        <tr>
+		                    <td class="header-image">
+		                        <a href="${ctx.baseUrl}" style="padding: 0px 0px 0px 0px;display:inline-block;margin:0 auto;">
+								    ${ctx.cmsSlotContents.SiteLogo}
+								</a>
+		                    </td>
+                		</tr>
+                        
+                        <tr>
+                            <td colspan="2" style="
+                                color: #455556;
+                                font-size: 25px;
+                                line-height: 35px;
+                                padding: 25px 0px 5px 0px;
+                                margin: 0;">
+                                <b>${ctx.messages.asahialtdeldateheadline}</b>
+                            </td>
+                        </tr>
+                    </table>
+                    <table style="margin: 0px 20px 0px 20px;">    
+                        <tr>
+                            <td style="
+                                width:50pt;
+                                border:none;
+                                border-top:solid #455556 2.25pt;
+                                padding:0pt 3.0pt 0 3.0pt;">
+                            </td>
+                            <td style="border-top:none">
+                            </td>
+                        </tr>
+                    </table>
+                    <table style="margin: 30px 20px 20px 20px;">    
+                        <tr>
+                            <td class="body-text" colspan="2" style="">
+                                ${ctx.messages.asahialtdeldatesalutation} $ctx.asahiUserName, <br><br>
+                                ${ctx.messages.asahialtdeldatemsgLine1} $ctx.holidayText ${ctx.messages.asahialtdeldatemsgLine2} <br><br>
+                                <b style="color: #455556;">${ctx.messages.asahialtdeldatemsgLine3}</b> $ctx.orderDate<br>
+                                <b style="color: #455556;">${ctx.messages.asahialtdeldatemsgLine4}</b> $ctx.deliveryDate<br><br>
+                                ${ctx.messages.asahialtdeldatemsgLine6} <b>${ctx.messages.asahialtdeldatemsgLine7}</b> ${ctx.messages.asahialtdeldatemsgLine8}<br><br>
+                                ${ctx.messages.asahialtdeldatemsgLine9}
+                                </td>
+                        </tr>                    
+                        <tr>
+                            <td class="tg-yw4l" colspan="3" style="padding:0px 0px 20px 0px; font-size: 16px;"><br>${ctx.messages.asahialtdeldatewiththanks}<br><br>${ctx.messages.asahialtdeldateschweppesteam}<br></td>
+                        </tr>
+                    </td>
+                </tr>
+            </table>
+								
+        </tr>
+        <tr>
+            <td class="footer-image" colspan="2">
+                <a href="${ctx.baseUrl}" style="padding: 0px 0px 0px 0px;display:inline-block;margin:0 auto;">
+					${ctx.cmsSlotContents.BottomContent}
+				</a>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

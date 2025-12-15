@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wizard-config  showPrefilledValues="false" selectMode="true" createMode="true" createWithinPopup="false" createWithinEditor="false">
+ <displayed-properties>
+  <group qualifier="Essentials" visible="true" initially-opened="true">
+   	<label key="cockpit.config.label.properties"/>
+    <property qualifier="SabmMessage.code"/>
+	<property qualifier="SabmMessage.type"/>
+	<property qualifier="SabmMessage.text"/>
+	<property qualifier="SabmMessage.expiry"/>
+	<property qualifier="SabmMessage.b2bUnit"/>
+	<property qualifier="SabmMessage.restrictions"/>
+  </group>
+ </displayed-properties>
+</wizard-config>

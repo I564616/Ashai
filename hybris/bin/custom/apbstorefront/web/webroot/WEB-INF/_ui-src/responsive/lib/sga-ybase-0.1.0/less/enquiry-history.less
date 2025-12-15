@@ -1,0 +1,72 @@
+.enquiry-listing-label {
+    margin-top: 10px;
+    font-size:14px;
+    a {
+        text-decoration: underline;
+    }
+}
+
+
+.enquiry-listing-pagination {
+    padding-top: (@grid-gutter-width/2);
+    padding-bottom:@grid-gutter-width;
+    margin-right:10px;
+      @media (max-width: @screen-xs-max) {
+      .pagination{
+         margin-top:0;
+      }
+       
+      }
+
+    .pagination-bar {
+      form {
+        padding: 0;
+      }
+    
+    }
+
+    .paginationBar.top {
+        margin-top: 30px;
+    }
+
+    .enquiry-listing-pagination-text {
+      line-height: 32px;
+    }
+
+    .pager {
+      margin: 0;
+    }
+  }
+
+
+  .enquiry-listing-sort {
+    background: @grayblue;
+    padding: (@grid-gutter-width/2);
+  }
+
+
+  .enquiry-listing{
+	.responsive-table{
+		@media (max-width: @screen-sm-max) {
+		.responsive-table-item {
+                td{
+                    padding-right:10px;
+                }
+            }
+			
+
+		}
+        th:last-child {
+            text-align: left;
+            padding-right: 0px;
+        }
+        td:last-child {
+            text-align: left;
+            padding-right: 0px;
+        }
+	}
+}
+
+.enquiry-listing a {
+  text-decoration: underline;
+}

@@ -1,0 +1,22 @@
+
+//Update receive updates to true
+
+ms = spring.getBean("modelService")
+fss = spring.getBean("flexibleSearchService")
+
+customers = fss.search("Select {pk} from {Customer} where {receiveUpdates}=0").result
+
+out.println(" Total number of customers found " + "  " + customers.size())  
+
+for(customer in customers)
+{
+
+//LOGGING PURPOSE
+//out.println(" The email id " + "  " + customer.contactEmail + " : " + customer.receiveUpdates)  
+
+//update the receive update flag to true
+customer.setReceiveUpdates(true)
+
+ms.save(customer)
+
+}

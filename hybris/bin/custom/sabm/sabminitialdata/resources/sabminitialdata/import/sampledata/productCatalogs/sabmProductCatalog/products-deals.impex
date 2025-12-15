@@ -1,0 +1,282 @@
+#Complex Deal Conditions
+# Buy 5 cases of any products in Carlton Blk Ale : complex_deal_21_cond
+# Buy 10 cases of any products in Pure Blond : complex_deal_22_cond
+# Buy 7 cases of any products in Victoria Bitter : complex_deal_23_cond
+# Buy 5 cases of any products in Victoria Bitter : complex_deal_24_cond
+# Buy 8 cases of any products in Pure Blond : complex_deal_25_cond
+INSERT_UPDATE ComplexDealCondition; mandatory; quantity[unique = 'true']; line[unique = 'true']; brand[unique = 'true']; variety[unique = 'true']; empties[unique = 'true']; emptyType[unique = 'true']; presentation[unique = 'true']; unit(unitType)[unique = 'true']; &componentRef;
+; true  ; 5  ; ; B45 ; ; ; ;     ; cas ; complex_deal_21_cond   ;
+; false ; 10 ; ; C45 ; ; ; ;     ; cas ; complex_deal_22_cond   ;
+; true  ; 7  ; ; D45 ; ; ; ;     ; cas ; complex_deal_23_cond   ;
+; true  ; 5  ; ; D45 ; ; ; ; A98 ; cas ; complex_deal_24_cond   ;
+; true  ; 8  ; ; C45 ; ; ; ; C67 ; cas ; complex_deal_25_cond   ;
+; false ;    ; ; C45 ; ; ; ; N87 ; cas ; complex_deal_12a_cond  ;
+; false ;    ; ; B45 ; ; ; ; N98 ; cas ; complex_deal_12b_cond  ;
+; false ;    ; ; D45 ; ; ; ;     ; cas ; complex_deal_13a_cond  ;
+; false ;    ; ; A45 ; ; ; ;     ; cas ; complex_deal_13b_cond  ;
+; false ; 15 ; ; A45 ; ; ; ;     ; cas ; complex_deal_16_a_cond ;
+; false ; 12 ; ; B45 ; ; ; ;     ; cas ; complex_deal_16_b_cond ;
+; false ; 9  ; ; D45 ; ; ; ;     ; cas ; complex_deal_16_c_cond ;
+; false ; 6  ; ; B45 ; ; ; ; H98 ; cas ; complex_deal_17_a_cond ;
+; false ; 11 ; ; D45 ; ; ; ; J98 ; cas ; complex_deal_17_b_cond ;
+; false ; 3  ; ; A45 ; ; ; ; E98 ; cas ; complex_deal_18_a_cond ;
+; false ; 2  ; ; B45 ; ; ; ; R98 ; cas ; complex_deal_18_b_cond ;
+; false ; 17 ; ; C45 ; ; ; ; R90 ; cas ; complex_deal_18_c_cond ;
+; false ; 18 ; ; A45 ; ; ; ;     ; cas ; complex_deal_20a_cond  ;
+; false ; 19 ; ; B45 ; ; ; ;     ; cas ; complex_deal_20b_cond  ;
+; false ; 20 ; ; A45 ; ; ; ;     ; cas ; complex_deal_22a_cond  ;
+; false ; 21 ; ; E45 ; ; ; ;     ; cas ; complex_deal_22b_cond  ;
+; false ; 22 ; ; D45 ; ; ; ;     ; cas ; complex_deal_22c_cond  ;
+; false ;    ; ; C45 ; ; ; ; R98 ; cas ; complex_deal_23a_cond  ;
+; false ;    ; ; B45 ; ; ; ; R90 ; cas ; complex_deal_23b_cond  ;
+
+INSERT_UPDATE ProductDealCondition; dealCode[unique = 'true']; minQty[unique = 'true']; productCode[unique = 'true']; unit(unitType)[unique = 'true']; &componentRef;
+; deal_1   ; 2 ; matVariant01 ; keg ; deal_1_cond  ;
+; deal_1_b ; 2 ; matVariant03 ; cas ; deal_1b_cond ;
+; deal_2   ; 1 ; matVariant02 ; cas ; deal_2_cond  ;
+; deal_4   ; 2 ; matVariant04 ; cas ; deal_4_cond  ;
+; deal_5   ; 2 ; matVariant05 ; cas ; deal_5_cond  ;
+; deal_6   ; 2 ; matVariant06 ; cas ; deal_6_cond  ;
+; deal_7   ; 2 ; matVariant07 ; cas ; deal_7_cond  ;
+; deal_8   ; 1 ; matVariant04 ; cas ; deal_8_cond  ;
+; deal_9   ; 4 ; matVariant04 ; cas ; deal_9_cond  ;
+; deal_10  ; 1 ; matVariant08 ; cas ; deal_10_cond ;
+; deal_11  ; 3 ; matVariant08 ; cas ; deal_11_cond ;
+; deal_12  ; 3 ; matVariant04 ; cas ; deal_12_cond ;
+; deal_13  ; 1 ; matVariant03 ; cas ; deal_13_cond ;
+; deal_14  ; 8 ; matVariant02 ; cas ; deal_14_cond ;
+; deal_15  ; 5 ; matVariant11 ; cas ; deal_15_cond ;
+; deal_20  ; 2 ; matVariant04 ; cas ; deal_20_cond ;
+; deal_21  ; 3 ; matVariant05 ; keg ; deal_21_cond ;
+; deal_22  ; 2 ; matVariant06 ; cas ; deal_22_cond ;
+; deal_23  ; 4 ; matVariant07 ; keg ; deal_23_cond ;
+; deal_24  ; 1 ; matVariant11 ; cas ; deal_24_cond ;
+; deal_25  ; 1 ; matVariant06 ; cas ; deal_25_cond ;
+
+#Complex Deals
+INSERT_UPDATE ProductDealCondition; dealCode[unique = 'true']; mandatory[unique = 'true']; minQty[unique = 'true']; productCode[unique = 'true']; unit(unitType)[unique = 'true']; exclude[unique = true]; &componentRef;
+; complex_deal_1  ; false ; 13 ; matVariant01 ; cas ;      ; complex_deal_1_cond    ;
+; complex_deal_2  ; false ; 14 ; matVariant02 ; cas ;      ; complex_deal_2_cond    ;
+; complex_deal_3  ; false ; 15 ; matVariant03 ; cas ;      ; complex_deal_3_cond    ;
+; complex_deal_6  ; false ; 3  ; matVariant02 ; cas ;      ; complex_deal_6a_cond   ;
+; complex_deal_6  ; false ; 4  ; matVariant04 ; cas ;      ; complex_deal_6b_cond   ;
+; complex_deal_7  ; true  ; 7  ; matVariant11 ; cas ;      ; complex_deal_7a_cond   ;
+; complex_deal_7  ; true  ; 24 ; matVariant06 ; cas ;      ; complex_deal_7b_cond   ;
+; complex_deal_8  ; true  ; 2  ; matVariant05 ; cas ; true ; complex_deal_8a_cond   ;
+; complex_deal_8  ; true  ; 13 ; matVariant06 ; cas ;      ; complex_deal_8b_cond   ;
+; complex_deal_8  ; true  ; 17 ; matVariant06 ; cas ;      ; complex_deal_3a_cond   ;
+; complex_deal_91 ; true  ; 3  ; matVariant06 ; cas ;      ; complex_deal_91_cond   ;
+; complex_deal_92 ; true  ; 3  ; matVariant06 ; cas ;      ; complex_deal_92_cond   ;
+; complex_deal_93 ; true  ; 3  ; matVariant06 ; cas ;      ; complex_deal_93_cond   ;
+; complex_deal_13 ; true  ; 2  ; matVariant03 ; cas ; true ; complex_deal_13c_cond  ;
+; complex_deal_15 ; true  ; 5  ; matVariant03 ; cas ;      ; complex_deal_15_a_cond ;
+; complex_deal_15 ; true  ; 8  ; matVariant05 ; cas ;      ; complex_deal_15_b_cond ;
+; complex_deal_15 ; true  ; 9  ; matVariant06 ; cas ;      ; complex_deal_15_c_cond ;
+; complex_deal_17 ; true  ; 5  ; matVariant03 ; cas ;      ; complex_deal_17_c_cond ;
+; complex_deal_19 ; true  ; 8  ; matVariant11 ; cas ;      ; complex_deal_19a_cond  ;
+; complex_deal_19 ; true  ; 9  ; matVariant05 ; cas ;      ; complex_deal_19b_cond  ;
+; complex_deal_21 ; true  ; 19 ; matVariant02 ; cas ;      ; complex_deal_21a_cond  ;
+; complex_deal_21 ; true  ; 18 ; matVariant04 ; cas ;      ; complex_deal_21b_cond  ;
+; complex_deal_21 ; true  ; 27 ; matVariant05 ; cas ;      ; complex_deal_21c_cond  ;
+
+
+INSERT_UPDATE MinQtyDealCondition; unit(unitType)[unique = 'true']; minQty[unique = 'true']; &componentRef;
+; keg ; 1 ; deal_3_cond ;
+
+
+INSERT_UPDATE DiscountDealBenefit; unit(unitType)[unique = 'true']; amount[unique = 'true']; currency[unique = 'true']; saleUnit[unique = 'true']; scale[unique = 'true']; &componentRef;
+; keg ; 10    ; true  ; 1 ;    ; benefit_1            ;
+; keg ; 10.3  ; true  ; 1 ;    ; benefit_2            ;
+; cas ; 10.1  ; true  ; 1 ;    ; benefit_3            ;
+; cas ; 10.2  ; true  ; 1 ;    ; benefit_6            ;
+; cas ; 1.9   ; false ; 1 ;    ; benefit_5            ;
+; cas ; 3.2   ; false ; 1 ;    ; benefit_4            ;
+; cas ; 15.90 ; false ; 1 ;    ; benefit_7            ;
+; cas ; 20    ; false ; 1 ;    ; benefit_8            ;
+; cas ; 18.7  ; false ; 1 ;    ; benefit_9            ;
+; cas ; 40    ; true  ; 1 ;    ; benefit_10           ;
+; cas ; 11.3  ; true  ; 1 ;    ; benefit_11           ;
+; cas ; 15.2  ; true  ; 1 ;    ; benefit_13           ;
+; cas ; 5.5   ; false ; 1 ;    ; benefit_12           ;
+; cas ; 6.9   ; true  ; 1 ;    ; benefit_14           ;
+; cas ; 3.8   ; true  ; 1 ;    ; benefit_15           ;
+; cas ; 10.9  ; true  ; 1 ;    ; benefit_20           ;
+; keg ; 11.7  ; false ; 1 ;    ; benefit_21           ;
+; cas ; 10.21 ; true  ; 1 ;    ; benefit_22           ;
+; keg ; 12.2  ; false ; 1 ;    ; benefit_23           ;
+; cas ; 4.9   ; true  ; 1 ;    ; benefit_24           ;
+; cas ; 2.6   ; false ; 1 ;    ; benefit_25           ;
+; keg ; 20.1  ; true  ; 1 ;    ; complex_benefit_1    ;
+; keg ; 20.2  ; true  ; 1 ;    ; complex_benefit_2    ;
+; cas ; 20.3  ; true  ; 1 ;    ; complex_benefit_3    ;
+; cas ; 20.4  ; true  ; 1 ;    ; complex_benefit_4    ;
+; cas ; 20.5  ; true  ; 1 ;    ; complex_benefit_5    ;
+; cas ; 20.6  ; true  ; 1 ;    ; complex_benefit_6    ;
+; cas ; 20.7  ; true  ; 1 ;    ; complex_benefit_7    ;
+; cas ; 20.8  ; true  ; 1 ;    ; complex_benefit_8    ;
+; cas ; 21.1  ; true  ; 1 ;    ; complex_benefit_3a   ;
+; cas ; 21.2  ; true  ; 1 ;    ; complex_benefit_4a   ;
+; cas ; 21.3  ; true  ; 1 ;    ; complex_benefit_4b   ;
+; cas ; 21.4  ; true  ; 1 ;    ; complex_benefit_5a   ;
+; cas ; 21.5  ; true  ; 1 ; 10 ; complex_benefit_12   ;
+; cas ; 21.6  ; true  ; 1 ; 20 ; complex_benefit_12a  ;
+; cas ; 21.9  ; true  ; 1 ; 10 ; complex_benefit_13   ;
+; cas ; 21.7  ; true  ; 1 ; 20 ; complex_benefit_13a  ;
+; cas ; 13.7  ; true  ; 1 ;    ; complex_benefit_18_f ;
+
+
+INSERT_UPDATE FreeGoodsDealBenefit; unit(unitType)[unique = 'true']; productCode[unique = 'true']; quantity[unique = 'true']; &componentRef;
+; keg ; matVariant03 ; 1  ; benefit_1b           ;
+; cas ; matVariant06 ; 1  ; benefit_7c           ;
+; cas ; matVariant05 ; 1  ; benefit_14c          ;
+; cas ; matVariant04 ; 1  ; benefit_91
+; cas ; matVariant05 ; 2  ; benefit_92
+; cas ; matVariant06 ; 3  ; benefit_93
+; cas ; matVariant07 ; 1  ; complex_benefit_15_f ;
+; cas ; matVariant11 ; 1  ; complex_benefit_16_f ;
+; cas ; matVariant04 ; 3  ; complex_benefit_17_f ;
+; cas ; matVariant08 ; 1  ; complex_benefit_18_g ;
+; cas ; matVariant07 ; 2  ; complex_benefit_19   ;
+; cas ; matVariant06 ; 2  ; complex_benefit_20   ;
+; cas ; matVariant05 ; 3  ; complex_benefit_21   ;
+; cas ; matVariant07 ; 3  ; complex_benefit_22   ;
+; cas ; matVariant05 ; 10 ; complex_benefit_23a  ;
+; cas ; matVariant06 ; 40 ; complex_benefit_23b  ;
+
+INSERT_UPDATE DealConditionGroup; dealBenefits(&componentRef)[unique = 'true']; dealConditions(&componentRef)[unique = 'true']; multipleScales[unique = true]; scales; &componentRef;
+; benefit_1                                     ; deal_1_cond                                                            ;      ;        ; deal_1_condGroup          ;
+; benefit_2                                                 ; deal_2_cond                                                            ;      ;        ; deal_2_condGroup          ;
+; benefit_3                                                 ; deal_3_cond                                                            ;      ;        ; deal_3_condGroup          ;
+; benefit_4                                                 ; deal_4_cond                                                            ;      ;        ; deal_4_condGroup          ;
+; benefit_5                                                 ; deal_5_cond                                                            ;      ;        ; deal_5_condGroup          ;
+; benefit_6                                                 ; deal_6_cond                                                            ;      ;        ; deal_6_condGroup          ;
+; benefit_7                                     ; deal_7_cond                                                            ;      ;        ; deal_7_condGroup          ;
+; benefit_8                                                 ; deal_8_cond                                                            ;      ;        ; deal_8_condGroup          ;
+; benefit_9                                                 ; deal_9_cond                                                            ;      ;        ; deal_9_condGroup          ;
+; benefit_10                                                ; deal_10_cond                                                           ;      ;        ; deal_10_condGroup         ;
+; benefit_11                                                ; deal_11_cond                                                           ;      ;        ; deal_11_condGroup         ;
+; benefit_12                                                ; deal_12_cond                                                           ;      ;        ; deal_12_condGroup         ;
+; benefit_13                                                ; deal_13_cond                                                           ;      ;        ; deal_13_condGroup         ;
+; benefit_14                                   ; deal_14_cond                                                           ;      ;        ; deal_14_condGroup         ;
+; benefit_15                                                ; deal_15_cond                                                           ;      ;        ; deal_15_condGroup         ;
+; benefit_20                                                ; deal_20_cond                                                           ;      ;        ; deal_20_condGroup         ;
+; benefit_21                                                ; deal_21_cond                                                           ;      ;        ; deal_21_condGroup         ;
+; benefit_22                                                ; deal_22_cond                                                           ;      ;        ; deal_22_condGroup         ;
+; benefit_23                                                ; deal_23_cond                                                           ;      ;        ; deal_23_condGroup         ;
+; benefit_24                                                ; deal_24_cond                                                           ;      ;        ; deal_24_condGroup         ;
+; benefit_25                                                ; deal_25_cond                                                           ;      ;        ; deal_25_condGroup         ;
+; complex_benefit_1                                         ; complex_deal_1_cond                                                    ;      ;        ; complex_deal_1_condGroup  ;
+; complex_benefit_2                                         ; complex_deal_2_cond                                                    ;      ;        ; complex_deal_2_condGroup  ;
+#; complex_benefit_3                     ; complex_deal_3a_cond, complex_deal_3_cond                              ;      ;        ; complex_deal_3_condGroup  ;
+; complex_benefit_4, complex_benefit_4a, complex_benefit_4b ; complex_deal_21_cond                                                   ;      ;        ; complex_deal_4_condGroup  ;
+; complex_benefit_5, complex_benefit_5a                     ; complex_deal_22_cond, complex_deal_23_cond                             ;      ;        ; complex_deal_5_condGroup  ;
+; complex_benefit_6                                         ; complex_deal_6a_cond, complex_deal_6b_cond                             ;      ;        ; complex_deal_6_condGroup  ;
+#; complex_benefit_7                                         ; complex_deal_7a_cond, complex_deal_24_cond                             ;      ;        ; complex_deal_7_condGroup  ;
+#; complex_benefit_8                                         ; complex_deal_8a_cond, complex_deal_25_cond                             ;      ;        ; complex_deal_8_condGroup  ;
+; complex_benefit_12, complex_benefit_12a                   ; complex_deal_12a_cond, complex_deal_12b_cond                           ; true ; 10, 20 ; complex_deal_12_condGroup ;
+#; complex_benefit_13                   ; complex_deal_13a_cond, complex_deal_13b_cond, complex_deal_13c_cond    ; true ; 10, 20 ; complex_deal_13_condGroup ;
+; benefit_91                                                ; complex_deal_91_cond                                                   ;      ;        ; complex_deal_91_condGroup ;
+; benefit_92                                                ; complex_deal_92_cond                                                   ;      ;        ; complex_deal_92_condGroup ;
+; benefit_93                                                ; complex_deal_93_cond                                                   ;      ;        ; complex_deal_93_condGroup ;
+; complex_benefit_15_f                                      ; complex_deal_15_a_cond, complex_deal_15_b_cond, complex_deal_15_c_cond ;      ;        ; complex_deal_15_condGroup ;
+; complex_benefit_16_f                                      ; complex_deal_16_a_cond, complex_deal_16_b_cond, complex_deal_16_c_cond ;      ;        ; complex_deal_16_condGroup ;
+; complex_benefit_17_f                                      ; complex_deal_17_a_cond, complex_deal_17_b_cond, complex_deal_17_c_cond ;      ;        ; complex_deal_17_condGroup ;
+; complex_benefit_18_f, complex_benefit_18_g                ; complex_deal_18_a_cond, complex_deal_18_b_cond, complex_deal_18_c_cond ;      ;        ; complex_deal_18_condGroup ;
+; complex_benefit_19                                        ; complex_deal_19a_cond, complex_deal_19b_cond                           ; true ; 7      ; complex_deal_19_condGroup ;
+; complex_benefit_20                                        ; complex_deal_20a_cond, complex_deal_20b_cond                           ; true ; 8      ; complex_deal_20_condGroup ;
+; complex_benefit_21                                        ; complex_deal_21a_cond, complex_deal_21b_cond, complex_deal_21c_cond    ; true ; 9      ; complex_deal_21_condGroup ;
+; complex_benefit_22                                        ; complex_deal_22a_cond, complex_deal_22b_cond, complex_deal_22c_cond    ; true ; 10     ; complex_deal_22_condGroup ;
+; complex_benefit_23a, complex_benefit_23b                  ; complex_deal_23a_cond, complex_deal_23b_cond                           ; true ; 15, 25 ; complex_deal_23_condGroup ;
+
+
+#Complex_deal_4 : Buy 5 cases of any product in B45 Brand range
+#Complex_deal_5 : Buy 7 cases of any product in D45 Brand range and 10 cases of any product in C45 Brand range
+#Complex_deal_6 : Buy 3 cases of matVariant02 and 4 cases of matVariant04
+#Complex_deal_7 : Buy 5 cases of any product in D45 Brand range and 7 cases of matVariant11
+#Complex_deal_8 : Buy 8 cases of any product in C45 Brand range except matVariant05
+#Complex_deal_12 : Buy 10 cases of any product across C45 Brand and B45 Brand ranges
+#Complex_deal_13 : Buy 10 cases of any product across D45 and A45 Brand ranges except matVariant03
+
+
+INSERT_UPDATE Deal; code[unique = 'true']; b2bUnit(uid); dealType(code); dealVisibility(code); description; validFrom[dateformat = dd.MM.yyyy]; validTo[dateformat = dd.MM.yyyy]; conditionGroup(&componentRef); status[default = 'active']; group[default = 'tbd']
+; deal_1          ; "0000842292"               ; DISCOUNT ; PUBLIC ;                                                                              ; "01.12.2015" ; "01.12.2018" ; deal_1_condGroup          ;
+; deal_2          ; "Test Sample B2B Sydney"   ; DISCOUNT ; PUBLIC ;                                                                              ; "02.12.2015" ; "31.12.2015" ; deal_2_condGroup          ;
+; deal_3          ; "Test Sample B2B Sydney"   ; DISCOUNT ; PUBLIC ;                                                                              ; "16.12.2015" ; "01.12.2018" ; deal_3_condGroup          ;
+
+; deal_5          ; "Test Sample B2B Sydney"   ; BOGOF    ; PUBLIC ;                                                                              ; "01.12.2015" ; "01.12.2018" ; deal_5_condGroup          ;
+; deal_6          ; "0000842292"               ; BOGOF    ; PUBLIC ;                                                                              ; "01.12.2015" ; "01.12.2018" ; deal_6_condGroup          ;
+; deal_7          ; "Test Sample B2B Brisbane" ; BOGOF    ; PUBLIC ;                                                                              ; "01.12.2015" ; "01.12.2018" ; deal_7_condGroup          ;
+; deal_8          ; "0000842292"               ; DISCOUNT ; PUBLIC ; "Lorem Ipsum is simply dummy text of the printing and typesetting industry." ; "01.8.2015"  ; "01.12.2018" ; deal_8_condGroup          ;
+; deal_9          ; "0000842292"               ; DISCOUNT ; PUBLIC ;                                                                              ; "01.9.2015"  ; "01.12.2018" ; deal_9_condGroup          ;
+; deal_10         ; "0000842292"               ; DISCOUNT ; PUBLIC ;                                                                              ; "01.10.2015" ; "01.12.2018" ; deal_10_condGroup         ;
+; deal_11         ; "0000842292"               ; DISCOUNT ; PUBLIC ;                                                                              ; "01.11.2015" ; "01.12.2018" ; deal_11_condGroup         ;
+; deal_12         ; "0000842292"               ; DISCOUNT ; PUBLIC ;                                                                              ; "10.11.2015" ; "01.12.2018" ; deal_12_condGroup         ;
+
+; deal_14         ; "Test Sample B2B Brisbane" ; BOGOF    ; PUBLIC ;                                                                              ; "01.12.2015" ; "01.12.2018" ; deal_14_condGroup         ;
+; deal_15         ; "Test Sample B2B Brisbane" ; BOGOF    ; PUBLIC ;                                                                              ; "01.12.2015" ; "01.12.2018" ; deal_15_condGroup         ;
+; deal_20         ; "0000842292"               ; BOGOF    ; PUBLIC ;                                                                              ; "01.12.2015" ; "22.12.2015" ; deal_20_condGroup         ;
+; deal_21         ; "0000842292"               ; BOGOF    ; PUBLIC ;                                                                              ; "01.12.2015" ; "12.12.2015" ; deal_21_condGroup         ;
+; deal_22         ; "0000842292"               ; DISCOUNT ; PUBLIC ;                                                                              ; "01.12.2015" ; "20.1.2016"  ; deal_22_condGroup         ;
+; deal_23         ; "0000842292"               ; DISCOUNT ; PUBLIC ;                                                                              ; "01.12.2015" ; "22.1.2016"  ; deal_23_condGroup         ;
+; deal_24         ; "0000842292"               ; DISCOUNT ; PUBLIC ;                                                                              ; "01.11.2015" ; "25.1.2016"  ; deal_24_condGroup         ;
+; deal_25         ; "0000842292"               ; DISCOUNT ; PUBLIC ;                                                                              ; "23.11.2015" ; "20.1.2016"  ; deal_25_condGroup         ;
+
+; deal_4          ; "0000842292"               ; DISCOUNT ; PUBLIC ;                                                                              ; "01.12.2015" ; "01.12.2018" ; deal_4_condGroup          ;
+; deal_13         ; "0000842292"               ; BOGOF    ; PUBLIC ;                                                                              ; "01.12.2015" ; "01.12.2018" ; deal_13_condGroup         ;
+
+; complex_deal_1  ;                            ; COMPLEX  ; PUBLIC ;                                                                              ; "01.12.2015" ; "01.12.2018" ; complex_deal_1_condGroup  ;
+; complex_deal_2  ;                            ; COMPLEX  ; PUBLIC ;                                                                              ; "01.12.2014" ; "01.12.2019" ; complex_deal_2_condGroup  ;
+#; complex_deal_3  ;                            ; COMPLEX  ; PUBLIC ;                                                                              ; "01.12.2015" ; "01.12.2020" ; complex_deal_3_condGroup  ;
+; complex_deal_4  ;                            ; COMPLEX  ; PUBLIC ;                                                                              ; "01.12.2012" ; "01.12.2019" ; complex_deal_4_condGroup  ;
+; complex_deal_5  ;                            ; COMPLEX  ; PUBLIC ;                                                                              ; "01.11.2015" ; "01.11.2018" ; complex_deal_5_condGroup  ;
+; complex_deal_6  ;                            ; COMPLEX  ; PUBLIC ;                                                                              ; "04.11.2015" ; "03.11.2019" ; complex_deal_6_condGroup  ;
+#; complex_deal_7  ;                            ; COMPLEX  ; PUBLIC ;                                                                              ; "04.11.2012" ; "03.11.2021" ; complex_deal_7_condGroup  ;
+#; complex_deal_8  ;                            ; COMPLEX  ; PUBLIC ;                                                                              ; "04.11.2011" ; "03.11.2025" ; complex_deal_8_condGroup  ;
+; complex_deal_12 ;                            ; COMPLEX  ; PUBLIC ;                                                                              ; "04.11.2011" ; "03.11.2025" ; complex_deal_12_condGroup ;
+#; complex_deal_13 ;                            ; COMPLEX  ; PUBLIC ;                                                                              ; "04.11.2011" ; "03.11.2025" ; complex_deal_13_condGroup ;
+
+; complex_deal_91 ;                            ; COMPLEX  ; PUBLIC ;                                                                              ; "04.11.2011" ; "03.11.2025" ; complex_deal_91_condGroup
+; complex_deal_92 ;                            ; COMPLEX  ; PUBLIC ;                                                                              ; "04.11.2011" ; "03.11.2025" ; complex_deal_92_condGroup
+; complex_deal_93 ;                            ; COMPLEX  ; PUBLIC ;                                                                              ; "04.11.2011" ; "03.11.2025" ; complex_deal_93_condGroup
+
+; complex_deal_15 ;                            ; COMPLEX  ; PUBLIC ;                                                                              ; "01.11.2015" ; "01.11.2018" ; complex_deal_15_condGroup ;
+; complex_deal_16 ;                            ; COMPLEX  ; PUBLIC ;                                                                              ; "04.11.2015" ; "03.11.2019" ; complex_deal_16_condGroup ;
+; complex_deal_17 ;                            ; COMPLEX  ; PUBLIC ;                                                                              ; "04.11.2012" ; "03.11.2021" ; complex_deal_17_condGroup ;
+; complex_deal_18 ;                            ; COMPLEX  ; PUBLIC ;                                                                              ; "04.11.2011" ; "03.11.2025" ; complex_deal_18_condGroup ;
+; complex_deal_19 ;                            ; COMPLEX  ; PUBLIC ;                                                                              ; "04.11.2012" ; "03.11.2021" ; complex_deal_19_condGroup ;
+; complex_deal_20 ;                            ; COMPLEX  ; PUBLIC ;                                                                              ; "04.11.2011" ; "03.11.2025" ; complex_deal_20_condGroup ;
+; complex_deal_21 ;                            ; COMPLEX  ; PUBLIC ;                                                                              ; "04.11.2012" ; "03.11.2021" ; complex_deal_21_condGroup ;
+; complex_deal_22 ;                            ; COMPLEX  ; PUBLIC ;                                                                              ; "04.11.2011" ; "03.11.2025" ; complex_deal_22_condGroup ;
+; complex_deal_23 ;                            ; COMPLEX  ; PUBLIC ;                                                                              ; "04.11.2014" ; "03.11.2024" ; complex_deal_23_condGroup ;
+
+
+#Assing B2BUnits to Complex Deals
+INSERT_UPDATE Deal; code[unique = 'true']; organizations(uid);
+; complex_deal_1  ; 0000842292 ;
+; complex_deal_2  ; 0000842292 ;
+; complex_deal_3  ; 0000842292 ;
+; complex_deal_4  ; 0000842292 ;
+; complex_deal_5  ; 0000842292 ;
+; complex_deal_6  ; 0000842292 ;
+; complex_deal_7  ; 0000842292 ;
+; complex_deal_8  ; 0000842292 ;
+; complex_deal_12 ; 0000842292 ;
+; complex_deal_13 ; 0000842292 ;
+; complex_deal_91 ; 0000842292 ;
+; complex_deal_92 ; 0000842292 ;
+; complex_deal_93 ; 0000842292 ;
+; complex_deal_15 ; 0000842292 ;
+; complex_deal_16 ; 0000842292 ;
+; complex_deal_17 ; 0000842292 ;
+; complex_deal_18 ; 0000842292 ;
+; complex_deal_19 ; 0000842292 ;
+; complex_deal_20 ; 0000842292 ;
+; complex_deal_21 ; 0000842292 ;
+; complex_deal_22 ; 0000842292 ;
+; complex_deal_23 ; 0000842292 ;
+
+#Deal triggerHash For similar Deals
+INSERT_UPDATE Deal; code[unique = 'true']; triggerHash; status[default = 'active']; group[default = 'tbd']
+; complex_deal_91 ; thesimilartrigger ;
+; complex_deal_92 ; thesimilartrigger ;
+; complex_deal_93 ; thesimilartrigger ;

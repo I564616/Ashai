@@ -1,0 +1,106 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# ImpEx for Importing Categories into Powertools Store 
+
+#APC-205
+# Macros / Replacement Parameter definitions
+$productCatalog=apbProductCatalog
+$productCatalogName=APB Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+
+$lang=en
+
+ 
+ 
+UPDATE Category ; $catalogVersion ; code[unique=true] ; name[lang=$lang]               ; description[lang=$lang]       
+                ;                 ; 1                 ; All Products                   ; All Products                  
+                ;                 ; L101              ; Alcohol                        ; ALC
+                ;                 ; L102              ; Non-Alcohol                    ; NON-ALC                       
+                ;                 ; L2002             ; Beer & Cider                   ; Beer & Cider                 
+                ;                 ; L2003             ; RTD                            ; RTD                           
+                ;                 ; L2004             ; SPIRITS                        ; SPIRITS                       
+                ;                 ; L2005             ; Non-Alcohol                    ; NON-ALC                       
+                ;                 ; L3004             ; International Beer             ; International Beer            
+                ;                 ; L3005             ; Craft Beer                     ; Craft Beer                    
+                ;                 ; L3006             ; Cider                          ; Cider                         
+                ;                 ; L3007             ; Light RTDs                     ; Light RTDs                    
+                ;                 ; L3008             ; Dark RTDs                      ; Dark RTDs                     
+                ;                 ; L3009             ; Dark                           ; Dark                          
+                ;                 ; L30010            ; Light                          ; Light                         
+                ;                 ; L30011            ; Post Mix & Syrups              ; Post Mix & Syrups             
+                ;                 ; L30012            ; Soft Drinks & Mixers           ; Soft Drinks & Mixers          
+                ;                 ; L30013            ; Water                          ; Water                         
+                ;                 ; L30014            ; Juice                          ; Juice                         
+                ;                 ; L30015            ; Cordial                        ; Cordial                       
+                ;                 ; L30016            ; Sports                         ; Sports                        
+                ;                 ; L30017            ; Iced Tea                       ; Iced Tea                      
+                ;                 ; L30018            ; Frozen Beverages & Ancillaries ; Frozen Beverages & Ancillaries
+                ;                 ; L4008             ; Asahi                          ; Asahi                         
+                ;                 ; L4009             ; Peroni                         ; Peroni                        
+                ;                 ; L40010            ; Estrella                       ; Estrella                      
+                ;                 ; L40011            ; Grolsch                        ; Grolsch                       
+                ;                 ; L40012            ; Kingfisher                     ; Kingfisher                    
+                ;                 ; L40013            ; NZ Pure                        ; NZ Pure                       
+                ;                 ; L40014            ; Mountain Goat                  ; Mountain Goat                 
+                ;                 ; L40015            ; Cricketers Arms                ; Cricketers Arms               
+                ;                 ; L40016            ; Somersby                       ; Somersby                      
+                ;                 ; L40017            ; The Cider Lab                  ; The Cider Lab                 
+                ;                 ; L40018            ; Vodka Cruiser                  ; Vodka Cruiser                 
+                ;                 ; L40019            ; Vodka - O                      ; Vodka - O                     
+                ;                 ; L40020            ; Mist wood Gin                   ; Mist wood Gin                  
+                ;                 ; L40021            ; Rhythm                         ; Rhythm                        
+                ;                 ; L40022            ; Redbear                        ; Redbear                       
+                ;                 ; L40023            ; Woodstock                      ; Woodstock                     
+                ;                 ; L40024            ; Wild Moose                     ; Wild Moose                    
+                ;                 ; L40025            ; Highland                       ; Highland                      
+                ;                 ; L40026            ; Spicebox                       ; Spicebox                      
+                ;                 ; L40027            ; Whiskey                        ; Whiskey                       
+                ;                 ; L40028            ; Bourbon                        ; Bourbon                       
+                ;                 ; L40029            ; Rum                            ; Rum                           
+                ;                 ; L40030            ; Vodka                          ; Vodka                         
+                ;                 ; L40031            ; Gin                            ; Gin                           
+                ;                 ; L40032            ; Tequila                        ; Tequila                       
+                ;                 ; L40033            ; Pepsi                          ; Pepsi                         
+                ;                 ; L40034            ; Schweppes                      ; Schweppes                     
+                ;                 ; L40035            ; Solo                           ; Solo                          
+                ;                 ; L40036            ; Sunkist                        ; Sunkist                       
+                ;                 ; L40037            ; Pepsi                          ; Pepsi                         
+                ;                 ; L40038            ; Schweppes                      ; Schweppes                     
+                ;                 ; L40039            ; Solo                           ; Solo                          
+                ;                 ; L40040            ; Sunkist                        ; Sunkist                       
+                ;                 ; L40041            ; 7UP                            ;  7UP                          
+                ;                 ; L40042            ; Mineral Waters                 ; Mineral Waters                
+                ;                 ; L40043            ; Phoenix Organic                ; Phoenix Organic               
+                ;                 ; L40044            ; Passiona                       ; Passiona                      
+                ;                 ; L40045            ; Mountain Dew                   ; Mountain Dew                  
+                ;                 ; L40046            ; Voss                           ; Voss                          
+                ;                 ; L40047            ; Cool Ridge                     ; Cool Ridge                    
+                ;                 ; L40048            ; Schweppes                      ; Schweppes                     
+                ;                 ; L40049            ; Frantelle                      ; Frantelle                     
+                ;                 ; L40050            ; Pop Tops                       ; Pop Tops                      
+                ;                 ; L40051            ; Spring Valley                  ; Spring Valley                 
+                ;                 ; L40052            ; Charlie's                      ; Charlie's                     
+                ;                 ; L40053            ; Spring Valley                  ; Spring Valley                 
+                ;                 ; L40054            ; Charlies                       ; Charlies 
+                ;                 ; L40067            ; Phoenix Organic                ; Phoenix Organic                                      
+                ;                 ; L40055            ; Extra Juicy                    ; Extra Juicy                   
+                ;                 ; L40056            ; Pop Tops                       ; Pop Tops                      
+                ;                 ; L40057            ; Schweppes                      ; Schweppes                     
+                ;                 ; L40058            ; Gatorade                       ; Gatorade                      
+                ;                 ; L40059            ; Real Iced Tea Co               ; Real Iced Tea Co              
+                ;                 ; L40060            ; Sunkist                        ; Sunkist                       
+                ;                 ; L40061            ; Pepsi                          ; Pepsi                         
+                ;                 ; L40062            ; Schweppes                      ; Schweppes                     
+                ;                 ; L40063            ; Accessory Items                ; Accessory Items               
+                ;                 ; L40100            ; Pilsner Urquell                ; Pilsner Urquell               
+                ;                 ; L40200            ; Untold 		                 ; Untold               
+                ;                 ; L40300            ; 7UP			                 ; 7UP               
+                

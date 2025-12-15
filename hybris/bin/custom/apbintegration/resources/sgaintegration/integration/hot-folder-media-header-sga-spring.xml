@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:file="http://www.springframework.org/schema/integration/file"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/integration
+		http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/integration/file
+		http://www.springframework.org/schema/integration/file/spring-integration-file.xsd
+		http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+		
+    <context:annotation-config/>
+
+	<bean id="sga_defaultImpexProductHeader" class="java.lang.String">
+		<constructor-arg>
+			<value># ImpEx for importing data into sgaProductCatalog
+				$catalogVersion=catalogversion(catalog(id[default=sgaProductCatalog]),version[default='Staged'])[unique=true]
+				$approved=approvalstatus(code)[default='approved']
+				$supercategories=supercategories(code,$catalogVersion)
+				$lang=$LANGUAGE$</value>
+		</constructor-arg>
+	</bean>
+	
+	<!-- SGA Specific media converters mapping start -->
+	
+	<bean id="batchSgaMediaConverterMapping" 
+		  class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.mapping.impl.DefaultConverterMapping" 
+		  p:mapping="sga_media" 
+		  p:converter-ref="batchSgaMediaConverter"/>
+
+	<bean id="batchSgaMediaContainerConverterMapping" 
+		  class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.mapping.impl.DefaultConverterMapping" 
+		  p:mapping="sga_media" 
+		  p:converter-ref="batchSgaMediaContainerConverter"/>
+
+	<bean id="batchSgaMediaProductConverterMapping" 
+		  class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.mapping.impl.DefaultConverterMapping" 
+		  p:mapping="sga_media" 
+		  p:converter-ref="batchSgaMediaProductConverter"/>
+		  
+	<bean id="batchPlanogramMediaConverterMapping" 
+		  class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.mapping.impl.DefaultConverterMapping" 
+		  p:mapping="sga_planogram_media" 
+		  p:converter-ref="batchPlanogramMediaConverter"/>
+	
+		  
+	<!-- SGA Specific media converters mapping end --> 
+		  
+	<!-- SGA specific custom converts start -->
+	
+	
+	
+	<bean id="batchSgaMediaConverter" class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.impl.DefaultImpexConverter">
+		<property name="header">
+			<value>#{sga_defaultImpexProductHeader}
+
+                <!-- #{cloudHotFolderConfigImpexHeader} -->
+				$importFolder=azureFile:master/images
+
+				INSERT_UPDATE Media;mediaFormat(qualifier);code[unique=true];mime;$catalogVersion;folder(qualifier)[default=images];realfilename;@media[translator=com.apb.integration.dataimport.batch.translator.AsahiMediaDataTranslator][forceWrite=true]
+			</value>
+		</property>
+		<property name="impexRow">
+			<value>;SABMZoomFormat;/1200Wx1200H/{+1};image/{+3};;;{+1};$importFolder/1200Wx1200H/1200Wx1200H_{+1}.{+3}
+					;SABMHeroFormat;/515Wx515H/{+1};image/{+3};;;{+1};$importFolder/515Wx515H/515Wx515H_{+1}.{+3}
+					;SABMNormalFormat;/300Wx300H/{+1};image/{+3};;;{+1};$importFolder/300Wx300H/300Wx300H_{+1}.{+3}
+					;SABMThumbnailFormat;/96Wx96H/{+1};image/{+3};;;{+1};$importFolder/96Wx96H/96Wx96H_{+1}.{+3}
+					;SABMCartFormat;/65Wx65H/{+1};image/{+3};;;{+1};$importFolder/65Wx65H/65Wx65H_{+1}.{+3}
+					;SABMWatchFormat;/30Wx30H/{+1};image/{+3};;;{+1};$importFolder/30Wx30H/30Wx30H_{+1}.{+3}
+			</value>
+		</property>
+	</bean>
+	<bean id="batchSgaMediaContainerConverter" class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.impl.DefaultImpexConverter">
+		<property name="header">
+			<value>#{sga_defaultImpexProductHeader}
+				# Import media container
+				INSERT_UPDATE MediaContainer;qualifier[unique=true];order;medias(code, $catalogVersion)[mode=append];$catalogVersion
+			</value>
+		</property>
+		<property name="impexRow">
+			<value>;{1};{2};/1200Wx1200H/{1};
+			;{1};{2};/515Wx515H/{1};
+			;{1};{2};/300Wx300H/{1};
+			;{1};{2};/96Wx96H/{1};
+			;{1};{2};/65Wx65H/{1};
+			;{1};{2};/30Wx30H/{1};
+			</value>
+		</property>
+	</bean>
+	<bean id="batchSgaMediaProductConverter" class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.impl.DefaultImpexConverter">
+		<property name="header">
+			<value>#{sga_defaultImpexProductHeader}
+				$thumbnail=thumbnail(code, $catalogVersion)
+				$thumbnails=thumbnails(code, $catalogVersion)[mode=append]
+				$picture=picture(code, $catalogVersion)
+				$detail=detail(code, $catalogVersion)[mode=append]
+				$normal=normal(code, $catalogVersion)[mode=append]
+				$others=others(code, $catalogVersion)[mode=append]
+				$galleryImages=galleryImages(qualifier, $catalogVersion)[mode=append]
+				# Import product media
+				UPDATE Product;code[unique=true];$picture;$thumbnail;$detail;$others;$normal;$thumbnails;$galleryImages;sequenceId[translator=de.hybris.platform.acceleratorservices.dataimport.batch.converter.GreaterSequenceIdTranslator];$catalogVersion
+			</value>
+		</property>
+		<property name="impexRow">
+			<value>;{+0};/300Wx300H/{1};/96Wx96H/{1};/1200Wx1200H/{1};/515Wx515H/{1},/96Wx96H/{1},/30Wx30H/{1};/300Wx300H/{1};/96Wx96H/{1};{1};{S}</value>
+		</property>
+	</bean>
+	
+	<bean id="batchPlanogramMediaConverter" class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.impl.DefaultImpexConverter">
+		<property name="header">
+			<value>#{sga_defaultImpexProductHeader}
+
+                <!-- #{cloudHotFolderConfigImpexHeader} -->
+				$importFolder=azureFile:master/planograms
+
+				INSERT_UPDATE CatalogUnawareMedia;code[unique=true];mime;folder(qualifier)[default=root];realfilename;@media[translator=com.apb.integration.dataimport.batch.translator.AsahiMediaDataTranslator][forceWrite=true]
+			</value>
+		</property>
+		<property name="impexRow">
+			<value>;{+0};{1};;{2};$importFolder/{+3}</value>
+		</property>
+	</bean>
+	
+	
+	
+	<!-- SGA specific media converts End -->
+	
+</beans>

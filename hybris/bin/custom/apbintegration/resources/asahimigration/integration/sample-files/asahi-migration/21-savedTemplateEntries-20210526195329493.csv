@@ -1,0 +1,7 @@
+insert OrderTemplateEntry,pk,basePrice,entryNumber,"product(catalogVersion(catalog(id),version),code)",quantity,totalPrice
+,8796191533843,184.55,1,apbProductCatalog:Online:14361057,2,369.1
+,8796191566611,15.42,2,apbProductCatalog:Online:14404001,4,61.68
+,8796191599379,35.85,3,apbProductCatalog:Online:14450217,3,107.55
+
+
+

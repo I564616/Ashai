@@ -1,0 +1,10 @@
+# 
+# Update the BaseStore
+#
+
+$storeUid=sabmStore
+
+
+# Base Store
+INSERT_UPDATE BaseStore;uid[unique=true];timeZone(code)
+;$storeUid;Australia/Melbourne

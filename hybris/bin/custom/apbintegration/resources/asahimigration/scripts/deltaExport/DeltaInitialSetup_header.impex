@@ -1,0 +1,101 @@
+
+INSERT_UPDATE Catalog;activeCatalogVersion(catalog(id),version);buyer(uid);defaultCatalog[allownull=true];id[unique=true,allownull=true];previewURLTemplate;supplier(uid);urlPatterns;baseStores(uid)
+"#% impex.exportItemsFlexibleSearch( ""select {pk} from {Catalog} where {modifiedTime}>='2021-08-20 00:00:00'"");"
+
+INSERT_UPDATE CatalogVersion;active[allownull=true];catalog(id)[forceWrite=true,unique=true,allownull=true];categorySystemID;defaultCurrency(isocode);generationDate[dateformat=dd.MM.yyyy hh:mm:ss];generatorInfo;inclAssurance[allownull=true];inclDuty[allownull=true];inclFreight[allownull=true];inclPacking[allownull=true];languages(isocode);mimeRootDirectory;mnemonic;previousUpdateVersion;territories(isocode);version[unique=true,allownull=true]
+"#% impex.exportItemsFlexibleSearch( ""select {pk} from {CatalogVersion} where {modifiedTime}>='2021-08-20 00:00:00'"" );"
+
+##########################Dynamic###############################
+INSERT_UPDATE UserTaxGroup;code[unique=true];name[lang=en]  
+"#% impex.exportItemsFlexibleSearch( ""select {pk} from {UserTaxGroup} where {modifiedTime}>='2021-08-20 00:00:00'""  );"
+
+INSERT_UPDATE Tax;code[unique=true,allownull=true];currency(isocode);name[lang=en];value
+"#% impex.exportItemsFlexibleSearch( ""select {pk} from {Tax} where {modifiedTime}>='2021-08-20 00:00:00'""  ) ;"
+
+INSERT_UPDATE TaxRow;catalogVersion(catalog(id),version);currency(isocode);dateRange[dateformat=dd.MM.yyyy hh:mm:ss];endTime[dateformat=dd.MM.yyyy hh:mm:ss];pg(code,itemtype(code))[forceWrite=true, unique=true];product(catalogVersion(catalog(id),version),code)[forceWrite=true];productId[forceWrite=true];productMatchQualifier;startTime[dateformat=dd.MM.yyyy hh:mm:ss];tax(code)[allownull=true,forceWrite=true, unique=true];ug(code,itemtype(code))[unique=true];user(uid);userMatchQualifier;value
+"#% impex.exportItemsFlexibleSearch( ""select {pk} from {TaxRow} where {modifiedTime}>='2021-08-20 00:00:00'""  );"
+
+INSERT_UPDATE Region;active[allownull=true];country(isocode)[unique=true,allownull=true];cutOffTime;cutOffTimeSga;isocodeShort;isocode[unique=true,allownull=true];
+"#% impex.exportItemsFlexibleSearch( ""select {pk} from {Region} where {modifiedTime}>='2021-08-20 00:00:00'""  );"
+
+insert Address;&add;owner(PointOfService.name);addressRecordid;addressType(code,itemtype(code));appartment;billingAddress[allownull=true];building;cellphone;changeRequestAddress;company;companyCode;contactAddress[allownull=true];country(isocode);cutOffDeliveryDates(code);dateOfBirth[dateformat=dd.MM.yyyy hh:mm:ss];defaultAddress;deliveryCalendar;department;district;duplicate;eclDeliveryInstruction;eclDeliveryTimesLotto[dateformat=dd.MM.yyyy hh:mm:ss];eclDeliveryTimeslotFrom[dateformat=dd.MM.yyyy hh:mm:ss];eclDlvModeId;email;fax;firstname;gender(code,itemtype(code));lastname;line1;line2;middlename;middlename2;original(pk)[forceWrite=true];phone1;phone2;pobox;postalcode;region(country(isocode),isocode);removeRequestAddress;shippingAddress[allownull=true];streetname;streetnumber;title(code);town;unloadingAddress[allownull=true];visibleInAddressBook;
+"#% impex.exportItemsFlexibleSearch(""SELECT {add.pk} FROM {Address as add},{PointOfService as ps} where {add.owner}={ps.pk}"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), false, true, -1, -1 );"                                                   
+
+INSERT_UPDATE PointOfService;address(&add);baseStore(uid);description;displayName;geocodeTimestamp[dateformat=dd.MM.yyyy hh:mm:ss];latitude;longitude;mapIcon(catalogVersion(catalog(id),version),code);name[forceWrite=true,unique=true,allownull=true];nearbyStoreRadius;openingSchedule(code);storeContent[lang=en];storeImage(catalogVersion(catalog(id),version),qualifier);type(code,itemtype(code))[allownull=true];
+"#% impex.exportItemsFlexibleSearch(""SELECT {pk} FROM {PointOfService} where {modifiedTime}>='2021-08-20 00:00:00'"", Collections.EMPTY_MAP, Collections.singletonList( Item.class ), true, true, -1, -1 );"
+
+INSERT_UPDATE BaseStore;name[lang=en];captchaCheckEnabled[allownull=true];checkoutFlowGroup;createReturnProcessCode;customerAllowedToIgnoreSuggestions;defaultCurrency(isocode);currencies(isocode);languages(isocode);deliveryCountries(isocode);defaultDeliveryOrigin(name);defaultLanguage(isocode);expressCheckoutEnabled[allownull=true];externalTaxEnabled[allownull=true];maxRadiusForPoSSearch;net[allownull=true];paymentProvider;pickupInStoreMode(code,itemtype(code));stockCheckEnabled[allownull=true];storelocatorDistanceUnit(code,itemtype(code));submitOrderProcessCode;taxEstimationEnabled[allownull=true];taxGroup(code,itemtype(code));uid[unique=true,allownull=true]
+"#% impex.exportItemsFlexibleSearch( ""select {pk} from {BaseStore} where {modifiedTime}>='2021-08-20 00:00:00'""  );"
+
+INSERT_UPDATE Vendor;&vendor;code[unique=true]; name  
+"#% impex.exportItemsFlexibleSearch( ""select {pk} from {Vendor} where {modifiedTime}>='2021-08-20 00:00:00'"" );"   
+                          
+INSERT_UPDATE Warehouse;code[unique=true];name;cutOffTime;default[allownull=true,forceWrite=true];disableDeferredDelivery[allownull=true];vendor(&vendor)[allownull=true,forceWrite=true];vendorPOS;pointsOfService(name)
+"#% impex.exportItemsFlexibleSearch( ""select {pk} from {Warehouse} where {modifiedTime}>='2021-08-20 00:00:00'""  );"
+
+
+INSERT_UPDATE ContentCatalog;activeCatalogVersion(catalog(id),version);buyer(uid);defaultCatalog[allownull=true];id[unique=true,allownull=true];previewURLTemplate;supplier(uid);urlPatterns
+"#% impex.exportItemsFlexibleSearch( ""select {pk} from {ContentCatalog} where {modifiedTime}>='2021-08-20 00:00:00'""  );"
+
+INSERT_UPDATE CoverageConstraintGroup;coverageDomainID[allownull=true];id[allownull=true];interfaceName[unique=true];
+"#% impex.exportItemsFlexibleSearch( ""select {pk} from {CoverageConstraintGroup}""  );"
+
+INSERT_UPDATE StandardPaymentMode;&Item;active[allownull=true];code[unique=true,allownull=true];net[allownull=true];paymentInfoType(code)[allownull=true]
+"#% impex.exportItemsFlexibleSearch( ""select {pk} from {StandardPaymentMode} where {modifiedTime}>='2021-08-20 00:00:00'""  );"
+
+
+insert StandardPaymentModeValue;currency(isocode)[allownull=true];paymentMode(code)[allownull=true,forceWrite=true];value[allownull=true]
+"#% impex.exportItemsFlexibleSearch( ""select {pk} from {StandardPaymentModeValue} where {modifiedTime}>='2021-08-20 00:00:00'""  );"
+
+
+INSERT_UPDATE DeliveryMode;active[allownull=true];code[unique=true,allownull=true];supportedPaymentModes(code);supportedPaymentModesInternal;name[lang=en] 
+"#% impex.exportItemsFlexibleSearch( ""select {pk} from {DeliveryMode!} where {modifiedTime}>='2021-08-20 00:00:00'""  );"
+
+INSERT_UPDATE ZoneDeliveryMode; code[unique=true] ; net ; name[lang=en]    ; description[lang=en]  ;active[allownull=true]
+"#% impex.exportItemsFlexibleSearch( ""select {pk} from {ZoneDeliveryMode} where {modifiedTime}>='2021-08-20 00:00:00'""  );"
+
+INSERT_UPDATE PickUpDeliveryMode    ; code[unique=true]  ; active  
+"#% impex.exportItemsFlexibleSearch( ""select {pk} from {PickUpDeliveryMode} where {modifiedTime}>='2021-08-20 00:00:00'""  );"
+
+INSERT_UPDATE PromotionGroup;Identifier[unique=true,allownull=true];
+"#% impex.exportItemsFlexibleSearch( ""select {pk} from {PromotionGroup} where {modifiedTime}>='2021-08-20 00:00:00' "" );"
+
+INSERT_UPDATE Category;catalog(id)[allownull=true];allowedPrincipals(uid);name[lang=en]; description[lang=en];catalogVersion(catalog(id),version)[unique=true,allownull=true];code[unique=true,allownull=true];companyCode;data_sheet(catalogVersion(catalog(id),version),code);detail(catalogVersion(catalog(id),version),code);hideBrandFacet[allownull=true];hideInBreadcrumb[allownull=true];levelOne[allownull=true];logo(catalogVersion(catalog(id),version),code);normal(catalogVersion(catalog(id),version),code);order;others(catalogVersion(catalog(id),version),code);picture(catalogVersion(catalog(id),version),code);stockLevelThreshold;thumbnail(catalogVersion(catalog(id),version),code);thumbnails(catalogVersion(catalog(id),version),code)
+"#% impex.exportItemsFlexibleSearch( ""select {pk} from {Category} where {modifiedTime}>='2021-08-20 00:00:00'"" );"
+
+$catalogVersion=catalogversion(catalog(id),version)[unique=true]
+INSERT_UPDATE CategoryCategoryRelation ; target(code, $catalogVersion)[unique=true] ; source(code, $catalogVersion)[unique=true]
+"#% impex.exportItemsFlexibleSearch( ""select {pk} from {CategoryCategoryRelation} where {modifiedTime}>='2021-08-20 00:00:00'""  );"
+
+INSERT_UPDATE BaseStore2DeliveryModeRel;language(isocode)[unique=true];qualifier;reverseSequenceNumber;sequenceNumber;source(uid)[unique=true,allownull=true];target(code)[unique=true,allownull=true]
+"#% impex.exportItemsFlexibleSearch( ""select {pk} from {BaseStore2DeliveryModeRel} where {modifiedTime}>='2021-08-20 00:00:00'""  );"
+
+INSERT_UPDATE SiteMapLanguageCurrency ; &siteMapLanguageCurrency ; language(isoCode)[unique=true] ; currency(isocode)[unique=true] ;  
+ "#% impex.exportItemsFlexibleSearch( ""select {pk} from {SiteMapLanguageCurrency} where {modifiedTime}>='2021-08-20 00:00:00'""  );"                                 
+ 
+insert_update SiteMapConfig;&siteMapConfigId;configId[unique=true];siteMapLanguageCurrencies(&siteMapLanguageCurrency);siteMapPages(&siteMapPage);siteMapTemplate(code)
+"#% impex.exportItemsFlexibleSearch( ""select {pk} from {SiteMapConfig} where {modifiedTime}>='2021-08-20 00:00:00'""  );"
+
+INSERT_UPDATE CatalogUnawareMedia;&siteMapMediaId;code[unique=true];realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime 
+"#% impex.exportItemsFlexibleSearch( ""select {pk} from {Media} where {code} like '%siteMapMedia%'"");"                                                  
+
+INSERT_UPDATE RendererTemplate ; code[unique=true] ; content(&siteMapMediaId);contextClass ; rendererType(code) 
+"#% impex.exportItemsFlexibleSearch( ""select {pk} from {RendererTemplate} where {code} like '%siteMapTemplate%' and {modifiedTime}>='2021-08-20 00:00:00'"");"                                
+
+INSERT_UPDATE SiteMapPage ; &siteMapPage    ; code(code)[unique=true] ; frequency(code)[unique=true] ; priority[unique=true] ; active
+"#% impex.exportItemsFlexibleSearch( ""select {pk} from {SiteMapPage} where {modifiedTime}>='2021-08-20 00:00:00'""  );"                                
+
+####SiteMap media to be loaded before CMSSite or associate sitemap media after the media is imported
+
+INSERT_UPDATE SiteTheme ; code[unique=true];name[lang=en]
+"#% impex.exportItemsFlexibleSearch( ""select {pk} from {SiteTheme} where {modifiedTime}>='2021-08-20 00:00:00'"" );"
+
+# Uncollected orders cronjob     
+INSERT_UPDATE UncollectedOrdersCronJob ; code[unique=true]; job(code) ; sites(uid)[mode=append] ; sessionLanguage(isoCode)
+"#% impex.exportItemsFlexibleSearch( ""select {pk} from {UncollectedOrdersCronJob} where {modifiedTime}>='2021-08-20 00:00:00'""  );"
+
+###############TO-DO | defaultPreviewCategory & defaultPreviewProduct are blank in qa, check in PROD
+
+###Update after this script for cmssite : StartingPage . Update the new urlpatterns  manually  
+INSERT_UPDATE CMSSite;name[lang=en] ; locale[lang=en];activeFrom[dateformat=dd.MM.yyyy hh:mm:ss];activeUntil[dateformat=dd.MM.yyyy hh:mm:ss];active[allownull=true];anonymousCartRemovalAge;cartRemovalAge;channel(code,itemtype(code));stores(uid);defaultCatalog(id);contentCatalogs(id);defaultLanguage(isocode);defaultPreviewCatalog(id);defaultPreviewCategory(catalogVersion(catalog(id),version),code);defaultPreviewProduct(catalogVersion(catalog(id),version),code);defaultPromotionGroup(Identifier);defaultStockLevelThreshold;maxOrderQty;openPreviewInNewTab[allownull=true];previewURL;redirectURL;siteMapConfig(&siteMapConfigId);siteMaps(catalogVersion(catalog(id),version),code);theme(code,itemtype(code));uid[unique=true,allownull=true];uncollectedOrdersCronJob(code);urlEncodingAttributes
+"#% impex.exportItemsFlexibleSearch( ""select {pk} from {CMSSite} where {modifiedTime}>='2021-08-20 00:00:00'""  );"

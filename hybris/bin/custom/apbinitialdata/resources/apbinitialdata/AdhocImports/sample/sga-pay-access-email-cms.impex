@@ -1,0 +1,232 @@
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#
+# Import the CMS content for the SGA site emails
+#
+$contentCatalog=sgaContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$wideContent=CMSImageComponent,BannerComponent
+$jarEmailResource=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/coredata/contentCatalogs/sgaContentCatalog/emails
+
+# Import modulegen config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$jarResourceCms=$config-jarResourceCmsValue                                                                
+$emailPackageName=$config-emailContextPackageName                                                          
+
+
+# Email page Template                                                                                      
+INSERT_UPDATE EmailPageTemplate ; $contentCV[unique=true] ; uid[unique=true]                            ; name                                              ; active ; frontendTemplateName                ; subject(code)                                      ; htmlTemplate(code)                              ; restrictedPageTypes(code)
+                                ;                         ; RequestPayerAccessEmailTemplate   		     ; Request Payer Access  Email Template        		; true   ; assistedForgottenPasswordEmail      ; sga_Email_Request_Payer_Access_Subject      		 ; sga_Email_Request_Payer_Access_Body      			; EmailPage                
+                                ;                         ; ApprovePayerAccessEmailTemplate   		     ; Approve Payer Access  Email Template        		; true   ; assistedForgottenPasswordEmail      ; sga_Email_Approve_Payer_Access_Subject      		 ; sga_Email_Approve_Payer_Access_Body      			; EmailPage                
+                                ;                         ; RejectPayerAccessEmailTemplate   		     ; Reject Payer Access  Email Template        			; true   ; assistedForgottenPasswordEmail      ; sga_Email_Reject_Payer_Access_Subject      		 	 ; sga_Email_Reject_Payer_Access_Body      			; EmailPage                
+                                ;                         ; ExpiredPayerAccessEmailTemplate   		     ; Expired Payer Access  Email Template        			; true   ; assistedForgottenPasswordEmail      ; sga_Email_Expired_Payer_Access_Subject      		 	 ; sga_Email_Expired_Payer_Access_Body      			; EmailPage                
+                                ;                         ; SuperUserRequestPayerAccessEmailTemplate   	; Super User Request Payer Access  Email Template        			; true   ; assistedForgottenPasswordEmail      ; sga_Email_SuperUserRequest_Payer_Access_Subject      		 	 ; sga_Email_SuperUserRequest_Payer_Access_Body      			; EmailPage                
+ 
+# Templates for CMS Cockpit Page Edit
+UPDATE EmailPageTemplate ; $contentCV[unique=true] ; uid[unique=true]                            ; velocityTemplate[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                         ;                         ; RequestPayerAccessEmailTemplate      		 ; $jarResourceCms/structure-view/structure_payerAccessEmailTemplate.vm 
+                         ;                         ; ApprovePayerAccessEmailTemplate      		 ; $jarResourceCms/structure-view/structure_payerAccessEmailTemplate.vm 
+                         ;                         ; RejectPayerAccessEmailTemplate      			 ; $jarResourceCms/structure-view/structure_payerAccessEmailTemplate.vm 
+                         ;                         ; ExpiredPayerAccessEmailTemplate      			 ; $jarResourceCms/structure-view/structure_payerAccessEmailTemplate.vm 
+                         ;                         ; SuperUserRequestPayerAccessEmailTemplate      			 ; $jarResourceCms/structure-view/structure_payerAccessEmailTemplate.vm 
+
+
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='RequestPayerAccessEmailTemplate'] ; validComponentTypes(code)
+                              ; SiteLogo          ;                                                                            ;                          ; logo
+                              ; TopContent        ;                                                                            ; $wideContent             ;     
+                              ; BottomContent     ;                                                                            ; $wideContent             ;     
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='ApprovePayerAccessEmailTemplate'] ; validComponentTypes(code)
+                              ; SiteLogo          ;                                                                            ;                          ; logo
+                              ; TopContent        ;                                                                            ; $wideContent             ;     
+                              ; BottomContent     ;                                                                            ; $wideContent             ;     
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='RejectPayerAccessEmailTemplate'] ; validComponentTypes(code)
+                              ; SiteLogo          ;                                                                            ;                          ; logo
+                              ; TopContent        ;                                                                            ; $wideContent             ;     
+                              ; BottomContent     ;                                                                            ; $wideContent             ;     
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='ExpiredPayerAccessEmailTemplate'] ; validComponentTypes(code)
+                              ; SiteLogo          ;                                                                            ;                          ; logo
+                              ; TopContent        ;                                                                            ; $wideContent             ;     
+                              ; BottomContent     ;                                                                            ; $wideContent             ;     
+
+INSERT_UPDATE ContentSlotName ; name[unique=true] ; template(uid,$contentCV)[unique=true][default='SuperUserRequestPayerAccessEmailTemplate'] ; validComponentTypes(code)
+                              ; SiteLogo          ;                                                                            ;                          ; logo
+                              ; TopContent        ;                                                                            ; $wideContent             ;     
+                              ; BottomContent     ;                                                                            ; $wideContent             ;     
+							  
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]                     ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='RequestPayerAccessEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogo-RequestPayerAccessEmail      ; SiteLogo              ;                                                                                     ; EmailSiteLogoSlot                        ; true          
+                                     ;                         ; TopContent-RequestPayerAccessEmail    ; TopContent            ;                                                                                     ; EmailTopSlot                             ; true          
+                                     ;                         ; BottomContent-RequestPayerAccessEmail ; BottomContent         ;                                                                                     ; EmailBottomSlot                          ; true          
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]                     ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='ApprovePayerAccessEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogo-ApprovePayerAccessEmail      ; SiteLogo              ;                                                                                     ; EmailSiteLogoSlot                        ; true          
+                                     ;                         ; TopContent-ApprovePayerAccessEmail    ; TopContent            ;                                                                                     ; EmailTopSlot                             ; true          
+                                     ;                         ; BottomContent-ApprovePayerAccessEmail ; BottomContent         ;                                                                                     ; EmailBottomSlot                          ; true          
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]                     ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='RejectPayerAccessEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogo-RejectPayerAccessEmail      ; SiteLogo              ;                                                                                     ; EmailSiteLogoSlot                        ; true          
+                                     ;                         ; TopContent-RejectPayerAccessEmail    ; TopContent            ;                                                                                     ; EmailTopSlot                             ; true          
+                                     ;                         ; BottomContent-RejectPayerAccessEmail ; BottomContent         ;                                                                                     ; EmailBottomSlot                          ; true          
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]                     ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='ExpiredPayerAccessEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogo-ExpiredPayerAccessEmail      ; SiteLogo              ;                                                                                     ; EmailSiteLogoSlot                        ; true          
+                                     ;                         ; TopContent-ExpiredPayerAccessEmail    ; TopContent            ;                                                                                     ; EmailTopSlot                             ; true          
+                                     ;                         ; BottomContent-ExpiredPayerAccessEmail ; BottomContent         ;                                                                                     ; EmailBottomSlot                          ; true          
+
+INSERT_UPDATE ContentSlotForTemplate ; $contentCV[unique=true] ; uid[unique=true]                     ; position[unique=true] ; pageTemplate(uid,$contentCV)[unique=true][default='SuperUserRequestPayerAccessEmailTemplate'] ; contentSlot(uid,$contentCV)[unique=true] ; allowOverwrite
+                                     ;                         ; SiteLogo-SuperUserRequestPayerAccessEmail      ; SiteLogo              ;                                                                                     ; EmailSiteLogoSlot                        ; true          
+                                     ;                         ; TopContent-SuperUserRequestPayerAccessEmail    ; TopContent            ;                                                                                     ; EmailTopSlot                             ; true          
+                                     ;                         ; BottomContent-SuperUserRequestPayerAccessEmail ; BottomContent         ;                                                                                     ; EmailBottomSlot                          ; true          
+									 
+									 # Email Pages                        
+INSERT_UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]                    ; name                                     ; masterTemplate(uid,$contentCV)              ; defaultPage ; approvalStatus(code)[default='approved']
+                        ;                         ; RequestPayerAccessEmail      		 ; Request Payer Access Email        		  ; RequestPayerAccessEmailTemplate      ; true        ;                                         
+                        ;                         ; ApprovePayerAccessEmail      		 ; Approve Payer Access Email        		  ; ApprovePayerAccessEmailTemplate      ; true        ;                                         
+                        ;                         ; RejectPayerAccessEmail      			 ; Reject Payer Access Email        		  ; RejectPayerAccessEmailTemplate      ; true        ;                                         
+                        ;                         ; ExpiredPayerAccessEmail      			 ; Expired Payer Access Email        		  ; ExpiredPayerAccessEmailTemplate      ; true        ;                                         
+                        ;                         ; SuperUserRequestPayerAccessEmail      			 ; Super User Request Payer Access Email        		  ; SuperUserRequestPayerAccessEmailTemplate      ; true        ;                                         
+
+
+# Email velocity templates     
+INSERT_UPDATE RendererTemplate ; code[unique=true]                                  ; contextClass                                                                                ; rendererType(code)[default='velocity']
+                               ; sga_Email_Request_Payer_Access_Body         			; $emailPackageName.AsahiPayerAccessEmailContext                                             
+                               ; sga_Email_Request_Payer_Access_Subject		         ; $emailPackageName.AsahiPayerAccessEmailContext                                             
+                               ; sga_Email_Approve_Payer_Access_Body         			; $emailPackageName.AsahiPayerAccessEmailContext                                             
+                               ; sga_Email_Approve_Payer_Access_Subject		         ; $emailPackageName.AsahiPayerAccessEmailContext                                             
+                               ; sga_Email_Reject_Payer_Access_Body         			; $emailPackageName.AsahiPayerAccessEmailContext                                             
+                               ; sga_Email_Reject_Payer_Access_Subject		         ; $emailPackageName.AsahiPayerAccessEmailContext                                             
+                               ; sga_Email_Expired_Payer_Access_Body         			; $emailPackageName.AsahiPayerAccessEmailContext                                             
+                               ; sga_Email_Expired_Payer_Access_Subject		         ; $emailPackageName.AsahiPayerAccessEmailContext                                             
+                               ; sga_Email_SuperUserRequest_Payer_Access_Body         			; $emailPackageName.AsahiPayerAccessEmailContext                                             
+                               ; sga_Email_SuperUserRequest_Payer_Access_Subject		         ; $emailPackageName.AsahiPayerAccessEmailContext                                             
+
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]                    ; previewImage(code, $contentCV)
+				 	  ;                         ; RequestPayerAccessEmail     			; EmailPageModel_preview        
+				 	  ;                         ; ApprovePayerAccessEmail     			; EmailPageModel_preview        
+				 	  ;                         ; RejectPayerAccessEmail     			; EmailPageModel_preview        
+				 	  ;                         ; ExpiredPayerAccessEmail     			; EmailPageModel_preview        
+				 	  ;                         ; SuperUserRequestPayerAccessEmail     			; EmailPageModel_preview        
+
+$contentCatalog=sgaContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$jarEmailResource=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/coredata/contentCatalogs/sgaContentCatalog/emails
+
+# Import config properties into impex macros for modulegen
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$emailResource=$config-emailResourceValue                                                                  
+
+# Language                                                                                                 
+$lang=en                                                                                                   
+					  
+UPDATE RendererTemplate ; code[unique=true]                                  ; description[lang=$lang]                           ; templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                        ; sga_Email_Request_Payer_Access_Body                  ; "Payer Access Email Body"                   ; $jarEmailResource/email-requestPayerAccessBody.vm                                                                 
+                        ; sga_Email_Request_Payer_Access_Subject               ; "Payer Access Email Subject"                ; $jarEmailResource/email-requestPayerAccessSubject.vm                                                
+                        ; sga_Email_Approve_Payer_Access_Body                  ; "Payer Access Email Body"                   ; $jarEmailResource/email-approvePayerAccessBody.vm                                                                 
+                        ; sga_Email_Approve_Payer_Access_Subject               ; "Payer Access Email Subject"                ; $jarEmailResource/email-approvePayerAccessSubject.vm                                                
+                        ; sga_Email_Reject_Payer_Access_Body                  ; "Payer Access Email Body"                    ; $jarEmailResource/email-rejectPayerAccessBody.vm                                                                 
+                        ; sga_Email_Reject_Payer_Access_Subject               ; "Payer Access Email Subject"                 ; $jarEmailResource/email-rejectPayerAccessSubject.vm                                                
+                        ; sga_Email_Expired_Payer_Access_Body                  ; "Payer Access Email Body"                    ; $jarEmailResource/email-expiredPayerAccessBody.vm                                                                 
+                        ; sga_Email_Expired_Payer_Access_Subject               ; "Payer Access Email Subject"                 ; $jarEmailResource/email-expiredPayerAccessSubject.vm                                                
+                        ; sga_Email_SuperUserRequest_Payer_Access_Body                  ; "Payer Access Email Body"                    ; $jarEmailResource/email-superUserRequestPayerAccessBody.vm                                                                 
+                        ; sga_Email_SuperUserRequest_Payer_Access_Subject               ; "Payer Access Email Subject"                 ; $jarEmailResource/email-superUserRequestPayerAccessSubject.vm                                                
+                                                                        
+					  
+					  # Email Pages           
+UPDATE EmailPage ; $contentCV[unique=true] ; uid[unique=true]                    ; fromEmail[lang=$lang]                ; fromName[lang=$lang]            
+                 ;                         ; RequestPayerAccessEmail      			; "ACCSchweppesConnect@asahi.com.au"   ; "Customer Services Team"        
+                 ;                         ; ApprovePayerAccessEmail      			; "ACCSchweppesConnect@asahi.com.au"   ; "Customer Services Team"        
+                 ;                         ; RejectPayerAccessEmail      			; "ACCSchweppesConnect@asahi.com.au"   ; "Customer Services Team"        
+                 ;                         ; ExpiredPayerAccessEmail      			; "ACCSchweppesConnect@asahi.com.au"   ; "Customer Services Team"        
+                 ;                         ; SuperUserRequestPayerAccessEmail      			; "ACCSchweppesConnect@asahi.com.au"   ; "Customer Services Team"        
+
+				 
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#
+# Import the CMS content for the SGA site
+#
+$contentCatalog=sgaContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$picture=media(code, $contentCV);
+$siteResource=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/sampledata/contentCatalogs/$contentCatalog
+$medias=medias(code, $contentCV);
+$mediaContainer=media(qualifier, $contentCV)[lang=$lang];
+$addonExtensionName=assistedservicestorefront
+
+# Import modulegen config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor] ; pk[unique=true]
+$jarResourceCms=$config-jarResourceCmsValue                                                                
+
+
+INSERT_UPDATE ContentSlot ; $contentCV[unique=true] ; uid[unique=true] 					; name 				 						; active ; cmsComponents(&componentRef)
+						  ;                         ; SAMAccessRequestSlot	   ; SAM Access Request Slot 		; true   ; 
+
+
+INSERT_UPDATE ContentPage ; $contentCV[unique=true] ; uid[unique=true]                     	; name                                      			; masterTemplate(uid,$contentCV)         ; label                               ; defaultPage[default='true'] ; approvalStatus(code)[default='approved'] ; homepage[default='false'] ;  ; backgroundImage(code, $contentCV)[default='backgroundImage']
+						  ;                         ; requestAccess                    ; SAM Access Request  Page                  		; SAMPageTemplate          	  		  ; requestAccess
+
+								  
+								  
+INSERT_UPDATE ContentSlotForPage ; $contentCV[unique=true] ; uid[unique=true]        ; position[unique=true] ; page(uid,$contentCV)[unique=true][default='requestAccess'] ; contentSlot(uid,$contentCV)[unique=true]
+                          ;                         ; Section3-requestAccess   ; Section3              ;                                                            ; SAMAccessRequestSlot                  
+                       
+
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+$contentCatalog=sgaContentCatalog
+$contentCatalogName=SGA Content Catalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$productCatalog=sgaProductCatalog
+$productCatalogName=SGA Product Catalog
+$productCV=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$picture=media(code, $contentCV);
+$image=image(code, $contentCV);
+$media=media(code, $contentCV);
+$page=page(uid, $contentCV);
+$contentPage=contentPage(uid, $contentCV);
+$product=product(code, $productCV)
+$category=category(code, $productCV)
+$siteResource=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/sampledata/contentCatalogs/$contentCatalog
+$productResource=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/sampledata/productCatalogs/$productCatalog
+$jarResourceCms=jar:com.apb.initialdata.constants.ApbInitialDataConstants&/apbinitialdata/import/sampledata/cockpits/cmscockpit
+$addonExtensionName=b2bacceleratoraddon
+$medias=medias(code, $contentCV);  
+$mediaContainer=media(qualifier, $contentCV);                      
+$siteUid=sga
+$lang=en
+      
+ 					   
+					   
+INSERT_UPDATE JspIncludeComponent ; $contentCV[unique=true] ; uid[unique=true] 						; name 											; page 											; actions(uid,$contentCV) ; &componentRef
+								  ;       						; SAMAccessRequestComponent  			; SAM Access Request Component     		; samAccessRequestComponent.jsp		   ;                         ; SAMAccessRequestComponent   
+								  
+INSERT_UPDATE ContentSlot ; $contentCV[unique=true] ; uid[unique=true] 					; name 				 						; active ; cmsComponents(&componentRef)
+						  ;           				; SAMAccessRequestSlot	 			; SAM Access Request Slot 				; true   ; SAMAccessRequestComponent  
+				 

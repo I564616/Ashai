@@ -1,0 +1,35 @@
+## SALESFORCE_LiveChatComponent for ALB - Staged
+
+$contentCatalog=sgaContentCatalog
+$contentCatalogName=SGA Content Catalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+
+INSERT_UPDATE LiveChatComponent; $contentCV[unique = true]; uid[unique = true]; name; fromHour; toHour; fromMinute; toMinute; onlyOneRestrictionMustApply[default = 'true']
+; ; livechatcomponent ; Live chat component ; 9 ; 16 ; 0 ; 59 ;
+
+
+## SALESFORCE_LiveChatComponent for ALB - Online
+
+$contentCatalog=sgaContentCatalog
+$contentCatalogName=SGA Content Catalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Online])[default=$contentCatalog:Online]
+
+INSERT_UPDATE LiveChatComponent; $contentCV[unique = true]; uid[unique = true]; name; fromHour; toHour; fromMinute; toMinute; onlyOneRestrictionMustApply[default = 'true']
+; ; livechatcomponent ; Live chat component ; 9 ; 16 ; 0 ; 59 ;
+
+
+## SALESFORCE_UserToVenueDataCronjob
+
+$defaultLanguage = en
+
+INSERT_UPDATE SalesForceExportCronjob; code[unique = true]; job(code); usertovenuedata ; sessionLanguage(isocode);active
+; SalesForceReportExportJob_UserToVenueData ; SalesForceReportExportJob ;true; $defaultLanguage;false
+
+INSERT_UPDATE Trigger; cronjob(code)[unique = true]; cronExpression;active
+; SalesForceReportExportJob_UserToVenueData ;0 0 1 * * ?;false
+
+
+## Old LiveChatComponent Cleanup
+
+REMOVE AttributeDescriptor; qualifier[unique = true]; enclosingType(code)[unique = true]
+                          ; daysOfWeek          ; LiveChatComponent

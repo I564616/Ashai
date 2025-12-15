@@ -1,0 +1,181 @@
+## messageSource=classpath:/sabmcore/messages/email-customerRegistration_$lang.properties
+#macro(genHtmlLinkStartTag $url)
+<a href="$url"><font color="#42515a">
+#end
+#macro(genHtmlLinkEndTag)
+</font></a>
+#end
+#macro(genHtmlLink $url $textColor $bodyContent)
+<a href="$url"><font color="$textColor">$bodyContent</font></a>
+#end
+<html>
+<head>
+    <style type="text/css">
+        a[x-apple-data-detectors] {
+            color: inherit !important;
+            text-decoration: none !important;
+            font-size: inherit !important;
+            font-family: inherit !important;
+            font-weight: inherit !important;
+            line-height: inherit !important;
+        }
+    </style>
+</head>
+<body bgcolor="#ffffff">
+<table width="50%" cellpadding="0" cellspacing="0" align="center" bgcolor="#ffffff">
+    <tr>
+        <td>
+            <table cellpadding="0" cellspacing="0" border="0" style="min-width:320px;display:inline-table" align="center" bgcolor="#ffffff">
+                <tr>
+                    <td align="left" colspan="6">
+                        <a href="${ctx.baseUrl}" style="padding: 0px 0px 0px 0px;display:inline-block;margin:0 auto;">
+                            ${ctx.cmsSlotContents.TopContent}
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="header-image">
+                        <a href="${ctx.baseUrl}" style="padding: 0px 0px 0px 10px;display:inline-block;margin:0 auto;">
+                            ${ctx.cmsSlotContents.SiteLogo}
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5" valign="middle" style="font-weight:bold;font-family: Helvetica;color: #42515a;font-size: 18px;padding: 20px 0px 0px 10px;">
+                        ${ctx.messages.sgaregisterWelcome}
+                        <table width="6%" cellpadding="0" cellspacing="0" border="0" valign="10px" >
+                            <tr>
+                                <td style="width: 10px;margin-top: 5px;border-bottom: 3px solid #42515a;padding:4px">
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="5" align="left" valign="middle" style="font-family: Helvetica;color: #42515a;font-size: 15px;padding: 20px 0px 0px 10px;">
+                        ${ctx.messages.sgadear}&nbsp;${ctx.customerData.firstName},
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="5" align="left" valign="middle" style="font-family: Helvetica;color: #42515a;font-size: 15px;padding: 20px 0px 0px 10px;">
+                        ${ctx.messages.successfullyregistered}
+                    </td>
+                </tr>
+                <tr><td height="10"></td></tr>
+
+                #if(${ctx.orderAccess})
+                <tr>
+                    <td colspan="5" align="left" valign="middle" style="font-family: Helvetica;color: #42515a;font-size: 15px;padding: 0px 0px 0px 10px;">
+                        ${ctx.messages.sgaregisterBenefit}<br>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="5" width="80%" align="left" style="padding-left:8px">
+                        <table width="100%" cellpadding="0" cellspacing="0" border="0" align="left" bgcolor="#ffffff">
+                            <tr>
+                                <td align="left" style="font-family: Helvetica;color: #42515a;font-size: 15px;">
+
+                                </td>
+                            </tr>
+                            <tr><td height="5"></td></tr>
+                            <tr>
+                                <td align="left" style="font-family: Helvetica;color: #42515a;font-size: 15px;line-height: 25px;">
+                                    ${ctx.messages.sgaregisterBenefitquickly}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td align="left" style="font-family: Helvetica;color: #42515a;font-size: 15px;line-height: 25px;">
+                                    ${ctx.messages.sgaregisterBenefitview}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="font-family: Helvetica;color: #42515a;font-size: 15px;line-height: 25px;">
+                                    ${ctx.messages.sgaregisterBenefitmanage}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="font-family: Helvetica;color: #42515a;font-size: 15px;line-height: 25px;">
+                                    ${ctx.messages.sgaregisterBenefitupdate}
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                #end
+
+                <tr><td height="15"></td></tr>
+
+                #if(${ctx.payAccess})
+                <tr>
+
+                    <td colspan="5" style="font-family: Helvetica;color: #42515a;font-size: 15px;padding: 0px 0px 0px 10px;">
+                        ${ctx.messages.getMessage('sgaregisterPayeraccessContent', ${ctx.payerEmail},${ctx.customerAccountName})}
+                    </td>
+
+                </tr>
+                <tr><td height="20"></td></tr>
+                #end
+                <tr>
+                    <td colspan="5" style="font-family: Helvetica;color: #42515a;font-size: 15px;padding: 0px 0px 0px 10px;">
+                        ${ctx.messages.sgaContactUstext1} <a href="${ctx.baseUrl}/contactus" style="color: #42515a; font-weight: 700;">contact us</a> #if(${ctx.payAccess})${ctx.messages.sgaContactUstext2}#end ${ctx.messages.sgaContactUstext3}
+                    </td>
+                </tr>
+
+                <tr><td height="25"></td></tr>
+
+                <tr>
+                    <td colspan="6" style="padding-left:10px;">
+                        <table cellpadding="0" cellspacing="0" border="0" style="cursor:pointer;width: 350px;">
+                            <tr>
+                                <td width="10" style="background-color: #f99d32;"></td>
+                                <td align="center" style="height:45px;text-decoration: none;color: #42515a;background-color: #f99d32">
+                                    <a href="${ctx.baseUrl}" style="font-weight: 700;text-align:center;text-decoration: none;font-family: Helvetica;text-transform: uppercase;font-size: 14px;line-height: 1.375;color:#42515a;">
+                                        &nbsp;&nbsp;START&nbsp;EXPLORING!&nbsp;SIGN&nbsp;IN&nbsp;&nbsp;
+                                    </a>
+                                </td>
+                                <td width="10" style="background-color: #f99d32;"></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <tr><td height="25"></td></tr>
+
+                <tr>
+                    <td colspan="5" style="font-family: Helvetica;color: #42515a;font-size: 15px;padding: 0px 0px 0px 10px;">
+                        ${ctx.messages.sgaComment}
+                    </td>
+
+                </tr>
+                <tr><td height="10"></td></tr>
+                <tr>
+                    <td colspan="5" style="font-family: Helvetica;color: #42515a;font-size: 15px;padding: 10px 0px 0px 10px;">
+                        ${ctx.messages.sgaregisterCheers}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="5" style="font-family: Helvetica;color: #42515a;font-size: 15px;padding: 5px 0px 0px 10px;">
+                        ${ctx.messages.sgacomplimentaryClosing}
+                    </td>
+                </tr>
+
+                <tr><td height="20"></td></tr>
+                <tr>
+                    <td colspan="6">
+                        <a href="${ctx.baseUrl}" style="padding: 0px 0px 0px 0px; display: inline-block; margin: 0 auto;">
+                            ${ctx.cmsSlotContents.BottomContent}
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

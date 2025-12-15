@@ -1,0 +1,51 @@
+﻿
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:p9="http://sap.com/xi/APPL/Global2" xmlns:p8="http://sap.com/xi/APPL" xmlns="urn:gl.sabmiller.com:3rdp:masterdata" targetNamespace="urn:gl.sabmiller.com:3rdp:masterdata">
+   <xsd:import namespace="http://sap.com/xi/APPL/Global2" />
+   <xsd:import namespace="http://sap.com/xi/APPL" />
+   <xsd:attributeGroup name="CustomerRelationship_V1" />
+   <xsd:attributeGroup name="UnloadingPoint_V1" />
+   <xsd:attributeGroup name="CustomerSalesData_V1" />
+   <xsd:attributeGroup name="Address_V1" />
+   <xsd:group name="CustomerRelationship_V1">
+      <xsd:sequence>
+         <xsd:element name="AccountGroupKey" type="xsd:string" minOccurs="0" form="qualified">
+            <xsd:annotation>
+               <xsd:appinfo source="http://sap.com/xi/TextID">
+               b7b3cea38ea811e586a81c659d4eacf5
+               </xsd:appinfo>
+               <xsd:documentation />
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="DefaultPartner" type="xsd:string" minOccurs="0" form="qualified">
+            <xsd:annotation>
+               <xsd:appinfo source="http://sap.com/xi/TextID">
+               b7b3cea48ea811e5b67d1c659d4eacf5
+               </xsd:appinfo>
+               <xsd:documentation />
+            </xsd:annotation>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:group>
+   <xsd:group name="Address_V1">
+      <xsd:sequence>
+         <xsd:element name="DepartmentID" type="xsd:string" minOccurs="0" form="qualified" />
+         <xsd:element name="EMAIL" type="xsd:string" minOccurs="0" form="qualified" />
+      </xsd:sequence>
+   </xsd:group>
+   <xsd:group name="UnloadingPoint_V1">
+      <xsd:sequence>
+         <xsd:element name="UnldingPointDefault" type="xsd:string" minOccurs="0" form="qualified" />
+      </xsd:sequence>
+   </xsd:group>
+   <xsd:group name="CustomerSalesData_V1">
+      <xsd:sequence>
+         <xsd:element name="CustomerBlockingReasonCode" type="xsd:string" minOccurs="0" form="qualified" />
+      </xsd:sequence>
+   </xsd:group>
+   <xsd:complexType name="CustomerERPReplicationRequestMessage">
+      <xsd:sequence>
+         <xsd:element name="MessageHeader" type="p8:BusinessDocumentMessageHeader" />
+         <xsd:element name="Customer" type="p9:CustERPRplctnReqCust" maxOccurs="unbounded" />
+      </xsd:sequence>
+   </xsd:complexType>
+</xsd:schema>

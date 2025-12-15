@@ -1,0 +1,218 @@
+.sort-refine-bar {
+
+	.form-group {
+		select {
+			width: auto;
+		}
+		
+			display: inline-flex;
+		
+	}
+	.control-label{
+		margin-right: 5px;
+        font-weight:bold;
+        font-size: 14px;
+        display: inline;
+	}
+	 
+	.pagination-bar-results-top{
+		 	text-align: right;
+	}
+	
+	
+}
+
+.pagination-bar{
+//	margin:  (@grid-gutter-width + 10) 0;
+    @media (min-width: @screen-md) {
+		margin-top:20px;
+	  }
+	
+	.pagination-toolbar {
+		//padding-bottom: (@grid-gutter-width * 1.5);
+		//padding-left: 20px;
+	  	//padding-right: 30px;
+		//border-bottom: 1px solid @border-color-3;
+
+	  @media (max-width: @screen-md) {
+		//padding-left: 20px;
+		//padding-right: 20px;
+	  }
+	}
+
+	.form-group {
+		margin: 0;
+	}
+
+	.pagination-bar-results {
+		margin-top: (@grid-gutter-width + 5);
+		padding: 0 20px;
+		color: @text-color-secondary;
+	}
+
+	&.bottom {
+		.pagination-toolbar {
+			padding-top: (@grid-gutter-width * 1.5);
+			border-top: 1px solid @border-color-3;
+			border-bottom-width: 1px;
+		}
+	}
+    .sort_by{
+        float:right;
+        display: inline;
+        form{
+            display: inline-block
+            
+        }
+    }
+    .sortby_list{
+        padding-left:0;
+        margin-bottom: 0;
+//        margin-top: 4px;
+        margin-right: -10px;
+        display: inline-table;
+        
+        li{
+            list-style: none;
+            display: inline-block;
+            border-right: 1px solid @border-color;
+            padding:0 8px;
+            line-height: 14px;
+            cursor: pointer;
+            &:first-child{
+                padding-left: 0;
+            }
+            &:last-child{
+                border-right:none;
+                padding-right: 0;
+            }
+ 
+            &.sel{
+                    font-weight:bold;
+                }
+            
+        }
+    }
+    button{
+        background:#fff;
+        border:1px solid #42515a;
+        color:#42515a;
+        font-weight: bold;
+    }
+    .prices-text{
+        padding-bottom:8px; 
+        float: left;
+    }
+}
+
+@media (max-width: @screen-sm-max)  {
+	.pagination-bar {
+		button {
+			width: 100%;
+			padding-left: 0;
+			padding-right: 0;
+		}
+        .facet-applied-filter{
+            font-weight: normal;
+            text-transform: none;
+        }
+	}
+}
+
+@media (max-width: @screen-xs-max) {
+	.sort-refine-bar {
+		.form-group {
+			select {
+				width: 100%;
+                padding-top:10px;
+			}
+           
+		}
+        
+
+	}
+	.pagination-bar {
+		.pagination,
+		button {
+			margin-top: @grid-gutter-width;
+			width: 100%;
+		}
+         .sort_by{
+        float:none;
+        }
+        .prices-text{
+            text-align: left;
+            padding-top: 0;
+            padding-left: 0;
+			width: 100%;
+            
+        }
+        
+        
+	}
+	.pagination-bar-borders();
+}
+
+@media (min-width: @screen-sm-min) {
+	.pagination-bar {
+		.pagination-toolbar {
+			border-bottom-width: 1px;
+		}
+
+       
+	}
+}
+
+@media (max-width: @screen-sm-max) and (min-width: @screen-sm-min) {
+	.sort-refine-bar {
+		.form-group {
+			select {
+				height: ceil((@padding-large-vertical * 2) + (@btn-font-size * @line-height-base) + (@btn-border-width * 2)) - 1;
+			}
+		}
+	}
+	.pagination-bar {
+        /* margin-top:-31px;*/
+		.pagination,
+		button {
+//			margin-top: @grid-gutter-width + 4; Do not need this, since it adds extra spacing on Tablet view for PLP @SM.
+		}
+       
+          .sort_by{
+        float:none;
+        width:auto;
+    }
+         .prices-text{
+            text-align: left;
+            padding-top:0px;
+            padding-left: 0px;
+			padding-bottom: 35px;
+           
+          
+        }
+	}
+}
+
+
+.pagination-bar-borders() when (@pagination-bar-framed) {
+	.pagination-bar {
+		//.pagination-toolbar,
+		//.pagination-wrap {
+		//	padding-left: 0;
+		//	padding-right: 0;
+		//}
+
+		.pagination {
+			padding-top: @grid-gutter-width - 5;
+			padding-bottom: @grid-gutter-width - 5;
+			border-top: 1px solid @border-color-3;
+			border-bottom: 1px solid @border-color-3;
+		}
+	}
+}
+
+#refine_button {
+    @media (min-width: @screen-sm) and (max-width: @screen-sm-max) {
+        margin-top: -15px;
+    }
+}

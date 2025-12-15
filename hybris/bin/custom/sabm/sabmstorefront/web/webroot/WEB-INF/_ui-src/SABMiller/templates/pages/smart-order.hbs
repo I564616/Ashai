@@ -1,0 +1,170 @@
+---
+title: Product Detail
+layout: templates/layouts/layout-portal.hbs
+---
+
+
+
+<h1 class="h1">Smart Orders</h1>
+
+<p class="offset-bottom-large">
+    This page analyses your previous purchases, using an intelligent algorithm to recommend your upcoming orders. Should you want to adjust our recommendation you can easliy do this below.
+</p>
+
+<div class="row row-bordered">
+    <div class="col-sm-12 col-md-7">
+
+      <ul class="list-calendar clearfix">
+        <li>
+
+         <div class="form-group offset-bottom-xsmall">
+           <!-- Date selector start -->
+           <label for="orderDate" class="sr-only">Please select your order date</label>
+
+                <div class="input-calendar-container">
+
+                  <input class="input-calendar"
+                   id="orderDate"
+                   placeholder="Please select your order date"
+                   readonly="readonly">
+
+                  <!-- Date selector finish -->
+
+                  <svg class="icon-arrow-down input-calendar-icon">
+                      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-arrow-down"></use>
+                  </svg>
+
+        </div>
+
+
+
+
+          </div>
+        </li>
+        <li>
+            <a href="#" class="link">
+              See this time last year
+              <svg class="icon-arrow-right icon-inline">
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-arrow-right"></use>
+              </svg>
+            </a>
+        </li>
+      </ul>
+
+
+  </div>
+  <div class="col-sm-12 col-md-5 hidden-xs hidden-sm">
+    <!-- Previous / Next - start -->
+    <ul class="list-split pull-right">
+      <li>
+        <a href="#" class="inline inline-disabled">Previous 6 Items</a>
+      </li>
+      <li>
+        <a href="#" class="inline">Next 6 Items</a>
+      </li>
+    </ul>
+    <!-- Previous / Next - finish -->
+  </div>
+</div>
+
+<!-- Desktop table start-->
+
+<div class="row hidden-xs hidden-sm">
+  <div class="col-sm-12">
+    <table class="table table-order">
+      <thead>
+        <tr class="nowrap">
+          <th>
+            Image
+          </th>
+          <th>
+            Product
+          </th>
+          <th>
+            5 Dec<br/>2015
+          </th>
+          <th>
+            12 Dec<br/>2015
+          </th>
+          <th>
+            19 Dec<br/>2015
+          </th>
+          <th>
+            26 Dec<br/>2016
+          </th>
+          <th>
+            2 Jan<br/>2016
+          </th>
+          <th>
+            9 Jan<br/>2016
+          </th>
+          <th>
+            Suggested Order
+          </th>
+          <th>
+            <span class="hidden">UOM</span>
+          </th>
+          <th>
+            <span class="hidden">Action</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {{> table-row-order}}
+        {{> table-row-order}}
+        {{> table-row-order}}
+        {{> table-row-order}}
+        {{> table-row-order}}
+        {{> table-row-order}}
+        {{> table-row-order}}
+        {{> table-row-order}}
+      </tbody>
+     </table>
+  </div>
+</div>
+
+<!-- Desktop table close -->
+
+<!-- Device table start -->
+<div class="hidden-md hidden-lg">
+  {{> replenishment-mobile}}
+</div>
+<!-- Device table close -->
+
+
+
+  <div class="row hidden-xs hidden-sm">
+    <div class="col-sm-7">
+      <p class="small">
+        Cancelled orders excluded from this table and returned orders represented with negative values.
+This text to shortly describes the logic behind the suggested order. (TBC from David H)
+      </p>
+    </div>
+    <div class="col-sm-5">
+        <!-- CTA links start -->
+        <ul class="list-inline pull-right">
+          <li class="offset-bottom-small">
+              <a href="#" class="inline">Continue browsing</a>
+          </li>
+          <li>
+            <button type="button" name="button" class="btn btn-secondary btn-medium btn-simple">Add all to cart</button>
+          </li>
+        </ul>
+        <!-- CTA links close -->
+    </div>
+  </div>
+
+
+
+  <!-- CMS Content Start -->
+  <div class="row offset-bottom-large">
+      <div class="col-sm-12">
+        <div class="banner-image banner-top banner-image-desktop">
+            <img src="http://placehold.it/940x140?text=PLACEHOLDER-USE-WHATS-ON-SITE" alt="CMS Content">
+        </div>
+      </div>
+  </div>
+  <!-- CMS Content End -->
+
+
+</div>

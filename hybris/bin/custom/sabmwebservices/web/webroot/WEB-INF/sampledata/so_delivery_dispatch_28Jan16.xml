@@ -1,0 +1,166 @@
+<ns2:SalesOrderInformation xmlns:ns2="urn:gl.sabmiller.com:com:3rdp:transdata">
+	<MessageHeader>
+		<ID schemeID="salesorder">5698ae85b0092380e10080000af8ca28</ID>
+		<CreationDateTime>2016-01-26T22:17:53Z</CreationDateTime>
+		<RecipientBusinessSystemID>HYBRIS_ES</RecipientBusinessSystemID>
+	</MessageHeader>
+	<SalesOrder>
+		<SalesOrderNumber>1000295188</SalesOrderNumber>
+		<CreationDate>2016-01-26</CreationDate>
+		<SystemAdministrativeData>
+			<CreationUserAccountID>GGUTURA02</CreationUserAccountID>
+		</SystemAdministrativeData>
+		<BuyerDocument>
+			<PONumber>Hi Joshy</PONumber>
+		</BuyerDocument>
+		<DataOriginCategoryCode>B2B</DataOriginCategoryCode>
+		<SalesAndServiceBusinessArea>
+			<SalesOrganisation>7001</SalesOrganisation>
+		</SalesAndServiceBusinessArea>
+		<BuyerParty>
+			<SoldTo>0000842292</SoldTo>
+		</BuyerParty>
+		<GoodsRecepientParty>
+			<ShipTo>0000842292</ShipTo>
+		</GoodsRecepientParty>
+		<DateTerms>
+			<RequestedDeliveryDate>2016-01-28</RequestedDeliveryDate>
+		</DateTerms>
+		<Party>
+			<RoleCode>AG</RoleCode>
+			<RoleName LanguageCode="en">Sold-to party</RoleName>
+			<BillTo>0000842292</BillTo>
+		</Party>
+		<Party>
+			<RoleCode>BO</RoleCode>
+			<RoleName LanguageCode="en">External Carrier</RoleName>
+			<BillTo>0006000001</BillTo>
+		</Party>
+		<Party>
+			<RoleCode>OU</RoleCode>
+			<RoleName LanguageCode="en">Outlet</RoleName>
+			<BillTo>0000842292</BillTo>
+		</Party>
+		<Party>
+			<RoleCode>RE</RoleCode>
+			<RoleName LanguageCode="en">Bill-to party</RoleName>
+			<BillTo>0000842292</BillTo>
+		</Party>
+		<Party>
+			<RoleCode>RG</RoleCode>
+			<RoleName LanguageCode="en">Payer</RoleName>
+			<BillTo>0001302125</BillTo>
+		</Party>
+		<Party>
+			<RoleCode>SB</RoleCode>
+			<RoleName LanguageCode="en">Sp.Stock Resp</RoleName>
+			<BillTo>0000842292</BillTo>
+		</Party>
+		<Party>
+			<RoleCode>WE</RoleCode>
+			<RoleName LanguageCode="en">Ship-to party</RoleName>
+			<BillTo>0000842292</BillTo>
+		</Party>
+		<Item>
+			<ItemNumber>10</ItemNumber>
+			<FreeGoodsIdentifier>YG02</FreeGoodsIdentifier>
+			<Product>
+				<MaterialNumber>000000000000090368</MaterialNumber>
+			</Product>
+			<ScheduleLine>
+				<ConfirmedMaterialQuantity unitCode="CS">10.0</ConfirmedMaterialQuantity>
+			</ScheduleLine>
+			<Status />
+		</Item>
+	</SalesOrder>
+</ns2:SalesOrderInformation>
+
+
+
+<ns2:DeliveryInformation xmlns:ns2="urn:gl.sabmiller.com:com:3rdp:transdata">
+	<MessageHeader>
+		<ID schemeID="deliveryinfo">56A79157EDB936F0E10080000AF8CA28</ID>
+		<CreationDateTime>2016-01-26T22:23:15.652Z</CreationDateTime>
+		<RecipientParty>
+			<InternalID>HYBRIS</InternalID>
+		</RecipientParty>
+	</MessageHeader>
+	<Delivery DeliveryActionCode="01">
+		<DeliveryNumber>3000296496</DeliveryNumber>
+		<RequestedDeliveryDate timeZoneCode="UTC+1">2016-01-26T22:22:15Z</RequestedDeliveryDate>
+		<DeliveryType>YSOR</DeliveryType>
+		<Item>
+			<DeliveryItemNumber>10</DeliveryItemNumber>
+			<CompletedIndicator>0</CompletedIndicator>
+			<SalesOrderReference>
+				<SalesOrderNumber>1000295188</SalesOrderNumber>
+			</SalesOrderReference>
+			<SalesOrderItemNumber>10</SalesOrderItemNumber>
+			<Product>
+				<MaterialNumber>000000000000090368</MaterialNumber>
+			</Product>
+			<ConfirmedQuantity unitCode="CS">10.0</ConfirmedQuantity>
+		</Item>
+	</Delivery>
+</ns2:DeliveryInformation>
+
+
+
+<ns2:DeliveryInformation xmlns:ns2="urn:gl.sabmiller.com:com:3rdp:transdata">
+	<MessageHeader>
+		<ID schemeID="deliveryinfo">56A79157EDB936F0E10080000AF8CA28</ID>
+		<CreationDateTime>2016-01-26T22:23:15.652Z</CreationDateTime>
+		<RecipientParty>
+			<InternalID>HYBRIS</InternalID>
+		</RecipientParty>
+	</MessageHeader>
+	<Delivery DeliveryActionCode="01">
+		<DeliveryNumber>3000296496</DeliveryNumber>
+		<RequestedDeliveryDate timeZoneCode="UTC+1">2016-01-26T22:22:15Z</RequestedDeliveryDate>
+		<DeliveryType>YSOR</DeliveryType>
+		<Item>
+			<DeliveryItemNumber>10</DeliveryItemNumber>
+			<CompletedIndicator>0</CompletedIndicator>
+			<SalesOrderReference>
+				<SalesOrderNumber>1000295188</SalesOrderNumber>
+			</SalesOrderReference>
+			<SalesOrderItemNumber>10</SalesOrderItemNumber>
+			<Product>
+				<MaterialNumber>000000000000090368</MaterialNumber>
+			</Product>
+			<ConfirmedQuantity unitCode="CS">8</ConfirmedQuantity>
+		</Item>
+	</Delivery>
+</ns2:DeliveryInformation>
+
+
+
+
+<ns1:DespatchedDeliveryNotification
+	xmlns:ns1="urn:gl.sabmiller.com:com:3rdp:transdata">
+	<MessageHeader>
+		<ID schemeID="dispatchinfo">56985A77CD762450E10080000AF8CA28</ID>
+		<CreationDateTime>2016-01-26T23:04:04.493Z</CreationDateTime>
+		<RecipientParty>
+			<InternalID>HYBRIS</InternalID>
+		</RecipientParty>
+	</MessageHeader>
+	<Delivery DeliveryActionCode="01">
+		<DeliveryNumber>3000296496</DeliveryNumber>
+		<ReturnsIndicator>0</ReturnsIndicator>
+		<RequestedDeliveryDate
+			daylightSavingTimeIndicator="true" timeZoneCode="UTC+11">2016-01-27T23:00:00Z</RequestedDeliveryDate>
+		<Item>
+			<DeliveryItemNumber>10</DeliveryItemNumber>
+			<CompletedIndicator>1</CompletedIndicator>
+			<SalesOrderReference>
+				<SalesOrderNumber>1000295188</SalesOrderNumber>
+			</SalesOrderReference>
+			<SalesOrderItemNumber>10</SalesOrderItemNumber>
+			<Product>
+				<MaterialNumber>000000000000090368</MaterialNumber>
+			</Product>
+			<ConfirmedQuantity unitCode="CS">10.0</ConfirmedQuantity>
+		</Item>
+	</Delivery>
+</ns1:DespatchedDeliveryNotification>

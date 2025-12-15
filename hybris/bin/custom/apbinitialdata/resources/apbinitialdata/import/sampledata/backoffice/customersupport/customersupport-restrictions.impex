@@ -1,0 +1,20 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#
+# Add restriction on backend order visibility
+#
+INSERT_UPDATE SearchRestriction ; code[unique=true]      ; principal(uid)[unique=true] ; query               ; restrictedType(code)[unique=true] ; active ; generate
+                                ; backendOrderVisibility ; customersupportagentgroup   ; {versionID} IS NULL ; Order                             ; true   ; true    
+                                ; backendOrderVisibility ; customersupportmanagergroup ; {versionID} IS NULL ; Order                             ; true   ; true    
+
+INSERT_UPDATE SearchRestriction;code[unique=true];name[lang=en];query;principal(UID);restrictedType(code);active;generate
+;apbb2border_restriction;Restrict B2BUserGroup visibility for orders;({item:Unit} IN (?session.branch) OR ({item:Unit} is NULL AND {item:User}=?session.user));b2bgroup;Order;true;true;
+                               

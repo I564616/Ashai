@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2013 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:security="http://www.springframework.org/schema/security" xmlns:util="http://www.springframework.org/schema/util"
+        xmlns:task="http://www.springframework.org/schema/task" xmlns:int="http://www.springframework.org/schema/integration"
+        xmlns:int-sftp="http://www.springframework.org/schema/integration/sftp" xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd
+           http://www.springframework.org/schema/context
+			 http://www.springframework.org/schema/context/spring-context.xsd
+			 http://www.springframework.org/schema/security
+			http://www.springframework.org/schema/security/spring-security.xsd
+		   http://www.springframework.org/schema/util
+		   http://www.springframework.org/schema/util/spring-util.xsd
+		   http://www.springframework.org/schema/task
+			http://www.springframework.org/schema/task/spring-task-3.0.xsd
+			http://www.springframework.org/schema/integration 
+			http://www.springframework.org/schema/integration/spring-integration.xsd
+            http://www.springframework.org/schema/integration/sftp
+			http://www.springframework.org/schema/integration/sftp/spring-integration-sftp.xsd">
+
+    <context:annotation-config />
+    <task:annotation-driven />
+    <context:component-scan base-package="com.sabmiller.integration.restclient.commons" />
+
+    <bean id="errorEventCleanupJob" class="com.sabmiller.integration.jobs.ErrorEventCleanupJob" parent="abstractJobPerformable">
+        <property name="errorEventService" ref="errorEventService" />
+    </bean>
+
+    <bean id="errorEventFacade" class="com.sabmiller.integration.facade.impl.ErrorEventFacadeImpl">
+        <property name="errorEventService" ref="errorEventService" />
+    </bean>
+
+    <bean id="errorEventService" class="com.sabmiller.integration.service.impl.ErrorEventServiceImpl">
+        <property name="keyGenerator" ref="errorEventIdGenerator" />
+        <property name="modelService" ref="modelService" />
+        <property name="errorEventDao" ref="errorEventDao" />
+    </bean>
+
+    <bean id="errorEventDao" class="com.sabmiller.integration.dao.ErrorEventDao" />
+
+    <bean id="errorEventIdGenerator" class="de.hybris.platform.servicelayer.keygenerator.impl.PersistentKeyGenerator">
+        <property name="key" value="EE" />
+        <property name="digits" value="10" />
+        <property name="start" value="00000000" />
+        <property name="type" value="numeric" />
+    </bean>
+
+    <!--  Rest client start -->
+
+    <bean id="sabmSapRestClient" class="com.sabmiller.integration.restclient.commons.SABMRestClient">
+        <property name="connectionManager" ref="sapClientConnectionManager" />
+    </bean>
+
+    <bean id="sapHost" class="org.apache.hc.core5.http.HttpHost">
+        <constructor-arg name="scheme" value="${sap.host.protocol}" />
+        <constructor-arg name="hostname" value="${sap.host.name}" />
+        <constructor-arg name="port" value="${sap.host.port}" />
+    </bean>
+
+    <bean id="sapClientbufferingRequestFactory" class="org.springframework.http.client.BufferingClientHttpRequestFactory">
+        <constructor-arg type="org.springframework.http.client.ClientHttpRequestFactory" ref="sapClientRequestFactory" />
+    </bean>
+
+    <bean id="sapClientRequestFactory" class="com.sabmiller.integration.restclient.commons.SABMHttpComponentsClientHttpRequestFactory">
+        <constructor-arg type="com.sabmiller.integration.restclient.commons.SABMRestClient" ref="sabmSapRestClient" />
+        <property name="httpHost" ref="sapHost" />
+        <property name="connectionTimeout" value="${sap.host.connection.timeout.milli.sec}" />
+        <property name="connectTimeout" value="${sap.host.connection.timeout.milli.sec}" />
+        <property name="readTimeout" value="${sap.host.connection.timeout.milli.sec}" />
+        <property name="authCache" ref="authCache" />
+        <property name="basicAuthScheme" ref="basicAuthScheme" />
+        <property name="localHttpcontext" ref="localHttpcontext" />
+    </bean>
+
+    <bean id="authCache" class="org.apache.hc.client5.http.impl.auth.BasicAuthCache" />
+    <bean id="basicAuthScheme" class="org.apache.hc.client5.http.impl.auth.BasicScheme" />
+    <bean id="localHttpcontext" class="org.apache.hc.core5.http.protocol.BasicHttpContext" />
+
+    <bean id="sapClientConnectionManager" class="org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager">
+        <property name="defaultMaxPerRoute" value="${sap.host.max.route.connections}" />
+        <property name="maxTotal" value="${sap.host.max.total.connections}" />
+    </bean>
+
+    <bean id="sabmSapRestTemplate" class="org.springframework.web.client.RestTemplate">
+        <constructor-arg ref="sapClientbufferingRequestFactory" />
+        <property name="interceptors">
+            <list>
+                <ref bean="sabmRestRequestInterceptor" />
+            </list>
+        </property>
+    </bean>
+
+    <bean id="sabmRestRequestInterceptor" class="com.sabmiller.integration.restclient.commons.SABMRestClientHttpRequestInterceptor"></bean>
+
+    <bean id="restTemplate" class="org.springframework.web.client.RestTemplate" />
+
+    <bean id="defaultSABMPostRestRequestHandler" class="com.sabmiller.integration.restclient.commons.DefaultSABMPostRestRequestHandler"
+            parent="sabmAbstractGetRestRequestHandler" />
+
+    <bean id="sabmSapPostRestRequestHandler" class="com.sabmiller.integration.restclient.commons.DefaultSABMPostRestRequestHandler"
+            parent="sabmAbstractGetRestRequestHandler">
+        <property name="plainCredentials">
+            <value>${sap.host.userid}:${sap.host.password}</value>
+        </property>
+
+    </bean>
+
+    <bean id="sabmAbstractGetRestRequestHandler" class="com.sabmiller.integration.restclient.commons.SABMAbstractGetRestRequestHandler"
+            abstract="true">
+        <property name="sabmRestTemplate" ref="sabmSapRestTemplate" />
+    </bean>
+    <!-- Rest client end -->
+
+    <!-- SAP Rest Handler beans starts-->
+    <alias name="salesOrderSimulateRestHandler" alias="salesOrderSimulateRestHandler" />
+    <bean id="salesOrderSimulateRestHandler" class="com.sabmiller.integration.sap.ordersimulate.SalesOrderSimulateRequestHandler"
+            parent="sabmSapPostRestRequestHandler" />
+    <bean id="discountDealsRequestHandler" class="com.sabmiller.integration.sap.deals.DiscountDealsRequestHandler"
+            parent="sabmSapPostRestRequestHandler" />
+    <bean id="bogofDealsRequestHandler" class="com.sabmiller.integration.sap.deals.BOGOFDealsRequestHandler"
+            parent="sabmSapPostRestRequestHandler" />
+    <bean id="cupRequestHandler" class="com.sabmiller.integration.sap.price.CupRequestHandler" parent="sabmSapPostRestRequestHandler" />
+
+    <alias name="salesOrderCreateRestHandler" alias="salesOrderCreateRestHandler" />
+    <bean id="salesOrderCreateRestHandler" class="com.sabmiller.integration.sap.ordercreate.SalesOrderCreateRequestHandler"
+            parent="sabmSapPostRestRequestHandler"></bean>
+
+    <!-- SAP Rest Handler beans ends-->
+
+    <bean id="sabmImageImportRequestHandler" class="com.sabmiller.integration.imagesimport.DefaultSABMImageImportRequestHandler">
+        <property name="sabmRestTemplate" ref="sabmSapRestTemplate" />
+    </bean>
+
+    <bean name="conversionGroupDao" class="de.hybris.platform.servicelayer.internal.dao.DefaultGenericDao">
+        <constructor-arg value="ConversionGroup" />
+    </bean>
+
+    <alias name="sabmMediaContainerDao" alias="mediaContainerDao" />
+    <bean id="sabmMediaContainerDao" class="com.sabmiller.integration.media.dao.impl.DefaultSABMMediaContainerDao"
+            parent="defaultMediaContainerDao" />
+
+    <alias name="sabmMediaContainerService" alias="mediaContainerService" />
+    <bean id="sabmMediaContainerService" class="com.sabmiller.integration.media.services.impl.DefaultSABMMediaContainerService"
+            parent="defaultMediaContainerService" />
+
+    <bean id="mediaCreationStrategy" class="com.sabmiller.integration.media.strategies.impl.DefaultMediaCreationStrategy">
+        <property name="mediaService" ref="mediaService" />
+        <property name="mediaConversionService" ref="mediaConversionService" />
+        <property name="conversionGroupService" ref="conversionGroupService" />
+        <property name="modelService" ref="modelService" />
+        <property name="catalogVersionService" ref="catalogVersionService" />
+        <property name="mediaContainerService" ref="mediaContainerService" />
+    </bean>
+
+    <bean id="masterMediaCreationStrategy" class="com.sabmiller.integration.media.strategies.impl.DefaultMasterMediaCreationStrategy"
+            parent="mediaCreationStrategy" />
+
+    <bean id="mockMediaConversionStrategy" class="com.sabmiller.integration.media.strategies.impl.MockMediaConversionStrategy" />
+
+    <alias name="defaultConversionGroupService" alias="conversionGroupService" />
+    <bean name="defaultConversionGroupService" class="com.sabmiller.integration.media.services.impl.DefaultConversionGroupService" />
+
+    <util:map id="skuVantageUriTemplateMap">
+        <entry key="clientCode" value="${sku.vantage.client.code}" value-type="java.lang.Object" />
+        <entry key="mode" value="${sku.vantage.mode}" value-type="java.lang.Object" />
+        <entry key="clientToken" value="${sku.vantage.clientToken}" value-type="java.lang.Object" />
+        <entry key="modifiedType" value="${sku.vantage.modifiedType}" value-type="java.lang.Object" />
+        <entry key="dateFrom" value="${sku.vantage.dateFrom}" value-type="java.lang.Object" />
+        <entry key="nameFormat" value="${sku.vantage.nameFormat}" value-type="java.lang.Object" />
+    </util:map>
+
+    <bean id="productCatalogVersionStrategy" class="com.sabmiller.integration.strategy.impl.DefaultCatalogVersionStrategy">
+        <property name="catalogId" value="${product.catalog.id}" />
+        <property name="version">
+            <util:constant static-field="de.hybris.platform.catalog.jalo.CatalogManager.OFFLINE_VERSION" />
+        </property>
+    </bean>
+
+    <bean id="noJobValidator" class="com.sabmiller.integration.validation.impl.NoJobValidator" />
+
+    <bean id="masterRecordService" class="com.sabmiller.integration.service.impl.MasterRecordServiceImpl">
+        <property name="modelService" ref="modelService" />
+    </bean>
+
+    <bean id="imageDataLoaderJob" class="com.sabmiller.integration.jobs.AbstractJob" parent="abstractJobPerformable">
+        <property name="commands">
+            <list>
+                <bean class="com.sabmiller.integration.command.impl.ThreadPoolJobCommand">
+                    <property name="dataSourceProvider">
+                        <list value-type="com.sabmiller.integration.provider.DataSource">
+                            <bean class="com.sabmiller.integration.provider.impl.SkuVantageDataSource">
+                                <property name="batchSize" value="${sabm.integration.skuvantage.batchsize}" />
+                            </bean>
+                        </list>
+                    </property>
+                    <property name="processors">
+                        <map key-type="java.lang.Class" value-type="com.sabmiller.integration.processor.AbstractThreadProcessor">
+                            <entry key="com.sabmiller.core.model.SABMAlcoholVariantProductEANModel">
+                                <bean class="com.sabmiller.integration.processor.impl.ImageProcessor">
+                                    <property name="catalogVersionStrategy" ref="productCatalogVersionStrategy" />
+                                </bean>
+                            </entry>
+                        </map>
+                    </property>
+                    <property name="corePoolSize" value="${image.processor.core.pool.size}" />
+                    <property name="maximumPoolSize" value="${image.processor.max.pool.size}" />
+                    <property name="keepAliveTime" value="${image.processor.keep.alive.time}" />
+                    <property name="maxWaitTime" value="${image.processor.max.wait.time}" />
+                    <property name="unit">
+                        <value type="java.util.concurrent.TimeUnit">SECONDS</value>
+                    </property>
+                    <property name="maxQueue" value="${image.processor.max.queue}" />
+                    <property name="threadFactory">
+                        <bean class="java.util.concurrent.Executors" factory-method="defaultThreadFactory" />
+                    </property>
+                    <property name="handler">
+                        <bean class="com.sabmiller.integration.handler.impl.DefaultRejectExecutionHandler" />
+                    </property>
+                    <property name="catalogVersionStrategy" ref="productCatalogVersionStrategy" />
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="sabmInvoiceRequestHandler" parent="sabmSapPostRestRequestHandler">
+        <property name="sabmRestTemplate" ref="sabmSapRestTemplate" />
+        <property name="requestUrl" value="${sap.get.invoices.rest.uri}" />
+        <property name="requestMethod">
+            <value type="org.springframework.http.HttpMethod">POST</value>
+        </property>
+        <property name="responseClass">
+            <value type="java.lang.Class">com.sabmiller.integration.sap.invoices.customer.response.CustomerBillingDataResponse</value>
+        </property>
+    </bean>
+
+    <bean id="sabmInvoicePDFRequestHandler" parent="sabmSapPostRestRequestHandler">
+        <property name="sabmRestTemplate" ref="sabmSapRestTemplate" />
+        <property name="requestUrl" value="${sap.get.invoice.pdf.rest.uri}" />
+        <property name="requestMethod">
+            <value type="org.springframework.http.HttpMethod">POST</value>
+        </property>
+        <property name="responseClass">
+            <value type="java.lang.Class">com.sabmiller.integration.sap.invoices.pdf.response.InvoiceDataResponse</value>
+        </property>
+    </bean>
+
+    <alias name="sabmInvoiceValidationRequestHandler" alias="sabmInvoiceValidationRequestHandler" />
+    <bean id="sabmInvoiceValidationRequestHandler" class="com.sabmiller.integration.sap.invoice.InvoiceValidationeRequestHandler"
+          parent="sabmSapPostRestRequestHandler">
+        <property name="sabmRestTemplate" ref="sabmSapRestTemplate" />
+        <property name="requestUrl" value="${sap.get.invoice.validation.rest.uri}" />
+
+        <property name="requestMethod">
+            <value type="org.springframework.http.HttpMethod">POST</value>
+        </property>
+        <property name="responseClass">
+            <value type="java.lang.Class">com.sabmiller.integration.sap.invoices.discrepancy.response.InvoiceValidationResponse</value>
+        </property>
+
+    </bean>
+
+
+
+    <alias name="sabmInvoiceListRequestHandler" alias="sabmInvoiceListRequestHandler" />
+    <bean id="sabmInvoiceListRequestHandler" class="com.sabmiller.integration.sap.invoice.InvoiceListRequestHandler" parent="sabmSapPostRestRequestHandler">
+        <property name="sabmRestTemplate" ref="sabmSapRestTemplate" />
+        <property name="requestUrl" value="${sap.get.invoicelist.rest.uri}" />
+
+        <property name="requestMethod">
+            <value type="org.springframework.http.HttpMethod">POST</value>
+        </property>
+        <property name="responseClass">
+            <value type="java.lang.Class">com.sabmiller.integration.sap.invoices.discrepancy.response.InvoiceListResponse</value>
+        </property>
+    </bean>
+
+    <alias name="sabmInvoiceItemDataRequestHandler" alias="sabmInvoiceItemDataRequestHandler" />
+    <bean id="sabmInvoiceItemDataRequestHandler" class="com.sabmiller.integration.sap.invoice.InvoiceItemDataRequestHandler" parent="sabmSapPostRestRequestHandler">
+        <property name="sabmRestTemplate" ref="sabmSapRestTemplate" />
+        <property name="requestUrl" value="${sap.get.invoice.itemdata.rest.uri}" />
+
+        <property name="requestMethod">
+            <value type="org.springframework.http.HttpMethod">POST</value>
+        </property>
+        <property name="responseClass">
+            <value type="java.lang.Class">com.sabmiller.integration.sap.invoices.discrepancy.response.InvoiceItemDataResponse</value>
+        </property>
+    </bean>
+
+    <bean id="productExclusionRequestHandler" class="com.sabmiller.integration.sap.productexclusion.ProductExclusionRequestHandler"
+            parent="sabmSapPostRestRequestHandler" />
+
+    <bean id="sabmSftpFileUpload" class="com.sabmiller.integration.salesforce.SabmSftpFileUpload">
+<!--        <property name="sftpChannel" ref="sftpChannel"></property>-->
+    </bean>
+
+    <bean id="sabmCSVFileGenerator" class="com.sabmiller.integration.salesforce.SabmCSVFileGenerator" />
+
+    <!-- salesforce integration start -->
+
+<!--    <bean id="salesForceSftpSessionFactory" class="org.springframework.integration.sftp.session.DefaultSftpSessionFactory">-->
+<!--        <property name="host" value="${salesforce.host.endpoint}" />-->
+<!--        <property name="user" value="${salesforce.host.username}" />-->
+<!--        <property name="password" value="${salesforce.host.pwd}" />-->
+<!--        <property name="port" value="${salesforce.host.port}" />-->
+<!--        <property name="allowUnknownKeys" value="${salesforce.sftp.allowUnknownKeys:true}" />-->
+<!--        <property name="knownHosts" value="${salesforce.sftp.knownHosts:null}" />-->
+<!--    </bean>-->
+
+<!--    <int:channel id="sftpChannel" />-->
+
+<!--    <int-sftp:outbound-channel-adapter id="sftpOutbound" channel="sftpChannel" remote-directory="${salesforce.host.sftp.remote.directory}"-->
+<!--            session-factory="salesForceSftpSessionFactory" />-->
+
+    <!-- salesforce integration end -->
+
+</beans>
+

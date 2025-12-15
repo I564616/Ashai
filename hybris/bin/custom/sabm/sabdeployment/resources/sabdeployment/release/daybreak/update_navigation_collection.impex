@@ -1,0 +1,8 @@
+#
+# Import the CMS content for the site
+#
+$contentCatalog = sabmContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Staged])[default = $contentCatalog:Staged]
+
+UPDATE NavigationBarCollectionComponent; $contentCV[unique = true]; uid[unique = true]; name                                ; components(uid, $contentCV)                                                                                                          ; searchBox(uid, $contentCV);
+                                       ;                          ; NavBarComponent   ; Navigation Bar Collection Component ; BeerBarComponent, CiderBarComponent,RTDBarComponent,SpiritsBarComponent,WineComponent,NonAlcoholicComponent,BrandsBarComponent ; SearchBox
