@@ -367,6 +367,10 @@
 	
 	<alias name="defaultSabmLoginSamlService" alias="samlLoginService"/>
     <bean id="defaultSabmLoginSamlService" class="com.sabmiller.staff.singlesignon.webutils.DefaultSABMSamlLoginService" parent="defaultLoginSamlService"/>
-    
 
+    <bean id="pathMatcher" class="org.springframework.util.AntPathMatcher" />
+
+    <mvc:annotation-driven>
+        <mvc:path-matching path-matcher="pathMatcher"/>
+    </mvc:annotation-driven>
 </beans>
