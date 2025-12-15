@@ -3,8 +3,10 @@
  */
 package com.sabmiller.integration.validation;
 
-import org.apache.commons.validator.ValidatorException;
+//import org.apache.commons.validator.ValidatorException;
 
+
+import com.sabmiller.integration.validation.impl.ValidatorException;
 
 /**
  * The Interface Validator.
