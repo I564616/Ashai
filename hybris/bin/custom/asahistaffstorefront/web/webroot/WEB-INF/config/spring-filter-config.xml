@@ -230,7 +230,7 @@
 	</bean>
 
 	<bean id="importCSVMultipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
-		<property name="maxUploadSize" value="#{configurationService.configuration.getProperty('import.csv.max.upload.size.bytes')}" />
+<!--		<property name="maxUploadSize" value="#{configurationService.configuration.getProperty('import.csv.max.upload.size.bytes')}" />-->
 	</bean>
 	
 		

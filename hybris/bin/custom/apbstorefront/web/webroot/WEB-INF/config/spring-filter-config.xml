@@ -223,7 +223,7 @@
 	</bean>
 
 	<bean id="importCSVMultipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
-		<property name="maxUploadSize" value="#{configurationService.configuration.getProperty('import.csv.max.upload.size.bytes')}" />
+<!--		<property name="maxUploadSize" value="#{configurationService.configuration.getProperty('import.csv.max.upload.size.bytes')}" />-->
 	</bean>
 	
 	<bean id="importPDFMultipartFilter" class="org.springframework.web.multipart.support.MultipartFilter">
@@ -231,7 +231,7 @@
 	</bean>
 
 	<bean id="importPDFMultipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
-		<property name="maxUploadSize" value="#{configurationService.configuration.getProperty('import.pdf.max.upload.size.bytes')}" />
+<!--		<property name="maxUploadSize" value="#{configurationService.configuration.getProperty('import.pdf.max.upload.size.bytes')}" />-->
 	</bean>
 	
 	
