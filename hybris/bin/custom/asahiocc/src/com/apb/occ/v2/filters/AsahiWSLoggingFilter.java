@@ -3,22 +3,31 @@ package com.apb.occ.v2.filters;
 import com.apb.core.service.config.AsahiConfigurationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import javax.annotation.Resource;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+//import javax.annotation.Resource;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.*;
 
-public class AsahiWSLoggingFilter extends OncePerRequestFilter {
+public class AsahiWSLoggingFilter extends OncePerRequestFilter implements InitializingBean {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AsahiWSLoggingFilter.class);
     private static final String NEW_LINE = "\n";
 
-    @Resource
+    //@Resource
     private AsahiConfigurationService asahiConfigurationService;
+
+    @Override
+    public final void afterPropertiesSet() throws Exception
+    {
+        if (this.asahiConfigurationService == null) {
+            throw new IllegalArgumentException("Property 'asahiConfigurationService' must be set");
+        }
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
