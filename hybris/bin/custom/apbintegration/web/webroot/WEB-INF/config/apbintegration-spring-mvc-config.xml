@@ -22,6 +22,12 @@
     <context:component-scan base-package="com.apb.integration"/>
     <context:property-placeholder properties-ref="hybrisProperties"/>
 
+    <bean id="pathMatcher" class="org.springframework.util.AntPathMatcher" />
+
+    <mvc:annotation-driven>
+        <mvc:path-matching path-matcher="pathMatcher"/>
+    </mvc:annotation-driven>
+
     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
         <property name="messageConverters">
             <list>

@@ -33,6 +33,12 @@
     <context:annotation-config/>
     <bean id="webLazyInitOverrideBeanFactoryPostProcessor" parent="lazyInitOverrideBeanFactoryPostProcessor" />
 
+    <bean id="pathMatcher" class="org.springframework.util.AntPathMatcher" />
+
+    <mvc:annotation-driven>
+        <mvc:path-matching path-matcher="pathMatcher"/>
+    </mvc:annotation-driven>
+
 	<!-- activates annotation driven binding -->
 	<mvc:annotation-driven ignore-default-model-on-redirect="true" validator="validator">
 		<mvc:message-converters>
