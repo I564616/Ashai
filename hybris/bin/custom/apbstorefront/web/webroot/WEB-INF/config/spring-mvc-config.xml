@@ -387,7 +387,7 @@
 	
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
-		  <property name="maxUploadSize" value="${apb.multipartresolver.upload.maxsize}" />
+<!--		  <property name="maxUploadSize" value="${apb.multipartresolver.upload.maxsize}" />-->
       <!--   <property name="maxInMemorySize" value="${apb.multipartresolver.memory.maxsize}" /> -->
 	</bean>   
 	
