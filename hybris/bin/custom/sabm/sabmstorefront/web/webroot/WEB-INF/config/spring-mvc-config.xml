@@ -386,20 +386,20 @@
 		  class="de.hybris.platform.acceleratorstorefrontcommons.variants.impl.DefaultVariantComparator" />
 
 	
-<!--	<bean id="fixation" class="org.springframework.security.web.authentication.session.CompositeSessionAuthenticationStrategy">-->
-<!--    <constructor-arg>-->
-<!--        <list>-->
-<!--            <bean class="org.springframework.security.web.authentication.session.ConcurrentSessionControlAuthenticationStrategy">-->
-<!--                <constructor-arg ref="sessionRegistry"/>-->
-<!--                <property name="maximumSessions" value="${storefront.maximum.sessions}" />-->
-<!--            </bean>-->
-<!--            <bean class="de.hybris.platform.servicelayer.security.spring.HybrisSessionFixationProtectionStrategy"/>-->
-<!--                     <bean class="org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy">-->
-<!--                <constructor-arg ref="sessionRegistry"/>-->
-<!--            </bean>-->
-<!--        </list>-->
-<!--    </constructor-arg>-->
-<!--</bean>-->
+	<bean id="fixation" class="org.springframework.security.web.authentication.session.CompositeSessionAuthenticationStrategy">
+    <constructor-arg>
+        <list>
+            <bean class="org.springframework.security.web.authentication.session.ConcurrentSessionControlAuthenticationStrategy">
+                <constructor-arg ref="sessionRegistry"/>
+                <property name="maximumSessions" value="${storefront.maximum.sessions}" />
+            </bean>
+            <bean class="de.hybris.platform.servicelayer.security.spring.HybrisSessionFixationProtectionStrategy"/>
+                     <bean class="org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy">
+                <constructor-arg ref="sessionRegistry"/>
+            </bean>
+        </list>
+    </constructor-arg>
+</bean>
 
 <bean id="sessionRegistry" class="org.springframework.security.core.session.SessionRegistryImpl" />
 
