@@ -27,7 +27,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Required;
+//import org.springframework.beans.factory.annotation.Required;
 
 import com.google.common.collect.Lists;
 import com.sabmiller.core.model.InvoicePaymentModel;
@@ -36,11 +36,11 @@ import com.sabmiller.westpac.exceptions.WestpacPaymentErrorException;
 import com.sabmiller.westpac.exceptions.WestpacTokenException;
 import com.sabmiller.westpac.services.WestpacPaymentService;
 import com.sabmiller.westpac.services.WestpacService;
-
+import org.springframework.beans.factory.InitializingBean;
 import javax.annotation.Resource;
 
 
-public class WestpacPaymentServiceImpl implements WestpacPaymentService
+public class WestpacPaymentServiceImpl implements WestpacPaymentService,InitializingBean
 {
 	private final static Logger LOG = LoggerFactory.getLogger(WestpacPaymentServiceImpl.class.getName());
 	public final static String PROVIDER = "westpac";
@@ -358,33 +358,57 @@ public class WestpacPaymentServiceImpl implements WestpacPaymentService
 		return entryModel;
 	}
 
-	@Required
+	//@Required
 	public void setWestpacService(final WestpacService westpacService)
 	{
 		this.westpacService = westpacService;
 	}
 
-	@Required
+	//@Required
 	public void setKeyGenerator(final KeyGenerator keyGenerator)
 	{
 		this.keyGenerator = keyGenerator;
 	}
 
-	@Required
+	//@Required
 	public void setModelService(final ModelService modelService)
 	{
 		this.modelService = modelService;
 	}
 
-	@Required
+	//@Required
 	public void setB2bCommerceUnitService(final B2BCommerceUnitService b2bCommerceUnitService)
 	{
 		this.b2bCommerceUnitService = b2bCommerceUnitService;
 	}
 
-	@Required
+	//@Required
 	public void setCurrencyDao(final CurrencyDao currencyDao)
 	{
 		this.currencyDao = currencyDao;
 	}
+
+    @Override
+    public final void afterPropertiesSet() throws Exception
+    {
+        if (this.westpacService == null) {
+            throw new IllegalArgumentException("Property 'westpacService' must be set");
+        }
+
+        if (this.keyGenerator == null) {
+            throw new IllegalArgumentException("Property 'keyGenerator' must be set");
+        }
+
+        if (this.modelService == null) {
+            throw new IllegalArgumentException("Property 'modelService' must be set");
+        }
+
+        if (this.b2bCommerceUnitService == null) {
+            throw new IllegalArgumentException("Property 'b2bCommerceUnitService' must be set");
+        }
+
+        if (this.currencyDao == null) {
+            throw new IllegalArgumentException("Property 'currencyDao' must be set");
+        }
+    }
 }

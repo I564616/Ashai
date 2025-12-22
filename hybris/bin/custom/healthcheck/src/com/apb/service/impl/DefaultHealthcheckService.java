@@ -23,12 +23,12 @@ import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Required;
-
+//import org.springframework.beans.factory.annotation.Required;
+import org.springframework.beans.factory.InitializingBean;
 import com.apb.service.HealthcheckService;
 
 
-public class DefaultHealthcheckService implements HealthcheckService
+public class DefaultHealthcheckService implements HealthcheckService,InitializingBean
 {
 	private static final Logger LOG = LoggerFactory.getLogger(DefaultHealthcheckService.class);
 
@@ -84,21 +84,37 @@ public class DefaultHealthcheckService implements HealthcheckService
 		return DefaultHealthcheckService.class.getResourceAsStream("/healthcheck/sap-hybris-platform.png");
 	}
 
-	@Required
+	//@Required
 	public void setMediaService(final MediaService mediaService)
 	{
 		this.mediaService = mediaService;
 	}
 
-	@Required
+	//@Required
 	public void setModelService(final ModelService modelService)
 	{
 		this.modelService = modelService;
 	}
 
-	@Required
+	//@Required
 	public void setFlexibleSearchService(final FlexibleSearchService flexibleSearchService)
 	{
 		this.flexibleSearchService = flexibleSearchService;
 	}
+
+    @Override
+    public final void afterPropertiesSet() throws Exception
+    {
+        if (this.mediaService == null) {
+            throw new IllegalArgumentException("Property 'mediaService' must be set");
+        }
+
+        if (this.modelService == null) {
+            throw new IllegalArgumentException("Property 'modelService' must be set");
+        }
+
+        if (this.flexibleSearchService == null) {
+            throw new IllegalArgumentException("Property 'flexibleSearchService' must be set");
+        }
+    }
 }

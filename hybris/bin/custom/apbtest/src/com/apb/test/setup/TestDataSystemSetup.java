@@ -24,15 +24,17 @@ import com.apb.test.orders.AcceleratorTestOrderData;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.Logger;import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Required;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.InitializingBean;
+//import org.springframework.beans.factory.annotation.Required;
 
 
 /**
  * This class provides hooks into the system's initialization and update processes.
  */
 @SystemSetup(extension = ApbTestConstants.EXTENSIONNAME)
-public class TestDataSystemSetup extends AbstractSystemSetup
+public class TestDataSystemSetup extends AbstractSystemSetup implements InitializingBean
 {
 	private static final Logger LOG = LoggerFactory.getLogger(TestDataSystemSetup.class);
 
@@ -45,7 +47,7 @@ public class TestDataSystemSetup extends AbstractSystemSetup
 		return acceleratorTestOrderData;
 	}
 
-	@Required
+	//@Required
 	public void setAcceleratorTestOrderData(final AcceleratorTestOrderData acceleratorTestOrderData)
 	{
 		this.acceleratorTestOrderData = acceleratorTestOrderData;
@@ -108,4 +110,12 @@ public class TestDataSystemSetup extends AbstractSystemSetup
 			importImpexFile(context, "/apbtest/import/csquotes.impex");
 		}
 	}
+
+    @Override
+    public final void afterPropertiesSet() throws Exception
+    {
+        if (this.acceleratorTestOrderData == null) {
+            throw new IllegalArgumentException("Property 'acceleratorTestOrderData' must be set");
+        }
+    }
 }

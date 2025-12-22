@@ -27,7 +27,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Required;
+import org.springframework.beans.factory.InitializingBean;
+//import org.springframework.beans.factory.annotation.Required;
 
 
 /**
@@ -36,7 +37,7 @@ import org.springframework.beans.factory.annotation.Required;
  * @see "https://wiki.hybris.com/display/release4/Hooks+for+Initialization+and+Update+Process"
  */
 @SystemSetup(extension = SabmTestConstants.EXTENSIONNAME)
-public class TestDataSystemSetup extends AbstractSystemSetup
+public class TestDataSystemSetup extends AbstractSystemSetup implements InitializingBean
 {
 	private static final Logger LOG = Logger.getLogger(TestDataSystemSetup.class);
 
@@ -50,7 +51,7 @@ public class TestDataSystemSetup extends AbstractSystemSetup
 		return acceleratorTestOrderData;
 	}
 
-	@Required
+	//@Required
 	public void setAcceleratorTestOrderData(final AcceleratorTestOrderData acceleratorTestOrderData)
 	{
 		this.acceleratorTestOrderData = acceleratorTestOrderData;
@@ -112,4 +113,12 @@ public class TestDataSystemSetup extends AbstractSystemSetup
 			importImpexFile(context, "/sabmtest/import/cstickets.impex");
 		}
 	}
+
+    @Override
+    public final void afterPropertiesSet() throws Exception
+    {
+        if (this.acceleratorTestOrderData == null) {
+            throw new IllegalArgumentException("Property 'acceleratorTestOrderData' must be set");
+        }
+    }
 }
