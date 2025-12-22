@@ -44,6 +44,8 @@
 	<security:authentication-manager id="b2bAcceleratorAuthenticationManager">
 		<security:authentication-provider ref="apbB2bAcceleratorAuthenticationProvider"/>
 	</security:authentication-manager>
+
+    <import resource="classpath:/b2bacceleratoraddon/web/spring/b2bacceleratoraddon-spring-security-config.xml"/>
 	
 	<bean id="apbB2bAcceleratorAuthenticationProvider" parent="b2bAcceleratorAuthenticationProvider"
 		  class="com.apb.controller.security.ApbB2BAcceleratorAuthenticationProvider">
