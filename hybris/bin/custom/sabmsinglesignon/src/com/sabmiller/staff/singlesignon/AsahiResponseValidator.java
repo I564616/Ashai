@@ -5,12 +5,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.saml2.core.Saml2Error;
 import org.springframework.security.saml2.core.Saml2ResponseValidatorResult;
-import org.springframework.security.saml2.provider.service.authentication.OpenSaml4AuthenticationProvider;
+import org.springframework.security.saml2.provider.service.authentication.OpenSaml5AuthenticationProvider;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.springframework.security.saml2.provider.service.authentication.OpenSaml4AuthenticationProvider.ResponseToken;
+import static org.springframework.security.saml2.provider.service.authentication.OpenSaml5AuthenticationProvider.ResponseToken;
 
 /**
  * Custom ResponseValidator for Asahi.
@@ -19,7 +19,7 @@ import static org.springframework.security.saml2.provider.service.authentication
 final class AsahiResponseValidator implements Converter<ResponseToken, Saml2ResponseValidatorResult> {
     private static final Logger LOG = LoggerFactory.getLogger(AsahiResponseValidator.class);
 
-    private final Converter<ResponseToken, Saml2ResponseValidatorResult> delegate = OpenSaml4AuthenticationProvider.createDefaultResponseValidator();
+    private final Converter<ResponseToken, Saml2ResponseValidatorResult> delegate = OpenSaml5AuthenticationProvider.createDefaultResponseValidator();
 
     @Override
     public Saml2ResponseValidatorResult convert(final ResponseToken responseToken) {
