@@ -25,6 +25,7 @@
            http://www.springframework.org/schema/context/spring-context.xsd">
 
     <import resource="healthcheck-spring-security-config.xml"/>
+    <import resource="healthcheck-spring-mvc-config.xml"/>
 
     <context:annotation-config/>
 

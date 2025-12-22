@@ -25,6 +25,7 @@
            http://www.springframework.org/schema/context/spring-context.xsd">
 
     <import resource="apbintegration-spring-security-config.xml"/>
+    <import resource="apbintegration-spring-mvc-config.xml"/>
 
     <context:annotation-config/>
 
