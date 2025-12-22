@@ -22,7 +22,7 @@
     <http pattern="/404.jsp" security="none" />
     <http pattern="/static/**" security="none" />
 
-    <http access-decision-manager-ref="accessDecisionManager" use-expressions="false" request-matcher="ant">
+    <http use-authorization-manager="true" use-expressions="false" request-matcher="ant">
         <session-management session-authentication-strategy-ref="fixation"/>
         <intercept-url pattern="/login.jsp" access="PERMIT_ALL"/>
         <intercept-url pattern="/**" access="HYBRIS_NOT_INITIALIZED,ROLE_CUSTOMERGROUP"/>
@@ -47,16 +47,16 @@
         <beans:property name="migrateSessionAttributes" value="false"/>
     </beans:bean>
 
-    <beans:bean id="accessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
-        <beans:constructor-arg>
-            <beans:list>
-                <beans:bean id="permitAllVoter" class="de.hybris.platform.spring.security.voter.PermitAllVoter" />
-                <beans:bean id="notInitializedVoter" class="de.hybris.platform.spring.security.voter.HybrisNotInitializedVoter" />
-                <beans:bean id="roleVoter" class="org.springframework.security.access.vote.RoleVoter" />
-                <beans:bean id="authenticatedVoter" class="org.springframework.security.access.vote.AuthenticatedVoter" />
-            </beans:list>
-        </beans:constructor-arg>
-    </beans:bean>
+<!--    <beans:bean id="accessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">-->
+<!--        <beans:constructor-arg>-->
+<!--            <beans:list>-->
+<!--                <beans:bean id="permitAllVoter" class="de.hybris.platform.spring.security.voter.PermitAllVoter" />-->
+<!--                <beans:bean id="notInitializedVoter" class="de.hybris.platform.spring.security.voter.HybrisNotInitializedVoter" />-->
+<!--                <beans:bean id="roleVoter" class="org.springframework.security.access.vote.RoleVoter" />-->
+<!--                <beans:bean id="authenticatedVoter" class="org.springframework.security.access.vote.AuthenticatedVoter" />-->
+<!--            </beans:list>-->
+<!--        </beans:constructor-arg>-->
+<!--    </beans:bean>-->
 
     <beans:bean id="rememberMeServices" class="de.hybris.platform.spring.security.CoreRememberMeService">
         <beans:property name="key" value="adminweb" />
