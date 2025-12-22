@@ -28,7 +28,7 @@ public class RequestMappingHandlerAdapterConfigurer
 	@Resource
 	private List<RequestMappingHandlerMapping> requestMappingHandlerMappings;
 
-	@Resource
+    @Resource
 	private RequestMappingHandlerAdapter requestMappingHandlerAdapter;
 
 	private UrlPathHelper urlPathHelper;

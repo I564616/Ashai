@@ -35,23 +35,19 @@
 <!--		</mvc:message-converters>-->
 <!--	</mvc:annotation-driven>-->
 
-    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+    <bean id="requestMappingHandlerAdapter"
+      class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
 
-        <property name="webBindingInitializer">
-            <bean class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
-                <property name="validator" ref="validator"/>
-            </bean>
-        </property>
+   <property name="messageConverters">
+      <list>
+          <bean class="org.springframework.http.converter.ResourceHttpMessageConverter"/>
+          <bean class="org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter"/>
+          <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+      </list>
+   </property>
 
-        <property name="messageConverters">
-            <list>
-                <bean class="org.springframework.http.converter.ResourceHttpMessageConverter"/>
-                <bean class="org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter"/>
-                <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
-            </list>
-        </property>
+</bean>
 
-    </bean>
 
 
     <!-- Scan for annotation configured controller -->
@@ -389,13 +385,8 @@
 
     <bean id="pathMatcher" class="org.springframework.util.AntPathMatcher" />
 
-    <bean id="requestMappingHandlerMapping"
-          class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
-        <property name="order" value="0"/>
-        <property name="patternParser">
-            <null/>
-        </property>
-        <property name="pathMatcher" ref="pathMatcher"/>
-    </bean>
+    <mvc:annotation-driven>
+        <mvc:path-matching path-matcher="pathMatcher"/>
+    </mvc:annotation-driven>
 
 </beans>
