@@ -37,6 +37,7 @@
 		<value>/checkout</value>
 		<value>/cart</value>
 	</util:list>
+    <import resource="classpath*:resourceserver-commons-spring.xml"/>
 	
 <!--  	<security:authentication-manager alias="authenticationManager">-->
 <!--		<security:authentication-provider ref="apbB2bAcceleratorAuthenticationProvider"/>-->

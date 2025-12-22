@@ -22,7 +22,7 @@
     <http pattern="/404.jsp" security="none" />
     <http pattern="/static/**" security="none" />
 
-    <http use-authorization-manager="true" use-expressions="false" request-matcher="ant">
+    <http use-authorization-manager="true" use-expressions="true" request-matcher="ant">
 <!--        <session-management session-authentication-strategy-ref="fixation"/>-->
         <intercept-url pattern="/login.jsp" access="PERMIT_ALL"/>
         <intercept-url pattern="/**" access="HYBRIS_NOT_INITIALIZED,ROLE_CUSTOMERGROUP"/>

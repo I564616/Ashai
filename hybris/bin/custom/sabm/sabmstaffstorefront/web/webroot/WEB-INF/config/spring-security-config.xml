@@ -28,6 +28,7 @@
 	<context:annotation-config/>
 
 	<security:http pattern="/_ui/**" security="none" request-matcher="ant"/>
+    <import resource="classpath*:resourceserver-commons-spring.xml"/>
 
 	<!--Security config for checkout - it has iSftpConfig ts own login page-->
 	<security:http disable-url-rewriting="true" pattern="/checkout/**" request-matcher="ant" use-expressions="true">
@@ -78,7 +79,7 @@
 	<security:http disable-url-rewriting="true"  request-matcher-ref="excludeUrlRequestMatcher" request-matcher="ant" use-expressions="true">
 		<security:anonymous username="anonymous" granted-authority="ROLE_ANONYMOUS" />
 		<security:access-denied-handler error-page="/login"/>
- <security:session-management session-authentication-strategy-ref="fixation" invalid-session-url="/login" />
+<!-- <security:session-management session-authentication-strategy-ref="fixation" invalid-session-url="/login" />-->
 
 
 		<!-- RememberMe -->
