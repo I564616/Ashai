@@ -18,11 +18,11 @@
            http://www.springframework.org/schema/beans/spring-beans.xsd"
 >
 
-    <http pattern="/500.jsp" security="none" />
-    <http pattern="/404.jsp" security="none" />
-    <http pattern="/static/**" security="none" />
+    <http pattern="/500.jsp" security="none" request-matcher="ant"/>
+    <http pattern="/404.jsp" security="none" request-matcher="ant"/>
+    <http pattern="/static/**" security="none" request-matcher="ant"/>
 
-    <http access-decision-manager-ref="accessDecisionManager" use-expressions="false">
+    <http access-decision-manager-ref="accessDecisionManager" use-expressions="false" request-matcher="ant">
         <session-management session-authentication-strategy-ref="fixation"/>
         <intercept-url pattern="/login.jsp" access="PERMIT_ALL"/>
         <intercept-url pattern="/**" access="HYBRIS_NOT_INITIALIZED,ROLE_CUSTOMERGROUP"/>
