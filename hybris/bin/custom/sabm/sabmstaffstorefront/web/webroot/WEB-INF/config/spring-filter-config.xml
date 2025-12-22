@@ -37,7 +37,11 @@
 		</property>
 	</bean>
 
-	<alias name="defaultStorefrontTenantDefaultFilterChainList" alias="storefrontTenantDefaultFilterChainList" />
+    <bean id="csrfTokenRequestAttributeHandler"
+          class="org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler"/>
+
+
+    <alias name="defaultStorefrontTenantDefaultFilterChainList" alias="storefrontTenantDefaultFilterChainList" />
 	<util:list id="defaultStorefrontTenantDefaultFilterChainList">
 		<!-- generic platform filters -->
 		<ref bean="log4jFilter"/>

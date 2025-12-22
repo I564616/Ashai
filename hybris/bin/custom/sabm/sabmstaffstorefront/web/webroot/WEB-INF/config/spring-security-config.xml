@@ -35,9 +35,9 @@
         <security:anonymous username="anonymous" granted-authority="ROLE_ANONYMOUS" />
 		<security:access-denied-handler error-page="/login"/>
 
-		<security:session-management>
-			<security:concurrency-control max-sessions="1" expired-url="/login"/>
-		</security:session-management>
+<!--		<security:session-management>-->
+<!--			<security:concurrency-control max-sessions="1" expired-url="/login"/>-->
+<!--		</security:session-management>-->
 		<security:intercept-url pattern="/**" access="permitAll()" requires-channel="https" />
 
 		<security:form-login

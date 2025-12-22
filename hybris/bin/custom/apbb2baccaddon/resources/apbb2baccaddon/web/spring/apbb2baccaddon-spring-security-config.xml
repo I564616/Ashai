@@ -27,7 +27,7 @@
 		   http://www.springframework.org/schema/security/spring-security.xsd">
            
     <context:annotation-config/>
-    <import resource="classpath:/b2bacceleratoraddon/web/spring/b2bacceleratoraddon-spring-security-config.xml"/>
+<!--    <import resource="classpath:/b2bacceleratoraddon/web/spring/b2bacceleratoraddon-spring-security-config.xml"/>-->
 	
 	
 	<!-- <bean depends-on="loginSuccessForceDefaultTarget" parent="listMergeDirective">
@@ -46,19 +46,22 @@
 <!--	<security:authentication-manager id="b2bAcceleratorAuthenticationManager">-->
 <!--		<security:authentication-provider ref="apbB2bAcceleratorAuthenticationProvider"/>-->
 <!--	</security:authentication-manager>-->
+
+
+    <!--  JDK-21 FIX Needed -->
 	
-	<bean id="apbB2bAcceleratorAuthenticationProvider" parent="b2bAcceleratorAuthenticationProvider"
-		  class="com.apb.controller.security.ApbB2BAcceleratorAuthenticationProvider">
-		<property name="preAuthenticationChecks" ref="b2bRejectUserPreAuthenticationChecks"/>
-		<property name="b2bUserGroupProvider" ref="b2bUserGroupProvider"/>
-		<property name="bruteForceAttackCounter" ref="bruteForceAttackCounter"/>
-		<property name="modelService" ref="modelService"/>
-		<property name="userDetailsService" ref="originalUidUserDetailsService"/>
-		<property name="userService" ref="userService"/>
-		<property name="targetBeanName" value="apbB2bAcceleratorAuthenticationProvider" />
-		<property name="apbB2BUnitService" ref="apbB2BUnitService"/>
-		<aop:scoped-proxy/>
-	</bean> 
+<!--	<bean id="apbB2bAcceleratorAuthenticationProvider" parent="b2bAcceleratorAuthenticationProvider"-->
+<!--		  class="com.apb.controller.security.ApbB2BAcceleratorAuthenticationProvider">-->
+<!--		<property name="preAuthenticationChecks" ref="b2bRejectUserPreAuthenticationChecks"/>-->
+<!--		<property name="b2bUserGroupProvider" ref="b2bUserGroupProvider"/>-->
+<!--		<property name="bruteForceAttackCounter" ref="bruteForceAttackCounter"/>-->
+<!--		<property name="modelService" ref="modelService"/>-->
+<!--		<property name="userDetailsService" ref="originalUidUserDetailsService"/>-->
+<!--		<property name="userService" ref="userService"/>-->
+<!--		<property name="targetBeanName" value="apbB2bAcceleratorAuthenticationProvider" />-->
+<!--		<property name="apbB2BUnitService" ref="apbB2BUnitService"/>-->
+<!--		<aop:scoped-proxy/>-->
+<!--	</bean> -->
 	 
 	
 </beans>

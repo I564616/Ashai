@@ -30,8 +30,11 @@
 			</map>
 		</property>
 	</bean>
+    <bean id="csrfTokenRequestAttributeHandler"
+          class="org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler"/>
 
-	<alias name="defaultStorefrontTenantDefaultFilterChainList" alias="storefrontTenantDefaultFilterChainList" />
+
+    <alias name="defaultStorefrontTenantDefaultFilterChainList" alias="storefrontTenantDefaultFilterChainList" />
 	<util:list id="defaultStorefrontTenantDefaultFilterChainList">
 		<!-- filter for handling session failover -->
     	<ref bean="hybrisSpringSessionFilter"/>
