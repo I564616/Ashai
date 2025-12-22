@@ -38,13 +38,13 @@
 		<value>/cart</value>
 	</util:list>
 	
-  	<security:authentication-manager alias="authenticationManager">
-		<security:authentication-provider ref="apbB2bAcceleratorAuthenticationProvider"/>
-	</security:authentication-manager>
+<!--  	<security:authentication-manager alias="authenticationManager">-->
+<!--		<security:authentication-provider ref="apbB2bAcceleratorAuthenticationProvider"/>-->
+<!--	</security:authentication-manager>-->
 	
-	<security:authentication-manager id="b2bAcceleratorAuthenticationManager">
-		<security:authentication-provider ref="apbB2bAcceleratorAuthenticationProvider"/>
-	</security:authentication-manager>
+<!--	<security:authentication-manager id="b2bAcceleratorAuthenticationManager">-->
+<!--		<security:authentication-provider ref="apbB2bAcceleratorAuthenticationProvider"/>-->
+<!--	</security:authentication-manager>-->
 	
 	<bean id="apbB2bAcceleratorAuthenticationProvider" parent="b2bAcceleratorAuthenticationProvider"
 		  class="com.apb.controller.security.ApbB2BAcceleratorAuthenticationProvider">

@@ -366,7 +366,7 @@
 	<bean id="defaultVariantsComparator"
 		  class="de.hybris.platform.acceleratorstorefrontcommons.variants.impl.DefaultVariantComparator" />
 
-	<bean id="fixation" class="de.hybris.platform.servicelayer.security.spring.HybrisSessionFixationProtectionStrategy"/>
+<!--	<bean id="fixation" class="de.hybris.platform.servicelayer.security.spring.HybrisSessionFixationProtectionStrategy"/>-->
 
 	<!-- redefined here to make sure the bean is processed after all the addon's beans are loaded -->
 	<bean id="listMergeBeanPostProcessor"

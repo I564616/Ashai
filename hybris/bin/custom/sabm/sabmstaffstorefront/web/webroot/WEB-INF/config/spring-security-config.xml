@@ -119,9 +119,9 @@
 
 	</security:http>
 
-	<security:authentication-manager alias="authenticationManager">
-		<security:authentication-provider ref="acceleratorAuthenticationProvider" />
-	</security:authentication-manager>
+<!--	<security:authentication-manager alias="authenticationManager">-->
+<!--		<security:authentication-provider ref="acceleratorAuthenticationProvider" />-->
+<!--	</security:authentication-manager>-->
 
 	<bean id="acceleratorAuthenticationProvider" class="com.sabmiller.staff.storefront.security.AcceleratorAuthenticationProvider">
 		<property name="bruteForceAttackCounter" ref="bruteForceAttackCounter" />
