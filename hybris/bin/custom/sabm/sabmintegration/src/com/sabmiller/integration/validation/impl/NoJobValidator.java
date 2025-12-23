@@ -6,10 +6,10 @@ package com.sabmiller.integration.validation.impl;
 
 import de.hybris.platform.cronjob.model.CronJobModel;
 
-//import org.apache.commons.validator.ValidatorException;
+import org.apache.commons.validator.ValidatorException;
 
 import com.sabmiller.integration.validation.Validator;
-import com.sabmiller.integration.validation.impl.ValidatorException;
+//import com.sabmiller.integration.validation.impl.ValidatorException;
 
 /**
  * The Class NoJobValidator is used to skip the validation in jobs that don't require it.
