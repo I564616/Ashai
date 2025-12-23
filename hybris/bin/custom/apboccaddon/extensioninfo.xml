@@ -17,6 +17,7 @@
 		<!-- <requires-extension name="commercewebservicescommons"/> -->
 		<requires-extension name="commercewebservices"/>
 		<requires-extension name="sabmfacades"/>
+        <requires-extension name="asahiocc"/>
 
 		<coremodule generated="true" manager="com.apb.occ.v2.jalo.ApboccaddonManager" packageroot="com.apb.occ.v2"/>
 	</extension>

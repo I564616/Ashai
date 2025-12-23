@@ -12,9 +12,9 @@ import de.hybris.platform.stock.StockService;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
-import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -39,7 +39,7 @@ import com.apb.integration.stock.dto.AsahiStockProductResponse;
  * @author Kuldeep.Singh1
  */
 @RestController
-@RequestMapping(value = "/**/stock")
+@RequestMapping(value = "/*/stock")
 public class AsahiStockMockIntegrationController
 {
 

@@ -15,32 +15,32 @@
 
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
 
-	<bean class="de.hybris.platform.commercewebservicescommons.dto.product.ProductWsDTO">
-		<property name="genders" type="java.util.List&lt;de.hybris.platform.apboccaddon.dto.product.GenderWsDTO>"/>
-		<property name="brand" type="de.hybris.platform.apboccaddon.dto.product.BrandWsDTO" />
-		<property name="flavour" type="de.hybris.platform.apboccaddon.dto.product.FlavourWsDTO" />
-		<property name="packageType" type="de.hybris.platform.apboccaddon.dto.product.PackageTypeWsDTO" />
-		<property name="packageSize" type="de.hybris.platform.apboccaddon.dto.product.PackageSizeWsDTO" />
-		<property name="productGroup" type="de.hybris.platform.apboccaddon.dto.product.ProductGroupWsDTO" />		
-		<property name="alcoholType" type="de.hybris.platform.apboccaddon.dto.product.AlcoholTypeWsDTO" />
-		<property name="minQty" type="java.lang.Integer" />
-		<property name="maxQty" type="java.lang.Integer" />
-		<property name="alcoholPercent" type="java.lang.Double" />
-		<property name="backendUnitPerCase" type="java.lang.Integer" />
-		<property name="unitPerInner" type="java.lang.Integer" />
-		<property name="qtyPerLayer" type="java.lang.Integer" />
-		<property name="standardPalletQuantity" type="java.lang.Integer" />
-		<property name="unitVolume" type="de.hybris.platform.apboccaddon.dto.product.UnitVolumeWsDTO" />
-		<property name="depth" type="java.lang.Double" />
-		<property name="height" type="java.lang.Double" />
-		<property name="width" type="java.lang.Double" />
-		<property name="b2bUnit" type="java.lang.String"/>
-		<property name="companyCode" type="java.lang.String"/>
-		<property name="backendName" type="java.lang.String"/>
-		<property name="backendUnitVolume" type="java.lang.Double"/>
-		<property name="active" type="Boolean"/>
-		<property name="itemGroup" type="com.apb.facades.product.data.ItemGroupData" />
-	</bean>
+<!--	<bean class="de.hybris.platform.commercewebservicescommons.dto.product.ProductWsDTO">-->
+<!--		<property name="genders" type="java.util.List&lt;de.hybris.platform.apboccaddon.dto.product.GenderWsDTO>"/>-->
+<!--		<property name="brand" type="de.hybris.platform.apboccaddon.dto.product.BrandWsDTO" />-->
+<!--		<property name="flavour" type="de.hybris.platform.apboccaddon.dto.product.FlavourWsDTO" />-->
+<!--		<property name="packageType" type="de.hybris.platform.apboccaddon.dto.product.PackageTypeWsDTO" />-->
+<!--		<property name="packageSize" type="de.hybris.platform.apboccaddon.dto.product.PackageSizeWsDTO" />-->
+<!--		<property name="productGroup" type="de.hybris.platform.apboccaddon.dto.product.ProductGroupWsDTO" />		-->
+<!--		<property name="alcoholType" type="de.hybris.platform.apboccaddon.dto.product.AlcoholTypeWsDTO" />-->
+<!--		<property name="minQty" type="java.lang.Integer" />-->
+<!--		<property name="maxQty" type="java.lang.Integer" />-->
+<!--		<property name="alcoholPercent" type="java.lang.Double" />-->
+<!--		<property name="backendUnitPerCase" type="java.lang.Integer" />-->
+<!--		<property name="unitPerInner" type="java.lang.Integer" />-->
+<!--		<property name="qtyPerLayer" type="java.lang.Integer" />-->
+<!--		<property name="standardPalletQuantity" type="java.lang.Integer" />-->
+<!--		<property name="unitVolume" type="de.hybris.platform.apboccaddon.dto.product.UnitVolumeWsDTO" />-->
+<!--		<property name="depth" type="java.lang.Double" />-->
+<!--		<property name="height" type="java.lang.Double" />-->
+<!--		<property name="width" type="java.lang.Double" />-->
+<!--		<property name="b2bUnit" type="java.lang.String"/>-->
+<!--		<property name="companyCode" type="java.lang.String"/>-->
+<!--		<property name="backendName" type="java.lang.String"/>-->
+<!--		<property name="backendUnitVolume" type="java.lang.Double"/>-->
+<!--		<property name="active" type="Boolean"/>-->
+<!--		<property name="itemGroup" type="com.apb.facades.product.data.ItemGroupData" />-->
+<!--	</bean>-->
 
 	<bean class="de.hybris.platform.apboccaddon.dto.product.UnitVolumeWsDTO">
 		<property name="code" type="java.lang.String"/>
@@ -265,79 +265,79 @@
 		          type="java.util.List&lt;de.hybris.platform.commercewebservicescommons.dto.user.AddressWsDTO>"/>
 	</bean>
 	
-	<bean class="de.hybris.platform.commercewebservicescommons.dto.user.AddressWsDTO">
-		<property name="deliveryInstruction" type="java.lang.String" />
-		<property name="dlvModeId" type="java.lang.String" />
-		<property name="deliveryTimeSlotTo" type="java.lang.String" />
-		<property name="deliveryTimeSlotFrom" type="java.lang.String" />
-		<property name="address" type="java.lang.String" />
-		<property name="streetname" type="java.lang.String" />
-		<property name="streetnumber" type="java.lang.String" />
-		<property name="recordId" type="java.lang.String" />
-		<property name="companyCode" type="java.lang.String"/>
-		<property name="addressType" type="java.lang.String"/>
-		<property name="customerRecId" type="java.lang.String"/>
-		<property name="deliveryCalendar" type="java.lang.String" />
-	</bean>
+<!--	<bean class="de.hybris.platform.commercewebservicescommons.dto.user.AddressWsDTO">-->
+<!--		<property name="deliveryInstruction" type="java.lang.String" />-->
+<!--		<property name="dlvModeId" type="java.lang.String" />-->
+<!--		<property name="deliveryTimeSlotTo" type="java.lang.String" />-->
+<!--		<property name="deliveryTimeSlotFrom" type="java.lang.String" />-->
+<!--		<property name="address" type="java.lang.String" />-->
+<!--		<property name="streetname" type="java.lang.String" />-->
+<!--		<property name="streetnumber" type="java.lang.String" />-->
+<!--		<property name="recordId" type="java.lang.String" />-->
+<!--		<property name="companyCode" type="java.lang.String"/>-->
+<!--		<property name="addressType" type="java.lang.String"/>-->
+<!--		<property name="customerRecId" type="java.lang.String"/>-->
+<!--		<property name="deliveryCalendar" type="java.lang.String" />-->
+<!--	</bean>-->
 	
 	<bean class="de.hybris.platform.apboccaddon.dto.category.ApbCategoryListWsDTO">
 		<property name="category"
 		          type="java.util.List&lt;de.hybris.platform.commercewebservicescommons.dto.product.CategoryWsDTO>"/>
 	</bean>
 	
-	<bean class="de.hybris.platform.commercewebservicescommons.dto.product.CategoryWsDTO">
-		<property name="categoryName" type="java.lang.String" />
-		<property name="parentCategoryId" type="java.lang.String" />
-		<property name="companyCode" type="java.lang.String"/>
-	</bean>
+<!--	<bean class="de.hybris.platform.commercewebservicescommons.dto.product.CategoryWsDTO">-->
+<!--		<property name="categoryName" type="java.lang.String" />-->
+<!--		<property name="parentCategoryId" type="java.lang.String" />-->
+<!--		<property name="companyCode" type="java.lang.String"/>-->
+<!--	</bean>-->
 	
-	<bean class="de.hybris.platform.commercewebservicescommons.dto.order.OrderWsDTO">
-		<property name="salesOrderId" type="java.lang.String" />
-		<property name="invoiceId" type="java.lang.String" />
-		<property name="orderType" type="java.lang.String" />
-		<property name="isPrepaid" type="Boolean" />
-		<property name="customerReference" type="java.lang.String" />
-		<property name="deliveryInstruction" type="java.lang.String" />
-		<property name="orderOriginId" type="java.lang.String" />
-		<property name="orderGST" type="Double" />
-		<property name="freight" type="java.lang.String" />
-		<property name="minOrderFee" type="java.lang.String" />
-		<property name="scheduleDeliveryDate" type="java.lang.String" />
-		<property name="scheduleShippingDate" type="java.lang.String" />
-		<property name="backendCreatedDate" type="java.lang.String" />
-		<property name="timePickListDate" type="java.lang.String" />
-		<property name="invoiceCreatedDate" type="java.lang.String" />
-		<property name="shippingWarehouse" type="java.lang.String" />
-		<property name="invoiceAmountWithGST" type="Double" />
-		<property name="errorMsg" type="java.lang.String" />
-		<property name="pickingListId" type="java.lang.String" />
-		<property name="onlineOrder" type="Boolean" />
-		<property name="custAccount" type="java.lang.String" />
-		<property name="currencyIso" type="java.lang.String" />
-		<property name="companyCode" type="java.lang.String" />
-		<property name="statusCode" type="java.lang.String" />
-		<property name="orderPlacedBy" type="java.lang.String" />
-		<property name="portalOrderId" type="java.lang.String" />
-		<property name="custOrderType" type="java.lang.String" />
-		<property name="deviceType" type="java.lang.String" />
-		<property name="orderCDL" type="Double" />
-		<property name="orderTotalCDL" type="Double" />
-	</bean>
+<!--	<bean class="de.hybris.platform.commercewebservicescommons.dto.order.OrderWsDTO">-->
+<!--		<property name="salesOrderId" type="java.lang.String" />-->
+<!--		<property name="invoiceId" type="java.lang.String" />-->
+<!--		<property name="orderType" type="java.lang.String" />-->
+<!--		<property name="isPrepaid" type="Boolean" />-->
+<!--		<property name="customerReference" type="java.lang.String" />-->
+<!--		<property name="deliveryInstruction" type="java.lang.String" />-->
+<!--		<property name="orderOriginId" type="java.lang.String" />-->
+<!--		<property name="orderGST" type="Double" />-->
+<!--		<property name="freight" type="java.lang.String" />-->
+<!--		<property name="minOrderFee" type="java.lang.String" />-->
+<!--		<property name="scheduleDeliveryDate" type="java.lang.String" />-->
+<!--		<property name="scheduleShippingDate" type="java.lang.String" />-->
+<!--		<property name="backendCreatedDate" type="java.lang.String" />-->
+<!--		<property name="timePickListDate" type="java.lang.String" />-->
+<!--		<property name="invoiceCreatedDate" type="java.lang.String" />-->
+<!--		<property name="shippingWarehouse" type="java.lang.String" />-->
+<!--		<property name="invoiceAmountWithGST" type="Double" />-->
+<!--		<property name="errorMsg" type="java.lang.String" />-->
+<!--		<property name="pickingListId" type="java.lang.String" />-->
+<!--		<property name="onlineOrder" type="Boolean" />-->
+<!--		<property name="custAccount" type="java.lang.String" />-->
+<!--		<property name="currencyIso" type="java.lang.String" />-->
+<!--		<property name="companyCode" type="java.lang.String" />-->
+<!--		<property name="statusCode" type="java.lang.String" />-->
+<!--		<property name="orderPlacedBy" type="java.lang.String" />-->
+<!--		<property name="portalOrderId" type="java.lang.String" />-->
+<!--		<property name="custOrderType" type="java.lang.String" />-->
+<!--		<property name="deviceType" type="java.lang.String" />-->
+<!--		<property name="orderCDL" type="Double" />-->
+<!--		<property name="orderTotalCDL" type="Double" />-->
+<!--	</bean>-->
 	
-	<bean class="de.hybris.platform.commercewebservicescommons.dto.order.OrderEntryWsDTO">
-		<property name="lineNum" type="java.lang.String"/>
-		<property name="backendUid" type="java.lang.String"/>
-		<property name="inventoryTransId" type="java.lang.String"/>
-		<property name="pickinglistQty" type="Integer"/>
-		<property name="invoicedQty" type="Integer"/>
-		<property name="isBonusStock" type="Boolean"/>
-		<property name="netUnitPrice" type="Double" />
-		<property name="netLineOrderAmount" type="Double" />
-		<property name="netLineInvoiceAmount" type="Double" />
-		<property name="orderEntryGST" type="Double" />
-		<property name="wetItem" type="java.lang.String"/>
-		<property name="cdl" type="Double" />
-	</bean>
+<!--	<bean class="de.hybris.platform.commercewebservicescommons.dto.order.OrderEntryWsDTO">-->
+<!--		<property name="lineNum" type="java.lang.String"/>-->
+<!--		<property name="backendUid" type="java.lang.String"/>-->
+<!--		<property name="inventoryTransId" type="java.lang.String"/>-->
+<!--		<property name="pickinglistQty" type="Integer"/>-->
+<!--		<property name="invoicedQty" type="Integer"/>-->
+<!--		<property name="isBonusStock" type="Boolean"/>-->
+<!--		<property name="netUnitPrice" type="Double" />-->
+<!--		<property name="netLineOrderAmount" type="Double" />-->
+<!--		<property name="netLineInvoiceAmount" type="Double" />-->
+<!--		<property name="orderEntryGST" type="Double" />-->
+<!--		<property name="wetItem" type="java.lang.String"/>-->
+<!--		<property name="cdl" type="Double" />-->
+<!--	</bean>-->
 	
 	<bean class="de.hybris.platform.apboccaddon.dto.order.OrderListWsDTO">
 		<property name="salesOrder"
@@ -349,6 +349,7 @@
 		<property name="invoices"
 		          type="java.util.List&lt;de.hybris.platform.apboccaddon.dto.sam.AsahiSAMInvoiceWsDTO>"/>
 	</bean>
+
 	<bean class="de.hybris.platform.apboccaddon.dto.sam.AsahiSAMInvoiceWsDTO">
 		<property name="custAccount" type="java.lang.String" />
 		<property name="documentNumber" type="java.lang.String"/>
@@ -382,11 +383,11 @@
 		<property name="statementNumber" type="java.lang.String"/>
 		<property name="invoice" type="java.util.List&lt;de.hybris.platform.apboccaddon.dto.sam.AsahiSAMInvoiceWsDTO>"/>
 	</bean>
-	
+
 	<bean class="de.hybris.platform.apboccaddon.dto.sam.AsahiSAMPaymentHistWsDTO">
 		<property name="documents" type="java.util.List&lt;de.hybris.platform.apboccaddon.dto.sam.AsahiSAMPaymentWsDTO>"/>
 	</bean>
-	
+
 	<bean class="de.hybris.platform.apboccaddon.dto.sam.AsahiSAMPaymentWsDTO">
 		<property name="totalDocs" type="java.lang.String"/>
 		<property name="invoices" type="java.util.List&lt;de.hybris.platform.apboccaddon.dto.sam.AsahiSAMInvoiceWsDTO>"/>

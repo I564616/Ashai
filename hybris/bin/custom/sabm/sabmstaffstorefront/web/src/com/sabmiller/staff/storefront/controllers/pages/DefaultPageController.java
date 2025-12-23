@@ -52,7 +52,7 @@ public class DefaultPageController extends AbstractStaffPageController
 	@Resource(name = "contentPageBreadcrumbBuilder")
 	private ContentPageBreadcrumbBuilder contentPageBreadcrumbBuilder;
 
-	@GetMapping("/**")
+	@GetMapping("/*")
 	public String get(final Model model, final HttpServletRequest request, final HttpServletResponse response)
 			throws CMSItemNotFoundException
 	{

@@ -12,10 +12,12 @@ import de.hybris.platform.webservicescommons.mapping.DataMapper;
 
 import java.util.ArrayList;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import org.apache.commons.collections4.CollectionUtils;
-import org.slf4j.Logger;import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.http.MediaType;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;

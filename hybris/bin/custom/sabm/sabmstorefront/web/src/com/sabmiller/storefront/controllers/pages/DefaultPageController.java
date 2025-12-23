@@ -57,7 +57,7 @@ public class DefaultPageController extends SabmAbstractPageController
 	private ContentPageBreadcrumbBuilder contentPageBreadcrumbBuilder;
 
 
-	@GetMapping("/**")
+	@GetMapping("/*")
 	public String get(final Model model, final HttpServletRequest request, final HttpServletResponse response)
 			throws CMSItemNotFoundException
 	{

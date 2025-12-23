@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-//import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,11 +18,11 @@ public class AsahiWSLoggingFilter extends OncePerRequestFilter implements Initia
     private static final Logger LOGGER = LoggerFactory.getLogger(AsahiWSLoggingFilter.class);
     private static final String NEW_LINE = "\n";
 
-    //@Resource
+    @Resource
     private AsahiConfigurationService asahiConfigurationService;
 
     @Override
-    public final void afterPropertiesSet() throws Exception
+    public final void afterPropertiesSet()
     {
         if (this.asahiConfigurationService == null) {
             throw new IllegalArgumentException("Property 'asahiConfigurationService' must be set");

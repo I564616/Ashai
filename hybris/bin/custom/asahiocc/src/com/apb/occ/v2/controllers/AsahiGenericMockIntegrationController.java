@@ -3,8 +3,8 @@
  */
 package com.apb.occ.v2.controllers;
 
-import javax.annotation.Resource;
-import javax.ws.rs.Produces;
+import jakarta.annotation.Resource;
+import jakarta.ws.rs.Produces;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +27,7 @@ import com.apb.integration.service.config.AsahiConfigurationService;
  *
  */
 @RestController
-@RequestMapping(value = "/**/generic")
+@RequestMapping(value = "/*/generic")
 public class AsahiGenericMockIntegrationController
 {
 	// Creates logger

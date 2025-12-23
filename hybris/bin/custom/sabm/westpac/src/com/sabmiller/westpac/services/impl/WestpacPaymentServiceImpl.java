@@ -37,7 +37,7 @@ import com.sabmiller.westpac.exceptions.WestpacTokenException;
 import com.sabmiller.westpac.services.WestpacPaymentService;
 import com.sabmiller.westpac.services.WestpacService;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 
 public class WestpacPaymentServiceImpl implements WestpacPaymentService

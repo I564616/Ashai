@@ -7,9 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
-import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -32,7 +32,7 @@ import com.apb.integration.price.service.ApbProductOfflinePriceService;
  *
  */
 @RestController
-@RequestMapping(value = "/**/price")
+@RequestMapping(value = "/*/price")
 public class AsahiPriceMockIntegrationController
 {
 	// Creates logger
