@@ -312,4 +312,5 @@
 		<property name="key" value="sabmstaffstorefront"/>
 	</bean>
 
+    <bean id="webSecurityExpressionHandler" class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler"/>
 </beans>

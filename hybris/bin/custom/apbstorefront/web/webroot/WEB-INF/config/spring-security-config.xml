@@ -419,4 +419,5 @@
 	</bean>
 	
 	<import resource="spring-security-custom-config.xml"/>
+    <bean id="webSecurityExpressionHandler" class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler"/>
 </beans>
