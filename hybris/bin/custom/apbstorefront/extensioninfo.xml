@@ -9,29 +9,62 @@
  Information and shall use it only in accordance with the terms of the
  license agreement you entered into with SAP.
 --><extensioninfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="extensioninfo.xsd">
-            
+                            
+    
+    
+    
+    
     
     <extension abstractclassprefix="Generated" classprefix="ApbStorefront" name="apbstorefront" usemaven="false">
-                        
+                                                        
         
         
-        <requires-extension name="b2bacceleratoraddon"/>
-        <requires-extension name="apbb2baccaddon"/>
-                        
 
         
         
-        <requires-extension name="apbcmsaddon"/>
+        
+        <!--        <requires-extension name="b2bacceleratoraddon"/>-->
+                                        
+        
+        
+        
+        <requires-extension name="commerceorgaddon"/>
+        <requires-extension name="apbcommorgaddon"/>
+                
+        <requires-extension name="apbb2baccaddon"/>
                         
+        
+        <requires-extension name="b2bacceleratoraddon"/>
+                                
+                                
+
+        
+        
+        
+        
+        
+        
+        <requires-extension name="apbcmsaddon"/>
+                                                        
+        
+        
+        
+        
         
         <requires-extension name="assistedservicestorefront"/>
-                        
+                                                        
         
-        <requires-extension name="apbcommorgaddon"/>
-                        
+        
+        
+        
+                                        
+        
+        
+        
+        
         
         <requires-extension name="captchaaddon"/>
-                                		
+                                                                		
 		
         
         
@@ -39,46 +72,105 @@
         
         
         
-        <requires-extension name="commerceorgaddon"/>
-                        
+        
+        
+        
+        
+                                                
+        
+        
+        
+        
         
         <requires-extension name="adaptivesearchsamplesaddon"/>
-                        
+                                                        
+        
+        
+        
+        
         
         <requires-extension name="orderselfserviceaddon"/>
-                        
+                                                        
+        
+        
+        
+        
         
         <requires-extension name="customerticketingaddon"/>
-                        
+                                                        
+        
+        
+        
+        
         
         <requires-extension name="assistedservicepromotionaddon"/>
-                        
+                                                        
+        
+        
+        
+        
         
         <requires-extension name="textfieldconfiguratortemplateaddon"/>
-                        
+                                                        
+        
+        
+        
+        
         
         <requires-extension name="promotionenginesamplesaddon"/>
-                        
+                                                        
+        
+        
+        
+        
         
         <requires-extension name="commerceorgsamplesaddon"/>
-                        
+                                                        
+        
+        
+        
+        
         
         <requires-extension name="acceleratorstorefrontcommons"/>
-                        
+                                                        
+        
+        
+        
+        
         
         <requires-extension name="sabmfacades"/>
-                        
+                                                        
+        
+        
+        
+        
         
         <requires-extension name="webservicescommons"/>
-                        
+                                                        
+        
+        
+        
+        
         
         <requires-extension name="smarteditaddon"/>
-                        
+                                                        
+        
+        
+        
+        
         
         <webmodule jspcompile="false" webroot="/apbstorefront"/>
-                    
+                                                    
+    
+    
+    
+    
     
     </extension>
-        
+                        
+
+
+
+
 
 </extensioninfo>
