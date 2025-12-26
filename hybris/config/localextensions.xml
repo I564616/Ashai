@@ -21,7 +21,7 @@
         <extension name='platformbackoffice' />
 <!--        <extension name='b2badmincockpit'/>-->
         <extension name='yaddon'/>
-<!--        <extension name='ycommercewebservices'/>-->
+        <extension name='ycommercewebservices'/>
         <extension name='solrserver'/>
 <!--        <extension name='liveeditaddon'/>-->
         <extension name='acceleratorwebservicesaddon'/>
