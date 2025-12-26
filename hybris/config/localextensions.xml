@@ -61,9 +61,9 @@
         <extension name="sabmmediaconversion" />
 
         <!-- JDK 21 OAuth extensions -->
-        <extension name="authorizationserver" />
-        <extension name="resourceserver" />
-        <extension name="oauth2commons" />
+<!--        <extension name="authorizationserver" />-->
+<!--        <extension name="resourceserver" />-->
+<!--        <extension name="oauth2commons" />-->
 
         <extension name='apbstorefront'/>
         <extension name='apbb2baccaddon'/>
@@ -97,5 +97,6 @@
 
         <extension name="apbintegration"/>
         <extension name="asahiocc"/>
+        <extension name="ycommercewebservices"/>
     </extensions>
 </hybrisconfig>
