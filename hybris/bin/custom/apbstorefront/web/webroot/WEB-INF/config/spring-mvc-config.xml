@@ -416,4 +416,19 @@
         <mvc:path-matching path-matcher="pathMatcher"/>
     </mvc:annotation-driven>
 
+    <bean id="requestMappingHandlerMapping"
+          class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+        <property name="pathMatcher" ref="defaultPathMatcher"/>
+        <property name="patternParser">
+            <null/>
+        </property>
+    </bean>
+
+    <bean id="integrationRequestMappingHandlerMapping"
+          class="org.springframework.integration.http.inbound.IntegrationRequestMappingHandlerMapping">
+        <property name="pathMatcher" ref="defaultPathMatcher"/>
+        <property name="patternParser">
+            <null/>
+        </property>
+    </bean>
 </beans>
