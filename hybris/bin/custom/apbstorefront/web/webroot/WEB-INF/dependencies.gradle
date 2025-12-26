@@ -1,5 +1,6 @@
 ext {
 	libraries = []
+	mavenCompilerRelease = "21"
 }
 libraries << "org.mozilla:rhino:1.7R4"
 libraries << "ro.isdc.wro4j:wro4j-core:2.1.1"

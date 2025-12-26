@@ -134,7 +134,7 @@
 				<equals arg1="${updates}" arg2="true"/>
 				<then>
 					<concat destfile="${ext.sabmstorefront.path}/web/webroot/WEB-INF/tags/shared/variables/generatedVariables.tag" overwrite="no">
-						<string>&lt;%@ taglib prefix="c" uri="jakarta.tags.core" %&gt;
+						<string>&lt;%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %&gt;
 </string>
 						<filelist dir="${ext.sabmstorefront.path}/resources" files="generateVariables.properties"/>
 					</concat>

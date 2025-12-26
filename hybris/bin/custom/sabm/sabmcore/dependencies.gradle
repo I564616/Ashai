@@ -1,5 +1,6 @@
 ext {
 	libraries = []
+	mavenCompilerRelease = "21"
 	azureStorageBlobVersion = "12.29.0"
 	httpclientVersion = "3.1"
 }
@@ -7,7 +8,6 @@ libraries << "org.apache.commons:commons-collections4:4.0"
 libraries << "joda-time:joda-time:2.9"
 libraries << "com.google.code.gson:gson:2.6.2"
 libraries << "dom4j:dom4j:1.6.1"
-libraries << "com.google.code.gson:gson:2.6.2"
 libraries << "com.jcraft:jsch:0.1.54"
 libraries << "org.apache.poi:poi-ooxml:3.10-FINAL"
 libraries << "org.apache.xmlbeans:xmlbeans:2.3.0"

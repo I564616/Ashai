@@ -1,5 +1,7 @@
 ext {
 	libraries = []
+	mavenCompilerRelease = "21"
 }
-libraries << "org.apache.httpcomponents:httpclient:4.4.1"
-libraries << "org.apache.httpcomponents:httpcore:4.4.1"
+libraries << "org.apache.httpcomponents.client5:httpclient5:5.4.4"
+libraries << "org.apache.httpcomponents.core5:httpcore5:5.3.6"
+libraries << "commons-validator:commons-validator:1.10.1"

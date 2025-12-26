@@ -1,5 +1,6 @@
 ext {
 	libraries = []
+	mavenCompilerRelease = "21"
 	cxfVersion = "2.3.3"
 }
 libraries << "org.apache.cxf:cxf-rt-frontend-jaxws:3.2.0"
@@ -15,5 +16,4 @@ libraries << "org.apache.ws.xmlschema:xmlschema-core:2.2.3"
 libraries << "org.apache.cxf:cxf-rt-wsdl:3.0.2"
 libraries << "org.apache.commons:commons-collections4:4.0"
 libraries << "joda-time:joda-time:2.9"
-libraries << "com.google.code.gson:gson:2.6.2"
 libraries << "com.google.code.gson:gson:2.6.2"
