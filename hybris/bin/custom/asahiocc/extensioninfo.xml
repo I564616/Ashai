@@ -14,7 +14,7 @@
 
 		<!-- you should add all required extensions to this list, except platform extensions which are automatically required -->         
 		
-		<requires-extension name="commercewebservices"/>
+		<requires-extension name="ycommercewebservices"/>
 		<requires-extension name="sabmfacades"/>
 
 		<coremodule generated="true" manager="com.apb.occ.v2.jalo.AsahioccManager" packageroot="com.apb.occ.v2"/>
