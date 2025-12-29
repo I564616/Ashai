@@ -176,9 +176,9 @@
 	</bean>
 
 	<!-- Localization -->
-<!--	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" >-->
-<!--		<property name="validationMessageSource" ref="storefrontMessageSource"/>-->
-<!--	</bean>-->
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" >
+		<property name="validationMessageSource" ref="storefrontMessageSource"/>
+	</bean>
 
 	<bean id="baseMessageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource" >
 		<property name="basenames">
