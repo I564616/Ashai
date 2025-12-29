@@ -232,11 +232,11 @@
 	<bean id="excludeRedirectUrlRequestMatcher" class="com.sabmiller.storefront.security.ExcludeUrlRequestMatcher">
 		<property name="excludeUrlSet">
 			<set>
-				<value>.*/guest/.*</value>
-				<value>.*/orderConfirmation/.*</value>
-				<value>.*/login</value>
-				<value>.*/login/checkout</value>
-				<value>.*/medias/.*</value>
+                <value>/**/guest/**</value>
+                <value>/**/orderConfirmation/**</value>
+                <value>/**/login</value>
+                <value>/**/login/checkout</value>
+                <value>/**/medias/**</value>
 				<!-- <value>/login/pw/forgot/request</value>
                 <value>/login/pw/change</value> -->
 			</set>

@@ -170,10 +170,10 @@
 	<bean id="excludeRedirectUrlRequestMatcher" class="com.sabmiller.staff.storefront.security.ExcludeUrlRequestMatcher">
 	<property name="excludeUrlSet">
 		<set>
-			<value>.*/guest/.*</value>
-			<value>.*/orderConfirmation/.*</value>
-			<value>.*/login</value>
-			<value>.*/login/checkout</value>
+            <value>/**/guest/**</value>
+            <value>/**/orderConfirmation/**</value>
+            <value>/**/login</value>
+            <value>/**/login/checkout</value>
 		</set>
 	</property>
 	<property name="pathMatcher" ref="defaultPathMatcher" />
