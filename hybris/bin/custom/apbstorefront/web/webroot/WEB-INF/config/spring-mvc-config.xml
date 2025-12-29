@@ -412,10 +412,10 @@
 	<bean id="asahiDDPaymentIframeUrlUtil" class="com.apb.storefront.util.AsahiDDPaymentIframeUrlUtil"/>
     <bean id="pathMatcher" class="org.springframework.util.AntPathMatcher" />
 
-    <mvc:annotation-driven>
-        <mvc:path-matching path-matcher="pathMatcher"/>
-    </mvc:annotation-driven>
-
+<!--    <mvc:annotation-driven>-->
+<!--        <mvc:path-matching path-matcher="pathMatcher"/>-->
+<!--    </mvc:annotation-driven>-->
+    <bean id="mvcHandlerMappingIntrospector" class="org.springframework.web.servlet.handler.HandlerMappingIntrospector"/>
     <bean id="requestMappingHandlerMapping"
           class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
         <property name="pathMatcher" ref="defaultPathMatcher"/>

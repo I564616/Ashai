@@ -169,7 +169,7 @@
 	</bean>
 
 	<!-- Controllers & Mappings (necessary to override controllers with the same mappings in the target storefront) -->
-	<!--<bean name="registerPageController" class="de.hybris.platform.b2bacceleratoraddon.controllers.secureportal.B2BRegistrationController"/>-->
+	<bean name="registerPageController" class="de.hybris.platform.b2bacceleratoraddon.controllers.secureportal.B2BRegistrationController"/>
 	
 	<!-- Expose /acceleratoraddon/web/webroot/WEB-INF/messages/base.js.properties  resource bundle as javascript variables -->
 	<bean id="defaultB2bacceleratoraddonJavaScriptMessageResourceAccessor" parent="abstractJavaScriptMessageResourceAccessor">
