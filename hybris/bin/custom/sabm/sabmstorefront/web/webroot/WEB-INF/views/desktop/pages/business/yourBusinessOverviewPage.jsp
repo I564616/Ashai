@@ -75,7 +75,7 @@
      	<sec:authorize access="hasAnyRole('ROLE_B2BADMINGROUP,ROLE_B2BORDERCUSTOMER')">
 			<c:set value="true" var="showTemplate" />
 		</sec:authorize>
-		<sec:authorize ifAllGranted="ROLE_B2BORDERCUSTOMER,ROLE_B2BINVOICECUSTOMER">
+		<sec:authorize access="hasRole('ROLE_B2BORDERCUSTOMER') and hasRole('ROLE_B2BINVOICECUSTOMER')">
 			<c:set value="true" var="showTemplate" />
 		</sec:authorize>
     	<c:if test="${showTemplate && !isNAPGroup}">

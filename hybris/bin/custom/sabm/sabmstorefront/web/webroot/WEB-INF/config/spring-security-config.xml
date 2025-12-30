@@ -130,6 +130,7 @@
 								requires-channel="https"/>
 
 
+		<security:intercept-url pattern="/**" requires-channel="https" access="permitAll()" />
 		<!-- 		<security:intercept-url pattern="/**" access="hasRole('ROLE_CUSTOMERGROUP')" requires-channel="https" /> -->
 
 		<security:form-login
@@ -232,11 +233,11 @@
 	<bean id="excludeRedirectUrlRequestMatcher" class="com.sabmiller.storefront.security.ExcludeUrlRequestMatcher">
 		<property name="excludeUrlSet">
 			<set>
-                <value>/**/guest/**</value>
-                <value>/**/orderConfirmation/**</value>
-                <value>/**/login</value>
-                <value>/**/login/checkout</value>
-                <value>/**/medias/**</value>
+				<value>.*/guest/.*</value>
+				<value>.*/orderConfirmation/.*</value>
+				<value>.*/login</value>
+				<value>.*/login/checkout</value>
+				<value>.*/medias/.*</value>
 				<!-- <value>/login/pw/forgot/request</value>
                 <value>/login/pw/change</value> -->
 			</set>
